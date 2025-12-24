@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { Env, ApiResponse, RideData } from '../types/env';
+import { validatePagination, validateDays } from '../middleware/validate';
 
 const rides = new Hono<{ Bindings: Env }>();
 
@@ -9,8 +10,10 @@ const rides = new Hono<{ Bindings: Env }>();
  */
 rides.get('/', async (c) => {
   const user = c.get('user');
-  const limit = parseInt(c.req.query('limit') || '50');
-  const offset = parseInt(c.req.query('offset') || '0');
+  const { limit, offset } = validatePagination(
+    c.req.query('limit'),
+    c.req.query('offset')
+  );
 
   try {
     const result = await c.env.DB
@@ -133,7 +136,7 @@ rides.get('/stats/summary', async (c) => {
  */
 rides.get('/stats/trends', async (c) => {
   const user = c.get('user');
-  const days = parseInt(c.req.query('days') || '30');
+  const days = validateDays(c.req.query('days'));
 
   try {
     const trends = await c.env.DB

@@ -7,6 +7,7 @@ import { authRoutes } from './auth/routes';
 import { ridesRoutes } from './api/rides';
 import { syncRoutes } from './api/sync';
 import { authMiddleware } from './middleware/auth';
+import { authRateLimit, apiRateLimit, syncRateLimit } from './middleware/rateLimit';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -61,7 +62,8 @@ app.get('/health', (c) => {
 // Public Routes
 // ============================================
 
-// Auth routes (login, callback, refresh)
+// Auth routes (login, callback, refresh) with stricter rate limit
+app.use('/auth/*', authRateLimit);
 app.route('/auth', authRoutes);
 
 // ============================================
@@ -71,10 +73,14 @@ app.route('/auth', authRoutes);
 // Apply auth middleware to /api/*
 app.use('/api/*', authMiddleware);
 
+// Apply rate limiting to API routes
+app.use('/api/*', apiRateLimit);
+
 // User rides
 app.route('/api/rides', ridesRoutes);
 
-// Device sync (from Karoo)
+// Device sync (from Karoo) with sync-specific rate limit
+app.use('/api/sync/*', syncRateLimit);
 app.route('/api/sync', syncRoutes);
 
 // User profile

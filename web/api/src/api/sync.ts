@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { Env, ApiResponse, RideData } from '../types/env';
+import { validateRideData, isValidDeviceId, sanitizeString } from '../middleware/validate';
 
 const sync = new Hono<{ Bindings: Env }>();
 
@@ -11,8 +12,8 @@ sync.post('/rides', async (c) => {
   const user = c.get('user');
   const deviceId = c.req.header('X-Device-ID');
 
-  if (!deviceId) {
-    return c.json<ApiResponse>({ success: false, error: 'Missing X-Device-ID header' }, 400);
+  if (!deviceId || !isValidDeviceId(deviceId)) {
+    return c.json<ApiResponse>({ success: false, error: 'Missing or invalid X-Device-ID header' }, 400);
   }
 
   try {
@@ -30,8 +31,17 @@ sync.post('/rides', async (c) => {
 
     let inserted = 0;
     let duplicates = 0;
+    let invalid = 0;
 
     for (const ride of rides) {
+      // Validate ride data
+      const validation = validateRideData(ride);
+      if (!validation.valid) {
+        invalid++;
+        console.warn('Invalid ride data:', validation.errors);
+        continue;
+      }
+
       // Check for duplicate (same timestamp + device)
       const existing = await c.env.DB
         .prepare('SELECT id FROM rides WHERE user_id = ? AND device_id = ? AND timestamp = ?')
@@ -43,7 +53,7 @@ sync.post('/rides', async (c) => {
         continue;
       }
 
-      // Insert new ride
+      // Insert new ride (validated)
       await c.env.DB
         .prepare(`
           INSERT INTO rides (
@@ -73,9 +83,10 @@ sync.post('/rides', async (c) => {
       data: {
         inserted,
         duplicates,
+        invalid,
         total: rides.length,
       },
-      message: `Synced ${inserted} rides (${duplicates} duplicates skipped)`,
+      message: `Synced ${inserted} rides (${duplicates} duplicates, ${invalid} invalid skipped)`,
     });
 
   } catch (err) {
@@ -141,8 +152,8 @@ sync.post('/device', async (c) => {
 
     const { device_id, device_name, device_type } = body;
 
-    if (!device_id) {
-      return c.json<ApiResponse>({ success: false, error: 'Missing device_id' }, 400);
+    if (!device_id || !isValidDeviceId(device_id)) {
+      return c.json<ApiResponse>({ success: false, error: 'Missing or invalid device_id' }, 400);
     }
 
     // Upsert device
@@ -155,7 +166,12 @@ sync.post('/device', async (c) => {
           type = excluded.type,
           last_sync = datetime('now')
       `)
-      .bind(device_id, user.sub, device_name || 'Karoo', device_type || 'karoo')
+      .bind(
+        device_id,
+        user.sub,
+        sanitizeString(device_name || 'Karoo', 100),
+        sanitizeString(device_type || 'karoo', 50)
+      )
       .run();
 
     return c.json<ApiResponse>({
