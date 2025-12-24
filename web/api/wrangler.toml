@@ -14,10 +14,10 @@ compatibility_flags = ["nodejs_compat"]
 # Workers & Pages → kpedal-api → Settings → Domains & Routes
 # Add: api.kpedal.com
 
-# OR use routes (requires DNS proxy enabled):
-# routes = [
-#   { pattern = "api.kpedal.com/*", zone_name = "kpedal.com" }
-# ]
+# Routes for custom domain (requires DNS proxy enabled)
+routes = [
+  { pattern = "api.kpedal.com/*", zone_name = "kpedal.com" }
+]
 
 # ============================================
 # D1 Database

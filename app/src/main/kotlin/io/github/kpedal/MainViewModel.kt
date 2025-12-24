@@ -8,13 +8,19 @@ import android.os.Vibrator
 import android.os.VibratorManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.kpedal.api.ApiClient
+import io.github.kpedal.api.LogoutRequest
+import io.github.kpedal.auth.DeviceAuthService
 import io.github.kpedal.data.AchievementRepository
 import io.github.kpedal.data.AlertSettings
 import io.github.kpedal.data.AnalyticsRepository
+import io.github.kpedal.data.AuthRepository
 import io.github.kpedal.data.MetricAlertConfig
 import io.github.kpedal.data.PreferencesRepository
 import io.github.kpedal.data.RideRepository
 import io.github.kpedal.data.StreakCalculator
+import io.github.kpedal.data.SyncService
+import io.github.kpedal.data.database.KPedalDatabase
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.DashboardData
 import io.github.kpedal.data.models.PedalInfo
@@ -66,11 +72,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val customDrillRepository = CustomDrillRepository(application)
     private val analyticsRepository = AnalyticsRepository(application)
     private val achievementRepository = AchievementRepository(application)
+    private val authRepository = AuthRepository(application)
+    private val syncService = SyncService(
+        context = application,
+        authRepository = authRepository,
+        rideDao = KPedalDatabase.getInstance(application).rideDao(),
+        preferencesRepository = preferencesRepository
+    )
     private val achievementChecker = AchievementChecker(
         achievementRepository = achievementRepository,
         rideRepository = rideRepository,
         drillRepository = drillRepository
     )
+    private val deviceAuthService = DeviceAuthService(authRepository)
 
     // Vibrator for drill haptic feedback
     private val vibrator: Vibrator? by lazy {
@@ -106,6 +120,58 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = AlertSettings()
+        )
+
+    // ========== Auth & Sync ==========
+
+    /**
+     * Authentication state (reactive).
+     */
+    val authState: StateFlow<AuthRepository.AuthState> = authRepository.authStateFlow
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = AuthRepository.AuthState()
+        )
+
+    /**
+     * Sync state (reactive).
+     */
+    val syncState: StateFlow<SyncService.SyncState> = syncService.syncStateFlow
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = SyncService.SyncState()
+        )
+
+    /**
+     * Device auth flow state (reactive).
+     */
+    val deviceAuthState: StateFlow<DeviceAuthService.DeviceAuthState> = deviceAuthService.state
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = DeviceAuthService.DeviceAuthState.Idle
+        )
+
+    /**
+     * Background mode enabled (reactive).
+     */
+    val backgroundModeEnabled: StateFlow<Boolean> = preferencesRepository.backgroundModeEnabledFlow
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = true
+        )
+
+    /**
+     * Auto-sync enabled (reactive).
+     */
+    val autoSyncEnabled: StateFlow<Boolean> = preferencesRepository.autoSyncEnabledFlow
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = true
         )
 
     /**
@@ -702,6 +768,96 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun completeOnboarding() {
         viewModelScope.launch {
             preferencesRepository.markOnboardingSeen()
+        }
+    }
+
+    // ========== Auth & Sync Methods ==========
+
+    // Track active device auth job
+    private var deviceAuthJob: kotlinx.coroutines.Job? = null
+
+    /**
+     * Start device code authentication flow.
+     * Requests device code and starts polling for authorization.
+     */
+    fun startDeviceAuth() {
+        deviceAuthJob?.cancel()
+        deviceAuthJob = viewModelScope.launch {
+            try {
+                // Request device code
+                val codeData = deviceAuthService.startAuthFlow()
+                if (codeData != null) {
+                    // Start polling for token
+                    deviceAuthService.startPolling()
+                }
+            } catch (e: Exception) {
+                if (e is kotlinx.coroutines.CancellationException) throw e
+                android.util.Log.e(TAG, "Device auth error: ${e.message}")
+            }
+        }
+    }
+
+    /**
+     * Cancel the current device auth flow.
+     */
+    fun cancelDeviceAuth() {
+        deviceAuthJob?.cancel()
+        deviceAuthJob = null
+        deviceAuthService.cancel()
+    }
+
+    /**
+     * Sign out.
+     */
+    fun signOut() {
+        // Cancel any ongoing device auth flow
+        cancelDeviceAuth()
+
+        viewModelScope.launch {
+            try {
+                val refreshToken = authRepository.getRefreshToken()
+                if (refreshToken != null) {
+                    // Try to revoke on server (best effort)
+                    try {
+                        ApiClient.authService.logout(LogoutRequest(refreshToken))
+                    } catch (e: Exception) {
+                        android.util.Log.w(TAG, "Server logout failed: ${e.message}")
+                    }
+                }
+            } catch (e: Exception) {
+                android.util.Log.w(TAG, "Logout error: ${e.message}")
+            } finally {
+                authRepository.clearAuth()
+                android.util.Log.i(TAG, "Signed out")
+            }
+        }
+    }
+
+    /**
+     * Trigger manual sync of all pending rides.
+     */
+    fun triggerManualSync() {
+        viewModelScope.launch {
+            val synced = syncService.syncPendingRides()
+            android.util.Log.i(TAG, "Manual sync completed: $synced rides synced")
+        }
+    }
+
+    /**
+     * Update background mode enabled.
+     */
+    fun updateBackgroundModeEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            preferencesRepository.updateBackgroundModeEnabled(enabled)
+        }
+    }
+
+    /**
+     * Update auto-sync enabled.
+     */
+    fun updateAutoSyncEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            preferencesRepository.updateAutoSyncEnabled(enabled)
         }
     }
 

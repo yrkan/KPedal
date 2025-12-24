@@ -2,6 +2,7 @@ package io.github.kpedal.engine
 
 import io.github.kpedal.KPedalExtension
 import io.github.kpedal.data.RideRepository
+import io.github.kpedal.data.SyncService
 import io.hammerhead.karooext.models.RideState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +32,8 @@ class RideStateMonitor(
     private val extension: KPedalExtension,
     private val rideRepository: RideRepository,
     private val liveDataCollector: LiveDataCollector,
-    private val achievementChecker: AchievementChecker? = null
+    private val achievementChecker: AchievementChecker? = null,
+    private val syncService: SyncService? = null
 ) {
     companion object {
         private const val TAG = "RideStateMonitor"
@@ -153,6 +155,9 @@ class RideStateMonitor(
                 android.util.Log.i(TAG, "Auto-saved ride with ID: ${ride.id}")
                 _saveStatus.value = SaveStatus.Success(ride.id)
 
+                // Trigger cloud sync if available
+                syncService?.onRideSaved(ride.id)
+
                 // Check for new achievements
                 checkAchievements(ride)
 
@@ -194,6 +199,9 @@ class RideStateMonitor(
                 )
                 android.util.Log.i(TAG, "Manually saved ride with ID: ${ride.id}")
                 _saveStatus.value = SaveStatus.Success(ride.id)
+
+                // Trigger cloud sync if available
+                syncService?.onRideSaved(ride.id)
 
                 // Check for new achievements
                 checkAchievements(ride)

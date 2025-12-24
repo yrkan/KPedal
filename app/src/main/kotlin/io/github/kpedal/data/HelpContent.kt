@@ -83,6 +83,16 @@ object HelpContent {
             title = "Alerts",
             description = "Get notified when your metrics go outside optimal ranges. Configure alerts in Settings.",
             icon = "alert"
+        ),
+        OnboardingPage(
+            title = "Background Data",
+            description = "KPedal collects pedaling metrics for all your rides automatically. You can disable this in Settings if you prefer.",
+            icon = "background"
+        ),
+        OnboardingPage(
+            title = "Cloud Sync",
+            description = "Sign in with Google to sync your ride data and view analytics on kpedal.com. This is optional - your data stays on device until you sync.",
+            icon = "cloud"
         )
     )
 

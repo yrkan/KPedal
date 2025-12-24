@@ -108,4 +108,36 @@ interface RideDao {
      */
     @Query("UPDATE rides SET notes = :notes WHERE id = :id")
     suspend fun updateNotes(id: Long, notes: String)
+
+    // ========== Sync Queries ==========
+
+    /**
+     * Get all pending rides (not yet synced).
+     */
+    @Query("SELECT * FROM rides WHERE syncStatus = 0 ORDER BY timestamp ASC")
+    suspend fun getPendingRides(): List<RideEntity>
+
+    /**
+     * Get count of pending rides (reactive).
+     */
+    @Query("SELECT COUNT(*) FROM rides WHERE syncStatus = 0")
+    fun getPendingSyncCountFlow(): Flow<Int>
+
+    /**
+     * Update sync status for a ride.
+     */
+    @Query("UPDATE rides SET syncStatus = :status, lastSyncAttempt = :timestamp WHERE id = :id")
+    suspend fun updateSyncStatus(id: Long, status: Int, timestamp: Long)
+
+    /**
+     * Mark ride as synced.
+     */
+    @Query("UPDATE rides SET syncStatus = 1, lastSyncAttempt = :timestamp WHERE id = :id")
+    suspend fun markAsSynced(id: Long, timestamp: Long = System.currentTimeMillis())
+
+    /**
+     * Mark ride as sync failed.
+     */
+    @Query("UPDATE rides SET syncStatus = 2, lastSyncAttempt = :timestamp WHERE id = :id")
+    suspend fun markAsSyncFailed(id: Long, timestamp: Long = System.currentTimeMillis())
 }

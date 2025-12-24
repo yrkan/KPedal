@@ -214,3 +214,135 @@ Hammerhead Karoo 2/3 (480×800px display), minSdk 23, targetSdk 34
 - Long text in drill instructions needs `textAlign = TextAlign.Center` for proper centering
 - Karoo 3 display is 480×800px - keep UI compact, avoid large padding
 - Use `lineHeight` for multi-line Text to prevent excessive spacing on wrap
+
+---
+
+## Web Portal
+
+KPedal has a web portal for viewing ride data across devices. Lives in `web/` directory.
+
+### Architecture
+
+```
+web/
+├── api/          # Cloudflare Worker (Hono API)
+│   └── src/
+│       ├── index.ts        # Main app, routes, middleware
+│       ├── auth/           # Google OAuth, JWT tokens
+│       ├── api/            # rides.ts, sync.ts endpoints
+│       ├── middleware/     # auth, rateLimit, validate
+│       └── db/             # schema.sql
+└── app/          # SvelteKit 5 frontend (Cloudflare Pages)
+    └── src/
+        ├── routes/         # Pages (/, /login, /rides, /settings, /privacy)
+        └── lib/            # auth.ts, theme.ts, config.ts
+```
+
+### Web Build Commands
+
+```bash
+# API (Cloudflare Worker)
+cd web/api
+npm run dev              # Local dev server (port 8787)
+npm run deploy           # Deploy to Cloudflare Workers
+npm run db:migrate       # Run migrations locally
+npm run db:migrate:prod  # Run migrations on production D1
+
+# Frontend (SvelteKit)
+cd web/app
+npm run dev              # Local dev server (port 5173)
+npm run build            # Build for production
+npx wrangler pages deploy .svelte-kit/cloudflare  # Deploy to Pages
+```
+
+### Infrastructure
+
+- **API**: Cloudflare Workers at `api.kpedal.com`
+- **Frontend**: Cloudflare Pages at `kpedal.com`
+- **Database**: Cloudflare D1 (SQLite)
+- **Sessions**: Cloudflare KV for refresh tokens and rate limiting
+- **Auth**: Google OAuth 2.0 with JWT access/refresh tokens
+
+### API Routes
+
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/` | GET | Health check |
+| `/auth/login` | GET | Redirect to Google OAuth |
+| `/auth/callback` | GET | OAuth callback, sets tokens |
+| `/auth/refresh` | POST | Refresh access token |
+| `/auth/logout` | POST | Invalidate session |
+| `/api/me` | GET | Get current user profile |
+| `/api/rides` | GET | List user rides (paginated) |
+| `/api/rides/:id` | GET | Get single ride |
+| `/api/rides/:id` | DELETE | Delete ride |
+| `/api/sync/ride` | POST | Sync ride from Karoo device |
+| `/api/sync/status` | GET | Get sync status for device |
+
+### Rate Limits
+
+- Auth routes: 10 requests/minute
+- API routes: 100 requests/minute
+- Sync routes: 30 requests/minute
+
+### Frontend Pages
+
+| Route | Description |
+|-------|-------------|
+| `/` | Dashboard - ride list, quick stats |
+| `/login` | Google sign-in |
+| `/rides` | Full ride history |
+| `/settings` | Account, theme, privacy link |
+| `/privacy` | Privacy policy |
+| `/auth/success` | OAuth callback handler |
+
+### Key Frontend Files
+
+- **`lib/auth.ts`**: Auth state store, token management, auto-refresh
+- **`lib/theme.ts`**: Light/dark/system theme with localStorage persistence
+- **`lib/config.ts`**: API_URL constant
+
+### Database Schema (D1)
+
+```sql
+-- Users (from Google OAuth)
+users (id, google_id, email, name, picture, created_at, updated_at)
+
+-- Synced rides from Karoo
+rides (id, user_id, device_id, timestamp, duration,
+       balance_left_avg, balance_right_avg,
+       te_left_avg, te_right_avg,
+       ps_left_avg, ps_right_avg,
+       optimal_pct, attention_pct, problem_pct,
+       score, synced_at)
+```
+
+### Secrets (set via Wrangler CLI)
+
+```bash
+wrangler secret put GOOGLE_CLIENT_ID
+wrangler secret put GOOGLE_CLIENT_SECRET
+wrangler secret put JWT_ACCESS_SECRET
+wrangler secret put JWT_REFRESH_SECRET
+```
+
+### Data Sync Flow
+
+```
+Karoo Device (KPedal app)
+    ↓ POST /api/sync/ride (with device_id header)
+API Worker
+    ↓ Validate JWT + device_id
+    ↓ Upsert ride to D1
+    ↓ Return sync status
+Web Dashboard
+    ↓ GET /api/rides
+    ↓ Display synced rides
+```
+
+### Web UI Patterns
+
+- **Theme**: CSS variables (--bg-base, --text-primary, --color-accent, etc.)
+- **Cards**: `background: var(--bg-surface); border-radius: 16px;`
+- **Buttons**: `border-radius: 12px; padding: 14px 24px;`
+- **Animations**: `.animate-in` class for fade-in effects

@@ -126,11 +126,13 @@ private fun OnboardingPage(
         // Icon placeholder (using emoji for simplicity)
         Text(
             text = when (page.icon) {
-                "bike" -> "\uD83D\uDEB4"    // cyclist emoji
-                "layout" -> "\uD83D\uDCCA"  // chart
-                "drill" -> "\uD83C\uDFAF"   // target
-                "alert" -> "\uD83D\uDD14"   // bell
-                else -> "\u2139"            // info
+                "bike" -> "\uD83D\uDEB4"       // cyclist emoji
+                "layout" -> "\uD83D\uDCCA"     // chart
+                "drill" -> "\uD83C\uDFAF"      // target
+                "alert" -> "\uD83D\uDD14"      // bell
+                "background" -> "\uD83D\uDD04" // arrows circle (refresh)
+                "cloud" -> "\u2601"            // cloud
+                else -> "\u2139"               // info
             },
             fontSize = 48.sp,
             modifier = Modifier.padding(bottom = 24.dp)

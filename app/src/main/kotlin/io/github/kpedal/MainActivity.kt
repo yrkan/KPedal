@@ -40,13 +40,13 @@ import io.github.kpedal.ui.screens.AchievementsScreen
 import io.github.kpedal.ui.screens.PedalInfoScreen
 import io.github.kpedal.ui.screens.LayoutsScreen
 import io.github.kpedal.ui.screens.ChallengesScreen
-import io.github.kpedal.data.models.Achievement
 import io.github.kpedal.data.models.TrendData
 import io.github.kpedal.ui.theme.KPedalTheme
 import kotlinx.coroutines.flow.first
 import io.github.kpedal.ui.theme.Theme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -193,13 +193,30 @@ fun KPedalApp(
         // Settings (collects only when active)
         composable("settings") {
             val settings by viewModel.settings.collectAsState()
+            val authState by viewModel.authState.collectAsState()
+            val syncState by viewModel.syncState.collectAsState()
+            val deviceAuthState by viewModel.deviceAuthState.collectAsState()
+            val backgroundModeEnabled by viewModel.backgroundModeEnabled.collectAsState()
+            val autoSyncEnabled by viewModel.autoSyncEnabled.collectAsState()
+
             SettingsScreen(
                 settings = settings,
+                authState = authState,
+                syncState = syncState,
+                deviceAuthState = deviceAuthState,
+                backgroundModeEnabled = backgroundModeEnabled,
+                autoSyncEnabled = autoSyncEnabled,
                 onBack = { navController.popBackStack() },
                 onNavigateToAlertSettings = { navController.navigate("alert-settings") },
                 onUpdateBalanceThreshold = viewModel::updateBalanceThreshold,
                 onUpdateTeOptimalRange = viewModel::updateTeOptimalRange,
-                onUpdatePsMinimum = viewModel::updatePsMinimum
+                onUpdatePsMinimum = viewModel::updatePsMinimum,
+                onStartDeviceAuth = viewModel::startDeviceAuth,
+                onCancelDeviceAuth = viewModel::cancelDeviceAuth,
+                onSignOut = viewModel::signOut,
+                onManualSync = viewModel::triggerManualSync,
+                onUpdateBackgroundMode = viewModel::updateBackgroundModeEnabled,
+                onUpdateAutoSync = viewModel::updateAutoSyncEnabled
             )
         }
 

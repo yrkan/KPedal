@@ -54,5 +54,17 @@ data class RideEntity(
     val rating: Int = 0,
 
     /** User notes about the ride */
-    val notes: String = ""
-)
+    val notes: String = "",
+
+    /** Sync status: 0=pending, 1=synced, 2=failed */
+    val syncStatus: Int = SYNC_STATUS_PENDING,
+
+    /** Last sync attempt timestamp (0 = never attempted) */
+    val lastSyncAttempt: Long = 0
+) {
+    companion object {
+        const val SYNC_STATUS_PENDING = 0
+        const val SYNC_STATUS_SYNCED = 1
+        const val SYNC_STATUS_FAILED = 2
+    }
+}

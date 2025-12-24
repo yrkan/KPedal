@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase
  */
 @Database(
     entities = [RideEntity::class, DrillResultEntity::class, AchievementEntity::class, CustomDrillEntity::class],
-    version = 5,
+    version = 6,
     exportSchema = true
 )
 abstract class KPedalDatabase : RoomDatabase() {

@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -74,6 +75,11 @@ class PreferencesRepository(private val context: Context) {
 
         // Onboarding
         private val KEY_HAS_SEEN_ONBOARDING = booleanPreferencesKey("has_seen_onboarding")
+
+        // Background Mode & Sync
+        private val KEY_BACKGROUND_MODE_ENABLED = booleanPreferencesKey("background_mode_enabled")
+        private val KEY_AUTO_SYNC_ENABLED = booleanPreferencesKey("auto_sync_enabled")
+        private val KEY_LAST_SYNC_TIMESTAMP = longPreferencesKey("last_sync_timestamp")
     }
 
     /**
@@ -263,6 +269,60 @@ class PreferencesRepository(private val context: Context) {
     suspend fun markOnboardingSeen() {
         context.dataStore.edit { prefs ->
             prefs[KEY_HAS_SEEN_ONBOARDING] = true
+        }
+    }
+
+    // ========== Background Mode & Sync ==========
+
+    /**
+     * Flow indicating whether background mode is enabled.
+     * When enabled, KPedal collects data for all rides even when DataTypes are not visible.
+     * Default: true
+     */
+    val backgroundModeEnabledFlow: Flow<Boolean> = context.dataStore.data
+        .map { prefs -> prefs[KEY_BACKGROUND_MODE_ENABLED] ?: true }
+        .distinctUntilChanged()
+
+    /**
+     * Flow indicating whether auto-sync is enabled.
+     * When enabled, rides are automatically synced to cloud after completion.
+     * Default: true
+     */
+    val autoSyncEnabledFlow: Flow<Boolean> = context.dataStore.data
+        .map { prefs -> prefs[KEY_AUTO_SYNC_ENABLED] ?: true }
+        .distinctUntilChanged()
+
+    /**
+     * Flow of last successful sync timestamp.
+     */
+    val lastSyncTimestampFlow: Flow<Long> = context.dataStore.data
+        .map { prefs -> prefs[KEY_LAST_SYNC_TIMESTAMP] ?: 0L }
+        .distinctUntilChanged()
+
+    /**
+     * Update background mode enabled state.
+     */
+    suspend fun updateBackgroundModeEnabled(enabled: Boolean) {
+        context.dataStore.edit { prefs ->
+            prefs[KEY_BACKGROUND_MODE_ENABLED] = enabled
+        }
+    }
+
+    /**
+     * Update auto-sync enabled state.
+     */
+    suspend fun updateAutoSyncEnabled(enabled: Boolean) {
+        context.dataStore.edit { prefs ->
+            prefs[KEY_AUTO_SYNC_ENABLED] = enabled
+        }
+    }
+
+    /**
+     * Update last sync timestamp.
+     */
+    suspend fun updateLastSyncTimestamp(timestamp: Long) {
+        context.dataStore.edit { prefs ->
+            prefs[KEY_LAST_SYNC_TIMESTAMP] = timestamp
         }
     }
 }
