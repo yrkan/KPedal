@@ -7,14 +7,14 @@
 # SECRETS & ENVIRONMENT (CRITICAL)
 # ============================================
 .env
-.env.*
 .env.local
 .env.development
 .env.production
 .env.*.local
-*.env
 .dev.vars
 .prod.vars
+# Keep .env.example as template
+!.env.example
 secrets.json
 credentials.json
 service-account*.json
