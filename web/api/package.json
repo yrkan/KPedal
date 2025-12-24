@@ -1,0 +1,34 @@
+{
+  "name": "kpedal-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:prod": "wrangler deploy --env production",
+    "db:create": "wrangler d1 create kpedal-db",
+    "db:migrate": "wrangler d1 execute kpedal-db --local --file=./src/db/schema.sql",
+    "db:migrate:prod": "wrangler d1 execute kpedal-db --remote --file=./src/db/schema.sql",
+    "kv:create": "wrangler kv namespace create SESSIONS",
+    "secret:google-id": "wrangler secret put GOOGLE_CLIENT_ID",
+    "secret:google-secret": "wrangler secret put GOOGLE_CLIENT_SECRET",
+    "secret:jwt-access": "wrangler secret put JWT_ACCESS_SECRET",
+    "secret:jwt-refresh": "wrangler secret put JWT_REFRESH_SECRET",
+    "secrets:all": "npm run secret:google-id && npm run secret:google-secret && npm run secret:jwt-access && npm run secret:jwt-refresh",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "hono": "^4.6.0",
+    "jose": "^5.9.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241205.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "wrangler": "^3.91.0"
+  }
+}

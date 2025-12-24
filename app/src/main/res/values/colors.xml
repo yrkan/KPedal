@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Background -->
+    <color name="background">#FF000000</color>
+    <color name="datafield_bg">#FF000000</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_dim">#FF666666</color>
+    <color name="text_muted">#FF333333</color>
+    <color name="datafield_text">#FFFFFFFF</color>
+
+    <!-- Status colors -->
+    <color name="status_optimal">#FF4CAF50</color>
+    <color name="status_attention">#FFFFC107</color>
+    <color name="status_problem">#FFF44336</color>
+
+    <!-- Dividers -->
+    <color name="divider">#FF222222</color>
+    <color name="divider_vertical">#FF333333</color>
+
+    <!-- Bar colors -->
+    <color name="bar_background">#FF222222</color>
+    <color name="bar_inactive">#FF666666</color>
+    <color name="bar_center">#FFFFFFFF</color>
+
+    <!-- Alert colors -->
+    <color name="alert_bg">#FF1A1A1A</color>
+    <color name="alert_text">#FFFFFFFF</color>
+</resources>

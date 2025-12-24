@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExtensionInfo
+    id="kpedal"
+    displayName="@string/extension_name"
+    icon="@drawable/ic_kpedal"
+    configurable="true">
+
+    <!-- Layout 1: Quick Glance - Status indicator + Balance -->
+    <DataType
+        typeId="quick-glance"
+        description="@string/datatype_quick_glance_desc"
+        displayName="@string/datatype_quick_glance"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 2: Power + Balance - Power with L/R balance -->
+    <DataType
+        typeId="power-balance"
+        description="@string/datatype_power_balance_desc"
+        displayName="@string/datatype_power_balance"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 3: Efficiency - TE + PS -->
+    <DataType
+        typeId="efficiency"
+        description="@string/datatype_efficiency_desc"
+        displayName="@string/datatype_efficiency"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 4: Full Overview - Balance + TE + PS -->
+    <DataType
+        typeId="full-overview"
+        description="@string/datatype_full_overview_desc"
+        displayName="@string/datatype_full_overview"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 5: Balance Trend - Current, 3s, 10s balance -->
+    <DataType
+        typeId="balance-trend"
+        description="@string/datatype_balance_trend_desc"
+        displayName="@string/datatype_balance_trend"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 6: Single Field - Balance only (full screen) -->
+    <DataType
+        typeId="single-balance"
+        description="@string/datatype_single_balance_desc"
+        displayName="@string/datatype_single_balance"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+</ExtensionInfo>

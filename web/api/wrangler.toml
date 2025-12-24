@@ -1,0 +1,65 @@
+# ============================================
+# KPedal API Worker Configuration
+# ============================================
+
+name = "kpedal-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# ============================================
+# Custom Domain
+# ============================================
+# After first deploy, add custom domain in Dashboard:
+# Workers & Pages → kpedal-api → Settings → Domains & Routes
+# Add: api.kpedal.com
+
+# OR use routes (requires DNS proxy enabled):
+# routes = [
+#   { pattern = "api.kpedal.com/*", zone_name = "kpedal.com" }
+# ]
+
+# ============================================
+# D1 Database
+# ============================================
+# Create with: wrangler d1 create kpedal-db
+# Then add the database_id below
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kpedal-db"
+database_id = "704e47cd-3aed-4762-878e-07a86f073fb1"
+
+# ============================================
+# KV Namespace (Sessions & Rate Limiting)
+# ============================================
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "0b1c10ef6fb44412a6a3210eb004ba2f"
+
+# ============================================
+# Environment Variables (non-secret)
+# ============================================
+[vars]
+APP_URL = "https://kpedal.com"
+API_URL = "https://api.kpedal.com"
+ENVIRONMENT = "production"
+
+# ============================================
+# Development
+# ============================================
+[env.dev]
+name = "kpedal-api-dev"
+[env.dev.vars]
+APP_URL = "http://localhost:5173"
+API_URL = "http://localhost:8787"
+ENVIRONMENT = "development"
+
+# ============================================
+# Secrets (set via CLI, not here!)
+# ============================================
+# wrangler secret put GOOGLE_CLIENT_ID
+# wrangler secret put GOOGLE_CLIENT_SECRET
+# wrangler secret put JWT_ACCESS_SECRET
+# wrangler secret put JWT_REFRESH_SECRET

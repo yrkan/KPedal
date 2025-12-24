@@ -1,0 +1,289 @@
+# ============================================
+# KPedal Monorepo .gitignore
+# Android App + Cloudflare Workers + SvelteKit
+# ============================================
+
+# ============================================
+# SECRETS & ENVIRONMENT (CRITICAL)
+# ============================================
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.*.local
+*.env
+.dev.vars
+.prod.vars
+secrets.json
+credentials.json
+service-account*.json
+google-credentials.json
+oauth-*.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+keystore.properties
+signing.properties
+api-keys.txt
+tokens.json
+
+# ============================================
+# ANDROID / KOTLIN / GRADLE
+# ============================================
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Local properties (SDK path, secrets)
+local.properties
+
+# ProGuard
+proguard/
+
+# APK & Bundle files
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Kotlin compiled
+*.class
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# IntelliJ
+*.iml
+.idea/
+!.idea/codeStyles/
+!.idea/runConfigurations/
+
+# Keystore files (NEVER commit)
+*.jks
+*.keystore
+release-key.*
+upload-key.*
+
+# Google Services (contains API keys)
+google-services.json
+
+# ============================================
+# NODE.JS / NPM / PNPM
+# ============================================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.npm/
+.yarn/
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Lockfiles (uncomment if you want to ignore)
+# package-lock.json
+# pnpm-lock.yaml
+# yarn.lock
+
+# ============================================
+# CLOUDFLARE WORKERS
+# ============================================
+
+# Wrangler
+.wrangler/
+.mf/
+.miniflare/
+
+# Worker build output
+dist/
+worker-build/
+
+# D1 local database
+.d1/
+*.sqlite
+*.sqlite3
+*.db
+
+# KV local cache
+.kv/
+
+# R2 local storage
+.r2/
+
+# Durable Objects
+.do/
+
+# Wrangler dev artifacts
+wrangler-out/
+
+# ============================================
+# SVELTEKIT / VITE
+# ============================================
+
+# Build output
+.svelte-kit/
+.vercel/
+.netlify/
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Adapter output
+/build/
+
+# ============================================
+# TYPESCRIPT
+# ============================================
+
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# ============================================
+# TESTING
+# ============================================
+
+coverage/
+.nyc_output/
+*.lcov
+test-results/
+playwright-report/
+playwright/.cache/
+.vitest/
+
+# ============================================
+# IDE & EDITORS
+# ============================================
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json.template
+*.code-workspace
+
+# JetBrains
+.idea/
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ============================================
+# OS GENERATED
+# ============================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+
+# ============================================
+# LOGS & TEMP FILES
+# ============================================
+
+*.log
+logs/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.cache
+
+# ============================================
+# BUILD & DISTRIBUTION
+# ============================================
+
+dist/
+out/
+output/
+release/
+releases/
+*.tgz
+*.tar.gz
+*.zip
+
+# ============================================
+# DOCUMENTATION BUILD
+# ============================================
+
+docs/_build/
+site/
+.docusaurus/
+
+# ============================================
+# MISC
+# ============================================
+
+# Thumbnails
+*.thumb
+*.thumbnail
+
+# Backup files
+*.orig
+*.rej
+
+# Patch files
+*.patch
+
+# Debug
+debug/
+*.debug
+
+# Local development overrides
+*.local
+*.local.*
+
+# Temporary folders
+tmp/
+temp/
+.tmp/
+.temp/
+
+# ============================================
+# PROJECT SPECIFIC
+# ============================================
+
+# KPedal specific ignores
+/web/worker/.dev.vars
+/web/dashboard/.env.local
