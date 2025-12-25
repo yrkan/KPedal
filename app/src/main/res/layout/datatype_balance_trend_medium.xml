@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- BalanceTrend MEDIUM: Current + 3s smoothed -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    android:padding="8dp">
+    android:padding="6dp">
 
-    <!-- Current Balance (33%) -->
+    <!-- Current Balance (50%) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50"
-                android:textSize="36sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
@@ -43,14 +44,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50"
-                android:textSize="36sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 3s Smoothed (33%) -->
+    <!-- 3s Smoothed (50%) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -76,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
 
@@ -86,51 +87,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 10s Smoothed (33%) -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/balance_10s"
-            android:textSize="10sp"
-            android:textColor="@color/text_dim" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/balance_10s_left"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="50"
-                android:textSize="28sp"
-                android:textColor="@color/text_primary"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/balance_10s_right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="50"
-                android:textSize="28sp"
-                android:textColor="@color/text_primary"
-                android:gravity="center" />
-        </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

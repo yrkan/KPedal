@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Efficiency LARGE: Full TE + PS with L/R breakdown and labels -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    android:padding="4dp">
+    android:padding="6dp">
 
     <!-- TE Section (50%) -->
     <LinearLayout
@@ -12,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="50"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/te"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_dim" />
 
             <TextView
@@ -32,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="76%"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textColor="@color/status_optimal" />
         </LinearLayout>
 
@@ -54,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="74"
-                    android:textSize="32sp"
+                    android:textSize="36sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary" />
 
@@ -68,7 +69,7 @@
 
             <FrameLayout
                 android:layout_width="1dp"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:background="@color/divider_vertical" />
 
             <LinearLayout
@@ -83,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="77"
-                    android:textSize="32sp"
+                    android:textSize="36sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary" />
 
@@ -109,7 +110,7 @@
         android:layout_height="0dp"
         android:layout_weight="50"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="4dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -121,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ps"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textColor="@color/text_dim" />
 
             <TextView
@@ -129,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="24%"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 android:textColor="@color/status_optimal" />
         </LinearLayout>
 
@@ -151,7 +152,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23"
-                    android:textSize="32sp"
+                    android:textSize="36sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary" />
 
@@ -165,7 +166,7 @@
 
             <FrameLayout
                 android:layout_width="1dp"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:background="@color/divider_vertical" />
 
             <LinearLayout
@@ -180,7 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25"
-                    android:textSize="32sp"
+                    android:textSize="36sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary" />
 

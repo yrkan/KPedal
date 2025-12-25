@@ -13,19 +13,28 @@ class PowerBalanceDataType(
     kpedalExtension: KPedalExtension
 ) : BaseDataType(kpedalExtension, "power-balance") {
 
-    override fun getLayoutResId() = R.layout.datatype_power_balance
+    override fun getLayoutResId(size: LayoutSize) = when (size) {
+        LayoutSize.SMALL -> R.layout.datatype_power_balance_small
+        LayoutSize.MEDIUM -> R.layout.datatype_power_balance_medium
+        LayoutSize.LARGE -> R.layout.datatype_power_balance_large
+    }
 
     override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
-        // Power value
+        // Power value - in all layouts
         views.setTextViewText(R.id.power_value, "${metrics.power}")
 
-        // Balance values
-        val left = metrics.balanceLeft.toInt()
-        val right = metrics.balance.toInt()
+        // Balance - not in SMALL
+        if (currentLayoutSize != LayoutSize.SMALL) {
+            val left = metrics.balanceLeft.toInt()
+            val right = metrics.balance.toInt()
 
-        views.setTextViewText(R.id.balance_left, "$left")
-        views.setTextViewText(R.id.balance_right, "$right")
-        applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
-        views.setProgressBar(R.id.balance_bar, 100, right, false)
+            views.setTextViewText(R.id.balance_left, "$left")
+            views.setTextViewText(R.id.balance_right, "$right")
+            applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
+
+            if (currentLayoutSize == LayoutSize.LARGE) {
+                views.setProgressBar(R.id.balance_bar, 100, right, false)
+            }
+        }
     }
 }

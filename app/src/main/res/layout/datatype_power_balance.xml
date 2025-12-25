@@ -72,7 +72,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:max="100"
-            android:progress="50" />
+            android:progress="50"
+            android:progressDrawable="@drawable/balance_bar_progress" />
     </FrameLayout>
 
     <LinearLayout

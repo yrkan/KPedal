@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Live SMALL: Just balance with bar -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    android:padding="12dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/balance"
-        android:textSize="12sp"
-        android:textColor="@color/text_dim" />
+    android:gravity="center"
+    android:padding="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
 
@@ -26,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="50"
-            android:textSize="48sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
             android:gravity="center" />
@@ -37,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="50"
-            android:textSize="48sp"
+            android:textSize="40sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
             android:gravity="center" />
@@ -45,8 +39,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:layout_marginTop="8dp">
+        android:layout_height="6dp"
+        android:layout_marginTop="4dp">
 
         <ProgressBar
             android:id="@+id/balance_bar"
@@ -58,28 +52,4 @@
             android:progressDrawable="@drawable/balance_bar_progress" />
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="4dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/left"
-            android:textSize="12sp"
-            android:textColor="@color/text_dim"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/right"
-            android:textSize="12sp"
-            android:textColor="@color/text_dim"
-            android:gravity="center" />
-    </LinearLayout>
 </LinearLayout>

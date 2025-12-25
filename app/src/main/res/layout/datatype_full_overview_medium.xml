@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- FullOverview MEDIUM: Balance + TE -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    android:padding="8dp">
+    android:padding="4dp">
 
-    <!-- Current Balance (33%) -->
+    <!-- Balance (50%) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="4dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balance"
-            android:textSize="10sp"
+            android:textSize="9sp"
             android:textColor="@color/text_dim" />
 
         <LinearLayout
@@ -32,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50"
-                android:textSize="36sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
@@ -43,94 +45,78 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50"
-                android:textSize="36sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 3s Smoothed (33%) -->
+    <!-- Divider -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <!-- TE (50%) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/balance_3s"
-            android:textSize="10sp"
-            android:textColor="@color/text_dim" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="4dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/te"
+                android:textSize="9sp"
+                android:textColor="@color/text_dim" />
+
+            <TextView
+                android:id="@+id/te_avg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="76%"
+                android:textSize="10sp"
+                android:textColor="@color/status_optimal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:gravity="center">
 
             <TextView
-                android:id="@+id/balance_3s_left"
+                android:id="@+id/te_left"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="50"
-                android:textSize="28sp"
+                android:text="74"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
 
             <TextView
-                android:id="@+id/balance_3s_right"
+                android:id="@+id/te_right"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="50"
-                android:textSize="28sp"
+                android:text="77"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 10s Smoothed (33%) -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/balance_10s"
-            android:textSize="10sp"
-            android:textColor="@color/text_dim" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/balance_10s_left"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="50"
-                android:textSize="28sp"
-                android:textColor="@color/text_primary"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/balance_10s_right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="50"
-                android:textSize="28sp"
-                android:textColor="@color/text_primary"
-                android:gravity="center" />
-        </LinearLayout>
-    </LinearLayout>
 </LinearLayout>

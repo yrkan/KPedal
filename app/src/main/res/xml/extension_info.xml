@@ -53,4 +53,12 @@
         graphical="true"
         icon="@drawable/ic_kpedal" />
 
+    <!-- Layout 7: Live - All metrics with Time In Zone -->
+    <DataType
+        typeId="live"
+        description="@string/datatype_live_desc"
+        displayName="@string/datatype_live"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
 </ExtensionInfo>

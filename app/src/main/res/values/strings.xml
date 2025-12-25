@@ -22,6 +22,9 @@
     <string name="datatype_single_balance">Balance</string>
     <string name="datatype_single_balance_desc">L/R power balance full screen</string>
 
+    <string name="datatype_live">Live</string>
+    <string name="datatype_live_desc">All metrics with Time In Zone stats</string>
+
     <!-- Labels -->
     <string name="balance">BALANCE</string>
     <string name="balance_3s">3s AVG</string>

@@ -14,7 +14,11 @@ class QuickGlanceDataType(
     kpedalExtension: KPedalExtension
 ) : BaseDataType(kpedalExtension, "quick-glance") {
 
-    override fun getLayoutResId() = R.layout.datatype_quick_glance
+    override fun getLayoutResId(size: LayoutSize) = when (size) {
+        LayoutSize.SMALL -> R.layout.datatype_quick_glance_small
+        LayoutSize.MEDIUM -> R.layout.datatype_quick_glance_medium
+        LayoutSize.LARGE -> R.layout.datatype_quick_glance_large
+    }
 
     override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
         // Status indicator - show which metrics have issues
@@ -30,21 +34,30 @@ class QuickGlanceDataType(
         if (issues.isEmpty()) {
             views.setTextViewText(R.id.status_icon, "✓")
             views.setTextColor(R.id.status_icon, StatusCalculator.COLOR_OPTIMAL)
-            views.setTextViewText(R.id.status_text, "ALL GOOD")
+            if (currentLayoutSize != LayoutSize.SMALL) {
+                views.setTextViewText(R.id.status_text, "ALL GOOD")
+            }
         } else {
             views.setTextViewText(R.id.status_icon, "!")
             val color = if (issues.size >= 2) StatusCalculator.COLOR_PROBLEM else StatusCalculator.COLOR_ATTENTION
             views.setTextColor(R.id.status_icon, color)
-            views.setTextViewText(R.id.status_text, issues.joinToString(", "))
+            if (currentLayoutSize != LayoutSize.SMALL) {
+                views.setTextViewText(R.id.status_text, issues.joinToString(", "))
+            }
         }
 
-        // Balance
-        val left = metrics.balanceLeft.toInt()
-        val right = metrics.balance.toInt()
+        // Balance - not in SMALL
+        if (currentLayoutSize != LayoutSize.SMALL) {
+            val left = metrics.balanceLeft.toInt()
+            val right = metrics.balance.toInt()
 
-        views.setTextViewText(R.id.balance_left, "$left")
-        views.setTextViewText(R.id.balance_right, "$right")
-        applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
-        views.setProgressBar(R.id.balance_bar, 100, right, false)
+            views.setTextViewText(R.id.balance_left, "$left")
+            views.setTextViewText(R.id.balance_right, "$right")
+            applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
+
+            if (currentLayoutSize == LayoutSize.LARGE) {
+                views.setProgressBar(R.id.balance_bar, 100, right, false)
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- QuickGlance LARGE: Status + balance + bar -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="✓"
-            android:textSize="48sp"
+            android:textSize="56sp"
             android:textStyle="bold"
             android:textColor="@color/status_optimal" />
 
@@ -68,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50"
-                android:textSize="36sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
@@ -79,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="50"
-                android:textSize="36sp"
+                android:textSize="40sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
                 android:gravity="center" />
@@ -87,8 +88,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_marginTop="4dp">
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp">
 
             <ProgressBar
                 android:id="@+id/balance_bar"

@@ -8,8 +8,11 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import io.github.kpedal.data.AchievementRepository
+import io.github.kpedal.data.AuthRepository
 import io.github.kpedal.data.PreferencesRepository
 import io.github.kpedal.data.RideRepository
+import io.github.kpedal.data.SyncService
+import io.github.kpedal.data.database.KPedalDatabase
 import io.github.kpedal.datatypes.*
 import io.github.kpedal.drill.DrillRepository
 import io.github.kpedal.engine.AchievementChecker
@@ -26,6 +29,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
 
@@ -89,6 +93,16 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
     val pedalMonitor: PedalMonitor
         get() = _pedalMonitor ?: throw IllegalStateException("PedalMonitor not initialized")
 
+    // Auth repository
+    private var _authRepository: AuthRepository? = null
+    val authRepository: AuthRepository
+        get() = _authRepository ?: throw IllegalStateException("AuthRepository not initialized")
+
+    // Sync service for cloud sync
+    private var _syncService: SyncService? = null
+    val syncService: SyncService
+        get() = _syncService ?: throw IllegalStateException("SyncService not initialized")
+
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreate() {
@@ -104,6 +118,13 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
         _rideRepository = RideRepository(this)
         _drillRepository = DrillRepository(this)
         _achievementRepository = AchievementRepository(this)
+        _authRepository = AuthRepository(this)
+        _syncService = SyncService(
+            context = this,
+            authRepository = authRepository,
+            rideDao = KPedalDatabase.getInstance(this).rideDao(),
+            preferencesRepository = preferencesRepository
+        )
         _achievementChecker = AchievementChecker(
             achievementRepository = achievementRepository,
             rideRepository = rideRepository,
@@ -113,7 +134,8 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
             extension = this,
             rideRepository = rideRepository,
             liveDataCollector = pedalingEngine.liveDataCollector,
-            achievementChecker = achievementChecker
+            achievementChecker = achievementChecker,
+            syncService = syncService
         )
         _alertManager = AlertManager(
             extension = this,
@@ -129,6 +151,11 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
                 // Only start RideStateMonitor - it will start/stop other components
                 // based on ride state to minimize resource usage
                 _rideStateMonitor?.startMonitoring()
+
+                // Send heartbeat to update device status on server
+                serviceScope.launch(Dispatchers.IO) {
+                    sendHeartbeat()
+                }
             } else {
                 android.util.Log.w(TAG, "KarooSystemService disconnected")
                 _pedalingEngine?.stopStreaming()
@@ -136,6 +163,20 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
                 _alertManager?.stopMonitoring()
                 _pedalMonitor?.stopMonitoring()
             }
+        }
+    }
+
+    /**
+     * Send heartbeat to server to update device status.
+     * Uses the check-request endpoint which also updates last_sync.
+     */
+    private suspend fun sendHeartbeat() {
+        try {
+            val sync = _syncService ?: return
+            val triggered = sync.checkAndHandleSyncRequest()
+            android.util.Log.i(TAG, "Heartbeat sent, sync triggered: $triggered")
+        } catch (e: Exception) {
+            android.util.Log.w(TAG, "Failed to send heartbeat: ${e.message}")
         }
     }
 
@@ -211,7 +252,10 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
         _pedalingEngine?.destroy()
         _pedalingEngine = null
 
-        // Clear repository references
+        // Cleanup SyncService
+        _syncService?.destroy()
+        _syncService = null
+        _authRepository = null
         _achievementChecker = null
         _achievementRepository = null
         _drillRepository = null
@@ -238,7 +282,8 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
             EfficiencyDataType(this),
             FullOverviewDataType(this),
             BalanceTrendDataType(this),
-            SingleBalanceDataType(this)
+            SingleBalanceDataType(this),
+            LiveDataType(this)
         )
     }
 }
