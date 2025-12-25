@@ -1,18 +1,19 @@
-# kpedal
+# KPedal
 
 Real-time pedaling efficiency extension for Hammerhead Karoo 2/3. Displays Balance, Torque Effectiveness, and Pedal Smoothness metrics from ANT+ Cycling Dynamics power meter pedals.
 
 ## Overview
 
-kpedal provides cyclists with real-time feedback on pedaling technique during rides. The extension displays data fields on Karoo ride screens and includes a companion app for training drills, ride history, analytics, and achievement tracking.
+KPedal provides cyclists with real-time feedback on pedaling technique during rides. The extension displays data fields on Karoo ride screens and includes a companion app for training drills, ride history, analytics, and achievement tracking.
 
 **Key Features:**
 - **Background mode** - Collects pedaling data for ALL rides, even without KPedal data fields on screen
-- 6 customizable data field layouts for ride screens
+- **Cloud sync** - Sync rides and settings to kpedal.com across devices
+- 7 customizable data field layouts for ride screens
 - Real-time alerts for pedaling technique issues
 - 10 built-in training drills with guided phases
 - Custom drill creation
-- Automatic ride history with analysis (up to 100 rides)
+- Automatic ride history with analysis
 - 7-day and 30-day trend analytics
 - 16 achievements to unlock
 - 7 rotating weekly challenges
@@ -56,7 +57,10 @@ kpedal provides cyclists with real-time feedback on pedaling technique during ri
 
 ## Data Field Layouts
 
-6 layouts available for Karoo ride screens:
+7 layouts available for Karoo ride screens. Each layout automatically adapts to the grid size:
+- **Small** (< 20 rows) - Compact view with essential metrics
+- **Medium** (20-40 rows) - Balanced layout
+- **Large** (> 40 rows) - Full details with bars and zones
 
 | Layout | Type ID | Best For | Description |
 |--------|---------|----------|-------------|
@@ -65,7 +69,8 @@ kpedal provides cyclists with real-time feedback on pedaling technique during ri
 | **Efficiency** | `efficiency` | TE/PS focus | TE + PS with L/R values |
 | **Full Overview** | `full-overview` | All metrics | Balance + TE + PS in one view |
 | **Balance Trend** | `balance-trend` | Trend analysis | Current, 3s avg, 10s avg balance |
-| **Single Balance** | `single-balance` | Full-screen | L/R balance large display |
+| **Balance** | `single-balance` | Full-screen | L/R balance large display |
+| **Live** | `live` | Ride summary | All metrics with Time In Zone stats |
 
 ## Training Drills
 
@@ -107,20 +112,12 @@ Create your own drills with configurable parameters:
 | **Duration** | 10s - 10 min |
 | **Target Type** | MIN (above), MAX (below), RANGE, EXACT |
 
-**Target Types:**
-- **MIN**: Value must be above threshold (e.g., PS ≥ 25%)
-- **MAX**: Value must be below threshold (e.g., Balance ≤ 48%)
-- **RANGE**: Value must be between min and max (e.g., TE 70-80%)
-- **EXACT**: Value must be within tolerance of target (e.g., Balance 50% ± 2%)
-
 ### Drill Scoring
 
 - **Score** = % of time spent in target zone (0-100%)
 - Only phases WITH targets count toward score
 - Warm-up/recovery phases (no target) are tracked but don't affect score
-- Per-phase scores recorded for detailed feedback
 
-**Score Ratings:**
 | Score | Rating |
 |-------|--------|
 | 90%+ | Excellent |
@@ -131,60 +128,27 @@ Create your own drills with configurable parameters:
 
 ## Achievements (16)
 
-### Ride Count (4)
-
-| Achievement | Requirement |
-|-------------|-------------|
-| First Ride | Complete your first ride |
-| Getting Started | Complete 10 rides |
-| Dedicated | Complete 50 rides |
-| Century | Complete 100 rides |
-
-### Balance Mastery (3)
-
-| Achievement | Requirement |
-|-------------|-------------|
-| Balanced | 1 minute at optimal balance |
-| Well Balanced | 5 minutes at optimal balance |
-| Master of Balance | 10 minutes at optimal balance |
-
-### Efficiency (2)
-
-| Achievement | Requirement |
-|-------------|-------------|
-| Efficient Rider | TE + PS optimal for 5 minutes |
-| Smooth Operator | PS ≥25% for 10 minutes |
-
-### Streaks (4)
-
-| Achievement | Requirement |
-|-------------|-------------|
-| Getting Consistent | 3 day riding streak |
-| Weekly Warrior | 7 day riding streak |
-| Two Week Hero | 14 day riding streak |
-| Monthly Master | 30 day riding streak |
-
-### Drills (3)
-
-| Achievement | Requirement |
-|-------------|-------------|
-| Practice Makes Perfect | Complete your first drill |
-| Drill Enthusiast | Complete 10 drills |
-| Perfect Form | Score 90%+ on any drill |
+| Category | Achievements |
+|----------|-------------|
+| **Ride Count** | First Ride, Getting Started (10), Dedicated (50), Century (100) |
+| **Balance** | Balanced (1 min), Well Balanced (5 min), Master of Balance (10 min) |
+| **Efficiency** | Efficient Rider (5 min TE+PS), Smooth Operator (10 min PS≥25%) |
+| **Streaks** | 3-day, 7-day, 14-day, 30-day riding streaks |
+| **Drills** | First drill, 10 drills, Perfect Form (90%+ score) |
 
 ## Weekly Challenges
 
 7 rotating challenges (based on week number):
 
-| Challenge | Target | Type |
-|-----------|--------|------|
-| Active Week | Complete 3 rides | Rides |
-| Balanced Rider | Avg balance 48-52% in 3 rides | Balance |
-| Zone Master | 60%+ time in optimal zone | Zone time |
-| Technique Focus | Complete 2 drills | Drills |
-| Consistency | Ride 4 days in a row | Streak |
-| Efficient Pedaling | Avg TE above 70% in 3 rides | TE |
-| Smooth Circles | Avg PS above 20% in 3 rides | PS |
+| Challenge | Target |
+|-----------|--------|
+| Active Week | Complete 3 rides |
+| Balanced Rider | Avg balance 48-52% in 3 rides |
+| Zone Master | 60%+ time in optimal zone |
+| Technique Focus | Complete 2 drills |
+| Consistency | Ride 4 days in a row |
+| Efficient Pedaling | Avg TE above 70% in 3 rides |
+| Smooth Circles | Avg PS above 20% in 3 rides |
 
 ## Settings
 
@@ -197,28 +161,9 @@ Create your own drills with configurable parameters:
 | TE Optimal Max | 55-100% | 80% | Upper bound of optimal TE range |
 | PS Minimum | 10-30% | 20% | Minimum smoothness for optimal status |
 
-### Status Thresholds Logic
-
-**Balance** (based on threshold setting, default ±5%):
-- Optimal: ≤ threshold/2 deviation (±2.5%)
-- Attention: ≤ threshold deviation (±5%)
-- Problem: > threshold deviation (>5%)
-
-**Torque Effectiveness**:
-- Optimal: within configured range (70-80%)
-- Attention: within ±5% of range (65-85%)
-- Problem: outside attention zone
-
-**Pedal Smoothness**:
-- Optimal: ≥ minimum threshold (20%)
-- Attention: ≥ minimum - 5% (15%)
-- Problem: < attention threshold
-
-## Alerts
+### Alerts
 
 Configure real-time alerts during rides:
-
-### Per-Metric Settings
 
 | Setting | Options |
 |---------|---------|
@@ -226,14 +171,8 @@ Configure real-time alerts during rides:
 | Visual Alert | InRideAlert overlay |
 | Sound Alert | Beep pattern |
 | Vibration | Device vibration |
-| Cooldown | 10-120 seconds (per metric) |
-
-### Global Settings
-
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Global Enable | On | Master on/off for all alerts |
-| Screen Wake | On | Wake screen when alert triggers |
+| Cooldown | 10-120 seconds per metric |
+| Screen Wake | Wake screen when alert triggers |
 
 ## Ride Analysis
 
@@ -244,8 +183,6 @@ Configure real-time alerts during rides:
 - Efficiency Score: 35% weight (TE 50% + PS 50%)
 - Consistency Score: 25% weight (time in optimal zone)
 
-### Star Rating
-
 | Score | Rating |
 |-------|--------|
 | 85+ | 5 stars |
@@ -253,30 +190,6 @@ Configure real-time alerts during rides:
 | 55-69 | 3 stars |
 | 40-54 | 2 stars |
 | <40 | 1 star |
-
-### Auto-generated Insights
-
-- Up to 3 strengths (e.g., "Excellent L/R balance", "Optimal torque effectiveness")
-- Up to 3 improvement suggestions (e.g., "Focus on smoother pedal stroke")
-- Summary based on overall score
-
-## Live Summary
-
-Real-time ride statistics accessible during a ride:
-
-- **Duration**: Current ride time
-- **Balance**: Current L/R % with trend indicator
-- **TE/PS**: Left and right values with trends
-- **Time in Zone**: Optimal/Attention/Problem percentages
-- **Overall Score**: Real-time ride quality score (0-100)
-- **Manual Save**: Save ride before auto-save on stop
-
-## Analytics
-
-- **7-day trends**: Recent performance overview
-- **30-day trends**: Monthly progress tracking
-- **Sparkline charts**: Visual trend indicators
-- **Per-metric tracking**: Balance, TE, PS progress over time
 
 ## Compatible Pedals
 
@@ -290,7 +203,6 @@ Requires dual-sided power meter with ANT+ Cycling Dynamics support:
 | Wahoo POWRLINK Zero | Yes | No |
 | SRM X-Power | Yes | Yes |
 | Rotor 2INpower | Yes | Yes |
-| Power2Max NG/NGeco | Yes | No |
 
 **Note:** Single-sided power meters do not provide these metrics.
 
@@ -299,7 +211,7 @@ Requires dual-sided power meter with ANT+ Cycling Dynamics support:
 ### From APK
 
 ```bash
-adb install kpedal-1.0.0.apk
+adb install kpedal-x.x.x.apk
 ```
 
 Or use Karoo's sideload feature.
@@ -307,11 +219,8 @@ Or use Karoo's sideload feature.
 ### Build from Source
 
 **Prerequisites:**
-
 1. Android Studio with JDK 17
 2. GitHub Personal Access Token with `read:packages` scope
-
-**Setup:**
 
 Add to `~/.gradle/gradle.properties`:
 ```properties
@@ -328,17 +237,11 @@ JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradle
 # Debug APK
 JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew assembleDebug
 
-# Quick compile check
-JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew compileDebugKotlin
-
 # Run unit tests
 JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew test
-
-# Run lint
-JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew lint
 ```
 
-**Output:** `app/build/outputs/apk/release/kpedal-1.0.0.apk`
+**Output:** `app/build/outputs/apk/release/kpedal-x.x.x.apk`
 
 ## Usage
 
@@ -347,7 +250,7 @@ JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradle
 1. **Profiles** → Select your profile → **Edit**
 2. Add or edit a data page
 3. Tap on an empty slot → **More Data** → **kpedal**
-4. Select one of the 6 layouts
+4. Select one of the 7 layouts
 5. Save and start riding
 
 ### App Navigation
@@ -356,64 +259,111 @@ JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradle
 |---------|-------------|
 | **Home** | Dashboard with stats, quick navigation |
 | **Live** | Real-time ride metrics and statistics |
-| **Drills** | Training drills list and custom drill creation |
+| **Drills** | Training drills and custom drill creation |
 | **History** | Saved rides with detailed analysis |
 | **Analytics** | 7/30 day trends and progress charts |
 | **Achievements** | Unlocked and locked badges |
 | **Challenges** | Current weekly challenge with progress |
-| **Data Fields** | Preview all 6 layout designs |
-| **Pedal Status** | Connection status and signal quality |
-| **Settings** | Thresholds and alert configuration |
-| **Help** | Quick reference and onboarding |
-
-### Pedal Status Indicators
-
-| Status | Meaning |
-|--------|---------|
-| Connected | Receiving data normally |
-| Stale | No data for >5 seconds |
-| Disconnected | No data for >30 seconds |
-
-### First Launch (Onboarding)
-
-4-page onboarding for new users:
-1. **Welcome** - Introduction to KPedal
-2. **Data Fields** - How to add fields to Karoo screens
-3. **Drills** - Overview of training drills
-4. **Alerts** - Alert configuration
-
-### Dashboard
-
-Home screen shows:
-- **Total rides** - Lifetime ride count
-- **Avg balance** - All-time average L/R balance
-- **Streak** - Current consecutive days riding
-- **Last ride** - Date, balance, optimal zone %
+| **Settings** | Thresholds, alerts, cloud sync |
 
 ### Background Mode
 
 KPedal runs as a background service to collect pedaling metrics for **all rides**, even when KPedal data fields are not on your ride screen.
 
-**How it works:**
-1. Service starts automatically when Karoo boots
-2. Monitors ride state (recording/paused/stopped)
-3. When any ride starts, begins collecting Balance, TE, PS metrics
-4. When ride ends, automatically saves analysis to history
-
-**Benefits:**
-- Never miss ride data - all rides are analyzed
-- No need to configure data fields to get ride history
-- Retroactive analysis even for rides without data fields
-
-**Note:** A persistent notification "KPedal - Monitoring pedaling metrics" appears in the notification shade. This is required by Android for background services.
+- Service starts automatically when Karoo boots
+- All rides are analyzed and saved to history
+- A persistent notification appears (required by Android)
 
 ## Requirements
 
 - **Device**: Hammerhead Karoo 2 or Karoo 3
 - **Display**: 480×800 pixels
-- **OS**: Karoo OS 1.524+
 - **Pedals**: ANT+ Cycling Dynamics compatible (dual-sided)
-- **Android**: minSdk 23, targetSdk 34
+
+---
+
+## Web Portal
+
+KPedal includes a web portal at **kpedal.com** for viewing ride data across devices.
+
+### Features
+
+| Feature | Description |
+|---------|-------------|
+| **Dashboard** | Score ring, weekly chart, insights, recent rides |
+| **Ride History** | Browse all synced rides with detailed metrics |
+| **Settings Sync** | Thresholds and alert settings sync with Karoo |
+| **Device Management** | View linked devices, request sync, revoke access |
+| **Dark/Light Mode** | WCAG AA compliant themes |
+
+### Cloud Sync
+
+**How to link your Karoo:**
+1. In app Settings → Link Account
+2. App displays a 6-character code
+3. Go to **kpedal.com/link** on any browser
+4. Enter the code and sign in with Google
+5. App automatically links
+
+**Sync behavior:**
+- Rides sync after completion (if Auto-sync enabled)
+- Settings changes auto-upload (2s debounce)
+- Press Sync to pull latest from cloud
+- Changes on web apply on next Sync or ride start
+
+### Privacy
+
+**Data synced:** Ride summaries, settings, device info
+
+**NOT synced:** GPS/routes, raw power data, drill results, achievements
+
+See full policy at **kpedal.com/privacy**
+
+---
+
+## Web Development
+
+### Architecture
+
+```
+web/
+├── api/          # Cloudflare Worker (Hono)
+│   └── src/
+│       ├── auth/     # OAuth, JWT, Device Code Flow
+│       ├── api/      # rides, sync, settings endpoints
+│       └── db/       # D1 schema
+└── app/          # SvelteKit 5 (Cloudflare Pages)
+    └── src/
+        ├── routes/   # /, /login, /link, /rides, /settings
+        └── lib/      # auth, theme, config
+```
+
+### Build Commands
+
+```bash
+# API
+cd web/api
+npm run dev              # Local dev (port 8787)
+npm run deploy           # Deploy to Workers
+npx vitest run           # Run tests
+
+# Frontend
+cd web/app
+npm run dev              # Local dev (port 5173)
+npm run build            # Production build
+npx wrangler pages deploy .svelte-kit/cloudflare
+```
+
+### Infrastructure
+
+| Component | Service |
+|-----------|---------|
+| API | Cloudflare Workers (api.kpedal.com) |
+| Frontend | Cloudflare Pages (kpedal.com) |
+| Database | Cloudflare D1 (SQLite) |
+| Sessions | Cloudflare KV |
+
+---
 
 ## Technical Details
 
@@ -425,85 +375,31 @@ KPedal runs as a background service to collect pedaling metrics for **all rides*
 | Kotlin | 1.9.20 |
 | Compose BOM | 2023.10.01 |
 | Room Database | 2.6.1 |
-| Navigation Compose | 2.7.5 |
-| Kotlin Coroutines | 1.7.3 |
-| JUnit 5 | 5.10.1 |
-
-### Data Streams
-
-```
-DataType.Type.PEDAL_POWER_BALANCE → Field.PEDAL_POWER_BALANCE_LEFT
-DataType.Type.TORQUE_EFFECTIVENESS → Field.TORQUE_EFFECTIVENESS_LEFT/RIGHT
-DataType.Type.PEDAL_SMOOTHNESS → Field.PEDAL_SMOOTHNESS_LEFT/RIGHT
-DataType.Type.SMOOTHED_3S_AVERAGE_PEDAL_POWER_BALANCE
-DataType.Type.SMOOTHED_10S_AVERAGE_PEDAL_POWER_BALANCE
-```
 
 ### Architecture
 
 ```
 io.github.kpedal/
-├── KPedalExtension.kt        # KarooExtension entry point
+├── KPedalExtension.kt        # Foreground Service entry point
 ├── MainActivity.kt           # Compose navigation
-├── MainViewModel.kt          # State management
-├── datatypes/                # 6 RemoteViews DataType layouts
-│   ├── BaseDataType.kt       # Common lifecycle handling
-│   ├── QuickGlanceDataType.kt
-│   ├── PowerBalanceDataType.kt
-│   ├── EfficiencyDataType.kt
-│   ├── FullOverviewDataType.kt
-│   ├── BalanceTrendDataType.kt
-│   └── SingleBalanceDataType.kt
-├── drill/                    # Drill system
-│   ├── DrillCatalog.kt       # 10 built-in drills
-│   ├── DrillEngine.kt        # Execution engine
-│   ├── DrillRepository.kt    # Results storage
-│   ├── CustomDrillRepository.kt
-│   └── model/                # Drill data models
-├── engine/                   # Core engine
-│   ├── PedalingEngine.kt     # Central data pipeline
-│   ├── PedalingMetrics.kt    # Data model
-│   ├── StatusCalculator.kt   # Threshold evaluation
-│   ├── AlertManager.kt       # In-ride alerts
-│   ├── LiveDataCollector.kt  # Ride statistics
-│   ├── RideStateMonitor.kt   # Ride state tracking
-│   ├── AchievementChecker.kt # Achievement logic
-│   └── PedalMonitor.kt       # Connection status
-├── data/                     # Persistence
-│   ├── PreferencesRepository.kt  # Settings (DataStore)
-│   ├── RideRepository.kt         # Ride history
-│   ├── AchievementRepository.kt  # Achievements
-│   ├── AnalyticsRepository.kt    # Trend calculations
-│   ├── database/                 # Room entities & DAOs
-│   └── models/                   # Data models
-└── ui/                       # Compose UI
-    ├── theme/                # Colors, typography
-    ├── components/           # Reusable components
-    └── screens/              # App screens
+├── datatypes/                # 7 RemoteViews DataType layouts
+├── drill/                    # Drill system (catalog, engine, repository)
+├── engine/                   # Core (PedalingEngine, AlertManager, etc.)
+├── data/                     # Persistence (Room, DataStore)
+├── api/                      # Cloud sync (Retrofit)
+└── ui/                       # Compose screens
 ```
 
-### Database
-
-- **Engine**: Room Database v5
-- **File**: `kpedal_rides.db`
-- **Tables**: rides, drill_results, achievements, custom_drills
-- **Migration**: Fallback to destructive
-
-### Performance Optimizations
+### Performance
 
 | Component | Optimization |
 |-----------|-------------|
-| PedalingEngine | 50ms debouncing to prevent RemoteViews overload |
-| LiveDataCollector | 1 second emission intervals |
-| AlertManager | Single collector pattern with `combine()` |
-| PreferencesRepository | `distinctUntilChanged()` filtering |
+| PedalingEngine | 50ms debouncing |
+| LiveDataCollector | 1 second emissions |
+| AlertManager | Single collector with `combine()` |
+| Settings sync | 2 second debounce for uploads |
 
-### Thread Safety
-
-- `AtomicReference` for consumer IDs
-- `AtomicLong` for cooldown timestamps
-- `@Volatile` for simple boolean flags
-- `synchronized` lock in SummaryCollector
+---
 
 ## License
 
@@ -511,4 +407,4 @@ MIT
 
 ---
 
-**kpedal** — Real-time pedaling efficiency for Karoo
+**KPedal** — Real-time pedaling efficiency for Karoo

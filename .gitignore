@@ -141,6 +141,7 @@ wrangler-out/
 .netlify/
 
 # Vite
+.vite/
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
