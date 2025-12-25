@@ -169,6 +169,7 @@ class SyncApiModelsTest {
             assertThat(response.data?.ride_id).isEqualTo("ride_123")
             assertThat(response.data?.synced_at).isEqualTo("2024-01-15T10:30:00Z")
             assertThat(response.error).isNull()
+            assertThat(response.code).isNull()
         }
 
         @Test
@@ -186,6 +187,45 @@ class SyncApiModelsTest {
 
             assertThat(response.data).isNull()
             assertThat(response.error).isNull()
+            assertThat(response.code).isNull()
+        }
+
+        @Test
+        fun `DEVICE_REVOKED code constant is correct`() {
+            assertThat(SyncResponse.CODE_DEVICE_REVOKED).isEqualTo("DEVICE_REVOKED")
+        }
+
+        @Test
+        fun `device revoked response has correct code`() {
+            val response = SyncResponse(
+                success = false,
+                error = "Device not found or access revoked",
+                code = SyncResponse.CODE_DEVICE_REVOKED
+            )
+
+            assertThat(response.success).isFalse()
+            assertThat(response.code).isEqualTo("DEVICE_REVOKED")
+            assertThat(response.error).contains("revoked")
+        }
+
+        @Test
+        fun `can distinguish between error types using code`() {
+            val networkError = SyncResponse(success = false, error = "Network error")
+            val deviceRevoked = SyncResponse(
+                success = false,
+                error = "Device revoked",
+                code = SyncResponse.CODE_DEVICE_REVOKED
+            )
+
+            // Network error has no code
+            assertThat(networkError.code).isNull()
+
+            // Device revoked has specific code
+            assertThat(deviceRevoked.code).isEqualTo(SyncResponse.CODE_DEVICE_REVOKED)
+
+            // Can check code to decide action
+            val shouldLogout = deviceRevoked.code == SyncResponse.CODE_DEVICE_REVOKED
+            assertThat(shouldLogout).isTrue()
         }
     }
 
@@ -279,6 +319,84 @@ class SyncApiModelsTest {
             )
 
             assertThat(data.ride_count).isEqualTo(10000)
+        }
+    }
+
+    @Nested
+    @DisplayName("CheckSyncRequestResponse")
+    inner class CheckSyncRequestResponseTests {
+
+        @Test
+        fun `successful response with sync requested`() {
+            val data = CheckSyncRequestData(syncRequested = true, requestedAt = 1700000000000L)
+            val response = CheckSyncRequestResponse(success = true, data = data)
+
+            assertThat(response.success).isTrue()
+            assertThat(response.data?.syncRequested).isTrue()
+            assertThat(response.data?.requestedAt).isEqualTo(1700000000000L)
+        }
+
+        @Test
+        fun `successful response with no sync requested`() {
+            val data = CheckSyncRequestData(syncRequested = false)
+            val response = CheckSyncRequestResponse(success = true, data = data)
+
+            assertThat(response.success).isTrue()
+            assertThat(response.data?.syncRequested).isFalse()
+            assertThat(response.data?.requestedAt).isNull()
+        }
+
+        @Test
+        fun `device revoked response`() {
+            val response = CheckSyncRequestResponse(
+                success = false,
+                error = "Device not found or access revoked",
+                code = SyncResponse.CODE_DEVICE_REVOKED
+            )
+
+            assertThat(response.success).isFalse()
+            assertThat(response.code).isEqualTo("DEVICE_REVOKED")
+        }
+
+        @Test
+        fun `code field is null by default`() {
+            val response = CheckSyncRequestResponse(success = true)
+            assertThat(response.code).isNull()
+        }
+    }
+
+    @Nested
+    @DisplayName("Device Revocation Flow")
+    inner class DeviceRevocationFlowTests {
+
+        @Test
+        fun `all sync responses can indicate device revocation`() {
+            // SyncResponse can have DEVICE_REVOKED
+            val syncResponse = SyncResponse(
+                success = false,
+                code = SyncResponse.CODE_DEVICE_REVOKED
+            )
+            assertThat(syncResponse.code).isEqualTo("DEVICE_REVOKED")
+
+            // CheckSyncRequestResponse can have DEVICE_REVOKED
+            val checkResponse = CheckSyncRequestResponse(
+                success = false,
+                code = SyncResponse.CODE_DEVICE_REVOKED
+            )
+            assertThat(checkResponse.code).isEqualTo("DEVICE_REVOKED")
+        }
+
+        @Test
+        fun `revocation check is consistent across response types`() {
+            fun isDeviceRevoked(code: String?): Boolean {
+                return code == SyncResponse.CODE_DEVICE_REVOKED
+            }
+
+            // Different failure scenarios
+            assertThat(isDeviceRevoked(null)).isFalse() // Network error
+            assertThat(isDeviceRevoked("UNKNOWN_ERROR")).isFalse() // Other error
+            assertThat(isDeviceRevoked("DEVICE_REVOKED")).isTrue() // Revoked
+            assertThat(isDeviceRevoked(SyncResponse.CODE_DEVICE_REVOKED)).isTrue()
         }
     }
 }

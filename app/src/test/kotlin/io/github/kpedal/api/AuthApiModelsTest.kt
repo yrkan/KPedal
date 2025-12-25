@@ -336,6 +336,7 @@ class AuthApiModelsTest {
             assertThat(response.success).isTrue()
             assertThat(response.data?.access_token).isEqualTo("new_access_token")
             assertThat(response.error).isNull()
+            assertThat(response.code).isNull()
         }
 
         @Test
@@ -345,6 +346,44 @@ class AuthApiModelsTest {
             assertThat(response.success).isFalse()
             assertThat(response.data).isNull()
             assertThat(response.error).isEqualTo("Token expired")
+        }
+
+        @Test
+        fun `DEVICE_REVOKED code constant is correct`() {
+            assertThat(RefreshResponse.CODE_DEVICE_REVOKED).isEqualTo("DEVICE_REVOKED")
+        }
+
+        @Test
+        fun `device revoked refresh response`() {
+            val response = RefreshResponse(
+                success = false,
+                error = "Device not found or access revoked",
+                code = RefreshResponse.CODE_DEVICE_REVOKED
+            )
+
+            assertThat(response.success).isFalse()
+            assertThat(response.code).isEqualTo("DEVICE_REVOKED")
+            assertThat(response.error).contains("revoked")
+        }
+
+        @Test
+        fun `can check if device was revoked`() {
+            val tokenExpired = RefreshResponse(success = false, error = "Token expired")
+            val deviceRevoked = RefreshResponse(
+                success = false,
+                error = "Device revoked",
+                code = RefreshResponse.CODE_DEVICE_REVOKED
+            )
+
+            // Token expired - normal failure
+            assertThat(tokenExpired.code).isNull()
+
+            // Device revoked - needs special handling (logout)
+            assertThat(deviceRevoked.code).isEqualTo(RefreshResponse.CODE_DEVICE_REVOKED)
+
+            // Application logic
+            val shouldLogout = deviceRevoked.code == RefreshResponse.CODE_DEVICE_REVOKED
+            assertThat(shouldLogout).isTrue()
         }
     }
 

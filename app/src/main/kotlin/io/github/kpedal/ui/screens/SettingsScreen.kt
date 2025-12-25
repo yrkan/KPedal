@@ -7,13 +7,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,9 +54,26 @@ fun SettingsScreen(
     onCancelDeviceAuth: () -> Unit,
     onSignOut: () -> Unit,
     onManualSync: () -> Unit,
+    onFullSync: () -> Unit,
     onUpdateBackgroundMode: (Boolean) -> Unit,
-    onUpdateAutoSync: (Boolean) -> Unit
+    onUpdateAutoSync: (Boolean) -> Unit,
+    onCheckSyncRequest: () -> Unit = {},
+    onDeviceRevokedAcknowledged: () -> Unit = {}
 ) {
+    // Check for web sync request when screen opens
+    LaunchedEffect(authState.isLoggedIn) {
+        if (authState.isLoggedIn) {
+            onCheckSyncRequest()
+        }
+    }
+
+    // Show dialog when device was revoked
+    if (syncState.deviceRevoked) {
+        DeviceRevokedDialog(
+            onDismiss = onDeviceRevokedAcknowledged
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -100,6 +118,8 @@ fun SettingsScreen(
                 AccountRow(
                     email = authState.userEmail ?: "",
                     name = authState.userName ?: "",
+                    isSyncing = syncState.status == SyncService.SyncStatus.SYNCING,
+                    onSync = onFullSync,
                     onSignOut = onSignOut
                 )
             } else {
@@ -355,52 +375,83 @@ private fun LinkRow(
 private fun AccountRow(
     email: String,
     name: String,
+    isSyncing: Boolean,
+    onSync: () -> Unit,
     onSignOut: () -> Unit
 ) {
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = 12.dp, vertical = 12.dp)
     ) {
-        // Avatar placeholder
+        // Account info card with sync button
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
+                .background(Theme.colors.surface)
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = name.ifEmpty { "Linked Account" },
+                    color = Theme.colors.text,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = email,
+                    color = Theme.colors.dim,
+                    fontSize = 12.sp
+                )
+            }
+
+            // Sync button
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Theme.colors.optimal.copy(alpha = 0.15f))
+                    .clickable(enabled = !isSyncing) { onSync() }
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                if (isSyncing) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(16.dp),
+                        color = Theme.colors.optimal,
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text(
+                        text = "Sync",
+                        color = Theme.colors.optimal,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Sign Out button
         Box(
             modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-                .background(Theme.colors.optimal),
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(Theme.colors.problem.copy(alpha = 0.12f))
+                .clickable { onSignOut() }
+                .padding(vertical = 12.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = name.firstOrNull()?.uppercase() ?: "?",
-                color = Theme.colors.background,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        Spacer(modifier = Modifier.width(12.dp))
-
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = name,
-                color = Theme.colors.text,
+                text = "Sign Out",
+                color = Theme.colors.problem,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
             )
-            Text(
-                text = email,
-                color = Theme.colors.dim,
-                fontSize = 11.sp
-            )
         }
-
-        Text(
-            text = "Sign Out",
-            color = Theme.colors.problem,
-            fontSize = 12.sp,
-            modifier = Modifier.clickable { onSignOut() }
-        )
     }
 }
 
@@ -412,235 +463,278 @@ private fun DeviceAuthSection(
 ) {
     val context = LocalContext.current
 
-    when (deviceAuthState) {
-        is DeviceAuthService.DeviceAuthState.Idle -> {
-            // Show "Link Account" button
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onStartAuth() }
-                    .padding(horizontal = 12.dp, vertical = 14.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column {
-                    Text(
-                        text = "Link Account",
-                        color = Theme.colors.text,
-                        fontSize = 13.sp
-                    )
-                    Text(
-                        text = "Sync rides to kpedal.com",
-                        color = Theme.colors.dim,
-                        fontSize = 10.sp
-                    )
-                }
-                Text(
-                    text = ">",
-                    color = Theme.colors.optimal,
-                    fontSize = 16.sp
-                )
-            }
-        }
-
-        is DeviceAuthService.DeviceAuthState.RequestingCode -> {
-            // Loading state
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 14.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(20.dp),
-                    color = Theme.colors.optimal,
-                    strokeWidth = 2.dp
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(
-                    text = "Getting code...",
-                    color = Theme.colors.dim,
-                    fontSize = 13.sp
-                )
-            }
-        }
-
-        is DeviceAuthService.DeviceAuthState.WaitingForUser,
-        is DeviceAuthService.DeviceAuthState.Polling -> {
-            // Show the code and instructions
-            val userCode = when (deviceAuthState) {
-                is DeviceAuthService.DeviceAuthState.WaitingForUser -> deviceAuthState.userCode
-                is DeviceAuthService.DeviceAuthState.Polling -> deviceAuthState.userCode
-                else -> ""
-            }
-            val verificationUri = when (deviceAuthState) {
-                is DeviceAuthService.DeviceAuthState.WaitingForUser -> deviceAuthState.verificationUri
-                is DeviceAuthService.DeviceAuthState.Polling -> deviceAuthState.verificationUri
-                else -> "kpedal.com/link"
-            }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Enter this code at:",
-                    color = Theme.colors.dim,
-                    fontSize = 11.sp
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = verificationUri,
-                    color = Theme.colors.optimal,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$verificationUri"))
-                        context.startActivity(intent)
-                    }
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // Code display
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        when (deviceAuthState) {
+            is DeviceAuthService.DeviceAuthState.Idle -> {
+                // Show "Link Account" button - prominent
                 Box(
                     modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Theme.colors.optimal)
+                        .clickable { onStartAuth() }
+                        .padding(vertical = 14.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "Link Account",
+                            color = Theme.colors.background,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Text(
+                            text = "Sync rides to kpedal.com",
+                            color = Theme.colors.background.copy(alpha = 0.7f),
+                            fontSize = 11.sp
+                        )
+                    }
+                }
+            }
+
+            is DeviceAuthService.DeviceAuthState.RequestingCode -> {
+                // Loading state - card style
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Theme.colors.surface)
+                        .padding(vertical = 20.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(18.dp),
+                            color = Theme.colors.optimal,
+                            strokeWidth = 2.dp
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = "Getting code...",
+                            color = Theme.colors.dim,
+                            fontSize = 13.sp
+                        )
+                    }
+                }
+            }
+
+            is DeviceAuthService.DeviceAuthState.WaitingForUser,
+            is DeviceAuthService.DeviceAuthState.Polling -> {
+                val userCode = when (deviceAuthState) {
+                    is DeviceAuthService.DeviceAuthState.WaitingForUser -> deviceAuthState.userCode
+                    is DeviceAuthService.DeviceAuthState.Polling -> deviceAuthState.userCode
+                    else -> ""
+                }
+                val verificationUri = when (deviceAuthState) {
+                    is DeviceAuthService.DeviceAuthState.WaitingForUser -> deviceAuthState.verificationUri
+                    is DeviceAuthService.DeviceAuthState.Polling -> deviceAuthState.verificationUri
+                    else -> "kpedal.com/link"
+                }
+
+                // Card with code display
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Theme.colors.surface)
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Enter this code at",
+                        color = Theme.colors.dim,
+                        fontSize = 12.sp
+                    )
+
+                    Spacer(modifier = Modifier.height(2.dp))
+
+                    Text(
+                        text = verificationUri,
+                        color = Theme.colors.optimal,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.clickable {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$verificationUri"))
+                            context.startActivity(intent)
+                        }
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Large code display
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Theme.colors.background)
+                            .padding(vertical = 16.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = userCode,
+                            color = Theme.colors.text,
+                            fontSize = 28.sp,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 3.sp
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // Status indicator
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        if (deviceAuthState is DeviceAuthService.DeviceAuthState.Polling) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(14.dp),
+                                color = Theme.colors.attention,
+                                strokeWidth = 2.dp
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                        }
+                        Text(
+                            text = "Waiting for authorization...",
+                            color = Theme.colors.attention,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Cancel button
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .clip(RoundedCornerShape(8.dp))
                         .background(Theme.colors.surface)
-                        .padding(horizontal = 24.dp, vertical = 12.dp)
+                        .clickable { onCancel() }
+                        .padding(vertical = 12.dp),
+                    contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = userCode,
-                        color = Theme.colors.text,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 4.sp,
-                        textAlign = TextAlign.Center
+                        text = "Cancel",
+                        color = Theme.colors.dim,
+                        fontSize = 13.sp
                     )
                 }
+            }
 
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+            is DeviceAuthService.DeviceAuthState.Success -> {
+                // Success state
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(Theme.colors.optimal.copy(alpha = 0.15f))
+                        .padding(vertical = 16.dp),
+                    contentAlignment = Alignment.Center
                 ) {
-                    if (deviceAuthState is DeviceAuthService.DeviceAuthState.Polling) {
-                        CircularProgressIndicator(
-                            modifier = Modifier.size(12.dp),
-                            color = Theme.colors.attention,
-                            strokeWidth = 1.5.dp
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "✓",
+                            color = Theme.colors.optimal,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
                         )
-                        Spacer(modifier = Modifier.width(6.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Account Linked!",
+                            color = Theme.colors.optimal,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
                     }
-                    Text(
-                        text = "Waiting for authorization...",
-                        color = Theme.colors.attention,
-                        fontSize = 10.sp
-                    )
                 }
+            }
 
-                Spacer(modifier = Modifier.height(8.dp))
+            is DeviceAuthService.DeviceAuthState.Error -> {
+                ErrorStateCard(
+                    title = "Connection failed",
+                    subtitle = "Please try again",
+                    buttonText = "Try Again",
+                    onAction = onStartAuth
+                )
+            }
 
-                Text(
-                    text = "Cancel",
-                    color = Theme.colors.problem,
-                    fontSize = 11.sp,
-                    modifier = Modifier.clickable { onCancel() }
+            is DeviceAuthService.DeviceAuthState.Expired -> {
+                ErrorStateCard(
+                    title = "Code expired",
+                    subtitle = "Request a new code",
+                    buttonText = "Get New Code",
+                    onAction = onStartAuth
+                )
+            }
+
+            is DeviceAuthService.DeviceAuthState.AccessDenied -> {
+                ErrorStateCard(
+                    title = "Access denied",
+                    subtitle = "Authorization was cancelled",
+                    buttonText = "Try Again",
+                    onAction = onStartAuth
                 )
             }
         }
+    }
+}
 
-        is DeviceAuthService.DeviceAuthState.Success -> {
-            // Briefly show success (will transition to logged in state)
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 14.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Linked!",
-                    color = Theme.colors.optimal,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Medium
-                )
-            }
+@Composable
+private fun ErrorStateCard(
+    title: String,
+    subtitle: String,
+    buttonText: String,
+    onAction: () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Error message - 2 lines
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
+                .background(Theme.colors.problem.copy(alpha = 0.12f))
+                .padding(vertical = 14.dp, horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = title,
+                color = Theme.colors.problem,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                text = subtitle,
+                color = Theme.colors.problem.copy(alpha = 0.7f),
+                fontSize = 12.sp,
+                textAlign = TextAlign.Center
+            )
         }
 
-        is DeviceAuthService.DeviceAuthState.Error -> {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = deviceAuthState.message,
-                    color = Theme.colors.problem,
-                    fontSize = 12.sp,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Try Again",
-                    color = Theme.colors.optimal,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.clickable { onStartAuth() }
-                )
-            }
-        }
+        Spacer(modifier = Modifier.height(10.dp))
 
-        is DeviceAuthService.DeviceAuthState.Expired -> {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Code expired",
-                    color = Theme.colors.problem,
-                    fontSize = 12.sp
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Get New Code",
-                    color = Theme.colors.optimal,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.clickable { onStartAuth() }
-                )
-            }
-        }
-
-        is DeviceAuthService.DeviceAuthState.AccessDenied -> {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "Access denied",
-                    color = Theme.colors.problem,
-                    fontSize = 12.sp
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Try Again",
-                    color = Theme.colors.optimal,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.clickable { onStartAuth() }
-                )
-            }
+        // Retry button
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(Theme.colors.optimal)
+                .clickable { onAction() }
+                .padding(vertical = 12.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = buttonText,
+                color = Theme.colors.background,
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium
+            )
         }
     }
 }
@@ -739,4 +833,40 @@ private fun SyncStatusRow(
             )
         }
     }
+}
+
+/**
+ * Dialog shown when device access was revoked from web.
+ */
+@Composable
+private fun DeviceRevokedDialog(
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                text = "Device Disconnected",
+                fontWeight = FontWeight.SemiBold
+            )
+        },
+        text = {
+            Text(
+                text = "This device was disconnected from your account. You'll need to sign in again to sync your rides.",
+                lineHeight = 20.sp
+            )
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(
+                    text = "OK",
+                    color = Theme.colors.optimal,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+        },
+        containerColor = Theme.colors.surface,
+        titleContentColor = Theme.colors.text,
+        textContentColor = Theme.colors.dim
+    )
 }

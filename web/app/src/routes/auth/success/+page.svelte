@@ -16,12 +16,19 @@
       return;
     }
 
-    // Store tokens and redirect to dashboard
+    // Store tokens
     auth.login(accessToken, refreshToken);
 
     // Clear tokens from URL (security)
     window.history.replaceState({}, '', '/');
-    goto('/');
+
+    // Check if user was linking a device - redirect back to /link to complete authorization
+    const deviceLinkCode = sessionStorage.getItem('device_link_code');
+    if (deviceLinkCode) {
+      goto('/link');
+    } else {
+      goto('/');
+    }
   });
 </script>
 

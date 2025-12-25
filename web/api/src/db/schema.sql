@@ -109,3 +109,70 @@ CREATE TABLE IF NOT EXISTS achievements (
 
 -- Index for achievements
 CREATE INDEX IF NOT EXISTS idx_achievements_user_id ON achievements(user_id);
+
+-- Device Code Flow (for linking devices without Google Play Services)
+CREATE TABLE IF NOT EXISTS device_codes (
+    device_code TEXT PRIMARY KEY,
+    user_code TEXT UNIQUE NOT NULL,
+    device_id TEXT NOT NULL,
+    device_name TEXT NOT NULL DEFAULT 'Karoo',
+    status TEXT NOT NULL DEFAULT 'pending',  -- pending | authorized
+    user_id TEXT,                             -- Set when authorized
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    expires_at TEXT NOT NULL
+);
+
+-- Index for user_code lookup
+CREATE INDEX IF NOT EXISTS idx_device_codes_user_code ON device_codes(user_code);
+-- Index for device_id lookup (to reuse existing codes)
+CREATE INDEX IF NOT EXISTS idx_device_codes_device_id ON device_codes(device_id);
+-- Index for cleanup of expired codes
+CREATE INDEX IF NOT EXISTS idx_device_codes_expires_at ON device_codes(expires_at);
+
+-- User settings (synced from devices and web)
+CREATE TABLE IF NOT EXISTS user_settings (
+    user_id TEXT PRIMARY KEY,
+
+    -- Threshold settings
+    balance_threshold INTEGER NOT NULL DEFAULT 5,    -- ±% for balance alerts
+    te_optimal_min INTEGER NOT NULL DEFAULT 70,      -- TE optimal range min
+    te_optimal_max INTEGER NOT NULL DEFAULT 80,      -- TE optimal range max
+    ps_minimum INTEGER NOT NULL DEFAULT 20,          -- PS minimum threshold
+
+    -- Alert settings - Global
+    alerts_enabled INTEGER NOT NULL DEFAULT 1,       -- Master switch
+    screen_wake_on_alert INTEGER NOT NULL DEFAULT 1,
+
+    -- Alert settings - Balance
+    balance_alert_enabled INTEGER NOT NULL DEFAULT 1,
+    balance_alert_trigger TEXT NOT NULL DEFAULT 'PROBLEM_ONLY',
+    balance_alert_visual INTEGER NOT NULL DEFAULT 1,
+    balance_alert_sound INTEGER NOT NULL DEFAULT 0,
+    balance_alert_vibration INTEGER NOT NULL DEFAULT 1,
+    balance_alert_cooldown INTEGER NOT NULL DEFAULT 30,
+
+    -- Alert settings - TE
+    te_alert_enabled INTEGER NOT NULL DEFAULT 1,
+    te_alert_trigger TEXT NOT NULL DEFAULT 'PROBLEM_ONLY',
+    te_alert_visual INTEGER NOT NULL DEFAULT 1,
+    te_alert_sound INTEGER NOT NULL DEFAULT 0,
+    te_alert_vibration INTEGER NOT NULL DEFAULT 1,
+    te_alert_cooldown INTEGER NOT NULL DEFAULT 30,
+
+    -- Alert settings - PS
+    ps_alert_enabled INTEGER NOT NULL DEFAULT 1,
+    ps_alert_trigger TEXT NOT NULL DEFAULT 'PROBLEM_ONLY',
+    ps_alert_visual INTEGER NOT NULL DEFAULT 1,
+    ps_alert_sound INTEGER NOT NULL DEFAULT 0,
+    ps_alert_vibration INTEGER NOT NULL DEFAULT 1,
+    ps_alert_cooldown INTEGER NOT NULL DEFAULT 30,
+
+    -- Sync settings
+    background_mode_enabled INTEGER NOT NULL DEFAULT 1,
+    auto_sync_enabled INTEGER NOT NULL DEFAULT 1,
+
+    -- Metadata
+    updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

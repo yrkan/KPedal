@@ -55,6 +55,7 @@ class SyncStateTest {
             assertThat(state.pendingCount).isEqualTo(0)
             assertThat(state.lastSyncTimestamp).isEqualTo(0L)
             assertThat(state.errorMessage).isNull()
+            assertThat(state.deviceRevoked).isFalse()
         }
 
         @Test
@@ -215,6 +216,101 @@ class SyncStateTest {
             val longMessage = "E".repeat(1000)
             val state = SyncState(errorMessage = longMessage)
             assertThat(state.errorMessage).hasLength(1000)
+        }
+    }
+
+    @Nested
+    @DisplayName("Device Revocation")
+    inner class DeviceRevocationTests {
+
+        @Test
+        fun `deviceRevoked is false by default`() {
+            val state = SyncState()
+            assertThat(state.deviceRevoked).isFalse()
+        }
+
+        @Test
+        fun `can set deviceRevoked to true`() {
+            val state = SyncState(deviceRevoked = true)
+            assertThat(state.deviceRevoked).isTrue()
+        }
+
+        @Test
+        fun `device revocation sets status to FAILED`() {
+            val state = SyncState(status = SyncStatus.IDLE)
+            val revoked = state.copy(
+                status = SyncStatus.FAILED,
+                deviceRevoked = true,
+                errorMessage = "Device access revoked"
+            )
+
+            assertThat(revoked.status).isEqualTo(SyncStatus.FAILED)
+            assertThat(revoked.deviceRevoked).isTrue()
+            assertThat(revoked.errorMessage).isEqualTo("Device access revoked")
+        }
+
+        @Test
+        fun `deviceRevoked can be cleared`() {
+            val revoked = SyncState(deviceRevoked = true)
+            val cleared = revoked.copy(deviceRevoked = false)
+
+            assertThat(cleared.deviceRevoked).isFalse()
+        }
+
+        @Test
+        fun `deviceRevoked is independent of other state`() {
+            val state = SyncState(
+                status = SyncStatus.SYNCING,
+                pendingCount = 5,
+                lastSyncTimestamp = 1000L,
+                errorMessage = null,
+                deviceRevoked = true
+            )
+
+            assertThat(state.deviceRevoked).isTrue()
+            assertThat(state.status).isEqualTo(SyncStatus.SYNCING)
+            assertThat(state.pendingCount).isEqualTo(5)
+        }
+
+        @Test
+        fun `copy preserves deviceRevoked when not specified`() {
+            val original = SyncState(deviceRevoked = true)
+            val copied = original.copy(status = SyncStatus.OFFLINE)
+
+            assertThat(copied.deviceRevoked).isTrue()
+            assertThat(copied.status).isEqualTo(SyncStatus.OFFLINE)
+        }
+
+        @Test
+        fun `revoked state triggers logout flow`() {
+            // Simulates what happens when handleDeviceRevoked() is called
+            val syncing = SyncState(status = SyncStatus.SYNCING, pendingCount = 3)
+
+            // After revocation
+            val afterRevoke = syncing.copy(
+                status = SyncStatus.FAILED,
+                deviceRevoked = true,
+                errorMessage = "Device access revoked"
+            )
+
+            assertThat(afterRevoke.deviceRevoked).isTrue()
+            assertThat(afterRevoke.status).isEqualTo(SyncStatus.FAILED)
+
+            // After user acknowledges (clears flag)
+            val afterAck = afterRevoke.copy(deviceRevoked = false)
+            assertThat(afterAck.deviceRevoked).isFalse()
+            // Status remains FAILED until next sync attempt
+            assertThat(afterAck.status).isEqualTo(SyncStatus.FAILED)
+        }
+
+        @Test
+        fun `equals considers deviceRevoked`() {
+            val state1 = SyncState(status = SyncStatus.IDLE, deviceRevoked = true)
+            val state2 = SyncState(status = SyncStatus.IDLE, deviceRevoked = true)
+            val state3 = SyncState(status = SyncStatus.IDLE, deviceRevoked = false)
+
+            assertThat(state1).isEqualTo(state2)
+            assertThat(state1).isNotEqualTo(state3)
         }
     }
 }

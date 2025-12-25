@@ -215,8 +215,11 @@ fun KPedalApp(
                 onCancelDeviceAuth = viewModel::cancelDeviceAuth,
                 onSignOut = viewModel::signOut,
                 onManualSync = viewModel::triggerManualSync,
+                onFullSync = viewModel::triggerFullSync,
                 onUpdateBackgroundMode = viewModel::updateBackgroundModeEnabled,
-                onUpdateAutoSync = viewModel::updateAutoSyncEnabled
+                onUpdateAutoSync = viewModel::updateAutoSyncEnabled,
+                onCheckSyncRequest = viewModel::checkForSyncRequest,
+                onDeviceRevokedAcknowledged = viewModel::clearDeviceRevokedFlag
             )
         }
 

@@ -74,4 +74,51 @@ export interface ApiResponse<T = unknown> {
   data?: T;
   error?: string;
   message?: string;
+  code?: string;  // Error code for specific handling (e.g., 'DEVICE_REVOKED')
+}
+
+/**
+ * User settings (synced between devices and web)
+ */
+export interface UserSettings {
+  // Threshold settings
+  balance_threshold: number;
+  te_optimal_min: number;
+  te_optimal_max: number;
+  ps_minimum: number;
+
+  // Alert settings - Global
+  alerts_enabled: boolean;
+  screen_wake_on_alert: boolean;
+
+  // Alert settings - Balance
+  balance_alert_enabled: boolean;
+  balance_alert_trigger: 'PROBLEM_ONLY' | 'ATTENTION_AND_PROBLEM';
+  balance_alert_visual: boolean;
+  balance_alert_sound: boolean;
+  balance_alert_vibration: boolean;
+  balance_alert_cooldown: number;
+
+  // Alert settings - TE
+  te_alert_enabled: boolean;
+  te_alert_trigger: 'PROBLEM_ONLY' | 'ATTENTION_AND_PROBLEM';
+  te_alert_visual: boolean;
+  te_alert_sound: boolean;
+  te_alert_vibration: boolean;
+  te_alert_cooldown: number;
+
+  // Alert settings - PS
+  ps_alert_enabled: boolean;
+  ps_alert_trigger: 'PROBLEM_ONLY' | 'ATTENTION_AND_PROBLEM';
+  ps_alert_visual: boolean;
+  ps_alert_sound: boolean;
+  ps_alert_vibration: boolean;
+  ps_alert_cooldown: number;
+
+  // Sync settings
+  background_mode_enabled: boolean;
+  auto_sync_enabled: boolean;
+
+  // Metadata
+  updated_at?: string;
 }

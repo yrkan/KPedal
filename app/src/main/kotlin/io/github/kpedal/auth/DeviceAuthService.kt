@@ -28,8 +28,10 @@ class DeviceAuthService(
 ) {
     companion object {
         private const val TAG = "DeviceAuthService"
-        private const val DEFAULT_POLL_INTERVAL_MS = 5000L
-        private const val MAX_POLL_ATTEMPTS = 120 // 10 min at 5 sec intervals
+        private const val INITIAL_POLL_INTERVAL_MS = 5000L // Poll every 5 sec (D1 has immediate consistency)
+        private const val MAX_POLL_INTERVAL_MS = 8000L // Max 8 sec with backoff
+        private const val BACKOFF_AFTER_ATTEMPTS = 20 // Start backing off after 20 attempts (~1.5 min)
+        private const val MAX_POLL_ATTEMPTS = 120 // 10 min with current settings
         private val gson = Gson()
     }
 
@@ -77,7 +79,7 @@ class DeviceAuthService(
     val state: StateFlow<DeviceAuthState> = _state.asStateFlow()
 
     private var currentDeviceCode: String? = null
-    private var pollIntervalMs: Long = DEFAULT_POLL_INTERVAL_MS
+    private var pollIntervalMs: Long = INITIAL_POLL_INTERVAL_MS
     private var isPolling = false
 
     /**
@@ -86,6 +88,7 @@ class DeviceAuthService(
      */
     suspend fun startAuthFlow(): DeviceCodeData? {
         _state.value = DeviceAuthState.RequestingCode
+        pollIntervalMs = INITIAL_POLL_INTERVAL_MS // Reset interval for new flow
 
         return try {
             val deviceId = authRepository.getOrCreateDeviceId()
@@ -253,8 +256,14 @@ class DeviceAuthService(
                 // Continue polling on network errors
             }
 
-            // Wait before next poll
+            // Wait before next poll with progressive backoff
             delay(pollIntervalMs)
+
+            // Increase interval after initial attempts (5 sec -> 6 sec -> 7 sec -> 8 sec)
+            if (attempts >= BACKOFF_AFTER_ATTEMPTS && pollIntervalMs < MAX_POLL_INTERVAL_MS) {
+                pollIntervalMs = minOf(pollIntervalMs + 1000L, MAX_POLL_INTERVAL_MS)
+                android.util.Log.d(TAG, "Backing off, new interval: ${pollIntervalMs}ms")
+            }
         }
 
         if (attempts >= MAX_POLL_ATTEMPTS) {

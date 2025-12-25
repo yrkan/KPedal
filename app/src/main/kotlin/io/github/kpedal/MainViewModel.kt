@@ -72,19 +72,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val customDrillRepository = CustomDrillRepository(application)
     private val analyticsRepository = AnalyticsRepository(application)
     private val achievementRepository = AchievementRepository(application)
-    private val authRepository = AuthRepository(application)
-    private val syncService = SyncService(
-        context = application,
-        authRepository = authRepository,
-        rideDao = KPedalDatabase.getInstance(application).rideDao(),
-        preferencesRepository = preferencesRepository
-    )
+
+    // Use AuthRepository from Extension when available, fallback to local
+    private val authRepository: AuthRepository
+        get() = KPedalExtension.instance?.authRepository ?: _localAuthRepository
+    private val _localAuthRepository = AuthRepository(application)
+
+    // Use SyncService from Extension (singleton) - avoids duplicate observers
+    private val syncService: SyncService?
+        get() = KPedalExtension.instance?.syncService
+
     private val achievementChecker = AchievementChecker(
         achievementRepository = achievementRepository,
         rideRepository = rideRepository,
         drillRepository = drillRepository
     )
-    private val deviceAuthService = DeviceAuthService(authRepository)
+    private val deviceAuthService by lazy { DeviceAuthService(authRepository) }
 
     // Vibrator for drill haptic feedback
     private val vibrator: Vibrator? by lazy {
@@ -126,23 +129,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * Authentication state (reactive).
+     * Uses currentState as initialValue to prevent flash of "Link Account" on open.
      */
     val authState: StateFlow<AuthRepository.AuthState> = authRepository.authStateFlow
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = AuthRepository.AuthState()
+            initialValue = authRepository.currentState
         )
 
     /**
      * Sync state (reactive).
+     * Observes Extension's SyncService when available.
      */
-    val syncState: StateFlow<SyncService.SyncState> = syncService.syncStateFlow
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = SyncService.SyncState()
-        )
+    private val _syncState = MutableStateFlow(SyncService.SyncState())
+    val syncState: StateFlow<SyncService.SyncState> = _syncState.asStateFlow()
 
     /**
      * Device auth flow state (reactive).
@@ -286,6 +287,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } catch (e: Exception) {
                 android.util.Log.w(TAG, "Pedal info observation cancelled: ${e.message}")
+            }
+        }
+
+        // Sync state (from Extension's SyncService)
+        launch {
+            try {
+                extension.syncService.syncStateFlow.collect { state ->
+                    _syncState.value = state
+                }
+            } catch (e: Exception) {
+                android.util.Log.w(TAG, "Sync state observation cancelled: ${e.message}")
             }
         }
     }
@@ -779,6 +791,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * Start device code authentication flow.
      * Requests device code and starts polling for authorization.
+     * After successful auth, syncs any pending rides.
      */
     fun startDeviceAuth() {
         deviceAuthJob?.cancel()
@@ -788,7 +801,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val codeData = deviceAuthService.startAuthFlow()
                 if (codeData != null) {
                     // Start polling for token
-                    deviceAuthService.startPolling()
+                    val tokenData = deviceAuthService.startPolling()
+
+                    // If auth was successful, sync pending rides immediately
+                    if (tokenData != null) {
+                        android.util.Log.i(TAG, "Auth successful, syncing pending rides...")
+                        val synced = syncService?.syncPendingRides() ?: 0
+                        android.util.Log.i(TAG, "Post-auth sync: $synced rides synced")
+                    }
                 }
             } catch (e: Exception) {
                 if (e is kotlinx.coroutines.CancellationException) throw e
@@ -838,9 +858,39 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun triggerManualSync() {
         viewModelScope.launch {
-            val synced = syncService.syncPendingRides()
+            val synced = syncService?.syncPendingRides() ?: 0
             android.util.Log.i(TAG, "Manual sync completed: $synced rides synced")
         }
+    }
+
+    /**
+     * Trigger full sync: upload local settings, sync rides, fetch cloud settings.
+     */
+    fun triggerFullSync() {
+        viewModelScope.launch {
+            syncService?.fullSync()
+            android.util.Log.i(TAG, "Full sync completed")
+        }
+    }
+
+    /**
+     * Check for pending sync request from web dashboard.
+     * Call this when Settings is opened.
+     */
+    fun checkForSyncRequest() {
+        viewModelScope.launch {
+            val triggered = syncService?.checkAndHandleSyncRequest() ?: false
+            if (triggered) {
+                android.util.Log.i(TAG, "Sync triggered by web request")
+            }
+        }
+    }
+
+    /**
+     * Clear the device revoked flag after user acknowledges.
+     */
+    fun clearDeviceRevokedFlag() {
+        syncService?.clearDeviceRevokedFlag()
     }
 
     /**

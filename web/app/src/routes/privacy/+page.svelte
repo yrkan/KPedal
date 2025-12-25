@@ -190,6 +190,36 @@
           </div>
         </div>
 
+        <h3>User Settings (Synced if Signed In)</h3>
+        <p>When signed in, your app settings are synced between your Karoo device and web dashboard:</p>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-field">Threshold Settings</span>
+            <span class="data-purpose">Balance threshold, TE optimal range, PS minimum</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Alert Preferences</span>
+            <span class="data-purpose">Which metrics trigger alerts, vibration/sound/visual options</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Alert Cooldowns</span>
+            <span class="data-purpose">Time between repeated alerts (seconds)</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Screen Wake</span>
+            <span class="data-purpose">Whether alerts wake the Karoo screen</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Background Mode</span>
+            <span class="data-purpose">Collect data even when data field is hidden</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Auto-Sync</span>
+            <span class="data-purpose">Automatically sync rides after completion</span>
+          </div>
+        </div>
+        <p class="note">Settings sync allows you to configure thresholds on the web and have them apply on your Karoo automatically. If not signed in, settings remain local only.</p>
+
         <h3>Data Stored Only on Your Karoo (Never Synced)</h3>
         <p>The following data is stored locally on your Karoo device and is <strong>never</strong> sent to our servers:</p>
         <div class="data-table">
@@ -212,10 +242,6 @@
           <div class="data-row">
             <span class="data-field">Custom Drills</span>
             <span class="data-purpose">Training drills you create yourself</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">App Settings</span>
-            <span class="data-purpose">Thresholds, alert preferences, vibration/sound settings</span>
           </div>
           <div class="data-row">
             <span class="data-field">Onboarding Status</span>
@@ -361,7 +387,7 @@
             <div class="flow-number">3</div>
             <div class="flow-content">
               <h4>Cloud Sync (Optional)</h4>
-              <p>If signed in, ride summaries are synced to KPedal cloud via HTTPS. Only aggregated data is sent — no raw sensor streams.</p>
+              <p>If signed in, ride summaries and settings are synced to KPedal cloud via HTTPS. Only aggregated data is sent — no raw sensor streams. Settings changes on web are automatically applied to your Karoo.</p>
             </div>
           </div>
           <div class="flow-arrow">
@@ -437,6 +463,10 @@
           <div class="retention-row">
             <span class="retention-data">Ride data</span>
             <span class="retention-period">Until you delete it</span>
+          </div>
+          <div class="retention-row">
+            <span class="retention-data">User settings</span>
+            <span class="retention-period">Until account deletion</span>
           </div>
           <div class="retention-row">
             <span class="retention-data">Account data</span>

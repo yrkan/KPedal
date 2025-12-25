@@ -4,21 +4,37 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import io.github.kpedal.api.ApiClient
+import io.github.kpedal.api.CloudSettings
 import io.github.kpedal.api.RefreshRequest
+import io.github.kpedal.api.SyncResponse
 import io.github.kpedal.api.SyncRideRequest
 import io.github.kpedal.data.database.RideDao
 import io.github.kpedal.data.database.RideEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 /**
  * Service for syncing ride data to cloud.
+ *
+ * Sync strategy:
+ * - App settings changes → auto-upload to cloud (debounced)
+ * - Sync button → pull from cloud only
+ * - Ride start → pull from cloud (get latest web changes)
  */
+@OptIn(FlowPreview::class)
 class SyncService(
     private val context: Context,
     private val authRepository: AuthRepository,
@@ -37,7 +53,8 @@ class SyncService(
         val status: SyncStatus = SyncStatus.IDLE,
         val pendingCount: Int = 0,
         val lastSyncTimestamp: Long = 0,
-        val errorMessage: String? = null
+        val errorMessage: String? = null,
+        val deviceRevoked: Boolean = false
     )
 
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -54,6 +71,15 @@ class SyncService(
      */
     val currentState: SyncState get() = _syncState.value
 
+    companion object {
+        private const val TAG = "SyncService"
+        private const val SETTINGS_UPLOAD_DEBOUNCE_MS = 2000L // 2 seconds debounce
+    }
+
+    // Flag to prevent upload loop when applying cloud settings
+    @Volatile
+    private var isApplyingCloudSettings = false
+
     init {
         // Collect pending count and update state
         scope.launch {
@@ -67,10 +93,95 @@ class SyncService(
                 _syncState.value = _syncState.value.copy(lastSyncTimestamp = timestamp)
             }
         }
+        // Auto-upload settings when they change (debounced)
+        scope.launch {
+            combine(
+                preferencesRepository.settingsFlow,
+                preferencesRepository.alertSettingsFlow,
+                preferencesRepository.backgroundModeEnabledFlow,
+                preferencesRepository.autoSyncEnabledFlow
+            ) { settings, alertSettings, backgroundMode, autoSync ->
+                // Combine into a single object for change detection
+                SettingsSnapshot(settings, alertSettings, backgroundMode, autoSync)
+            }
+                .distinctUntilChanged()
+                .drop(1) // Skip initial emission (don't upload on app start)
+                .debounce(SETTINGS_UPLOAD_DEBOUNCE_MS)
+                .collect {
+                    // Skip upload if we're applying cloud settings (prevents loop)
+                    if (isApplyingCloudSettings) {
+                        android.util.Log.d(TAG, "Skipping upload - applying cloud settings")
+                        return@collect
+                    }
+                    if (authRepository.isLoggedIn && isNetworkAvailable()) {
+                        val uploaded = uploadSettings()
+                        android.util.Log.i(TAG, "Auto-uploaded settings on change: $uploaded")
+                    }
+                }
+        }
+    }
+
+    /**
+     * Snapshot of all settings for change detection.
+     */
+    private data class SettingsSnapshot(
+        val settings: PreferencesRepository.Settings,
+        val alertSettings: AlertSettings,
+        val backgroundMode: Boolean,
+        val autoSync: Boolean
+    )
+
+    /**
+     * Full sync: pull settings from cloud + sync pending rides.
+     * Use this for manual "Sync" button.
+     *
+     * Note: Local settings are auto-uploaded on change, so this only pulls.
+     */
+    suspend fun fullSync() {
+        if (!authRepository.isLoggedIn) {
+            return
+        }
+
+        if (!isNetworkAvailable()) {
+            _syncState.value = _syncState.value.copy(
+                status = SyncStatus.OFFLINE,
+                errorMessage = "No network connection"
+            )
+            return
+        }
+
+        _syncState.value = _syncState.value.copy(
+            status = SyncStatus.SYNCING,
+            errorMessage = null
+        )
+
+        try {
+            // 1. Pull latest settings from cloud (web is source of truth on manual sync)
+            val fetched = fetchSettings()
+            android.util.Log.i(TAG, "Fetched settings from cloud: $fetched")
+
+            // 2. Sync pending rides to cloud
+            val syncedCount = syncPendingRidesInternal()
+            android.util.Log.i(TAG, "Synced $syncedCount rides")
+
+            _syncState.value = _syncState.value.copy(
+                status = SyncStatus.SUCCESS,
+                lastSyncTimestamp = System.currentTimeMillis()
+            )
+
+            preferencesRepository.updateLastSyncTimestamp(System.currentTimeMillis())
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "Full sync failed: ${e.message}")
+            _syncState.value = _syncState.value.copy(
+                status = SyncStatus.FAILED,
+                errorMessage = e.message
+            )
+        }
     }
 
     /**
      * Sync all pending rides to cloud.
+     * Updates sync state during operation.
      * @return Number of rides successfully synced
      */
     suspend fun syncPendingRides(): Int {
@@ -91,23 +202,12 @@ class SyncService(
             errorMessage = null
         )
 
-        val pendingRides = rideDao.getPendingRides()
-        if (pendingRides.isEmpty()) {
-            _syncState.value = _syncState.value.copy(status = SyncStatus.IDLE)
-            return 0
-        }
+        val successCount = syncPendingRidesInternal()
 
-        var successCount = 0
-        for (ride in pendingRides) {
-            if (syncRide(ride)) {
-                successCount++
-            }
-        }
-
-        val finalStatus = if (successCount == pendingRides.size) {
+        val finalStatus = if (successCount > 0) {
             SyncStatus.SUCCESS
-        } else if (successCount > 0) {
-            SyncStatus.SUCCESS // Partial success
+        } else if (rideDao.getPendingRides().isEmpty()) {
+            SyncStatus.IDLE
         } else {
             SyncStatus.FAILED
         }
@@ -117,6 +217,26 @@ class SyncService(
         }
 
         _syncState.value = _syncState.value.copy(status = finalStatus)
+
+        return successCount
+    }
+
+    /**
+     * Internal method for syncing pending rides without state updates.
+     * @return Number of rides successfully synced
+     */
+    private suspend fun syncPendingRidesInternal(): Int {
+        val pendingRides = rideDao.getPendingRides()
+        if (pendingRides.isEmpty()) {
+            return 0
+        }
+
+        var successCount = 0
+        for (ride in pendingRides) {
+            if (syncRide(ride)) {
+                successCount++
+            }
+        }
 
         return successCount
     }
@@ -164,6 +284,10 @@ class SyncService(
             if (response.isSuccessful && response.body()?.success == true) {
                 rideDao.markAsSynced(ride.id)
                 true
+            } else if (response.code() == 403 && response.body()?.code == SyncResponse.CODE_DEVICE_REVOKED) {
+                // Device was revoked from web - logout
+                handleDeviceRevoked()
+                false
             } else if (response.code() == 401) {
                 // Token expired, try refresh
                 if (refreshToken()) {
@@ -177,6 +301,9 @@ class SyncService(
                     if (retryResponse.isSuccessful && retryResponse.body()?.success == true) {
                         rideDao.markAsSynced(ride.id)
                         true
+                    } else if (retryResponse.code() == 403 && retryResponse.body()?.code == SyncResponse.CODE_DEVICE_REVOKED) {
+                        handleDeviceRevoked()
+                        false
                     } else {
                         rideDao.markAsSyncFailed(ride.id)
                         false
@@ -218,13 +345,18 @@ class SyncService(
 
     /**
      * Refresh access token using refresh token.
+     * Sends device_id to verify device is still authorized.
      * @return true if refresh was successful
      */
     private suspend fun refreshToken(): Boolean {
         val refreshToken = authRepository.getRefreshToken() ?: return false
+        val deviceId = authRepository.getOrCreateDeviceId()
 
         return try {
-            val response = ApiClient.authService.refreshToken(RefreshRequest(refreshToken))
+            val response = ApiClient.authService.refreshToken(
+                deviceId = deviceId,
+                request = RefreshRequest(refreshToken)
+            )
             if (response.isSuccessful && response.body()?.success == true) {
                 val newAccessToken = response.body()?.data?.access_token
                 if (newAccessToken != null) {
@@ -233,6 +365,10 @@ class SyncService(
                 } else {
                     false
                 }
+            } else if (response.code() == 403 && response.body()?.code == io.github.kpedal.api.RefreshResponse.CODE_DEVICE_REVOKED) {
+                // Device was revoked from web - handle revocation
+                handleDeviceRevoked()
+                false
             } else {
                 // Refresh token invalid, user needs to re-login
                 authRepository.clearAuth()
@@ -243,10 +379,283 @@ class SyncService(
         }
     }
 
+    /**
+     * Check if a sync was requested from the web dashboard.
+     * If so, triggers a sync immediately.
+     * Also fetches latest settings from cloud.
+     * @return true if sync was triggered
+     */
+    suspend fun checkAndHandleSyncRequest(): Boolean {
+        if (!authRepository.isLoggedIn) {
+            return false
+        }
+
+        if (!isNetworkAvailable()) {
+            return false
+        }
+
+        val accessToken = authRepository.getAccessToken() ?: run {
+            if (!refreshToken()) return false
+            authRepository.getAccessToken() ?: return false
+        }
+
+        val deviceId = authRepository.getOrCreateDeviceId()
+
+        // Fetch and apply cloud settings on each heartbeat
+        fetchAndApplySettings(accessToken)
+
+        return try {
+            val response = ApiClient.syncService.checkSyncRequest(
+                token = "Bearer $accessToken",
+                deviceId = deviceId
+            )
+
+            if (response.isSuccessful && response.body()?.data?.syncRequested == true) {
+                // Sync was requested! Trigger sync immediately
+                syncPendingRides()
+                true
+            } else if (response.code() == 403 && response.body()?.code == SyncResponse.CODE_DEVICE_REVOKED) {
+                // Device was revoked from web - logout
+                handleDeviceRevoked()
+                false
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    /**
+     * Fetch settings from cloud and apply them locally.
+     * Public method for explicit settings sync (e.g., on ride start).
+     * @return true if settings were fetched and applied successfully
+     */
+    suspend fun fetchSettings(): Boolean {
+        if (!authRepository.isLoggedIn) {
+            return false
+        }
+
+        if (!isNetworkAvailable()) {
+            return false
+        }
+
+        val accessToken = authRepository.getAccessToken() ?: run {
+            if (!refreshToken()) return false
+            authRepository.getAccessToken() ?: return false
+        }
+
+        return fetchAndApplySettings(accessToken)
+    }
+
+    /**
+     * Fetch settings from cloud and apply them locally.
+     * This is called on heartbeat to get settings changed on web.
+     * @return true if settings were fetched successfully
+     */
+    private suspend fun fetchAndApplySettings(accessToken: String): Boolean {
+        return try {
+            val response = ApiClient.syncService.getSettings("Bearer $accessToken")
+            if (response.isSuccessful && response.body()?.success == true) {
+                val cloudSettings = response.body()?.data?.settings
+                if (cloudSettings != null) {
+                    applyCloudSettings(cloudSettings)
+                    true
+                } else {
+                    false
+                }
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            android.util.Log.w("SyncService", "Failed to fetch settings: ${e.message}")
+            false
+        }
+    }
+
+    /**
+     * Apply cloud settings to local preferences.
+     */
+    private suspend fun applyCloudSettings(settings: CloudSettings) {
+        // Set flag to prevent auto-upload loop
+        isApplyingCloudSettings = true
+
+        try {
+            // Thresholds
+            preferencesRepository.updateBalanceThreshold(settings.balance_threshold)
+            preferencesRepository.updateTeOptimalRange(settings.te_optimal_min, settings.te_optimal_max)
+            preferencesRepository.updatePsMinimum(settings.ps_minimum)
+
+            // Global alerts
+            preferencesRepository.updateGlobalAlertsEnabled(settings.alerts_enabled)
+            preferencesRepository.updateScreenWakeOnAlert(settings.screen_wake_on_alert)
+
+            // Balance alerts
+            preferencesRepository.updateBalanceAlertConfig(
+                MetricAlertConfig(
+                    enabled = settings.balance_alert_enabled,
+                    triggerLevel = try {
+                        AlertTriggerLevel.valueOf(settings.balance_alert_trigger)
+                    } catch (e: Exception) {
+                        AlertTriggerLevel.PROBLEM_ONLY
+                    },
+                    visualAlert = settings.balance_alert_visual,
+                    soundAlert = settings.balance_alert_sound,
+                    vibrationAlert = settings.balance_alert_vibration,
+                    cooldownSeconds = settings.balance_alert_cooldown
+                )
+            )
+
+            // TE alerts
+            preferencesRepository.updateTeAlertConfig(
+                MetricAlertConfig(
+                    enabled = settings.te_alert_enabled,
+                    triggerLevel = try {
+                        AlertTriggerLevel.valueOf(settings.te_alert_trigger)
+                    } catch (e: Exception) {
+                        AlertTriggerLevel.PROBLEM_ONLY
+                    },
+                    visualAlert = settings.te_alert_visual,
+                    soundAlert = settings.te_alert_sound,
+                    vibrationAlert = settings.te_alert_vibration,
+                    cooldownSeconds = settings.te_alert_cooldown
+                )
+            )
+
+            // PS alerts
+            preferencesRepository.updatePsAlertConfig(
+                MetricAlertConfig(
+                    enabled = settings.ps_alert_enabled,
+                    triggerLevel = try {
+                        AlertTriggerLevel.valueOf(settings.ps_alert_trigger)
+                    } catch (e: Exception) {
+                        AlertTriggerLevel.PROBLEM_ONLY
+                    },
+                    visualAlert = settings.ps_alert_visual,
+                    soundAlert = settings.ps_alert_sound,
+                    vibrationAlert = settings.ps_alert_vibration,
+                    cooldownSeconds = settings.ps_alert_cooldown
+                )
+            )
+
+            // Sync settings
+            preferencesRepository.updateBackgroundModeEnabled(settings.background_mode_enabled)
+            preferencesRepository.updateAutoSyncEnabled(settings.auto_sync_enabled)
+
+            android.util.Log.i(TAG, "Applied cloud settings")
+        } finally {
+            // Clear flag after a delay to allow debounce to skip
+            delay(SETTINGS_UPLOAD_DEBOUNCE_MS + 500)
+            isApplyingCloudSettings = false
+        }
+    }
+
+    /**
+     * Upload current local settings to cloud.
+     * Call this after settings are changed locally.
+     */
+    suspend fun uploadSettings(): Boolean {
+        if (!authRepository.isLoggedIn) {
+            return false
+        }
+
+        if (!isNetworkAvailable()) {
+            return false
+        }
+
+        val accessToken = authRepository.getAccessToken() ?: run {
+            if (!refreshToken()) return false
+            authRepository.getAccessToken() ?: return false
+        }
+
+        return try {
+            // Collect current settings
+            val settings = collectLocalSettings()
+
+            val response = ApiClient.syncService.updateSettings(
+                token = "Bearer $accessToken",
+                settings = settings
+            )
+
+            response.isSuccessful && response.body()?.success == true
+        } catch (e: Exception) {
+            android.util.Log.w("SyncService", "Failed to upload settings: ${e.message}")
+            false
+        }
+    }
+
+    /**
+     * Collect current local settings into CloudSettings object.
+     */
+    private suspend fun collectLocalSettings(): CloudSettings {
+        // Get current settings from preferences using .first() to get single value
+        val settings = preferencesRepository.settingsFlow.first()
+        val alertSettings = preferencesRepository.alertSettingsFlow.first()
+        val backgroundMode = preferencesRepository.backgroundModeEnabledFlow.first()
+        val autoSync = preferencesRepository.autoSyncEnabledFlow.first()
+
+        return CloudSettings(
+            balance_threshold = settings.balanceThreshold,
+            te_optimal_min = settings.teOptimalMin,
+            te_optimal_max = settings.teOptimalMax,
+            ps_minimum = settings.psMinimum,
+            alerts_enabled = alertSettings.globalEnabled,
+            screen_wake_on_alert = alertSettings.screenWakeOnAlert,
+            balance_alert_enabled = alertSettings.balanceConfig.enabled,
+            balance_alert_trigger = alertSettings.balanceConfig.triggerLevel.name,
+            balance_alert_visual = alertSettings.balanceConfig.visualAlert,
+            balance_alert_sound = alertSettings.balanceConfig.soundAlert,
+            balance_alert_vibration = alertSettings.balanceConfig.vibrationAlert,
+            balance_alert_cooldown = alertSettings.balanceConfig.cooldownSeconds,
+            te_alert_enabled = alertSettings.teConfig.enabled,
+            te_alert_trigger = alertSettings.teConfig.triggerLevel.name,
+            te_alert_visual = alertSettings.teConfig.visualAlert,
+            te_alert_sound = alertSettings.teConfig.soundAlert,
+            te_alert_vibration = alertSettings.teConfig.vibrationAlert,
+            te_alert_cooldown = alertSettings.teConfig.cooldownSeconds,
+            ps_alert_enabled = alertSettings.psConfig.enabled,
+            ps_alert_trigger = alertSettings.psConfig.triggerLevel.name,
+            ps_alert_visual = alertSettings.psConfig.visualAlert,
+            ps_alert_sound = alertSettings.psConfig.soundAlert,
+            ps_alert_vibration = alertSettings.psConfig.vibrationAlert,
+            ps_alert_cooldown = alertSettings.psConfig.cooldownSeconds,
+            background_mode_enabled = backgroundMode,
+            auto_sync_enabled = autoSync
+        )
+    }
+
+    /**
+     * Handle device revocation - clear auth and notify UI.
+     */
+    private fun handleDeviceRevoked() {
+        android.util.Log.w("SyncService", "Device was revoked from web, logging out")
+        authRepository.clearAuth()
+        _syncState.value = _syncState.value.copy(
+            status = SyncStatus.FAILED,
+            deviceRevoked = true,
+            errorMessage = "Device access revoked"
+        )
+    }
+
+    /**
+     * Clear the device revoked flag (after UI has shown message).
+     */
+    fun clearDeviceRevokedFlag() {
+        _syncState.value = _syncState.value.copy(deviceRevoked = false)
+    }
+
     private fun isNetworkAvailable(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    /**
+     * Clean up resources. Call when service is no longer needed.
+     */
+    fun destroy() {
+        scope.cancel()
+        android.util.Log.i(TAG, "SyncService destroyed")
     }
 }

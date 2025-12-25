@@ -6,6 +6,8 @@ import { Env, ApiResponse } from './types/env';
 import { authRoutes } from './auth/routes';
 import { ridesRoutes } from './api/rides';
 import { syncRoutes } from './api/sync';
+import { devicesRoutes } from './api/devices';
+import { settingsRoutes } from './api/settings';
 import { authMiddleware } from './middleware/auth';
 import { authRateLimit, apiRateLimit, syncRateLimit } from './middleware/rateLimit';
 
@@ -78,6 +80,12 @@ app.use('/api/*', apiRateLimit);
 
 // User rides
 app.route('/api/rides', ridesRoutes);
+
+// User devices
+app.route('/api/devices', devicesRoutes);
+
+// User settings
+app.route('/api/settings', settingsRoutes);
 
 // Device sync (from Karoo) with sync-specific rate limit
 app.use('/api/sync/*', syncRateLimit);

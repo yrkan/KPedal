@@ -6,11 +6,10 @@ import { getOrCreateUser } from './user';
 const auth = new Hono<{ Bindings: Env }>();
 
 // Device Code Flow constants
-const DEVICE_CODE_EXPIRY = 600; // 10 minutes
-const DEVICE_CODE_INTERVAL = 5; // Poll every 5 seconds
-const MAX_CODE_REQUESTS_PER_DEVICE = 5; // Max 5 code requests per 10 min per device
-const MAX_VERIFY_ATTEMPTS = 10; // Max 10 verify attempts per code
-const MAX_POLL_RATE_MS = 4000; // Min 4 seconds between polls
+const DEVICE_CODE_EXPIRY_SECONDS = 600; // 10 minutes
+const DEVICE_CODE_INTERVAL = 5; // Poll every 5 seconds (fast response)
+const MAX_VERIFY_ATTEMPTS = 20; // Max 20 verify attempts per IP per 5 min
+const MIN_POLL_INTERVAL_MS = 4000; // Min 4 seconds between polls
 
 /**
  * Rate limiter helper - returns true if rate limit exceeded
@@ -60,8 +59,33 @@ function generateUserCode(): string {
 }
 
 /**
+ * Calculate expiry timestamp (10 minutes from now)
+ */
+function getExpiryTimestamp(): string {
+  const expiry = new Date(Date.now() + DEVICE_CODE_EXPIRY_SECONDS * 1000);
+  return expiry.toISOString().replace('T', ' ').replace('Z', '');
+}
+
+/**
+ * Check if a device code is expired
+ */
+function isExpired(expiresAt: string): boolean {
+  const expiry = new Date(expiresAt.replace(' ', 'T') + 'Z');
+  return Date.now() > expiry.getTime();
+}
+
+/**
+ * Get remaining seconds until expiry
+ */
+function getRemainingSeconds(expiresAt: string): number {
+  const expiry = new Date(expiresAt.replace(' ', 'T') + 'Z');
+  return Math.max(0, Math.floor((expiry.getTime() - Date.now()) / 1000));
+}
+
+/**
  * POST /auth/device/code
  * Start device authorization flow - generates codes for device
+ * Uses D1 database for reliable storage (no eventual consistency issues)
  */
 auth.post('/device/code', async (c) => {
   const env = c.env;
@@ -89,46 +113,49 @@ auth.post('/device/code', async (c) => {
       }, 400);
     }
 
-    // Rate limit: max 5 requests per device per 10 minutes
-    const rateLimited = await checkRateLimit(
-      env.SESSIONS,
-      `device_code:${device_id}`,
-      MAX_CODE_REQUESTS_PER_DEVICE,
-      DEVICE_CODE_EXPIRY
-    );
+    // Clean up expired codes for this device first
+    await env.DB.prepare(
+      `DELETE FROM device_codes WHERE device_id = ? AND expires_at < datetime('now')`
+    ).bind(device_id).run();
 
-    if (rateLimited) {
+    // Check if device already has an active code (pending or authorized)
+    const existing = await env.DB.prepare(
+      `SELECT device_code, user_code, status, expires_at
+       FROM device_codes
+       WHERE device_id = ? AND expires_at > datetime('now')
+       ORDER BY created_at DESC LIMIT 1`
+    ).bind(device_id).first<{
+      device_code: string;
+      user_code: string;
+      status: string;
+      expires_at: string;
+    }>();
+
+    if (existing && (existing.status === 'pending' || existing.status === 'authorized')) {
+      // Return existing code
+      const remainingTime = getRemainingSeconds(existing.expires_at);
       return c.json<ApiResponse>({
-        success: false,
-        error: 'Too many requests. Please try again later.',
-      }, 429);
+        success: true,
+        data: {
+          device_code: existing.device_code,
+          user_code: existing.user_code,
+          verification_uri: `${env.APP_URL}/link`,
+          expires_in: remainingTime,
+          interval: DEVICE_CODE_INTERVAL,
+        },
+      });
     }
 
-    // Generate codes
+    // Generate new codes
     const deviceCode = crypto.randomUUID();
     const userCode = generateUserCode();
+    const expiresAt = getExpiryTimestamp();
 
-    // Store device code data in KV
-    const deviceData = {
-      deviceId: device_id,
-      deviceName: device_name,
-      userCode,
-      status: 'pending', // pending | authorized | expired
-      createdAt: Date.now(),
-    };
-
-    await env.SESSIONS.put(
-      `device_code:${deviceCode}`,
-      JSON.stringify(deviceData),
-      { expirationTtl: DEVICE_CODE_EXPIRY }
-    );
-
-    // Also store by user code for lookup during authorization
-    await env.SESSIONS.put(
-      `user_code:${userCode}`,
-      deviceCode,
-      { expirationTtl: DEVICE_CODE_EXPIRY }
-    );
+    // Insert into D1 database
+    await env.DB.prepare(
+      `INSERT INTO device_codes (device_code, user_code, device_id, device_name, status, expires_at)
+       VALUES (?, ?, ?, ?, 'pending', ?)`
+    ).bind(deviceCode, userCode, device_id, device_name, expiresAt).run();
 
     return c.json<ApiResponse>({
       success: true,
@@ -136,7 +163,7 @@ auth.post('/device/code', async (c) => {
         device_code: deviceCode,
         user_code: userCode,
         verification_uri: `${env.APP_URL}/link`,
-        expires_in: DEVICE_CODE_EXPIRY,
+        expires_in: DEVICE_CODE_EXPIRY_SECONDS,
         interval: DEVICE_CODE_INTERVAL,
       },
     });
@@ -153,6 +180,7 @@ auth.post('/device/code', async (c) => {
 /**
  * POST /auth/device/token
  * Device polls this to check if user has authorized
+ * Uses D1 database for immediate consistency
  */
 auth.post('/device/token', async (c) => {
   const env = c.env;
@@ -163,7 +191,7 @@ auth.post('/device/token', async (c) => {
       device_id?: string;
     }>();
 
-    const { device_code, device_id } = body;
+    const { device_code } = body;
 
     if (!device_code) {
       return c.json<ApiResponse>({
@@ -187,7 +215,7 @@ auth.post('/device/token', async (c) => {
 
     if (lastPollStr) {
       const lastPoll = parseInt(lastPollStr);
-      if (now - lastPoll < MAX_POLL_RATE_MS) {
+      if (now - lastPoll < MIN_POLL_INTERVAL_MS) {
         return c.json<ApiResponse>({
           success: false,
           status: 'slow_down',
@@ -200,10 +228,29 @@ auth.post('/device/token', async (c) => {
     // Update last poll time
     await env.SESSIONS.put(lastPollKey, String(now), { expirationTtl: 60 });
 
-    // Get device data from KV
-    const deviceDataStr = await env.SESSIONS.get(`device_code:${device_code}`);
+    // Get device code from D1 database (immediate consistency!)
+    const deviceData = await env.DB.prepare(
+      `SELECT device_code, user_code, device_id, device_name, status, user_id, expires_at
+       FROM device_codes WHERE device_code = ?`
+    ).bind(device_code).first<{
+      device_code: string;
+      user_code: string;
+      device_id: string;
+      device_name: string;
+      status: string;
+      user_id: string | null;
+      expires_at: string;
+    }>();
 
-    if (!deviceDataStr) {
+    console.log('Token poll:', {
+      deviceCode: device_code.slice(0, 8) + '...',
+      found: !!deviceData,
+      status: deviceData?.status,
+      hasUserId: !!deviceData?.user_id,
+      userCode: deviceData?.user_code,
+    });
+
+    if (!deviceData) {
       return c.json<ApiResponse>({
         success: false,
         status: 'expired',
@@ -212,14 +259,19 @@ auth.post('/device/token', async (c) => {
       }, 400);
     }
 
-    const deviceData = JSON.parse(deviceDataStr) as {
-      deviceId: string;
-      deviceName: string;
-      userCode: string;
-      status: string;
-      userId?: string;
-      createdAt: number;
-    };
+    // Check if expired
+    if (isExpired(deviceData.expires_at)) {
+      // Clean up expired code
+      await env.DB.prepare('DELETE FROM device_codes WHERE device_code = ?')
+        .bind(device_code).run();
+
+      return c.json<ApiResponse>({
+        success: false,
+        status: 'expired',
+        error: 'expired_token',
+        error_description: 'The device code has expired',
+      }, 400);
+    }
 
     if (deviceData.status === 'pending') {
       // User hasn't authorized yet
@@ -231,18 +283,18 @@ auth.post('/device/token', async (c) => {
       }, 400);
     }
 
-    if (deviceData.status === 'authorized' && deviceData.userId) {
+    if (deviceData.status === 'authorized' && deviceData.user_id) {
       // User has authorized! Get user and create tokens
-      const result = await env.DB.prepare(
+      const user = await env.DB.prepare(
         'SELECT id, email, name, picture FROM users WHERE id = ?'
-      ).bind(deviceData.userId).first<{
+      ).bind(deviceData.user_id).first<{
         id: string;
         email: string;
         name: string;
         picture: string | null;
       }>();
 
-      if (!result) {
+      if (!user) {
         return c.json<ApiResponse>({
           success: false,
           error: 'User not found',
@@ -250,22 +302,32 @@ auth.post('/device/token', async (c) => {
       }
 
       // Create tokens
-      const { accessToken, refreshToken } = await createTokens(env, result);
+      const { accessToken, refreshToken } = await createTokens(env, user);
 
-      // Store refresh token
+      // Store refresh token in KV
       await env.SESSIONS.put(
-        `refresh:${result.id}:${refreshToken.slice(-16)}`,
+        `refresh:${user.id}:${refreshToken.slice(-16)}`,
         JSON.stringify({
           createdAt: Date.now(),
-          deviceId: deviceData.deviceId,
-          deviceName: deviceData.deviceName,
+          deviceId: deviceData.device_id,
+          deviceName: deviceData.device_name,
         }),
         { expirationTtl: 60 * 60 * 24 * 7 } // 7 days
       );
 
-      // Clean up device codes
-      await env.SESSIONS.delete(`device_code:${device_code}`);
-      await env.SESSIONS.delete(`user_code:${deviceData.userCode}`);
+      // Create or update device in devices table
+      // Set last_sync to now so device shows as "connected" immediately
+      await env.DB.prepare(
+        `INSERT INTO devices (id, user_id, name, type, last_sync, created_at)
+         VALUES (?, ?, ?, 'karoo', datetime('now'), datetime('now'))
+         ON CONFLICT(id) DO UPDATE SET
+           name = excluded.name,
+           last_sync = datetime('now')`
+      ).bind(deviceData.device_id, user.id, deviceData.device_name).run();
+
+      // Delete the device code from D1 (auth complete)
+      await env.DB.prepare('DELETE FROM device_codes WHERE device_code = ?')
+        .bind(device_code).run();
 
       return c.json<ApiResponse>({
         success: true,
@@ -273,10 +335,10 @@ auth.post('/device/token', async (c) => {
           access_token: accessToken,
           refresh_token: refreshToken,
           user: {
-            id: result.id,
-            email: result.email,
-            name: result.name,
-            picture: result.picture,
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            picture: user.picture,
           },
         },
       });
@@ -299,6 +361,7 @@ auth.post('/device/token', async (c) => {
 /**
  * POST /auth/device/authorize
  * Called by web app when user enters code and logs in
+ * Uses D1 database for immediate consistency
  */
 auth.post('/device/authorize', async (c) => {
   const env = c.env;
@@ -340,43 +403,82 @@ auth.post('/device/authorize', async (c) => {
     // Add dash for lookup
     normalizedCode = normalizedCode.slice(0, 4) + '-' + normalizedCode.slice(4);
 
-    // Get device code from user code
-    const deviceCode = await env.SESSIONS.get(`user_code:${normalizedCode}`);
+    // Get device code from D1 by user_code
+    const deviceData = await env.DB.prepare(
+      `SELECT device_code, device_name, status, expires_at
+       FROM device_codes WHERE user_code = ?`
+    ).bind(normalizedCode).first<{
+      device_code: string;
+      device_name: string;
+      status: string;
+      expires_at: string;
+    }>();
 
-    if (!deviceCode) {
+    if (!deviceData) {
       return c.json<ApiResponse>({
         success: false,
         error: 'Invalid or expired code',
       }, 400);
     }
 
-    // Get device data
-    const deviceDataStr = await env.SESSIONS.get(`device_code:${deviceCode}`);
+    // Check if expired
+    if (isExpired(deviceData.expires_at)) {
+      // Clean up expired code
+      await env.DB.prepare('DELETE FROM device_codes WHERE user_code = ?')
+        .bind(normalizedCode).run();
 
-    if (!deviceDataStr) {
       return c.json<ApiResponse>({
         success: false,
         error: 'Device code expired',
       }, 400);
     }
 
-    const deviceData = JSON.parse(deviceDataStr);
+    // Update status to authorized with user_id
+    const updateResult = await env.DB.prepare(
+      `UPDATE device_codes SET status = 'authorized', user_id = ? WHERE user_code = ?`
+    ).bind(user_id, normalizedCode).run();
 
-    // Mark as authorized
-    deviceData.status = 'authorized';
-    deviceData.userId = user_id;
+    console.log('Authorization UPDATE result:', {
+      userCode: normalizedCode,
+      userId: user_id.slice(0, 8) + '...',
+      changes: updateResult.meta?.changes,
+      success: updateResult.success,
+    });
 
-    // Update device data
-    await env.SESSIONS.put(
-      `device_code:${deviceCode}`,
-      JSON.stringify(deviceData),
-      { expirationTtl: 60 } // Keep for 1 minute for device to poll
-    );
+    // Check if update actually changed a row
+    if (!updateResult.meta?.changes || updateResult.meta.changes === 0) {
+      console.error('Authorization UPDATE failed - no rows changed:', { normalizedCode });
+      return c.json<ApiResponse>({
+        success: false,
+        error: 'Failed to authorize device - code not found',
+      }, 500);
+    }
+
+    // Verify the update worked by reading back
+    const verify = await env.DB.prepare(
+      `SELECT device_code, status, user_id FROM device_codes WHERE user_code = ?`
+    ).bind(normalizedCode).first();
+
+    console.log('Authorization VERIFY:', {
+      found: !!verify,
+      status: verify?.status,
+      hasUserId: !!verify?.user_id,
+      deviceCode: verify?.device_code ? String(verify.device_code).slice(0, 8) + '...' : null,
+    });
+
+    if (!verify || verify.status !== 'authorized') {
+      console.error('Authorization VERIFY failed:', { verify });
+      return c.json<ApiResponse>({
+        success: false,
+        error: 'Authorization verification failed',
+      }, 500);
+    }
 
     return c.json<ApiResponse>({
       success: true,
       data: {
-        device_name: deviceData.deviceName,
+        device_name: deviceData.device_name,
+        authorized: true,
       },
     });
 
@@ -392,6 +494,7 @@ auth.post('/device/authorize', async (c) => {
 /**
  * GET /auth/device/verify
  * Check if a user code is valid (used by web app before showing login)
+ * Uses D1 database for immediate consistency
  */
 auth.get('/device/verify', async (c) => {
   const env = c.env;
@@ -435,31 +538,46 @@ auth.get('/device/verify', async (c) => {
     }, 429);
   }
 
-  // Check if code exists
-  const deviceCode = await env.SESSIONS.get(`user_code:${normalizedCode}`);
+  // Get device code from D1 by user_code
+  const deviceData = await env.DB.prepare(
+    `SELECT device_name, status, expires_at FROM device_codes WHERE user_code = ?`
+  ).bind(normalizedCode).first<{
+    device_name: string;
+    status: string;
+    expires_at: string;
+  }>();
 
-  if (!deviceCode) {
+  if (!deviceData) {
     return c.json<ApiResponse>({
       success: false,
       error: 'Invalid or expired code',
     }, 400);
   }
 
-  // Get device data for display
-  const deviceDataStr = await env.SESSIONS.get(`device_code:${deviceCode}`);
-  if (!deviceDataStr) {
+  // Check if expired
+  if (isExpired(deviceData.expires_at)) {
+    // Clean up expired code
+    await env.DB.prepare('DELETE FROM device_codes WHERE user_code = ?')
+      .bind(normalizedCode).run();
+
     return c.json<ApiResponse>({
       success: false,
       error: 'Device code expired',
     }, 400);
   }
 
-  const deviceData = JSON.parse(deviceDataStr);
+  // Check if already authorized
+  if (deviceData.status === 'authorized') {
+    return c.json<ApiResponse>({
+      success: false,
+      error: 'Code already used',
+    }, 400);
+  }
 
   return c.json<ApiResponse>({
     success: true,
     data: {
-      device_name: deviceData.deviceName,
+      device_name: deviceData.device_name,
       valid: true,
     },
   });
@@ -690,6 +808,7 @@ auth.post('/mobile/login', async (c) => {
 /**
  * POST /auth/refresh
  * Refresh access token using refresh token
+ * Requires X-Device-ID header to verify device still exists
  */
 auth.post('/refresh', async (c) => {
   const env = c.env;
@@ -697,6 +816,7 @@ auth.post('/refresh', async (c) => {
   try {
     const body = await c.req.json<{ refresh_token: string }>();
     const { refresh_token } = body;
+    const deviceId = c.req.header('X-Device-ID');
 
     if (!refresh_token) {
       return c.json<ApiResponse>({ success: false, error: 'Missing refresh token' }, 400);
@@ -710,9 +830,34 @@ auth.post('/refresh', async (c) => {
 
     // Check if token is still valid in KV (not revoked)
     const tokenKey = `refresh:${payload.sub}:${refresh_token.slice(-16)}`;
-    const storedToken = await env.SESSIONS.get(tokenKey);
-    if (!storedToken) {
+    const storedTokenStr = await env.SESSIONS.get(tokenKey);
+    if (!storedTokenStr) {
       return c.json<ApiResponse>({ success: false, error: 'Token revoked' }, 401);
+    }
+
+    // Parse stored token data
+    const storedToken = JSON.parse(storedTokenStr) as {
+      createdAt: number;
+      deviceId?: string;
+      deviceName?: string;
+    };
+
+    // If device_id is stored or provided, verify device still exists
+    const effectiveDeviceId = deviceId || storedToken.deviceId;
+    if (effectiveDeviceId) {
+      const device = await env.DB.prepare(
+        'SELECT id FROM devices WHERE id = ? AND user_id = ?'
+      ).bind(effectiveDeviceId, payload.sub).first();
+
+      if (!device) {
+        // Device was removed - revoke this refresh token too
+        await env.SESSIONS.delete(tokenKey);
+        return c.json<ApiResponse>({
+          success: false,
+          error: 'Device not found or access revoked',
+          code: 'DEVICE_REVOKED',
+        }, 403);
+      }
     }
 
     // Create new access token

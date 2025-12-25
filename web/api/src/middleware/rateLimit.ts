@@ -63,10 +63,11 @@ export function rateLimit(config: Partial<RateLimitConfig> = {}) {
 }
 
 /**
- * Stricter rate limit for auth endpoints
+ * Rate limit for auth endpoints
+ * Higher limit to accommodate device code polling (every 5 sec = 12 req/min)
  */
 export const authRateLimit = rateLimit({
-  requests: 10,
+  requests: 60,
   windowSeconds: 60,
 });
 

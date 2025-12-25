@@ -120,3 +120,37 @@ export async function revokeAllRefreshTokens(
     await env.SESSIONS.delete(key.name);
   }
 }
+
+/**
+ * Revoke all refresh tokens for a specific device
+ * Used when a device is deleted from the web dashboard
+ */
+export async function revokeRefreshTokensForDevice(
+  env: Env,
+  userId: string,
+  deviceId: string
+): Promise<number> {
+  let deletedCount = 0;
+
+  // List all refresh tokens for this user
+  const list = await env.SESSIONS.list({ prefix: `refresh:${userId}:` });
+
+  for (const key of list.keys) {
+    try {
+      const tokenDataStr = await env.SESSIONS.get(key.name);
+      if (tokenDataStr) {
+        const tokenData = JSON.parse(tokenDataStr) as { deviceId?: string };
+        // Delete if token belongs to the revoked device
+        if (tokenData.deviceId === deviceId) {
+          await env.SESSIONS.delete(key.name);
+          deletedCount++;
+        }
+      }
+    } catch (e) {
+      // Skip malformed tokens
+      console.error(`Error processing token ${key.name}:`, e);
+    }
+  }
+
+  return deletedCount;
+}

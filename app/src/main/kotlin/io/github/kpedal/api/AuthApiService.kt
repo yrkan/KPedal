@@ -2,6 +2,7 @@ package io.github.kpedal.api
 
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 /**
@@ -25,9 +26,13 @@ interface AuthApiService {
 
     /**
      * Refresh access token.
+     * Sends X-Device-ID header to verify device still authorized.
      */
     @POST("auth/refresh")
-    suspend fun refreshToken(@Body request: RefreshRequest): Response<RefreshResponse>
+    suspend fun refreshToken(
+        @Header("X-Device-ID") deviceId: String,
+        @Body request: RefreshRequest
+    ): Response<RefreshResponse>
 
     /**
      * Logout and revoke refresh token.
@@ -101,8 +106,13 @@ data class UserInfo(
 data class RefreshResponse(
     val success: Boolean,
     val data: RefreshData? = null,
-    val error: String? = null
-)
+    val error: String? = null,
+    val code: String? = null
+) {
+    companion object {
+        const val CODE_DEVICE_REVOKED = "DEVICE_REVOKED"
+    }
+}
 
 data class RefreshData(
     val access_token: String

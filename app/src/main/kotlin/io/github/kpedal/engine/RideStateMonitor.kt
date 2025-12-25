@@ -99,6 +99,16 @@ class RideStateMonitor(
                     wasRecording = true
                     rideStartTimeMs = System.currentTimeMillis()
 
+                    // Fetch latest settings from cloud before ride starts
+                    scope.launch {
+                        try {
+                            val fetched = syncService?.fetchSettings() ?: false
+                            android.util.Log.i(TAG, "Fetched cloud settings before ride: $fetched")
+                        } catch (e: Exception) {
+                            android.util.Log.w(TAG, "Failed to fetch settings: ${e.message}")
+                        }
+                    }
+
                     // Start streaming and monitoring only when ride begins
                     extension.pedalingEngine.startStreaming()
                     extension.alertManager.startMonitoring()
