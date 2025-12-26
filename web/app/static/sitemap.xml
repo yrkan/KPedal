@@ -7,7 +7,7 @@
   <!-- Homepage / Landing Page -->
   <url>
     <loc>https://kpedal.com/</loc>
-    <lastmod>2024-12-26</lastmod>
+    <lastmod>2025-12-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,7 +15,7 @@
   <!-- Login Page -->
   <url>
     <loc>https://kpedal.com/login</loc>
-    <lastmod>2024-12-26</lastmod>
+    <lastmod>2025-12-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -23,7 +23,7 @@
   <!-- Device Link Page -->
   <url>
     <loc>https://kpedal.com/link</loc>
-    <lastmod>2024-12-26</lastmod>
+    <lastmod>2025-12-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -31,7 +31,7 @@
   <!-- Privacy Policy -->
   <url>
     <loc>https://kpedal.com/privacy</loc>
-    <lastmod>2024-12-26</lastmod>
+    <lastmod>2025-12-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
