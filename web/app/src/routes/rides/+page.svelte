@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { isAuthenticated, authFetch } from '$lib/auth';
+  import InfoTip from '$lib/components/InfoTip.svelte';
 
   interface Ride {
     id: number;
@@ -16,55 +17,63 @@
     zone_optimal: number;
     zone_attention: number;
     zone_problem: number;
-    score: number;
+    power_avg: number;
+    power_max: number;
+    cadence_avg: number;
+    hr_avg: number;
+    hr_max: number;
+    distance_km: number;
+    // Pro cyclist metrics
+    elevation_gain: number;
+    elevation_loss: number;
+    grade_avg: number;
+    grade_max: number;
+    normalized_power: number;
+    energy_kj: number;
   }
 
-  interface Stats {
-    total_rides: number;
-    total_duration_ms: number;
-    avg_score: number;
-    avg_balance_left: number;
-    avg_zone_optimal: number;
+  interface PeriodStats {
+    rides: number;
+    totalDuration: number;
+    avgAsymmetry: number;
+    avgTe: number;
+    avgPs: number;
+    avgOptimal: number;
+    avgPower: number;
+    totalDistance: number;
+    totalElevation: number;
+    avgNP: number;
+    totalEnergy: number;
   }
 
   let rides: Ride[] = [];
-  let stats: Stats | null = null;
   let total = 0;
   let offset = 0;
-  let limit = 25;
+  let limit = 100;
   let loading = true;
   let error: string | null = null;
   let deletingId: number | null = null;
-  let sortBy: 'date' | 'score' | 'optimal' = 'date';
+  let viewMode: 'table' | 'cards' = 'table';
+
+  // Computed stats (all rides, sorted by date)
+  $: sortedRides = [...rides].sort((a, b) => b.timestamp - a.timestamp);
+  $: periodStats = calculatePeriodStats(sortedRides);
 
   onMount(async () => {
     if (!$isAuthenticated) {
       goto('/login');
       return;
     }
-    await Promise.all([loadRides(), loadStats()]);
+    await loadRides();
   });
-
-  async function loadStats() {
-    try {
-      const res = await authFetch('/api/rides/stats/summary');
-      if (res.ok) {
-        const data = await res.json();
-        if (data.success) {
-          stats = data.data;
-        }
-      }
-    } catch (err) {
-      // ignore
-    }
-  }
 
   async function loadRides() {
     loading = true;
     error = null;
 
     try {
-      const res = await authFetch(`/api/rides?limit=${limit}&offset=${offset}&sort=${sortBy}`);
+      // Load more rides (100) to have enough data for filtering
+      const res = await authFetch(`/rides?limit=${limit}&offset=${offset}`);
       if (res.ok) {
         const data = await res.json();
         if (data.success) {
@@ -81,20 +90,35 @@
     }
   }
 
-  function changeSort(newSort: 'date' | 'score' | 'optimal') {
-    if (sortBy !== newSort) {
-      sortBy = newSort;
-      offset = 0;
-      loadRides();
+  function calculatePeriodStats(ridesData: Ride[]): PeriodStats {
+    if (ridesData.length === 0) {
+      return { rides: 0, totalDuration: 0, avgAsymmetry: 0, avgTe: 0, avgPs: 0, avgOptimal: 0, avgPower: 0, totalDistance: 0, totalElevation: 0, avgNP: 0, totalEnergy: 0 };
     }
+
+    const totalDuration = ridesData.reduce((sum, r) => sum + r.duration_ms, 0);
+    const avgAsymmetry = ridesData.reduce((sum, r) => sum + Math.abs(r.balance_left - 50), 0) / ridesData.length;
+    const avgTe = ridesData.reduce((sum, r) => sum + (r.te_left + r.te_right) / 2, 0) / ridesData.length;
+    const avgPs = ridesData.reduce((sum, r) => sum + (r.ps_left + r.ps_right) / 2, 0) / ridesData.length;
+    const avgOptimal = ridesData.reduce((sum, r) => sum + r.zone_optimal, 0) / ridesData.length;
+    const ridesWithPower = ridesData.filter(r => r.power_avg > 0);
+    const avgPower = ridesWithPower.length > 0 ? ridesWithPower.reduce((sum, r) => sum + r.power_avg, 0) / ridesWithPower.length : 0;
+    const totalDistance = ridesData.reduce((sum, r) => sum + (r.distance_km || 0), 0);
+    // Pro cyclist metrics
+    const totalElevation = ridesData.reduce((sum, r) => sum + (r.elevation_gain || 0), 0);
+    const ridesWithNP = ridesData.filter(r => r.normalized_power > 0);
+    const avgNP = ridesWithNP.length > 0 ? ridesWithNP.reduce((sum, r) => sum + r.normalized_power, 0) / ridesWithNP.length : 0;
+    const totalEnergy = ridesData.reduce((sum, r) => sum + (r.energy_kj || 0), 0);
+
+    return { rides: ridesData.length, totalDuration, avgAsymmetry, avgTe, avgPs, avgOptimal, avgPower, totalDistance, totalElevation, avgNP, totalEnergy };
   }
 
-  async function deleteRide(id: number) {
+  async function deleteRide(id: number, event: Event) {
+    event.stopPropagation();
     if (!confirm('Delete this ride?')) return;
 
     deletingId = id;
     try {
-      const res = await authFetch(`/api/rides/${id}`, { method: 'DELETE' });
+      const res = await authFetch(`/rides/${id}`, { method: 'DELETE' });
       if (res.ok) {
         rides = rides.filter(r => r.id !== id);
         total--;
@@ -104,6 +128,66 @@
     } finally {
       deletingId = null;
     }
+  }
+
+  function goToRide(id: number) {
+    goto(`/rides/${id}`);
+  }
+
+  function formatDuration(ms: number): string {
+    const hours = Math.floor(ms / 3600000);
+    const minutes = Math.floor((ms % 3600000) / 60000);
+    if (hours > 0) return `${hours}h ${minutes}m`;
+    return `${minutes}m`;
+  }
+
+  function formatTotalDuration(ms: number): string {
+    const hours = Math.floor(ms / 3600000);
+    const minutes = Math.floor((ms % 3600000) / 60000);
+    if (hours >= 100) return `${hours}h`;
+    if (hours > 0) return `${hours}h ${minutes}m`;
+    return `${minutes}m`;
+  }
+
+  function formatDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function formatFullDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+
+  function formatTime(timestamp: number): string {
+    return new Date(timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  }
+
+  function getAsymmetry(ride: Ride): number {
+    return Math.abs(ride.balance_left - 50);
+  }
+
+  function getDominance(ride: Ride): string {
+    if (Math.abs(ride.balance_left - 50) < 0.5) return '—';
+    return ride.balance_left > 50 ? 'L' : 'R';
+  }
+
+  function getAsymmetryClass(asymmetry: number): string {
+    if (asymmetry <= 2.5) return 'optimal';
+    if (asymmetry <= 5) return 'attention';
+    return 'problem';
+  }
+
+  function getTeClass(te: number): string {
+    if (te >= 70 && te <= 80) return 'optimal';
+    if (te >= 60 && te <= 85) return 'attention';
+    return 'problem';
+  }
+
+  function getPsClass(ps: number): string {
+    if (ps >= 20) return 'optimal';
+    if (ps >= 15) return 'attention';
+    return 'problem';
   }
 
   function nextPage() {
@@ -119,70 +203,14 @@
       loadRides();
     }
   }
-
-  function formatDuration(ms: number): string {
-    const hours = Math.floor(ms / 3600000);
-    const minutes = Math.floor((ms % 3600000) / 60000);
-    if (hours > 0) return `${hours}h ${minutes}m`;
-    return `${minutes}m`;
-  }
-
-  function formatDate(timestamp: number): string {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diffDays = Math.floor((now.getTime() - date.getTime()) / 86400000);
-
-    if (diffDays === 0) return 'Today';
-    if (diffDays === 1) return 'Yesterday';
-    if (diffDays < 7) return date.toLocaleDateString('en-US', { weekday: 'long' });
-
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  }
-
-  function formatTime(timestamp: number): string {
-    return new Date(timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  }
-
-  function getBalanceStatus(left: number): string {
-    const diff = Math.abs(left - 50);
-    if (diff <= 2.5) return 'optimal';
-    if (diff <= 5) return 'attention';
-    return 'problem';
-  }
-
-  function getTeStatus(te: number): string {
-    if (te >= 70 && te <= 80) return 'optimal';
-    if (te >= 60) return 'attention';
-    return 'problem';
-  }
-
-  function getPsStatus(ps: number): string {
-    if (ps >= 20) return 'optimal';
-    if (ps >= 15) return 'attention';
-    return 'problem';
-  }
-
-  function getScoreStatus(score: number): string {
-    if (score >= 80) return 'optimal';
-    if (score >= 60) return 'attention';
-    return 'problem';
-  }
-
-  function getTeAvg(ride: Ride): number {
-    return Math.round((ride.te_left + ride.te_right) / 2);
-  }
-
-  function getPsAvg(ride: Ride): number {
-    return Math.round((ride.ps_left + ride.ps_right) / 2);
-  }
 </script>
 
 <svelte:head>
   <title>Rides - KPedal</title>
 </svelte:head>
 
-<div class="rides-page">
-  <div class="container container-md">
+<div class="page rides-page">
+  <div class="container container-lg">
     <header class="page-header animate-in">
       <a href="/" class="back-link" aria-label="Back to dashboard">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -190,12 +218,21 @@
         </svg>
       </a>
       <h1>Rides</h1>
-      {#if total > 0}
-        <span class="header-count">{total}</span>
-      {/if}
+      <div class="view-toggle">
+        <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title="Table view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title="Card view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+          </svg>
+        </button>
+      </div>
     </header>
 
-    {#if loading && !stats}
+    {#if loading && rides.length === 0}
       <div class="loading-state animate-in">
         <div class="spinner"></div>
       </div>
@@ -204,68 +241,161 @@
         <p>{error}</p>
         <button class="retry-btn" on:click={loadRides}>Retry</button>
       </div>
-    {:else if rides.length === 0 && !loading}
+    {:else if rides.length === 0}
       <div class="empty-state animate-in">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-        </svg>
-        <p>No rides yet</p>
-        <a href="/">← Dashboard</a>
+        <div class="empty-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+          </svg>
+        </div>
+        <h3>No rides yet</h3>
+        <p>Complete rides on your Karoo to see them here</p>
+        <a href="/" class="back-btn-link">← Back to Dashboard</a>
       </div>
     {:else}
       <!-- Summary Stats -->
-      {#if stats}
-        <div class="rides-summary animate-in">
-          <div class="summary-stat">
-            <span class="summary-value">{stats.total_rides}</span>
-            <span class="summary-label">Total Rides</span>
+      {#if periodStats.rides > 0}
+        <div class="stats-strip animate-in">
+          <div class="stat-item">
+            <span class="stat-value">{periodStats.rides}</span>
+            <span class="stat-label">rides <InfoTip text="Total number of rides in this view." position="bottom" size="sm" /></span>
           </div>
-          <div class="summary-stat">
-            <span class="summary-value {getScoreStatus(stats.avg_score)}">{Math.round(stats.avg_score)}</span>
-            <span class="summary-label">Avg Score</span>
+          <div class="stat-item">
+            <span class="stat-value">{formatTotalDuration(periodStats.totalDuration)}</span>
           </div>
-          <div class="summary-stat">
-            <span class="summary-value {getBalanceStatus(stats.avg_balance_left)}">{stats.avg_balance_left.toFixed(1)}%</span>
-            <span class="summary-label">Avg Balance L</span>
+          {#if periodStats.totalDistance > 0}
+            <div class="stat-item">
+              <span class="stat-value">{periodStats.totalDistance.toFixed(0)}</span>
+              <span class="stat-label">km <InfoTip text="Total distance covered across all rides." position="bottom" size="sm" /></span>
+            </div>
+          {/if}
+          {#if periodStats.totalElevation > 0}
+            <div class="stat-item">
+              <span class="stat-value">{Math.round(periodStats.totalElevation)}</span>
+              <span class="stat-label">m ↑ <InfoTip text="Total elevation gained across all rides." position="bottom" size="sm" /></span>
+            </div>
+          {/if}
+          <div class="stat-item">
+            <span class="stat-value {getAsymmetryClass(periodStats.avgAsymmetry)}">{periodStats.avgAsymmetry.toFixed(1)}%</span>
+            <span class="stat-label">asym <InfoTip text="Average power asymmetry. Under 2.5% is pro level." position="bottom" size="sm" /></span>
           </div>
-          <div class="summary-stat">
-            <span class="summary-value">{formatDuration(stats.total_duration_ms)}</span>
-            <span class="summary-label">Total Time</span>
+          <div class="stat-item">
+            <span class="stat-value">{periodStats.avgTe.toFixed(0)}%</span>
+            <span class="stat-label">TE <InfoTip text="Average Torque Effectiveness. Optimal range is 70-80%." position="bottom" size="sm" /></span>
           </div>
+          <div class="stat-item">
+            <span class="stat-value">{periodStats.avgPs.toFixed(0)}%</span>
+            <span class="stat-label">PS <InfoTip text="Average Pedal Smoothness. Above 20% is good technique." position="bottom" size="sm" /></span>
+          </div>
+          <div class="stat-item highlight">
+            <span class="stat-value">{periodStats.avgOptimal.toFixed(0)}%</span>
+            <span class="stat-label">optimal <InfoTip text="Average time in optimal zone. Higher means better form." position="bottom" size="sm" /></span>
+          </div>
+          {#if periodStats.avgPower > 0}
+            <div class="stat-item">
+              <span class="stat-value">{Math.round(periodStats.avgPower)}</span>
+              <span class="stat-label">W avg <InfoTip text="Average power output. Track over time for fitness trends." position="bottom" size="sm" /></span>
+            </div>
+            {#if periodStats.avgNP > 0}
+              <div class="stat-item highlight">
+                <span class="stat-value">{Math.round(periodStats.avgNP)}</span>
+                <span class="stat-label">NP <InfoTip text="Average Normalized Power. Accounts for variability in effort." position="bottom" size="sm" /></span>
+              </div>
+            {/if}
+            {#if periodStats.totalEnergy > 0}
+              <div class="stat-item">
+                <span class="stat-value">{Math.round(periodStats.totalEnergy)}</span>
+                <span class="stat-label">kJ <InfoTip text="Total energy output. Roughly equals calories burned." position="bottom" size="sm" /></span>
+              </div>
+            {/if}
+          {/if}
         </div>
       {/if}
-
-      <!-- Sort Options -->
-      <div class="sort-options animate-in">
-        <span class="sort-label">Sort by</span>
-        <button class="sort-btn" class:active={sortBy === 'date'} on:click={() => changeSort('date')}>Date</button>
-        <button class="sort-btn" class:active={sortBy === 'score'} on:click={() => changeSort('score')}>Score</button>
-        <button class="sort-btn" class:active={sortBy === 'optimal'} on:click={() => changeSort('optimal')}>Optimal</button>
-      </div>
 
       {#if loading}
         <div class="loading-inline"><div class="spinner-sm"></div></div>
       {/if}
 
-      <div class="rides-list animate-in">
-        {#each rides as ride}
-          <article class="ride-card {getScoreStatus(ride.score)}">
-            <div class="ride-score">
-              <span class="score-value">{ride.score}</span>
-              <span class="score-label">score</span>
-            </div>
-
-            <div class="ride-content">
-              <header class="ride-header">
-                <div class="ride-when">
-                  <span class="ride-date">{formatDate(ride.timestamp)}</span>
+      <!-- Table View -->
+      {#if viewMode === 'table'}
+        <div class="data-table-wrapper rides-table-wrapper animate-in">
+          <table class="data-table rides-table">
+            <thead>
+              <tr>
+                <th class="col-date">Date</th>
+                <th class="col-duration">Duration</th>
+                <th class="col-asymmetry">Asym <InfoTip text="Power asymmetry percentage. Lower means more balanced." position="bottom" size="sm" /></th>
+                <th class="col-balance">L / R <InfoTip text="Left and right power distribution." position="bottom" size="sm" /></th>
+                <th class="col-te">TE <InfoTip text="Torque Effectiveness for left and right legs." position="bottom" size="sm" /></th>
+                <th class="col-ps">PS <InfoTip text="Pedal Smoothness for left and right legs." position="bottom" size="sm" /></th>
+                <th class="col-zones">Zones <InfoTip text="Time in optimal, attention, and problem zones." position="bottom" size="sm" /></th>
+                {#if sortedRides.some(r => r.power_avg > 0)}
+                  <th class="col-power">Power <InfoTip text="Average power output for this ride." position="bottom" size="sm" /></th>
+                {/if}
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each sortedRides as ride}
+                <tr on:click={() => goToRide(ride.id)} class="ride-row">
+                  <td class="col-date">
+                    <span class="date-primary">{formatDate(ride.timestamp)}</span>
+                    <span class="date-secondary">{formatTime(ride.timestamp)}</span>
+                  </td>
+                  <td class="col-duration">{formatDuration(ride.duration_ms)}</td>
+                  <td class="col-asymmetry">
+                    <span class="asymmetry-value {getAsymmetryClass(getAsymmetry(ride))}">{getAsymmetry(ride).toFixed(1)}%</span>
+                    <span class="dominance">{getDominance(ride)}</span>
+                  </td>
+                  <td class="col-balance">{ride.balance_left.toFixed(0)} / {ride.balance_right.toFixed(0)}</td>
+                  <td class="col-te">{ride.te_left.toFixed(0)}/{ride.te_right.toFixed(0)}</td>
+                  <td class="col-ps">{ride.ps_left.toFixed(0)}/{ride.ps_right.toFixed(0)}</td>
+                  <td class="col-zones">
+                    <div class="zone-bar-mini">
+                      <div class="zone-segment optimal" style="width: {ride.zone_optimal}%"></div>
+                      <div class="zone-segment attention" style="width: {ride.zone_attention}%"></div>
+                      <div class="zone-segment problem" style="width: {ride.zone_problem}%"></div>
+                    </div>
+                  </td>
+                  {#if sortedRides.some(r => r.power_avg > 0)}
+                    <td class="col-power">{ride.power_avg > 0 ? `${Math.round(ride.power_avg)}W` : '—'}</td>
+                  {/if}
+                  <td class="col-actions">
+                    <button
+                      class="delete-btn"
+                      on:click={(e) => deleteRide(ride.id, e)}
+                      disabled={deletingId === ride.id}
+                      aria-label="Delete ride"
+                    >
+                      {#if deletingId === ride.id}
+                        <span class="spinner-tiny"></span>
+                      {:else}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                        </svg>
+                      {/if}
+                    </button>
+                  </td>
+                </tr>
+              {/each}
+            </tbody>
+          </table>
+        </div>
+      {:else}
+        <!-- Card View -->
+        <div class="rides-grid animate-in">
+          {#each sortedRides as ride}
+            <article class="ride-card" on:click={() => goToRide(ride.id)}>
+              <div class="ride-card-header">
+                <div class="ride-date-info">
+                  <span class="ride-date">{formatFullDate(ride.timestamp)}</span>
                   <span class="ride-time">{formatTime(ride.timestamp)}</span>
                 </div>
                 <div class="ride-header-right">
                   <span class="ride-duration">{formatDuration(ride.duration_ms)}</span>
                   <button
                     class="delete-btn"
-                    on:click={() => deleteRide(ride.id)}
+                    on:click={(e) => deleteRide(ride.id, e)}
                     disabled={deletingId === ride.id}
                     aria-label="Delete ride"
                   >
@@ -278,60 +408,58 @@
                     {/if}
                   </button>
                 </div>
-              </header>
+              </div>
 
-              <div class="ride-metrics">
-                <div class="metric">
-                  <span class="metric-name">Balance</span>
-                  <span class="metric-value {getBalanceStatus(ride.balance_left)}">
-                    {ride.balance_left.toFixed(0)}<span class="metric-unit">L</span>
-                    <span class="metric-sep">/</span>
-                    {ride.balance_right.toFixed(0)}<span class="metric-unit">R</span>
-                  </span>
+              <div class="ride-main-stats">
+                <div class="asymmetry-display">
+                  <span class="asymmetry-num {getAsymmetryClass(getAsymmetry(ride))}">{getAsymmetry(ride).toFixed(1)}%</span>
+                  <span class="asymmetry-label">asymmetry {getDominance(ride) !== '—' ? `(${getDominance(ride)} dom)` : ''}</span>
                 </div>
-                <div class="metric">
-                  <span class="metric-name">TE</span>
-                  <span class="metric-value {getTeStatus(getTeAvg(ride))}">
-                    {ride.te_left.toFixed(0)}<span class="metric-sep">/</span>{ride.te_right.toFixed(0)}
-                    <span class="metric-avg">{getTeAvg(ride)}%</span>
-                  </span>
-                </div>
-                <div class="metric">
-                  <span class="metric-name">PS</span>
-                  <span class="metric-value {getPsStatus(getPsAvg(ride))}">
-                    {ride.ps_left.toFixed(0)}<span class="metric-sep">/</span>{ride.ps_right.toFixed(0)}
-                    <span class="metric-avg">{getPsAvg(ride)}%</span>
-                  </span>
+                <div class="zone-display">
+                  <div class="zone-bar-card">
+                    <div class="zone-segment optimal" style="width: {ride.zone_optimal}%"></div>
+                    <div class="zone-segment attention" style="width: {ride.zone_attention}%"></div>
+                    <div class="zone-segment problem" style="width: {ride.zone_problem}%"></div>
+                  </div>
+                  <span class="zone-label">{ride.zone_optimal}% optimal</span>
                 </div>
               </div>
 
-              <div class="ride-zones">
-                <div class="zone-bar">
-                  <div class="zone-segment optimal" style="width: {ride.zone_optimal}%"></div>
-                  <div class="zone-segment attention" style="width: {ride.zone_attention}%"></div>
-                  <div class="zone-segment problem" style="width: {ride.zone_problem}%"></div>
+              <div class="ride-metrics-grid">
+                <div class="metric-box">
+                  <span class="metric-name">Balance L/R</span>
+                  <span class="metric-value">{ride.balance_left.toFixed(0)} / {ride.balance_right.toFixed(0)}</span>
                 </div>
-                <div class="zone-stats">
-                  <span class="zone-stat"><i class="zone-dot optimal"></i>{ride.zone_optimal}%</span>
-                  <span class="zone-stat"><i class="zone-dot attention"></i>{ride.zone_attention}%</span>
-                  <span class="zone-stat"><i class="zone-dot problem"></i>{ride.zone_problem}%</span>
+                <div class="metric-box">
+                  <span class="metric-name">TE L/R</span>
+                  <span class="metric-value {getTeClass((ride.te_left + ride.te_right) / 2)}">{ride.te_left.toFixed(0)} / {ride.te_right.toFixed(0)}</span>
                 </div>
+                <div class="metric-box">
+                  <span class="metric-name">PS L/R</span>
+                  <span class="metric-value {getPsClass((ride.ps_left + ride.ps_right) / 2)}">{ride.ps_left.toFixed(0)} / {ride.ps_right.toFixed(0)}</span>
+                </div>
+                {#if ride.power_avg > 0}
+                  <div class="metric-box">
+                    <span class="metric-name">Power</span>
+                    <span class="metric-value">{Math.round(ride.power_avg)}W</span>
+                  </div>
+                {/if}
               </div>
-            </div>
-          </article>
-        {/each}
-      </div>
+            </article>
+          {/each}
+        </div>
+      {/if}
 
       {#if total > limit}
         <div class="pagination animate-in">
           <button class="page-btn" on:click={prevPage} disabled={offset === 0} aria-label="Previous page">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="15,18 9,12 15,6"/>
             </svg>
           </button>
-          <span class="page-info">{Math.floor(offset / limit) + 1} / {Math.ceil(total / limit)}</span>
+          <span class="page-info">Page {Math.floor(offset / limit) + 1} of {Math.ceil(total / limit)}</span>
           <button class="page-btn" on:click={nextPage} disabled={offset + limit >= total} aria-label="Next page">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="9,6 15,12 9,18"/>
             </svg>
           </button>
@@ -342,372 +470,111 @@
 </div>
 
 <style>
-  .rides-page {
-    padding: 32px 0 64px;
-  }
-
-  .page-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .back-link {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    color: var(--text-secondary);
-    transition: all 0.15s ease;
-  }
-
-  .back-link:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-  }
-
-  .page-header h1 {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .header-count {
-    margin-left: auto;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: 12px;
-    background: var(--bg-elevated);
-    color: var(--text-tertiary);
-  }
-
-  .loading-state, .error-state, .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 24px;
-    color: var(--text-tertiary);
-    gap: 12px;
-  }
-
-  .retry-btn {
-    padding: 8px 16px;
-    background: var(--color-accent);
-    color: var(--color-accent-text);
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.15s ease;
-  }
-
-  .retry-btn:hover {
-    background: var(--color-accent-hover);
-  }
-
-  .empty-state a {
-    font-size: 13px;
-    color: var(--text-tertiary);
-  }
-
-  /* Summary Stats */
-  .rides-summary {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .summary-stat {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 10px;
-    padding: 14px;
-    text-align: center;
-  }
-  .summary-value {
-    display: block;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text-primary);
-    font-variant-numeric: tabular-nums;
-  }
-  .summary-value.optimal { color: var(--color-optimal-text); }
-  .summary-value.attention { color: var(--color-attention-text); }
-  .summary-value.problem { color: var(--color-problem-text); }
-  .summary-label {
-    display: block;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-
-  /* Sort Options */
-  .sort-options {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  .sort-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-right: 4px;
-  }
-  .sort-btn {
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
-  .sort-btn:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-  }
-  .sort-btn.active {
-    background: var(--color-accent);
-    color: var(--color-accent-text);
-    border-color: var(--color-accent);
-  }
-
-  /* Loading Inline */
-  .loading-inline {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-  }
-  .spinner-sm {
-    width: 24px;
-    height: 24px;
-    border: 2px solid var(--border-default);
-    border-top-color: var(--color-accent);
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-  }
-
-  /* Rides List */
-  .rides-list {
-    display: flex;
-    flex-direction: column;
+  /* Stats Strip - page-specific overrides */
+  .rides-page .stats-strip {
     gap: 10px;
   }
 
-  /* Ride Card */
-  .ride-card {
-    display: flex;
-    gap: 16px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 16px;
-    transition: border-color 0.15s ease;
-  }
-
-  .ride-card:hover {
-    border-color: var(--border-default);
-  }
-
-  /* Score Badge */
-  .ride-score {
-    flex-shrink: 0;
-    width: 56px;
-    height: 56px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    background: var(--bg-elevated);
-  }
-
-  .ride-card.optimal .ride-score {
-    background: var(--color-optimal-soft);
-  }
-  .ride-card.attention .ride-score {
-    background: var(--color-attention-soft);
-  }
-  .ride-card.problem .ride-score {
-    background: var(--color-problem-soft);
-  }
-
-  .score-value {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .ride-card.optimal .score-value { color: var(--color-optimal-text); }
-  .ride-card.attention .score-value { color: var(--color-attention-text); }
-  .ride-card.problem .score-value { color: var(--color-problem-text); }
-
-  .score-label {
-    font-size: 9px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  /* Content */
-  .ride-content {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  /* Header */
-  .ride-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .ride-when {
+  .stat-item {
     display: flex;
     align-items: baseline;
-    gap: 8px;
+    gap: 5px;
+    padding: 8px 14px;
+    background: var(--bg-base);
+    border-radius: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
-  .ride-date {
-    font-size: 14px;
+  .stat-value {
+    font-size: 16px;
     font-weight: 600;
     color: var(--text-primary);
   }
 
-  .ride-time {
+  .stat-value.optimal { color: var(--color-optimal-text); }
+  .stat-value.attention { color: var(--color-attention-text); }
+  .stat-value.problem { color: var(--color-problem-text); }
+  .stat-value.accent { color: var(--color-accent); }
+
+  .stat-label {
     font-size: 12px;
-    color: var(--text-tertiary);
-  }
-
-  .ride-header-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .ride-duration {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    padding: 3px 8px;
-    background: var(--bg-elevated);
-    border-radius: 6px;
-  }
-
-  /* Metrics */
-  .ride-metrics {
-    display: flex;
-    gap: 20px;
-  }
-
-  .metric {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .metric-name {
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
     color: var(--text-muted);
   }
 
-  .metric-value {
-    font-size: 14px;
+  .stat-item.highlight {
+    background: var(--color-optimal-soft, rgba(94, 232, 156, 0.1));
+  }
+  .stat-item.highlight .stat-value {
+    color: var(--color-optimal-text);
+  }
+
+  /* Table View - page-specific */
+  .rides-table-wrapper {
+    border-radius: 14px;
+  }
+
+  .rides-table {
+    font-size: 13px;
+  }
+
+  .rides-table th { white-space: nowrap; }
+
+  .ride-row {
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .ride-row:hover { background: var(--bg-hover); }
+  .ride-row:last-child td { border-bottom: none; }
+
+  .col-date { white-space: nowrap; }
+  .date-primary { font-weight: 500; color: var(--text-primary); }
+  .date-secondary { font-size: 11px; color: var(--text-muted); margin-left: 8px; }
+
+  .col-duration { font-weight: 500; color: var(--text-secondary); }
+
+  .col-asymmetry { white-space: nowrap; }
+  .asymmetry-value {
     font-weight: 600;
     font-variant-numeric: tabular-nums;
-    color: var(--text-primary);
   }
-
-  .metric-value.optimal { color: var(--color-optimal-text); }
-  .metric-value.attention { color: var(--color-attention-text); }
-  .metric-value.problem { color: var(--color-problem-text); }
-
-  .metric-unit {
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--text-muted);
-    margin-left: 1px;
-  }
-
-  .metric-sep {
-    color: var(--text-muted);
-    margin: 0 2px;
-    font-weight: 400;
-  }
-
-  .metric-avg {
+  .asymmetry-value.optimal { color: var(--color-optimal-text); }
+  .asymmetry-value.attention { color: var(--color-attention-text); }
+  .asymmetry-value.problem { color: var(--color-problem-text); }
+  .dominance {
+    margin-left: 6px;
     font-size: 11px;
+    color: var(--text-muted);
     font-weight: 500;
-    margin-left: 4px;
-    opacity: 0.8;
   }
 
-  /* Zones */
-  .ride-zones {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .balance-lr { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 
-  .zone-bar {
-    flex: 1;
-    height: 5px;
+  .te-value, .ps-value {
+    font-variant-numeric: tabular-nums;
+    color: var(--text-secondary);
+  }
+  .te-value.optimal, .ps-value.optimal { color: var(--color-optimal-text); }
+  .te-value.attention, .ps-value.attention { color: var(--color-attention-text); }
+  .te-value.problem, .ps-value.problem { color: var(--color-problem-text); }
+
+  .col-zones { width: 120px; }
+  .zone-bar-mini {
+    height: 8px;
     display: flex;
-    border-radius: 3px;
+    border-radius: 4px;
     overflow: hidden;
     background: var(--bg-elevated);
   }
-
-  .zone-segment {
-    height: 100%;
-  }
-
-  .zone-segment.optimal { background: var(--color-optimal); }
+  .zone-segment { height: 100%; transition: width 0.3s ease; }
+  .zone-segment.optimal { background: linear-gradient(90deg, var(--color-optimal), var(--color-optimal-light, var(--color-optimal))); }
   .zone-segment.attention { background: var(--color-attention); }
   .zone-segment.problem { background: var(--color-problem); }
 
-  .zone-stats {
-    display: flex;
-    gap: 10px;
-    flex-shrink: 0;
-  }
+  .col-power { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
+  .col-actions { width: 40px; text-align: center; }
 
-  .zone-stat {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 500;
-    font-variant-numeric: tabular-nums;
-    color: var(--text-secondary);
-  }
-
-  .zone-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .zone-dot.optimal { background: var(--color-optimal); }
-  .zone-dot.attention { background: var(--color-attention); }
-  .zone-dot.problem { background: var(--color-problem); }
-
-  /* Delete Button */
   .delete-btn {
     width: 28px;
     height: 28px;
@@ -720,149 +587,175 @@
     opacity: 0;
     transition: all 0.15s ease;
     background: transparent;
-    flex-shrink: 0;
   }
 
-  .ride-card:hover .delete-btn {
-    opacity: 1;
-  }
-
-  .delete-btn:hover:not(:disabled) {
-    background: var(--color-problem-soft);
-    color: var(--color-problem);
-  }
-
-  .delete-btn:disabled {
-    opacity: 0.5;
-  }
+  .ride-row:hover .delete-btn, .ride-card:hover .delete-btn { opacity: 1; }
+  .delete-btn:hover:not(:disabled) { background: var(--color-problem-soft); color: var(--color-problem); }
+  .delete-btn:disabled { opacity: 0.5; }
 
   .spinner-tiny {
-    width: 12px;
-    height: 12px;
+    width: 12px; height: 12px;
     border: 2px solid var(--border-default);
     border-top-color: var(--text-muted);
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
   }
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+  /* Card View */
+  .rides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
   }
 
-  /* Pagination */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    margin-top: 20px;
-  }
-
-  .page-btn {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .ride-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    color: var(--text-secondary);
+    border-radius: 12px;
+    padding: 14px;
     cursor: pointer;
     transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
-  .page-btn:hover:not(:disabled) {
-    background: var(--bg-hover);
-    color: var(--text-primary);
+  .ride-card:hover {
+    border-color: var(--border-default);
+    transform: translateY(-1px);
   }
 
-  .page-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
+  .ride-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .page-info {
-    font-size: 13px;
-    color: var(--text-tertiary);
-    min-width: 60px;
+  .ride-date-info { display: flex; align-items: baseline; gap: 8px; }
+  .ride-date { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .ride-time { font-size: 11px; color: var(--text-tertiary); }
+
+  .ride-header-right { display: flex; align-items: center; gap: 8px; }
+  .ride-duration {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 4px 10px;
+    background: var(--bg-base);
+    border-radius: 6px;
+  }
+
+  .ride-main-stats {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+    background: var(--bg-base);
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .asymmetry-display {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 16px;
+    border-right: 1px solid var(--border-subtle);
+  }
+  .asymmetry-num {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .asymmetry-num.optimal { color: var(--color-optimal-text); }
+  .asymmetry-num.attention { color: var(--color-attention-text); }
+  .asymmetry-num.problem { color: var(--color-problem-text); }
+  .asymmetry-label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
     text-align: center;
   }
 
+  .zone-display {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .zone-bar-card {
+    height: 10px;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    margin-bottom: 6px;
+  }
+  .zone-label { font-size: 11px; color: var(--text-muted); }
+
+  .ride-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .metric-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 4px;
+    background: var(--bg-base);
+    border-radius: 6px;
+  }
+  .metric-name {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+  }
+  .metric-value {
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+  }
+  .metric-value.optimal { color: var(--color-optimal-text); }
+  .metric-value.attention { color: var(--color-attention-text); }
+  .metric-value.problem { color: var(--color-problem-text); }
+
   /* Mobile */
-  @media (max-width: 640px) {
-    .rides-page {
-      padding: 24px 0 48px;
-    }
+  @media (max-width: 768px) {
+    .stat-item { padding: 6px 12px; }
+    .stat-value { font-size: 14px; }
+    .stat-label { font-size: 11px; }
+    .rides-table-wrapper { overflow-x: auto; }
+    .rides-table { min-width: 450px; font-size: 11px; }
+    .rides-table th { padding: 6px 8px; font-size: 9px; }
+    .rides-table td { padding: 8px 6px; }
+    .col-balance, .col-te, .col-ps { display: none; }
+    .col-zones { width: 70px; }
+    .zone-bar-mini { min-width: 50px; }
+    .rides-grid { grid-template-columns: 1fr; }
+    .ride-metrics-grid { grid-template-columns: repeat(4, 1fr); }
+    .delete-btn { opacity: 1; }
+  }
 
-    .rides-summary {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    .summary-stat {
-      padding: 12px;
-    }
-    .summary-value {
-      font-size: 18px;
-    }
-    .summary-label {
-      font-size: 10px;
-    }
-
-    .sort-options {
-      flex-wrap: wrap;
-    }
-    .sort-label {
-      width: 100%;
-      margin-bottom: 4px;
-    }
-
-    .ride-card {
-      flex-direction: column;
-      gap: 12px;
-      padding: 14px;
-    }
-
-    .ride-score {
-      width: 100%;
-      height: auto;
-      flex-direction: row;
-      justify-content: flex-start;
-      gap: 8px;
-      padding: 10px 12px;
-      border-radius: 8px;
-    }
-
-    .score-value {
-      font-size: 18px;
-    }
-
-    .score-label {
-      margin-top: 0;
-      margin-left: 2px;
-    }
-
-    .ride-metrics {
-      flex-wrap: wrap;
-      gap: 12px 16px;
-    }
-
-    .metric {
-      flex: 0 0 auto;
-    }
-
-    .ride-zones {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 8px;
-    }
-
-    .zone-stats {
-      justify-content: space-between;
-    }
-
-    .delete-btn {
-      opacity: 1;
-    }
+  @media (max-width: 480px) {
+    .stat-item { padding: 6px 10px; }
+    .stat-value { font-size: 13px; }
+    .stat-label { font-size: 10px; }
+    .rides-table { min-width: 320px; font-size: 10px; }
+    .rides-table th { padding: 5px 4px; font-size: 8px; }
+    .rides-table td { padding: 6px 4px; }
+    .col-power { display: none; }
+    .col-zones { width: 50px; }
+    .zone-bar-mini { min-width: 40px; height: 6px; }
+    .date-secondary { display: none; }
+    .ride-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .asymmetry-num { font-size: 22px; }
   }
 </style>

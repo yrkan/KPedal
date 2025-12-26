@@ -91,7 +91,7 @@ object HelpContent {
         ),
         OnboardingPage(
             title = "Cloud Sync",
-            description = "Sign in with Google to sync your ride data and view analytics on kpedal.com. This is optional - your data stays on device until you sync.",
+            description = "Sign in with Google to sync your ride data and view analytics on app.kpedal.com. This is optional - your data stays on device until you sync.",
             icon = "cloud"
         )
     )

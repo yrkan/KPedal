@@ -146,7 +146,7 @@ class AuthApiModelsTest {
             val data = DeviceCodeData(
                 device_code = "device_code_123",
                 user_code = "ABCD-1234",
-                verification_uri = "kpedal.com/link",
+                verification_uri = "link.kpedal.com",
                 expires_in = 600,
                 interval = 5
             )
@@ -178,14 +178,14 @@ class AuthApiModelsTest {
             val data = DeviceCodeData(
                 device_code = "code_abc",
                 user_code = "WXYZ-9876",
-                verification_uri = "https://kpedal.com/link",
+                verification_uri = "https://link.kpedal.com",
                 expires_in = 300,
                 interval = 10
             )
 
             assertThat(data.device_code).isEqualTo("code_abc")
             assertThat(data.user_code).isEqualTo("WXYZ-9876")
-            assertThat(data.verification_uri).isEqualTo("https://kpedal.com/link")
+            assertThat(data.verification_uri).isEqualTo("https://link.kpedal.com")
             assertThat(data.expires_in).isEqualTo(300)
             assertThat(data.interval).isEqualTo(10)
         }

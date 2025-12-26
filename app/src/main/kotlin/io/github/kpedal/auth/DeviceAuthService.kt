@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
  *
  * Flow:
  * 1. App calls requestDeviceCode() to get a user_code
- * 2. User enters code at kpedal.com/link on their phone/computer
+ * 2. User enters code at link.kpedal.com on their phone/computer
  * 3. App polls pollForToken() until user completes auth
  * 4. On success, tokens are saved to AuthRepository
  */

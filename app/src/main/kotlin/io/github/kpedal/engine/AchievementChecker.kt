@@ -3,6 +3,7 @@ package io.github.kpedal.engine
 import io.github.kpedal.data.AchievementRepository
 import io.github.kpedal.data.RideRepository
 import io.github.kpedal.data.StreakCalculator
+import io.github.kpedal.data.SyncService
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.Achievement
 import io.github.kpedal.drill.DrillRepository
@@ -15,7 +16,8 @@ import kotlinx.coroutines.withContext
 class AchievementChecker(
     private val achievementRepository: AchievementRepository,
     private val rideRepository: RideRepository,
-    private val drillRepository: DrillRepository
+    private val drillRepository: DrillRepository,
+    private val syncService: SyncService? = null
 ) {
     /**
      * Check all achievements after a ride is saved.
@@ -28,6 +30,8 @@ class AchievementChecker(
         suspend fun tryUnlock(achievement: Achievement, condition: Boolean) {
             if (condition && achievementRepository.unlock(achievement)) {
                 newlyUnlocked.add(achievement)
+                // Trigger sync for this achievement
+                syncService?.onAchievementUnlocked(achievement.id)
             }
         }
 
@@ -76,6 +80,8 @@ class AchievementChecker(
         suspend fun tryUnlock(achievement: Achievement, condition: Boolean) {
             if (condition && achievementRepository.unlock(achievement)) {
                 newlyUnlocked.add(achievement)
+                // Trigger sync for this achievement
+                syncService?.onAchievementUnlocked(achievement.id)
             }
         }
 

@@ -528,8 +528,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             // Completion vibration pattern
             vibrateComplete()
             viewModelScope.launch {
-                drillRepository.saveResult(result)
+                val drillId = drillRepository.saveResult(result)
                 _drillResult.value = result
+
+                // Trigger sync for this drill
+                KPedalExtension.instance?.syncService?.onDrillCompleted(drillId)
 
                 // Check for drill achievements
                 if (result.completed) {

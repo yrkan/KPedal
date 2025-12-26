@@ -43,10 +43,50 @@ class LiveDataCollector {
     private var psLeftSum: Float = 0f
     private var psRightSum: Float = 0f
 
+    // Extended metrics accumulators
+    private var powerSum: Long = 0L
+    private var powerMax: Int = 0
+    private var powerSampleCount: Int = 0
+    private var cadenceSum: Long = 0L
+    private var cadenceSampleCount: Int = 0
+    private var heartRateSum: Long = 0L
+    private var heartRateMax: Int = 0
+    private var heartRateSampleCount: Int = 0
+    private var speedSum: Float = 0f
+    private var speedSampleCount: Int = 0
+    private var lastDistance: Float = 0f
+
+    // Pro cyclist metrics accumulators
+    private var lastElevationGain: Float = 0f
+    private var lastElevationLoss: Float = 0f
+    private var gradeSum: Float = 0f
+    private var gradeMax: Float = 0f
+    private var gradeSampleCount: Int = 0
+    private var lastNormalizedPower: Int = 0
+    private var lastEnergy: Float = 0f
+
     // Time in zone tracking (in milliseconds for accuracy)
     private var timeOptimalMs: Long = 0L
     private var timeAttentionMs: Long = 0L
     private var timeProblemMs: Long = 0L
+
+    // Per-minute snapshot collection (cloud-only)
+    private val snapshots = mutableListOf<RideSnapshot>()
+    private var lastSnapshotMinute: Int = -1
+    // Per-minute accumulators (reset each minute)
+    private var minuteBalanceLeftSum: Float = 0f
+    private var minuteBalanceRightSum: Float = 0f
+    private var minuteTeLeftSum: Float = 0f
+    private var minuteTeRightSum: Float = 0f
+    private var minutePsLeftSum: Float = 0f
+    private var minutePsRightSum: Float = 0f
+    private var minutePowerSum: Long = 0L
+    private var minuteCadenceSum: Long = 0L
+    private var minuteHeartRateSum: Long = 0L
+    private var minuteTimeOptimalMs: Long = 0L
+    private var minuteTimeAttentionMs: Long = 0L
+    private var minuteTimeProblemMs: Long = 0L
+    private var minuteSampleCount: Int = 0
 
     // Initial values for trend calculation (first 30 seconds average)
     private var initialBalanceSum: Float = 0f
@@ -89,12 +129,23 @@ class LiveDataCollector {
      * Call this when a ride ends.
      */
     fun stopCollecting() {
-        isCollecting = false
+        synchronized(lock) {
+            isCollecting = false
+            // Create final snapshot for any remaining minute data
+            if (minuteSampleCount > 0) {
+                val finalSnapshot = createSnapshotFromMinuteData(
+                    lastSnapshotMinute + 1,
+                    System.currentTimeMillis()
+                )
+                snapshots.add(finalSnapshot)
+                android.util.Log.d(TAG, "Created final snapshot for minute ${finalSnapshot.minuteIndex}")
+            }
+        }
         emitJob?.cancel()
         emitJob = null
         // Emit final data
         emitLiveData()
-        android.util.Log.i(TAG, "Stopped collecting live data")
+        android.util.Log.i(TAG, "Stopped collecting live data with ${snapshots.size} snapshots")
     }
 
     /**
@@ -115,6 +166,27 @@ class LiveDataCollector {
             teRightSum = 0f
             psLeftSum = 0f
             psRightSum = 0f
+            // Extended metrics
+            powerSum = 0L
+            powerMax = 0
+            powerSampleCount = 0
+            cadenceSum = 0L
+            cadenceSampleCount = 0
+            heartRateSum = 0L
+            heartRateMax = 0
+            heartRateSampleCount = 0
+            speedSum = 0f
+            speedSampleCount = 0
+            lastDistance = 0f
+            // Pro cyclist metrics
+            lastElevationGain = 0f
+            lastElevationLoss = 0f
+            gradeSum = 0f
+            gradeMax = 0f
+            gradeSampleCount = 0
+            lastNormalizedPower = 0
+            lastEnergy = 0f
+            // Zone tracking
             timeOptimalMs = 0L
             timeAttentionMs = 0L
             timeProblemMs = 0L
@@ -124,7 +196,27 @@ class LiveDataCollector {
             initialSampleCount = 0
             initialPeriodComplete = false
             lastUpdateTimeMs = System.currentTimeMillis()
+            // Snapshot tracking
+            snapshots.clear()
+            lastSnapshotMinute = -1
+            resetMinuteAccumulators()
         }
+    }
+
+    private fun resetMinuteAccumulators() {
+        minuteBalanceLeftSum = 0f
+        minuteBalanceRightSum = 0f
+        minuteTeLeftSum = 0f
+        minuteTeRightSum = 0f
+        minutePsLeftSum = 0f
+        minutePsRightSum = 0f
+        minutePowerSum = 0L
+        minuteCadenceSum = 0L
+        minuteHeartRateSum = 0L
+        minuteTimeOptimalMs = 0L
+        minuteTimeAttentionMs = 0L
+        minuteTimeProblemMs = 0L
+        minuteSampleCount = 0
     }
 
     /**
@@ -151,6 +243,60 @@ class LiveDataCollector {
             psLeftSum += metrics.pedalSmoothLeft
             psRightSum += metrics.pedalSmoothRight
 
+            // Accumulate extended metrics (only when valid data present)
+            if (metrics.power > 0) {
+                powerSum += metrics.power
+                powerSampleCount++
+                if (metrics.power > powerMax) {
+                    powerMax = metrics.power
+                }
+            }
+            if (metrics.cadence > 0) {
+                cadenceSum += metrics.cadence
+                cadenceSampleCount++
+            }
+            if (metrics.heartRate > 0) {
+                heartRateSum += metrics.heartRate
+                heartRateSampleCount++
+                if (metrics.heartRate > heartRateMax) {
+                    heartRateMax = metrics.heartRate
+                }
+            }
+            if (metrics.speed > 0) {
+                speedSum += metrics.speedKmh
+                speedSampleCount++
+            }
+            // Track distance (use latest value, not sum)
+            if (metrics.distance > 0) {
+                lastDistance = metrics.distanceKm
+            }
+
+            // Pro cyclist metrics
+            // Elevation gain/loss - use latest cumulative values from Karoo
+            if (metrics.elevationGain > 0) {
+                lastElevationGain = metrics.elevationGain
+            }
+            if (metrics.elevationLoss > 0) {
+                lastElevationLoss = metrics.elevationLoss
+            }
+            // Grade - track average and max
+            if (metrics.grade != 0f) {
+                gradeSum += kotlin.math.abs(metrics.grade)
+                gradeSampleCount++
+                val absGrade = kotlin.math.abs(metrics.grade)
+                if (absGrade > gradeMax) {
+                    gradeMax = absGrade
+                }
+            }
+            // Normalized Power - use latest value from Karoo
+            if (metrics.normalizedPower > 0) {
+                lastNormalizedPower = metrics.normalizedPower
+            }
+            // Energy - use latest cumulative value from Karoo
+            if (metrics.energyKj > 0) {
+                lastEnergy = metrics.energyKj
+            }
+
             // Track initial period for trend comparison (quick baseline for live feedback)
             if (!initialPeriodComplete) {
                 initialBalanceSum += kotlin.math.abs(50f - metrics.balance)
@@ -171,8 +317,82 @@ class LiveDataCollector {
                 StatusCalculator.Status.ATTENTION -> timeAttentionMs += cappedElapsedMs
                 StatusCalculator.Status.PROBLEM -> timeProblemMs += cappedElapsedMs
             }
+
+            // Per-minute snapshot collection
+            accumulateMinuteMetrics(metrics, cappedElapsedMs, balanceStatus)
+            checkAndCreateSnapshot(currentTimeMs)
         }
         // Note: Live data is emitted periodically by emitJob, not on every update
+    }
+
+    private fun accumulateMinuteMetrics(
+        metrics: PedalingMetrics,
+        elapsedMs: Long,
+        balanceStatus: StatusCalculator.Status
+    ) {
+        minuteSampleCount++
+        minuteBalanceLeftSum += metrics.balanceLeft
+        minuteBalanceRightSum += metrics.balance
+        minuteTeLeftSum += metrics.torqueEffLeft
+        minuteTeRightSum += metrics.torqueEffRight
+        minutePsLeftSum += metrics.pedalSmoothLeft
+        minutePsRightSum += metrics.pedalSmoothRight
+
+        if (metrics.power > 0) {
+            minutePowerSum += metrics.power
+        }
+        if (metrics.cadence > 0) {
+            minuteCadenceSum += metrics.cadence
+        }
+        if (metrics.heartRate > 0) {
+            minuteHeartRateSum += metrics.heartRate
+        }
+
+        when (balanceStatus) {
+            StatusCalculator.Status.OPTIMAL -> minuteTimeOptimalMs += elapsedMs
+            StatusCalculator.Status.ATTENTION -> minuteTimeAttentionMs += elapsedMs
+            StatusCalculator.Status.PROBLEM -> minuteTimeProblemMs += elapsedMs
+        }
+    }
+
+    private fun checkAndCreateSnapshot(currentTimeMs: Long) {
+        val elapsedFromStartMs = currentTimeMs - startTimeMs
+        val currentMinute = (elapsedFromStartMs / 60000).toInt()
+
+        // Create snapshot when we cross into a new minute
+        if (currentMinute > lastSnapshotMinute && minuteSampleCount > 0) {
+            val snapshot = createSnapshotFromMinuteData(lastSnapshotMinute + 1, currentTimeMs)
+            snapshots.add(snapshot)
+            lastSnapshotMinute = currentMinute
+            resetMinuteAccumulators()
+            android.util.Log.d(TAG, "Created snapshot for minute ${snapshot.minuteIndex}")
+        }
+    }
+
+    private fun createSnapshotFromMinuteData(minuteIndex: Int, timestamp: Long): RideSnapshot {
+        val count = minuteSampleCount.coerceAtLeast(1)
+
+        // Determine dominant zone for this minute
+        val dominantZone = when {
+            minuteTimeOptimalMs >= minuteTimeAttentionMs && minuteTimeOptimalMs >= minuteTimeProblemMs -> "OPTIMAL"
+            minuteTimeAttentionMs >= minuteTimeProblemMs -> "ATTENTION"
+            else -> "PROBLEM"
+        }
+
+        return RideSnapshot(
+            minuteIndex = minuteIndex,
+            timestamp = timestamp,
+            balanceLeft = (minuteBalanceLeftSum / count).roundToInt(),
+            balanceRight = (minuteBalanceRightSum / count).roundToInt(),
+            teLeft = (minuteTeLeftSum / count).roundToInt(),
+            teRight = (minuteTeRightSum / count).roundToInt(),
+            psLeft = (minutePsLeftSum / count).roundToInt(),
+            psRight = (minutePsRightSum / count).roundToInt(),
+            powerAvg = if (count > 0) (minutePowerSum / count).toInt() else 0,
+            cadenceAvg = if (count > 0) (minuteCadenceSum / count).toInt() else 0,
+            heartRateAvg = if (count > 0) (minuteHeartRateSum / count).toInt() else 0,
+            zoneStatus = dominantZone
+        )
     }
 
     private fun emitLiveData() {
@@ -201,7 +421,22 @@ class LiveDataCollector {
                 initialBalanceDeviation = if (initialSampleCount > 0) initialBalanceSum / initialSampleCount else 0f,
                 initialTeAvg = if (initialSampleCount > 0) initialTeSum / initialSampleCount else 0f,
                 initialPsAvg = if (initialSampleCount > 0) initialPsSum / initialSampleCount else 0f,
-                hasTrendData = initialPeriodComplete && count > initialSampleCount
+                hasTrendData = initialPeriodComplete && count > initialSampleCount,
+                // Extended metrics
+                powerAvg = if (powerSampleCount > 0) (powerSum / powerSampleCount).toInt() else 0,
+                powerMax = powerMax,
+                cadenceAvg = if (cadenceSampleCount > 0) (cadenceSum / cadenceSampleCount).toInt() else 0,
+                heartRateAvg = if (heartRateSampleCount > 0) (heartRateSum / heartRateSampleCount).toInt() else 0,
+                heartRateMax = heartRateMax,
+                speedAvgKmh = if (speedSampleCount > 0) speedSum / speedSampleCount else 0f,
+                distanceKm = lastDistance,
+                // Pro cyclist metrics
+                elevationGain = lastElevationGain.roundToInt(),
+                elevationLoss = lastElevationLoss.roundToInt(),
+                gradeAvg = if (gradeSampleCount > 0) gradeSum / gradeSampleCount else 0f,
+                gradeMax = gradeMax,
+                normalizedPower = lastNormalizedPower,
+                energyKj = lastEnergy.roundToInt()
             )
         }
 
@@ -309,6 +544,21 @@ class LiveDataCollector {
             teTrend = teTrend,
             psTrend = psTrend,
             score = overallScore,
+            // Extended metrics
+            powerAvg = snapshot.powerAvg,
+            powerMax = snapshot.powerMax,
+            cadenceAvg = snapshot.cadenceAvg,
+            heartRateAvg = snapshot.heartRateAvg,
+            heartRateMax = snapshot.heartRateMax,
+            speedAvgKmh = snapshot.speedAvgKmh,
+            distanceKm = snapshot.distanceKm,
+            // Pro cyclist metrics
+            elevationGain = snapshot.elevationGain,
+            elevationLoss = snapshot.elevationLoss,
+            gradeAvg = snapshot.gradeAvg,
+            gradeMax = snapshot.gradeMax,
+            normalizedPower = snapshot.normalizedPower,
+            energyKj = snapshot.energyKj,
             hasData = true
         )
     }
@@ -330,7 +580,22 @@ class LiveDataCollector {
         val initialBalanceDeviation: Float,
         val initialTeAvg: Float,
         val initialPsAvg: Float,
-        val hasTrendData: Boolean
+        val hasTrendData: Boolean,
+        // Extended metrics
+        val powerAvg: Int,
+        val powerMax: Int,
+        val cadenceAvg: Int,
+        val heartRateAvg: Int,
+        val heartRateMax: Int,
+        val speedAvgKmh: Float,
+        val distanceKm: Float,
+        // Pro cyclist metrics
+        val elevationGain: Int,
+        val elevationLoss: Int,
+        val gradeAvg: Float,
+        val gradeMax: Float,
+        val normalizedPower: Int,
+        val energyKj: Int
     )
 
     private fun formatDuration(ms: Long): String {
@@ -350,6 +615,17 @@ class LiveDataCollector {
             System.currentTimeMillis() - startTimeMs
         } else {
             0L
+        }
+    }
+
+    /**
+     * Get collected per-minute snapshots.
+     * Used for syncing to cloud for time-series charts.
+     * Returns a defensive copy.
+     */
+    fun getSnapshots(): List<RideSnapshot> {
+        synchronized(lock) {
+            return snapshots.toList()
         }
     }
 

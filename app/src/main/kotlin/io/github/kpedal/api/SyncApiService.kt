@@ -15,7 +15,7 @@ interface SyncApiService {
     /**
      * Sync a single ride to cloud.
      */
-    @POST("api/sync/ride")
+    @POST("sync/ride")
     suspend fun syncRide(
         @Header("Authorization") token: String,
         @Header("X-Device-ID") deviceId: String,
@@ -23,9 +23,49 @@ interface SyncApiService {
     ): Response<SyncResponse>
 
     /**
+     * Sync a ride with per-minute snapshots to cloud.
+     */
+    @POST("sync/ride-full")
+    suspend fun syncRideWithSnapshots(
+        @Header("Authorization") token: String,
+        @Header("X-Device-ID") deviceId: String,
+        @Body request: SyncRideWithSnapshotsRequest
+    ): Response<SyncResponse>
+
+    /**
+     * Sync a single drill result to cloud.
+     */
+    @POST("sync/drill")
+    suspend fun syncDrill(
+        @Header("Authorization") token: String,
+        @Header("X-Device-ID") deviceId: String,
+        @Body drill: SyncDrillRequest
+    ): Response<SyncResponse>
+
+    /**
+     * Sync multiple drill results to cloud.
+     */
+    @POST("sync/drills")
+    suspend fun syncDrills(
+        @Header("Authorization") token: String,
+        @Header("X-Device-ID") deviceId: String,
+        @Body request: SyncDrillsRequest
+    ): Response<SyncResponse>
+
+    /**
+     * Sync achievements to cloud.
+     */
+    @POST("sync/achievements")
+    suspend fun syncAchievements(
+        @Header("Authorization") token: String,
+        @Header("X-Device-ID") deviceId: String,
+        @Body request: SyncAchievementsRequest
+    ): Response<SyncResponse>
+
+    /**
      * Get sync status for this device.
      */
-    @GET("api/sync/status")
+    @GET("sync/status")
     suspend fun getSyncStatus(
         @Header("Authorization") token: String,
         @Header("X-Device-ID") deviceId: String
@@ -34,7 +74,7 @@ interface SyncApiService {
     /**
      * Check if a sync was requested from the web.
      */
-    @GET("api/sync/check-request")
+    @GET("sync/check-request")
     suspend fun checkSyncRequest(
         @Header("Authorization") token: String,
         @Header("X-Device-ID") deviceId: String
@@ -43,7 +83,7 @@ interface SyncApiService {
     /**
      * Get user settings from cloud.
      */
-    @GET("api/settings")
+    @GET("settings")
     suspend fun getSettings(
         @Header("Authorization") token: String
     ): Response<SettingsResponse>
@@ -51,7 +91,7 @@ interface SyncApiService {
     /**
      * Update user settings on cloud.
      */
-    @PUT("api/settings")
+    @PUT("settings")
     suspend fun updateSettings(
         @Header("Authorization") token: String,
         @Body settings: CloudSettings
@@ -71,7 +111,77 @@ data class SyncRideRequest(
     val ps_right_avg: Int,
     val optimal_pct: Int,
     val attention_pct: Int,
-    val problem_pct: Int
+    val problem_pct: Int,
+    // Extended metrics
+    val power_avg: Int = 0,
+    val power_max: Int = 0,
+    val cadence_avg: Int = 0,
+    val hr_avg: Int = 0,
+    val speed_avg: Float = 0f,
+    val distance_km: Float = 0f
+)
+
+/**
+ * Request model for syncing ride with per-minute snapshots.
+ */
+data class SyncRideWithSnapshotsRequest(
+    val ride: SyncRideRequest,
+    val snapshots: List<SyncSnapshotRequest>
+)
+
+/**
+ * Per-minute snapshot for cloud sync.
+ */
+data class SyncSnapshotRequest(
+    val minute_index: Int,
+    val timestamp: Long,
+    val balance_left: Int,
+    val balance_right: Int,
+    val te_left: Int,
+    val te_right: Int,
+    val ps_left: Int,
+    val ps_right: Int,
+    val power_avg: Int,
+    val cadence_avg: Int,
+    val hr_avg: Int,
+    val zone_status: String
+)
+
+/**
+ * Request model for syncing a single drill result.
+ */
+data class SyncDrillRequest(
+    val drill_id: String,
+    val drill_name: String,
+    val timestamp: Long,
+    val duration_ms: Long,
+    val score: Float,
+    val time_in_target_ms: Long,
+    val time_in_target_percent: Float,
+    val completed: Boolean,
+    val phase_scores_json: String?
+)
+
+/**
+ * Request model for batch syncing drill results.
+ */
+data class SyncDrillsRequest(
+    val drills: List<SyncDrillRequest>
+)
+
+/**
+ * Request model for syncing a single achievement.
+ */
+data class SyncAchievementRequest(
+    val achievement_id: String,
+    val unlocked_at: Long
+)
+
+/**
+ * Request model for batch syncing achievements.
+ */
+data class SyncAchievementsRequest(
+    val achievements: List<SyncAchievementRequest>
 )
 
 // Response models

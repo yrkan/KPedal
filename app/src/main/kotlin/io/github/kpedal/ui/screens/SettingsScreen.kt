@@ -488,7 +488,7 @@ private fun DeviceAuthSection(
                             fontWeight = FontWeight.SemiBold
                         )
                         Text(
-                            text = "Sync rides to kpedal.com",
+                            text = "Sync rides to app.kpedal.com",
                             color = Theme.colors.background.copy(alpha = 0.7f),
                             fontSize = 11.sp
                         )
@@ -532,7 +532,7 @@ private fun DeviceAuthSection(
                 val verificationUri = when (deviceAuthState) {
                     is DeviceAuthService.DeviceAuthState.WaitingForUser -> deviceAuthState.verificationUri
                     is DeviceAuthService.DeviceAuthState.Polling -> deviceAuthState.verificationUri
-                    else -> "kpedal.com/link"
+                    else -> "link.kpedal.com"
                 }
 
                 // Card with code display

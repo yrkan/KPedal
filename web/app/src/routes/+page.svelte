@@ -1,8 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { goto } from '$app/navigation';
   import { isAuthenticated, user, authFetch } from '$lib/auth';
   import { theme } from '$lib/theme';
   import { API_URL } from '$lib/config';
+  import InfoTip from '$lib/components/InfoTip.svelte';
 
   interface Stats {
     total_rides: number;
@@ -15,6 +17,16 @@
     avg_score: number;
     total_duration_ms: number;
     avg_zone_optimal: number;
+    avg_zone_attention: number;
+    avg_zone_problem: number;
+    best_score: number;
+    best_balance_diff: number;
+    avg_power: number;
+    max_power: number;
+    avg_cadence: number;
+    avg_hr: number;
+    avg_speed: number;
+    total_distance_km: number;
   }
 
   interface Ride {
@@ -23,15 +35,101 @@
     duration_ms: number;
     balance_left: number;
     balance_right: number;
+    te_left: number;
+    te_right: number;
+    ps_left: number;
+    ps_right: number;
+    zone_optimal: number;
+    zone_attention: number;
+    zone_problem: number;
     score: number;
+    power_avg: number;
+    power_max: number;
+    cadence_avg: number;
+    hr_avg: number;
+    hr_max: number;
+    speed_avg: number;
+    distance_km: number;
+    // Pro cyclist metrics
+    elevation_gain: number;
+    elevation_loss: number;
+    grade_avg: number;
+    grade_max: number;
+    normalized_power: number;
+    energy_kj: number;
   }
 
+  interface WeeklyComparison {
+    thisWeek: {
+      rides_count: number;
+      avg_score: number;
+      avg_balance_left: number;
+      avg_te: number;
+      avg_ps: number;
+      avg_zone_optimal: number;
+      total_duration_ms: number;
+      avg_power: number;
+      total_distance_km: number;
+      total_elevation: number;
+      total_energy_kj: number;
+    };
+    lastWeek: {
+      rides_count: number;
+      avg_score: number;
+      avg_balance_left: number;
+      avg_te: number;
+      avg_ps: number;
+      avg_zone_optimal: number;
+      total_duration_ms: number;
+      avg_power: number;
+      total_distance_km: number;
+      total_elevation: number;
+      total_energy_kj: number;
+    };
+    changes: {
+      score: number;
+      zone_optimal: number;
+      rides_count: number;
+      power: number;
+      distance: number;
+      duration: number;
+      elevation: number;
+      te: number;
+      ps: number;
+      balance: number;
+      energy: number;
+    };
+  }
+
+  interface TrendData {
+    date: string;
+    rides_count: number;
+    avg_balance_left: number;
+    avg_te: number;
+    avg_ps: number;
+    avg_score: number;
+    avg_zone_optimal: number;
+  }
+
+  // State
   let stats: Stats | null = null;
   let recentRides: Ride[] = [];
   let weeklyRides: Ride[] = [];
+  let weeklyComparison: WeeklyComparison | null = null;
+  let fatigueData: FatigueAnalysis | null = null;
+  let trendData: TrendData[] = [];
   let loading = true;
   let error: string | null = null;
   let selectedPeriod: '7' | '30' = '7';
+  let activeTrendMetric: 'asymmetry' | 'te' | 'ps' = 'asymmetry';
+
+  // Fatigue analysis data structure
+  interface FatigueAnalysis {
+    hasData: boolean;
+    firstThird: { balance: number; te: number; ps: number; power: number };
+    lastThird: { balance: number; te: number; ps: number; power: number };
+    degradation: { balance: number; te: number; ps: number };
+  }
 
   // Interactive state for landing
   let activeDataField = 0;
@@ -65,7 +163,7 @@
     ]
   };
 
-  const achievements = [
+  const landingAchievements = [
     { category: 'Rides', items: ['First Ride', '10 Rides', '50 Rides', '100 Rides'] },
     { category: 'Balance', items: ['Perfect 1 min', 'Perfect 5 min', 'Perfect 10 min'] },
     { category: 'Efficiency', items: ['Efficient Rider', 'Smooth Operator'] },
@@ -86,25 +184,25 @@
   async function loadDashboardData() {
     loading = true;
     try {
-      const [statsRes, ridesRes, weeklyRes] = await Promise.all([
-        authFetch('/api/rides/stats/summary'),
-        authFetch('/api/rides?limit=5'),
-        authFetch(`/api/rides?limit=50`),
-      ]);
+      // Single API call replaces 6 separate requests (7x faster)
+      const res = await authFetch('/rides/dashboard');
 
-      if (statsRes.ok) {
-        const statsData = await statsRes.json();
-        if (statsData.success) stats = statsData.data;
-      }
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          stats = data.data.stats;
+          recentRides = data.data.recentRides || [];
+          weeklyRides = recentRides; // Use recent rides for weekly display
+          weeklyComparison = data.data.weeklyComparison;
+          trendData = data.data.trends || [];
 
-      if (ridesRes.ok) {
-        const ridesData = await ridesRes.json();
-        if (ridesData.success) recentRides = ridesData.data.rides || [];
-      }
-
-      if (weeklyRes.ok) {
-        const weeklyData = await weeklyRes.json();
-        if (weeklyData.success) weeklyRides = weeklyData.data.rides || [];
+          // Calculate fatigue from snapshots (included in dashboard response)
+          if (data.data.lastRideSnapshots?.length >= 6) {
+            fatigueData = calculateFatigueAnalysis(data.data.lastRideSnapshots);
+          }
+        }
+      } else {
+        error = 'Failed to load data';
       }
     } catch (err) {
       error = 'Failed to load data';
@@ -113,10 +211,51 @@
     }
   }
 
+  // Calculate fatigue analysis from ride snapshots
+  function calculateFatigueAnalysis(snapshots: any[]): FatigueAnalysis {
+    const thirdLen = Math.floor(snapshots.length / 3);
+    const firstThird = snapshots.slice(0, thirdLen);
+    const lastThird = snapshots.slice(-thirdLen);
+
+    const avg = (arr: any[], key: string) => arr.reduce((s, x) => s + (x[key] || 0), 0) / arr.length;
+
+    const first = {
+      balance: avg(firstThird, 'balance_left'),
+      te: (avg(firstThird, 'te_left') + avg(firstThird, 'te_right')) / 2,
+      ps: (avg(firstThird, 'ps_left') + avg(firstThird, 'ps_right')) / 2,
+      power: avg(firstThird, 'power_avg'),
+    };
+
+    const last = {
+      balance: avg(lastThird, 'balance_left'),
+      te: (avg(lastThird, 'te_left') + avg(lastThird, 'te_right')) / 2,
+      ps: (avg(lastThird, 'ps_left') + avg(lastThird, 'ps_right')) / 2,
+      power: avg(lastThird, 'power_avg'),
+    };
+
+    return {
+      hasData: true,
+      firstThird: first,
+      lastThird: last,
+      degradation: {
+        balance: Math.abs(last.balance - 50) - Math.abs(first.balance - 50), // positive = worse
+        te: first.te - last.te, // positive = degraded
+        ps: first.ps - last.ps, // positive = degraded
+      },
+    };
+  }
+
   onMount(async () => {
     if (!$isAuthenticated) {
+      // On app.kpedal.com redirect to login, on kpedal.com show landing
+      const isAppSubdomain = window.location.hostname.startsWith('app.');
+      if (isAppSubdomain) {
+        goto('/login');
+        return;
+      }
+
+      // Show landing page
       loading = false;
-      // Auto-rotate data fields
       const interval = setInterval(() => {
         activeDataField = (activeDataField + 1) % dataFields.length;
       }, 4000);
@@ -138,6 +277,16 @@
 
   function formatDate(timestamp: number): string {
     return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function formatRelativeTime(timestamp: number): string {
+    const now = Date.now();
+    const diff = now - timestamp;
+    const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+    if (days === 0) return 'Today';
+    if (days === 1) return 'Yesterday';
+    if (days < 7) return `${days} days ago`;
+    return formatDate(timestamp);
   }
 
   function getBalanceStatus(left: number): 'optimal' | 'attention' | 'problem' {
@@ -190,20 +339,110 @@
     return counts;
   }
 
-  function getBalanceTrendPath(rides: Ride[]): string {
-    if (rides.length === 0) return '';
-    const sorted = [...rides].sort((a, b) => a.timestamp - b.timestamp).slice(-10);
-    if (sorted.length < 2) return '';
+  function getBalanceTrendData(rides: Ride[], maxPoints: number = 20): { path: string; areaPath: string; avgLine: number; minBalance: number; maxBalance: number; points: Array<{x: number; y: number; balance: number; date: string}> } {
+    if (rides.length === 0) return { path: '', areaPath: '', avgLine: 30, minBalance: 50, maxBalance: 50, points: [] };
+    const sorted = [...rides].sort((a, b) => a.timestamp - b.timestamp).slice(-maxPoints);
+    if (sorted.length < 2) return { path: '', areaPath: '', avgLine: 30, minBalance: 50, maxBalance: 50, points: [] };
 
-    const width = 280;
+    const balances = sorted.map(r => r.balance_left);
+    const avgBalance = balances.reduce((a, b) => a + b, 0) / balances.length;
+    const minBalance = Math.min(...balances);
+    const maxBalance = Math.max(...balances);
+
+    // Use coordinates that match viewBox="0 0 200 60"
+    const width = 200;
     const height = 60;
-    const padding = 10;
-    const points = sorted.map((r, i) => {
+    const padding = 8;
+
+    const dataPoints = sorted.map((r, i) => {
       const x = padding + (i / (sorted.length - 1)) * (width - 2 * padding);
+      // Y axis: 40-60% maps to chart height (inverted - higher values go up)
       const y = height - padding - ((r.balance_left - 40) / 20) * (height - 2 * padding);
-      return `${x},${Math.max(padding, Math.min(height - padding, y))}`;
+      const clampedY = Math.max(padding, Math.min(height - padding, y));
+      return {
+        x,
+        y: clampedY,
+        balance: r.balance_left,
+        date: new Date(r.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+      };
     });
-    return `M${points.join(' L')}`;
+
+    const pathPoints = dataPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`);
+    const linePath = `M${pathPoints.join(' L')}`;
+    // Area path for gradient fill
+    const areaPath = `${linePath} L${dataPoints[dataPoints.length - 1].x.toFixed(1)},${height} L${dataPoints[0].x.toFixed(1)},${height} Z`;
+
+    return {
+      path: linePath,
+      areaPath,
+      avgLine: height - padding - ((avgBalance - 40) / 20) * (height - 2 * padding),
+      minBalance,
+      maxBalance,
+      points: dataPoints
+    };
+  }
+
+  // Technique Trends chart helper
+  function getTechniqueTrendData(trends: TrendData[], metric: 'asymmetry' | 'te' | 'ps') {
+    if (!trends || trends.length < 2) return { path: '', areaPath: '', min: 0, max: 100, points: [] };
+
+    const sorted = [...trends].sort((a, b) => a.date.localeCompare(b.date));
+
+    const values = sorted.map(t => {
+      if (metric === 'asymmetry') return Math.abs(t.avg_balance_left - 50);
+      if (metric === 'te') return t.avg_te;
+      return t.avg_ps;
+    });
+
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const dataPad = range * 0.15;
+    const chartMin = Math.max(0, min - dataPad);
+    const chartMax = max + dataPad;
+    const chartRange = chartMax - chartMin;
+
+    // Use coordinates that match viewBox="0 0 200 60"
+    const width = 200;
+    const height = 60;
+    const xPad = 8;
+    const yPad = 8;
+
+    const dataPoints = sorted.map((t, i) => {
+      const x = xPad + (i / (values.length - 1)) * (width - 2 * xPad);
+      const y = height - yPad - ((values[i] - chartMin) / chartRange) * (height - 2 * yPad);
+      return {
+        date: t.date,
+        value: values[i],
+        x,
+        y
+      };
+    });
+
+    const pathPoints = dataPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`);
+    const linePath = `M${pathPoints.join(' L')}`;
+    // Area path for gradient fill
+    const areaPath = `${linePath} L${dataPoints[dataPoints.length - 1].x.toFixed(1)},${height} L${dataPoints[0].x.toFixed(1)},${height} Z`;
+
+    return {
+      path: linePath,
+      areaPath,
+      min: chartMin,
+      max: chartMax,
+      points: dataPoints
+    };
+  }
+
+  function getTrendColor(metric: 'asymmetry' | 'te' | 'ps'): string {
+    if (metric === 'asymmetry') return 'var(--color-accent)';
+    if (metric === 'te') return 'var(--color-optimal)';
+    return 'var(--color-attention)';
+  }
+
+  function getAsymmetryClass(value: number): string {
+    if (value <= 2.5) return 'optimal';
+    if (value <= 5) return 'attention';
+    return 'problem';
   }
 
   function getPeriodStats(rides: Ride[], days: number) {
@@ -219,6 +458,37 @@
     const avgTe = filtered.reduce((sum, r) => sum + (r.te_left + r.te_right) / 2, 0) / filtered.length;
     const avgPs = filtered.reduce((sum, r) => sum + (r.ps_left + r.ps_right) / 2, 0) / filtered.length;
 
+    // Cycling metrics (filter out zeros for accurate averages)
+    const ridesWithPower = filtered.filter(r => r.power_avg > 0);
+    const ridesWithCadence = filtered.filter(r => r.cadence_avg > 0);
+    const ridesWithHr = filtered.filter(r => r.hr_avg > 0);
+    const avgPower = ridesWithPower.length > 0
+      ? ridesWithPower.reduce((sum, r) => sum + r.power_avg, 0) / ridesWithPower.length : 0;
+    const maxPower = ridesWithPower.length > 0
+      ? Math.max(...ridesWithPower.map(r => r.power_max || r.power_avg)) : 0;
+    const avgCadence = ridesWithCadence.length > 0
+      ? ridesWithCadence.reduce((sum, r) => sum + r.cadence_avg, 0) / ridesWithCadence.length : 0;
+    const avgHr = ridesWithHr.length > 0
+      ? ridesWithHr.reduce((sum, r) => sum + r.hr_avg, 0) / ridesWithHr.length : 0;
+    const maxHr = ridesWithHr.length > 0
+      ? Math.max(...ridesWithHr.map(r => r.hr_max || r.hr_avg)) : 0;
+    const totalDistance = filtered.reduce((sum, r) => sum + (r.distance_km || 0), 0);
+    const avgSpeed = totalDistance > 0 && totalDuration > 0
+      ? (totalDistance / (totalDuration / 3600000)) : 0;
+
+    // Pro cyclist metrics - Climbing
+    const totalElevationGain = filtered.reduce((sum, r) => sum + (r.elevation_gain || 0), 0);
+    const totalElevationLoss = filtered.reduce((sum, r) => sum + (r.elevation_loss || 0), 0);
+    const ridesWithGrade = filtered.filter(r => r.grade_max > 0);
+    const maxGrade = ridesWithGrade.length > 0
+      ? Math.max(...ridesWithGrade.map(r => r.grade_max)) : 0;
+
+    // Pro cyclist metrics - Power analytics
+    const ridesWithNP = filtered.filter(r => r.normalized_power > 0);
+    const avgNormalizedPower = ridesWithNP.length > 0
+      ? ridesWithNP.reduce((sum, r) => sum + r.normalized_power, 0) / ridesWithNP.length : 0;
+    const totalEnergy = filtered.reduce((sum, r) => sum + (r.energy_kj || 0), 0);
+
     return {
       rides: filtered.length,
       duration: totalDuration,
@@ -228,7 +498,21 @@
       zoneAttention: avgAttention,
       zoneProblem: avgProblem,
       te: avgTe,
-      ps: avgPs
+      ps: avgPs,
+      // Cycling metrics
+      avgPower,
+      maxPower,
+      avgCadence,
+      avgHr,
+      maxHr,
+      totalDistance,
+      avgSpeed,
+      // Pro cyclist metrics
+      totalElevationGain,
+      totalElevationLoss,
+      maxGrade,
+      avgNormalizedPower,
+      totalEnergy
     };
   }
 
@@ -242,25 +526,64 @@
     const avgScore = filtered.reduce((sum, r) => sum + r.score, 0) / filtered.length;
     const avgBalance = filtered.reduce((sum, r) => sum + r.balance_left, 0) / filtered.length;
     const avgOptimal = filtered.reduce((sum, r) => sum + r.zone_optimal, 0) / filtered.length;
+    const avgTe = filtered.reduce((sum, r) => sum + (r.te_left + r.te_right) / 2, 0) / filtered.length;
+    const avgPs = filtered.reduce((sum, r) => sum + (r.ps_left + r.ps_right) / 2, 0) / filtered.length;
+    const ridesWithPower = filtered.filter(r => r.power_avg > 0);
+    const avgPower = ridesWithPower.length > 0
+      ? ridesWithPower.reduce((sum, r) => sum + r.power_avg, 0) / ridesWithPower.length : 0;
+    const totalDuration = filtered.reduce((sum, r) => sum + r.duration_ms, 0);
+    const totalDistance = filtered.reduce((sum, r) => sum + (r.distance_km || 0), 0);
+    const totalElevation = filtered.reduce((sum, r) => sum + (r.elevation_gain || 0), 0);
 
-    return { score: avgScore, balance: avgBalance, zoneOptimal: avgOptimal, rides: filtered.length };
+    return {
+      score: avgScore,
+      balance: avgBalance,
+      zoneOptimal: avgOptimal,
+      rides: filtered.length,
+      te: avgTe,
+      ps: avgPs,
+      avgPower,
+      duration: totalDuration,
+      distance: totalDistance,
+      elevation: totalElevation,
+    };
   }
 
-  function getProgress(current: number, previous: number): { value: number; direction: 'up' | 'down' | 'same' } {
+  function getProgress(current: number, previous: number, threshold = 0.5): { value: number; direction: 'up' | 'down' | 'same' } {
     const diff = current - previous;
-    if (Math.abs(diff) < 0.5) return { value: 0, direction: 'same' };
+    if (Math.abs(diff) < threshold) return { value: 0, direction: 'same' };
     return { value: Math.abs(diff), direction: diff > 0 ? 'up' : 'down' };
+  }
+
+  function getBalanceProgress(current: number, previous: number): { value: number; direction: 'up' | 'down' | 'same' } {
+    // Balance: closer to 50 is better
+    const currentDiff = Math.abs(current - 50);
+    const prevDiff = Math.abs(previous - 50);
+    const change = prevDiff - currentDiff; // positive = improvement
+    if (Math.abs(change) < 0.3) return { value: 0, direction: 'same' };
+    return { value: Math.abs(change), direction: change > 0 ? 'up' : 'down' };
   }
 
   $: periodStats = getPeriodStats(weeklyRides, parseInt(selectedPeriod));
   $: prevPeriodStats = getPreviousPeriodStats(weeklyRides, parseInt(selectedPeriod));
   $: scoreProgress = periodStats && prevPeriodStats ? getProgress(periodStats.score, prevPeriodStats.score) : null;
   $: optimalProgress = periodStats && prevPeriodStats ? getProgress(periodStats.zoneOptimal, prevPeriodStats.zoneOptimal) : null;
+  $: teProgress = periodStats && prevPeriodStats ? getProgress(periodStats.te, prevPeriodStats.te) : null;
+  $: psProgress = periodStats && prevPeriodStats ? getProgress(periodStats.ps, prevPeriodStats.ps) : null;
+  $: balanceProgress = periodStats && prevPeriodStats ? getBalanceProgress(periodStats.balance, prevPeriodStats.balance) : null;
+  $: powerProgress = periodStats && prevPeriodStats && periodStats.avgPower > 0 && prevPeriodStats.avgPower > 0
+    ? getProgress(periodStats.avgPower, prevPeriodStats.avgPower, 2) : null;
+  $: durationProgress = periodStats && prevPeriodStats
+    ? getProgress(periodStats.duration / 3600000, prevPeriodStats.duration / 3600000, 0.2) : null;
+  $: distanceProgress = periodStats && prevPeriodStats
+    ? getProgress(periodStats.totalDistance, prevPeriodStats.distance, 5) : null;
   $: filteredRides = getFilteredRides(weeklyRides, parseInt(selectedPeriod));
-  $: balancePath = getBalanceTrendPath(filteredRides);
+  $: balanceTrendMaxPoints = selectedPeriod === '30' ? 30 : 15;
+  $: balanceTrend = getBalanceTrendData(filteredRides, balanceTrendMaxPoints);
   $: weekDays = getWeekDays();
   $: ridesPerDay = getRidesPerDay(weeklyRides);
   $: maxRidesPerDay = Math.max(...ridesPerDay, 1);
+  $: techniqueTrend = getTechniqueTrendData(trendData, activeTrendMetric);
 </script>
 
 <svelte:head>
@@ -328,7 +651,7 @@
       </section>
 
       <!-- Data Fields Interactive -->
-      <section class="section datafields-section">
+      <section id="datafields" class="section datafields-section">
         <h2 class="section-title">See It On Your Karoo</h2>
         <p class="section-subtitle">5 data field layouts. Choose the view that fits your training.</p>
 
@@ -523,7 +846,7 @@
       </section>
 
       <!-- Metrics Deep Dive -->
-      <section class="section">
+      <section id="features" class="section">
         <h2 class="section-title">What We Measure</h2>
         <p class="section-subtitle">Three metrics. Research-backed thresholds.</p>
 
@@ -579,7 +902,7 @@
       </section>
 
       <!-- Drills Section -->
-      <section class="section drills-section">
+      <section id="drills" class="section drills-section">
         <h2 class="section-title">10 Guided Drills</h2>
         <p class="section-subtitle">From 30-second exercises to 15-minute workouts. Each scored 0-100%.</p>
 
@@ -803,7 +1126,7 @@
               </svg>
             </div>
             <h4>Cloud Sync</h4>
-            <p>Rides sync after completion. Link device at kpedal.com/link with a simple code — no password needed on Karoo.</p>
+            <p>Rides sync after completion. Link device at link.kpedal.com with a simple code — no password needed on Karoo.</p>
           </div>
           <div class="works-card">
             <div class="works-icon">
@@ -989,199 +1312,638 @@
           <button class="btn btn-primary" on:click={() => location.reload()}>Retry</button>
         </div>
       {:else}
-        <header class="page-header animate-in">
-          <div class="greeting">
-            <h1>Welcome back, {getFirstName($user?.name)}</h1>
-            <p>Here's your pedaling efficiency overview</p>
+        <header class="dash-header animate-in">
+          <div class="dash-greeting">
+            <h1>Hello, {getFirstName($user?.name)}!</h1>
           </div>
-          <div class="period-selector">
-            <button class="period-btn" class:active={selectedPeriod === '7'} on:click={() => selectedPeriod = '7'}>7 days</button>
-            <button class="period-btn" class:active={selectedPeriod === '30'} on:click={() => selectedPeriod = '30'}>30 days</button>
+          <div class="dash-controls">
+            <div class="period-selector">
+              <button class="period-btn" class:active={selectedPeriod === '7'} on:click={() => selectedPeriod = '7'}>7d</button>
+              <button class="period-btn" class:active={selectedPeriod === '30'} on:click={() => selectedPeriod = '30'}>30d</button>
+            </div>
           </div>
         </header>
 
         {#if stats && stats.total_rides > 0}
-          <!-- Period Stats -->
-          <div class="stats-grid animate-in">
-            <div class="stat-card">
-              <span class="stat-value">{periodStats?.rides || 0}</span>
-              <span class="stat-label">Rides</span>
+          <!-- Hero Stats Row -->
+          <div class="hero-stats animate-in">
+            <div class="hero-stat asymmetry">
+              <div class="hero-stat-main">
+                <span class="hero-stat-value {getBalanceStatus(periodStats?.balance || 50)}">{periodStats ? Math.abs(periodStats.balance - 50).toFixed(1) : '—'}%</span>
+              </div>
+              <div class="hero-stat-info">
+                <span class="hero-stat-label">
+                  Asymmetry
+                  <InfoTip
+                    text="Deviation from 50/50 balance. Under 2.5% is pro level, above 5% may cause issues."
+                    position="bottom"
+                  />
+                </span>
+                <span class="hero-stat-detail">{periodStats && periodStats.balance !== 50 ? (periodStats.balance > 50 ? 'L dominant' : 'R dominant') : 'Balanced'}</span>
+              </div>
             </div>
-            <div class="stat-card">
-              <span class="stat-value score-{periodStats ? getScoreStatus(periodStats.score) : ''}">{periodStats ? Math.round(periodStats.score) : '—'}</span>
-              <span class="stat-label">Avg Score</span>
+
+            <div class="hero-stat balance-visual">
+              <div class="balance-display">
+                <div class="balance-side left">
+                  <span class="balance-pct">{periodStats ? periodStats.balance.toFixed(0) : 50}</span>
+                  <span class="balance-leg">L</span>
+                </div>
+                <div class="balance-bar-wrap">
+                  <div class="balance-bar">
+                    <div class="balance-fill left" style="width: {periodStats ? Math.min(50, periodStats.balance) : 50}%"></div>
+                    <div class="balance-fill right" style="width: {periodStats ? Math.min(50, 100 - periodStats.balance) : 50}%"></div>
+                  </div>
+                  <div class="balance-center-mark"></div>
+                </div>
+                <div class="balance-side right">
+                  <span class="balance-pct">{periodStats ? (100 - periodStats.balance).toFixed(0) : 50}</span>
+                  <span class="balance-leg">R</span>
+                </div>
+              </div>
             </div>
-            <div class="stat-card">
-              <span class="stat-value balance-{periodStats ? getBalanceStatus(periodStats.balance) : ''}">{periodStats ? periodStats.balance.toFixed(1) + '%' : '—'}</span>
-              <span class="stat-label">Left Balance</span>
+
+            <div class="hero-stat zones">
+              <div class="zone-mini-bars">
+                <div class="zone-mini optimal" style="width: {periodStats?.zoneOptimal || 0}%"></div>
+                <div class="zone-mini attention" style="width: {periodStats?.zoneAttention || 0}%"></div>
+                <div class="zone-mini problem" style="width: {periodStats?.zoneProblem || 0}%"></div>
+              </div>
+              <div class="zone-mini-values">
+                <span class="zone-mini-val optimal">{periodStats?.zoneOptimal?.toFixed(0) || 0}%</span>
+                <span class="zone-mini-val attention">{periodStats?.zoneAttention?.toFixed(0) || 0}%</span>
+                <span class="zone-mini-val problem">{periodStats?.zoneProblem?.toFixed(0) || 0}%</span>
+              </div>
+              <span class="hero-stat-label">
+                Time in Zone
+                <InfoTip
+                  text="Time spent in each zone. Green is optimal, yellow needs attention, red is a problem."
+                  position="bottom"
+                />
+              </span>
             </div>
-            <div class="stat-card">
-              <span class="stat-value">{periodStats ? formatDuration(periodStats.duration) : '—'}</span>
-              <span class="stat-label">Total Time</span>
+
+            <div class="hero-stat summary">
+              <div class="summary-grid">
+                <div class="summary-metric">
+                  <span class="summary-num">{periodStats?.rides || 0}</span>
+                  <span class="summary-unit">rides</span>
+                </div>
+                <div class="summary-metric">
+                  <span class="summary-num">{periodStats ? (periodStats.duration / 3600000).toFixed(1) : 0}</span>
+                  <span class="summary-unit">hours</span>
+                </div>
+                <div class="summary-metric">
+                  <span class="summary-num">{periodStats?.totalDistance?.toFixed(0) || 0}</span>
+                  <span class="summary-unit">km</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Charts Row -->
-          <div class="charts-row animate-in">
-            <!-- Weekly Activity -->
-            <div class="chart-card">
-              <div class="chart-header">
-                <span class="chart-title">This Week</span>
-                <span class="chart-subtitle">{ridesPerDay.reduce((a, b) => a + b, 0)} rides</span>
+          <!-- Main Grid -->
+          <div class="main-grid animate-in">
+            <!-- Left Column: Activity + Training -->
+            <div class="grid-card">
+              <div class="card-header">
+                <span class="card-title">Weekly Activity <InfoTip text="Number of rides per day. Aim for 3-5 rides per week for steady progress." position="bottom" /></span>
+                <span class="card-subtitle">{ridesPerDay.reduce((a, b) => a + b, 0)} rides</span>
               </div>
-              <div class="bar-chart">
-                {#each weekDays as day, i}
-                  <div class="bar-col">
-                    <div class="bar-wrapper">
-                      <div class="bar" style="height: {ridesPerDay[i] ? (ridesPerDay[i] / maxRidesPerDay) * 100 : 0}%"></div>
+              <div class="bar-chart-enhanced">
+                <div class="bar-chart-area">
+                  {#each weekDays as day, i}
+                    <div class="bar-col">
+                      <div class="bar-wrapper">
+                        {#if ridesPerDay[i] > 0}
+                          <span class="bar-count">{ridesPerDay[i]}</span>
+                        {/if}
+                        <div class="bar" style="height: {ridesPerDay[i] ? (ridesPerDay[i] / maxRidesPerDay) * 100 : 0}%"></div>
+                      </div>
+                      <span class="bar-label">{day.slice(0, 1)}</span>
                     </div>
-                    <span class="bar-label">{day}</span>
-                  </div>
-                {/each}
+                  {/each}
+                </div>
               </div>
-            </div>
 
-            <!-- Zone Distribution -->
-            <div class="chart-card">
-              <div class="chart-header">
-                <span class="chart-title">Time in Zone</span>
-              </div>
-              {#if periodStats}
-                <div class="zone-bars">
-                  <div class="zone-bar-row">
-                    <span class="zone-bar-label">Optimal</span>
-                    <div class="zone-bar-track">
-                      <div class="zone-bar-fill optimal" style="width: {periodStats.zoneOptimal}%"></div>
+              {#if weeklyComparison}
+                <div class="card-section">
+                  <span class="section-label">vs Last Week</span>
+                  <div class="comparison-grid">
+                    <div class="comp-item">
+                      <span class="comp-label">Rides <InfoTip text="Number of rides compared to last week." position="bottom" size="sm" /></span>
+                      <span class="comp-value">{weeklyComparison.thisWeek.rides_count}</span>
+                      <span class="comp-delta {weeklyComparison.changes.rides_count >= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.rides_count >= 0 ? '+' : ''}{weeklyComparison.changes.rides_count}
+                      </span>
                     </div>
-                    <span class="zone-bar-value optimal">{periodStats.zoneOptimal.toFixed(0)}%</span>
-                  </div>
-                  <div class="zone-bar-row">
-                    <span class="zone-bar-label">Attention</span>
-                    <div class="zone-bar-track">
-                      <div class="zone-bar-fill attention" style="width: {periodStats.zoneAttention}%"></div>
+                    <div class="comp-item">
+                      <span class="comp-label">Hours <InfoTip text="Total saddle time. More hours equals more training adaptation." position="bottom" size="sm" /></span>
+                      <span class="comp-value">{(weeklyComparison.thisWeek.total_duration_ms / 3600000).toFixed(1)}</span>
+                      <span class="comp-delta {weeklyComparison.changes.duration >= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.duration >= 0 ? '+' : ''}{(weeklyComparison.changes.duration / 3600000).toFixed(1)}
+                      </span>
                     </div>
-                    <span class="zone-bar-value attention">{periodStats.zoneAttention.toFixed(0)}%</span>
-                  </div>
-                  <div class="zone-bar-row">
-                    <span class="zone-bar-label">Problem</span>
-                    <div class="zone-bar-track">
-                      <div class="zone-bar-fill problem" style="width: {periodStats.zoneProblem}%"></div>
+                    <div class="comp-item">
+                      <span class="comp-label">Distance <InfoTip text="Total kilometers ridden. Useful for tracking volume alongside hours." position="bottom" size="sm" /></span>
+                      <span class="comp-value">{weeklyComparison.thisWeek.total_distance_km.toFixed(0)}km</span>
+                      <span class="comp-delta {weeklyComparison.changes.distance >= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.distance >= 0 ? '+' : ''}{weeklyComparison.changes.distance.toFixed(0)}
+                      </span>
                     </div>
-                    <span class="zone-bar-value problem">{periodStats.zoneProblem.toFixed(0)}%</span>
+                    {#if weeklyComparison.thisWeek.total_elevation > 0}
+                      <div class="comp-item">
+                        <span class="comp-label">Climb <InfoTip text="Total elevation gained. Over 2000m per week builds climbing strength." position="bottom" size="sm" /></span>
+                        <span class="comp-value">{Math.round(weeklyComparison.thisWeek.total_elevation)}m</span>
+                        <span class="comp-delta {weeklyComparison.changes.elevation >= 0 ? 'up' : 'down'}">
+                          {weeklyComparison.changes.elevation >= 0 ? '+' : ''}{Math.round(weeklyComparison.changes.elevation)}
+                        </span>
+                      </div>
+                    {/if}
                   </div>
                 </div>
-              {:else}
-                <div class="chart-empty">No data</div>
+                <!-- Weekly Performance Indicators -->
+                <div class="card-section">
+                  <span class="section-label">Performance</span>
+                  <div class="performance-mini-grid">
+                    <div class="perf-mini-item">
+                      <span class="perf-mini-label">Score <InfoTip text="Overall technique score from 0 to 100. Higher means better form." position="top" /></span>
+                      <span class="perf-mini-value">{weeklyComparison.thisWeek.avg_score.toFixed(0)}</span>
+                      <span class="perf-mini-delta {weeklyComparison.changes.score >= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.score >= 0 ? '+' : ''}{weeklyComparison.changes.score.toFixed(0)}
+                      </span>
+                    </div>
+                    <div class="perf-mini-item">
+                      <span class="perf-mini-label">Optimal <InfoTip text="Time with all metrics in the green zone. Higher is better." position="top" /></span>
+                      <span class="perf-mini-value">{weeklyComparison.thisWeek.avg_zone_optimal.toFixed(0)}%</span>
+                      <span class="perf-mini-delta {weeklyComparison.changes.zone_optimal >= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.zone_optimal >= 0 ? '+' : ''}{weeklyComparison.changes.zone_optimal.toFixed(0)}
+                      </span>
+                    </div>
+                    {#if weeklyComparison.thisWeek.avg_power > 0}
+                      <div class="perf-mini-item">
+                        <span class="perf-mini-label">Power <InfoTip text="Average power output in watts. Higher at same HR means better fitness." position="top" /></span>
+                        <span class="perf-mini-value">{Math.round(weeklyComparison.thisWeek.avg_power)}W</span>
+                        <span class="perf-mini-delta {weeklyComparison.changes.power >= 0 ? 'up' : 'down'}">
+                          {weeklyComparison.changes.power >= 0 ? '+' : ''}{Math.round(weeklyComparison.changes.power)}
+                        </span>
+                      </div>
+                    {/if}
+                    {#if weeklyComparison.thisWeek.total_energy_kj > 0}
+                      <div class="perf-mini-item">
+                        <span class="perf-mini-label">Energy <InfoTip text="Total energy in kilojoules. Roughly equals calories burned." position="top" /></span>
+                        <span class="perf-mini-value">{Math.round(weeklyComparison.thisWeek.total_energy_kj)}kJ</span>
+                        <span class="perf-mini-delta {weeklyComparison.changes.energy >= 0 ? 'up' : 'down'}">
+                          {weeklyComparison.changes.energy >= 0 ? '+' : ''}{Math.round(weeklyComparison.changes.energy)}
+                        </span>
+                      </div>
+                    {/if}
+                  </div>
+                </div>
+              {/if}
+            </div>
+
+            <!-- Right Column: Technique -->
+            <div class="grid-card">
+              <div class="card-header">
+                <span class="card-title">Technique <InfoTip text="Pedaling efficiency metrics. TE is power transfer, PS is stroke smoothness." position="bottom" /></span>
+                <span class="card-subtitle">{selectedPeriod}d avg</span>
+              </div>
+
+              <div class="technique-enhanced">
+                <div class="technique-metric">
+                  <div class="technique-metric-header">
+                    <span class="technique-metric-label">
+                      Torque Effectiveness
+                      <InfoTip
+                        text="Power going into forward motion. Optimal range is 70-80%."
+                        position="top"
+                      />
+                    </span>
+                    <span class="technique-metric-value">{periodStats?.te?.toFixed(0) || ((stats.avg_te_left + stats.avg_te_right) / 2).toFixed(0)}%</span>
+                  </div>
+                  <div class="technique-metric-bar-wrap">
+                    <div class="technique-metric-bar">
+                      <div class="technique-metric-fill te" style="width: {Math.min(100, (periodStats?.te || ((stats.avg_te_left + stats.avg_te_right) / 2)))}%"></div>
+                      <div class="technique-optimal-zone te"></div>
+                    </div>
+                  </div>
+                  <div class="technique-metric-sides">
+                    <span>L {periodStats?.te ? ((periodStats.te * 2 - stats.avg_te_right) || stats.avg_te_left).toFixed(0) : stats.avg_te_left.toFixed(0)}%</span>
+                    <span>R {stats.avg_te_right.toFixed(0)}%</span>
+                  </div>
+                </div>
+
+                <div class="technique-metric">
+                  <div class="technique-metric-header">
+                    <span class="technique-metric-label">
+                      Pedal Smoothness
+                      <InfoTip
+                        text="Smoothness of your pedal stroke. Target 20% or higher, elite is 25%+."
+                        position="top"
+                      />
+                    </span>
+                    <span class="technique-metric-value">{periodStats?.ps?.toFixed(0) || ((stats.avg_ps_left + stats.avg_ps_right) / 2).toFixed(0)}%</span>
+                  </div>
+                  <div class="technique-metric-bar-wrap">
+                    <div class="technique-metric-bar">
+                      <div class="technique-metric-fill ps" style="width: {Math.min(100, (periodStats?.ps || ((stats.avg_ps_left + stats.avg_ps_right) / 2)) / 40 * 100)}%"></div>
+                      <div class="technique-optimal-zone ps"></div>
+                    </div>
+                  </div>
+                  <div class="technique-metric-sides">
+                    <span>L {stats.avg_ps_left.toFixed(0)}%</span>
+                    <span>R {stats.avg_ps_right.toFixed(0)}%</span>
+                  </div>
+                </div>
+              </div>
+
+              {#if weeklyComparison}
+                <div class="card-section">
+                  <span class="section-label">vs Last Week</span>
+                  <div class="comparison-grid">
+                    <div class="comp-item">
+                      <span class="comp-label">TE <InfoTip text="Torque Effectiveness vs last week. Positive change is improvement." position="bottom" size="sm" /></span>
+                      <span class="comp-value">{weeklyComparison.thisWeek.avg_te.toFixed(0)}%</span>
+                      <span class="comp-delta {weeklyComparison.changes.te >= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.te >= 0 ? '+' : ''}{weeklyComparison.changes.te.toFixed(1)}
+                      </span>
+                    </div>
+                    <div class="comp-item">
+                      <span class="comp-label">PS <InfoTip text="Pedal Smoothness vs last week. Improves slowly, small gains matter." position="bottom" size="sm" /></span>
+                      <span class="comp-value">{weeklyComparison.thisWeek.avg_ps.toFixed(0)}%</span>
+                      <span class="comp-delta {weeklyComparison.changes.ps >= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.ps >= 0 ? '+' : ''}{weeklyComparison.changes.ps.toFixed(1)}
+                      </span>
+                    </div>
+                    <div class="comp-item">
+                      <span class="comp-label">Balance <InfoTip text="Power asymmetry vs last week. Lower is better, negative is improvement." position="bottom" size="sm" /></span>
+                      <span class="comp-value">{Math.abs(weeklyComparison.thisWeek.avg_balance_left - 50).toFixed(1)}%</span>
+                      <span class="comp-delta {weeklyComparison.changes.balance <= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.balance <= 0 ? '' : '+'}{weeklyComparison.changes.balance.toFixed(1)}
+                      </span>
+                    </div>
+                    <div class="comp-item">
+                      <span class="comp-label">Optimal <InfoTip text="Time in optimal zone vs last week. Higher is better technique." position="bottom" size="sm" /></span>
+                      <span class="comp-value">{weeklyComparison.thisWeek.avg_zone_optimal.toFixed(0)}%</span>
+                      <span class="comp-delta {weeklyComparison.changes.zone_optimal >= 0 ? 'up' : 'down'}">
+                        {weeklyComparison.changes.zone_optimal >= 0 ? '+' : ''}{weeklyComparison.changes.zone_optimal.toFixed(0)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Fatigue Analysis -->
+                {#if fatigueData && fatigueData.hasData}
+                  <div class="card-section">
+                    <span class="section-label">
+                      Fatigue (Last Ride)
+                      <InfoTip
+                        text="Technique at ride start vs end. Dropping values indicate fatigue."
+                        position="top"
+                      />
+                    </span>
+                    <div class="performance-mini-grid">
+                      <div class="perf-mini-item">
+                        <span class="perf-mini-label">Balance <InfoTip text="Left vs right power split. Changes indicate fatigue or compensation." position="top" size="sm" /></span>
+                        <span class="perf-mini-value">{fatigueData.firstThird.balance.toFixed(0)}→{fatigueData.lastThird.balance.toFixed(0)}</span>
+                        <span class="perf-mini-delta {fatigueData.degradation.balance > 0.5 ? 'down' : fatigueData.degradation.balance < -0.5 ? 'up' : ''}">
+                          {fatigueData.degradation.balance > 0.5 ? '↓' : fatigueData.degradation.balance < -0.5 ? '↑' : '—'}
+                        </span>
+                      </div>
+                      <div class="perf-mini-item">
+                        <span class="perf-mini-label">TE <InfoTip text="TE change during ride. Drop indicates muscular fatigue." position="top" size="sm" /></span>
+                        <span class="perf-mini-value">{fatigueData.firstThird.te.toFixed(0)}→{fatigueData.lastThird.te.toFixed(0)}</span>
+                        <span class="perf-mini-delta {fatigueData.degradation.te > 2 ? 'down' : fatigueData.degradation.te < -2 ? 'up' : ''}">
+                          {fatigueData.degradation.te > 2 ? '↓' : fatigueData.degradation.te < -2 ? '↑' : '—'}
+                        </span>
+                      </div>
+                      <div class="perf-mini-item">
+                        <span class="perf-mini-label">PS <InfoTip text="PS change during ride. Usually first metric to drop when tired." position="top" size="sm" /></span>
+                        <span class="perf-mini-value">{fatigueData.firstThird.ps.toFixed(0)}→{fatigueData.lastThird.ps.toFixed(0)}</span>
+                        <span class="perf-mini-delta {fatigueData.degradation.ps > 1 ? 'down' : fatigueData.degradation.ps < -1 ? 'up' : ''}">
+                          {fatigueData.degradation.ps > 1 ? '↓' : fatigueData.degradation.ps < -1 ? '↑' : '—'}
+                        </span>
+                      </div>
+                      <div class="perf-mini-item">
+                        <span class="perf-mini-label">Trend <InfoTip text="Overall fatigue trend. Stable is good pacing, dropped is overexertion." position="top" size="sm" /></span>
+                        <span class="perf-mini-value fatigue-summary {fatigueData.degradation.te > 2 || fatigueData.degradation.ps > 1 ? 'problem' : fatigueData.degradation.te > 0 || fatigueData.degradation.ps > 0 ? 'attention' : 'optimal'}">
+                          {fatigueData.degradation.te > 2 || fatigueData.degradation.ps > 1 ? 'Dropped' : fatigueData.degradation.te > 0 || fatigueData.degradation.ps > 0 ? 'Slight' : 'Stable'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                {/if}
               {/if}
             </div>
           </div>
 
-          <!-- Analytics Row -->
-          <div class="analytics-row animate-in">
-            <!-- Balance Trend -->
-            <div class="chart-card wide">
-              <div class="chart-header">
-                <span class="chart-title">Balance Trend</span>
-                <span class="chart-subtitle">Last {filteredRides.length} rides</span>
-              </div>
-              <div class="line-chart wide">
-                {#if balancePath}
-                  <svg viewBox="0 0 400 80" class="trend-svg wide">
-                    <line x1="10" y1="40" x2="390" y2="40" stroke="var(--border-subtle)" stroke-dasharray="4"/>
-                    <text x="395" y="44" font-size="10" fill="var(--text-muted)" text-anchor="end">50%</text>
-                    <path d={balancePath} fill="none" stroke="var(--color-optimal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+          <!-- Power & Cycling Metrics (if available) -->
+          {#if periodStats && (periodStats.avgPower > 0 || periodStats.totalElevationGain > 0)}
+            <div class="metrics-compact animate-in">
+              {#if periodStats.avgPower > 0}
+                <div class="metric-chip">
+                  <span class="metric-chip-val">{Math.round(periodStats.avgPower)}</span>
+                  <span class="metric-chip-unit">W avg <InfoTip text="Average power in watts. Track over time to measure fitness gains." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.maxPower > 0}
+                <div class="metric-chip">
+                  <span class="metric-chip-val">{Math.round(periodStats.maxPower)}</span>
+                  <span class="metric-chip-unit">W max <InfoTip text="Peak power achieved. Useful for sprints and FTP estimation." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.avgNormalizedPower > 0}
+                <div class="metric-chip accent">
+                  <span class="metric-chip-val">{Math.round(periodStats.avgNormalizedPower)}</span>
+                  <span class="metric-chip-unit">
+                    NP
+                    <InfoTip
+                      text="Normalized Power adjusts for surges. Close to average means steady effort."
+                      position="bottom"
+                    />
+                  </span>
+                </div>
+              {/if}
+              {#if periodStats.avgCadence > 0}
+                <div class="metric-chip">
+                  <span class="metric-chip-val">{Math.round(periodStats.avgCadence)}</span>
+                  <span class="metric-chip-unit">rpm <InfoTip text="Pedal revolutions per minute. Optimal is 80-95 rpm for most riders." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.avgHr > 0}
+                <div class="metric-chip">
+                  <span class="metric-chip-val">{Math.round(periodStats.avgHr)}</span>
+                  <span class="metric-chip-unit">bpm avg <InfoTip text="Average heart rate. Lower at same power means better fitness." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.maxHr > 0}
+                <div class="metric-chip">
+                  <span class="metric-chip-val">{Math.round(periodStats.maxHr)}</span>
+                  <span class="metric-chip-unit">bpm max <InfoTip text="Peak heart rate reached. Near max often hurts technique." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.avgSpeed > 0}
+                <div class="metric-chip">
+                  <span class="metric-chip-val">{periodStats.avgSpeed.toFixed(1)}</span>
+                  <span class="metric-chip-unit">km/h <InfoTip text="Average speed. Less reliable than power due to terrain and wind." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.totalElevationGain > 0}
+                <div class="metric-chip elevation">
+                  <span class="metric-chip-val">{Math.round(periodStats.totalElevationGain)}</span>
+                  <span class="metric-chip-unit">m ↑ <InfoTip text="Total elevation gained. Over 1000m is a serious climbing workout." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.totalElevationLoss > 0}
+                <div class="metric-chip elevation">
+                  <span class="metric-chip-val">{Math.round(periodStats.totalElevationLoss)}</span>
+                  <span class="metric-chip-unit">m ↓ <InfoTip text="Total elevation lost. Should match gain on loop rides." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.maxGrade > 0}
+                <div class="metric-chip">
+                  <span class="metric-chip-val">{periodStats.maxGrade.toFixed(1)}</span>
+                  <span class="metric-chip-unit">% grade <InfoTip text="Maximum gradient. Above 10% is steep, above 15% is very steep." position="bottom" /></span>
+                </div>
+              {/if}
+              {#if periodStats.totalEnergy > 0}
+                <div class="metric-chip energy">
+                  <span class="metric-chip-val">{Math.round(periodStats.totalEnergy)}</span>
+                  <span class="metric-chip-unit">kJ <InfoTip text="Total energy output. Plan nutrition at 250-300 kcal per hour." position="bottom" /></span>
+                </div>
+              {/if}
+            </div>
+          {/if}
+
+          <!-- Trends Row: Balance + Technique side by side -->
+          {#if balanceTrend.path || trendData.length >= 2}
+            <div class="trends-row animate-in">
+              <!-- Balance Trend -->
+              <div class="trend-card">
+                <div class="trend-card-header">
+                  <span class="trend-card-title">Balance Trend <InfoTip text="Left/right balance trend over time. Consistent values near 50% indicate good symmetry." position="bottom" /></span>
+                  <span class="trend-card-period">{filteredRides.length} rides</span>
+                </div>
+                {#if balanceTrend.path}
+                  <div class="trend-chart">
+                    <svg viewBox="0 0 200 60" class="trend-svg">
+                      <defs>
+                        <linearGradient id="balanceGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stop-color="var(--color-optimal)" stop-opacity="0.3"/>
+                          <stop offset="100%" stop-color="var(--color-optimal)" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <!-- Horizontal grid lines -->
+                      <line x1="8" y1="15" x2="192" y2="15" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.5"/>
+                      <line x1="8" y1="30" x2="192" y2="30" stroke="var(--color-optimal)" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+                      <line x1="8" y1="45" x2="192" y2="45" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.5"/>
+                      <!-- Y-axis labels -->
+                      <text x="4" y="17" font-size="6" fill="var(--text-muted)" text-anchor="start">60</text>
+                      <text x="4" y="32" font-size="6" fill="var(--text-muted)" text-anchor="start">50</text>
+                      <text x="4" y="47" font-size="6" fill="var(--text-muted)" text-anchor="start">40</text>
+                      <!-- Area fill -->
+                      <path d={balanceTrend.areaPath} fill="url(#balanceGradient)"/>
+                      <!-- Trend line -->
+                      <path d={balanceTrend.path} fill="none" stroke="var(--color-optimal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <!-- Data points -->
+                      {#each balanceTrend.points as point, i}
+                        {#if i === 0 || i === balanceTrend.points.length - 1 || balanceTrend.points.length <= 8}
+                          <circle cx={point.x} cy={point.y} r="3" fill="var(--bg-surface)" stroke="var(--color-optimal)" stroke-width="1.5"/>
+                        {/if}
+                      {/each}
+                    </svg>
+                  </div>
+                  <div class="trend-stats">
+                    <div class="trend-stat-item">
+                      <span class="trend-stat-label">Current <InfoTip text="Value from your most recent ride in this period." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-value {getBalanceStatus(balanceTrend.points[balanceTrend.points.length - 1]?.balance || 50)}">{(balanceTrend.points[balanceTrend.points.length - 1]?.balance || 50).toFixed(1)}%</span>
+                    </div>
+                    <div class="trend-stat-item">
+                      <span class="trend-stat-label">Average <InfoTip text="Average value across all rides in the selected period." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-value">{((balanceTrend.minBalance + balanceTrend.maxBalance) / 2).toFixed(1)}%</span>
+                    </div>
+                    <div class="trend-stat-item">
+                      <span class="trend-stat-label">Spread <InfoTip text="Difference between best and worst. Lower spread means more consistent form." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-value {(balanceTrend.maxBalance - balanceTrend.minBalance) > 5 ? 'problem' : (balanceTrend.maxBalance - balanceTrend.minBalance) > 2.5 ? 'attention' : 'optimal'}">{(balanceTrend.maxBalance - balanceTrend.minBalance).toFixed(1)}%</span>
+                    </div>
+                  </div>
                 {:else}
-                  <div class="chart-empty">Not enough data for trend</div>
+                  <div class="trend-empty">Need more rides</div>
+                {/if}
+              </div>
+
+              <!-- Technique Trend -->
+              <div class="trend-card">
+                <div class="trend-card-header">
+                  <span class="trend-card-title">Technique <InfoTip text="Technique metrics trend over time. Look for steady improvement patterns." position="bottom" /></span>
+                  <div class="trend-metric-switcher">
+                    <button class:active={activeTrendMetric === 'asymmetry'} on:click={() => activeTrendMetric = 'asymmetry'}>Asym</button>
+                    <button class:active={activeTrendMetric === 'te'} on:click={() => activeTrendMetric = 'te'}>TE</button>
+                    <button class:active={activeTrendMetric === 'ps'} on:click={() => activeTrendMetric = 'ps'}>PS</button>
+                  </div>
+                </div>
+                {#if techniqueTrend.path}
+                  <div class="trend-chart">
+                    <svg viewBox="0 0 200 60" class="trend-svg">
+                      <defs>
+                        <linearGradient id="techniqueGradientAsym" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.25"/>
+                          <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0"/>
+                        </linearGradient>
+                        <linearGradient id="techniqueGradientTE" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stop-color="var(--color-optimal)" stop-opacity="0.25"/>
+                          <stop offset="100%" stop-color="var(--color-optimal)" stop-opacity="0"/>
+                        </linearGradient>
+                        <linearGradient id="techniqueGradientPS" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stop-color="var(--color-attention)" stop-opacity="0.25"/>
+                          <stop offset="100%" stop-color="var(--color-attention)" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <!-- Horizontal grid lines -->
+                      <line x1="8" y1="15" x2="192" y2="15" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.4"/>
+                      <line x1="8" y1="30" x2="192" y2="30" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.4"/>
+                      <line x1="8" y1="45" x2="192" y2="45" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.4"/>
+                      <!-- Y-axis min/max labels -->
+                      <text x="196" y="12" font-size="6" fill="var(--text-muted)" text-anchor="end">{techniqueTrend.max.toFixed(0)}%</text>
+                      <text x="196" y="56" font-size="6" fill="var(--text-muted)" text-anchor="end">{techniqueTrend.min.toFixed(0)}%</text>
+                      <!-- Area fill -->
+                      <path d={techniqueTrend.areaPath} fill={activeTrendMetric === 'asymmetry' ? 'url(#techniqueGradientAsym)' : activeTrendMetric === 'te' ? 'url(#techniqueGradientTE)' : 'url(#techniqueGradientPS)'}/>
+                      <!-- Trend line -->
+                      <path d={techniqueTrend.path} fill="none" stroke={getTrendColor(activeTrendMetric)} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <!-- Data points -->
+                      {#each techniqueTrend.points as point, i}
+                        {#if i === 0 || i === techniqueTrend.points.length - 1 || techniqueTrend.points.length <= 8}
+                          <circle cx={point.x} cy={point.y} r="3" fill="var(--bg-surface)" stroke={getTrendColor(activeTrendMetric)} stroke-width="1.5"/>
+                        {/if}
+                      {/each}
+                    </svg>
+                  </div>
+                  <div class="trend-stats">
+                    <div class="trend-stat-item">
+                      <span class="trend-stat-label">Latest <InfoTip text="Value from your most recent ride for this metric." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-value {activeTrendMetric === 'asymmetry' ? getAsymmetryClass(techniqueTrend.points[techniqueTrend.points.length - 1]?.value || 0) : ''}">{(techniqueTrend.points[techniqueTrend.points.length - 1]?.value || 0).toFixed(1)}%</span>
+                    </div>
+                    <div class="trend-stat-item">
+                      <span class="trend-stat-label">Average <InfoTip text="Average value across all rides in the selected period." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-value">{(techniqueTrend.points.reduce((s, p) => s + p.value, 0) / techniqueTrend.points.length).toFixed(1)}%</span>
+                    </div>
+                    <div class="trend-stat-item">
+                      <span class="trend-stat-label">Best <InfoTip text="Best value in the period. For asymmetry lower is better, for TE/PS higher is better." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-value optimal">{(activeTrendMetric === 'asymmetry' ? Math.min(...techniqueTrend.points.map(p => p.value)) : Math.max(...techniqueTrend.points.map(p => p.value))).toFixed(1)}%</span>
+                    </div>
+                  </div>
+                {:else}
+                  <div class="trend-empty">Need more data</div>
                 {/if}
               </div>
             </div>
+          {/if}
 
-            <!-- Progress Card -->
-            {#if scoreProgress || optimalProgress}
-              <div class="chart-card progress-card">
-                <div class="chart-header">
-                  <span class="chart-title">Progress</span>
-                  <span class="chart-subtitle">vs previous {selectedPeriod} days</span>
-                </div>
-                <div class="progress-items">
-                  {#if scoreProgress && scoreProgress.direction !== 'same'}
-                    <div class="progress-item">
-                      <span class="progress-metric">Score</span>
-                      <span class="progress-change {scoreProgress.direction}">
-                        {#if scoreProgress.direction === 'up'}↑{:else}↓{/if}
-                        {scoreProgress.value.toFixed(1)}
-                      </span>
-                    </div>
-                  {/if}
-                  {#if optimalProgress && optimalProgress.direction !== 'same'}
-                    <div class="progress-item">
-                      <span class="progress-metric">Optimal Zone</span>
-                      <span class="progress-change {optimalProgress.direction}">
-                        {#if optimalProgress.direction === 'up'}↑{:else}↓{/if}
-                        {optimalProgress.value.toFixed(1)}%
-                      </span>
-                    </div>
-                  {/if}
-                  {#if (!scoreProgress || scoreProgress.direction === 'same') && (!optimalProgress || optimalProgress.direction === 'same')}
-                    <div class="progress-same">
-                      <span>Consistent performance</span>
-                    </div>
-                  {/if}
-                </div>
+          <!-- Progress Row (if we have comparison data) -->
+          {#if prevPeriodStats && periodStats}
+            <div class="progress-row-card animate-in">
+              <div class="progress-header">
+                <span class="progress-title">Progress vs Previous {selectedPeriod} Days</span>
               </div>
-            {/if}
-          </div>
-
-          <!-- Efficiency Metrics -->
-          <section class="section animate-in">
-            <h2 class="section-title">Efficiency Metrics</h2>
-            <div class="dashboard-metrics-grid">
-              <div class="dashboard-metric-card">
-                <div class="dashboard-metric-header"><span class="dashboard-metric-title">Torque Effectiveness</span><span class="dashboard-metric-badge">TE</span></div>
-                <div class="dashboard-metric-values">
-                  <div class="dashboard-metric-side"><span class="side-label">Left</span><span class="side-value">{stats.avg_te_left.toFixed(1)}%</span></div>
-                  <div class="dashboard-metric-divider"></div>
-                  <div class="dashboard-metric-side"><span class="side-label">Right</span><span class="side-value">{stats.avg_te_right.toFixed(1)}%</span></div>
-                </div>
-              </div>
-              <div class="dashboard-metric-card">
-                <div class="dashboard-metric-header"><span class="dashboard-metric-title">Pedal Smoothness</span><span class="dashboard-metric-badge">PS</span></div>
-                <div class="dashboard-metric-values">
-                  <div class="dashboard-metric-side"><span class="side-label">Left</span><span class="side-value">{stats.avg_ps_left.toFixed(1)}%</span></div>
-                  <div class="dashboard-metric-divider"></div>
-                  <div class="dashboard-metric-side"><span class="side-label">Right</span><span class="side-value">{stats.avg_ps_right.toFixed(1)}%</span></div>
-                </div>
-              </div>
-              <div class="dashboard-metric-card">
-                <div class="dashboard-metric-header"><span class="dashboard-metric-title">Optimal Zone</span><span class="dashboard-metric-badge optimal">Zone</span></div>
-                <div class="dashboard-metric-single">
-                  <span class="single-value text-optimal">{stats.avg_zone_optimal.toFixed(1)}%</span>
-                  <span class="single-label">Time in optimal zone</span>
-                </div>
+              <div class="progress-items">
+                {#if scoreProgress}
+                  <div class="progress-item">
+                    <span class="progress-item-label">Score</span>
+                    <span class="progress-item-now">{periodStats.score.toFixed(0)}</span>
+                    <span class="progress-item-change {scoreProgress.direction}">{scoreProgress.direction === 'up' ? '↑' : scoreProgress.direction === 'down' ? '↓' : ''}{scoreProgress.value.toFixed(0)}</span>
+                  </div>
+                {/if}
+                {#if optimalProgress}
+                  <div class="progress-item">
+                    <span class="progress-item-label">Optimal Zone</span>
+                    <span class="progress-item-now">{periodStats.zoneOptimal.toFixed(0)}%</span>
+                    <span class="progress-item-change {optimalProgress.direction}">{optimalProgress.direction === 'up' ? '↑' : optimalProgress.direction === 'down' ? '↓' : ''}{optimalProgress.value.toFixed(0)}%</span>
+                  </div>
+                {/if}
+                {#if teProgress}
+                  <div class="progress-item">
+                    <span class="progress-item-label">TE</span>
+                    <span class="progress-item-now">{periodStats.te.toFixed(0)}%</span>
+                    <span class="progress-item-change {teProgress.direction}">{teProgress.direction === 'up' ? '↑' : teProgress.direction === 'down' ? '↓' : ''}{teProgress.value.toFixed(0)}</span>
+                  </div>
+                {/if}
+                {#if psProgress}
+                  <div class="progress-item">
+                    <span class="progress-item-label">PS</span>
+                    <span class="progress-item-now">{periodStats.ps.toFixed(0)}%</span>
+                    <span class="progress-item-change {psProgress.direction}">{psProgress.direction === 'up' ? '↑' : psProgress.direction === 'down' ? '↓' : ''}{psProgress.value.toFixed(0)}</span>
+                  </div>
+                {/if}
+                {#if durationProgress}
+                  <div class="progress-item">
+                    <span class="progress-item-label">Time</span>
+                    <span class="progress-item-now">{(periodStats.duration / 3600000).toFixed(1)}h</span>
+                    <span class="progress-item-change {durationProgress.direction}">{durationProgress.direction === 'up' ? '↑' : durationProgress.direction === 'down' ? '↓' : ''}{durationProgress.value.toFixed(1)}h</span>
+                  </div>
+                {/if}
+                {#if distanceProgress}
+                  <div class="progress-item">
+                    <span class="progress-item-label">Distance</span>
+                    <span class="progress-item-now">{periodStats.totalDistance.toFixed(0)}km</span>
+                    <span class="progress-item-change {distanceProgress.direction}">{distanceProgress.direction === 'up' ? '↑' : distanceProgress.direction === 'down' ? '↓' : ''}{distanceProgress.value.toFixed(0)}</span>
+                  </div>
+                {/if}
               </div>
             </div>
-          </section>
+          {/if}
 
           <!-- Recent Rides -->
           {#if recentRides.length > 0}
-            <section class="section animate-in">
-              <div class="section-header"><h2 class="section-title">Recent Rides</h2><a href="/rides" class="view-all-link">View all →</a></div>
-              <div class="rides-list">
-                {#each recentRides as ride}
-                  <div class="ride-item">
-                    <div class="ride-date">
-                      <span class="date-day">{formatDate(ride.timestamp)}</span>
-                      <span class="date-duration">{formatDuration(ride.duration_ms)}</span>
-                    </div>
-                    <div class="ride-metrics">
-                      <span class="ride-balance balance-{getBalanceStatus(ride.balance_left)}">{ride.balance_left.toFixed(1)}% L</span>
-                      <span class="ride-score score-{getScoreStatus(ride.score)}">{ride.score}</span>
-                    </div>
-                  </div>
-                {/each}
+            <div class="recent-rides animate-in">
+              <div class="card-header">
+                <span class="card-title">Recent Rides <InfoTip text="Recent rides with technique metrics. Click any row to see full details." position="bottom" /></span>
+                <a href="/rides" class="view-all">View all →</a>
               </div>
-            </section>
+              <div class="rides-table-wrap">
+                <table class="rides-table">
+                  <thead>
+                    <tr>
+                      <th class="col-date">Date</th>
+                      <th class="col-duration">Duration</th>
+                      <th class="col-asymmetry">Asym <InfoTip text="Power asymmetry percentage. Lower means more balanced power output." position="bottom" size="sm" /></th>
+                      <th class="col-balance">L / R</th>
+                      <th class="col-te">TE <InfoTip text="Torque Effectiveness for left and right legs separately." position="bottom" size="sm" /></th>
+                      <th class="col-ps">PS <InfoTip text="Pedal Smoothness for left and right legs separately." position="bottom" size="sm" /></th>
+                      <th class="col-zones">Zones <InfoTip text="Time distribution across optimal, attention, and problem zones." position="bottom" size="sm" /></th>
+                      {#if recentRides.some(r => r.power_avg > 0)}<th class="col-power">Power</th>{/if}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {#each recentRides.slice(0, 5) as ride}
+                      <tr on:click={() => window.location.href = `/rides/${ride.id}`}>
+                        <td class="col-date">
+                          <span class="date-primary">{formatDate(ride.timestamp)}</span>
+                          <span class="date-secondary">{formatRelativeTime(ride.timestamp)}</span>
+                        </td>
+                        <td class="col-duration">{formatDuration(ride.duration_ms)}</td>
+                        <td class="col-asymmetry">
+                          <span class="asymmetry-value {getBalanceStatus(ride.balance_left)}">{Math.abs(ride.balance_left - 50).toFixed(1)}%</span>
+                          <span class="dominance">{ride.balance_left > 50 ? 'L' : ride.balance_left < 50 ? 'R' : ''}</span>
+                        </td>
+                        <td class="col-balance">{ride.balance_left.toFixed(0)} / {(100 - ride.balance_left).toFixed(0)}</td>
+                        <td class="col-te">{ride.te_left.toFixed(0)}/{ride.te_right.toFixed(0)}</td>
+                        <td class="col-ps">{ride.ps_left.toFixed(0)}/{ride.ps_right.toFixed(0)}</td>
+                        <td class="col-zones">
+                          <div class="zone-bar-mini">
+                            <div class="zone-segment optimal" style="width: {ride.zone_optimal}%"></div>
+                            <div class="zone-segment attention" style="width: {ride.zone_attention}%"></div>
+                            <div class="zone-segment problem" style="width: {ride.zone_problem}%"></div>
+                          </div>
+                        </td>
+                        {#if recentRides.some(r => r.power_avg > 0)}
+                          <td class="col-power">{ride.power_avg > 0 ? `${Math.round(ride.power_avg)}W` : '—'}</td>
+                        {/if}
+                      </tr>
+                    {/each}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           {/if}
         {:else}
           <div class="empty-state animate-in">
@@ -1983,100 +2745,100 @@
   .drills-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0;
     margin-bottom: 32px;
   }
-  .drill-item {
+  .landing .drill-item {
     background: transparent;
     border: none;
     border-bottom: 1px solid var(--border-subtle);
     border-radius: 0;
-    padding: 20px 0;
+    padding: 20px 16px;
+    margin: 0 -16px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: background 0.2s ease;
     text-align: left;
-    width: 100%;
+    width: calc(100% + 32px);
   }
-  .drill-item:first-child {
+  .landing .drill-item:first-child {
     border-top: 1px solid var(--border-subtle);
   }
-  .drill-item:hover {
+  /* Hover only on desktop with mouse */
+  @media (hover: hover) and (pointer: fine) {
+    .landing .drill-item:not(.expanded):hover {
+      background: var(--bg-hover);
+    }
+  }
+  .landing .drill-item.expanded {
     background: var(--bg-hover);
-    margin: 0 -16px;
-    padding: 20px 16px;
     border-radius: 12px;
     border-color: transparent;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
-  .drill-item:hover + .drill-item {
+  .landing .drill-item.expanded + .drill-item {
     border-top-color: transparent;
   }
-  .drill-item.expanded {
-    background: var(--bg-hover);
-    margin: 0 -16px;
-    padding: 20px 16px;
-    border-radius: 12px;
-    border-color: transparent;
-  }
-  .drill-header {
+  .landing .drill-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .drill-info {
+  .landing .drill-info {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
-  .drill-name {
+  .landing .drill-name {
     font-size: 15px;
     font-weight: 500;
     color: var(--text-primary);
     letter-spacing: -0.2px;
   }
-  .drill-meta {
+  .landing .drill-meta {
     display: flex;
     gap: 8px;
     align-items: center;
   }
-  .drill-duration {
+  .landing .drill-duration {
     font-size: 13px;
     color: var(--text-muted);
   }
-  .drill-dot {
+  .landing .drill-dot {
     width: 3px;
     height: 3px;
     background: var(--text-faint);
     border-radius: 50%;
   }
-  .drill-level {
+  .landing .drill-level {
     font-size: 12px;
     color: var(--text-muted);
   }
-  .drill-level.beginner { color: var(--color-optimal-text); }
-  .drill-level.intermediate { color: var(--color-attention-text); }
-  .drill-level.advanced { color: var(--color-problem-text); }
-  .drill-chevron {
+  .landing .drill-level.beginner { color: var(--color-optimal-text); }
+  .landing .drill-level.intermediate { color: var(--color-attention-text); }
+  .landing .drill-level.advanced { color: var(--color-problem-text); }
+  .landing .drill-chevron {
     color: var(--text-faint);
     transition: all 0.25s ease;
     width: 16px;
     height: 16px;
   }
-  .drill-item.expanded .drill-chevron {
+  .landing .drill-item.expanded .drill-chevron {
     transform: rotate(180deg);
     color: var(--text-muted);
   }
-  .drill-details {
+  .landing .drill-details {
     margin-top: 16px;
     padding-top: 16px;
     border-top: 1px solid var(--border-subtle);
   }
-  .drill-details p {
+  .landing .drill-details p {
     font-size: 14px;
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 12px;
   }
-  .drill-target {
+  .landing .drill-target {
     font-size: 13px;
     color: var(--text-muted);
     font-variant-numeric: tabular-nums;
@@ -2711,12 +3473,519 @@
     color: var(--text-primary);
   }
 
-  /* Dashboard (authenticated) */
-  .dashboard { padding: 32px 0 64px; }
+  /* Dashboard (authenticated) - Compact Design */
+  .dashboard { padding: 24px 0 48px; }
   .loading-state, .error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 16px; color: var(--text-secondary); }
-  .page-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
-  .greeting h1 { font-size: 28px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; letter-spacing: -0.5px; }
-  .greeting p { font-size: 15px; color: var(--text-secondary); }
+
+  /* Dash Header */
+  .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .dash-greeting h1 { font-size: 22px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.3px; }
+  .dash-controls { display: flex; gap: 8px; }
+
+  /* Hero Stats Row */
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .hero-stat {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .hero-stat.asymmetry { display: flex; align-items: center; gap: 12px; }
+  .hero-stat-main { flex-shrink: 0; }
+  .hero-stat-value { font-size: 26px; font-weight: 700; color: var(--text-primary); }
+  .hero-stat-value.optimal { color: var(--color-optimal); }
+  .hero-stat-value.attention { color: var(--color-attention); }
+  .hero-stat-value.problem { color: var(--color-problem); }
+  .hero-stat-info { display: flex; flex-direction: column; gap: 1px; }
+  .hero-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; }
+  .hero-stat-detail { font-size: 11px; color: var(--text-tertiary); }
+
+  /* Balance Display */
+  .hero-stat.balance-visual { display: flex; align-items: center; justify-content: center; }
+  .balance-display { display: flex; align-items: center; gap: 10px; width: 100%; }
+  .balance-side { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 32px; }
+  .balance-pct { font-size: 18px; font-weight: 700; color: var(--text-primary); line-height: 1; }
+  .balance-leg { font-size: 10px; font-weight: 600; color: var(--text-muted); }
+  .balance-bar-wrap { flex: 1; position: relative; }
+  .balance-bar { display: flex; height: 8px; background: var(--bg-base); border-radius: 4px; overflow: hidden; }
+  .balance-fill { height: 100%; transition: width 0.3s; }
+  .balance-fill.left { background: var(--color-optimal); margin-left: auto; border-radius: 4px 0 0 4px; }
+  .balance-fill.right { background: var(--color-optimal); border-radius: 0 4px 4px 0; }
+  .balance-center-mark { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 2px; background: var(--text-primary); transform: translateX(-50%); border-radius: 1px; }
+
+  /* Zone Mini */
+  .hero-stat.zones { display: flex; flex-direction: column; gap: 6px; }
+  .zone-mini-bars { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--bg-base); }
+  .zone-mini { height: 100%; transition: width 0.3s; }
+  .zone-mini.optimal { background: var(--color-optimal); }
+  .zone-mini.attention { background: var(--color-attention); }
+  .zone-mini.problem { background: var(--color-problem); }
+  .zone-mini-values { display: flex; justify-content: space-between; }
+  .zone-mini-val { font-size: 13px; font-weight: 600; }
+  .zone-mini-val.optimal { color: var(--color-optimal-text); }
+  .zone-mini-val.attention { color: var(--color-attention-text); }
+  .zone-mini-val.problem { color: var(--color-problem-text); }
+
+  /* Summary Grid */
+  .hero-stat.summary { display: flex; align-items: center; justify-content: center; }
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
+  .summary-metric { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .summary-num { font-size: 20px; font-weight: 700; color: var(--text-primary); line-height: 1; }
+  .summary-unit { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; }
+
+  /* Main Grid */
+  .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; align-items: stretch; }
+  .grid-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .grid-card.wide { grid-column: span 2; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .card-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .card-subtitle { font-size: 11px; color: var(--text-muted); }
+  .card-section { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-subtle); }
+  .section-label { display: block; font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 8px; }
+
+  /* Comparison Grid */
+  .comparison-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .comp-item { text-align: center; padding: 8px 4px; background: var(--bg-base); border-radius: 6px; }
+  .comp-label { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 2px; }
+  .comp-value { display: block; font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .comp-delta { display: block; font-size: 10px; font-weight: 500; margin-top: 2px; }
+  .comp-delta.up { color: var(--color-optimal-text); }
+  .comp-delta.down { color: var(--color-problem-text); }
+
+  /* Technique Enhanced */
+  .technique-enhanced {
+    background: var(--bg-base);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    justify-content: center;
+  }
+  .technique-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .technique-metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .technique-metric-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .technique-metric-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .technique-metric-bar-wrap {
+    position: relative;
+  }
+  .technique-metric-bar {
+    height: 10px;
+    background: var(--bg-elevated);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .technique-metric-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+  }
+  .technique-metric-fill.te {
+    background: linear-gradient(90deg, var(--color-optimal), var(--color-optimal-light, var(--color-optimal)));
+  }
+  .technique-metric-fill.ps {
+    background: linear-gradient(90deg, var(--color-attention), var(--color-attention-light, var(--color-attention)));
+  }
+  .technique-optimal-zone {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-left: 2px dashed rgba(255,255,255,0.3);
+    border-right: 2px dashed rgba(255,255,255,0.3);
+    pointer-events: none;
+  }
+  .technique-optimal-zone.te {
+    left: 70%;
+    width: 10%;
+  }
+  .technique-optimal-zone.ps {
+    left: 50%;
+    width: 12.5%;
+  }
+  .technique-metric-sides {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* Legacy Technique Grid */
+  .technique-grid { display: flex; flex-direction: column; gap: 12px; }
+  .technique-item { }
+  .technique-label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .technique-values { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .technique-side { font-size: 11px; color: var(--text-tertiary); }
+  .technique-main { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+  .technique-bar { height: 4px; background: var(--bg-base); border-radius: 2px; overflow: hidden; }
+  .technique-fill { height: 100%; background: var(--color-optimal); border-radius: 2px; }
+  .technique-fill.ps { background: var(--color-attention); }
+
+  /* Technique Comparison */
+  .technique-comparison { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .tech-comp-item { text-align: center; padding: 6px 4px; background: var(--bg-base); border-radius: 6px; }
+  .tech-comp-label { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 2px; }
+  .tech-comp-change { font-size: 12px; font-weight: 600; }
+  .tech-comp-change.up { color: var(--color-optimal-text); }
+  .tech-comp-change.down { color: var(--color-problem-text); }
+
+  /* Fatigue Summary */
+  .fatigue-summary { font-size: 12px !important; }
+  .fatigue-summary.optimal { color: var(--color-optimal-text); }
+  .fatigue-summary.attention { color: var(--color-attention-text); }
+  .fatigue-summary.problem { color: var(--color-problem-text); }
+
+  /* Legacy Fatigue Mini */
+  .fatigue-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .fatigue-mini-item { text-align: center; padding: 6px 4px; background: var(--bg-base); border-radius: 6px; }
+  .fatigue-mini-label { display: block; font-size: 9px; color: var(--text-muted); margin-bottom: 2px; }
+  .fatigue-mini-val { display: block; font-size: 11px; font-weight: 500; color: var(--text-secondary); }
+  .fatigue-mini-delta { display: block; font-size: 11px; font-weight: 600; margin-top: 2px; color: var(--text-muted); }
+  .fatigue-mini-delta.up { color: var(--color-optimal-text); }
+  .fatigue-mini-delta.down { color: var(--color-problem-text); }
+
+  /* Metrics Compact (chips) */
+  .metrics-compact {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .metrics-compact::-webkit-scrollbar { display: none; }
+  .metric-chip {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    padding: 8px 14px;
+    background: var(--bg-base);
+    border-radius: 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .metric-chip-val { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+  .metric-chip-unit { display: inline-flex; align-items: center; font-size: 12px; color: var(--text-muted); }
+  .metric-chip.accent { background: var(--color-accent-soft, rgba(94, 232, 156, 0.1)); }
+  .metric-chip.accent .metric-chip-val { color: var(--color-accent, #5ee89c); }
+  .metric-chip.elevation .metric-chip-val { color: var(--color-accent); }
+  .metric-chip.energy .metric-chip-val { color: var(--color-optimal-text); }
+
+  /* Trends Row (Balance + Technique side by side) */
+  .trends-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .trend-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .trend-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .trend-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .trend-card-period {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .trend-chart {
+    height: 70px;
+    margin-bottom: 12px;
+    background: var(--bg-base);
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .trend-svg {
+    width: 100%;
+    height: 100%;
+  }
+  .trend-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .trend-stat-item {
+    text-align: center;
+    padding: 8px 4px;
+    background: var(--bg-base);
+    border-radius: 6px;
+  }
+  .trend-stat-label {
+    display: block;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+  .trend-stat-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .trend-stat-value.optimal { color: var(--color-optimal-text); }
+  .trend-stat-value.attention { color: var(--color-attention-text); }
+  .trend-stat-value.problem { color: var(--color-problem-text); }
+  .trend-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .trend-metric-switcher {
+    display: flex;
+    gap: 2px;
+    background: var(--bg-base);
+    border-radius: 6px;
+    padding: 2px;
+  }
+  .trend-metric-switcher button {
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .trend-metric-switcher button:hover { color: var(--text-secondary); }
+  .trend-metric-switcher button.active {
+    background: var(--color-accent);
+    color: var(--color-accent-text, #000);
+    font-weight: 600;
+  }
+
+  /* Progress Row Card */
+  .progress-row-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+  .progress-header {
+    margin-bottom: 12px;
+  }
+  .progress-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .progress-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  .progress-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 8px;
+    background: var(--bg-base);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .progress-item-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .progress-item-now {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+  .progress-item-change {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .progress-item-change.up { color: var(--color-optimal-text); }
+  .progress-item-change.down { color: var(--color-problem-text); }
+  .progress-item-change.same { color: var(--text-muted); }
+
+  /* Recent Rides */
+  .recent-rides {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px;
+    overflow: hidden;
+  }
+  .view-all { font-size: 12px; color: var(--text-tertiary); }
+  .view-all:hover { color: var(--color-accent); }
+  .rides-table-wrap { margin: 0 -14px -14px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .rides-table-wrap::-webkit-scrollbar { display: none; }
+  .rides-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .rides-table th { text-align: left; padding: 10px 12px; font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; background: var(--bg-elevated); border-top: 1px solid var(--border-subtle); white-space: nowrap; }
+  .rides-table td { padding: 10px 12px; border-top: 1px solid var(--border-subtle); vertical-align: middle; }
+  .rides-table tbody tr { cursor: pointer; transition: background 0.15s; }
+  .rides-table tbody tr:hover { background: var(--bg-hover); }
+  .rides-table tbody tr:last-child td { border-bottom: none; }
+
+  .col-date { white-space: nowrap; }
+  .date-primary { font-weight: 500; color: var(--text-primary); display: block; }
+  .date-secondary { font-size: 10px; color: var(--text-muted); }
+  .col-duration { font-weight: 500; color: var(--text-secondary); white-space: nowrap; }
+  .col-asymmetry { white-space: nowrap; }
+  .asymmetry-value { font-weight: 600; }
+  .asymmetry-value.optimal { color: var(--color-optimal-text); }
+  .asymmetry-value.attention { color: var(--color-attention-text); }
+  .asymmetry-value.problem { color: var(--color-problem-text); }
+  .dominance { margin-left: 4px; font-size: 10px; color: var(--text-muted); font-weight: 500; }
+  .col-balance { color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .col-te, .col-ps { color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .col-zones { width: 80px; min-width: 60px; }
+  .zone-bar-mini { height: 6px; display: flex; border-radius: 3px; overflow: hidden; background: var(--bg-elevated); }
+  .zone-segment { height: 100%; }
+  .zone-segment.optimal { background: var(--color-optimal); }
+  .zone-segment.attention { background: var(--color-attention); }
+  .zone-segment.problem { background: var(--color-problem); }
+  .col-power { color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* Recent Rides Compact Table */
+  .rides-table-wrap {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .rides-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .rides-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .rides-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: middle;
+  }
+  .rides-table tr {
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .rides-table tr:hover { background: var(--bg-hover); }
+  .rides-table tr:last-child td { border-bottom: none; }
+
+  .col-date { white-space: nowrap; }
+  .ride-date-primary { font-weight: 500; color: var(--text-primary); display: block; }
+  .ride-date-secondary { font-size: 10px; color: var(--text-muted); }
+  .col-duration { color: var(--text-secondary); font-weight: 500; }
+  .col-asymmetry { white-space: nowrap; }
+  .asymmetry-val { font-weight: 600; }
+  .asymmetry-val.optimal { color: var(--color-optimal-text); }
+  .asymmetry-val.attention { color: var(--color-attention-text); }
+  .asymmetry-val.problem { color: var(--color-problem-text); }
+  .asymmetry-side { margin-left: 4px; font-size: 10px; color: var(--text-muted); font-weight: 500; }
+  .col-te, .col-ps { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .col-optimal { }
+  .optimal-val { color: var(--color-optimal-text); font-weight: 600; }
+  .col-power { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+
+  /* Recent Rides Grid (legacy) */
+  .rides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .ride-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px;
+    transition: border-color 0.2s;
+  }
+  .ride-card:hover { border-color: var(--border-hover); }
+  .ride-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .ride-card-date { display: flex; flex-direction: column; gap: 2px; }
+  .ride-day { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .ride-duration { font-size: 12px; color: var(--text-muted); }
+  .ride-card-score {
+    font-size: 16px; font-weight: 700;
+    min-width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+  }
+  .ride-card-score.score-optimal { background: var(--color-optimal-soft); color: var(--color-optimal-text); }
+  .ride-card-score.score-attention { background: var(--color-attention-soft); color: var(--color-attention-text); }
+  .ride-card-score.score-problem { background: var(--color-problem-soft); color: var(--color-problem-text); }
+  .ride-card-metrics {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .ride-metric { min-width: 50px; }
+  .metric-val { display: block; font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .metric-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; }
 
   .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
   .stat-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px; text-align: center; }
@@ -2782,14 +4051,19 @@
     color: var(--text-muted);
   }
 
-  /* Bar Chart (Weekly Activity) */
-  .bar-chart {
+  /* Bar Chart Enhanced (Weekly Activity) */
+  .bar-chart-enhanced {
+    margin-bottom: 12px;
+  }
+  .bar-chart-area {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    height: 80px;
-    gap: 4px;
-    padding-top: 8px;
+    height: 90px;
+    gap: 6px;
+    padding: 8px 4px 0;
+    background: var(--bg-base);
+    border-radius: 8px;
   }
   .bar-col {
     flex: 1;
@@ -2800,15 +4074,23 @@
   }
   .bar-wrapper {
     width: 100%;
-    height: 60px;
+    height: 65px;
     display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+  }
+  .bar-count {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
   }
   .bar {
-    width: 80%;
-    max-width: 20px;
-    background: var(--color-accent);
+    width: 85%;
+    max-width: 24px;
+    background: linear-gradient(to top, var(--color-accent), var(--color-accent-light, var(--color-accent)));
     border-radius: 4px 4px 0 0;
     min-height: 4px;
     transition: height 0.3s ease;
@@ -2817,7 +4099,51 @@
     font-size: 10px;
     color: var(--text-muted);
     text-transform: uppercase;
+    font-weight: 500;
   }
+  /* Legacy bar-chart class */
+  .bar-chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 80px;
+    gap: 4px;
+    padding-top: 8px;
+  }
+
+  /* Performance Mini Grid */
+  .performance-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .perf-mini-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    background: var(--bg-base);
+    border-radius: 6px;
+  }
+  .perf-mini-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .perf-mini-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-left: auto;
+  }
+  .perf-mini-delta {
+    font-size: 10px;
+    font-weight: 600;
+    min-width: 28px;
+    text-align: right;
+  }
+  .perf-mini-delta.up { color: var(--color-optimal-text); }
+  .perf-mini-delta.down { color: var(--color-problem-text); }
 
   /* Line Chart (Balance Trend) */
   .line-chart {
@@ -2834,10 +4160,6 @@
     display: flex;
     justify-content: center;
     margin-top: 8px;
-  }
-  .trend-labels span {
-    font-size: 10px;
-    color: var(--text-muted);
   }
   .chart-empty {
     display: flex;
@@ -2911,44 +4233,147 @@
     height: 80px;
   }
 
-  /* Progress Card */
-  .progress-card {
+  /* Balance Trend Card */
+  .balance-trend-card {
     display: flex;
     flex-direction: column;
   }
-  .progress-items {
+  .balance-trend-stats {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 12px;
+  }
+  .trend-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .trend-stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .trend-stat-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .trend-stat-value.optimal { color: var(--color-optimal-text); }
+  .trend-stat-value.attention { color: var(--color-attention-text); }
+  .trend-stat-value.problem { color: var(--color-problem-text); }
+
+  .balance-trend-chart {
+    height: 100px;
+  }
+  .balance-trend-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    justify-content: center;
+  }
+  .trend-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .trend-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .trend-legend-line {
+    width: 12px;
+    height: 0;
+    border-top: 1px dashed var(--color-optimal);
+  }
+
+  /* Progress Card Enhanced */
+  .progress-card-enhanced {
+    display: flex;
+    flex-direction: column;
+  }
+  .progress-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .progress-section { }
+  .progress-section-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .progress-section-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .progress-section-items.horizontal {
+    flex-direction: row;
+    gap: 12px;
+  }
+  .progress-item-enhanced {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: var(--bg-base);
+    border-radius: 8px;
+  }
+  .progress-item-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding-top: 8px;
+    gap: 1px;
   }
-  .progress-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .progress-item-label {
+    font-size: 11px;
+    color: var(--text-muted);
   }
-  .progress-metric {
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
-  .progress-change {
+  .progress-item-value {
     font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .progress-item-delta {
+    font-size: 13px;
     font-weight: 600;
     font-variant-numeric: tabular-nums;
   }
-  .progress-change.up { color: var(--color-optimal-text); }
-  .progress-change.down { color: var(--color-problem-text); }
-  .progress-same {
+  .progress-item-delta.up { color: var(--color-optimal-text); }
+  .progress-item-delta.down { color: var(--color-problem-text); }
+  .progress-item-delta.same { color: var(--text-muted); }
+
+  .progress-stat {
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    background: var(--bg-base);
+    border-radius: 8px;
   }
-  .progress-same span {
-    font-size: 13px;
-    color: var(--text-muted);
+  .progress-stat-value {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
   }
+  .progress-stat-delta {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+  .progress-stat-delta.up { color: var(--color-optimal-text); }
+  .progress-stat-delta.down { color: var(--color-problem-text); }
+  .progress-stat-delta.same { color: var(--text-muted); }
 
   .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
   .view-all-link { font-size: 13px; color: var(--text-tertiary); }
@@ -3067,13 +4492,82 @@
     .preview-info h4 { font-size: 17px; }
     .preview-info p { font-size: 14px; }
 
-    /* Dashboard */
-    .page-header { flex-direction: column; align-items: flex-start; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .charts-row { grid-template-columns: 1fr; }
-    .analytics-row { grid-template-columns: 1fr; }
-    .analytics-row .chart-card.wide { grid-column: span 1; }
-    .dashboard-metrics-grid { grid-template-columns: 1fr 1fr; }
+    /* Dashboard - Compact Mobile */
+    .dash-header { margin-bottom: 16px; }
+    .dash-greeting h1 { font-size: 18px; }
+
+    /* Hero Stats */
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .hero-stat { padding: 10px; }
+    .hero-stat-value { font-size: 22px; }
+    .hero-stat.asymmetry { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+    /* Balance Display Mobile */
+    .balance-display { gap: 8px; }
+    .balance-side { min-width: 28px; }
+    .balance-pct { font-size: 15px; }
+    .balance-leg { font-size: 9px; }
+    .balance-bar { height: 6px; }
+    .balance-center-mark { top: -2px; bottom: -2px; }
+
+    /* Zones Mobile */
+    .zone-mini-bars { height: 6px; }
+    .zone-mini-val { font-size: 11px; }
+
+    /* Summary Mobile */
+    .summary-num { font-size: 16px; }
+    .summary-unit { font-size: 9px; }
+
+    /* Main Grid */
+    .main-grid { grid-template-columns: 1fr; gap: 12px; }
+    .grid-card { padding: 12px; }
+    .grid-card.wide { grid-column: span 1; }
+    .card-header { margin-bottom: 10px; }
+    .card-title { font-size: 13px; }
+
+    /* Comparison Grid */
+    .comparison-grid { grid-template-columns: repeat(2, 1fr); }
+    .comp-value { font-size: 13px; }
+
+    /* Technique Grid */
+    .technique-main { font-size: 18px; }
+    .technique-side { font-size: 10px; }
+    .technique-comparison { grid-template-columns: repeat(2, 1fr); }
+    .fatigue-mini { grid-template-columns: repeat(3, 1fr); }
+
+    /* Metrics Compact */
+    .metrics-compact { padding: 12px 16px; gap: 8px; }
+    .metric-chip { padding: 6px 12px; }
+    .metric-chip-val { font-size: 14px; }
+    .metric-chip-unit { font-size: 11px; }
+
+    /* Trends Row */
+    .trends-row { grid-template-columns: 1fr; gap: 12px; }
+    .trend-card { padding: 12px; }
+    .trend-chart { height: 50px; margin-bottom: 10px; }
+    .trend-stats { gap: 6px; }
+    .trend-stat-item { padding: 6px 4px; }
+    .trend-stat-value { font-size: 13px; }
+    .trend-metric-switcher button { padding: 3px 6px; font-size: 9px; }
+
+    /* Progress Row */
+    .progress-row-card { padding: 12px; }
+    .progress-items { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .progress-item { padding: 8px 4px; }
+    .progress-item-now { font-size: 15px; }
+    .progress-item-change { font-size: 11px; }
+
+    /* Recent Rides */
+    .recent-rides { padding: 12px; }
+    .rides-table-wrap { margin: 0 -12px -12px; }
+    .rides-table { min-width: 450px; font-size: 11px; }
+    .rides-table th { padding: 6px 8px; font-size: 9px; }
+    .rides-table td { padding: 8px 6px; }
+    .rides-table .col-balance,
+    .rides-table .col-te,
+    .rides-table .col-ps { display: none; }
+    .rides-table .col-zones { width: 70px; }
+    .zone-bar-mini { min-width: 50px; }
 
     /* Comparison */
     .comparison-row { grid-template-columns: 1fr; gap: 0; }
@@ -3164,15 +4658,18 @@
 
     /* Footer */
     .landing-footer { padding: 48px 20px 32px; }
-    .footer-top { flex-direction: column; gap: 36px; }
-    .footer-brand { max-width: 100%; text-align: center; }
+    .footer-top { flex-direction: column; gap: 32px; align-items: center; }
+    .footer-brand { max-width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; }
     .footer-logo { justify-content: center; }
-    .footer-nav { justify-content: center; gap: 36px; }
+    .footer-nav { display: flex; justify-content: center; gap: 48px; }
     .footer-col {
       align-items: center;
       text-align: center;
+      gap: 10px;
     }
+    .footer-col h4 { font-size: 11px; }
     .footer-col a, .footer-link-btn {
+      font-size: 14px;
       min-height: 44px;
       display: flex;
       align-items: center;
@@ -3264,8 +4761,7 @@
 
     /* Dashboard */
     .dashboard { padding: 24px 0 48px; }
-    .greeting h1 { font-size: 24px; }
-    .greeting p { font-size: 14px; }
+    .dash-greeting h1 { font-size: 24px; }
     .period-selector { width: 100%; justify-content: center; }
     .period-btn { flex: 1; text-align: center; }
     .stats-grid { gap: 12px; margin-bottom: 24px; }
@@ -3297,6 +4793,15 @@
     .progress-items { gap: 8px; }
     .progress-metric { font-size: 12px; }
     .progress-change { font-size: 14px; }
+
+    /* Recent Rides - extra compact */
+    .rides-table { min-width: 320px; font-size: 10px; }
+    .rides-table th { padding: 5px 4px; font-size: 8px; }
+    .rides-table td { padding: 6px 4px; }
+    .rides-table .col-power { display: none; }
+    .rides-table .col-zones { width: 50px; }
+    .zone-bar-mini { min-width: 40px; height: 5px; }
+    .date-secondary { display: none; }
 
     /* Comparison - stacked with labels */
     .comparison-table { border-radius: 14px; }
@@ -3387,6 +4892,12 @@
     }
     .drills-highlight h4 { font-size: 15px; }
     .drills-highlight p { font-size: 12px; }
+
+    /* Metrics Compact - Phone */
+    .metrics-compact { padding: 10px 12px; gap: 8px; }
+    .metric-chip { padding: 6px 10px; }
+    .metric-chip-val { font-size: 13px; }
+    .metric-chip-unit { font-size: 10px; }
 
     /* Alerts */
     .alerts-section {
@@ -3527,42 +5038,58 @@
       font-size: 15px;
     }
 
-    /* Footer */
-    .landing-footer { padding: 32px 16px 24px; }
-    .footer-top { gap: 28px; }
+    /* Footer - simplified single column */
+    .landing-footer { padding: 32px 20px 24px; }
+    .footer-top { gap: 28px; align-items: center; }
+    .footer-brand { text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .footer-logo { justify-content: center; }
     .footer-brand-name { font-size: 17px; }
     .footer-tagline { font-size: 13px; }
     .footer-nav {
-      flex-direction: column;
-      gap: 24px;
-      align-items: center;
-      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px 32px;
     }
     .footer-col {
-      align-items: center;
-      text-align: center;
-      width: 100%;
+      display: none; /* Hide column headers on mobile */
     }
-    .footer-col h4 { font-size: 12px; margin-bottom: 10px; }
+    .footer-col h4 { display: none; }
     .footer-col a, .footer-link-btn {
+      display: inline-flex;
       font-size: 14px;
-      padding: 8px 0;
+      padding: 8px 4px;
       min-height: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Show links directly without columns */
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 24px;
+    }
+    .footer-col {
+      display: contents;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding-top: 24px;
+      font-size: 13px;
+    }
+    .footer-bottom span { text-align: center; }
+    .footer-github {
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .footer-bottom {
-      flex-direction: column;
-      gap: 12px;
-      padding-top: 20px;
-      font-size: 12px;
-    }
-    .footer-github {
-      width: 40px;
-      height: 40px;
-    }
-    .footer-github svg { width: 18px; height: 18px; }
+    .footer-github svg { width: 20px; height: 20px; }
   }
 
   /* ============================================
@@ -3619,6 +5146,12 @@
     .cta-headline { font-size: 20px; }
     .cta-subtext { font-size: 12px; }
     .cta-btn.large { padding: 12px 20px; font-size: 14px; }
+
+    /* Footer */
+    .landing-footer { padding: 28px 16px 20px; }
+    .footer-nav { gap: 6px 20px; }
+    .footer-col a, .footer-link-btn { font-size: 13px; }
+    .footer-bottom { font-size: 12px; gap: 12px; }
   }
 
   /* ============================================

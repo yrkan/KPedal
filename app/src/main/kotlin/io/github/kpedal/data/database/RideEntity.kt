@@ -60,7 +60,48 @@ data class RideEntity(
     val syncStatus: Int = SYNC_STATUS_PENDING,
 
     /** Last sync attempt timestamp (0 = never attempted) */
-    val lastSyncAttempt: Long = 0
+    val lastSyncAttempt: Long = 0,
+
+    // Extended metrics (added in v7)
+    /** Average power in watts */
+    val powerAvg: Int = 0,
+
+    /** Maximum power in watts */
+    val powerMax: Int = 0,
+
+    /** Average cadence in RPM */
+    val cadenceAvg: Int = 0,
+
+    /** Average heart rate in BPM */
+    val heartRateAvg: Int = 0,
+
+    /** Maximum heart rate in BPM */
+    val heartRateMax: Int = 0,
+
+    /** Average speed in km/h */
+    val speedAvgKmh: Float = 0f,
+
+    /** Total distance in km */
+    val distanceKm: Float = 0f,
+
+    // Pro cyclist metrics (added in v8)
+    /** Total elevation gained in meters */
+    val elevationGain: Int = 0,
+
+    /** Total elevation lost in meters */
+    val elevationLoss: Int = 0,
+
+    /** Average gradient percentage */
+    val gradeAvg: Float = 0f,
+
+    /** Maximum gradient percentage */
+    val gradeMax: Float = 0f,
+
+    /** Normalized Power in watts */
+    val normalizedPower: Int = 0,
+
+    /** Energy output in kilojoules */
+    val energyKj: Int = 0
 ) {
     companion object {
         const val SYNC_STATUS_PENDING = 0

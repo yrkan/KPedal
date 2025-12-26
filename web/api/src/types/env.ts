@@ -10,6 +10,7 @@ export interface Env {
 
   // Environment variables
   APP_URL: string;
+  LINK_URL: string;
   API_URL: string;
   ENVIRONMENT: 'development' | 'production';
 
@@ -50,8 +51,8 @@ export interface User {
  */
 export interface RideData {
   id?: number;
-  user_id: string;
-  device_id: string;
+  user_id?: string;
+  device_id?: string;
   timestamp: number;
   duration_ms: number;
   balance_left: number;
@@ -64,6 +65,21 @@ export interface RideData {
   zone_attention: number;
   zone_problem: number;
   score: number;
+  // Extended metrics (optional, defaults to 0)
+  power_avg?: number;
+  power_max?: number;
+  cadence_avg?: number;
+  hr_avg?: number;
+  hr_max?: number;
+  speed_avg?: number;
+  distance_km?: number;
+  // Pro cyclist metrics (optional, defaults to 0)
+  elevation_gain?: number;
+  elevation_loss?: number;
+  grade_avg?: number;
+  grade_max?: number;
+  normalized_power?: number;
+  energy_kj?: number;
 }
 
 /**

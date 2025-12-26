@@ -23,6 +23,22 @@ interface RideData {
   zone_attention: number;
   zone_problem: number;
   score: number;
+  // Extended metrics
+  power_avg?: number;
+  power_max?: number;
+  cadence_avg?: number;
+  hr_avg?: number;
+  hr_max?: number;
+  speed_avg?: number;
+  distance_km?: number;
+  // Pro cyclist metrics
+  elevation_gain?: number;
+  elevation_loss?: number;
+  grade_avg?: number;
+  grade_max?: number;
+  normalized_power?: number;
+  energy_kj?: number;
+  // Metadata
   notes?: string;
   rating?: number;
   created_at?: string;
@@ -210,6 +226,21 @@ function createTestRide(userId: string, timestamp: number, overrides?: Partial<R
     zone_attention: 15,
     zone_problem: 5,
     score: 85,
+    // Extended metrics
+    power_avg: 185,
+    power_max: 420,
+    cadence_avg: 88,
+    hr_avg: 145,
+    hr_max: 172,
+    speed_avg: 28.5,
+    distance_km: 42.3,
+    // Pro cyclist metrics
+    elevation_gain: 650,
+    elevation_loss: 620,
+    grade_avg: 3.2,
+    grade_max: 12.5,
+    normalized_power: 205,
+    energy_kj: 1850,
     ...overrides,
   };
 }
@@ -522,5 +553,187 @@ describe('User Isolation', () => {
   it('user stats only include their own rides', () => {
     const result = handleGetStats(db, 'user-1');
     expect(result.data.total_rides).toBe(2);
+  });
+});
+
+// === Dashboard Combined Endpoint Tests ===
+
+interface DashboardResponse {
+  stats: ReturnType<MockRidesDatabase['getStatsByUser']>;
+  recentRides: RideData[];
+  weeklyComparison: {
+    thisWeek: { rides_count: number; avg_score: number };
+    lastWeek: { rides_count: number; avg_score: number };
+    changes: { score: number; rides_count: number };
+  };
+  trends: Array<{ date: string; avg_score: number }>;
+  lastRideSnapshots: Array<{ minute_index: number; balance_left: number }>;
+}
+
+// Extended mock database for dashboard
+class MockDashboardDatabase extends MockRidesDatabase {
+  private snapshots: Map<number, Array<{ minute_index: number; balance_left: number; power_avg: number }>> = new Map();
+
+  addSnapshotsForRide(rideId: number, count: number) {
+    const snaps = Array.from({ length: count }, (_, i) => ({
+      minute_index: i,
+      balance_left: 50 + (Math.random() - 0.5) * 10,
+      power_avg: 180 + Math.random() * 40,
+    }));
+    this.snapshots.set(rideId, snaps);
+  }
+
+  getSnapshotsForRide(rideId: number) {
+    return this.snapshots.get(rideId) || [];
+  }
+
+  getLatestRideSnapshots(userId: string) {
+    const rides = this.getRidesByUser(userId, 1, 0);
+    if (rides.length === 0) return [];
+    return this.getSnapshotsForRide(rides[0].id!);
+  }
+
+  getWeeklyStats(userId: string, startTs: number, endTs?: number) {
+    const rides = Array.from(this.getRidesByUser(userId, 100, 0))
+      .filter(r => r.timestamp >= startTs && (!endTs || r.timestamp < endTs));
+
+    if (rides.length === 0) {
+      return { rides_count: 0, avg_score: 0 };
+    }
+
+    return {
+      rides_count: rides.length,
+      avg_score: rides.reduce((s, r) => s + r.score, 0) / rides.length,
+    };
+  }
+
+  getDashboard(userId: string): DashboardResponse {
+    const now = Date.now();
+    const oneWeek = 7 * 24 * 60 * 60 * 1000;
+    const thisWeekStart = now - oneWeek;
+    const lastWeekStart = thisWeekStart - oneWeek;
+
+    const stats = this.getStatsByUser(userId);
+    const recentRides = this.getRidesByUser(userId, 10, 0);
+    const thisWeek = this.getWeeklyStats(userId, thisWeekStart);
+    const lastWeek = this.getWeeklyStats(userId, lastWeekStart, thisWeekStart);
+    const lastRideSnapshots = this.getLatestRideSnapshots(userId);
+
+    return {
+      stats,
+      recentRides,
+      weeklyComparison: {
+        thisWeek,
+        lastWeek,
+        changes: {
+          score: thisWeek.avg_score - lastWeek.avg_score,
+          rides_count: thisWeek.rides_count - lastWeek.rides_count,
+        },
+      },
+      trends: [], // Simplified for test
+      lastRideSnapshots,
+    };
+  }
+}
+
+describe('Dashboard Combined Endpoint', () => {
+  let db: MockDashboardDatabase;
+
+  beforeEach(() => {
+    db = new MockDashboardDatabase();
+  });
+
+  it('should return all dashboard data in single response', () => {
+    const now = Date.now();
+    const ride = db.addRide(createTestRide('user-1', now, { score: 85 }));
+    db.addSnapshotsForRide(ride.id!, 10);
+
+    const dashboard = db.getDashboard('user-1');
+
+    expect(dashboard).toHaveProperty('stats');
+    expect(dashboard).toHaveProperty('recentRides');
+    expect(dashboard).toHaveProperty('weeklyComparison');
+    expect(dashboard).toHaveProperty('trends');
+    expect(dashboard).toHaveProperty('lastRideSnapshots');
+  });
+
+  it('should include stats summary', () => {
+    db.addRide(createTestRide('user-1', Date.now(), { score: 80, duration_ms: 3600000 }));
+    db.addRide(createTestRide('user-1', Date.now() - 1000, { score: 90, duration_ms: 7200000 }));
+
+    const dashboard = db.getDashboard('user-1');
+
+    expect(dashboard.stats.total_rides).toBe(2);
+    expect(dashboard.stats.avg_score).toBe(85);
+    expect(dashboard.stats.total_duration_ms).toBe(10800000);
+  });
+
+  it('should include recent rides (up to 10)', () => {
+    for (let i = 0; i < 15; i++) {
+      db.addRide(createTestRide('user-1', Date.now() - i * 1000));
+    }
+
+    const dashboard = db.getDashboard('user-1');
+
+    expect(dashboard.recentRides.length).toBe(10);
+    // Should be sorted by timestamp desc
+    expect(dashboard.recentRides[0].timestamp).toBeGreaterThan(dashboard.recentRides[9].timestamp);
+  });
+
+  it('should calculate weekly comparison', () => {
+    const now = Date.now();
+    const oneWeek = 7 * 24 * 60 * 60 * 1000;
+
+    // This week rides
+    db.addRide(createTestRide('user-1', now, { score: 90 }));
+    db.addRide(createTestRide('user-1', now - 1000, { score: 80 }));
+
+    // Last week rides
+    db.addRide(createTestRide('user-1', now - oneWeek - 1000, { score: 70 }));
+
+    const dashboard = db.getDashboard('user-1');
+
+    expect(dashboard.weeklyComparison.thisWeek.rides_count).toBe(2);
+    expect(dashboard.weeklyComparison.thisWeek.avg_score).toBe(85);
+    expect(dashboard.weeklyComparison.lastWeek.rides_count).toBe(1);
+    expect(dashboard.weeklyComparison.lastWeek.avg_score).toBe(70);
+    expect(dashboard.weeklyComparison.changes.score).toBe(15); // 85 - 70
+  });
+
+  it('should include snapshots for fatigue analysis', () => {
+    const ride = db.addRide(createTestRide('user-1', Date.now()));
+    db.addSnapshotsForRide(ride.id!, 20);
+
+    const dashboard = db.getDashboard('user-1');
+
+    expect(dashboard.lastRideSnapshots.length).toBe(20);
+    expect(dashboard.lastRideSnapshots[0]).toHaveProperty('minute_index');
+    expect(dashboard.lastRideSnapshots[0]).toHaveProperty('balance_left');
+  });
+
+  it('should return empty snapshots when no rides exist', () => {
+    const dashboard = db.getDashboard('user-1');
+
+    expect(dashboard.lastRideSnapshots).toEqual([]);
+  });
+
+  it('should isolate dashboard data by user', () => {
+    db.addRide(createTestRide('user-1', Date.now(), { score: 80 }));
+    db.addRide(createTestRide('user-2', Date.now(), { score: 100 }));
+
+    const dashboard = db.getDashboard('user-1');
+
+    expect(dashboard.stats.total_rides).toBe(1);
+    expect(dashboard.stats.avg_score).toBe(80);
+    expect(dashboard.recentRides.every(r => r.user_id === 'user-1')).toBe(true);
+  });
+
+  it('should handle new user with no data', () => {
+    const dashboard = db.getDashboard('new-user');
+
+    expect(dashboard.stats.total_rides).toBe(0);
+    expect(dashboard.recentRides).toEqual([]);
+    expect(dashboard.weeklyComparison.thisWeek.rides_count).toBe(0);
+    expect(dashboard.lastRideSnapshots).toEqual([]);
   });
 });

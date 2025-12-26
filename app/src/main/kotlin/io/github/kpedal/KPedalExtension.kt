@@ -119,16 +119,20 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
         _drillRepository = DrillRepository(this)
         _achievementRepository = AchievementRepository(this)
         _authRepository = AuthRepository(this)
+        val database = KPedalDatabase.getInstance(this)
         _syncService = SyncService(
             context = this,
             authRepository = authRepository,
-            rideDao = KPedalDatabase.getInstance(this).rideDao(),
+            rideDao = database.rideDao(),
+            drillResultDao = database.drillResultDao(),
+            achievementDao = database.achievementDao(),
             preferencesRepository = preferencesRepository
         )
         _achievementChecker = AchievementChecker(
             achievementRepository = achievementRepository,
             rideRepository = rideRepository,
-            drillRepository = drillRepository
+            drillRepository = drillRepository,
+            syncService = syncService
         )
         _rideStateMonitor = RideStateMonitor(
             extension = this,

@@ -79,4 +79,30 @@ interface DrillResultDao {
         )
     """)
     suspend fun trimResultsForDrill(drillId: String)
+
+    // Sync methods
+
+    /**
+     * Get all pending sync drill results.
+     */
+    @Query("SELECT * FROM drill_results WHERE syncStatus = 0 ORDER BY timestamp ASC")
+    suspend fun getPendingSync(): List<DrillResultEntity>
+
+    /**
+     * Get count of pending sync drill results.
+     */
+    @Query("SELECT COUNT(*) FROM drill_results WHERE syncStatus = 0")
+    fun getPendingSyncCountFlow(): Flow<Int>
+
+    /**
+     * Mark a drill result as synced.
+     */
+    @Query("UPDATE drill_results SET syncStatus = 1, lastSyncAttempt = :timestamp WHERE id = :id")
+    suspend fun markAsSynced(id: Long, timestamp: Long = System.currentTimeMillis())
+
+    /**
+     * Mark a drill result as sync failed.
+     */
+    @Query("UPDATE drill_results SET syncStatus = 2, lastSyncAttempt = :timestamp WHERE id = :id")
+    suspend fun markAsSyncFailed(id: Long, timestamp: Long = System.currentTimeMillis())
 }

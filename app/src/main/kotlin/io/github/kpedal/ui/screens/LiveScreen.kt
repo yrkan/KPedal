@@ -47,6 +47,22 @@ data class LiveRideData(
     val psTrend: Int = 0,
     // Overall score (0-100)
     val score: Int = 0,
+    // Extended metrics
+    val powerAvg: Int = 0,
+    val powerMax: Int = 0,
+    val cadenceAvg: Int = 0,
+    val heartRateAvg: Int = 0,
+    val heartRateMax: Int = 0,
+    val speedAvgKmh: Float = 0f,
+    val distanceKm: Float = 0f,
+    // Pro cyclist metrics - Climbing
+    val elevationGain: Int = 0,      // meters
+    val elevationLoss: Int = 0,      // meters
+    val gradeAvg: Float = 0f,        // %
+    val gradeMax: Float = 0f,        // %
+    // Pro cyclist metrics - Power analytics
+    val normalizedPower: Int = 0,    // NP in watts
+    val energyKj: Int = 0,           // kilojoules
     // Whether we have received real pedal data
     val hasData: Boolean = false
 )

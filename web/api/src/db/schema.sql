@@ -59,6 +59,25 @@ CREATE TABLE IF NOT EXISTS rides (
     -- Overall score (0-100)
     score INTEGER NOT NULL,
 
+    -- Extended metrics (added for dashboard)
+    power_avg INTEGER NOT NULL DEFAULT 0,    -- Average power in watts
+    power_max INTEGER NOT NULL DEFAULT 0,    -- Maximum power in watts
+    cadence_avg INTEGER NOT NULL DEFAULT 0,  -- Average cadence in RPM
+    hr_avg INTEGER NOT NULL DEFAULT 0,       -- Average heart rate in BPM
+    hr_max INTEGER NOT NULL DEFAULT 0,       -- Maximum heart rate in BPM
+    speed_avg REAL NOT NULL DEFAULT 0,       -- Average speed in km/h
+    distance_km REAL NOT NULL DEFAULT 0,     -- Total distance in km
+
+    -- Pro cyclist metrics (climbing)
+    elevation_gain INTEGER NOT NULL DEFAULT 0,   -- Total elevation gained in meters
+    elevation_loss INTEGER NOT NULL DEFAULT 0,   -- Total elevation lost in meters
+    grade_avg REAL NOT NULL DEFAULT 0,           -- Average gradient %
+    grade_max REAL NOT NULL DEFAULT 0,           -- Maximum gradient %
+
+    -- Pro cyclist metrics (power analytics)
+    normalized_power INTEGER NOT NULL DEFAULT 0, -- Normalized Power in watts
+    energy_kj INTEGER NOT NULL DEFAULT 0,        -- Energy output in kilojoules
+
     -- Metadata
     notes TEXT,
     rating INTEGER,                       -- User rating 1-5
@@ -76,6 +95,29 @@ CREATE INDEX IF NOT EXISTS idx_rides_device_id ON rides(device_id);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_rides_unique
 ON rides(user_id, device_id, timestamp);
 
+-- Per-minute ride snapshots (for time-series charts)
+CREATE TABLE IF NOT EXISTS ride_snapshots (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ride_id INTEGER NOT NULL,
+    minute_index INTEGER NOT NULL,
+    timestamp INTEGER NOT NULL,          -- Unix timestamp in milliseconds
+    balance_left INTEGER NOT NULL,
+    balance_right INTEGER NOT NULL,
+    te_left INTEGER NOT NULL,
+    te_right INTEGER NOT NULL,
+    ps_left INTEGER NOT NULL,
+    ps_right INTEGER NOT NULL,
+    power_avg INTEGER NOT NULL DEFAULT 0,
+    cadence_avg INTEGER NOT NULL DEFAULT 0,
+    hr_avg INTEGER NOT NULL DEFAULT 0,
+    zone_status TEXT NOT NULL,           -- OPTIMAL, ATTENTION, PROBLEM
+
+    FOREIGN KEY (ride_id) REFERENCES rides(id) ON DELETE CASCADE
+);
+
+-- Index for snapshots lookup
+CREATE INDEX IF NOT EXISTS idx_ride_snapshots_ride_id ON ride_snapshots(ride_id);
+
 -- Drill results (synced from app)
 CREATE TABLE IF NOT EXISTS drill_results (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -86,6 +128,10 @@ CREATE TABLE IF NOT EXISTS drill_results (
     timestamp INTEGER NOT NULL,
     duration_ms INTEGER NOT NULL,
     score INTEGER NOT NULL,              -- 0-100
+    time_in_target_ms INTEGER NOT NULL DEFAULT 0,
+    time_in_target_percent REAL NOT NULL DEFAULT 0,
+    completed INTEGER NOT NULL DEFAULT 0, -- 0 = false, 1 = true
+    phase_scores_json TEXT,              -- JSON array of phase scores
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
 
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE

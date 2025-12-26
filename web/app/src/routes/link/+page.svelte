@@ -16,6 +16,50 @@
   let step: 'enter_code' | 'login' | 'authorize' | 'success' = 'enter_code';
 
   onMount(async () => {
+    // Check for OAuth callback with tokens (redirect from Google auth)
+    const accessToken = $page.url.searchParams.get('access_token');
+    const refreshToken = $page.url.searchParams.get('refresh_token');
+    const deviceCodeParam = $page.url.searchParams.get('device_code');
+
+    if (accessToken && refreshToken && deviceCodeParam) {
+      // OAuth callback - save tokens and auto-authorize
+      auth.login(accessToken, refreshToken);
+
+      // Set the device code
+      code = deviceCodeParam.toUpperCase();
+      const cleanCode = code.replace('-', '');
+      for (let i = 0; i < 8 && i < cleanCode.length; i++) {
+        codeInputs[i] = cleanCode[i];
+      }
+      codeInputs = [...codeInputs];
+
+      // Clean URL (remove tokens)
+      window.history.replaceState({}, '', window.location.pathname);
+
+      // Verify code and proceed to authorize
+      verifying = true;
+      try {
+        const res = await fetch(`${API_URL}/auth/device/verify?code=${encodeURIComponent(code)}`);
+        const data = await res.json();
+        if (data.success) {
+          deviceName = data.data.device_name;
+          step = 'authorize';
+          // Auto-authorize since we just logged in
+          await authorizeDevice();
+        } else {
+          error = data.error || 'Failed to verify code';
+          step = 'enter_code';
+        }
+      } catch {
+        error = 'Failed to connect';
+        step = 'enter_code';
+      } finally {
+        verifying = false;
+      }
+      return;
+    }
+
+    // Normal flow - check for code in URL
     const urlCode = $page.url.searchParams.get('code');
     if (urlCode) {
       code = urlCode.toUpperCase();
@@ -102,8 +146,9 @@
   }
 
   function handleLogin() {
-    sessionStorage.setItem('device_link_code', code);
-    window.location.href = `${API_URL}/auth/login`;
+    // Pass the code in state parameter for cross-origin flow
+    const state = encodeURIComponent(JSON.stringify({ device_code: code }));
+    window.location.href = `${API_URL}/auth/login?state=${state}`;
   }
 
   async function authorizeDevice() {
@@ -137,26 +182,6 @@
     }
   }
 
-  onMount(() => {
-    const savedCode = sessionStorage.getItem('device_link_code');
-    if (savedCode && $isAuthenticated) {
-      sessionStorage.removeItem('device_link_code');
-      code = savedCode;
-      (async () => {
-        const cleanCode = savedCode.replace('-', '');
-        for (let i = 0; i < 8 && i < cleanCode.length; i++) {
-          codeInputs[i] = cleanCode[i];
-        }
-        codeInputs = [...codeInputs];
-        const res = await fetch(`${API_URL}/auth/device/verify?code=${encodeURIComponent(savedCode)}`);
-        const data = await res.json();
-        if (data.success) {
-          deviceName = data.data.device_name;
-          step = 'authorize';
-        }
-      })();
-    }
-  });
 </script>
 
 <svelte:head>
@@ -316,7 +341,7 @@
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
               <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
             </svg>
-            <span>https://kpedal.com/link</span>
+            <span>https://link.kpedal.com</span>
           </div>
         </div>
 
@@ -430,7 +455,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            <span>View analytics on kpedal.com</span>
+            <span>View analytics on app.kpedal.com</span>
           </div>
         </div>
 

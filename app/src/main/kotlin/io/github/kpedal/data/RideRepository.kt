@@ -54,7 +54,22 @@ class RideRepository(context: Context) {
             zoneOptimal = liveData.zoneOptimal,
             zoneAttention = liveData.zoneAttention,
             zoneProblem = liveData.zoneProblem,
-            savedManually = savedManually
+            savedManually = savedManually,
+            // Extended metrics
+            powerAvg = liveData.powerAvg,
+            powerMax = liveData.powerMax,
+            cadenceAvg = liveData.cadenceAvg,
+            heartRateAvg = liveData.heartRateAvg,
+            heartRateMax = liveData.heartRateMax,
+            speedAvgKmh = liveData.speedAvgKmh,
+            distanceKm = liveData.distanceKm,
+            // Pro cyclist metrics
+            elevationGain = liveData.elevationGain,
+            elevationLoss = liveData.elevationLoss,
+            gradeAvg = liveData.gradeAvg,
+            gradeMax = liveData.gradeMax,
+            normalizedPower = liveData.normalizedPower,
+            energyKj = liveData.energyKj
         )
 
         val id = rideDao.insertRide(entity)

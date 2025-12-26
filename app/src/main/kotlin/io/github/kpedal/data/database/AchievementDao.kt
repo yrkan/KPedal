@@ -48,4 +48,30 @@ interface AchievementDao {
      */
     @Query("DELETE FROM achievements")
     suspend fun deleteAll()
+
+    // Sync methods
+
+    /**
+     * Get all pending sync achievements.
+     */
+    @Query("SELECT * FROM achievements WHERE syncStatus = 0 ORDER BY unlockedAt ASC")
+    suspend fun getPendingSync(): List<AchievementEntity>
+
+    /**
+     * Get count of pending sync achievements.
+     */
+    @Query("SELECT COUNT(*) FROM achievements WHERE syncStatus = 0")
+    fun getPendingSyncCountFlow(): Flow<Int>
+
+    /**
+     * Mark an achievement as synced.
+     */
+    @Query("UPDATE achievements SET syncStatus = 1, lastSyncAttempt = :timestamp WHERE id = :id")
+    suspend fun markAsSynced(id: String, timestamp: Long = System.currentTimeMillis())
+
+    /**
+     * Mark an achievement as sync failed.
+     */
+    @Query("UPDATE achievements SET syncStatus = 2, lastSyncAttempt = :timestamp WHERE id = :id")
+    suspend fun markAsSyncFailed(id: String, timestamp: Long = System.currentTimeMillis())
 }

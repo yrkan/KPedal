@@ -8,6 +8,13 @@ compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 
 # ============================================
+# Smart Placement - run Worker near D1 database
+# Reduces D1 latency from ~250ms to ~10ms
+# ============================================
+[placement]
+mode = "smart"
+
+# ============================================
 # Custom Domain
 # ============================================
 # After first deploy, add custom domain in Dashboard:
@@ -42,7 +49,8 @@ id = "0b1c10ef6fb44412a6a3210eb004ba2f"
 # Environment Variables (non-secret)
 # ============================================
 [vars]
-APP_URL = "https://kpedal.com"
+APP_URL = "https://app.kpedal.com"
+LINK_URL = "https://link.kpedal.com"
 API_URL = "https://api.kpedal.com"
 ENVIRONMENT = "production"
 
@@ -53,6 +61,7 @@ ENVIRONMENT = "production"
 name = "kpedal-api-dev"
 [env.dev.vars]
 APP_URL = "http://localhost:5173"
+LINK_URL = "http://localhost:5173/link"
 API_URL = "http://localhost:8787"
 ENVIRONMENT = "development"
 

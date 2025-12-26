@@ -139,7 +139,7 @@ auth.post('/device/code', async (c) => {
         data: {
           device_code: existing.device_code,
           user_code: existing.user_code,
-          verification_uri: `${env.APP_URL}/link`,
+          verification_uri: env.LINK_URL,
           expires_in: remainingTime,
           interval: DEVICE_CODE_INTERVAL,
         },
@@ -162,7 +162,7 @@ auth.post('/device/code', async (c) => {
       data: {
         device_code: deviceCode,
         user_code: userCode,
-        verification_uri: `${env.APP_URL}/link`,
+        verification_uri: env.LINK_URL,
         expires_in: DEVICE_CODE_EXPIRY_SECONDS,
         interval: DEVICE_CODE_INTERVAL,
       },
@@ -591,10 +591,32 @@ auth.get('/login', async (c) => {
   const env = c.env;
 
   // Generate state for CSRF protection
-  const state = crypto.randomUUID();
+  const stateId = crypto.randomUUID();
+
+  // Check if there's a custom state (e.g., device_code for linking)
+  const customStateParam = c.req.query('state') || '';
+  let stateData = '';
+
+  if (customStateParam) {
+    try {
+      const decoded = JSON.parse(decodeURIComponent(customStateParam));
+      // Only allow specific fields, sanitize device_code
+      if (decoded.device_code && typeof decoded.device_code === 'string') {
+        // Validate device code format: XXXX-XXXX (8 alphanumeric chars with dash)
+        const codePattern = /^[A-Z0-9]{4}-[A-Z0-9]{4}$/i;
+        if (codePattern.test(decoded.device_code)) {
+          stateData = JSON.stringify({ device_code: decoded.device_code.toUpperCase() });
+        }
+      }
+    } catch {
+      // Invalid JSON, ignore
+    }
+  }
 
   // Store state in KV with 10 min expiry
-  await env.SESSIONS.put(`oauth_state:${state}`, '1', { expirationTtl: 600 });
+  await env.SESSIONS.put(`oauth_state:${stateId}`, stateData || '1', { expirationTtl: 600 });
+
+  const state = stateId;
 
   const params = new URLSearchParams({
     client_id: env.GOOGLE_CLIENT_ID,
@@ -629,11 +651,24 @@ auth.get('/callback', async (c) => {
   }
 
   // Verify state (CSRF protection)
-  const storedState = await env.SESSIONS.get(`oauth_state:${state}`);
-  if (!storedState) {
+  const storedStateData = await env.SESSIONS.get(`oauth_state:${state}`);
+  if (!storedStateData) {
     return c.redirect(`${env.APP_URL}/login?error=invalid_state`);
   }
   await env.SESSIONS.delete(`oauth_state:${state}`);
+
+  // Parse stored state data (may contain device_code for linking flow)
+  let deviceCode: string | null = null;
+  if (storedStateData !== '1') {
+    try {
+      const parsed = JSON.parse(storedStateData);
+      if (parsed.device_code) {
+        deviceCode = parsed.device_code;
+      }
+    } catch {
+      // Invalid state data, continue without device code
+    }
+  }
 
   try {
     // Exchange code for tokens
@@ -698,6 +733,12 @@ auth.get('/callback', async (c) => {
       access_token: accessToken,
       refresh_token: refreshToken,
     });
+
+    // If device linking flow, redirect back to link page with tokens
+    if (deviceCode) {
+      params.set('device_code', deviceCode);
+      return c.redirect(`${env.LINK_URL}?${params}`);
+    }
 
     return c.redirect(`${env.APP_URL}/auth/success?${params}`);
 

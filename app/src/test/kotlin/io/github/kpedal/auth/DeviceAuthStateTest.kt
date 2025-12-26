@@ -49,12 +49,12 @@ class DeviceAuthStateTest {
         fun `can be created with all fields`() {
             val state = DeviceAuthService.DeviceAuthState.WaitingForUser(
                 userCode = "ABCD-1234",
-                verificationUri = "kpedal.com/link",
+                verificationUri = "link.kpedal.com",
                 expiresIn = 600
             )
 
             assertThat(state.userCode).isEqualTo("ABCD-1234")
-            assertThat(state.verificationUri).isEqualTo("kpedal.com/link")
+            assertThat(state.verificationUri).isEqualTo("link.kpedal.com")
             assertThat(state.expiresIn).isEqualTo(600)
         }
 
@@ -87,12 +87,12 @@ class DeviceAuthStateTest {
         fun `can be created with all fields`() {
             val state = DeviceAuthService.DeviceAuthState.Polling(
                 userCode = "WXYZ-5678",
-                verificationUri = "kpedal.com/link",
+                verificationUri = "link.kpedal.com",
                 attemptsRemaining = 100
             )
 
             assertThat(state.userCode).isEqualTo("WXYZ-5678")
-            assertThat(state.verificationUri).isEqualTo("kpedal.com/link")
+            assertThat(state.verificationUri).isEqualTo("link.kpedal.com")
             assertThat(state.attemptsRemaining).isEqualTo(100)
         }
 
@@ -254,7 +254,7 @@ class DeviceAuthStateTest {
         fun `typical user code format XXXX-XXXX`() {
             val state = DeviceAuthService.DeviceAuthState.WaitingForUser(
                 userCode = "ABCD-1234",
-                verificationUri = "kpedal.com/link",
+                verificationUri = "link.kpedal.com",
                 expiresIn = 600
             )
 

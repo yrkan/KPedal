@@ -8,7 +8,11 @@
   let mounted = false;
 
   onMount(() => {
-    auth.initialize();
+    // Skip initialize on auth callback pages - they handle auth themselves
+    const isAuthCallback = $page.url.pathname === '/auth/success';
+    if (!isAuthCallback) {
+      auth.initialize();
+    }
     mounted = true;
   });
 
@@ -19,7 +23,7 @@
   <title>KPedal</title>
 </svelte:head>
 
-{#if !mounted || $isLoading}
+{#if !mounted || ($isLoading && currentPath !== '/auth/success')}
   <div class="loading-screen">
     <div class="loading-content">
       <div class="loading-logo">
@@ -31,6 +35,7 @@
   </div>
 {:else}
   {#if $isAuthenticated}
+    <!-- Top navbar -->
     <nav class="navbar">
       <div class="nav-container">
         <a href="/" class="logo">
@@ -38,9 +43,11 @@
           <span class="logo-text">KPedal</span>
         </a>
 
-        <div class="nav-links">
+        <div class="nav-links desktop-only">
           <a href="/" class="nav-link" class:active={currentPath === '/'}>Dashboard</a>
           <a href="/rides" class="nav-link" class:active={currentPath === '/rides'}>Rides</a>
+          <a href="/drills" class="nav-link" class:active={currentPath === '/drills'}>Drills</a>
+          <a href="/achievements" class="nav-link" class:active={currentPath === '/achievements'}>Achievements</a>
           <a href="/settings" class="nav-link" class:active={currentPath === '/settings'}>Settings</a>
         </div>
 
@@ -72,6 +79,40 @@
           {/if}
         </div>
       </div>
+    </nav>
+
+    <!-- Bottom navigation (mobile only) -->
+    <nav class="bottom-nav mobile-only">
+      <a href="/" class="bottom-nav-item" class:active={currentPath === '/'}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        <span>Home</span>
+      </a>
+      <a href="/rides" class="bottom-nav-item" class:active={currentPath === '/rides'}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+        <span>Rides</span>
+      </a>
+      <a href="/drills" class="bottom-nav-item" class:active={currentPath === '/drills'}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+        </svg>
+        <span>Drills</span>
+      </a>
+      <a href="/achievements" class="bottom-nav-item" class:active={currentPath === '/achievements'}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+        </svg>
+        <span>Goals</span>
+      </a>
+      <a href="/settings" class="bottom-nav-item" class:active={currentPath === '/settings'}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <span>Settings</span>
+      </a>
     </nav>
   {/if}
 
@@ -178,6 +219,55 @@
     color: var(--text-primary);
   }
 
+  /* Bottom Navigation */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 64px;
+    background: var(--bg-base);
+    border-top: 1px solid var(--border-subtle);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .bottom-nav-item svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .bottom-nav-item span {
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .bottom-nav-item.active {
+    color: var(--text-primary);
+  }
+
+  .bottom-nav-item.active svg {
+    stroke-width: 2.5;
+  }
+
+  /* Responsive visibility */
+  .desktop-only { display: flex; }
+  .mobile-only { display: none; }
+
   .nav-right {
     display: flex;
     align-items: center;
@@ -233,22 +323,18 @@
   }
 
   /* Mobile */
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
+    .desktop-only { display: none; }
+    .mobile-only { display: flex; }
+
     .nav-container {
       padding: 0 16px;
-      gap: 24px;
+      height: 48px;
     }
 
-    .nav-links {
-      gap: 16px;
-    }
-
-    .nav-link {
-      font-size: 13px;
-    }
-
-    .logo-text {
-      display: none;
+    .main-content.with-nav {
+      min-height: calc(100vh - 48px);
+      padding-bottom: 72px;
     }
   }
 </style>

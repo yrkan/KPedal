@@ -8,6 +8,8 @@ import { ridesRoutes } from './api/rides';
 import { syncRoutes } from './api/sync';
 import { devicesRoutes } from './api/devices';
 import { settingsRoutes } from './api/settings';
+import { drillRoutes } from './api/drills';
+import { achievementRoutes } from './api/achievements';
 import { authMiddleware } from './middleware/auth';
 import { authRateLimit, apiRateLimit, syncRateLimit } from './middleware/rateLimit';
 
@@ -29,6 +31,8 @@ app.use('*', cors({
     const env = c.env;
     const allowedOrigins = [
       env.APP_URL,
+      env.LINK_URL,
+      'https://kpedal.com',     // Main domain (serves same app)
       'http://localhost:5173',  // SvelteKit dev
       'http://localhost:4173',  // SvelteKit preview
     ];
@@ -72,27 +76,52 @@ app.route('/auth', authRoutes);
 // Protected Routes (require auth)
 // ============================================
 
-// Apply auth middleware to /api/*
-app.use('/api/*', authMiddleware);
+// Apply auth middleware to protected routes
+// Note: need both '/path' and '/path/*' for Hono middleware matching
+app.use('/rides', authMiddleware);
+app.use('/rides/*', authMiddleware);
+app.use('/devices', authMiddleware);
+app.use('/devices/*', authMiddleware);
+app.use('/settings', authMiddleware);
+app.use('/drills', authMiddleware);
+app.use('/drills/*', authMiddleware);
+app.use('/achievements', authMiddleware);
+app.use('/achievements/*', authMiddleware);
+app.use('/sync/*', authMiddleware);
+app.use('/me', authMiddleware);
 
-// Apply rate limiting to API routes
-app.use('/api/*', apiRateLimit);
+// Apply rate limiting to protected routes
+app.use('/rides', apiRateLimit);
+app.use('/rides/*', apiRateLimit);
+app.use('/devices', apiRateLimit);
+app.use('/devices/*', apiRateLimit);
+app.use('/settings', apiRateLimit);
+app.use('/drills', apiRateLimit);
+app.use('/drills/*', apiRateLimit);
+app.use('/achievements', apiRateLimit);
+app.use('/achievements/*', apiRateLimit);
 
 // User rides
-app.route('/api/rides', ridesRoutes);
+app.route('/rides', ridesRoutes);
 
 // User devices
-app.route('/api/devices', devicesRoutes);
+app.route('/devices', devicesRoutes);
 
 // User settings
-app.route('/api/settings', settingsRoutes);
+app.route('/settings', settingsRoutes);
+
+// User drills
+app.route('/drills', drillRoutes);
+
+// User achievements
+app.route('/achievements', achievementRoutes);
 
 // Device sync (from Karoo) with sync-specific rate limit
-app.use('/api/sync/*', syncRateLimit);
-app.route('/api/sync', syncRoutes);
+app.use('/sync/*', syncRateLimit);
+app.route('/sync', syncRoutes);
 
 // User profile
-app.get('/api/me', async (c) => {
+app.get('/me', async (c) => {
   const user = c.get('user');
   const response: ApiResponse = {
     success: true,

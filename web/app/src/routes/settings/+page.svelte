@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { auth, isAuthenticated, user, authFetch } from '$lib/auth';
   import { theme, type Theme } from '$lib/theme';
+  import InfoTip from '$lib/components/InfoTip.svelte';
 
   interface Device {
     id: string;
@@ -94,7 +95,7 @@
     devicesLoading = true;
     devicesError = null;
     try {
-      const res = await authFetch('/api/devices');
+      const res = await authFetch('/devices');
       const data = await res.json();
       if (data.success) {
         devices = data.data.devices;
@@ -113,7 +114,7 @@
 
     removingDevice = deviceId;
     try {
-      const res = await authFetch(`/api/devices/${deviceId}`, { method: 'DELETE' });
+      const res = await authFetch(`/devices/${deviceId}`, { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
         devices = devices.filter(d => d.id !== deviceId);
@@ -128,7 +129,7 @@
   async function requestSync(deviceId: string) {
     requestingSyncDevice = deviceId;
     try {
-      const res = await authFetch(`/api/devices/${deviceId}/request-sync`, { method: 'POST' });
+      const res = await authFetch(`/devices/${deviceId}/request-sync`, { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         syncRequestedDevice = deviceId;
@@ -171,7 +172,7 @@
     settingsLoading = true;
     settingsError = null;
     try {
-      const res = await authFetch('/api/settings');
+      const res = await authFetch('/settings');
       const data = await res.json();
       if (data.success && data.data?.settings) {
         kpedalSettings = { ...DEFAULT_SETTINGS, ...data.data.settings };
@@ -196,7 +197,7 @@
       savingSettings = true;
       settingsSaved = false;
       try {
-        const res = await authFetch('/api/settings', {
+        const res = await authFetch('/settings', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(changes),
@@ -220,7 +221,7 @@
   <title>Settings - KPedal</title>
 </svelte:head>
 
-<div class="settings-page">
+<div class="page settings-page">
   <div class="container container-md">
     <header class="page-header animate-in">
       <h1>Settings</h1>
@@ -254,9 +255,10 @@
     <section class="settings-section animate-in">
       <div class="section-header">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="3" width="20" height="14" rx="2"/>
-          <line x1="8" y1="21" x2="16" y2="21"/>
-          <line x1="12" y1="17" x2="12" y2="21"/>
+          <rect x="4" y="2" width="16" height="20" rx="3"/>
+          <circle cx="12" cy="17" r="1.5"/>
+          <line x1="8" y1="6" x2="16" y2="6"/>
+          <line x1="8" y1="9" x2="14" y2="9"/>
         </svg>
         <h2>Connected Devices</h2>
       </div>
@@ -275,9 +277,10 @@
           <div class="devices-empty">
             <div class="empty-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="2" y="3" width="20" height="14" rx="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/>
-                <line x1="12" y1="17" x2="12" y2="21"/>
+                <rect x="4" y="2" width="16" height="20" rx="3"/>
+                <circle cx="12" cy="17" r="1.5"/>
+                <line x1="8" y1="6" x2="16" y2="6"/>
+                <line x1="8" y1="9" x2="14" y2="9"/>
               </svg>
             </div>
             <p class="empty-text">No devices connected</p>
@@ -296,9 +299,10 @@
               <div class="device-item">
                 <div class="device-icon">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="3" width="20" height="14" rx="2"/>
-                    <line x1="8" y1="21" x2="16" y2="21"/>
-                    <line x1="12" y1="17" x2="12" y2="21"/>
+                    <rect x="4" y="2" width="16" height="20" rx="3"/>
+                    <circle cx="12" cy="17" r="1.5"/>
+                    <line x1="8" y1="6" x2="16" y2="6"/>
+                    <line x1="8" y1="9" x2="14" y2="9"/>
                   </svg>
                 </div>
                 <div class="device-info">
@@ -408,7 +412,7 @@
             <div class="metrics-card-body thresholds-body">
               <!-- Balance -->
               <div class="threshold-item">
-                <span class="threshold-label">Balance</span>
+                <span class="threshold-label">Balance <InfoTip text="Maximum acceptable power imbalance. Lower is stricter." position="right" size="sm" /></span>
                 <div class="threshold-slider-wrap">
                   <input
                     type="range"
@@ -441,7 +445,7 @@
 
               <!-- TE Min -->
               <div class="threshold-item">
-                <span class="threshold-label">TE Min</span>
+                <span class="threshold-label">TE Min <InfoTip text="Minimum Torque Effectiveness for optimal zone. Research suggests 70%." position="right" size="sm" /></span>
                 <div class="threshold-slider-wrap">
                   <input
                     type="range"
@@ -475,7 +479,7 @@
 
               <!-- TE Max -->
               <div class="threshold-item">
-                <span class="threshold-label">TE Max</span>
+                <span class="threshold-label">TE Max <InfoTip text="Maximum Torque Effectiveness for optimal zone. Above 80% can indicate pedaling squares." position="right" size="sm" /></span>
                 <div class="threshold-slider-wrap">
                   <input
                     type="range"
@@ -509,7 +513,7 @@
 
               <!-- PS -->
               <div class="threshold-item">
-                <span class="threshold-label">Smoothness</span>
+                <span class="threshold-label">Smoothness <InfoTip text="Minimum Pedal Smoothness for optimal zone." position="right" size="sm" /></span>
                 <div class="threshold-slider-wrap">
                   <input
                     type="range"
@@ -548,7 +552,7 @@
             <div class="metrics-card-header">
               <div class="header-with-toggle">
                 <div>
-                  <h3>In-Ride Alerts</h3>
+                  <h3>In-Ride Alerts <InfoTip text="Real-time notifications on your Karoo when metrics need attention." position="right" size="sm" /></h3>
                   <span class="metrics-card-hint">Notifications when metrics need attention</span>
                 </div>
                 <label class="toggle">
@@ -650,7 +654,7 @@
             <div class="metrics-card-body">
               <div class="data-option">
                 <div class="data-option-info">
-                  <span class="data-option-name">Background Mode</span>
+                  <span class="data-option-name">Background Mode <InfoTip text="Collect metrics even when KPedal data field isn't visible on screen." position="right" size="sm" /></span>
                   <span class="data-option-desc">Collect metrics even when data field is hidden</span>
                 </div>
                 <label class="toggle">
@@ -664,7 +668,7 @@
               </div>
               <div class="data-option">
                 <div class="data-option-info">
-                  <span class="data-option-name">Auto-Sync</span>
+                  <span class="data-option-name">Auto-Sync <InfoTip text="Automatically upload ride data after each ride ends." position="right" size="sm" /></span>
                   <span class="data-option-desc">Sync ride data automatically after each ride</span>
                 </div>
                 <label class="toggle">
@@ -830,18 +834,9 @@
 </div>
 
 <style>
-  .settings-page {
-    padding: 32px 0 64px;
-  }
-
-  .page-header {
-    margin-bottom: 32px;
-  }
-
-  .page-header h1 {
+  /* Page-specific styles */
+  .settings-page .page-header h1 {
     font-size: 28px;
-    font-weight: 600;
-    color: var(--text-primary);
     letter-spacing: -0.5px;
   }
 
@@ -1656,15 +1651,7 @@
      Mobile Responsive
      ============================================ */
   @media (max-width: 640px) {
-    .settings-page {
-      padding: 24px 0 48px;
-    }
-
-    .page-header {
-      margin-bottom: 24px;
-    }
-
-    .page-header h1 {
+    .settings-page .page-header h1 {
       font-size: 24px;
     }
 

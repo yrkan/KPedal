@@ -27,6 +27,21 @@ interface RideData {
   zone_attention: number;
   zone_problem: number;
   score: number;
+  // Extended metrics
+  power_avg?: number;
+  power_max?: number;
+  cadence_avg?: number;
+  hr_avg?: number;
+  hr_max?: number;
+  speed_avg?: number;
+  distance_km?: number;
+  // Pro cyclist metrics
+  elevation_gain?: number;
+  elevation_loss?: number;
+  grade_avg?: number;
+  grade_max?: number;
+  normalized_power?: number;
+  energy_kj?: number;
 }
 
 interface SyncRequest {
@@ -501,7 +516,22 @@ describe('Batch Sync Duplicate Detection', () => {
     zone_optimal: 80,
     zone_attention: 15,
     zone_problem: 5,
-    score: 85
+    score: 85,
+    // Extended metrics
+    power_avg: 185,
+    power_max: 420,
+    cadence_avg: 88,
+    hr_avg: 145,
+    hr_max: 172,
+    speed_avg: 28.5,
+    distance_km: 42.3,
+    // Pro cyclist metrics
+    elevation_gain: 650,
+    elevation_loss: 620,
+    grade_avg: 3.2,
+    grade_max: 12.5,
+    normalized_power: 205,
+    energy_kj: 1850
   });
 
   it('should insert all new rides', () => {

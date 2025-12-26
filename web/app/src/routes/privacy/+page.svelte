@@ -40,7 +40,7 @@
         Back to KPedal
       </a>
       <h1>Privacy Policy</h1>
-      <p class="last-updated">Last updated: December 24, 2025</p>
+      <p class="last-updated">Last updated: December 25, 2025</p>
     </header>
 
     <!-- Quick Summary -->
@@ -220,6 +220,44 @@
         </div>
         <p class="note">Settings sync allows you to configure thresholds on the web and have them apply on your Karoo automatically. If not signed in, settings remain local only.</p>
 
+        <h3>Drill Results (Synced if Signed In)</h3>
+        <p>When signed in, your drill training data is synced:</p>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-field">Drill ID & Name</span>
+            <span class="data-purpose">Which drill was completed</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Timestamp & Duration</span>
+            <span class="data-purpose">When the drill was done and how long it took</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Score</span>
+            <span class="data-purpose">Overall performance score (0-100)</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Time in Target</span>
+            <span class="data-purpose">How long you maintained target metrics</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Phase Scores</span>
+            <span class="data-purpose">Performance for each drill phase</span>
+          </div>
+        </div>
+
+        <h3>Achievements (Synced if Signed In)</h3>
+        <p>When signed in, your unlocked achievements are synced:</p>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-field">Achievement ID</span>
+            <span class="data-purpose">Which achievement was unlocked</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Unlocked At</span>
+            <span class="data-purpose">When the achievement was earned</span>
+          </div>
+        </div>
+
         <h3>Data Stored Only on Your Karoo (Never Synced)</h3>
         <p>The following data is stored locally on your Karoo device and is <strong>never</strong> sent to our servers:</p>
         <div class="data-table">
@@ -230,14 +268,6 @@
           <div class="data-row">
             <span class="data-field">Ride Notes</span>
             <span class="data-purpose">Personal notes you add to rides</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Drill Results</span>
-            <span class="data-purpose">Scores, time in target, phase performance</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Achievements</span>
-            <span class="data-purpose">Unlocked achievements and progress</span>
           </div>
           <div class="data-row">
             <span class="data-field">Custom Drills</span>
@@ -400,7 +430,7 @@
             <div class="flow-number">4</div>
             <div class="flow-content">
               <h4>Web Dashboard</h4>
-              <p>View your ride history, trends, and analytics at kpedal.com. Data is retrieved only for your authenticated account.</p>
+              <p>View your ride history, trends, and analytics at app.kpedal.com. Data is retrieved only for your authenticated account.</p>
             </div>
           </div>
         </div>
@@ -458,11 +488,19 @@
         </div>
 
         <h3>Data Retention</h3>
-        <h4>Cloud Storage (kpedal.com)</h4>
+        <h4>Cloud Storage (app.kpedal.com)</h4>
         <div class="retention-table">
           <div class="retention-row">
             <span class="retention-data">Ride data</span>
             <span class="retention-period">Until you delete it</span>
+          </div>
+          <div class="retention-row">
+            <span class="retention-data">Drill results</span>
+            <span class="retention-period">Until you delete it</span>
+          </div>
+          <div class="retention-row">
+            <span class="retention-data">Achievements</span>
+            <span class="retention-period">Until account deletion</span>
           </div>
           <div class="retention-row">
             <span class="retention-data">User settings</span>
@@ -494,19 +532,19 @@
           </div>
           <div class="retention-row">
             <span class="retention-data">Drill results</span>
-            <span class="retention-period">Until app uninstall</span>
+            <span class="retention-period">Until app uninstall (also synced to cloud if signed in)</span>
           </div>
           <div class="retention-row">
             <span class="retention-data">Achievements</span>
-            <span class="retention-period">Until app uninstall</span>
+            <span class="retention-period">Until app uninstall (also synced to cloud if signed in)</span>
           </div>
           <div class="retention-row">
             <span class="retention-data">Custom drills</span>
-            <span class="retention-period">Until you delete them</span>
+            <span class="retention-period">Until you delete them (local only)</span>
           </div>
           <div class="retention-row">
             <span class="retention-data">Settings</span>
-            <span class="retention-period">Until app uninstall</span>
+            <span class="retention-period">Until app uninstall (synced to cloud if signed in)</span>
           </div>
         </div>
       </section>
@@ -1100,6 +1138,39 @@
 
   /* Responsive */
   @media (max-width: 640px) {
+    .privacy-page {
+      padding: 16px;
+    }
+
+    .theme-toggle {
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .privacy-header {
+      padding: 24px 0 24px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      margin-left: -12px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      border-radius: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
     .summary-grid {
       grid-template-columns: 1fr;
     }

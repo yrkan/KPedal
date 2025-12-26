@@ -26,6 +26,10 @@ import java.util.concurrent.atomic.AtomicReference
  * - PEDAL_SMOOTHNESS (L/R)
  * - POWER (current watts)
  * - CADENCE (current RPM)
+ * - HEART_RATE (BPM)
+ * - SPEED (m/s)
+ * - DISTANCE (meters)
+ * - ALTITUDE (meters)
  * - SMOOTHED_3S_AVERAGE_PEDAL_POWER_BALANCE
  * - SMOOTHED_10S_AVERAGE_PEDAL_POWER_BALANCE
  */
@@ -54,8 +58,17 @@ class PedalingEngine(private val extension: KPedalExtension) {
     private val psConsumerId = AtomicReference<String?>(null)
     private val powerConsumerId = AtomicReference<String?>(null)
     private val cadenceConsumerId = AtomicReference<String?>(null)
+    private val heartRateConsumerId = AtomicReference<String?>(null)
+    private val speedConsumerId = AtomicReference<String?>(null)
+    private val distanceConsumerId = AtomicReference<String?>(null)
     private val balance3sConsumerId = AtomicReference<String?>(null)
     private val balance10sConsumerId = AtomicReference<String?>(null)
+    // Pro cyclist metrics consumers
+    private val elevationGainConsumerId = AtomicReference<String?>(null)
+    private val elevationLossConsumerId = AtomicReference<String?>(null)
+    private val gradeConsumerId = AtomicReference<String?>(null)
+    private val normalizedPowerConsumerId = AtomicReference<String?>(null)
+    private val energyConsumerId = AtomicReference<String?>(null)
 
     // Current values (volatile for thread safety)
     @Volatile private var currentBalanceLeft: Float = 50f
@@ -65,8 +78,17 @@ class PedalingEngine(private val extension: KPedalExtension) {
     @Volatile private var currentPsRight: Float = 0f
     @Volatile private var currentPower: Int = 0
     @Volatile private var currentCadence: Int = 0
+    @Volatile private var currentHeartRate: Int = 0
+    @Volatile private var currentSpeed: Float = 0f
+    @Volatile private var currentDistance: Float = 0f
     @Volatile private var currentBalance3sLeft: Float = 50f
     @Volatile private var currentBalance10sLeft: Float = 50f
+    // Pro cyclist current values
+    @Volatile private var currentElevationGain: Float = 0f
+    @Volatile private var currentElevationLoss: Float = 0f
+    @Volatile private var currentGrade: Float = 0f
+    @Volatile private var currentNormalizedPower: Int = 0
+    @Volatile private var currentEnergy: Float = 0f
 
     init {
         // Debounced metrics updates to prevent UI overload
@@ -188,6 +210,150 @@ class PedalingEngine(private val extension: KPedalExtension) {
             })
             addedConsumers.add(cadenceConsumerId)
 
+            // Subscribe to Heart Rate
+            // Returns: Field.HEART_RATE (current BPM)
+            heartRateConsumerId.set(extension.karooSystem.addConsumer(
+                OnStreamState.StartStreaming(DataType.Type.HEART_RATE)
+            ) { event: OnStreamState ->
+                when (val state = event.state) {
+                    is StreamState.Streaming -> {
+                        val values = state.dataPoint.values
+                        values[DataType.Field.HEART_RATE]?.toInt()?.let { hr ->
+                            currentHeartRate = hr
+                            triggerUpdate()
+                        }
+                    }
+                    else -> { /* Ignore */ }
+                }
+            })
+            addedConsumers.add(heartRateConsumerId)
+
+            // Subscribe to Speed
+            // Returns: Field.SPEED (m/s)
+            speedConsumerId.set(extension.karooSystem.addConsumer(
+                OnStreamState.StartStreaming(DataType.Type.SPEED)
+            ) { event: OnStreamState ->
+                when (val state = event.state) {
+                    is StreamState.Streaming -> {
+                        val values = state.dataPoint.values
+                        values[DataType.Field.SPEED]?.toFloat()?.let { speed ->
+                            currentSpeed = speed
+                            triggerUpdate()
+                        }
+                    }
+                    else -> { /* Ignore */ }
+                }
+            })
+            addedConsumers.add(speedConsumerId)
+
+            // Subscribe to Distance
+            // Returns: Field.DISTANCE (meters)
+            distanceConsumerId.set(extension.karooSystem.addConsumer(
+                OnStreamState.StartStreaming(DataType.Type.DISTANCE)
+            ) { event: OnStreamState ->
+                when (val state = event.state) {
+                    is StreamState.Streaming -> {
+                        val values = state.dataPoint.values
+                        values[DataType.Field.DISTANCE]?.toFloat()?.let { dist ->
+                            currentDistance = dist
+                            triggerUpdate()
+                        }
+                    }
+                    else -> { /* Ignore */ }
+                }
+            })
+            addedConsumers.add(distanceConsumerId)
+
+            // Subscribe to Elevation Gain
+            // Returns: Field.ELEVATION_GAIN (meters)
+            elevationGainConsumerId.set(extension.karooSystem.addConsumer(
+                OnStreamState.StartStreaming(DataType.Type.ELEVATION_GAIN)
+            ) { event: OnStreamState ->
+                when (val state = event.state) {
+                    is StreamState.Streaming -> {
+                        val values = state.dataPoint.values
+                        values[DataType.Field.ELEVATION_GAIN]?.toFloat()?.let { gain ->
+                            currentElevationGain = gain
+                            triggerUpdate()
+                        }
+                    }
+                    else -> { /* Ignore */ }
+                }
+            })
+            addedConsumers.add(elevationGainConsumerId)
+
+            // Subscribe to Elevation Loss
+            // Returns: Field.ELEVATION_LOSS (meters)
+            elevationLossConsumerId.set(extension.karooSystem.addConsumer(
+                OnStreamState.StartStreaming(DataType.Type.ELEVATION_LOSS)
+            ) { event: OnStreamState ->
+                when (val state = event.state) {
+                    is StreamState.Streaming -> {
+                        val values = state.dataPoint.values
+                        values[DataType.Field.ELEVATION_LOSS]?.toFloat()?.let { loss ->
+                            currentElevationLoss = loss
+                            triggerUpdate()
+                        }
+                    }
+                    else -> { /* Ignore */ }
+                }
+            })
+            addedConsumers.add(elevationLossConsumerId)
+
+            // Subscribe to Grade/Gradient
+            // Returns: Field.ELEVATION_GRADE (percentage)
+            gradeConsumerId.set(extension.karooSystem.addConsumer(
+                OnStreamState.StartStreaming(DataType.Type.ELEVATION_GRADE)
+            ) { event: OnStreamState ->
+                when (val state = event.state) {
+                    is StreamState.Streaming -> {
+                        val values = state.dataPoint.values
+                        values[DataType.Field.ELEVATION_GRADE]?.toFloat()?.let { grade ->
+                            currentGrade = grade
+                            triggerUpdate()
+                        }
+                    }
+                    else -> { /* Ignore */ }
+                }
+            })
+            addedConsumers.add(gradeConsumerId)
+
+            // Subscribe to Normalized Power
+            // Returns: Field.NORMALIZED_POWER (watts)
+            normalizedPowerConsumerId.set(extension.karooSystem.addConsumer(
+                OnStreamState.StartStreaming(DataType.Type.NORMALIZED_POWER)
+            ) { event: OnStreamState ->
+                when (val state = event.state) {
+                    is StreamState.Streaming -> {
+                        val values = state.dataPoint.values
+                        values[DataType.Field.NORMALIZED_POWER]?.toInt()?.let { np ->
+                            currentNormalizedPower = np
+                            triggerUpdate()
+                        }
+                    }
+                    else -> { /* Ignore */ }
+                }
+            })
+            addedConsumers.add(normalizedPowerConsumerId)
+
+            // Subscribe to Energy Output
+            // Returns: Field.ENERGY_OUTPUT (kilojoules)
+            energyConsumerId.set(extension.karooSystem.addConsumer(
+                OnStreamState.StartStreaming(DataType.Type.ENERGY_OUTPUT)
+            ) { event: OnStreamState ->
+                when (val state = event.state) {
+                    is StreamState.Streaming -> {
+                        val values = state.dataPoint.values
+                        values[DataType.Field.ENERGY_OUTPUT]?.toFloat()?.let { energy ->
+                            currentEnergy = energy
+                            triggerUpdate()
+                        }
+                    }
+                    else -> { /* Ignore */ }
+                }
+            })
+            addedConsumers.add(energyConsumerId)
+
             // Subscribe to 3s Smoothed Balance
             // Returns: Field.PEDAL_POWER_BALANCE_LEFT
             balance3sConsumerId.set(extension.karooSystem.addConsumer(
@@ -254,8 +420,17 @@ class PedalingEngine(private val extension: KPedalExtension) {
         psConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
         powerConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
         cadenceConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
+        heartRateConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
+        speedConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
+        distanceConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
         balance3sConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
         balance10sConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
+        // Pro cyclist metrics
+        elevationGainConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
+        elevationLossConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
+        gradeConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
+        normalizedPowerConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
+        energyConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
 
         android.util.Log.i(TAG, "Stopped streaming")
     }
@@ -285,8 +460,17 @@ class PedalingEngine(private val extension: KPedalExtension) {
         val psRight = currentPsRight
         val power = currentPower
         val cadence = currentCadence
+        val heartRate = currentHeartRate
+        val speed = currentSpeed
+        val distance = currentDistance
         val balance3sLeft = currentBalance3sLeft
         val balance10sLeft = currentBalance10sLeft
+        // Pro cyclist metrics
+        val elevationGain = currentElevationGain
+        val elevationLoss = currentElevationLoss
+        val grade = currentGrade
+        val normalizedPower = currentNormalizedPower
+        val energy = currentEnergy
 
         // Balance: SDK returns left side %, right = 100 - left
         // PedalingMetrics.balance stores RIGHT side value for display
@@ -298,8 +482,17 @@ class PedalingEngine(private val extension: KPedalExtension) {
             pedalSmoothRight = psRight,
             power = power,
             cadence = cadence,
+            heartRate = heartRate,
+            speed = speed,
+            distance = distance,
             balance3s = 100f - balance3sLeft,  // Right side %
             balance10s = 100f - balance10sLeft,  // Right side %
+            // Pro cyclist metrics
+            elevationGain = elevationGain,
+            elevationLoss = elevationLoss,
+            grade = grade,
+            normalizedPower = normalizedPower,
+            energyKj = energy,
             timestamp = System.currentTimeMillis()
         )
 

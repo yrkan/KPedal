@@ -6,10 +6,21 @@ import android.net.NetworkCapabilities
 import io.github.kpedal.api.ApiClient
 import io.github.kpedal.api.CloudSettings
 import io.github.kpedal.api.RefreshRequest
+import io.github.kpedal.api.SyncAchievementRequest
+import io.github.kpedal.api.SyncAchievementsRequest
+import io.github.kpedal.api.SyncDrillRequest
+import io.github.kpedal.api.SyncDrillsRequest
 import io.github.kpedal.api.SyncResponse
 import io.github.kpedal.api.SyncRideRequest
+import io.github.kpedal.api.SyncRideWithSnapshotsRequest
+import io.github.kpedal.api.SyncSnapshotRequest
+import io.github.kpedal.data.database.AchievementDao
+import io.github.kpedal.data.database.AchievementEntity
+import io.github.kpedal.data.database.DrillResultDao
+import io.github.kpedal.data.database.DrillResultEntity
 import io.github.kpedal.data.database.RideDao
 import io.github.kpedal.data.database.RideEntity
+import io.github.kpedal.engine.RideSnapshot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -39,6 +50,8 @@ class SyncService(
     private val context: Context,
     private val authRepository: AuthRepository,
     private val rideDao: RideDao,
+    private val drillResultDao: DrillResultDao,
+    private val achievementDao: AchievementDao,
     private val preferencesRepository: PreferencesRepository
 ) {
     enum class SyncStatus {
@@ -161,8 +174,16 @@ class SyncService(
             android.util.Log.i(TAG, "Fetched settings from cloud: $fetched")
 
             // 2. Sync pending rides to cloud
-            val syncedCount = syncPendingRidesInternal()
-            android.util.Log.i(TAG, "Synced $syncedCount rides")
+            val syncedRides = syncPendingRidesInternal()
+            android.util.Log.i(TAG, "Synced $syncedRides rides")
+
+            // 3. Sync pending drills to cloud
+            val syncedDrills = syncPendingDrills()
+            android.util.Log.i(TAG, "Synced $syncedDrills drills")
+
+            // 4. Sync pending achievements to cloud
+            val syncedAchievements = syncPendingAchievements()
+            android.util.Log.i(TAG, "Synced $syncedAchievements achievements")
 
             _syncState.value = _syncState.value.copy(
                 status = SyncStatus.SUCCESS,
@@ -271,7 +292,14 @@ class SyncService(
             ps_right_avg = ride.psRight,
             optimal_pct = ride.zoneOptimal,
             attention_pct = ride.zoneAttention,
-            problem_pct = ride.zoneProblem
+            problem_pct = ride.zoneProblem,
+            // Extended metrics
+            power_avg = ride.powerAvg,
+            power_max = ride.powerMax,
+            cadence_avg = ride.cadenceAvg,
+            hr_avg = ride.heartRateAvg,
+            speed_avg = ride.speedAvgKmh,
+            distance_km = ride.distanceKm
         )
 
         return try {
@@ -323,6 +351,333 @@ class SyncService(
             rideDao.markAsSyncFailed(ride.id)
             _syncState.value = _syncState.value.copy(errorMessage = e.message)
             false
+        }
+    }
+
+    /**
+     * Sync a single ride with per-minute snapshots to cloud.
+     * Used when ride is saved with collected snapshots.
+     * @return true if sync was successful
+     */
+    suspend fun syncRideWithSnapshots(ride: RideEntity, snapshots: List<RideSnapshot>): Boolean {
+        if (!authRepository.isLoggedIn) {
+            return false
+        }
+
+        val accessToken = authRepository.getAccessToken() ?: run {
+            if (!refreshToken()) {
+                return false
+            }
+            authRepository.getAccessToken() ?: return false
+        }
+
+        val deviceId = authRepository.getOrCreateDeviceId()
+
+        val rideRequest = SyncRideRequest(
+            timestamp = ride.timestamp,
+            duration = ride.durationMs,
+            balance_left_avg = ride.balanceLeft,
+            balance_right_avg = ride.balanceRight,
+            te_left_avg = ride.teLeft,
+            te_right_avg = ride.teRight,
+            ps_left_avg = ride.psLeft,
+            ps_right_avg = ride.psRight,
+            optimal_pct = ride.zoneOptimal,
+            attention_pct = ride.zoneAttention,
+            problem_pct = ride.zoneProblem,
+            power_avg = ride.powerAvg,
+            power_max = ride.powerMax,
+            cadence_avg = ride.cadenceAvg,
+            hr_avg = ride.heartRateAvg,
+            speed_avg = ride.speedAvgKmh,
+            distance_km = ride.distanceKm
+        )
+
+        val snapshotRequests = snapshots.map { snapshot ->
+            SyncSnapshotRequest(
+                minute_index = snapshot.minuteIndex,
+                timestamp = snapshot.timestamp,
+                balance_left = snapshot.balanceLeft,
+                balance_right = snapshot.balanceRight,
+                te_left = snapshot.teLeft,
+                te_right = snapshot.teRight,
+                ps_left = snapshot.psLeft,
+                ps_right = snapshot.psRight,
+                power_avg = snapshot.powerAvg,
+                cadence_avg = snapshot.cadenceAvg,
+                hr_avg = snapshot.heartRateAvg,
+                zone_status = snapshot.zoneStatus
+            )
+        }
+
+        val request = SyncRideWithSnapshotsRequest(
+            ride = rideRequest,
+            snapshots = snapshotRequests
+        )
+
+        return try {
+            val response = ApiClient.syncService.syncRideWithSnapshots(
+                token = "Bearer $accessToken",
+                deviceId = deviceId,
+                request = request
+            )
+
+            if (response.isSuccessful && response.body()?.success == true) {
+                rideDao.markAsSynced(ride.id)
+                android.util.Log.i(TAG, "Synced ride with ${snapshots.size} snapshots")
+                true
+            } else if (response.code() == 403 && response.body()?.code == SyncResponse.CODE_DEVICE_REVOKED) {
+                handleDeviceRevoked()
+                false
+            } else if (response.code() == 401) {
+                if (refreshToken()) {
+                    val newToken = authRepository.getAccessToken() ?: return false
+                    val retryResponse = ApiClient.syncService.syncRideWithSnapshots(
+                        token = "Bearer $newToken",
+                        deviceId = deviceId,
+                        request = request
+                    )
+                    if (retryResponse.isSuccessful && retryResponse.body()?.success == true) {
+                        rideDao.markAsSynced(ride.id)
+                        true
+                    } else {
+                        rideDao.markAsSyncFailed(ride.id)
+                        false
+                    }
+                } else {
+                    rideDao.markAsSyncFailed(ride.id)
+                    false
+                }
+            } else {
+                rideDao.markAsSyncFailed(ride.id)
+                _syncState.value = _syncState.value.copy(
+                    errorMessage = response.body()?.error ?: "Sync failed"
+                )
+                false
+            }
+        } catch (e: Exception) {
+            rideDao.markAsSyncFailed(ride.id)
+            _syncState.value = _syncState.value.copy(errorMessage = e.message)
+            android.util.Log.e(TAG, "Error syncing ride with snapshots: ${e.message}")
+            false
+        }
+    }
+
+    // ========================================
+    // Drill Sync Methods
+    // ========================================
+
+    /**
+     * Sync a single drill result to cloud.
+     * @return true if sync was successful
+     */
+    suspend fun syncDrill(drill: DrillResultEntity): Boolean {
+        if (!authRepository.isLoggedIn) {
+            return false
+        }
+
+        val accessToken = authRepository.getAccessToken() ?: run {
+            if (!refreshToken()) return false
+            authRepository.getAccessToken() ?: return false
+        }
+
+        val deviceId = authRepository.getOrCreateDeviceId()
+
+        val request = SyncDrillRequest(
+            drill_id = drill.drillId,
+            drill_name = drill.drillName,
+            timestamp = drill.timestamp,
+            duration_ms = drill.durationMs,
+            score = drill.score,
+            time_in_target_ms = drill.timeInTargetMs,
+            time_in_target_percent = drill.timeInTargetPercent,
+            completed = drill.completed,
+            phase_scores_json = drill.phaseScoresJson
+        )
+
+        return try {
+            val response = ApiClient.syncService.syncDrill(
+                token = "Bearer $accessToken",
+                deviceId = deviceId,
+                drill = request
+            )
+
+            if (response.isSuccessful && response.body()?.success == true) {
+                drillResultDao.markAsSynced(drill.id)
+                android.util.Log.i(TAG, "Synced drill: ${drill.drillName}")
+                true
+            } else if (response.code() == 403 && response.body()?.code == SyncResponse.CODE_DEVICE_REVOKED) {
+                handleDeviceRevoked()
+                false
+            } else if (response.code() == 401) {
+                if (refreshToken()) {
+                    val newToken = authRepository.getAccessToken() ?: return false
+                    val retryResponse = ApiClient.syncService.syncDrill(
+                        token = "Bearer $newToken",
+                        deviceId = deviceId,
+                        drill = request
+                    )
+                    if (retryResponse.isSuccessful && retryResponse.body()?.success == true) {
+                        drillResultDao.markAsSynced(drill.id)
+                        true
+                    } else {
+                        drillResultDao.markAsSyncFailed(drill.id)
+                        false
+                    }
+                } else {
+                    drillResultDao.markAsSyncFailed(drill.id)
+                    false
+                }
+            } else {
+                drillResultDao.markAsSyncFailed(drill.id)
+                false
+            }
+        } catch (e: Exception) {
+            drillResultDao.markAsSyncFailed(drill.id)
+            android.util.Log.e(TAG, "Error syncing drill: ${e.message}")
+            false
+        }
+    }
+
+    /**
+     * Sync all pending drill results to cloud.
+     * @return Number of drills successfully synced
+     */
+    suspend fun syncPendingDrills(): Int {
+        if (!authRepository.isLoggedIn || !isNetworkAvailable()) {
+            return 0
+        }
+
+        val pendingDrills = drillResultDao.getPendingSync()
+        if (pendingDrills.isEmpty()) {
+            return 0
+        }
+
+        var successCount = 0
+        for (drill in pendingDrills) {
+            if (syncDrill(drill)) {
+                successCount++
+            }
+        }
+
+        android.util.Log.i(TAG, "Synced $successCount/${pendingDrills.size} pending drills")
+        return successCount
+    }
+
+    // ========================================
+    // Achievement Sync Methods
+    // ========================================
+
+    /**
+     * Sync all pending achievements to cloud in a batch.
+     * @return Number of achievements successfully synced
+     */
+    suspend fun syncPendingAchievements(): Int {
+        if (!authRepository.isLoggedIn || !isNetworkAvailable()) {
+            return 0
+        }
+
+        val pendingAchievements = achievementDao.getPendingSync()
+        if (pendingAchievements.isEmpty()) {
+            return 0
+        }
+
+        val accessToken = authRepository.getAccessToken() ?: run {
+            if (!refreshToken()) return 0
+            authRepository.getAccessToken() ?: return 0
+        }
+
+        val deviceId = authRepository.getOrCreateDeviceId()
+
+        val requests = pendingAchievements.map { achievement ->
+            SyncAchievementRequest(
+                achievement_id = achievement.id,
+                unlocked_at = achievement.unlockedAt
+            )
+        }
+
+        return try {
+            val response = ApiClient.syncService.syncAchievements(
+                token = "Bearer $accessToken",
+                deviceId = deviceId,
+                request = SyncAchievementsRequest(requests)
+            )
+
+            if (response.isSuccessful && response.body()?.success == true) {
+                // Mark all as synced
+                pendingAchievements.forEach { achievement ->
+                    achievementDao.markAsSynced(achievement.id)
+                }
+                android.util.Log.i(TAG, "Synced ${pendingAchievements.size} achievements")
+                pendingAchievements.size
+            } else if (response.code() == 403 && response.body()?.code == SyncResponse.CODE_DEVICE_REVOKED) {
+                handleDeviceRevoked()
+                0
+            } else if (response.code() == 401) {
+                if (refreshToken()) {
+                    val newToken = authRepository.getAccessToken() ?: return 0
+                    val retryResponse = ApiClient.syncService.syncAchievements(
+                        token = "Bearer $newToken",
+                        deviceId = deviceId,
+                        request = SyncAchievementsRequest(requests)
+                    )
+                    if (retryResponse.isSuccessful && retryResponse.body()?.success == true) {
+                        pendingAchievements.forEach { achievement ->
+                            achievementDao.markAsSynced(achievement.id)
+                        }
+                        pendingAchievements.size
+                    } else {
+                        pendingAchievements.forEach { achievement ->
+                            achievementDao.markAsSyncFailed(achievement.id)
+                        }
+                        0
+                    }
+                } else {
+                    pendingAchievements.forEach { achievement ->
+                        achievementDao.markAsSyncFailed(achievement.id)
+                    }
+                    0
+                }
+            } else {
+                pendingAchievements.forEach { achievement ->
+                    achievementDao.markAsSyncFailed(achievement.id)
+                }
+                0
+            }
+        } catch (e: Exception) {
+            pendingAchievements.forEach { achievement ->
+                achievementDao.markAsSyncFailed(achievement.id)
+            }
+            android.util.Log.e(TAG, "Error syncing achievements: ${e.message}")
+            0
+        }
+    }
+
+    /**
+     * Sync a single achievement to cloud immediately.
+     * Call this when an achievement is unlocked.
+     */
+    @Suppress("UNUSED_PARAMETER")
+    fun onAchievementUnlocked(achievementId: String) {
+        scope.launch {
+            if (authRepository.isLoggedIn && preferencesRepository.autoSyncEnabledFlow.first()) {
+                syncPendingAchievements()
+            }
+        }
+    }
+
+    /**
+     * Sync a drill result after it's saved.
+     * Call this when a drill is completed.
+     */
+    fun onDrillCompleted(drillId: Long) {
+        scope.launch {
+            if (authRepository.isLoggedIn && preferencesRepository.autoSyncEnabledFlow.first()) {
+                val drill = drillResultDao.getResult(drillId)
+                if (drill != null && drill.syncStatus == DrillResultEntity.SYNC_STATUS_PENDING) {
+                    syncDrill(drill)
+                }
+            }
         }
     }
 
