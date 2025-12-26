@@ -1,7 +1,7 @@
 # KPedal
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Platform: Karoo](https://img.shields.io/badge/Platform-Karoo%202%2F3-blue.svg)](https://www.hammerhead.io/pages/karoo)
+[![Platform: Karoo](https://img.shields.io/badge/Platform-Karoo%202%2F3-blue.svg)](https://www.hammerhead.io/)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20-7F52FF.svg)](https://kotlinlang.org/)
 [![AGP](https://img.shields.io/badge/AGP-8.13.2-3DDC84.svg)](https://developer.android.com/build)
 [![API: Cloudflare Workers](https://img.shields.io/badge/API-Cloudflare%20Workers-F38020.svg)](https://workers.cloudflare.com/)
@@ -69,7 +69,7 @@ KPedal provides cyclists with real-time feedback on pedaling technique during ri
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                            KPedal Ecosystem                                  │
+│                            KPedal Ecosystem                                 │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  ┌──────────────────┐                                                       │
@@ -105,7 +105,7 @@ KPedal provides cyclists with real-time feedback on pedaling technique during ri
 │  │                    api.kpedal.com                                │       │
 │  │                  Cloudflare Workers                              │       │
 │  │  ┌────────────────────────────────────────────────────────────┐  │       │
-│  │  │  Hono Framework │ JWT Auth │ Rate Limiting │ Validation   │  │       │
+│  │  │  Hono Framework │ JWT Auth │ Rate Limiting │ Validation    │  │       │
 │  │  └────────────────────────────────────────────────────────────┘  │       │
 │  │                                 │                                │       │
 │  │         ┌───────────────────────┼───────────────────────┐        │       │
@@ -148,7 +148,7 @@ The tour walks you through all 6 pages with 39 steps covering every feature — 
 # Via ADB
 adb install kpedal-x.x.x.apk
 
-# Or use web sideload at http://KAROO_IP:4567
+# Or install directly via Hammerhead Companion
 ```
 
 ### 2. Add Data Fields
