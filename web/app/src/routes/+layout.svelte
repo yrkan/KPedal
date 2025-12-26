@@ -20,7 +20,8 @@
 </script>
 
 <svelte:head>
-  <title>KPedal</title>
+  <title>KPedal — Pedaling Efficiency Analytics for Karoo</title>
+  <meta name="description" content="Real-time pedaling analytics for Hammerhead Karoo. Track power balance, torque effectiveness, and pedal smoothness with guided drills and cloud sync.">
 </svelte:head>
 
 {#if !mounted || ($isLoading && currentPath !== '/auth/success')}

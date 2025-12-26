@@ -4,8 +4,20 @@
 </script>
 
 <svelte:head>
-  <title>Privacy Policy - KPedal</title>
-  <meta name="description" content="KPedal Privacy Policy - Learn how we collect, use, and protect your data.">
+  <title>Privacy Policy — KPedal</title>
+  <meta name="description" content="KPedal Privacy Policy. Learn how we collect, use, and protect your cycling data. No location tracking, encrypted storage, your data is never sold.">
+  <link rel="canonical" href="https://kpedal.com/privacy">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kpedal.com/privacy">
+  <meta property="og:title" content="Privacy Policy — KPedal">
+  <meta property="og:description" content="Learn how KPedal protects your cycling data. No location tracking, encrypted storage, full control over your data.">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Privacy Policy — KPedal">
+  <meta name="twitter:description" content="Learn how KPedal protects your cycling data. No location tracking, encrypted storage, full control.">
 </svelte:head>
 
 <div class="privacy-page">
@@ -33,12 +45,14 @@
     {/if}
 
     <header class="privacy-header">
-      <a href="/" class="back-link">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15,18 9,12 15,6"/>
-        </svg>
-        Back to KPedal
-      </a>
+      {#if !$isAuthenticated}
+        <a href="/" class="back-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15,18 9,12 15,6"/>
+          </svg>
+          Back to KPedal
+        </a>
+      {/if}
       <h1>Privacy Policy</h1>
       <p class="last-updated">Last updated: December 25, 2025</p>
     </header>
@@ -706,6 +720,7 @@
     gap: 6px;
     color: var(--text-tertiary);
     font-size: 14px;
+    text-decoration: none;
     margin-bottom: 24px;
     transition: color 0.2s ease;
   }

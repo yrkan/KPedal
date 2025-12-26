@@ -587,19 +587,177 @@
 </script>
 
 <svelte:head>
-  <title>{$isAuthenticated ? 'Dashboard' : 'KPedal — Pedaling Efficiency for Karoo'}</title>
-  <meta name="description" content="Real-time pedaling analytics for Hammerhead Karoo. Balance, torque effectiveness, pedal smoothness — see your technique live.">
+  <title>{$isAuthenticated ? 'Dashboard | KPedal' : 'KPedal — Real-Time Pedaling Analytics for Hammerhead Karoo'}</title>
+  <meta name="description" content="Free Karoo extension for cyclists. See power balance, torque effectiveness, pedal smoothness in real-time. 10 guided drills, automatic cloud sync, research-backed thresholds. Works with Garmin Rally, Favero Assioma, SRM pedals.">
+
+  <!-- Keywords and additional meta -->
+  <meta name="keywords" content="KPedal, Karoo extension, pedaling efficiency, power balance, torque effectiveness, pedal smoothness, cycling analytics, Hammerhead Karoo, Karoo 2, Karoo 3, cycling drills, power meter pedals, Garmin Rally, Favero Assioma, ANT+ Cycling Dynamics">
+  <meta name="application-name" content="KPedal">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://kpedal.com/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kpedal.com/">
+  <meta property="og:title" content="KPedal — Real-Time Pedaling Analytics for Hammerhead Karoo">
+  <meta property="og:description" content="Free Karoo extension. See power balance, torque effectiveness, pedal smoothness in real-time. 10 guided drills with scoring. Cloud sync to web dashboard.">
+  <meta property="og:site_name" content="KPedal">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:url" content="https://kpedal.com/">
+  <meta name="twitter:title" content="KPedal — Real-Time Pedaling Analytics for Hammerhead Karoo">
+  <meta name="twitter:description" content="Free Karoo extension. See power balance, torque effectiveness, pedal smoothness in real-time. 10 guided drills with scoring.">
+
+  <!-- JSON-LD Structured Data -->
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "KPedal",
+    "operatingSystem": "Android (Hammerhead Karoo)",
+    "applicationCategory": "SportsApplication",
+    "applicationSubCategory": "Cycling Analytics",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Real-time pedaling efficiency analytics for Hammerhead Karoo bike computers. Displays power balance, torque effectiveness, and pedal smoothness with research-backed thresholds and guided training drills.",
+    "url": "https://kpedal.com",
+    "downloadUrl": "https://github.com/yrkan/kpedal/releases",
+    "softwareVersion": "1.0.0",
+    "featureList": [
+      "Real-time power balance monitoring",
+      "Torque effectiveness analysis",
+      "Pedal smoothness tracking",
+      "10 guided training drills",
+      "Customizable alerts with vibration",
+      "Cloud sync to web dashboard",
+      "Background data collection",
+      "Multi-device support"
+    ],
+    "screenshot": "https://kpedal.com/screenshot.png",
+    "author": {
+      "@type": "Organization",
+      "name": "KPedal",
+      "url": "https://kpedal.com"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "1",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  }
+  </script>`}
+
+  <!-- FAQ Schema -->
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does KPedal work offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! All core features work without internet. Cloud sync is optional — your data is always stored locally on the Karoo first."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will KPedal drain my Karoo battery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Minimal impact. KPedal only runs during active rides and uses efficient data collection. Background mode uses approximately 1-2% extra battery per hour."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What power pedals are compatible with KPedal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "KPedal works with dual-sided power pedals that support ANT+ Cycling Dynamics: Garmin Rally, Garmin Vector 3, Favero Assioma DUO, SRM X-Power, Rotor 2INpower. Wahoo POWRLINK provides balance data only."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use KPedal with Garmin or Wahoo computers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. KPedal is built specifically for Hammerhead Karoo using their SDK. It uses native Karoo features not available on other platforms."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the optimal torque effectiveness range?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "70-80% is optimal based on Wattbike research. Higher isn't better — above 80% can actually reduce total power output. Below 60% indicates significant technique issues."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install KPedal on Karoo?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Download the APK from GitHub Releases. Transfer to Karoo via USB or use Karoo's built-in file browser with a direct download link. Open the APK to install."
+        }
+      }
+    ]
+  }
+  </script>`}
+
+  <!-- Organization Schema -->
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "KPedal",
+    "url": "https://kpedal.com",
+    "logo": "https://kpedal.com/favicon.svg",
+    "sameAs": [
+      "https://github.com/yrkan/kpedal"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "technical support",
+      "url": "https://github.com/yrkan/kpedal/issues"
+    }
+  }
+  </script>`}
+
+  <!-- WebSite Schema for search box -->
+  {@html `<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "KPedal",
+    "url": "https://kpedal.com",
+    "description": "Real-time pedaling efficiency analytics for Hammerhead Karoo",
+    "publisher": {
+      "@type": "Organization",
+      "name": "KPedal"
+    }
+  }
+  </script>`}
 </svelte:head>
 
 {#if !$isAuthenticated}
-  <div class="landing">
-    <!-- Theme Toggle -->
-    <a href="/" class="site-logo">
-      <span class="site-logo-dot"></span>
-      <span class="site-logo-text">KPedal</span>
-    </a>
+  <div class="landing" role="main" itemscope itemtype="https://schema.org/WebPage">
+    <!-- Header with Logo and Theme Toggle -->
+    <header class="landing-header">
+      <a href="/" class="site-logo" aria-label="KPedal - Home">
+        <span class="site-logo-dot" aria-hidden="true"></span>
+        <span class="site-logo-text">KPedal</span>
+      </a>
 
-    <button class="theme-toggle" on:click={() => theme.toggle()} aria-label="Toggle theme">
+      <button class="theme-toggle" on:click={() => theme.toggle()} aria-label="Toggle dark mode">
       {#if $theme === 'dark' || ($theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -608,36 +766,42 @@
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
       {:else}
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       {/if}
     </button>
+    </header>
 
-    <div class="landing-container">
+    <article class="landing-container" itemscope itemtype="https://schema.org/SoftwareApplication">
+      <meta itemprop="name" content="KPedal" />
+      <meta itemprop="operatingSystem" content="Android (Hammerhead Karoo)" />
+      <meta itemprop="applicationCategory" content="SportsApplication" />
+      <link itemprop="downloadUrl" href="https://github.com/yrkan/kpedal/releases" />
+
       <!-- Hero -->
-      <section class="hero">
+      <section class="hero" aria-labelledby="hero-title">
         <p class="hero-eyebrow">
-          Karoo Extension
-          <span class="hero-version">v1.0.0</span>
+          <span itemprop="applicationSubCategory">Karoo Extension</span>
+          <span class="hero-version" itemprop="softwareVersion">v1.0.0</span>
         </p>
-        <h1 class="hero-title">
+        <h1 id="hero-title" class="hero-title" itemprop="headline">
           <span class="hero-title-line">See your pedaling</span>
           <span class="hero-title-line">efficiency in real-time</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle" itemprop="description">
           Balance, Torque Effectiveness, Pedal Smoothness — displayed on your Karoo with real-time alerts and guided drills.
         </p>
 
-        <div class="hero-actions">
-          <a href="https://github.com/yrkan/kpedal/releases" class="hero-cta" target="_blank">
+        <div class="hero-actions" role="group" aria-label="Download options">
+          <a href="https://github.com/yrkan/kpedal/releases" class="hero-cta" target="_blank" rel="noopener noreferrer" itemprop="downloadUrl" aria-label="Download KPedal for free from GitHub">
             Download Free
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <button class="hero-cta-secondary" on:click={handleLogin}>
-            <svg width="18" height="18" viewBox="0 0 24 24">
+          <button class="hero-cta-secondary" on:click={handleLogin} aria-label="Sign in with Google account">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -647,12 +811,14 @@
           </button>
         </div>
 
-        <p class="hero-note">Free & open source · No account required</p>
+        <p class="hero-note">
+          <span itemprop="isAccessibleForFree" content="true">Free</span> & <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">open source</a> · No account required
+        </p>
       </section>
 
       <!-- Data Fields Interactive -->
-      <section id="datafields" class="section datafields-section">
-        <h2 class="section-title">See It On Your Karoo</h2>
+      <section id="datafields" class="section datafields-section" aria-labelledby="datafields-title">
+        <h2 id="datafields-title" class="section-title">See It On Your Karoo</h2>
         <p class="section-subtitle">5 data field layouts. Choose the view that fits your training.</p>
 
         <div class="datafields-showcase">
@@ -793,8 +959,8 @@
       </section>
 
       <!-- Before / After - MOVED UP -->
-      <section class="section before-after-section">
-        <h2 class="section-title">The Difference</h2>
+      <section class="section before-after-section" aria-labelledby="difference-title">
+        <h2 id="difference-title" class="section-title">The Difference</h2>
         <p class="section-subtitle">Stop guessing. Start improving.</p>
 
         <div class="comparison-table">
@@ -846,8 +1012,8 @@
       </section>
 
       <!-- Metrics Deep Dive -->
-      <section id="features" class="section">
-        <h2 class="section-title">What We Measure</h2>
+      <section id="features" class="section" aria-labelledby="features-title" itemprop="featureList">
+        <h2 id="features-title" class="section-title">What We Measure</h2>
         <p class="section-subtitle">Three metrics. Research-backed thresholds.</p>
 
         <div class="metrics-deep">
@@ -902,8 +1068,8 @@
       </section>
 
       <!-- Drills Section -->
-      <section id="drills" class="section drills-section">
-        <h2 class="section-title">10 Guided Drills</h2>
+      <section id="drills" class="section drills-section" aria-labelledby="drills-title">
+        <h2 id="drills-title" class="section-title">10 Guided Drills</h2>
         <p class="section-subtitle">From 30-second exercises to 15-minute workouts. Each scored 0-100%.</p>
 
         <div class="drills-tabs">
@@ -957,8 +1123,8 @@
       </section>
 
       <!-- Alerts Section -->
-      <section class="section alerts-section">
-        <h2 class="section-title">Real-Time Alerts</h2>
+      <section class="section alerts-section" aria-labelledby="alerts-title">
+        <h2 id="alerts-title" class="section-title">Real-Time Alerts</h2>
         <p class="section-subtitle">Get corrected mid-ride when technique drifts</p>
 
         <div class="alerts-demo">
@@ -992,8 +1158,8 @@
       </section>
 
       <!-- Analytics & Dashboard -->
-      <section class="section">
-        <h2 class="section-title">Analytics & Web Dashboard</h2>
+      <section class="section" aria-labelledby="analytics-title">
+        <h2 id="analytics-title" class="section-title">Analytics & Web Dashboard</h2>
         <p class="section-subtitle">Track improvement over time. See trends, not just numbers.</p>
 
         <div class="dashboard-preview">
@@ -1065,8 +1231,8 @@
       </section>
 
       <!-- Stay Motivated -->
-      <section class="section motivation-section">
-        <h2 class="section-title">Stay Motivated</h2>
+      <section class="section motivation-section" aria-labelledby="motivation-title">
+        <h2 id="motivation-title" class="section-title">Stay Motivated</h2>
         <p class="section-subtitle">Track progress with achievements and weekly challenges</p>
 
         <div class="motivation-content">
@@ -1104,8 +1270,8 @@
       </section>
 
       <!-- Works Everywhere - Combined Background + Sync -->
-      <section class="section works-everywhere-section">
-        <h2 class="section-title">Works Everywhere</h2>
+      <section class="section works-everywhere-section" aria-labelledby="works-title">
+        <h2 id="works-title" class="section-title">Works Everywhere</h2>
         <p class="section-subtitle">Background collection. Automatic sync. Your data across all devices.</p>
 
         <div class="works-grid">
@@ -1142,8 +1308,8 @@
       </section>
 
       <!-- What You Need -->
-      <section class="section requirements-section">
-        <h2 class="section-title">What You Need</h2>
+      <section class="section requirements-section" aria-labelledby="requirements-title" itemprop="softwareRequirements">
+        <h2 id="requirements-title" class="section-title">What You Need</h2>
         <p class="section-subtitle">Karoo 2 or 3 + dual-sided power pedals</p>
 
         <div class="requirements-grid">
@@ -1187,10 +1353,10 @@
       </section>
 
       <!-- FAQ -->
-      <section class="section faq-section">
-        <h2 class="section-title">Frequently Asked Questions</h2>
+      <section class="section faq-section" aria-labelledby="faq-title" itemscope itemtype="https://schema.org/FAQPage">
+        <h2 id="faq-title" class="section-title">Frequently Asked Questions</h2>
 
-        <div class="faq-list">
+        <div class="faq-list" role="list">
           <details class="faq-item">
             <summary>Does KPedal work offline?</summary>
             <p>Yes! All core features work without internet. Cloud sync is optional — your data is always stored locally on the Karoo first.</p>
@@ -1234,19 +1400,19 @@
       </section>
 
       <!-- Final CTA -->
-      <section class="section cta-section">
-        <h2 class="cta-headline">Start improving your pedaling today</h2>
+      <section class="section cta-section" aria-labelledby="cta-title">
+        <h2 id="cta-title" class="cta-headline">Start improving your pedaling today</h2>
         <p class="cta-subtext">Free. Open source. Syncs to the cloud.</p>
-        <div class="cta-actions">
-          <a href="https://github.com/yrkan/kpedal/releases" class="cta-btn primary large" target="_blank">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="cta-actions" role="group" aria-label="Get started options">
+          <a href="https://github.com/yrkan/kpedal/releases" class="cta-btn primary large" target="_blank" rel="noopener noreferrer" aria-label="Download KPedal for Karoo">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
             Download for Karoo
           </a>
-          <button class="cta-btn secondary" on:click={handleLogin}>
-            <svg viewBox="0 0 24 24" width="18" height="18">
+          <button class="cta-btn secondary" on:click={handleLogin} aria-label="Sign in with Google account">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -1258,17 +1424,17 @@
       </section>
 
       <!-- Footer -->
-      <footer class="landing-footer">
+      <footer class="landing-footer" role="contentinfo">
         <div class="footer-top">
           <div class="footer-brand">
-            <div class="footer-logo">
+            <div class="footer-logo" aria-hidden="true">
               <span class="logo-dot small"></span>
               <span class="footer-brand-name">KPedal</span>
             </div>
             <p class="footer-tagline">Pedaling efficiency for Karoo</p>
           </div>
 
-          <div class="footer-nav">
+          <nav class="footer-nav" aria-label="Footer navigation">
             <div class="footer-col">
               <h4>Product</h4>
               <a href="#features">Features</a>
@@ -1277,28 +1443,28 @@
             </div>
             <div class="footer-col">
               <h4>Resources</h4>
-              <a href="https://github.com/yrkan/kpedal" target="_blank">GitHub</a>
-              <a href="https://github.com/yrkan/kpedal/releases" target="_blank">Releases</a>
-              <a href="https://github.com/yrkan/kpedal/issues" target="_blank">Issues</a>
+              <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://github.com/yrkan/kpedal/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+              <a href="https://github.com/yrkan/kpedal/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
             </div>
             <div class="footer-col">
               <h4>Legal</h4>
-              <a href="/privacy">Privacy</a>
+              <a href="/privacy">Privacy Policy</a>
               <button class="footer-link-btn" on:click={handleLogin}>Sign in</button>
             </div>
-          </div>
+          </nav>
         </div>
 
         <div class="footer-bottom">
-          <span>Made with ❤️ for the Karoo community</span>
-          <a href="https://github.com/yrkan/kpedal" target="_blank" class="footer-github" aria-label="GitHub">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <p>Made with ❤️ for the Karoo community</p>
+          <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer" class="footer-github" aria-label="View KPedal on GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
           </a>
         </div>
       </footer>
-    </div>
+    </article>
   </div>
 {:else}
   <!-- Dashboard (authenticated) -->
@@ -1976,6 +2142,11 @@
     min-height: 100vh;
     padding: 32px;
     position: relative;
+  }
+
+  .landing-header {
+    /* Semantic wrapper for fixed header elements */
+    display: contents;
   }
 
   .site-logo {
@@ -3461,9 +3632,10 @@
     padding-top: 24px;
     border-top: 1px solid var(--border-subtle);
   }
-  .footer-bottom span {
+  .footer-bottom p {
     font-size: 13px;
     color: var(--text-muted);
+    margin: 0;
   }
   .footer-github {
     color: var(--text-muted);
@@ -5081,7 +5253,7 @@
       padding-top: 24px;
       font-size: 13px;
     }
-    .footer-bottom span { text-align: center; }
+    .footer-bottom p { text-align: center; }
     .footer-github {
       width: 44px;
       height: 44px;

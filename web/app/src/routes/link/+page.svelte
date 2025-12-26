@@ -185,7 +185,20 @@
 </script>
 
 <svelte:head>
-  <title>Link Device - KPedal</title>
+  <title>Link Your Karoo — KPedal</title>
+  <meta name="description" content="Link your Hammerhead Karoo to KPedal. Enter the code shown on your Karoo to sync rides and settings to the cloud.">
+  <link rel="canonical" href="https://kpedal.com/link">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kpedal.com/link">
+  <meta property="og:title" content="Link Your Karoo — KPedal">
+  <meta property="og:description" content="Connect your Hammerhead Karoo to sync pedaling analytics to the cloud.">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Link Your Karoo — KPedal">
+  <meta name="twitter:description" content="Connect your Hammerhead Karoo to sync pedaling analytics to the cloud.">
 </svelte:head>
 
 <div class="link-page">

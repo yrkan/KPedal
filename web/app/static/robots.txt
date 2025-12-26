@@ -1,0 +1,24 @@
+# KPedal - Pedaling Efficiency Analytics
+# https://kpedal.com
+
+User-agent: *
+Allow: /
+
+# Main pages
+Allow: /
+Allow: /login
+Allow: /privacy
+Allow: /link
+
+# Disallow authenticated areas
+Disallow: /rides
+Disallow: /drills
+Disallow: /achievements
+Disallow: /settings
+Disallow: /auth/
+
+# Sitemap
+Sitemap: https://kpedal.com/sitemap.xml
+
+# Crawl-delay (optional, for polite crawling)
+Crawl-delay: 1

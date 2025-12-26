@@ -1,0 +1,7 @@
+# KPedal Security Contact
+# https://kpedal.com
+
+Contact: https://github.com/yrkan/kpedal/security/advisories/new
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en, ru
+Canonical: https://kpedal.com/.well-known/security.txt

@@ -35,7 +35,10 @@
 </script>
 
 <svelte:head>
-  <title>Sign in - KPedal</title>
+  <title>Sign In — KPedal Pedaling Analytics</title>
+  <meta name="description" content="Sign in to KPedal to access your pedaling analytics dashboard. View ride history, track balance improvements, and sync data across devices.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://kpedal.com/login">
 </svelte:head>
 
 <div class="login-page">
