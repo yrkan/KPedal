@@ -572,10 +572,10 @@ input::placeholder, textarea::placeholder {
 .stat-chip {
   display: flex;
   align-items: baseline;
-  gap: 6px;
-  padding: 10px 16px;
+  gap: 5px;
+  padding: 8px 14px;
   background: var(--bg-base);
-  border-radius: 10px;
+  border-radius: 8px;
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -585,7 +585,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .stat-chip-val {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -597,7 +597,7 @@ input::placeholder, textarea::placeholder {
 .stat-chip-label {
   display: inline-flex;
   align-items: center;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -899,19 +899,23 @@ input::placeholder, textarea::placeholder {
   }
 
   .stat-chip {
-    padding: 8px 14px;
+    padding: 6px 12px;
   }
 
   .stat-chip-val {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .stat-chip-label {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .view-toggle {
-    display: none;
+    display: flex;
+  }
+  .view-btn {
+    width: 32px;
+    height: 32px;
   }
 
   .data-table-wrapper {
@@ -1007,15 +1011,15 @@ input::placeholder, textarea::placeholder {
   }
 
   .stat-chip {
-    padding: 6px 12px;
+    padding: 5px 10px;
   }
 
   .stat-chip-val {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .stat-chip-label {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .data-table {
@@ -1047,4 +1051,180 @@ input::placeholder, textarea::placeholder {
     width: 32px;
     height: 32px;
   }
+}
+
+/* ============================================
+   Driver.js Tour Customization
+   KPedal branded guided tour styles
+   ============================================ */
+
+/* Popover container */
+.driver-popover.kpedal-tour-popover {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: 14px;
+  box-shadow: var(--shadow-xl);
+  color: var(--text-primary);
+  max-width: 340px;
+}
+
+/* Title */
+.driver-popover.kpedal-tour-popover .driver-popover-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+/* Description */
+.driver-popover.kpedal-tour-popover .driver-popover-description {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-description strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-description a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-description a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Progress text */
+.driver-popover.kpedal-tour-popover .driver-popover-progress-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Footer (buttons area) */
+.driver-popover.kpedal-tour-popover .driver-popover-footer {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Navigation buttons */
+.driver-popover.kpedal-tour-popover .driver-popover-navigation-btns {
+  gap: 8px;
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-prev-btn,
+.driver-popover.kpedal-tour-popover .driver-popover-next-btn {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  outline: none;
+}
+
+/* Previous button - secondary style */
+.driver-popover.kpedal-tour-popover .driver-popover-prev-btn {
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-prev-btn:hover {
+  background: var(--bg-active);
+  color: var(--text-primary);
+}
+
+/* Next/Done button - primary style */
+.driver-popover.kpedal-tour-popover .driver-popover-next-btn {
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-next-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+/* Close button */
+.driver-popover.kpedal-tour-popover .driver-popover-close-btn {
+  color: var(--text-muted);
+  font-size: 20px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-close-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+/* Arrow styling */
+.driver-popover.kpedal-tour-popover .driver-popover-arrow {
+  border: 8px solid transparent;
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-arrow-side-left {
+  border-right-color: var(--bg-elevated);
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-arrow-side-right {
+  border-left-color: var(--bg-elevated);
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-arrow-side-top {
+  border-bottom-color: var(--bg-elevated);
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-arrow-side-bottom {
+  border-top-color: var(--bg-elevated);
+}
+
+/* Highlight stage */
+.driver-active .driver-overlay {
+  opacity: 0.75;
+}
+
+/* Smooth animations */
+.driver-popover {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Demo banner button */
+.demo-tour-btn {
+  background: var(--bg-hover);
+  border: 1px solid var(--border-default);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.demo-tour-btn:hover {
+  background: var(--bg-active);
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.demo-tour-btn svg {
+  width: 14px;
+  height: 14px;
 }

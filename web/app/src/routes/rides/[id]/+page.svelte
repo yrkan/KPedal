@@ -56,12 +56,17 @@
   let loading = true;
   let error: string | null = null;
   let activeChart: 'balance' | 'te' | 'ps' | 'power' | 'hr' = 'balance';
+  let hoveredPoint: { index: number; x: number; y: number; value: number; minute: number } | null = null;
+  let chartWidth = 300;
+
+  const CHART_HEIGHT = 80;
+  const CHART_PADDING = 8;
 
   $: rideId = $page.params.id;
-  $: chartData = ride?.snapshots ? getChartData(ride.snapshots, activeChart) : { points: '', areaPath: '', min: 0, max: 100 };
+  $: chartData = ride?.snapshots ? getChartData(ride.snapshots, activeChart, chartWidth) : { path: '', areaPath: '', min: 0, max: 100, avg: 0, points: [] };
   $: hasPerformanceData = ride && (ride.power_avg > 0 || ride.hr_avg > 0 || ride.cadence_avg > 0);
   $: hasElevationData = ride && (ride.elevation_gain > 0 || ride.elevation_loss > 0);
-  $: fatigueData = ride?.snapshots?.length >= 6 ? calculateFatigue(ride.snapshots) : null;
+  $: fatigueData = ride && ride.snapshots && ride.snapshots.length >= 6 ? calculateFatigue(ride.snapshots) : null;
   $: techniqueStats = ride ? calculateTechniqueStats(ride) : null;
 
   onMount(async () => {
@@ -210,8 +215,92 @@
     return 'problem';
   }
 
-  function getChartData(snapshots: Snapshot[], metric: string) {
-    if (!snapshots?.length) return { points: '', areaPath: '', min: 0, max: 100 };
+  // Fatigue helpers - negative delta means improvement (less asymmetry / higher TE/PS)
+  function getFatigueStatus(metric: 'balance' | 'te' | 'ps', delta: number): 'improved' | 'stable' | 'degraded' {
+    // For balance: positive delta = more asymmetry = degraded
+    // For TE/PS: negative delta = lower values = degraded
+    if (metric === 'balance') {
+      if (delta <= -0.5) return 'improved';
+      if (delta >= 0.5) return 'degraded';
+      return 'stable';
+    } else {
+      if (delta >= 1) return 'improved';
+      if (delta <= -1) return 'degraded';
+      return 'stable';
+    }
+  }
+
+  function formatDelta(delta: number, metric: 'balance' | 'te' | 'ps'): string {
+    const sign = delta > 0 ? '+' : '';
+    if (metric === 'balance') {
+      return `${sign}${delta.toFixed(1)}%`;
+    }
+    return `${sign}${delta.toFixed(0)}%`;
+  }
+
+  // Power zone breakdown
+  interface PowerZoneStats {
+    zone: string;
+    label: string;
+    color: string;
+    minutes: number;
+    avgTe: number;
+    avgPs: number;
+    avgBalance: number;
+  }
+
+  $: powerZoneBreakdown = ride && ride.snapshots && ride.snapshots.length > 0 && ride.snapshots.some(s => s.power_avg > 0)
+    ? calculatePowerZones(ride.snapshots)
+    : null;
+
+  function calculatePowerZones(snapshots: Snapshot[]): PowerZoneStats[] {
+    // Filter snapshots with power data
+    const withPower = snapshots.filter(s => s.power_avg > 0);
+    if (withPower.length < 3) return [];
+
+    // Define zones based on typical FTP percentages (assuming avg power ≈ 75% FTP)
+    const avgPower = withPower.reduce((a, s) => a + s.power_avg, 0) / withPower.length;
+    const estimatedFTP = avgPower / 0.75;
+
+    const zones = [
+      { name: 'recovery', label: 'Recovery', color: '#94A3B8', min: 0, max: 0.55 },
+      { name: 'endurance', label: 'Endurance', color: '#3B82F6', min: 0.55, max: 0.75 },
+      { name: 'tempo', label: 'Tempo', color: '#22C55E', min: 0.75, max: 0.90 },
+      { name: 'threshold', label: 'Threshold', color: '#F59E0B', min: 0.90, max: 1.05 },
+      { name: 'vo2max', label: 'VO2max', color: '#EF4444', min: 1.05, max: 1.20 },
+      { name: 'anaerobic', label: 'Anaerobic', color: '#7C3AED', min: 1.20, max: Infinity }
+    ];
+
+    const result: PowerZoneStats[] = [];
+
+    for (const zone of zones) {
+      const inZone = withPower.filter(s => {
+        const pctFTP = s.power_avg / estimatedFTP;
+        return pctFTP >= zone.min && pctFTP < zone.max;
+      });
+
+      if (inZone.length === 0) continue;
+
+      const avgTe = inZone.reduce((a, s) => a + (s.te_left + s.te_right) / 2, 0) / inZone.length;
+      const avgPs = inZone.reduce((a, s) => a + (s.ps_left + s.ps_right) / 2, 0) / inZone.length;
+      const avgBalance = inZone.reduce((a, s) => a + Math.abs(s.balance_left - 50), 0) / inZone.length;
+
+      result.push({
+        zone: zone.name,
+        label: zone.label,
+        color: zone.color,
+        minutes: inZone.length,
+        avgTe: avgTe,
+        avgPs: avgPs,
+        avgBalance: avgBalance
+      });
+    }
+
+    return result;
+  }
+
+  function getChartData(snapshots: Snapshot[], metric: string, width: number = 300) {
+    if (!snapshots?.length) return { path: '', areaPath: '', min: 0, max: 100, avg: 0, points: [] as {x: number; y: number; value: number; minute: number}[] };
     const values = snapshots.map(s => {
       if (metric === 'balance') return Math.abs(s.balance_left - 50);
       if (metric === 'te') return (s.te_left + s.te_right) / 2;
@@ -220,13 +309,23 @@
       return s.hr_avg || 0;
     });
     const min = Math.min(...values), max = Math.max(...values);
-    const range = max - min || 1, pad = range * 0.1;
+    const avg = values.reduce((a, b) => a + b, 0) / values.length;
+    const range = max - min || 1, pad = range * 0.15;
     const cMin = Math.max(0, min - pad), cMax = max + pad, cRange = cMax - cMin;
-    const w = 200, h = 50;
-    const coords = values.map((v, i) => ({ x: 4 + (i / (values.length - 1)) * (w - 8), y: h - 4 - ((v - cMin) / cRange) * (h - 8) }));
-    const points = coords.map(c => `${c.x},${c.y}`).join(' ');
-    const areaPath = `M${coords[0].x},${h} L${coords.map(c => `${c.x},${c.y}`).join(' L')} L${coords[coords.length - 1].x},${h} Z`;
-    return { points, areaPath, min: cMin, max: cMax };
+    const h = CHART_HEIGHT;
+    const usableWidth = width - CHART_PADDING * 2;
+
+    const coords = values.map((v, i) => ({
+      x: CHART_PADDING + (i / Math.max(1, values.length - 1)) * usableWidth,
+      y: h - CHART_PADDING - ((v - cMin) / cRange) * (h - CHART_PADDING * 2),
+      value: v,
+      minute: i
+    }));
+
+    const path = coords.length > 0 ? `M${coords.map(c => `${c.x},${c.y}`).join(' L')}` : '';
+    const areaPath = coords.length > 0 ? `M${coords[0].x},${h - CHART_PADDING} L${coords.map(c => `${c.x},${c.y}`).join(' L')} L${coords[coords.length - 1].x},${h - CHART_PADDING} Z` : '';
+
+    return { path, areaPath, min, max, avg, points: coords };
   }
 
   function getChartColor(m: string): string {
@@ -418,12 +517,18 @@
               <div class="tech-metric-main">
                 <span class="tech-metric-name">TE <InfoTip text="Torque Effectiveness. How much power goes into forward motion." position="right" size="sm" /></span>
                 <span class="tech-metric-value {getTeStatus((ride.te_left + ride.te_right) / 2)}">{((ride.te_left + ride.te_right) / 2).toFixed(0)}%</span>
-                <span class="tech-metric-range">70-80%</span>
               </div>
               <div class="tech-metric-bar">
                 <div class="tech-bar-track">
+                  <div class="tech-bar-optimal te"></div>
                   <div class="tech-bar-fill te" style="width: {Math.min(100, (ride.te_left + ride.te_right) / 2)}%"></div>
-                  <div class="tech-bar-zone te"></div>
+                  <div class="tech-bar-marker" style="left: 70%" title="70%"></div>
+                  <div class="tech-bar-marker" style="left: 80%" title="80%"></div>
+                </div>
+                <div class="tech-bar-labels te">
+                  <span>0</span>
+                  <span class="optimal-label">70-80</span>
+                  <span>100</span>
                 </div>
               </div>
               <div class="tech-metric-lr">
@@ -437,12 +542,17 @@
               <div class="tech-metric-main">
                 <span class="tech-metric-name">PS <InfoTip text="Pedal Smoothness. How evenly power is applied through the stroke." position="right" size="sm" /></span>
                 <span class="tech-metric-value {getPsStatus((ride.ps_left + ride.ps_right) / 2)}">{((ride.ps_left + ride.ps_right) / 2).toFixed(0)}%</span>
-                <span class="tech-metric-range">≥20%</span>
               </div>
               <div class="tech-metric-bar">
                 <div class="tech-bar-track">
+                  <div class="tech-bar-optimal ps"></div>
                   <div class="tech-bar-fill ps" style="width: {Math.min(100, ((ride.ps_left + ride.ps_right) / 2) / 40 * 100)}%"></div>
-                  <div class="tech-bar-zone ps"></div>
+                  <div class="tech-bar-marker" style="left: 50%" title="20%"></div>
+                </div>
+                <div class="tech-bar-labels ps">
+                  <span>0</span>
+                  <span class="optimal-label">≥20</span>
+                  <span>40</span>
                 </div>
               </div>
               <div class="tech-metric-lr">
@@ -474,44 +584,227 @@
             </div>
           {/if}
         </div>
+
       </div>
+
+      <!-- Analysis Row: Fatigue + Power Zones -->
+      {#if fatigueData || (powerZoneBreakdown && powerZoneBreakdown.length > 0)}
+        <div class="analysis-row animate-in">
+          <!-- Fatigue Analysis -->
+          {#if fatigueData}
+            {@const degradedCount = [
+              getFatigueStatus('balance', fatigueData.balance.delta),
+              getFatigueStatus('te', fatigueData.te.delta),
+              getFatigueStatus('ps', fatigueData.ps.delta)
+            ].filter(s => s === 'degraded').length}
+            {@const balStatus = getFatigueStatus('balance', fatigueData.balance.delta)}
+            {@const teStatus = getFatigueStatus('te', fatigueData.te.delta)}
+            {@const psStatus = getFatigueStatus('ps', fatigueData.ps.delta)}
+            <div class="grid-card fatigue-card">
+              <div class="card-header">
+                <span class="card-title">Fatigue Analysis <InfoTip text="Compares first ⅓ vs last ⅓ of ride." position="bottom" size="sm" /></span>
+                <span class="fatigue-badge {degradedCount === 0 ? 'good' : degradedCount <= 1 ? 'moderate' : 'poor'}">
+                  {degradedCount === 0 ? 'Strong' : degradedCount <= 1 ? 'Moderate' : 'Fatigued'}
+                </span>
+              </div>
+
+              <div class="fatigue-list">
+                <div class="fatigue-row">
+                  <span class="fatigue-metric-name">Asymmetry</span>
+                  <span class="fatigue-vals">
+                    <span>{fatigueData.balance.first.toFixed(1)}%</span>
+                    <span class="fatigue-arrow">→</span>
+                    <span class="{balStatus}">{fatigueData.balance.last.toFixed(1)}%</span>
+                  </span>
+                  <span class="fatigue-change {balStatus}">
+                    {fatigueData.balance.delta > 0 ? '+' : ''}{fatigueData.balance.delta.toFixed(1)}%
+                  </span>
+                </div>
+                <div class="fatigue-row">
+                  <span class="fatigue-metric-name">TE</span>
+                  <span class="fatigue-vals">
+                    <span>{fatigueData.te.first.toFixed(0)}%</span>
+                    <span class="fatigue-arrow">→</span>
+                    <span class="{teStatus}">{fatigueData.te.last.toFixed(0)}%</span>
+                  </span>
+                  <span class="fatigue-change {teStatus}">
+                    {fatigueData.te.delta > 0 ? '+' : ''}{fatigueData.te.delta.toFixed(0)}%
+                  </span>
+                </div>
+                <div class="fatigue-row">
+                  <span class="fatigue-metric-name">PS</span>
+                  <span class="fatigue-vals">
+                    <span>{fatigueData.ps.first.toFixed(0)}%</span>
+                    <span class="fatigue-arrow">→</span>
+                    <span class="{psStatus}">{fatigueData.ps.last.toFixed(0)}%</span>
+                  </span>
+                  <span class="fatigue-change {psStatus}">
+                    {fatigueData.ps.delta > 0 ? '+' : ''}{fatigueData.ps.delta.toFixed(0)}%
+                  </span>
+                </div>
+              </div>
+
+              <div class="fatigue-insights">
+                {#if balStatus === 'degraded'}
+                  <div class="fatigue-insight">
+                    <span class="insight-icon problem">!</span>
+                    <span>Balance degraded by {Math.abs(fatigueData.balance.delta).toFixed(1)}% — focus on even power distribution when tired</span>
+                  </div>
+                {/if}
+                {#if teStatus === 'degraded'}
+                  <div class="fatigue-insight">
+                    <span class="insight-icon problem">!</span>
+                    <span>TE dropped {Math.abs(fatigueData.te.delta).toFixed(0)}% — practice maintaining form in final third</span>
+                  </div>
+                {/if}
+                {#if psStatus === 'degraded'}
+                  <div class="fatigue-insight">
+                    <span class="insight-icon problem">!</span>
+                    <span>PS fell {Math.abs(fatigueData.ps.delta).toFixed(0)}% — work on smooth pedaling under fatigue</span>
+                  </div>
+                {/if}
+                {#if degradedCount === 0}
+                  <div class="fatigue-insight">
+                    <span class="insight-icon good">✓</span>
+                    <span>Excellent fatigue resistance — technique stayed consistent throughout the ride</span>
+                  </div>
+                {/if}
+              </div>
+
+              <div class="fatigue-legend">
+                <span>Start of ride → End of ride</span>
+              </div>
+            </div>
+          {/if}
+
+          <!-- Power Zone Breakdown -->
+          {#if powerZoneBreakdown && powerZoneBreakdown.length > 0}
+            {@const totalMinutes = powerZoneBreakdown.reduce((a, z) => a + z.minutes, 0)}
+            <div class="grid-card power-zones-card">
+              <div class="card-header">
+                <span class="card-title">By Power Zone <InfoTip text="Technique at different intensities." position="bottom" size="sm" /></span>
+              </div>
+              <div class="pz-distribution">
+                {#each powerZoneBreakdown as zone}
+                  <div class="pz-dist-segment" style="width: {(zone.minutes / totalMinutes) * 100}%; background: {zone.color}" title="{zone.label}: {zone.minutes}m"></div>
+                {/each}
+              </div>
+              <div class="pz-list">
+                {#each powerZoneBreakdown as zone}
+                  <div class="pz-item">
+                    <div class="pz-item-zone">
+                      <span class="pz-zone-dot" style="background: {zone.color}"></span>
+                      <span class="pz-zone-name">{zone.label}</span>
+                      <span class="pz-zone-time">{zone.minutes}m</span>
+                    </div>
+                    <div class="pz-item-metrics">
+                      <span class="pz-val {getBalanceStatus(50 - zone.avgBalance)}">{zone.avgBalance.toFixed(1)}%</span>
+                      <span class="pz-val {getTeStatus(zone.avgTe)}">{zone.avgTe.toFixed(0)}%</span>
+                      <span class="pz-val {getPsStatus(zone.avgPs)}">{zone.avgPs.toFixed(0)}%</span>
+                    </div>
+                  </div>
+                {/each}
+              </div>
+              <div class="pz-legend">
+                <span>Asym</span>
+                <span>TE</span>
+                <span>PS</span>
+              </div>
+            </div>
+          {/if}
+        </div>
+      {/if}
 
       <!-- Timeline Chart -->
       {#if ride.snapshots?.length > 0}
-        <div class="grid-card wide animate-in">
+        <div class="grid-card wide timeline-card animate-in">
           <div class="card-header">
             <span class="card-title">Timeline <InfoTip text="Metrics over time. Look for drops indicating fatigue." position="right" size="sm" /></span>
             <div class="chart-tabs">
-              <button class="chart-tab" class:active={activeChart === 'balance'} on:click={() => activeChart = 'balance'}>Asymmetry</button>
-              <button class="chart-tab" class:active={activeChart === 'te'} on:click={() => activeChart = 'te'}>TE</button>
-              <button class="chart-tab" class:active={activeChart === 'ps'} on:click={() => activeChart = 'ps'}>PS</button>
+              <button class="chart-tab" class:active={activeChart === 'balance'} on:click={() => activeChart = 'balance'}>
+                <span class="tab-icon" style="background: var(--color-accent)"></span>
+                Asym
+              </button>
+              <button class="chart-tab" class:active={activeChart === 'te'} on:click={() => activeChart = 'te'}>
+                <span class="tab-icon" style="background: var(--color-optimal)"></span>
+                TE
+              </button>
+              <button class="chart-tab" class:active={activeChart === 'ps'} on:click={() => activeChart = 'ps'}>
+                <span class="tab-icon" style="background: var(--color-attention)"></span>
+                PS
+              </button>
               {#if ride.snapshots.some(s => s.power_avg > 0)}
-                <button class="chart-tab" class:active={activeChart === 'power'} on:click={() => activeChart = 'power'}>Power</button>
+                <button class="chart-tab" class:active={activeChart === 'power'} on:click={() => activeChart = 'power'}>
+                  <span class="tab-icon" style="background: #8B5CF6"></span>
+                  Power
+                </button>
               {/if}
               {#if ride.snapshots.some(s => s.hr_avg > 0)}
-                <button class="chart-tab" class:active={activeChart === 'hr'} on:click={() => activeChart = 'hr'}>HR</button>
+                <button class="chart-tab" class:active={activeChart === 'hr'} on:click={() => activeChart = 'hr'}>
+                  <span class="tab-icon" style="background: #EF4444"></span>
+                  HR
+                </button>
               {/if}
             </div>
           </div>
-          <div class="chart-container">
-            <svg viewBox="0 0 200 50" class="chart-svg">
+          <div class="timeline-chart-area" bind:clientWidth={chartWidth}>
+            {#if hoveredPoint}
+              <div class="timeline-tooltip" style="left: {hoveredPoint.x}px; top: {hoveredPoint.y - 10}px;">
+                <span class="tooltip-time">Min {hoveredPoint.minute + 1}</span>
+                <span class="tooltip-val">{hoveredPoint.value.toFixed(activeChart === 'balance' ? 1 : 0)}{activeChart === 'power' ? 'W' : activeChart === 'hr' ? 'bpm' : '%'}</span>
+              </div>
+            {/if}
+            <svg viewBox="0 0 {chartWidth} {CHART_HEIGHT}" class="timeline-svg" preserveAspectRatio="none">
               <defs>
-                <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color={getChartColor(activeChart)} stop-opacity="0.25"/>
+                <linearGradient id="timelineGrad-{activeChart}" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color={getChartColor(activeChart)} stop-opacity="0.2"/>
                   <stop offset="100%" stop-color={getChartColor(activeChart)} stop-opacity="0"/>
                 </linearGradient>
               </defs>
-              <path d={chartData.areaPath} fill="url(#chartGrad)"/>
-              <polyline points={chartData.points} fill="none" stroke={getChartColor(activeChart)} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Center reference line -->
+              <line x1={CHART_PADDING} y1={CHART_HEIGHT / 2} x2={chartWidth - CHART_PADDING} y2={CHART_HEIGHT / 2} stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+              <!-- Area fill -->
+              <path d={chartData.areaPath} fill="url(#timelineGrad-{activeChart})"/>
+              <!-- Line -->
+              <path d={chartData.path} fill="none" stroke={getChartColor(activeChart)} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Data points - all minutes -->
+              {#each chartData.points as point, i}
+                <circle
+                  cx={point.x}
+                  cy={point.y}
+                  r={hoveredPoint?.index === i ? 5 : 3}
+                  fill={getChartColor(activeChart)}
+                  stroke="var(--bg-surface)"
+                  stroke-width="1.5"
+                  class="timeline-point"
+                  on:mouseenter={() => hoveredPoint = { index: i, x: point.x, y: point.y, value: point.value, minute: point.minute }}
+                  on:mouseleave={() => hoveredPoint = null}
+                />
+              {/each}
             </svg>
-            <div class="chart-labels">
-              <span>{chartData.max.toFixed(0)}</span>
-              <span>{chartData.min.toFixed(0)}</span>
-            </div>
           </div>
-          <div class="chart-x-labels">
-            <span>Start</span>
+          <div class="timeline-x-labels">
+            <span>0:00</span>
+            <span>{formatDuration(ride.duration_ms / 2)}</span>
             <span>{formatDuration(ride.duration_ms)}</span>
+          </div>
+          <div class="timeline-stats">
+            <div class="timeline-stat">
+              <span class="timeline-stat-label">Min</span>
+              <span class="timeline-stat-value">{chartData.min.toFixed(activeChart === 'balance' ? 1 : 0)}{activeChart === 'power' ? 'W' : activeChart === 'hr' ? '' : '%'}</span>
+            </div>
+            <div class="timeline-stat">
+              <span class="timeline-stat-label">Avg</span>
+              <span class="timeline-stat-value">{chartData.avg.toFixed(activeChart === 'balance' ? 1 : 0)}{activeChart === 'power' ? 'W' : activeChart === 'hr' ? '' : '%'}</span>
+            </div>
+            <div class="timeline-stat">
+              <span class="timeline-stat-label">Max</span>
+              <span class="timeline-stat-value">{chartData.max.toFixed(activeChart === 'balance' ? 1 : 0)}{activeChart === 'power' ? 'W' : activeChart === 'hr' ? '' : '%'}</span>
+            </div>
+            <div class="timeline-stat">
+              <span class="timeline-stat-label">Spread</span>
+              <span class="timeline-stat-value {(chartData.max - chartData.min) > (activeChart === 'balance' ? 3 : activeChart === 'power' ? 100 : 10) ? 'problem' : ''}">{(chartData.max - chartData.min).toFixed(activeChart === 'balance' ? 1 : 0)}</span>
+            </div>
           </div>
         </div>
       {/if}
@@ -559,11 +852,11 @@
 
 <style>
   /* Page-specific header styles */
-  .ride-page .page-header { align-items: flex-start; margin-bottom: 16px; }
+  .ride-page .page-header { align-items: flex-start; margin-bottom: 12px; }
   .ride-page .back-link { margin-top: 2px; }
   .header-info { flex: 1; }
-  .page-header h1 { font-size: 22px; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
-  .header-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .page-header h1 { font-size: 20px; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
+  .header-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
   .meta-item {
     display: inline-flex;
     align-items: center;
@@ -582,15 +875,15 @@
   .hero-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 16px;
+    gap: 10px;
+    margin-bottom: 12px;
   }
 
   .hero-stat {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 14px;
+    border-radius: 10px;
+    padding: 12px;
   }
 
   .hero-stat.score-stat, .hero-stat.asymmetry-stat { display: flex; align-items: center; gap: 12px; }
@@ -640,26 +933,26 @@
   .main-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 12px;
   }
 
   .grid-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 12px;
-    padding: 14px;
+    border-radius: 10px;
+    padding: 12px;
     min-width: 0;
     overflow: hidden;
   }
 
   .grid-card.wide { grid-column: span 2; }
 
-  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .card-title { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
   .card-subtitle { font-size: 11px; color: var(--text-muted); }
-  .card-section { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-subtle); }
-  .section-label { display: block; font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 8px; }
+  .card-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-subtle); }
+  .section-label { display: block; font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 6px; }
 
   /* Technique Card */
   .technique-card { grid-column: span 2; }
@@ -676,30 +969,247 @@
   .tech-metric-range { font-size: 10px; color: var(--text-muted); }
   .tech-metric-bar { flex: 1; position: relative; }
   .tech-bar-track { height: 6px; background: var(--bg-elevated); border-radius: 3px; overflow: visible; position: relative; }
-  .tech-bar-fill { height: 100%; border-radius: 3px; }
+  .tech-bar-optimal { position: absolute; top: 0; bottom: 0; background: var(--color-optimal); opacity: 0.15; border-radius: 3px; }
+  .tech-bar-optimal.te { left: 70%; right: 20%; }
+  .tech-bar-optimal.ps { left: 50%; right: 0; }
+  .tech-bar-fill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 3px; }
   .tech-bar-fill.te { background: var(--color-optimal); }
   .tech-bar-fill.ps { background: var(--color-attention); }
-  .tech-bar-zone { position: absolute; top: -1px; bottom: -1px; border: 1.5px solid var(--text-muted); border-radius: 3px; opacity: 0.25; }
-  .tech-bar-zone.te { left: 70%; right: 20%; }
-  .tech-bar-zone.ps { left: 50%; right: 0; }
+  .tech-bar-marker { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--color-optimal); opacity: 0.7; border-radius: 1px; }
+  .tech-bar-labels { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); margin-top: 2px; position: relative; }
+  .tech-bar-labels .optimal-label { position: absolute; transform: translateX(-50%); color: var(--color-optimal-text); font-weight: 600; }
+  .tech-bar-labels.te .optimal-label { left: 75%; }
+  .tech-bar-labels.ps .optimal-label { left: 75%; }
   .tech-metric-lr { display: flex; gap: 8px; font-size: 11px; color: var(--text-muted); min-width: 90px; justify-content: flex-end; }
 
   /* Technique Stats */
-  .technique-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-subtle); }
-  .tech-stat { text-align: center; padding: 6px; background: var(--bg-elevated); border-radius: 6px; }
-  .tech-stat-value { display: block; font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .technique-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-subtle); }
+  .tech-stat { text-align: center; padding: 5px; background: var(--bg-elevated); border-radius: 5px; }
+  .tech-stat-value { display: block; font-size: 13px; font-weight: 700; color: var(--text-primary); }
   .tech-stat-label { display: block; font-size: 9px; color: var(--text-muted); margin-top: 1px; }
+
+  /* Fatigue Analysis Card */
+  .fatigue-card { }
+  .fatigue-badge {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .fatigue-badge.good { background: var(--color-optimal-soft); color: var(--color-optimal-text); }
+  .fatigue-badge.moderate { background: var(--color-attention-soft); color: var(--color-attention-text); }
+  .fatigue-badge.poor { background: var(--color-problem-soft); color: var(--color-problem-text); }
+
+  .fatigue-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fatigue-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .fatigue-row:last-child { border-bottom: none; }
+
+  .fatigue-metric-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 75px;
+  }
+
+  .fatigue-vals {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+  .fatigue-vals .improved { color: var(--color-optimal-text); }
+  .fatigue-vals .stable { color: var(--text-muted); }
+  .fatigue-vals .degraded { color: var(--color-problem-text); }
+
+  .fatigue-arrow {
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  .fatigue-change {
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    min-width: 45px;
+    text-align: right;
+  }
+  .fatigue-change.improved { color: var(--color-optimal-text); }
+  .fatigue-change.stable { color: var(--text-muted); }
+  .fatigue-change.degraded { color: var(--color-problem-text); }
+
+  .fatigue-insights {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .fatigue-insight {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+
+  .insight-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .insight-icon.problem { background: var(--color-problem-soft); color: var(--color-problem-text); }
+  .insight-icon.good { background: var(--color-optimal-soft); color: var(--color-optimal-text); }
+
+  .fatigue-legend {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .fatigue-legend span {
+    font-size: 9px;
+    color: var(--text-muted);
+  }
+
+  .fatigue-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Analysis Row - Fatigue + Power Zones side by side */
+  .analysis-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .analysis-row .grid-card { margin-bottom: 0; }
+
+  /* Power Zone Breakdown */
+  .power-zones-card { }
+  .pz-distribution {
+    display: flex;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .pz-dist-segment {
+    height: 100%;
+    min-width: 2px;
+    transition: opacity 0.2s;
+  }
+  .pz-dist-segment:hover { opacity: 0.8; }
+
+  .pz-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pz-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .pz-item:last-child { border-bottom: none; }
+
+  .pz-item-zone {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .pz-zone-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .pz-zone-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .pz-zone-time {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-left: 4px;
+  }
+
+  .pz-item-metrics {
+    display: flex;
+    gap: 16px;
+  }
+
+  .pz-val {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+    min-width: 40px;
+    text-align: right;
+  }
+  .pz-val.optimal { color: var(--color-optimal-text); }
+  .pz-val.attention { color: var(--color-attention-text); }
+  .pz-val.problem { color: var(--color-problem-text); }
+
+  .pz-legend {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .pz-legend span {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    min-width: 40px;
+    text-align: right;
+  }
 
   /* Performance Strip */
   .perf-strip {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
-    padding: 14px 16px;
+    gap: 6px;
+    margin-bottom: 12px;
+    padding: 10px 12px;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 12px;
+    border-radius: 10px;
   }
   .perf-chip {
     display: flex;
@@ -712,64 +1222,167 @@
   .perf-val { font-size: 15px; font-weight: 600; color: var(--text-primary); }
   .perf-unit { font-size: 11px; color: var(--text-muted); }
 
-  /* Chart */
-  .chart-tabs { display: flex; gap: 4px; background: var(--bg-elevated); border-radius: 6px; padding: 3px; }
+  /* Timeline Chart */
+  .timeline-card { padding: 14px; }
+  .timeline-card .card-header { margin-bottom: 12px; }
+  .chart-tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--bg-elevated);
+    border-radius: 8px;
+    padding: 3px;
+  }
   .chart-tab {
-    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
     font-size: 11px;
     font-weight: 500;
     color: var(--text-secondary);
     background: transparent;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: all 0.15s ease;
   }
-  .chart-tab:hover { color: var(--text-primary); }
-  .chart-tab.active { background: var(--bg-surface); color: var(--text-primary); }
+  .chart-tab:hover { color: var(--text-primary); background: var(--bg-base); }
+  .chart-tab.active { background: var(--bg-surface); color: var(--text-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .tab-icon {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
 
-  .chart-container { position: relative; background: var(--bg-elevated); border-radius: 8px; overflow: hidden; }
-  .chart-svg { display: block; width: 100%; height: 60px; }
-  .chart-labels {
+  .timeline-chart-area {
+    position: relative;
+    height: 80px;
+    background: var(--bg-base);
+    border-radius: 10px;
+    overflow: visible;
+  }
+  .timeline-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .timeline-point {
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .timeline-point:hover {
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+  .timeline-tooltip {
     position: absolute;
-    top: 4px;
-    bottom: 4px;
-    left: 6px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 6px 10px;
+    pointer-events: none;
+    z-index: 100;
     display: flex;
     flex-direction: column;
+    gap: 2px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -100%);
+    white-space: nowrap;
+  }
+  .tooltip-time {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .tooltip-val {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .timeline-x-labels {
+    display: flex;
     justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    padding: 0 8px;
+  }
+  .timeline-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .timeline-stat {
+    text-align: center;
+    padding: 6px 4px;
+    background: var(--bg-base);
+    border-radius: 6px;
+  }
+  .timeline-stat-label {
+    display: block;
     font-size: 9px;
     color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
   }
-  .chart-x-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 6px; }
+  .timeline-stat-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .timeline-stat-value.problem { color: var(--color-problem-text); }
 
-  /* Table */
-  .table-wrapper { overflow-x: auto; max-height: 350px; overflow-y: auto; scrollbar-width: none; }
+  /* Minute-by-Minute Table */
+  .table-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    border: 1px solid var(--border-subtle);
+  }
   .table-wrapper::-webkit-scrollbar { display: none; }
 
-  .data-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 400px; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 380px; background: var(--bg-surface); }
   .data-table th {
     text-align: left;
-    padding: 8px 8px;
+    padding: 10px 10px;
     font-size: 10px;
     font-weight: 600;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.4px;
     background: var(--bg-elevated);
     border-bottom: 1px solid var(--border-subtle);
     position: sticky;
     top: 0;
     z-index: 1;
+    white-space: nowrap;
   }
-  .data-table td { padding: 6px 8px; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+  .data-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+    vertical-align: middle;
+    background: var(--bg-surface);
+  }
+  .data-table tbody tr {
+    transition: background 0.15s;
+  }
+  .data-table tbody tr:hover td { background: var(--bg-hover); }
   .data-table tr:last-child td { border-bottom: none; }
-  .data-table tr.zone-optimal { border-left: 3px solid var(--color-optimal); }
-  .data-table tr.zone-attention { border-left: 3px solid var(--color-attention); }
-  .data-table tr.zone-problem { border-left: 3px solid var(--color-problem); }
-  .col-min { font-weight: 600; color: var(--text-primary); width: 40px; }
+  .col-min {
+    font-weight: 600;
+    color: var(--text-primary);
+    width: 36px;
+  }
 
-  .data-table .optimal { color: var(--color-optimal-text); }
-  .data-table .attention { color: var(--color-attention-text); }
-  .data-table .problem { color: var(--color-problem-text); }
+  .data-table .optimal { color: var(--color-optimal-text); font-weight: 500; }
+  .data-table .attention { color: var(--color-attention-text); font-weight: 500; }
+  .data-table .problem { color: var(--color-problem-text); font-weight: 500; }
 
   .zone-badge {
     display: inline-block;
@@ -791,8 +1404,8 @@
     .balance-pct { font-size: 15px; }
     .main-grid { grid-template-columns: 1fr; }
     .grid-card.wide, .technique-card { grid-column: span 1; }
-    .perf-strip { padding: 12px; gap: 6px; }
-    .perf-chip { padding: 5px 8px; }
+    .perf-strip { padding: 10px 12px; gap: 6px; }
+    .perf-chip { padding: 4px 8px; }
     .perf-val { font-size: 14px; }
     .perf-unit { font-size: 10px; }
     .tech-metric-row { gap: 8px; }
@@ -801,9 +1414,23 @@
     .tech-metric-lr { min-width: 70px; font-size: 10px; gap: 6px; }
     .technique-stats { grid-template-columns: repeat(2, 1fr); }
     .card-header { flex-wrap: wrap; gap: 8px; }
-    .chart-tabs { flex-wrap: wrap; }
+    .chart-tabs { flex-wrap: wrap; gap: 2px; }
+    .chart-tab { padding: 4px 8px; font-size: 10px; }
+    .tab-icon { width: 6px; height: 6px; }
+    .timeline-chart-area { height: 70px; }
+    .timeline-stats { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .timeline-stat { padding: 5px 3px; }
+    .timeline-stat-value { font-size: 12px; }
     .header-meta { gap: 8px; }
     .meta-item { padding: 4px 8px; font-size: 12px; }
+    /* Analysis row responsive */
+    .analysis-row { grid-template-columns: 1fr; gap: 10px; }
+    .fatigue-metric-name { font-size: 10px; min-width: 65px; }
+    .fatigue-vals { font-size: 11px; gap: 5px; }
+    .pz-item-metrics { gap: 12px; }
+    .pz-val { font-size: 11px; min-width: 35px; }
+    .pz-legend { gap: 12px; }
+    .pz-legend span { min-width: 35px; }
   }
 
   @media (max-width: 480px) {
@@ -812,5 +1439,27 @@
     .tech-metric-value { font-size: 16px; }
     .tech-metric-lr { display: none; }
     .tech-metric-bar { flex: 1; }
+    /* Analysis mobile */
+    .fatigue-row { padding: 6px 0; }
+    .fatigue-metric-name { font-size: 9px; min-width: 55px; }
+    .fatigue-vals { font-size: 10px; gap: 4px; }
+    .fatigue-arrow { font-size: 9px; }
+    .fatigue-status { font-size: 10px; width: 16px; }
+    .fatigue-legend { margin-top: 6px; padding-top: 6px; }
+    .fatigue-legend span { font-size: 8px; }
+    .pz-zone-name { font-size: 10px; }
+    .pz-zone-time { font-size: 9px; }
+    .pz-item { padding: 6px 0; }
+    .pz-item-metrics { gap: 10px; }
+    .pz-val { font-size: 10px; min-width: 32px; }
+    .pz-legend { gap: 10px; }
+    .pz-legend span { font-size: 8px; min-width: 32px; }
+    .pz-zone-dot { width: 6px; height: 6px; }
+    .pz-distribution { height: 5px; }
+    /* Timeline mobile */
+    .timeline-card { padding: 10px; }
+    .timeline-chart-area { height: 60px; }
+    .timeline-stats { grid-template-columns: repeat(2, 1fr); }
+    .timeline-x-labels { font-size: 9px; }
   }
 </style>

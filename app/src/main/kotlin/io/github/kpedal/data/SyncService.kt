@@ -686,14 +686,12 @@ class SyncService(
      */
     fun onRideSaved(rideId: Long) {
         scope.launch {
-            preferencesRepository.autoSyncEnabledFlow.collect { autoSync ->
-                if (autoSync && authRepository.isLoggedIn) {
-                    val ride = rideDao.getRideById(rideId)
-                    if (ride != null && ride.syncStatus == RideEntity.SYNC_STATUS_PENDING) {
-                        syncRide(ride)
-                    }
+            val autoSync = preferencesRepository.autoSyncEnabledFlow.first()
+            if (autoSync && authRepository.isLoggedIn) {
+                val ride = rideDao.getRideById(rideId)
+                if (ride != null && ride.syncStatus == RideEntity.SYNC_STATUS_PENDING) {
+                    syncRide(ride)
                 }
-                return@collect
             }
         }
     }

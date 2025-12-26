@@ -1,11 +1,31 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
-  import { auth, isAuthenticated, isLoading, user } from '$lib/auth';
+  import { auth, isAuthenticated, isLoading, user, isDemo } from '$lib/auth';
+  import { startDashboardTour, resetTour, hasPendingTour, continueTourOnPage } from '$lib/tour';
   import { theme } from '$lib/theme';
   import '../app.css';
 
   let mounted = false;
+
+  function handleRestartTour() {
+    resetTour();
+    // Only start tour on dashboard - redirect if on other page
+    if ($page.url.pathname === '/') {
+      startDashboardTour();
+    } else {
+      // Navigate to dashboard to start tour from beginning
+      window.location.href = '/';
+    }
+  }
+
+  // Handle tour continuation when navigating between pages
+  $: if (mounted && $isAuthenticated && $isDemo && hasPendingTour()) {
+    // Delay to let page render
+    setTimeout(() => {
+      continueTourOnPage($page.url.pathname);
+    }, 300);
+  }
 
   onMount(() => {
     // Skip initialize on auth callback pages - they handle auth themselves
@@ -73,11 +93,13 @@
             {/if}
           </button>
 
-          {#if $user?.picture}
-            <img src={$user.picture} alt="" class="avatar" referrerpolicy="no-referrer" />
-          {:else}
-            <div class="avatar-placeholder">{$user?.name?.[0] || '?'}</div>
-          {/if}
+          <a href="/settings" class="avatar-link" title="Settings">
+            {#if $user?.picture}
+              <img src={$user.picture} alt="" class="avatar" referrerpolicy="no-referrer" />
+            {:else}
+              <div class="avatar-placeholder">{$user?.name?.[0] || '?'}</div>
+            {/if}
+          </a>
         </div>
       </div>
     </nav>
@@ -110,14 +132,29 @@
       </a>
       <a href="/settings" class="bottom-nav-item" class:active={currentPath === '/settings'}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
         </svg>
-        <span>Settings</span>
+        <span>Profile</span>
       </a>
     </nav>
   {/if}
 
   <main class="main-content" class:with-nav={$isAuthenticated}>
+    {#if $isDemo}
+      <div class="demo-banner">
+        <div class="demo-banner-content">
+          <span class="demo-badge">Demo Mode</span>
+          <span class="demo-text">Viewing sample data. <a href="https://github.com/yrkan/kpedal/releases" target="_blank" rel="noopener">Download KPedal</a> to see your own rides.</span>
+        </div>
+        <button class="demo-tour-btn" on:click={handleRestartTour}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
+          </svg>
+          Tour
+        </button>
+      </div>
+    {/if}
     <slot />
   </main>
 {/if}
@@ -295,6 +332,18 @@
     background: var(--bg-hover);
   }
 
+  .avatar-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: opacity 0.15s ease;
+  }
+
+  .avatar-link:hover {
+    opacity: 0.8;
+  }
+
   .avatar {
     width: 28px;
     height: 28px;
@@ -323,6 +372,52 @@
     min-height: calc(100vh - 52px);
   }
 
+  /* Demo Banner */
+  .demo-banner {
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .demo-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .demo-badge {
+    background: var(--color-attention-soft);
+    color: var(--color-attention-text);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .demo-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .demo-text a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .demo-text a:hover {
+    color: var(--color-accent-hover);
+  }
+
   /* Mobile */
   @media (max-width: 768px) {
     .desktop-only { display: none; }
@@ -336,6 +431,15 @@
     .main-content.with-nav {
       min-height: calc(100vh - 48px);
       padding-bottom: 72px;
+    }
+
+    .demo-banner {
+      padding: 8px 16px;
+      gap: 10px;
+    }
+
+    .demo-text {
+      font-size: 12px;
     }
   }
 </style>

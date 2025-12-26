@@ -1,12 +1,15 @@
 import { Hono } from 'hono';
-import { Env, ApiResponse, RideData } from '../types/env';
+import { Env, ApiResponse, RideData, isDemoUser } from '../types/env';
 import { validatePagination, validateDays } from '../middleware/validate';
+import { getDemoOffset, adjustDemoRide, adjustDemoSnapshot, adjustDemoDateString } from '../utils/demoData';
+import { getDemoCache, setDemoCache } from '../utils/demoCache';
 
 const rides = new Hono<{ Bindings: Env }>();
 
 /**
  * GET /api/rides
  * Get all rides for authenticated user
+ * For demo users: KV cached for instant response
  */
 rides.get('/', async (c) => {
   const user = c.get('user');
@@ -24,7 +27,19 @@ rides.get('/', async (c) => {
   };
   const orderBy = sortMap[sortParam] || 'timestamp DESC';
 
+  // Cache key includes pagination/sort params
+  const cacheKey = `rides:${limit}:${offset}:${sortParam}`;
+
   try {
+    // Check KV cache for demo users
+    if (isDemoUser(user.sub)) {
+      const cached = await getDemoCache<any>(c.env.SESSIONS, user.sub, cacheKey);
+      if (cached) {
+        c.header('X-Cache', 'HIT');
+        return c.json<ApiResponse>({ success: true, data: cached });
+      }
+    }
+
     // Run both queries in a single batch request for efficiency
     const [ridesResult, countResult] = await c.env.DB.batch([
       c.env.DB
@@ -48,18 +63,30 @@ rides.get('/', async (c) => {
         .bind(user.sub),
     ]);
 
-    const rides = ridesResult.results as RideData[];
+    let ridesData = ridesResult.results as RideData[];
     const total = (countResult.results[0] as { count: number })?.count || 0;
 
-    return c.json<ApiResponse>({
-      success: true,
-      data: {
-        rides,
-        total,
-        limit,
-        offset,
-      },
-    });
+    // Adjust timestamps for demo user to make rides appear recent
+    if (isDemoUser(user.sub)) {
+      const demoOffset = getDemoOffset(user.sub);
+      ridesData = ridesData.map((ride) => adjustDemoRide(ride, demoOffset));
+    }
+
+    const responseData = {
+      rides: ridesData,
+      total,
+      limit,
+      offset,
+    };
+
+    // Cache for demo users using waitUntil
+    if (isDemoUser(user.sub)) {
+      c.executionCtx.waitUntil(
+        setDemoCache(c.env.SESSIONS, user.sub, cacheKey, responseData).catch(() => {})
+      );
+    }
+
+    return c.json<ApiResponse>({ success: true, data: responseData });
   } catch (err) {
     console.error('Error fetching rides:', err);
     return c.json<ApiResponse>({ success: false, error: 'Failed to fetch rides' }, 500);
@@ -250,12 +277,22 @@ rides.get('/stats/trends', async (c) => {
  * GET /api/rides/dashboard
  * Combined endpoint for dashboard - all data in ONE D1 batch request
  * Reduces 6 API calls to 1, saving ~1500ms of latency
+ * For demo users: KV cached for instant response (~1-5ms)
  * NOTE: Must be defined BEFORE /:id route
  */
 rides.get('/dashboard', async (c) => {
   const user = c.get('user');
 
   try {
+    // Check KV cache for demo users (instant response)
+    if (isDemoUser(user.sub)) {
+      const cached = await getDemoCache<any>(c.env.SESSIONS, user.sub, 'dashboard');
+      if (cached) {
+        c.header('X-Cache', 'HIT');
+        return c.json<ApiResponse>({ success: true, data: cached });
+      }
+    }
+
     const now = Date.now();
     const oneWeekMs = 7 * 24 * 60 * 60 * 1000;
     const thisWeekStart = now - oneWeekMs;
@@ -366,11 +403,19 @@ rides.get('/dashboard', async (c) => {
     ]);
 
     const stats = statsResult.results[0];
-    const recentRides = recentRidesResult.results;
+    let recentRides = recentRidesResult.results as RideData[];
     const thisWeek = thisWeekResult.results[0] as any;
     const lastWeek = lastWeekResult.results[0] as any;
-    const trends = trendsResult.results;
-    const lastRideSnapshots = lastRideSnapshotsResult.results;
+    let trends = trendsResult.results as { date: string; [key: string]: any }[];
+    let lastRideSnapshots = lastRideSnapshotsResult.results;
+
+    // Adjust timestamps for demo user to make rides appear recent
+    if (isDemoUser(user.sub)) {
+      const demoOffset = getDemoOffset(user.sub);
+      recentRides = recentRides.map((ride) => adjustDemoRide(ride, demoOffset));
+      trends = trends.map((t) => ({ ...t, date: adjustDemoDateString(t.date, demoOffset) }));
+      lastRideSnapshots = lastRideSnapshots.map((s: any) => adjustDemoSnapshot(s, demoOffset));
+    }
 
     // Calculate weekly changes
     const thisWeekAsymmetry = Math.abs((thisWeek?.avg_balance_left || 50) - 50);
@@ -387,16 +432,22 @@ rides.get('/dashboard', async (c) => {
       balance: thisWeekAsymmetry - lastWeekAsymmetry, // Positive = worse asymmetry
     };
 
-    return c.json<ApiResponse>({
-      success: true,
-      data: {
-        stats,
-        recentRides,
-        weeklyComparison: { thisWeek, lastWeek, changes },
-        trends,
-        lastRideSnapshots, // For fatigue analysis
-      },
-    });
+    const responseData = {
+      stats,
+      recentRides,
+      weeklyComparison: { thisWeek, lastWeek, changes },
+      trends,
+      lastRideSnapshots,
+    };
+
+    // Cache response for demo users using waitUntil to ensure write completes
+    if (isDemoUser(user.sub)) {
+      c.executionCtx.waitUntil(
+        setDemoCache(c.env.SESSIONS, user.sub, 'dashboard', responseData).catch(() => {})
+      );
+    }
+
+    return c.json<ApiResponse>({ success: true, data: responseData });
   } catch (err) {
     console.error('Error fetching dashboard:', err);
     return c.json<ApiResponse>({ success: false, error: 'Failed to fetch dashboard' }, 500);
@@ -406,13 +457,24 @@ rides.get('/dashboard', async (c) => {
 /**
  * GET /api/rides/:id
  * Get single ride by ID (with snapshots)
+ * For demo users: KV cached for instant response
  * NOTE: Must be defined AFTER /stats/* and /dashboard routes
  */
 rides.get('/:id', async (c) => {
   const user = c.get('user');
   const id = c.req.param('id');
+  const cacheKey = `ride:${id}`;
 
   try {
+    // Check KV cache for demo users
+    if (isDemoUser(user.sub)) {
+      const cached = await getDemoCache<any>(c.env.SESSIONS, user.sub, cacheKey);
+      if (cached) {
+        c.header('X-Cache', 'HIT');
+        return c.json<ApiResponse>({ success: true, data: cached });
+      }
+    }
+
     // Run both queries in parallel
     const [rideResult, snapshotsResult] = await c.env.DB.batch([
       c.env.DB
@@ -440,21 +502,34 @@ rides.get('/:id', async (c) => {
         .bind(id),
     ]);
 
-    const ride = rideResult.results[0] as RideData | undefined;
+    let ride = rideResult.results[0] as RideData | undefined;
 
     if (!ride) {
       return c.json<ApiResponse>({ success: false, error: 'Ride not found' }, 404);
     }
 
-    const snapshots = snapshotsResult.results;
+    let snapshots = snapshotsResult.results;
 
-    return c.json<ApiResponse>({
-      success: true,
-      data: {
-        ...ride,
-        snapshots,
-      },
-    });
+    // Adjust timestamps for demo user
+    if (isDemoUser(user.sub)) {
+      const demoOffset = getDemoOffset(user.sub);
+      ride = adjustDemoRide(ride, demoOffset);
+      snapshots = snapshots.map((s: any) => adjustDemoSnapshot(s, demoOffset));
+    }
+
+    const responseData = {
+      ...ride,
+      snapshots,
+    };
+
+    // Cache for demo users using waitUntil
+    if (isDemoUser(user.sub)) {
+      c.executionCtx.waitUntil(
+        setDemoCache(c.env.SESSIONS, user.sub, cacheKey, responseData).catch(() => {})
+      );
+    }
+
+    return c.json<ApiResponse>({ success: true, data: responseData });
   } catch (err) {
     console.error('Error fetching ride:', err);
     return c.json<ApiResponse>({ success: false, error: 'Failed to fetch ride' }, 500);

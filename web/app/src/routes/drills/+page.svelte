@@ -151,8 +151,8 @@
   }
 
   $: sortedDrills = [...drills].sort((a, b) => {
-    if (sortBy === 'target') return b.time_in_target_percent - a.time_in_target_percent;
-    if (sortBy === 'duration') return b.duration_ms - a.duration_ms;
+    if ((sortBy as string) === 'target') return b.time_in_target_percent - a.time_in_target_percent;
+    if ((sortBy as string) === 'duration') return b.duration_ms - a.duration_ms;
     return b.timestamp - a.timestamp;
   });
 
@@ -203,19 +203,44 @@
     {:else if error}
       <div class="error-state animate-in">
         <p>{error}</p>
-        <button class="retry-btn" on:click={loadDrills}>Retry</button>
+        <button class="retry-btn" on:click={loadDashboard}>Retry</button>
       </div>
     {:else if drills.length === 0 && !loading && !filterDrillId}
-      <div class="empty-state animate-in">
-        <div class="empty-icon">
+      <div class="empty-state-enhanced animate-in">
+        <div class="empty-icon-wrap">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <circle cx="12" cy="12" r="10"/>
             <path d="M12 6v6l4 2"/>
           </svg>
         </div>
-        <h3>No training sessions yet</h3>
-        <p>Complete drills on your Karoo to track technique progress</p>
-        <a href="/" class="back-btn-link">← Back to Dashboard</a>
+        <h3>No drills completed yet</h3>
+        <p>KPedal includes guided drills to improve your pedaling technique. Complete them on your Karoo to track progress here.</p>
+
+        <div class="drill-categories">
+          <span class="drill-cat-label">Available drill types</span>
+          <div class="drill-cat-grid">
+            <div class="drill-cat">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+              <span>Balance Focus</span>
+            </div>
+            <div class="drill-cat">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span>Power Transfer</span>
+            </div>
+            <div class="drill-cat">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>Smooth Circles</span>
+            </div>
+            <div class="drill-cat">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <span>Challenges</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-actions">
+          <a href="/" class="empty-action-btn">← Dashboard</a>
+        </div>
       </div>
     {:else}
       <!-- Stats Overview -->
@@ -534,6 +559,96 @@
   .target-progress-fill.attention { background: var(--color-attention); }
   .target-progress-fill.problem { background: var(--color-problem); }
   .target-duration { font-size: 12px; color: var(--text-secondary); }
+
+  /* Enhanced Empty State */
+  .empty-state-enhanced {
+    text-align: center;
+    padding: 60px 24px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .empty-icon-wrap {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    color: var(--text-muted);
+  }
+  .empty-state-enhanced h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .empty-state-enhanced > p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .drill-categories {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  .drill-cat-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .drill-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .drill-cat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--bg-base);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .drill-cat svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .empty-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .empty-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+  }
+  .empty-action-btn:hover {
+    border-color: var(--border-default);
+    color: var(--text-primary);
+  }
 
   /* Mobile */
   @media (max-width: 768px) {

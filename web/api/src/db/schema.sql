@@ -91,6 +91,9 @@ CREATE INDEX IF NOT EXISTS idx_rides_user_id ON rides(user_id);
 CREATE INDEX IF NOT EXISTS idx_rides_timestamp ON rides(timestamp DESC);
 CREATE INDEX IF NOT EXISTS idx_rides_device_id ON rides(device_id);
 
+-- Composite index for user + timestamp queries (weekly stats, trends, dashboard)
+CREATE INDEX IF NOT EXISTS idx_rides_user_timestamp ON rides(user_id, timestamp DESC);
+
 -- Unique constraint to prevent duplicates (same ride from same device)
 CREATE UNIQUE INDEX IF NOT EXISTS idx_rides_unique
 ON rides(user_id, device_id, timestamp);

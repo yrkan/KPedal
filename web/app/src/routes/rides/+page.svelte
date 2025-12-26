@@ -59,7 +59,18 @@
   $: sortedRides = [...rides].sort((a, b) => b.timestamp - a.timestamp);
   $: periodStats = calculatePeriodStats(sortedRides);
 
+  // Save viewMode to localStorage when it changes
+  $: if (typeof localStorage !== 'undefined' && viewMode) {
+    localStorage.setItem('rides-view-mode', viewMode);
+  }
+
   onMount(async () => {
+    // Restore viewMode from localStorage
+    const savedViewMode = localStorage.getItem('rides-view-mode');
+    if (savedViewMode === 'table' || savedViewMode === 'cards') {
+      viewMode = savedViewMode;
+    }
+
     if (!$isAuthenticated) {
       goto('/login');
       return;
@@ -242,15 +253,32 @@
         <button class="retry-btn" on:click={loadRides}>Retry</button>
       </div>
     {:else if rides.length === 0}
-      <div class="empty-state animate-in">
-        <div class="empty-icon">
+      <div class="empty-state-enhanced animate-in">
+        <div class="empty-icon-wrap">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
           </svg>
         </div>
-        <h3>No rides yet</h3>
-        <p>Complete rides on your Karoo to see them here</p>
-        <a href="/" class="back-btn-link">← Back to Dashboard</a>
+        <h3>No rides recorded yet</h3>
+        <p>Your ride history will appear here once you complete rides with KPedal on your Karoo.</p>
+
+        <div class="empty-preview">
+          <span class="empty-preview-label">Each ride will show</span>
+          <div class="empty-preview-items">
+            <span class="preview-item"><span class="preview-dot balance"></span>Balance L/R</span>
+            <span class="preview-item"><span class="preview-dot te"></span>TE</span>
+            <span class="preview-item"><span class="preview-dot ps"></span>PS</span>
+            <span class="preview-item"><span class="preview-dot score"></span>Zones</span>
+          </div>
+        </div>
+
+        <div class="empty-actions">
+          <a href="/settings" class="empty-action-btn secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3"/></svg>
+            Link Device
+          </a>
+          <a href="/" class="empty-action-btn">← Dashboard</a>
+        </div>
       </div>
     {:else}
       <!-- Summary Stats -->
@@ -337,7 +365,7 @@
             </thead>
             <tbody>
               {#each sortedRides as ride}
-                <tr on:click={() => goToRide(ride.id)} class="ride-row">
+                <tr on:click={() => goToRide(ride.id)} class="ride-row" data-ride-id={ride.id}>
                   <td class="col-date">
                     <span class="date-primary">{formatDate(ride.timestamp)}</span>
                     <span class="date-secondary">{formatTime(ride.timestamp)}</span>
@@ -385,7 +413,7 @@
         <!-- Card View -->
         <div class="rides-grid animate-in">
           {#each sortedRides as ride}
-            <article class="ride-card" on:click={() => goToRide(ride.id)}>
+            <article class="ride-card" on:click={() => goToRide(ride.id)} data-ride-id={ride.id}>
               <div class="ride-card-header">
                 <div class="ride-date-info">
                   <span class="ride-date">{formatFullDate(ride.timestamp)}</span>
@@ -726,6 +754,108 @@
   .metric-value.optimal { color: var(--color-optimal-text); }
   .metric-value.attention { color: var(--color-attention-text); }
   .metric-value.problem { color: var(--color-problem-text); }
+
+  /* Enhanced Empty State */
+  .empty-state-enhanced {
+    text-align: center;
+    padding: 60px 24px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .empty-icon-wrap {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    color: var(--text-muted);
+  }
+  .empty-state-enhanced h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .empty-state-enhanced > p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .empty-preview {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  .empty-preview-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .empty-preview-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .preview-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .preview-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .preview-dot.balance { background: var(--color-accent); }
+  .preview-dot.te { background: var(--color-optimal); }
+  .preview-dot.ps { background: var(--color-attention); }
+  .preview-dot.score { background: var(--text-muted); }
+  .empty-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .empty-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+  }
+  .empty-action-btn:hover {
+    border-color: var(--border-default);
+    color: var(--text-primary);
+  }
+  .empty-action-btn.secondary {
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    border-color: var(--color-accent);
+  }
+  .empty-action-btn.secondary:hover {
+    background: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+  }
 
   /* Mobile */
   @media (max-width: 768px) {

@@ -2,11 +2,12 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { isAuthenticated } from '$lib/auth';
+  import { isAuthenticated, auth } from '$lib/auth';
   import { theme } from '$lib/theme';
   import { API_URL } from '$lib/config';
 
   let error: string | null = null;
+  let demoLoading = false;
 
   onMount(() => {
     if ($isAuthenticated) {
@@ -31,6 +32,23 @@
 
   function handleLogin() {
     window.location.href = `${API_URL}/auth/login`;
+  }
+
+  async function handleDemoLogin() {
+    demoLoading = true;
+    error = null;
+    try {
+      const success = await auth.demoLogin();
+      if (success) {
+        goto('/');
+      } else {
+        error = 'Demo mode temporarily unavailable. Please try again later.';
+      }
+    } catch {
+      error = 'Failed to start demo mode. Please try again.';
+    } finally {
+      demoLoading = false;
+    }
   }
 </script>
 
@@ -93,6 +111,28 @@
         </svg>
         Continue with Google
       </button>
+
+      <div class="divider">
+        <span>or</span>
+      </div>
+
+      <button class="demo-btn" on:click={handleDemoLogin} disabled={demoLoading}>
+        {#if demoLoading}
+          <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
+            <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
+          </svg>
+          Loading demo...
+        {:else}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+          </svg>
+          Try Demo
+        {/if}
+      </button>
+
+      <p class="demo-note">Explore the dashboard with sample data.<br>No sign-up required.</p>
 
       <div class="trust-section">
         <div class="trust-row">
@@ -244,6 +284,105 @@
   .google-btn:hover {
     background: var(--bg-hover);
     border-color: var(--border-strong);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+
+  .divider span {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .demo-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: var(--color-optimal);
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--glow-optimal, rgba(34, 197, 94, 0.3));
+  }
+
+  :global([data-theme="dark"]) .demo-btn {
+    background: #16a34a;
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+  }
+
+  .demo-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .demo-btn:hover:not(:disabled)::before {
+    left: 100%;
+  }
+
+  .demo-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px var(--glow-optimal, rgba(34, 197, 94, 0.4));
+    filter: brightness(1.05);
+  }
+
+  :global([data-theme="dark"]) .demo-btn:hover:not(:disabled) {
+    background: #15803d;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+  }
+
+  .demo-btn:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .demo-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .demo-btn .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .demo-note {
+    margin: 12px 0 0 0;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.6;
   }
 
   .privacy-note {

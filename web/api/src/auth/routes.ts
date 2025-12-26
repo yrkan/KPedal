@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { Env, ApiResponse } from '../types/env';
+import { Env, ApiResponse, DEMO_USER_ID } from '../types/env';
 import { createTokens, verifyRefreshToken, revokeRefreshToken } from './jwt';
 import { getOrCreateUser } from './user';
 
@@ -943,6 +943,66 @@ auth.post('/logout', async (c) => {
   } catch (err) {
     // Still return success even if token was invalid
     return c.json<ApiResponse>({ success: true, message: 'Logged out' });
+  }
+});
+
+/**
+ * POST /auth/demo
+ * Login to demo account (no Google OAuth required)
+ * Returns tokens for read-only demo account
+ */
+auth.post('/demo', async (c) => {
+  const env = c.env;
+
+  try {
+    // Get demo user from database
+    const demoUser = await env.DB.prepare(
+      'SELECT id, email, name, picture FROM users WHERE id = ?'
+    ).bind(DEMO_USER_ID).first<{
+      id: string;
+      email: string;
+      name: string;
+      picture: string | null;
+    }>();
+
+    if (!demoUser) {
+      return c.json<ApiResponse>({
+        success: false,
+        error: 'Demo account not available',
+      }, 503);
+    }
+
+    // Create tokens for demo user
+    const { accessToken, refreshToken } = await createTokens(env, demoUser);
+
+    // Store refresh token in KV (short TTL for demo)
+    await env.SESSIONS.put(
+      `refresh:${demoUser.id}:${refreshToken.slice(-16)}`,
+      JSON.stringify({ createdAt: Date.now(), isDemo: true }),
+      { expirationTtl: 60 * 60 * 24 } // 24 hours for demo
+    );
+
+    return c.json<ApiResponse>({
+      success: true,
+      data: {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        user: {
+          id: demoUser.id,
+          email: demoUser.email,
+          name: demoUser.name,
+          picture: demoUser.picture,
+        },
+        is_demo: true,
+      },
+    });
+
+  } catch (err) {
+    console.error('Demo login error:', err);
+    return c.json<ApiResponse>({
+      success: false,
+      error: 'Demo login failed',
+    }, 500);
   }
 });
 

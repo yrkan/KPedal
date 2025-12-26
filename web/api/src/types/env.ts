@@ -1,4 +1,17 @@
 /**
+ * Demo account constants
+ */
+export const DEMO_USER_ID = 'demo-user-00000000-0000-0000-0000-000000000000';
+export const DEMO_DEVICE_ID = 'demo-device-00000000-0000-0000-0000-000000000000';
+
+/**
+ * Check if user is demo account
+ */
+export function isDemoUser(userId: string): boolean {
+  return userId === DEMO_USER_ID;
+}
+
+/**
  * Cloudflare Worker Environment Bindings
  */
 export interface Env {
@@ -31,6 +44,7 @@ export interface JWTPayload {
   picture?: string;
   iat: number;        // Issued at
   exp: number;        // Expiration
+  [key: string]: unknown; // Index signature for jose compatibility
 }
 
 /**
@@ -91,6 +105,8 @@ export interface ApiResponse<T = unknown> {
   error?: string;
   message?: string;
   code?: string;  // Error code for specific handling (e.g., 'DEVICE_REVOKED')
+  status?: string; // Status for Device Code Flow (e.g., 'authorization_pending')
+  error_description?: string; // OAuth 2.0 error description
 }
 
 /**

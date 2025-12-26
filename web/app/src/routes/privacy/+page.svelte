@@ -54,7 +54,7 @@
         </a>
       {/if}
       <h1>Privacy Policy</h1>
-      <p class="last-updated">Last updated: December 25, 2025</p>
+      <p class="last-updated">Last updated: December 26, 2025</p>
     </header>
 
     <!-- Quick Summary -->
@@ -615,22 +615,22 @@
         </ul>
 
         <h3>Browser Storage</h3>
-        <p>The KPedal web dashboard stores the following in your browser:</p>
+        <p>The KPedal web dashboard stores the following in your browser's local/session storage:</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Access Token</span>
-            <span class="data-purpose">sessionStorage (cleared when tab closes)</span>
+            <span class="data-field"><code>kpedal_auth_access</code></span>
+            <span class="data-purpose">sessionStorage — JWT access token (cleared when tab closes)</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Refresh Token</span>
-            <span class="data-purpose">localStorage (persists for 7 days)</span>
+            <span class="data-field"><code>kpedal_auth_refresh</code></span>
+            <span class="data-purpose">localStorage — JWT refresh token (persists up to 7 days)</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Theme Preference</span>
-            <span class="data-purpose">localStorage (light/dark/system)</span>
+            <span class="data-field"><code>kpedal_theme</code></span>
+            <span class="data-purpose">localStorage — Theme preference (light/dark/system)</span>
           </div>
         </div>
-        <p class="note">You can clear this data anytime by signing out or clearing browser storage.</p>
+        <p class="note">You can clear this data anytime by signing out or clearing browser storage. No cookies are used.</p>
       </section>
 
       <!-- Section 7: Contact -->

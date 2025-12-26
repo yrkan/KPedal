@@ -4,6 +4,67 @@ import { goto } from '$app/navigation';
 import { API_URL, TOKEN_REFRESH_BUFFER_MS } from './config';
 
 // ============================================
+// Demo Browser Cache
+// ============================================
+
+const DEMO_CACHE_PREFIX = 'kpedal_demo_cache:';
+const DEMO_CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+interface CachedData<T> {
+  data: T;
+  timestamp: number;
+}
+
+function getDemoCacheKey(path: string): string {
+  // Include date in key since demo timestamps are adjusted daily
+  const today = new Date().toISOString().split('T')[0];
+  return `${DEMO_CACHE_PREFIX}${path}:${today}`;
+}
+
+function getDemoCache<T>(path: string): T | null {
+  if (!browser) return null;
+  try {
+    const key = getDemoCacheKey(path);
+    const cached = sessionStorage.getItem(key);
+    if (!cached) return null;
+
+    const { data, timestamp }: CachedData<T> = JSON.parse(cached);
+    // Check if cache is still fresh
+    if (Date.now() - timestamp > DEMO_CACHE_TTL_MS) {
+      sessionStorage.removeItem(key);
+      return null;
+    }
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function setDemoCache<T>(path: string, data: T): void {
+  if (!browser) return;
+  try {
+    const key = getDemoCacheKey(path);
+    const cached: CachedData<T> = { data, timestamp: Date.now() };
+    sessionStorage.setItem(key, JSON.stringify(cached));
+  } catch {
+    // Ignore storage errors (quota exceeded, etc.)
+  }
+}
+
+function clearDemoCache(): void {
+  if (!browser) return;
+  // Clear all demo cache keys
+  const keysToRemove: string[] = [];
+  for (let i = 0; i < sessionStorage.length; i++) {
+    const key = sessionStorage.key(i);
+    if (key?.startsWith(DEMO_CACHE_PREFIX)) {
+      keysToRemove.push(key);
+    }
+  }
+  keysToRemove.forEach(key => sessionStorage.removeItem(key));
+}
+
+// ============================================
 // Types
 // ============================================
 
@@ -19,6 +80,7 @@ interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   loading: boolean;
+  isDemo: boolean;
 }
 
 interface JWTPayload {
@@ -95,6 +157,7 @@ function createAuthStore() {
     accessToken: null,
     refreshToken: null,
     loading: true,
+    isDemo: false,
   };
 
   const { subscribe, set, update } = writable<AuthState>(initialState);
@@ -165,11 +228,16 @@ function createAuthStore() {
     return false;
   }
 
-  function login(accessToken: string, refreshToken: string) {
+  function login(accessToken: string, refreshToken: string, isDemo: boolean = false) {
     const payload = parseJWT(accessToken);
     if (!payload) return;
 
     secureStore({ accessToken, refreshToken });
+    if (isDemo) {
+      localStorage.setItem(STORAGE_KEY + '_demo', 'true');
+    } else {
+      localStorage.removeItem(STORAGE_KEY + '_demo');
+    }
     scheduleRefresh(accessToken);
 
     set({
@@ -182,6 +250,59 @@ function createAuthStore() {
       accessToken,
       refreshToken,
       loading: false,
+      isDemo,
+    });
+  }
+
+  async function demoLogin(): Promise<boolean> {
+    try {
+      const res = await fetch(`${API_URL}/auth/demo`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!res.ok) {
+        return false;
+      }
+
+      const data = await res.json();
+      if (data.success && data.data?.access_token && data.data?.refresh_token) {
+        login(data.data.access_token, data.data.refresh_token, true);
+
+        // Prefetch dashboard data in background (don't await)
+        prefetchDemoData(data.data.access_token);
+
+        return true;
+      }
+
+      return false;
+    } catch (err) {
+      console.error('Demo login failed:', err);
+      return false;
+    }
+  }
+
+  // Prefetch critical demo data after login
+  function prefetchDemoData(accessToken: string): void {
+    const endpoints = ['/rides/dashboard', '/achievements/dashboard', '/drills/dashboard'];
+
+    endpoints.forEach(async (path) => {
+      try {
+        const res = await fetch(`${API_URL}${path}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        });
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data) {
+            setDemoCache(path, json.data);
+          }
+        }
+      } catch {
+        // Ignore prefetch errors
+      }
     });
   }
 
@@ -203,12 +324,15 @@ function createAuthStore() {
 
     if (refreshTimeout) clearTimeout(refreshTimeout);
     secureStore(null);
+    localStorage.removeItem(STORAGE_KEY + '_demo');
+    clearDemoCache(); // Clear browser cache for demo data
 
     set({
       user: null,
       accessToken: null,
       refreshToken: null,
       loading: false,
+      isDemo: false,
     });
 
     goto('/login');
@@ -218,6 +342,7 @@ function createAuthStore() {
     if (!browser) return;
 
     const { accessToken, refreshToken } = secureRetrieve();
+    const isDemo = localStorage.getItem(STORAGE_KEY + '_demo') === 'true';
 
     if (!refreshToken) {
       set({ ...initialState, loading: false });
@@ -239,6 +364,7 @@ function createAuthStore() {
           accessToken,
           refreshToken,
           loading: false,
+          isDemo,
         });
         return;
       }
@@ -248,6 +374,9 @@ function createAuthStore() {
     const refreshed = await refresh();
     if (!refreshed) {
       set({ ...initialState, loading: false });
+    } else {
+      // Restore demo flag after refresh
+      update(state => ({ ...state, isDemo }));
     }
   }
 
@@ -257,6 +386,7 @@ function createAuthStore() {
     logout,
     refresh,
     initialize,
+    demoLogin,
   };
 }
 
@@ -266,6 +396,7 @@ export const auth = createAuthStore();
 export const user = derived(auth, ($auth) => $auth.user);
 export const isAuthenticated = derived(auth, ($auth) => !!$auth.user);
 export const isLoading = derived(auth, ($auth) => $auth.loading);
+export const isDemo = derived(auth, ($auth) => $auth.isDemo);
 
 // ============================================
 // Authenticated Fetch Helper
@@ -279,6 +410,22 @@ export async function authFetch(
 
   if (!state.accessToken) {
     throw new Error('Not authenticated');
+  }
+
+  // For demo users: check browser cache first (GET requests only)
+  const method = options.method?.toUpperCase() || 'GET';
+  if (state.isDemo && method === 'GET') {
+    const cached = getDemoCache<unknown>(path);
+    if (cached) {
+      // Return a fake Response with cached data
+      return new Response(JSON.stringify({ success: true, data: cached }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Cache': 'BROWSER',
+        },
+      });
+    }
   }
 
   // Check if token needs refresh
@@ -314,6 +461,17 @@ export async function authFetch(
         },
       });
     }
+  }
+
+  // For demo users: cache successful GET responses
+  if (currentState.isDemo && method === 'GET' && res.ok) {
+    // Clone response to read body without consuming it
+    const clone = res.clone();
+    clone.json().then((json) => {
+      if (json.success && json.data) {
+        setDemoCache(path, json.data);
+      }
+    }).catch(() => {});
   }
 
   return res;

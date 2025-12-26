@@ -15,6 +15,8 @@
     created_at: string;
   }
 
+  type AlertTrigger = 'PROBLEM_ONLY' | 'ATTENTION_AND_PROBLEM';
+
   interface KPedalSettings {
     balance_threshold: number;
     te_optimal_min: number;
@@ -23,17 +25,20 @@
     alerts_enabled: boolean;
     screen_wake_on_alert: boolean;
     balance_alert_enabled: boolean;
-    balance_alert_trigger: 'PROBLEM_ONLY' | 'ATTENTION_AND_PROBLEM';
+    balance_alert_trigger: AlertTrigger;
+    balance_alert_visual: boolean;
     balance_alert_vibration: boolean;
     balance_alert_sound: boolean;
     balance_alert_cooldown: number;
     te_alert_enabled: boolean;
-    te_alert_trigger: 'PROBLEM_ONLY' | 'ATTENTION_AND_PROBLEM';
+    te_alert_trigger: AlertTrigger;
+    te_alert_visual: boolean;
     te_alert_vibration: boolean;
     te_alert_sound: boolean;
     te_alert_cooldown: number;
     ps_alert_enabled: boolean;
-    ps_alert_trigger: 'PROBLEM_ONLY' | 'ATTENTION_AND_PROBLEM';
+    ps_alert_trigger: AlertTrigger;
+    ps_alert_visual: boolean;
     ps_alert_vibration: boolean;
     ps_alert_sound: boolean;
     ps_alert_cooldown: number;
@@ -51,16 +56,19 @@
     screen_wake_on_alert: true,
     balance_alert_enabled: true,
     balance_alert_trigger: 'PROBLEM_ONLY',
+    balance_alert_visual: true,
     balance_alert_vibration: true,
     balance_alert_sound: false,
     balance_alert_cooldown: 30,
     te_alert_enabled: true,
     te_alert_trigger: 'PROBLEM_ONLY',
+    te_alert_visual: true,
     te_alert_vibration: true,
     te_alert_sound: false,
     te_alert_cooldown: 30,
     ps_alert_enabled: true,
     ps_alert_trigger: 'PROBLEM_ONLY',
+    ps_alert_visual: true,
     ps_alert_vibration: true,
     ps_alert_sound: false,
     ps_alert_cooldown: 30,
@@ -381,11 +389,14 @@
           <path d="M12 20v-6M6 20V10M18 20V4"/>
         </svg>
         <h2>Pedaling Metrics</h2>
-        {#if savingSettings}
-          <span class="save-indicator saving">Saving...</span>
-        {:else if settingsSaved}
-          <span class="save-indicator saved">Saved</span>
-        {/if}
+      </div>
+
+      <!-- Sync Banner -->
+      <div class="sync-info-banner">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c-1.657 0-3-4.03-3-9s1.343-9 3-9m0 18c1.657 0 3-4.03 3-9s-1.343-9-3-9"/>
+        </svg>
+        <span>Changes sync to your Karoo when you press <strong>Sync</strong> in the app or start a ride.</span>
       </div>
 
       {#if settingsLoading}
@@ -410,139 +421,92 @@
               <h3>Thresholds</h3>
             </div>
             <div class="metrics-card-body thresholds-body">
-              <!-- Balance -->
-              <div class="threshold-item">
-                <span class="threshold-label">Balance <InfoTip text="Maximum acceptable power imbalance. Lower is stricter." position="right" size="sm" /></span>
-                <div class="threshold-slider-wrap">
-                  <input
-                    type="range"
-                    class="threshold-slider gradient-rg"
-                    min="1"
-                    max="10"
-                    step="1"
-                    value={kpedalSettings.balance_threshold}
-                    on:input={(e) => saveSettings({ balance_threshold: parseInt(e.currentTarget.value) })}
-                    style="--val: {(kpedalSettings.balance_threshold - 1) / 9}"
-                  />
-                  <div class="threshold-tooltip" style="--val: {(kpedalSettings.balance_threshold - 1) / 9}">
-                    ±{kpedalSettings.balance_threshold}%
+              <!-- Balance Threshold -->
+              <div class="threshold-row">
+                <div class="threshold-info">
+                  <div class="threshold-label-row">
+                    <span class="threshold-label">Balance Threshold</span>
+                    <InfoTip text="Maximum acceptable L/R imbalance. Pro cyclists typically stay within ±2.5%." position="right" size="sm" />
                   </div>
+                  <span class="threshold-hint">Alerts trigger when imbalance exceeds this value</span>
                 </div>
-                <input
-                  type="number"
-                  class="threshold-input"
-                  min="1"
-                  max="10"
-                  value={kpedalSettings.balance_threshold}
-                  on:change={(e) => {
-                    const val = Math.max(1, Math.min(10, parseInt(e.currentTarget.value) || 5));
-                    e.currentTarget.value = String(val);
-                    saveSettings({ balance_threshold: val });
-                  }}
-                />
-                <span class="threshold-unit">%</span>
+                <div class="threshold-input-group">
+                  <button
+                    class="threshold-btn"
+                    disabled={kpedalSettings.balance_threshold <= 1}
+                    on:click={() => saveSettings({ balance_threshold: Math.max(1, kpedalSettings.balance_threshold - 1) })}
+                  >−</button>
+                  <span class="threshold-value">±{kpedalSettings.balance_threshold}%</span>
+                  <button
+                    class="threshold-btn"
+                    disabled={kpedalSettings.balance_threshold >= 10}
+                    on:click={() => saveSettings({ balance_threshold: Math.min(10, kpedalSettings.balance_threshold + 1) })}
+                  >+</button>
+                </div>
               </div>
 
-              <!-- TE Min -->
-              <div class="threshold-item">
-                <span class="threshold-label">TE Min <InfoTip text="Minimum Torque Effectiveness for optimal zone. Research suggests 70%." position="right" size="sm" /></span>
-                <div class="threshold-slider-wrap">
-                  <input
-                    type="range"
-                    class="threshold-slider gradient-gr"
-                    min="50"
-                    max="85"
-                    step="5"
-                    value={kpedalSettings.te_optimal_min}
-                    on:input={(e) => saveSettings({ te_optimal_min: parseInt(e.currentTarget.value) })}
-                    style="--val: {(kpedalSettings.te_optimal_min - 50) / 35}"
-                  />
-                  <div class="threshold-tooltip" style="--val: {(kpedalSettings.te_optimal_min - 50) / 35}">
-                    {kpedalSettings.te_optimal_min}%
+              <!-- TE Optimal Range -->
+              <div class="threshold-row">
+                <div class="threshold-info">
+                  <div class="threshold-label-row">
+                    <span class="threshold-label">TE Optimal Range</span>
+                    <InfoTip text="Torque Effectiveness sweet spot. Research shows 70-80% is optimal — higher isn't better." position="right" size="sm" />
+                  </div>
+                  <span class="threshold-hint">Green zone for Torque Effectiveness</span>
+                </div>
+                <div class="threshold-range-group">
+                  <div class="threshold-input-group small">
+                    <button
+                      class="threshold-btn"
+                      disabled={kpedalSettings.te_optimal_min <= 50}
+                      on:click={() => saveSettings({ te_optimal_min: Math.max(50, kpedalSettings.te_optimal_min - 5) })}
+                    >−</button>
+                    <span class="threshold-value">{kpedalSettings.te_optimal_min}%</span>
+                    <button
+                      class="threshold-btn"
+                      disabled={kpedalSettings.te_optimal_min >= kpedalSettings.te_optimal_max - 5}
+                      on:click={() => saveSettings({ te_optimal_min: Math.min(kpedalSettings.te_optimal_max - 5, kpedalSettings.te_optimal_min + 5) })}
+                    >+</button>
+                  </div>
+                  <span class="threshold-range-sep">–</span>
+                  <div class="threshold-input-group small">
+                    <button
+                      class="threshold-btn"
+                      disabled={kpedalSettings.te_optimal_max <= kpedalSettings.te_optimal_min + 5}
+                      on:click={() => saveSettings({ te_optimal_max: Math.max(kpedalSettings.te_optimal_min + 5, kpedalSettings.te_optimal_max - 5) })}
+                    >−</button>
+                    <span class="threshold-value">{kpedalSettings.te_optimal_max}%</span>
+                    <button
+                      class="threshold-btn"
+                      disabled={kpedalSettings.te_optimal_max >= 100}
+                      on:click={() => saveSettings({ te_optimal_max: Math.min(100, kpedalSettings.te_optimal_max + 5) })}
+                    >+</button>
                   </div>
                 </div>
-                <input
-                  type="number"
-                  class="threshold-input"
-                  min="50"
-                  max="85"
-                  step="5"
-                  value={kpedalSettings.te_optimal_min}
-                  on:change={(e) => {
-                    const val = Math.max(50, Math.min(85, parseInt(e.currentTarget.value) || 70));
-                    e.currentTarget.value = String(val);
-                    saveSettings({ te_optimal_min: val });
-                  }}
-                />
-                <span class="threshold-unit">%</span>
               </div>
 
-              <!-- TE Max -->
-              <div class="threshold-item">
-                <span class="threshold-label">TE Max <InfoTip text="Maximum Torque Effectiveness for optimal zone. Above 80% can indicate pedaling squares." position="right" size="sm" /></span>
-                <div class="threshold-slider-wrap">
-                  <input
-                    type="range"
-                    class="threshold-slider gradient-gr"
-                    min="65"
-                    max="100"
-                    step="5"
-                    value={kpedalSettings.te_optimal_max}
-                    on:input={(e) => saveSettings({ te_optimal_max: parseInt(e.currentTarget.value) })}
-                    style="--val: {(kpedalSettings.te_optimal_max - 65) / 35}"
-                  />
-                  <div class="threshold-tooltip" style="--val: {(kpedalSettings.te_optimal_max - 65) / 35}">
-                    {kpedalSettings.te_optimal_max}%
+              <!-- PS Minimum -->
+              <div class="threshold-row">
+                <div class="threshold-info">
+                  <div class="threshold-label-row">
+                    <span class="threshold-label">PS Minimum</span>
+                    <InfoTip text="Pedal Smoothness threshold for optimal zone. Elite cyclists achieve 25%+." position="right" size="sm" />
                   </div>
+                  <span class="threshold-hint">Values below this are marked as needing attention</span>
                 </div>
-                <input
-                  type="number"
-                  class="threshold-input"
-                  min="65"
-                  max="100"
-                  step="5"
-                  value={kpedalSettings.te_optimal_max}
-                  on:change={(e) => {
-                    const val = Math.max(65, Math.min(100, parseInt(e.currentTarget.value) || 80));
-                    e.currentTarget.value = String(val);
-                    saveSettings({ te_optimal_max: val });
-                  }}
-                />
-                <span class="threshold-unit">%</span>
-              </div>
-
-              <!-- PS -->
-              <div class="threshold-item">
-                <span class="threshold-label">Smoothness <InfoTip text="Minimum Pedal Smoothness for optimal zone." position="right" size="sm" /></span>
-                <div class="threshold-slider-wrap">
-                  <input
-                    type="range"
-                    class="threshold-slider gradient-gr"
-                    min="10"
-                    max="30"
-                    step="5"
-                    value={kpedalSettings.ps_minimum}
-                    on:input={(e) => saveSettings({ ps_minimum: parseInt(e.currentTarget.value) })}
-                    style="--val: {(kpedalSettings.ps_minimum - 10) / 20}"
-                  />
-                  <div class="threshold-tooltip" style="--val: {(kpedalSettings.ps_minimum - 10) / 20}">
-                    {kpedalSettings.ps_minimum}%
-                  </div>
+                <div class="threshold-input-group">
+                  <button
+                    class="threshold-btn"
+                    disabled={kpedalSettings.ps_minimum <= 10}
+                    on:click={() => saveSettings({ ps_minimum: Math.max(10, kpedalSettings.ps_minimum - 5) })}
+                  >−</button>
+                  <span class="threshold-value">{kpedalSettings.ps_minimum}%</span>
+                  <button
+                    class="threshold-btn"
+                    disabled={kpedalSettings.ps_minimum >= 30}
+                    on:click={() => saveSettings({ ps_minimum: Math.min(30, kpedalSettings.ps_minimum + 5) })}
+                  >+</button>
                 </div>
-                <input
-                  type="number"
-                  class="threshold-input"
-                  min="10"
-                  max="30"
-                  step="5"
-                  value={kpedalSettings.ps_minimum}
-                  on:change={(e) => {
-                    const val = Math.max(10, Math.min(30, parseInt(e.currentTarget.value) || 20));
-                    e.currentTarget.value = String(val);
-                    saveSettings({ ps_minimum: val });
-                  }}
-                />
-                <span class="threshold-unit">%</span>
               </div>
             </div>
           </div>
@@ -566,80 +530,151 @@
               </div>
             </div>
             {#if kpedalSettings.alerts_enabled}
-              <div class="metrics-card-body">
-                <div class="alert-metrics-grid">
-                  <button
-                    class="alert-metric-btn"
-                    class:active={kpedalSettings.balance_alert_enabled}
-                    on:click={() => saveSettings({ balance_alert_enabled: !kpedalSettings.balance_alert_enabled })}
-                  >
-                    <span class="alert-metric-icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-                        <path d="M12 6v6l4 2"/>
-                      </svg>
-                    </span>
-                    <span class="alert-metric-name">Balance</span>
-                    <span class="alert-metric-status">{kpedalSettings.balance_alert_enabled ? 'On' : 'Off'}</span>
-                  </button>
-                  <button
-                    class="alert-metric-btn"
-                    class:active={kpedalSettings.te_alert_enabled}
-                    on:click={() => saveSettings({ te_alert_enabled: !kpedalSettings.te_alert_enabled })}
-                  >
-                    <span class="alert-metric-icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                      </svg>
-                    </span>
-                    <span class="alert-metric-name">Torque Eff.</span>
-                    <span class="alert-metric-status">{kpedalSettings.te_alert_enabled ? 'On' : 'Off'}</span>
-                  </button>
-                  <button
-                    class="alert-metric-btn"
-                    class:active={kpedalSettings.ps_alert_enabled}
-                    on:click={() => saveSettings({ ps_alert_enabled: !kpedalSettings.ps_alert_enabled })}
-                  >
-                    <span class="alert-metric-icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 16v-4M12 8h.01"/>
-                      </svg>
-                    </span>
-                    <span class="alert-metric-name">Smoothness</span>
-                    <span class="alert-metric-status">{kpedalSettings.ps_alert_enabled ? 'On' : 'Off'}</span>
-                  </button>
+              <div class="metrics-card-body alerts-body">
+                <!-- Metrics to Monitor -->
+                <div class="alert-section">
+                  <span class="alert-section-label">Metrics to Monitor</span>
+                  <div class="alert-metrics-row">
+                    <label class="alert-metric-check" class:active={kpedalSettings.balance_alert_enabled}>
+                      <input type="checkbox" checked={kpedalSettings.balance_alert_enabled}
+                        on:change={() => saveSettings({ balance_alert_enabled: !kpedalSettings.balance_alert_enabled })} />
+                      <span class="metric-dot" style="background: var(--color-attention)"></span>
+                      <span>Balance</span>
+                    </label>
+                    <label class="alert-metric-check" class:active={kpedalSettings.te_alert_enabled}>
+                      <input type="checkbox" checked={kpedalSettings.te_alert_enabled}
+                        on:change={() => saveSettings({ te_alert_enabled: !kpedalSettings.te_alert_enabled })} />
+                      <span class="metric-dot" style="background: var(--color-optimal)"></span>
+                      <span>Torque Eff.</span>
+                    </label>
+                    <label class="alert-metric-check" class:active={kpedalSettings.ps_alert_enabled}>
+                      <input type="checkbox" checked={kpedalSettings.ps_alert_enabled}
+                        on:change={() => saveSettings({ ps_alert_enabled: !kpedalSettings.ps_alert_enabled })} />
+                      <span class="metric-dot" style="background: var(--color-problem)"></span>
+                      <span>Smoothness</span>
+                    </label>
+                  </div>
                 </div>
-                <div class="alert-options-row">
-                  <label class="option-check">
-                    <input
-                      type="checkbox"
-                      checked={kpedalSettings.balance_alert_vibration && kpedalSettings.te_alert_vibration && kpedalSettings.ps_alert_vibration}
-                      on:change={(e) => saveSettings({
-                        balance_alert_vibration: e.currentTarget.checked,
-                        te_alert_vibration: e.currentTarget.checked,
-                        ps_alert_vibration: e.currentTarget.checked
+
+                <!-- Sensitivity -->
+                <div class="alert-section">
+                  <span class="alert-section-label">Sensitivity</span>
+                  <div class="sensitivity-chips">
+                    <button
+                      class="sensitivity-chip"
+                      class:active={kpedalSettings.balance_alert_trigger === 'PROBLEM_ONLY'}
+                      on:click={() => saveSettings({
+                        balance_alert_trigger: 'PROBLEM_ONLY',
+                        te_alert_trigger: 'PROBLEM_ONLY',
+                        ps_alert_trigger: 'PROBLEM_ONLY'
                       })}
-                    />
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                      <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                    </svg>
-                    <span>Vibration</span>
-                  </label>
-                  <label class="option-check">
-                    <input
-                      type="checkbox"
-                      checked={kpedalSettings.screen_wake_on_alert}
-                      on:change={(e) => saveSettings({ screen_wake_on_alert: e.currentTarget.checked })}
-                    />
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <rect x="2" y="3" width="20" height="14" rx="2"/>
-                      <line x1="8" y1="21" x2="16" y2="21"/>
-                      <line x1="12" y1="17" x2="12" y2="21"/>
-                    </svg>
-                    <span>Wake screen</span>
-                  </label>
+                    >
+                      <span class="sensitivity-dots">
+                        <span class="dot-problem"></span>
+                      </span>
+                      <span>Critical</span>
+                      <span class="sensitivity-hint">Problem zone only</span>
+                    </button>
+                    <button
+                      class="sensitivity-chip"
+                      class:active={kpedalSettings.balance_alert_trigger === 'ATTENTION_AND_PROBLEM'}
+                      on:click={() => saveSettings({
+                        balance_alert_trigger: 'ATTENTION_AND_PROBLEM',
+                        te_alert_trigger: 'ATTENTION_AND_PROBLEM',
+                        ps_alert_trigger: 'ATTENTION_AND_PROBLEM'
+                      })}
+                    >
+                      <span class="sensitivity-dots">
+                        <span class="dot-attention"></span>
+                        <span class="dot-problem"></span>
+                      </span>
+                      <span>Sensitive</span>
+                      <span class="sensitivity-hint">Attention & Problem</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Notify Via -->
+                <div class="alert-section">
+                  <span class="alert-section-label">Notify Via</span>
+                  <div class="notify-chips">
+                    <button
+                      class="notify-chip"
+                      class:active={kpedalSettings.balance_alert_vibration}
+                      on:click={() => saveSettings({
+                        balance_alert_vibration: !kpedalSettings.balance_alert_vibration,
+                        te_alert_vibration: !kpedalSettings.balance_alert_vibration,
+                        ps_alert_vibration: !kpedalSettings.balance_alert_vibration
+                      })}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                      </svg>
+                      Vibrate
+                    </button>
+                    <button
+                      class="notify-chip"
+                      class:active={kpedalSettings.balance_alert_sound}
+                      on:click={() => saveSettings({
+                        balance_alert_sound: !kpedalSettings.balance_alert_sound,
+                        te_alert_sound: !kpedalSettings.balance_alert_sound,
+                        ps_alert_sound: !kpedalSettings.balance_alert_sound
+                      })}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                      </svg>
+                      Sound
+                    </button>
+                    <button
+                      class="notify-chip"
+                      class:active={kpedalSettings.balance_alert_visual}
+                      on:click={() => saveSettings({
+                        balance_alert_visual: !kpedalSettings.balance_alert_visual,
+                        te_alert_visual: !kpedalSettings.balance_alert_visual,
+                        ps_alert_visual: !kpedalSettings.balance_alert_visual
+                      })}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M3 9h18"/>
+                      </svg>
+                      Banner
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Options -->
+                <div class="alert-section">
+                  <span class="alert-section-label">Options</span>
+                  <div class="alert-options">
+                    <div class="alert-option-row">
+                      <span class="alert-option-label">Wake screen on alert</span>
+                      <label class="toggle toggle-sm">
+                        <input type="checkbox" checked={kpedalSettings.screen_wake_on_alert}
+                          on:change={(e) => saveSettings({ screen_wake_on_alert: e.currentTarget.checked })} />
+                        <span class="toggle-slider"></span>
+                      </label>
+                    </div>
+                    <div class="alert-option-row">
+                      <span class="alert-option-label">Cooldown between alerts</span>
+                      <div class="cooldown-chips">
+                        {#each [{ value: 15, label: '15s' }, { value: 30, label: '30s' }, { value: 60, label: '1m' }, { value: 120, label: '2m' }] as opt}
+                          <button
+                            class="cooldown-chip"
+                            class:active={kpedalSettings.balance_alert_cooldown === opt.value}
+                            on:click={() => saveSettings({
+                              balance_alert_cooldown: opt.value,
+                              te_alert_cooldown: opt.value,
+                              ps_alert_cooldown: opt.value
+                            })}
+                          >{opt.label}</button>
+                        {/each}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             {/if}
@@ -831,6 +866,21 @@
       </div>
     </section>
   </div>
+
+  <!-- Save Toast -->
+  {#if savingSettings || settingsSaved}
+    <div class="save-toast" class:saving={savingSettings} class:saved={settingsSaved}>
+      {#if savingSettings}
+        <div class="toast-spinner"></div>
+        <span>Saving...</span>
+      {:else}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span>Saved</span>
+      {/if}
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -1263,22 +1313,84 @@
   /* ============================================
      Pedaling Metrics Settings
      ============================================ */
-  .save-indicator {
-    margin-left: auto;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 2px 8px;
-    border-radius: 10px;
-  }
 
-  .save-indicator.saving {
-    color: var(--text-secondary);
+  /* Save Toast - Fixed at bottom right */
+  .save-toast {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
     background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    animation: toast-in 0.2s ease-out;
   }
 
-  .save-indicator.saved {
-    color: var(--color-optimal-text);
+  .save-toast.saved {
     background: var(--color-optimal-soft);
+    border-color: var(--color-optimal);
+    color: var(--color-optimal-text);
+  }
+
+  .save-toast.saved svg {
+    color: var(--color-optimal);
+  }
+
+  .toast-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--border-default);
+    border-top-color: var(--text-secondary);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile: position above bottom nav */
+  @media (max-width: 768px) {
+    .save-toast {
+      bottom: 80px;
+      right: 16px;
+    }
+  }
+
+  .sync-info-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .sync-info-banner svg {
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
+  .sync-info-banner strong {
+    color: var(--text-primary);
+    font-weight: 600;
   }
 
   .metrics-settings {
@@ -1322,244 +1434,380 @@
     padding: 16px 20px;
   }
 
-  /* Thresholds - Compact with gradients */
+  /* Thresholds - Clean Stepper Design */
   .thresholds-body {
     display: flex;
     flex-direction: column;
+    gap: 0;
+  }
+
+  .threshold-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-subtle);
     gap: 16px;
   }
 
-  .threshold-item {
+  .threshold-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .threshold-row:first-child {
+    padding-top: 0;
+  }
+
+  .threshold-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .threshold-label-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
+    margin-bottom: 2px;
   }
 
   .threshold-label {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--text-primary);
-    min-width: 90px;
+  }
+
+  .threshold-hint {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    display: block;
+  }
+
+  .threshold-input-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 2px;
     flex-shrink: 0;
   }
 
-  .threshold-slider-wrap {
-    position: relative;
-    flex: 1;
-    min-width: 120px;
+  .threshold-input-group.small {
+    transform: scale(0.9);
+    transform-origin: center;
   }
 
-  .threshold-slider {
-    width: 100%;
-    height: 8px;
-    -webkit-appearance: none;
-    border-radius: 4px;
-    outline: none;
-    cursor: pointer;
-  }
-
-  /* Gradient: red → yellow → green (for Balance - lower is better) */
-  .threshold-slider.gradient-rg {
-    background: linear-gradient(to right,
-      var(--color-optimal) 0%,
-      var(--color-attention) 50%,
-      var(--color-problem) 100%);
-  }
-
-  /* Gradient: red → yellow → green (for PS - higher is better) */
-  .threshold-slider.gradient-gr {
-    background: linear-gradient(to right,
-      var(--color-problem) 0%,
-      var(--color-attention) 50%,
-      var(--color-optimal) 100%);
-  }
-
-  .threshold-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: var(--bg-surface);
-    border: 3px solid var(--text-primary);
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.15s, border-color 0.15s;
-  }
-
-  .threshold-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
-  }
-
-  .threshold-slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: var(--bg-surface);
-    border: 3px solid var(--text-primary);
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  .threshold-tooltip {
-    position: absolute;
-    top: -28px;
-    left: calc(var(--val) * 100%);
-    transform: translateX(-50%);
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-default);
-    color: var(--text-primary);
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 6px;
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.15s;
-  }
-
-  .threshold-slider-wrap:hover .threshold-tooltip {
-    opacity: 1;
-  }
-
-  .threshold-input {
-    width: 52px;
+  .threshold-btn {
+    width: 32px;
     height: 32px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-default);
-    border-radius: 6px;
-    color: var(--text-primary);
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    -moz-appearance: textfield;
-  }
-
-  .threshold-input::-webkit-outer-spin-button,
-  .threshold-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  .threshold-input:focus {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px var(--color-accent-soft);
-  }
-
-  .threshold-unit {
-    font-size: 13px;
-    color: var(--text-tertiary);
-    min-width: 16px;
-  }
-
-
-  /* Alert Metrics Grid */
-  .alert-metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-
-  .alert-metric-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 16px 12px;
-    background: var(--bg-elevated);
-    border: 2px solid var(--border-subtle);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .alert-metric-btn:hover {
-    border-color: var(--border-default);
-    background: var(--bg-hover);
-  }
-
-  .alert-metric-btn.active {
-    border-color: var(--color-optimal);
-    background: var(--color-optimal-soft);
-  }
-
-  .alert-metric-icon {
-    width: 40px;
-    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-surface);
-    border-radius: 10px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .threshold-btn:hover:not(:disabled) {
+    background: var(--bg-hover);
+  }
+
+  .threshold-btn:active:not(:disabled) {
+    background: var(--border-subtle);
+  }
+
+  .threshold-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .threshold-value {
+    min-width: 56px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    padding: 0 4px;
+  }
+
+  .threshold-range-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .threshold-range-sep {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    padding: 0 2px;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 540px) {
+    .threshold-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .threshold-input-group {
+      align-self: flex-end;
+    }
+
+    .threshold-range-group {
+      align-self: flex-end;
+    }
+
+    .threshold-input-group.small {
+      transform: none;
+    }
+
+    .threshold-hint {
+      display: none;
+    }
+  }
+
+
+  /* In-Ride Alerts Styles */
+  .alerts-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .alert-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .alert-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+  }
+
+  /* Metrics to Monitor */
+  .alert-metrics-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .alert-metric-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 13px;
     color: var(--text-secondary);
-    transition: all 0.2s;
   }
 
-  .alert-metric-btn.active .alert-metric-icon {
-    background: var(--color-accent);
-    color: var(--color-accent-text);
+  .alert-metric-check input[type="checkbox"] {
+    display: none;
   }
 
-  .alert-metric-name {
+  .alert-metric-check:hover {
+    border-color: var(--border-default);
+  }
+
+  .alert-metric-check.active {
+    background: var(--bg-surface);
+    border-color: var(--color-accent);
+    color: var(--text-primary);
+    box-shadow: inset 0 0 0 1px var(--color-accent);
+  }
+
+  .metric-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Sensitivity Chips */
+  .sensitivity-chips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .sensitivity-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 12px;
+    background: var(--bg-elevated);
+    border: 2px solid var(--border-subtle);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .sensitivity-chip:hover {
+    border-color: var(--border-default);
+  }
+
+  .sensitivity-chip.active {
+    background: var(--bg-surface);
+    border-color: var(--color-accent);
+    box-shadow: inset 0 0 0 1px var(--color-accent);
+  }
+
+  .sensitivity-dots {
+    display: flex;
+    gap: 4px;
+  }
+
+  .dot-problem {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-problem);
+  }
+
+  .dot-attention {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-attention);
+  }
+
+  .sensitivity-chip span:not(.sensitivity-dots):not(.sensitivity-hint) {
     font-size: 13px;
     font-weight: 500;
     color: var(--text-primary);
   }
 
-  .alert-metric-status {
+  .sensitivity-hint {
     font-size: 11px;
     color: var(--text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
   }
 
-  .alert-metric-btn.active .alert-metric-status {
-    color: var(--color-optimal-text);
+  .sensitivity-chip.active .sensitivity-hint {
+    color: var(--text-secondary);
   }
 
-  .alert-options-row {
+  /* Notify Via Chips */
+  .notify-chips {
     display: flex;
-    gap: 24px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border-subtle);
+    gap: 8px;
   }
 
-  .option-check {
+  .notify-chip {
+    flex: 1;
     display: flex;
     align-items: center;
-    gap: 8px;
-    cursor: pointer;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 10px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
     color: var(--text-secondary);
-    transition: color 0.15s;
+    cursor: pointer;
+    transition: all 0.15s;
   }
 
-  .option-check:hover {
+  .notify-chip:hover {
+    border-color: var(--border-default);
     color: var(--text-primary);
   }
 
-  .option-check input[type="checkbox"] {
-    display: none;
+  .notify-chip.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
-  .option-check svg {
-    opacity: 0.5;
-    transition: opacity 0.15s;
+  .notify-chip svg {
+    flex-shrink: 0;
   }
 
-  .option-check:has(input:checked) svg {
-    opacity: 1;
-    color: var(--color-optimal-text);
+  /* Options */
+  .alert-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--bg-elevated);
+    border-radius: 10px;
   }
 
-  .option-check span {
+  .alert-option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .alert-option-label {
     font-size: 13px;
+    color: var(--text-primary);
   }
 
-  .option-check:has(input:checked) span {
-    color: var(--text-primary);
+  .toggle-sm {
+    width: 38px;
+    height: 20px;
+  }
+
+  .toggle-sm .toggle-slider:before {
+    width: 14px;
+    height: 14px;
+  }
+
+  .toggle-sm input:checked + .toggle-slider:before {
+    transform: translateX(18px);
+  }
+
+  /* Cooldown Chips */
+  .cooldown-chips {
+    display: flex;
+    gap: 4px;
+  }
+
+  .cooldown-chip {
+    padding: 6px 10px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .cooldown-chip:hover {
+    border-color: var(--border-default);
+    color: var(--text-secondary);
+  }
+
+  .cooldown-chip.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   /* Data Options */
@@ -1724,40 +1972,57 @@
     }
 
 
-    /* Alert grid mobile */
-    .alert-metrics-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .alert-metric-btn {
-      padding: 12px 8px;
-    }
-
-    .alert-metric-icon {
-      width: 32px;
-      height: 32px;
-    }
-
-    .alert-metric-icon svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .alert-metric-name {
-      font-size: 11px;
-    }
-
-    .alert-metric-status {
-      font-size: 10px;
-    }
-
-    .alert-options-row {
+    /* Alert sections mobile */
+    .alerts-body {
       gap: 16px;
     }
 
-    .option-check span {
+    .alert-metrics-row {
+      gap: 6px;
+    }
+
+    .alert-metric-check {
+      padding: 8px 10px;
       font-size: 12px;
+    }
+
+    .sensitivity-chips {
+      gap: 8px;
+    }
+
+    .sensitivity-chip {
+      padding: 12px 10px;
+    }
+
+    .notify-chips {
+      gap: 6px;
+    }
+
+    .notify-chip {
+      padding: 10px 8px;
+      font-size: 11px;
+    }
+
+    .notify-chip svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .alert-options {
+      padding: 10px 12px;
+    }
+
+    .alert-option-row {
+      flex-wrap: wrap;
+    }
+
+    .cooldown-chips {
+      gap: 3px;
+    }
+
+    .cooldown-chip {
+      padding: 5px 8px;
+      font-size: 10px;
     }
 
     /* Data options mobile */

@@ -12,6 +12,7 @@ import { drillRoutes } from './api/drills';
 import { achievementRoutes } from './api/achievements';
 import { authMiddleware } from './middleware/auth';
 import { authRateLimit, apiRateLimit, syncRateLimit } from './middleware/rateLimit';
+import { demoProtectionMiddleware } from './middleware/demoProtection';
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -89,6 +90,14 @@ app.use('/achievements', authMiddleware);
 app.use('/achievements/*', authMiddleware);
 app.use('/sync/*', authMiddleware);
 app.use('/me', authMiddleware);
+
+// Apply demo protection middleware (blocks writes for demo account)
+app.use('/rides', demoProtectionMiddleware);
+app.use('/rides/*', demoProtectionMiddleware);
+app.use('/devices', demoProtectionMiddleware);
+app.use('/devices/*', demoProtectionMiddleware);
+app.use('/settings', demoProtectionMiddleware);
+app.use('/sync/*', demoProtectionMiddleware);
 
 // Apply rate limiting to protected routes
 app.use('/rides', apiRateLimit);

@@ -21,14 +21,14 @@
     "test": "vitest"
   },
   "dependencies": {
-    "hono": "^4.6.0",
-    "jose": "^5.9.0"
+    "hono": "^4.11.0",
+    "jose": "^6.1.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241205.0",
-    "@types/node": "^22.0.0",
+    "@cloudflare/workers-types": "^4.20251225.0",
+    "@types/node": "^22.19.0",
     "typescript": "^5.7.0",
-    "vitest": "^2.1.0",
-    "wrangler": "^4.54.0"
+    "vitest": "^4.0.0",
+    "wrangler": "^4.56.0"
   }
 }

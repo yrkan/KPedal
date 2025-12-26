@@ -19,7 +19,8 @@
     "wrangler": "^4.56.0"
   },
   "dependencies": {
-    "chart.js": "^4.4.0"
+    "chart.js": "^4.4.0",
+    "driver.js": "^1.4.0"
   },
   "type": "module"
 }

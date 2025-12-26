@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-  import { isAuthenticated, user, authFetch } from '$lib/auth';
+  import { isAuthenticated, user, authFetch, isDemo } from '$lib/auth';
+  import { startDashboardTour, isTourCompleted, resetTour } from '$lib/tour';
   import { theme } from '$lib/theme';
   import { API_URL } from '$lib/config';
   import InfoTip from '$lib/components/InfoTip.svelte';
@@ -120,8 +121,46 @@
   let trendData: TrendData[] = [];
   let loading = true;
   let error: string | null = null;
-  let selectedPeriod: '7' | '30' = '7';
+  let selectedPeriod: '7' | '14' | '30' | '60' = '7';
   let activeTrendMetric: 'asymmetry' | 'te' | 'ps' = 'asymmetry';
+
+  // Chart hover states
+  let hoveredBalancePoint: BalancePoint | null = null;
+  let hoveredTechniquePoint: TechniquePoint | null = null;
+  let tooltipX = 0;
+  let tooltipY = 0;
+
+  // Chart dimensions - width is dynamic, height is fixed
+  let balanceChartWidth = 300;
+  let techniqueChartWidth = 300;
+  const CHART_HEIGHT = 70;
+  const CHART_PADDING = 6;
+
+  function handleBalancePointHover(point: BalancePoint | null, event?: MouseEvent) {
+    hoveredBalancePoint = point;
+    if (point && event) {
+      const rect = (event.currentTarget as SVGElement).closest('.trend-chart')?.getBoundingClientRect();
+      if (rect) {
+        tooltipX = event.clientX - rect.left;
+        tooltipY = event.clientY - rect.top - 40;
+      }
+    }
+  }
+
+  function handleTechniquePointHover(point: TechniquePoint | null, event?: MouseEvent) {
+    hoveredTechniquePoint = point;
+    if (point && event) {
+      const rect = (event.currentTarget as SVGElement).closest('.trend-chart')?.getBoundingClientRect();
+      if (rect) {
+        tooltipX = event.clientX - rect.left;
+        tooltipY = event.clientY - rect.top - 40;
+      }
+    }
+  }
+
+  function navigateToRide(rideId: number | string) {
+    goto(`/rides/${rideId}`);
+  }
 
   // Fatigue analysis data structure
   interface FatigueAnalysis {
@@ -133,7 +172,7 @@
 
   // Interactive state for landing
   let activeDataField = 0;
-  let activeDrillCategory = 'focus';
+  let activeDrillCategory: 'focus' | 'challenge' | 'workout' = 'focus';
   let expandedDrill: string | null = null;
 
   const dataFields = [
@@ -157,9 +196,9 @@
       { id: 'cadence', name: 'High Cadence Smooth', duration: '30s', level: 'Advanced', target: 'PS ≥20% @ 100+ rpm', desc: 'Maintain smooth form at high cadence. Ultimate coordination test.' }
     ],
     workout: [
-      { id: 'recovery', name: 'Balance Recovery', duration: '5 min', level: 'Beginner', phases: 3, desc: 'Alternate left focus → center → right focus. Helps correct imbalances over time.' },
-      { id: 'builder', name: 'Efficiency Builder', duration: '10 min', level: 'Intermediate', phases: 6, desc: 'Sequential blocks: balance → smoothness → TE. Build complete technique.' },
-      { id: 'mastery', name: 'Pedaling Mastery', duration: '15 min', level: 'Advanced', phases: 10, desc: 'Comprehensive 10-phase workout covering all aspects of pedaling technique.' }
+      { id: 'recovery', name: 'Balance Recovery', duration: '5 min', level: 'Beginner', target: '3 phases', desc: 'Alternate left focus → center → right focus. Helps correct imbalances over time.' },
+      { id: 'builder', name: 'Efficiency Builder', duration: '10 min', level: 'Intermediate', target: '6 phases', desc: 'Sequential blocks: balance → smoothness → TE. Build complete technique.' },
+      { id: 'mastery', name: 'Pedaling Mastery', duration: '15 min', level: 'Advanced', target: '10 phases', desc: 'Comprehensive 10-phase workout covering all aspects of pedaling technique.' }
     ]
   };
 
@@ -245,7 +284,7 @@
     };
   }
 
-  onMount(async () => {
+  onMount(() => {
     if (!$isAuthenticated) {
       // On app.kpedal.com redirect to login, on kpedal.com show landing
       const isAppSubdomain = window.location.hostname.startsWith('app.');
@@ -262,7 +301,15 @@
       return () => clearInterval(interval);
     }
 
-    await loadDashboardData();
+    // Load data and start tour for demo users
+    loadDashboardData().then(() => {
+      if ($isDemo && !isTourCompleted()) {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          startDashboardTour();
+        }, 800);
+      }
+    });
   });
 
   function handleLogin() {
@@ -339,52 +386,118 @@
     return counts;
   }
 
-  function getBalanceTrendData(rides: Ride[], maxPoints: number = 20): { path: string; areaPath: string; avgLine: number; minBalance: number; maxBalance: number; points: Array<{x: number; y: number; balance: number; date: string}> } {
-    if (rides.length === 0) return { path: '', areaPath: '', avgLine: 30, minBalance: 50, maxBalance: 50, points: [] };
+  interface BalancePoint {
+    x: number;
+    y: number;
+    balance: number;
+    date: string;
+    rideId: number;
+    status: 'optimal' | 'attention' | 'problem';
+  }
+
+  interface BalanceTrendResult {
+    path: string;
+    areaPath: string;
+    movingAvgPath: string;
+    avgLine: number;
+    minBalance: number;
+    maxBalance: number;
+    points: BalancePoint[];
+    optimalZone: { y1: number; y2: number };
+  }
+
+  function getBalanceTrendData(rides: Ride[], maxPoints: number = 20, chartWidth: number = 300): BalanceTrendResult {
+    const empty: BalanceTrendResult = {
+      path: '', areaPath: '', movingAvgPath: '', avgLine: 30,
+      minBalance: 50, maxBalance: 50, points: [],
+      optimalZone: { y1: 0, y2: 0 }
+    };
+    if (rides.length === 0) return empty;
     const sorted = [...rides].sort((a, b) => a.timestamp - b.timestamp).slice(-maxPoints);
-    if (sorted.length < 2) return { path: '', areaPath: '', avgLine: 30, minBalance: 50, maxBalance: 50, points: [] };
+    if (sorted.length < 2) return empty;
 
     const balances = sorted.map(r => r.balance_left);
     const avgBalance = balances.reduce((a, b) => a + b, 0) / balances.length;
     const minBalance = Math.min(...balances);
     const maxBalance = Math.max(...balances);
 
-    // Use coordinates that match viewBox="0 0 200 60"
-    const width = 200;
-    const height = 60;
-    const padding = 8;
+    const width = chartWidth;
+    const height = CHART_HEIGHT;
+    const padding = CHART_PADDING;
 
-    const dataPoints = sorted.map((r, i) => {
+    // Calculate optimal zone (47.5-52.5%)
+    const optimalY1 = height - padding - ((52.5 - 40) / 20) * (height - 2 * padding);
+    const optimalY2 = height - padding - ((47.5 - 40) / 20) * (height - 2 * padding);
+
+    const dataPoints: BalancePoint[] = sorted.map((r, i) => {
       const x = padding + (i / (sorted.length - 1)) * (width - 2 * padding);
-      // Y axis: 40-60% maps to chart height (inverted - higher values go up)
       const y = height - padding - ((r.balance_left - 40) / 20) * (height - 2 * padding);
       const clampedY = Math.max(padding, Math.min(height - padding, y));
+      const deviation = Math.abs(r.balance_left - 50);
       return {
         x,
         y: clampedY,
         balance: r.balance_left,
-        date: new Date(r.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+        date: new Date(r.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        rideId: r.id,
+        status: deviation <= 2.5 ? 'optimal' : deviation <= 5 ? 'attention' : 'problem'
       };
     });
 
+    // Calculate 3-point moving average
+    const movingAvgPoints: { x: number; y: number }[] = [];
+    for (let i = 0; i < dataPoints.length; i++) {
+      const start = Math.max(0, i - 1);
+      const end = Math.min(dataPoints.length, i + 2);
+      const slice = balances.slice(start, end);
+      const avg = slice.reduce((a, b) => a + b, 0) / slice.length;
+      const y = height - padding - ((avg - 40) / 20) * (height - 2 * padding);
+      movingAvgPoints.push({ x: dataPoints[i].x, y: Math.max(padding, Math.min(height - padding, y)) });
+    }
+    const movingAvgPath = movingAvgPoints.length >= 2
+      ? `M${movingAvgPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' L')}`
+      : '';
+
     const pathPoints = dataPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`);
     const linePath = `M${pathPoints.join(' L')}`;
-    // Area path for gradient fill
     const areaPath = `${linePath} L${dataPoints[dataPoints.length - 1].x.toFixed(1)},${height} L${dataPoints[0].x.toFixed(1)},${height} Z`;
 
     return {
       path: linePath,
       areaPath,
+      movingAvgPath,
       avgLine: height - padding - ((avgBalance - 40) / 20) * (height - 2 * padding),
       minBalance,
       maxBalance,
-      points: dataPoints
+      points: dataPoints,
+      optimalZone: { y1: optimalY1, y2: optimalY2 }
     };
   }
 
   // Technique Trends chart helper
-  function getTechniqueTrendData(trends: TrendData[], metric: 'asymmetry' | 'te' | 'ps') {
-    if (!trends || trends.length < 2) return { path: '', areaPath: '', min: 0, max: 100, points: [] };
+  interface TechniquePoint {
+    x: number;
+    y: number;
+    value: number;
+    date: string;
+    status: 'optimal' | 'attention' | 'problem';
+  }
+
+  interface TechniqueTrendResult {
+    path: string;
+    areaPath: string;
+    movingAvgPath: string;
+    min: number;
+    max: number;
+    points: TechniquePoint[];
+    optimalZone: { y1: number; y2: number } | null;
+  }
+
+  function getTechniqueTrendData(trends: TrendData[], metric: 'asymmetry' | 'te' | 'ps', chartWidth: number = 300): TechniqueTrendResult {
+    const empty: TechniqueTrendResult = {
+      path: '', areaPath: '', movingAvgPath: '', min: 0, max: 100, points: [], optimalZone: null
+    };
+    if (!trends || trends.length < 2) return empty;
 
     const sorted = [...trends].sort((a, b) => a.date.localeCompare(b.date));
 
@@ -402,34 +515,82 @@
     const chartMax = max + dataPad;
     const chartRange = chartMax - chartMin;
 
-    // Use coordinates that match viewBox="0 0 200 60"
-    const width = 200;
-    const height = 60;
-    const xPad = 8;
-    const yPad = 8;
+    const width = chartWidth;
+    const height = CHART_HEIGHT;
+    const xPad = CHART_PADDING;
+    const yPad = CHART_PADDING;
 
-    const dataPoints = sorted.map((t, i) => {
+    // Calculate optimal zones based on metric
+    let optimalZone: { y1: number; y2: number } | null = null;
+    if (metric === 'asymmetry') {
+      // Optimal: 0-2.5%
+      const y1 = height - yPad - ((2.5 - chartMin) / chartRange) * (height - 2 * yPad);
+      const y2 = height - yPad - ((0 - chartMin) / chartRange) * (height - 2 * yPad);
+      optimalZone = { y1: Math.max(yPad, y1), y2: Math.min(height - yPad, y2) };
+    } else if (metric === 'te') {
+      // Optimal: 70-80%
+      const y1 = height - yPad - ((80 - chartMin) / chartRange) * (height - 2 * yPad);
+      const y2 = height - yPad - ((70 - chartMin) / chartRange) * (height - 2 * yPad);
+      if (chartMax >= 70 && chartMin <= 80) {
+        optimalZone = { y1: Math.max(yPad, y1), y2: Math.min(height - yPad, y2) };
+      }
+    } else {
+      // PS Optimal: >= 20%
+      const y1 = height - yPad - ((chartMax - chartMin) / chartRange) * (height - 2 * yPad);
+      const y2 = height - yPad - ((20 - chartMin) / chartRange) * (height - 2 * yPad);
+      if (chartMax >= 20) {
+        optimalZone = { y1: yPad, y2: Math.min(height - yPad, y2) };
+      }
+    }
+
+    const getStatus = (val: number): 'optimal' | 'attention' | 'problem' => {
+      if (metric === 'asymmetry') {
+        return val <= 2.5 ? 'optimal' : val <= 5 ? 'attention' : 'problem';
+      } else if (metric === 'te') {
+        return val >= 70 && val <= 80 ? 'optimal' : val >= 60 ? 'attention' : 'problem';
+      } else {
+        return val >= 20 ? 'optimal' : val >= 15 ? 'attention' : 'problem';
+      }
+    };
+
+    const dataPoints: TechniquePoint[] = sorted.map((t, i) => {
       const x = xPad + (i / (values.length - 1)) * (width - 2 * xPad);
       const y = height - yPad - ((values[i] - chartMin) / chartRange) * (height - 2 * yPad);
       return {
-        date: t.date,
+        date: new Date(t.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
         value: values[i],
         x,
-        y
+        y,
+        status: getStatus(values[i])
       };
     });
 
+    // Calculate 3-point moving average
+    const movingAvgPoints: { x: number; y: number }[] = [];
+    for (let i = 0; i < dataPoints.length; i++) {
+      const start = Math.max(0, i - 1);
+      const end = Math.min(dataPoints.length, i + 2);
+      const slice = values.slice(start, end);
+      const avg = slice.reduce((a, b) => a + b, 0) / slice.length;
+      const y = height - yPad - ((avg - chartMin) / chartRange) * (height - 2 * yPad);
+      movingAvgPoints.push({ x: dataPoints[i].x, y });
+    }
+    const movingAvgPath = movingAvgPoints.length >= 2
+      ? `M${movingAvgPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' L')}`
+      : '';
+
     const pathPoints = dataPoints.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`);
     const linePath = `M${pathPoints.join(' L')}`;
-    // Area path for gradient fill
     const areaPath = `${linePath} L${dataPoints[dataPoints.length - 1].x.toFixed(1)},${height} L${dataPoints[0].x.toFixed(1)},${height} Z`;
 
     return {
       path: linePath,
       areaPath,
+      movingAvgPath,
       min: chartMin,
       max: chartMax,
-      points: dataPoints
+      points: dataPoints,
+      optimalZone
     };
   }
 
@@ -564,6 +725,145 @@
     return { value: Math.abs(change), direction: change > 0 ? 'up' : 'down' };
   }
 
+  // Insights generation — coach-like feedback
+  interface Insight {
+    type: 'win' | 'action' | 'tip';
+    icon: string;
+    text: string;
+    link?: { label: string; href: string };
+  }
+
+  function generateInsights(
+    stats: typeof periodStats,
+    prevStats: typeof prevPeriodStats,
+    weekly: typeof weeklyComparison,
+    fatigue: typeof fatigueData
+  ): Insight[] {
+    if (!stats || !weekly) return [];
+
+    const insights: Insight[] = [];
+    const asymmetry = Math.abs(stats.balance - 50);
+    const dominant = stats.balance > 50 ? 'left' : 'right';
+    const weak = stats.balance > 50 ? 'right' : 'left';
+
+    // === ACTIONABLE FEEDBACK (priority) ===
+
+    // Fatigue — most actionable insight
+    if (fatigue?.hasData && (fatigue.degradation.te > 3 || fatigue.degradation.ps > 2)) {
+      insights.push({
+        type: 'action',
+        icon: '🔋',
+        text: 'Your form drops late in rides. Build endurance with',
+        link: { label: 'Efficiency Builder', href: '/drills' }
+      });
+    }
+
+    // Balance issue — specific drill for weak leg
+    if (asymmetry > 4) {
+      insights.push({
+        type: 'action',
+        icon: '⚖️',
+        text: `${asymmetry.toFixed(1)}% ${dominant}-dominant. Strengthen ${weak} leg with`,
+        link: { label: `${weak === 'left' ? 'Left' : 'Right'} Leg Focus`, href: '/drills' }
+      });
+    }
+
+    // Low TE — specific technique tip
+    if (stats.te < 65) {
+      insights.push({
+        type: 'action',
+        icon: '⚡',
+        text: `TE ${stats.te.toFixed(0)}% — focus on pulling up at 6 o'clock. Try`,
+        link: { label: 'Power Transfer', href: '/drills' }
+      });
+    }
+
+    // Low PS — smoothness tip
+    if (stats.ps < 18) {
+      insights.push({
+        type: 'action',
+        icon: '🔄',
+        text: `PS ${stats.ps.toFixed(0)}% means choppy stroke. Smooth it with`,
+        link: { label: 'Smooth Circles', href: '/drills' }
+      });
+    }
+
+    // === WINS (celebrate progress) ===
+
+    // Great balance
+    if (asymmetry <= 2.5) {
+      insights.push({
+        type: 'win',
+        icon: '🎯',
+        text: `${asymmetry.toFixed(1)}% asymmetry — that's pro-level balance!`
+      });
+    }
+
+    // TE in optimal zone
+    if (stats.te >= 70 && stats.te <= 80) {
+      insights.push({
+        type: 'win',
+        icon: '✓',
+        text: `TE ${stats.te.toFixed(0)}% — sweet spot for power transfer.`
+      });
+    }
+
+    // Excellent score
+    if (stats.score >= 85) {
+      insights.push({
+        type: 'win',
+        icon: '🏆',
+        text: `Score ${stats.score}% — elite level technique!`
+      });
+    }
+
+    // Good consistency
+    if (weekly.thisWeek.rides_count >= 4) {
+      insights.push({
+        type: 'win',
+        icon: '🔥',
+        text: `${weekly.thisWeek.rides_count} rides — great week!`
+      });
+    }
+
+    // Improvement vs previous period
+    if (prevStats && stats.score > prevStats.score + 2) {
+      insights.push({
+        type: 'win',
+        icon: '📈',
+        text: `Score up ${(stats.score - prevStats.score).toFixed(0)} points from last period.`
+      });
+    }
+
+    // === TIPS (coaching advice) ===
+
+    // Encourage more rides
+    if (weekly.thisWeek.rides_count < 2 && weekly.lastWeek.rides_count >= 2) {
+      insights.push({
+        type: 'tip',
+        icon: '📅',
+        text: `Only ${weekly.thisWeek.rides_count} ride${weekly.thisWeek.rides_count === 1 ? '' : 's'} — try to match last week's ${weekly.lastWeek.rides_count}.`
+      });
+    }
+
+    // Near optimal TE
+    if (stats.te >= 65 && stats.te < 70) {
+      insights.push({
+        type: 'tip',
+        icon: '💡',
+        text: `TE ${stats.te.toFixed(0)}% — just ${(70 - stats.te).toFixed(0)}% from optimal zone.`
+      });
+    }
+
+    // Prioritize: actions first, then wins, then tips. Max 3.
+    return insights
+      .sort((a, b) => {
+        const priority = { action: 0, win: 1, tip: 2 };
+        return priority[a.type] - priority[b.type];
+      })
+      .slice(0, 3);
+  }
+
   $: periodStats = getPeriodStats(weeklyRides, parseInt(selectedPeriod));
   $: prevPeriodStats = getPreviousPeriodStats(weeklyRides, parseInt(selectedPeriod));
   $: scoreProgress = periodStats && prevPeriodStats ? getProgress(periodStats.score, prevPeriodStats.score) : null;
@@ -578,12 +878,19 @@
   $: distanceProgress = periodStats && prevPeriodStats
     ? getProgress(periodStats.totalDistance, prevPeriodStats.distance, 5) : null;
   $: filteredRides = getFilteredRides(weeklyRides, parseInt(selectedPeriod));
-  $: balanceTrendMaxPoints = selectedPeriod === '30' ? 30 : 15;
-  $: balanceTrend = getBalanceTrendData(filteredRides, balanceTrendMaxPoints);
+  $: balanceTrendMaxPoints = selectedPeriod === '60' ? 60 : selectedPeriod === '30' ? 30 : selectedPeriod === '14' ? 14 : 7;
+  $: balanceTrend = getBalanceTrendData(filteredRides, balanceTrendMaxPoints, balanceChartWidth);
+
+  // Calculate rides count for each period (for disabling period buttons)
+  $: ridesIn7Days = getFilteredRides(weeklyRides, 7).length;
+  $: ridesIn14Days = getFilteredRides(weeklyRides, 14).length;
+  $: ridesIn30Days = getFilteredRides(weeklyRides, 30).length;
+  $: ridesIn60Days = getFilteredRides(weeklyRides, 60).length;
   $: weekDays = getWeekDays();
   $: ridesPerDay = getRidesPerDay(weeklyRides);
   $: maxRidesPerDay = Math.max(...ridesPerDay, 1);
-  $: techniqueTrend = getTechniqueTrendData(trendData, activeTrendMetric);
+  $: techniqueTrend = getTechniqueTrendData(trendData, activeTrendMetric, techniqueChartWidth);
+  $: insights = generateInsights(periodStats, prevPeriodStats, weeklyComparison, fatigueData);
 </script>
 
 <svelte:head>
@@ -800,19 +1107,17 @@
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <button class="hero-cta-secondary" on:click={handleLogin} aria-label="Sign in with Google account">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          <a href="/login" class="hero-cta-secondary" aria-label="Try demo account">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
             </svg>
-            Sign in with Google
-          </button>
+            Try Demo
+          </a>
         </div>
 
         <p class="hero-note">
-          <span itemprop="isAccessibleForFree" content="true">Free</span> & <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">open source</a> · No account required
+          <span>Free</span> & <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">open source</a> · No account required
         </p>
       </section>
 
@@ -1103,12 +1408,7 @@
               {#if expandedDrill === drill.id}
                 <div class="drill-details">
                   <p>{drill.desc}</p>
-                  {#if drill.target}
-                    <div class="drill-target">Target: {drill.target}</div>
-                  {/if}
-                  {#if drill.phases}
-                    <div class="drill-target">{drill.phases} phases</div>
-                  {/if}
+                  <div class="drill-target">Target: {drill.target}</div>
                 </div>
               {/if}
             </button>
@@ -1411,15 +1711,13 @@
             </svg>
             Download for Karoo
           </a>
-          <button class="cta-btn secondary" on:click={handleLogin} aria-label="Sign in with Google account">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          <a href="/login" class="cta-btn secondary" aria-label="Try demo account">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
             </svg>
-            Sign in with Google
-          </button>
+            Try Demo
+          </a>
         </div>
       </section>
 
@@ -1478,19 +1776,20 @@
           <button class="btn btn-primary" on:click={() => location.reload()}>Retry</button>
         </div>
       {:else}
-        <header class="dash-header animate-in">
-          <div class="dash-greeting">
-            <h1>Hello, {getFirstName($user?.name)}!</h1>
-          </div>
-          <div class="dash-controls">
-            <div class="period-selector">
-              <button class="period-btn" class:active={selectedPeriod === '7'} on:click={() => selectedPeriod = '7'}>7d</button>
-              <button class="period-btn" class:active={selectedPeriod === '30'} on:click={() => selectedPeriod = '30'}>30d</button>
-            </div>
-          </div>
-        </header>
-
         {#if stats && stats.total_rides > 0}
+          <header class="dash-header animate-in">
+            <div class="dash-greeting">
+              <h1>Hello, {getFirstName($user?.name)}!</h1>
+            </div>
+            <div class="dash-controls">
+              <div class="period-selector">
+                <button class="period-btn" class:active={selectedPeriod === '7'} on:click={() => selectedPeriod = '7'}>7d</button>
+                <button class="period-btn" class:active={selectedPeriod === '14'} on:click={() => selectedPeriod = '14'} disabled={ridesIn14Days === ridesIn7Days}>14d</button>
+                <button class="period-btn" class:active={selectedPeriod === '30'} on:click={() => selectedPeriod = '30'} disabled={ridesIn30Days === ridesIn14Days}>30d</button>
+                <button class="period-btn" class:active={selectedPeriod === '60'} on:click={() => selectedPeriod = '60'} disabled={ridesIn60Days === ridesIn30Days}>60d</button>
+              </div>
+            </div>
+          </header>
           <!-- Hero Stats Row -->
           <div class="hero-stats animate-in">
             <div class="hero-stat asymmetry">
@@ -1666,6 +1965,21 @@
                   </div>
                 </div>
               {/if}
+
+              <!-- Insights Section -->
+              {#if insights.length > 0}
+                <div class="card-section insights-section">
+                  <span class="section-label">Insights</span>
+                  <div class="insights-list">
+                    {#each insights as insight}
+                      <div class="insight-item">
+                        <span class="insight-icon">{insight.icon}</span>
+                        <span class="insight-text">{insight.text}{#if insight.link}&nbsp;<a href={insight.link.href} class="insight-link">{insight.link.label}</a>{/if}</span>
+                      </div>
+                    {/each}
+                  </div>
+                </div>
+              {/if}
             </div>
 
             <!-- Right Column: Technique -->
@@ -1689,8 +2003,15 @@
                   </div>
                   <div class="technique-metric-bar-wrap">
                     <div class="technique-metric-bar">
-                      <div class="technique-metric-fill te" style="width: {Math.min(100, (periodStats?.te || ((stats.avg_te_left + stats.avg_te_right) / 2)))}%"></div>
                       <div class="technique-optimal-zone te"></div>
+                      <div class="technique-metric-fill te" style="width: {Math.min(100, (periodStats?.te || ((stats.avg_te_left + stats.avg_te_right) / 2)))}%"></div>
+                      <div class="technique-bar-marker" style="left: 70%"></div>
+                      <div class="technique-bar-marker" style="left: 80%"></div>
+                    </div>
+                    <div class="technique-bar-labels te">
+                      <span>0</span>
+                      <span class="optimal-label">70-80</span>
+                      <span>100</span>
                     </div>
                   </div>
                   <div class="technique-metric-sides">
@@ -1712,8 +2033,14 @@
                   </div>
                   <div class="technique-metric-bar-wrap">
                     <div class="technique-metric-bar">
-                      <div class="technique-metric-fill ps" style="width: {Math.min(100, (periodStats?.ps || ((stats.avg_ps_left + stats.avg_ps_right) / 2)) / 40 * 100)}%"></div>
                       <div class="technique-optimal-zone ps"></div>
+                      <div class="technique-metric-fill ps" style="width: {Math.min(100, (periodStats?.ps || ((stats.avg_ps_left + stats.avg_ps_right) / 2)) / 40 * 100)}%"></div>
+                      <div class="technique-bar-marker" style="left: 50%"></div>
+                    </div>
+                    <div class="technique-bar-labels ps">
+                      <span>0</span>
+                      <span class="optimal-label">≥20</span>
+                      <span>40</span>
                     </div>
                   </div>
                   <div class="technique-metric-sides">
@@ -1891,31 +2218,45 @@
                   <span class="trend-card-period">{filteredRides.length} rides</span>
                 </div>
                 {#if balanceTrend.path}
-                  <div class="trend-chart">
-                    <svg viewBox="0 0 200 60" class="trend-svg">
+                  <div class="trend-chart" role="img" aria-label="Balance trend chart" bind:clientWidth={balanceChartWidth}>
+                    <!-- Tooltip -->
+                    {#if hoveredBalancePoint}
+                      <div class="chart-tooltip" style="left: {tooltipX}px; top: {tooltipY}px;">
+                        <span class="tooltip-date">{hoveredBalancePoint.date}</span>
+                        <span class="tooltip-value {hoveredBalancePoint.status}">{hoveredBalancePoint.balance.toFixed(1)}% L</span>
+                        <span class="tooltip-hint">Click to view</span>
+                      </div>
+                    {/if}
+                    <svg viewBox="0 0 {balanceChartWidth} {CHART_HEIGHT}" class="trend-svg">
                       <defs>
                         <linearGradient id="balanceGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stop-color="var(--color-optimal)" stop-opacity="0.3"/>
+                          <stop offset="0%" stop-color="var(--color-optimal)" stop-opacity="0.15"/>
                           <stop offset="100%" stop-color="var(--color-optimal)" stop-opacity="0"/>
                         </linearGradient>
                       </defs>
-                      <!-- Horizontal grid lines -->
-                      <line x1="8" y1="15" x2="192" y2="15" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.5"/>
-                      <line x1="8" y1="30" x2="192" y2="30" stroke="var(--color-optimal)" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
-                      <line x1="8" y1="45" x2="192" y2="45" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.5"/>
-                      <!-- Y-axis labels -->
-                      <text x="4" y="17" font-size="6" fill="var(--text-muted)" text-anchor="start">60</text>
-                      <text x="4" y="32" font-size="6" fill="var(--text-muted)" text-anchor="start">50</text>
-                      <text x="4" y="47" font-size="6" fill="var(--text-muted)" text-anchor="start">40</text>
+                      <!-- Center line (50%) -->
+                      <line x1={CHART_PADDING} y1={CHART_HEIGHT / 2} x2={balanceChartWidth - CHART_PADDING} y2={CHART_HEIGHT / 2} stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
                       <!-- Area fill -->
                       <path d={balanceTrend.areaPath} fill="url(#balanceGradient)"/>
                       <!-- Trend line -->
                       <path d={balanceTrend.path} fill="none" stroke="var(--color-optimal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       <!-- Data points -->
-                      {#each balanceTrend.points as point, i}
-                        {#if i === 0 || i === balanceTrend.points.length - 1 || balanceTrend.points.length <= 8}
-                          <circle cx={point.x} cy={point.y} r="3" fill="var(--bg-surface)" stroke="var(--color-optimal)" stroke-width="1.5"/>
-                        {/if}
+                      {#each balanceTrend.points as point}
+                        <circle
+                          cx={point.x}
+                          cy={point.y}
+                          r={hoveredBalancePoint === point ? 5 : 4}
+                          fill={point.status === 'optimal' ? 'var(--color-optimal)' : point.status === 'attention' ? 'var(--color-attention)' : 'var(--color-problem)'}
+                          stroke="var(--bg-surface)"
+                          stroke-width="2"
+                          class="chart-point"
+                          role="button"
+                          tabindex="0"
+                          on:mouseenter={(e) => handleBalancePointHover(point, e)}
+                          on:mouseleave={() => handleBalancePointHover(null)}
+                          on:click={() => navigateToRide(point.rideId)}
+                          on:keypress={(e) => e.key === 'Enter' && navigateToRide(point.rideId)}
+                        />
                       {/each}
                     </svg>
                   </div>
@@ -1949,38 +2290,42 @@
                   </div>
                 </div>
                 {#if techniqueTrend.path}
-                  <div class="trend-chart">
-                    <svg viewBox="0 0 200 60" class="trend-svg">
+                  <div class="trend-chart" role="img" aria-label="Technique trend chart" bind:clientWidth={techniqueChartWidth}>
+                    <!-- Tooltip -->
+                    {#if hoveredTechniquePoint}
+                      <div class="chart-tooltip" style="left: {tooltipX}px; top: {tooltipY}px;">
+                        <span class="tooltip-date">{hoveredTechniquePoint.date}</span>
+                        <span class="tooltip-value {hoveredTechniquePoint.status}">{hoveredTechniquePoint.value.toFixed(1)}%</span>
+                      </div>
+                    {/if}
+                    <svg viewBox="0 0 {techniqueChartWidth} {CHART_HEIGHT}" class="trend-svg">
                       <defs>
-                        <linearGradient id="techniqueGradientAsym" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stop-color="var(--color-accent)" stop-opacity="0.25"/>
-                          <stop offset="100%" stop-color="var(--color-accent)" stop-opacity="0"/>
-                        </linearGradient>
-                        <linearGradient id="techniqueGradientTE" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stop-color="var(--color-optimal)" stop-opacity="0.25"/>
-                          <stop offset="100%" stop-color="var(--color-optimal)" stop-opacity="0"/>
-                        </linearGradient>
-                        <linearGradient id="techniqueGradientPS" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stop-color="var(--color-attention)" stop-opacity="0.25"/>
-                          <stop offset="100%" stop-color="var(--color-attention)" stop-opacity="0"/>
+                        <linearGradient id="techniqueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stop-color={activeTrendMetric === 'asymmetry' ? 'var(--color-accent)' : activeTrendMetric === 'te' ? 'var(--color-optimal)' : 'var(--color-attention)'} stop-opacity="0.15"/>
+                          <stop offset="100%" stop-color={activeTrendMetric === 'asymmetry' ? 'var(--color-accent)' : activeTrendMetric === 'te' ? 'var(--color-optimal)' : 'var(--color-attention)'} stop-opacity="0"/>
                         </linearGradient>
                       </defs>
-                      <!-- Horizontal grid lines -->
-                      <line x1="8" y1="15" x2="192" y2="15" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.4"/>
-                      <line x1="8" y1="30" x2="192" y2="30" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.4"/>
-                      <line x1="8" y1="45" x2="192" y2="45" stroke="var(--border-subtle)" stroke-width="0.5" opacity="0.4"/>
-                      <!-- Y-axis min/max labels -->
-                      <text x="196" y="12" font-size="6" fill="var(--text-muted)" text-anchor="end">{techniqueTrend.max.toFixed(0)}%</text>
-                      <text x="196" y="56" font-size="6" fill="var(--text-muted)" text-anchor="end">{techniqueTrend.min.toFixed(0)}%</text>
+                      <!-- Center line -->
+                      <line x1={CHART_PADDING} y1={CHART_HEIGHT / 2} x2={techniqueChartWidth - CHART_PADDING} y2={CHART_HEIGHT / 2} stroke="var(--border-subtle)" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
                       <!-- Area fill -->
-                      <path d={techniqueTrend.areaPath} fill={activeTrendMetric === 'asymmetry' ? 'url(#techniqueGradientAsym)' : activeTrendMetric === 'te' ? 'url(#techniqueGradientTE)' : 'url(#techniqueGradientPS)'}/>
+                      <path d={techniqueTrend.areaPath} fill="url(#techniqueGradient)"/>
                       <!-- Trend line -->
                       <path d={techniqueTrend.path} fill="none" stroke={getTrendColor(activeTrendMetric)} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       <!-- Data points -->
-                      {#each techniqueTrend.points as point, i}
-                        {#if i === 0 || i === techniqueTrend.points.length - 1 || techniqueTrend.points.length <= 8}
-                          <circle cx={point.x} cy={point.y} r="3" fill="var(--bg-surface)" stroke={getTrendColor(activeTrendMetric)} stroke-width="1.5"/>
-                        {/if}
+                      {#each techniqueTrend.points as point}
+                        <circle
+                          cx={point.x}
+                          cy={point.y}
+                          r={hoveredTechniquePoint === point ? 5 : 4}
+                          fill={point.status === 'optimal' ? 'var(--color-optimal)' : point.status === 'attention' ? 'var(--color-attention)' : 'var(--color-problem)'}
+                          stroke="var(--bg-surface)"
+                          stroke-width="2"
+                          class="chart-point"
+                          role="button"
+                          tabindex="0"
+                          on:mouseenter={(e) => handleTechniquePointHover(point, e)}
+                          on:mouseleave={() => handleTechniquePointHover(null)}
+                        />
                       {/each}
                     </svg>
                   </div>
@@ -2112,17 +2457,101 @@
             </div>
           {/if}
         {:else}
-          <div class="empty-state animate-in">
-            <div class="empty-icon"><svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-            <h2>No rides yet</h2>
-            <p>Start recording rides with KPedal on your Karoo to see your analytics here.</p>
-            <div class="setup-card">
-              <h3>Quick Setup</h3>
-              <div class="setup-steps">
-                <div class="setup-step"><span class="step-number">1</span><span class="step-text">Install KPedal on your Karoo device</span></div>
-                <div class="setup-step"><span class="step-number">2</span><span class="step-text">Add KPedal data fields to your ride profile</span></div>
-                <div class="setup-step"><span class="step-number">3</span><span class="step-text">Start riding — data syncs automatically</span></div>
+          <div class="empty-state-new animate-in">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+              <div class="welcome-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
               </div>
+              <h2>Welcome, {getFirstName($user?.name)}!</h2>
+              <p>Your dashboard will show real-time pedaling analytics once you start riding with KPedal on your Karoo.</p>
+            </div>
+
+            <!-- Preview of what they'll see -->
+            <div class="preview-section">
+              <h3>What you'll see here</h3>
+              <div class="preview-cards">
+                <div class="preview-card">
+                  <div class="preview-icon balance-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+                  </div>
+                  <div class="preview-info">
+                    <span class="preview-label">Power Balance</span>
+                    <span class="preview-example">50% L / 50% R</span>
+                  </div>
+                  <span class="preview-target">Pro: ±2.5%</span>
+                </div>
+                <div class="preview-card">
+                  <div class="preview-icon te-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                  </div>
+                  <div class="preview-info">
+                    <span class="preview-label">Torque Effectiveness</span>
+                    <span class="preview-example">72% avg</span>
+                  </div>
+                  <span class="preview-target">Optimal: 70-80%</span>
+                </div>
+                <div class="preview-card">
+                  <div class="preview-icon ps-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+                  </div>
+                  <div class="preview-info">
+                    <span class="preview-label">Pedal Smoothness</span>
+                    <span class="preview-example">22% avg</span>
+                  </div>
+                  <span class="preview-target">Optimal: ≥20%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Setup Steps -->
+            <div class="setup-section">
+              <h3>Get started in 3 steps</h3>
+              <div class="setup-steps-new">
+                <div class="setup-step-new">
+                  <div class="step-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  </div>
+                  <div class="step-content">
+                    <span class="step-title">Install on Karoo</span>
+                    <span class="step-desc">Download APK and install via USB or Karoo browser</span>
+                  </div>
+                  <a href="https://github.com/kpedal/kpedal/releases/latest" target="_blank" rel="noopener" class="step-action">
+                    Download APK
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+                </div>
+                <div class="setup-step-new">
+                  <div class="step-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                  </div>
+                  <div class="step-content">
+                    <span class="step-title">Add data fields</span>
+                    <span class="step-desc">Edit your ride profile and add KPedal data fields</span>
+                  </div>
+                </div>
+                <div class="setup-step-new">
+                  <div class="step-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c-1.657 0-3-4.03-3-9s1.343-9 3-9m0 18c1.657 0 3-4.03 3-9s-1.343-9-3-9m-9 9a9 9 0 0 1 9-9"/></svg>
+                  </div>
+                  <div class="step-content">
+                    <span class="step-title">Link your device</span>
+                    <span class="step-desc">Connect Karoo to sync rides automatically</span>
+                  </div>
+                  <a href="/link" class="step-action">
+                    Link Device
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Already have device linked? -->
+            <div class="sync-hint">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <span>Already installed? Complete a ride on your Karoo — data will appear here after sync.</span>
             </div>
           </div>
         {/if}
@@ -2292,18 +2721,30 @@
     gap: 8px;
     height: 54px;
     padding: 0 28px;
-    background: transparent;
-    color: var(--text-primary);
+    background: var(--color-optimal);
+    color: white;
     font-size: 15px;
     font-weight: 500;
     border-radius: 100px;
-    border: 1px solid var(--border-default);
+    border: none;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 8px var(--glow-optimal, rgba(34, 197, 94, 0.3));
   }
   .hero-cta-secondary:hover {
-    background: var(--bg-hover);
-    border-color: var(--border-strong);
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px var(--glow-optimal, rgba(34, 197, 94, 0.4));
+  }
+
+  :global([data-theme="dark"]) .hero-cta-secondary {
+    background: #16a34a;
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+  }
+  :global([data-theme="dark"]) .hero-cta-secondary:hover {
+    background: #15803d;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
   }
 
   .hero-note {
@@ -2349,13 +2790,23 @@
   }
 
   .cta-btn.secondary {
-    background: transparent;
-    border: 1px solid var(--border-default);
-    color: var(--text-primary);
+    background: var(--color-optimal);
+    border: none;
+    color: white;
+    box-shadow: 0 2px 8px var(--glow-optimal, rgba(34, 197, 94, 0.3));
   }
   .cta-btn.secondary:hover {
-    background: var(--bg-hover);
-    border-color: var(--border-strong);
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px var(--glow-optimal, rgba(34, 197, 94, 0.4));
+  }
+  :global([data-theme="dark"]) .cta-btn.secondary {
+    background: #16a34a;
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+  }
+  :global([data-theme="dark"]) .cta-btn.secondary:hover {
+    background: #15803d;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
   }
 
   .cta-btn.large {
@@ -3777,10 +4228,13 @@
     height: 10px;
     background: var(--bg-elevated);
     border-radius: 5px;
-    overflow: hidden;
+    overflow: visible;
     position: relative;
   }
   .technique-metric-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     border-radius: 5px;
     transition: width 0.3s ease;
@@ -3795,18 +4249,44 @@
     position: absolute;
     top: 0;
     height: 100%;
-    border-left: 2px dashed rgba(255,255,255,0.3);
-    border-right: 2px dashed rgba(255,255,255,0.3);
+    background: var(--color-optimal);
+    opacity: 0.15;
+    border-radius: 5px;
     pointer-events: none;
   }
   .technique-optimal-zone.te {
     left: 70%;
-    width: 10%;
+    right: 20%;
   }
   .technique-optimal-zone.ps {
     left: 50%;
-    width: 12.5%;
+    right: 0;
   }
+  .technique-bar-marker {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background: var(--color-optimal);
+    opacity: 0.7;
+    border-radius: 1px;
+  }
+  .technique-bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    position: relative;
+  }
+  .technique-bar-labels .optimal-label {
+    position: absolute;
+    transform: translateX(-50%);
+    color: var(--color-optimal-text);
+    font-weight: 600;
+  }
+  .technique-bar-labels.te .optimal-label { left: 75%; }
+  .technique-bar-labels.ps .optimal-label { left: 75%; }
   .technique-metric-sides {
     display: flex;
     justify-content: space-between;
@@ -3901,6 +4381,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
+    min-height: 28px;
   }
   .trend-card-title {
     font-size: 14px;
@@ -3916,11 +4397,57 @@
     margin-bottom: 12px;
     background: var(--bg-base);
     border-radius: 8px;
-    padding: 4px;
+    position: relative;
+    overflow: visible;
   }
   .trend-svg {
     width: 100%;
     height: 100%;
+    display: block;
+  }
+  .chart-point {
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .chart-point:hover {
+    filter: drop-shadow(0 0 4px currentColor);
+  }
+  .chart-tooltip {
+    position: absolute;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 10px 14px;
+    pointer-events: none;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+  }
+  .tooltip-date {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tooltip-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .tooltip-value.optimal { color: var(--color-optimal-text); }
+  .tooltip-value.attention { color: var(--color-attention-text); }
+  .tooltip-value.problem { color: var(--color-problem-text); }
+  .tooltip-hint {
+    font-size: 10px;
+    color: var(--text-muted);
+    opacity: 0.8;
+    margin-top: 2px;
   }
   .trend-stats {
     display: grid;
@@ -4187,11 +4714,15 @@
     cursor: pointer;
     transition: all 0.15s ease;
   }
-  .period-btn:hover { color: var(--text-primary); background: var(--bg-hover); }
+  .period-btn:hover:not(:disabled) { color: var(--text-primary); background: var(--bg-hover); }
   .period-btn.active {
     background: var(--color-accent);
     color: var(--color-accent-text);
     font-weight: 600;
+  }
+  .period-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 
   /* Charts Row */
@@ -4592,6 +5123,297 @@
   .step-number { width: 24px; height: 24px; border-radius: 50%; background: var(--color-accent); color: var(--color-accent-text); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .step-text { font-size: 13px; color: var(--text-secondary); text-align: left; }
 
+  /* ============================================
+     NEW EMPTY STATE - Enhanced onboarding
+     ============================================ */
+  .empty-state-new {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  .welcome-section {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .welcome-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    color: var(--color-accent);
+  }
+  .welcome-section h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .welcome-section p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .preview-section {
+    margin-bottom: 40px;
+  }
+  .preview-section h3,
+  .setup-section h3 {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .preview-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .preview-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .preview-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .preview-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .preview-icon.balance-icon {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+  }
+  .preview-icon.te-icon {
+    background: var(--color-optimal-soft);
+    color: var(--color-optimal-text);
+  }
+  .preview-icon.ps-icon {
+    background: var(--color-attention-soft);
+    color: var(--color-attention-text);
+  }
+  .preview-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .preview-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .preview-example {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .preview-target {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    padding-top: 8px;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .setup-section {
+    margin-bottom: 32px;
+  }
+  .setup-steps-new {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .setup-step-new {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: border-color 0.15s;
+  }
+  .setup-step-new:hover {
+    border-color: var(--border-default);
+  }
+  .step-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--bg-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+  .step-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .step-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .step-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+  .step-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .step-action:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .sync-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: var(--bg-elevated);
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .sync-hint svg {
+    flex-shrink: 0;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .empty-state-new {
+      padding: 24px 16px 40px;
+    }
+    .welcome-section {
+      margin-bottom: 32px;
+    }
+    .welcome-section h2 {
+      font-size: 22px;
+    }
+    .preview-cards {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .preview-card {
+      flex-direction: row;
+      align-items: center;
+      padding: 14px;
+    }
+    .preview-info {
+      flex: 1;
+    }
+    .preview-example {
+      font-size: 16px;
+    }
+    .preview-target {
+      border-top: none;
+      border-left: 1px solid var(--border-subtle);
+      padding: 0 0 0 12px;
+      margin-left: auto;
+    }
+    .setup-step-new {
+      flex-wrap: wrap;
+      padding: 14px;
+      gap: 12px;
+    }
+    .step-action {
+      width: 100%;
+      justify-content: center;
+      padding: 10px 14px;
+    }
+    .sync-hint {
+      flex-direction: column;
+      text-align: center;
+      gap: 6px;
+    }
+  }
+
+  /* ============================================
+     INSIGHTS - Inside Weekly Activity Card
+     ============================================ */
+  .insights-section {
+    margin-top: auto;
+    padding-top: 12px;
+  }
+  .insights-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .insight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 6px 0;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+  .insight-item:not(:last-child) {
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 8px;
+  }
+
+  .insight-icon {
+    font-size: 13px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+  .insight-text {
+    flex: 1;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .insight-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .insight-link:hover {
+    text-decoration: underline;
+  }
+
   /* Responsive - Refined for all screens */
   /* ============================================
      RESPONSIVE: 1024px - Small desktops / Large tablets
@@ -4714,9 +5536,15 @@
     .metric-chip-unit { font-size: 11px; }
 
     /* Trends Row */
-    .trends-row { grid-template-columns: 1fr; gap: 12px; }
-    .trend-card { padding: 12px; }
-    .trend-chart { height: 50px; margin-bottom: 10px; }
+    .trends-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .trend-card { padding: 10px; }
+    .trend-card-header { flex-wrap: nowrap; min-height: 28px; }
+    .trend-card-title { font-size: 13px; white-space: nowrap; }
+    .trend-card-title :global(.info-tip) { display: none; }
+    .trend-chart { margin-bottom: 8px; }
+    .chart-tooltip { padding: 6px 10px; border-radius: 8px; }
+    .tooltip-value { font-size: 14px; }
+    .tooltip-hint { display: none; }
     .trend-stats { gap: 6px; }
     .trend-stat-item { padding: 6px 4px; }
     .trend-stat-value { font-size: 13px; }
