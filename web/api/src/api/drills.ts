@@ -1,6 +1,8 @@
 import { Hono } from 'hono';
-import { Env, ApiResponse } from '../types/env';
+import { Env, ApiResponse, isDemoUser } from '../types/env';
 import { validatePagination } from '../middleware/validate';
+import { getDemoCache, setDemoCache } from '../utils/demoCache';
+import { roundObjectValues, roundArrayValues } from '../utils/format';
 
 const drills = new Hono<{ Bindings: Env }>();
 
@@ -76,6 +78,7 @@ drills.get('/', async (c) => {
 /**
  * GET /api/drills/dashboard
  * Combined endpoint - drills list + stats in ONE request
+ * For demo users: KV cached for instant response
  */
 drills.get('/dashboard', async (c) => {
   const user = c.get('user');
@@ -83,8 +86,21 @@ drills.get('/dashboard', async (c) => {
     c.req.query('limit'),
     c.req.query('offset')
   );
+  const cacheKey = `drills:${limit}:${offset}`;
 
   try {
+    // Check KV cache for demo users (instant response)
+    if (isDemoUser(user.sub)) {
+      const cached = await getDemoCache<unknown>(c.env.SESSIONS, user.sub, cacheKey);
+      if (cached) {
+        c.header('X-Cache', 'HIT');
+        return c.json<ApiResponse>({ success: true, data: cached });
+      }
+    }
+
+    // Cache-Control for authenticated users (1 minute)
+    c.header('Cache-Control', 'private, max-age=60');
+
     // Run ALL queries in a single batch - one D1 roundtrip
     const [drillsResult, countResult, summaryResult, perDrillResult] = await c.env.DB.batch([
       // 1. Recent drills
@@ -123,19 +139,25 @@ drills.get('/dashboard', async (c) => {
       `).bind(user.sub),
     ]);
 
-    return c.json<ApiResponse>({
-      success: true,
-      data: {
-        drills: drillsResult.results,
-        total: (countResult.results[0] as { count: number })?.count || 0,
-        limit,
-        offset,
-        stats: {
-          summary: summaryResult.results[0],
-          by_drill: perDrillResult.results,
-        },
+    const responseData = {
+      drills: roundArrayValues(drillsResult.results as object[]),
+      total: (countResult.results[0] as { count: number })?.count || 0,
+      limit,
+      offset,
+      stats: {
+        summary: roundObjectValues(summaryResult.results[0] as object),
+        by_drill: roundArrayValues(perDrillResult.results as object[]),
       },
-    });
+    };
+
+    // Cache response for demo users
+    if (isDemoUser(user.sub)) {
+      c.executionCtx.waitUntil(
+        setDemoCache(c.env.SESSIONS, user.sub, cacheKey, responseData).catch(() => {})
+      );
+    }
+
+    return c.json<ApiResponse>({ success: true, data: responseData });
   } catch (err) {
     console.error('Error fetching drills dashboard:', err);
     return c.json<ApiResponse>({ success: false, error: 'Failed to fetch drills' }, 500);

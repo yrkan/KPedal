@@ -3,6 +3,7 @@ import { Env, ApiResponse, RideData, isDemoUser } from '../types/env';
 import { validatePagination, validateDays } from '../middleware/validate';
 import { getDemoOffset, adjustDemoRide, adjustDemoSnapshot, adjustDemoDateString } from '../utils/demoData';
 import { getDemoCache, setDemoCache } from '../utils/demoCache';
+import { roundObjectValues, roundArrayValues } from '../utils/format';
 
 const rides = new Hono<{ Bindings: Env }>();
 
@@ -40,6 +41,9 @@ rides.get('/', async (c) => {
       }
     }
 
+    // Cache-Control for authenticated users (1 minute for rides list)
+    c.header('Cache-Control', 'private, max-age=60');
+
     // Run both queries in a single batch request for efficiency
     const [ridesResult, countResult] = await c.env.DB.batch([
       c.env.DB
@@ -63,7 +67,7 @@ rides.get('/', async (c) => {
         .bind(user.sub),
     ]);
 
-    let ridesData = ridesResult.results as RideData[];
+    let ridesData = roundArrayValues(ridesResult.results as RideData[]) as RideData[];
     const total = (countResult.results[0] as { count: number })?.count || 0;
 
     // Adjust timestamps for demo user to make rides appear recent
@@ -278,35 +282,38 @@ rides.get('/stats/trends', async (c) => {
  * Combined endpoint for dashboard - all data in ONE D1 batch request
  * Reduces 6 API calls to 1, saving ~1500ms of latency
  * For demo users: KV cached for instant response (~1-5ms)
+ *
+ * Query params:
+ * - include=snapshots: Include lastRideSnapshots (adds ~600 fields, use only when needed)
+ *
  * NOTE: Must be defined BEFORE /:id route
  */
 rides.get('/dashboard', async (c) => {
   const user = c.get('user');
+  const includeSnapshots = c.req.query('include')?.includes('snapshots') ?? false;
+  const cacheKey = includeSnapshots ? 'dashboard:full' : 'dashboard';
 
   try {
     // Check KV cache for demo users (instant response)
     if (isDemoUser(user.sub)) {
-      const cached = await getDemoCache<any>(c.env.SESSIONS, user.sub, 'dashboard');
+      const cached = await getDemoCache<any>(c.env.SESSIONS, user.sub, cacheKey);
       if (cached) {
         c.header('X-Cache', 'HIT');
+        c.header('X-Snapshots', includeSnapshots ? 'included' : 'excluded');
         return c.json<ApiResponse>({ success: true, data: cached });
       }
     }
+
+    // Cache-Control for authenticated users (1 minute for dashboard)
+    c.header('Cache-Control', 'private, max-age=60');
 
     const now = Date.now();
     const oneWeekMs = 7 * 24 * 60 * 60 * 1000;
     const thisWeekStart = now - oneWeekMs;
     const lastWeekStart = thisWeekStart - oneWeekMs;
 
-    // Run ALL queries in a single batch - one D1 roundtrip
-    const [
-      statsResult,
-      recentRidesResult,
-      thisWeekResult,
-      lastWeekResult,
-      trendsResult,
-      lastRideSnapshotsResult,
-    ] = await c.env.DB.batch([
+    // Build query list - snapshots only when requested (saves ~600 fields)
+    const queries: D1PreparedStatement[] = [
       // 1. Summary stats
       c.env.DB.prepare(`
         SELECT
@@ -391,23 +398,36 @@ rides.get('/dashboard', async (c) => {
         GROUP BY date(timestamp / 1000, 'unixepoch')
         ORDER BY date DESC
       `).bind(user.sub),
+    ];
 
-      // 6. Snapshots for the latest ride (for fatigue analysis)
-      c.env.DB.prepare(`
-        SELECT minute_index, balance_left, balance_right,
-               te_left, te_right, ps_left, ps_right, power_avg
-        FROM ride_snapshots
-        WHERE ride_id = (SELECT id FROM rides WHERE user_id = ? ORDER BY timestamp DESC LIMIT 1)
-        ORDER BY minute_index ASC
-      `).bind(user.sub),
-    ]);
+    // 6. Snapshots for the latest ride - only when explicitly requested
+    if (includeSnapshots) {
+      queries.push(
+        c.env.DB.prepare(`
+          SELECT minute_index, balance_left, balance_right,
+                 te_left, te_right, ps_left, ps_right, power_avg
+          FROM ride_snapshots
+          WHERE ride_id = (SELECT id FROM rides WHERE user_id = ? ORDER BY timestamp DESC LIMIT 1)
+          ORDER BY minute_index ASC
+        `).bind(user.sub)
+      );
+    }
 
-    const stats = statsResult.results[0];
-    let recentRides = recentRidesResult.results as RideData[];
-    const thisWeek = thisWeekResult.results[0] as any;
-    const lastWeek = lastWeekResult.results[0] as any;
-    let trends = trendsResult.results as { date: string; [key: string]: any }[];
-    let lastRideSnapshots = lastRideSnapshotsResult.results;
+    // Run all queries in single D1 batch
+    const results = await c.env.DB.batch(queries);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const stats = roundObjectValues(results[0].results[0] as any);
+    let recentRides = roundArrayValues(results[1].results as RideData[]) as RideData[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const thisWeek = roundObjectValues(results[2].results[0] as any) as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const lastWeek = roundObjectValues(results[3].results[0] as any) as any;
+    let trends = roundArrayValues(results[4].results as { date: string }[]) as { date: string; [key: string]: unknown }[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let lastRideSnapshots = includeSnapshots
+      ? roundArrayValues(results[5].results as { timestamp: number }[])
+      : [] as { timestamp: number }[];
 
     // Adjust timestamps for demo user to make rides appear recent
     if (isDemoUser(user.sub)) {
@@ -417,36 +437,37 @@ rides.get('/dashboard', async (c) => {
       lastRideSnapshots = lastRideSnapshots.map((s: any) => adjustDemoSnapshot(s, demoOffset));
     }
 
-    // Calculate weekly changes
-    const thisWeekAsymmetry = Math.abs((thisWeek?.avg_balance_left || 50) - 50);
-    const lastWeekAsymmetry = Math.abs((lastWeek?.avg_balance_left || 50) - 50);
-    const changes = {
-      score: (thisWeek?.avg_score || 0) - (lastWeek?.avg_score || 0),
-      zone_optimal: (thisWeek?.avg_zone_optimal || 0) - (lastWeek?.avg_zone_optimal || 0),
-      rides_count: (thisWeek?.rides_count || 0) - (lastWeek?.rides_count || 0),
-      power: (thisWeek?.avg_power || 0) - (lastWeek?.avg_power || 0),
-      distance: (thisWeek?.total_distance_km || 0) - (lastWeek?.total_distance_km || 0),
-      duration: (thisWeek?.total_duration_ms || 0) - (lastWeek?.total_duration_ms || 0),
-      te: (thisWeek?.avg_te || 0) - (lastWeek?.avg_te || 0),
-      ps: (thisWeek?.avg_ps || 0) - (lastWeek?.avg_ps || 0),
+    // Calculate weekly changes (rounded)
+    const thisWeekAsymmetry = Math.abs(((thisWeek?.avg_balance_left as number) || 50) - 50);
+    const lastWeekAsymmetry = Math.abs(((lastWeek?.avg_balance_left as number) || 50) - 50);
+    const changes = roundObjectValues({
+      score: ((thisWeek?.avg_score as number) || 0) - ((lastWeek?.avg_score as number) || 0),
+      zone_optimal: ((thisWeek?.avg_zone_optimal as number) || 0) - ((lastWeek?.avg_zone_optimal as number) || 0),
+      rides_count: ((thisWeek?.rides_count as number) || 0) - ((lastWeek?.rides_count as number) || 0),
+      power: ((thisWeek?.avg_power as number) || 0) - ((lastWeek?.avg_power as number) || 0),
+      distance: ((thisWeek?.total_distance_km as number) || 0) - ((lastWeek?.total_distance_km as number) || 0),
+      duration: ((thisWeek?.total_duration_ms as number) || 0) - ((lastWeek?.total_duration_ms as number) || 0),
+      te: ((thisWeek?.avg_te as number) || 0) - ((lastWeek?.avg_te as number) || 0),
+      ps: ((thisWeek?.avg_ps as number) || 0) - ((lastWeek?.avg_ps as number) || 0),
       balance: thisWeekAsymmetry - lastWeekAsymmetry, // Positive = worse asymmetry
-    };
+    });
 
     const responseData = {
       stats,
       recentRides,
       weeklyComparison: { thisWeek, lastWeek, changes },
       trends,
-      lastRideSnapshots,
+      ...(includeSnapshots ? { lastRideSnapshots } : {}),
     };
 
     // Cache response for demo users using waitUntil to ensure write completes
     if (isDemoUser(user.sub)) {
       c.executionCtx.waitUntil(
-        setDemoCache(c.env.SESSIONS, user.sub, 'dashboard', responseData).catch(() => {})
+        setDemoCache(c.env.SESSIONS, user.sub, cacheKey, responseData).catch(() => {})
       );
     }
 
+    c.header('X-Snapshots', includeSnapshots ? 'included' : 'excluded');
     return c.json<ApiResponse>({ success: true, data: responseData });
   } catch (err) {
     console.error('Error fetching dashboard:', err);
@@ -474,6 +495,9 @@ rides.get('/:id', async (c) => {
         return c.json<ApiResponse>({ success: true, data: cached });
       }
     }
+
+    // Cache-Control for authenticated users (5 minutes for individual ride)
+    c.header('Cache-Control', 'private, max-age=300');
 
     // Run both queries in parallel
     const [rideResult, snapshotsResult] = await c.env.DB.batch([
@@ -508,7 +532,7 @@ rides.get('/:id', async (c) => {
       return c.json<ApiResponse>({ success: false, error: 'Ride not found' }, 404);
     }
 
-    let snapshots = snapshotsResult.results;
+    let snapshots = roundArrayValues(snapshotsResult.results as Record<string, unknown>[]);
 
     // Adjust timestamps for demo user
     if (isDemoUser(user.sub)) {
@@ -518,7 +542,7 @@ rides.get('/:id', async (c) => {
     }
 
     const responseData = {
-      ...ride,
+      ...roundObjectValues(ride as unknown as Record<string, unknown>),
       snapshots,
     };
 

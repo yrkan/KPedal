@@ -268,10 +268,7 @@ function createAuthStore() {
       const data = await res.json();
       if (data.success && data.data?.access_token && data.data?.refresh_token) {
         login(data.data.access_token, data.data.refresh_token, true);
-
-        // Prefetch dashboard data in background (don't await)
-        prefetchDemoData(data.data.access_token);
-
+        // No prefetch needed - demo uses static data from demoData.ts
         return true;
       }
 
@@ -280,30 +277,6 @@ function createAuthStore() {
       console.error('Demo login failed:', err);
       return false;
     }
-  }
-
-  // Prefetch critical demo data after login
-  function prefetchDemoData(accessToken: string): void {
-    const endpoints = ['/rides/dashboard', '/achievements/dashboard', '/drills/dashboard'];
-
-    endpoints.forEach(async (path) => {
-      try {
-        const res = await fetch(`${API_URL}${path}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`,
-          },
-        });
-        if (res.ok) {
-          const json = await res.json();
-          if (json.success && json.data) {
-            setDemoCache(path, json.data);
-          }
-        }
-      } catch {
-        // Ignore prefetch errors
-      }
-    });
   }
 
   async function logout() {

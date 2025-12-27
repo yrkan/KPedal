@@ -9,8 +9,8 @@
 
 import { isDemoUser } from '../types/env';
 
-// Cache TTL: 24 hours (demo offset changes daily)
-const CACHE_TTL_SECONDS = 24 * 60 * 60;
+// Cache TTL: 1 hour (balances freshness with performance)
+const CACHE_TTL_SECONDS = 60 * 60;
 
 // Base URL for cache keys (must be valid URL format)
 const CACHE_URL_BASE = 'https://cache.kpedal.com/demo';

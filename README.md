@@ -40,7 +40,6 @@ Real-time pedaling efficiency extension for Hammerhead Karoo 2/3. Displays Balan
 - [Requirements](#requirements)
 - [Contributing](#contributing)
 - [License](#license)
-- [Changelog](#changelog)
 
 ---
 
@@ -65,7 +64,7 @@ KPedal provides cyclists with real-time feedback on pedaling technique during ri
 | **Web Dashboard** | Full-featured portal with ride details, charts, device management |
 | **Demo Mode** | Try the web portal without sign-up — explore with sample data |
 | **Guided Tour** | Interactive 39-step walkthrough of all web portal features |
-| **Multi-language** | English and Spanish UI (web portal) |
+| **Multi-language** | English and Spanish UI (toggle on privacy/link pages) |
 
 ### System Architecture
 
@@ -481,10 +480,10 @@ The demo includes a comprehensive guided tour that walks you through every featu
 Click the **Tour** button in the demo banner anytime to restart the tour.
 
 **Demo performance:**
-- **Instant loading** — 3-layer caching (browser → edge → origin)
-- **Browser cache** — sessionStorage for immediate response
-- **Edge cache** — Cache API at Cloudflare edge (no origin roundtrip)
-- **Smart timestamps** — Demo rides auto-adjust so newest appears as "today"
+- **Zero latency** — Static data bundled in frontend (0ms API calls)
+- **Dynamic timestamps** — Demo rides auto-adjust so newest appears as "today"
+- **Instant login** — Hardcoded demo user, no database query
+- **Smart caching** — HTML revalidation + 1-hour edge cache for regular users
 
 **Demo limitations:**
 - Read-only (can't delete rides or modify settings)
@@ -575,9 +574,9 @@ The web portal is fully responsive:
 
 | Theme | Description |
 |-------|-------------|
+| **Auto** | Switches automatically at 7 AM (light) and 7 PM (dark) — default |
 | **Light** | Clean white background with darker status colors for readability |
 | **Dark** | Dark background with muted status colors (easier on eyes) |
-| **System** | Follows OS preference |
 
 Theme persists in localStorage and syncs with Karoo app settings.
 
@@ -714,7 +713,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ./gradlew lint               # Android lint
 ```
 
-**Output:** `app/build/outputs/apk/release/kpedal-1.0.0.apk`
+**Output:** `app/build/outputs/apk/release/kpedal-<version>.apk`
 
 ---
 
@@ -875,11 +874,16 @@ web/
     │   │   ├── settings/           # Account settings
     │   │   └── privacy/            # Privacy policy
     │   ├── lib/
-    │   │   ├── auth.ts             # Auth store, tokens, demo prefetch
-    │   │   ├── theme.ts            # Theme store (light/dark/system)
+    │   │   ├── auth.ts             # Auth store, tokens
+    │   │   ├── demoData.ts         # Static demo data (27 rides, drills, achievements)
+    │   │   ├── theme.ts            # Theme store (light/dark/auto)
     │   │   ├── tour.ts             # Product tour (driver.js)
+    │   │   ├── i18n.ts             # Internationalization (EN/ES)
     │   │   ├── config.ts           # API_URL constant
     │   │   └── components/         # Shared components (InfoTip, etc.)
+    │   ├── locales/                # Translation files
+    │   │   ├── en.json             # English (1460 keys)
+    │   │   └── es.json             # Spanish
     │   └── app.css                 # Global styles, CSS vars, themes
     └── svelte.config.js
 ```
@@ -1084,9 +1088,10 @@ Worker runs near D1 database (EEUR region), reducing D1 latency from **~250ms to
 |-----------|---------|
 | **D1 Batch Queries** | 6 SQL queries in single roundtrip (`DB.batch([...])`) |
 | **Combined Endpoints** | `/rides/dashboard` returns stats + rides + weekly + trends in ONE call |
-| **Demo Edge Cache** | Cache API at edge, 1-hour TTL, no origin roundtrip |
-| **Browser Prefetch** | Demo data prefetched on login, stored in sessionStorage |
-| **Hardcoded Timestamps** | Demo offset calculated without DB query |
+| **Static Demo Data** | Demo mode uses bundled JSON, zero API calls |
+| **Demo Login** | Hardcoded demo user, no DB query, fire-and-forget KV write |
+| **Cache Headers** | HTML `must-revalidate`, immutable assets 1-year cache |
+| **Edge Cache** | 1-hour TTL for demo API responses (regular users) |
 
 #### Response Headers
 
@@ -1103,7 +1108,8 @@ x-ratelimit-remaining: 96 # Rate limit status
 | Health check (`/`) | <50ms | ~15ms |
 | Auth (`/me`) | <100ms | ~30ms |
 | Dashboard | <200ms | ~80ms |
-| Demo (cached) | <50ms | ~20ms |
+| Demo login | <200ms | ~40ms (warm), ~150ms (cold) |
+| Demo pages | 0ms | 0ms (static data) |
 
 ---
 
@@ -1230,58 +1236,6 @@ MIT
 | **Privacy Policy** | [kpedal.com/privacy](https://kpedal.com/privacy) |
 | **GitHub** | [github.com/yrkan/KPedal](https://github.com/yrkan/KPedal) |
 | **Issues** | [github.com/yrkan/KPedal/issues](https://github.com/yrkan/KPedal/issues) |
-
----
-
-## Changelog
-
-### v1.1.0 (December 2025)
-
-**Web Portal:**
-- Full internationalization (i18n) with svelte-i18n
-- English and Spanish language support
-- 1460 translation keys covering all UI text
-- Localized privacy policy
-- Accessible aria-labels
-
-**Android App:**
-- Extracted all hardcoded strings to resources (350+ strings)
-- Spanish translations (values-es/strings.xml)
-- Resource-based drill names and descriptions
-
----
-
-### v1.0.0 (December 2025)
-
-**Android App:**
-- Kotlin 2.2.20 with KSP 2.2.20-2.0.4
-- Android Gradle Plugin 8.13.2
-- Target SDK 35 (Android 15)
-- Compose BOM 2025.01.00
-- Room 2.7.2
-- Coroutines 1.10.2
-- karoo-ext SDK 1.1.7
-- JUnit 5.11.4 with MockK 1.13.16
-
-**Web API:**
-- Hono 4.11.0
-- jose 6.1.0
-- Vitest 4.0.0
-- Wrangler 4.56.0
-- TypeScript 5.7.0
-
-**Web Frontend:**
-- SvelteKit 2.x with Svelte 5.x
-- Vite 7.3.0
-- driver.js 1.4.0
-- Chart.js 4.4.0
-
-**Features:**
-- 39-step interactive product tour
-- 3-layer caching for instant demo loading
-- Power zone breakdown in ride detail
-- Fatigue analysis (first ⅓ vs last ⅓)
-- Per-minute timeline charts
 
 ---
 

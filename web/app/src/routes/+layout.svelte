@@ -4,7 +4,7 @@
   import { page } from '$app/stores';
   import { auth, isAuthenticated, isLoading, user, isDemo } from '$lib/auth';
   import { startDashboardTour, resetTour, hasPendingTour, continueTourOnPage } from '$lib/tour';
-  import { theme } from '$lib/theme';
+  import { theme, resolvedTheme } from '$lib/theme';
   import '$lib/i18n';
   import { t, waitLocale, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
   import '../app.css';
@@ -128,14 +128,9 @@
             {/each}
           </select>
 
-          <button class="icon-btn" on:click={() => theme.toggle()} title={$t('common.toggleTheme')}>
-            {#if $theme === 'auto'}
-              <!-- Auto: clock icon -->
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
-              </svg>
-            {:else if $theme === 'light'}
-              <!-- Light: sun icon -->
+          <button class="icon-btn theme-toggle-btn" on:click={() => theme.toggle()} title={$t('common.toggleTheme')}>
+            {#if $resolvedTheme === 'light'}
+              <!-- Sun icon -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"/>
                 <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -144,10 +139,13 @@
                 <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
               </svg>
             {:else}
-              <!-- Dark: moon icon -->
+              <!-- Moon icon -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
+            {/if}
+            {#if $theme === 'auto'}
+              <span class="auto-badge">A</span>
             {/if}
           </button>
 
@@ -158,6 +156,14 @@
               <div class="avatar-placeholder">{$user?.name?.[0] || '?'}</div>
             {/if}
           </a>
+
+          <button class="logout-btn" on:click={() => auth.logout()} title={$t('nav.logout')}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+          </button>
         </div>
       </div>
     </nav>
@@ -433,11 +439,49 @@
     color: var(--text-primary);
   }
 
+  .theme-toggle-btn {
+    position: relative;
+  }
+
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    transition: all 0.15s ease;
+  }
+
+  .logout-btn:hover {
+    color: var(--color-problem);
+  }
+
+  .auto-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 14px;
+    height: 14px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    border: 1.5px solid var(--bg-base);
+  }
+
   .avatar-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
     transition: opacity 0.15s ease;
   }
 

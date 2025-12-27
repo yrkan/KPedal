@@ -4,7 +4,7 @@
   import { page } from '$app/stores';
   import { browser } from '$app/environment';
   import { isAuthenticated, auth } from '$lib/auth';
-  import { theme } from '$lib/theme';
+  import { theme, resolvedTheme } from '$lib/theme';
   import { API_URL } from '$lib/config';
   import { t, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
 
@@ -92,11 +92,7 @@
       </select>
 
       <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
-        {#if $theme === 'auto'}
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
-          </svg>
-        {:else if $theme === 'light'}
+        {#if $resolvedTheme === 'light'}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/>
             <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -108,6 +104,9 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
+        {/if}
+        {#if $theme === 'auto'}
+          <span class="auto-badge">A</span>
         {/if}
       </button>
     </div>
@@ -202,7 +201,7 @@
     padding: 20px;
     background: var(--bg-base);
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
   }
 
   .bg-gradient {
@@ -275,6 +274,7 @@
   }
 
   .theme-toggle {
+    position: relative;
     width: 36px;
     height: 36px;
     display: flex;
@@ -290,7 +290,25 @@
 
   .theme-toggle:hover {
     border-color: var(--border-default);
-    color: var(--text-primary);
+  }
+
+  .auto-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 14px;
+    height: 14px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    border: 1.5px solid var(--bg-base);
   }
 
   .login-card {
@@ -541,6 +559,10 @@
   }
 
   @media (max-width: 400px) {
+    .login-page {
+      padding: 16px;
+    }
+
     .login-card {
       padding: 32px 24px;
       border-radius: 20px;
@@ -548,6 +570,283 @@
 
     .logo-text {
       font-size: 24px;
+    }
+
+    .header-actions {
+      position: static;
+      justify-content: flex-end;
+      margin-bottom: 12px;
+    }
+
+    .lang-select {
+      height: 32px;
+      font-size: 12px;
+      padding: 0 24px 0 10px;
+    }
+
+    .theme-toggle {
+      width: 32px;
+      height: 32px;
+    }
+
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  /* Small screens */
+  @media (max-width: 340px) {
+    .login-page {
+      padding: 12px;
+    }
+
+    .login-card {
+      padding: 24px 18px;
+      border-radius: 16px;
+    }
+
+    .logo {
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+    }
+
+    .tagline {
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .google-btn, .demo-btn {
+      padding: 12px 16px;
+      font-size: 14px;
+      border-radius: 10px;
+      gap: 8px;
+    }
+
+    .google-btn svg, .demo-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .divider {
+      margin: 16px 0;
+    }
+
+    .demo-note {
+      font-size: 12px;
+      margin-top: 12px;
+    }
+
+    .trust-section {
+      margin-top: 20px;
+      padding-top: 16px;
+    }
+
+    .trust-row {
+      gap: 12px;
+    }
+
+    .trust-item {
+      font-size: 10px;
+      gap: 5px;
+    }
+
+    .trust-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .trust-icon svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .privacy-note {
+      font-size: 11px;
+      margin-top: 16px;
+    }
+
+    .footer {
+      margin-top: 16px;
+    }
+
+    .landing-link {
+      font-size: 12px;
+    }
+
+    .header-actions {
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .lang-select {
+      height: 28px;
+      font-size: 11px;
+      padding: 0 20px 0 8px;
+      border-radius: 6px;
+    }
+
+    .theme-toggle {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .theme-toggle svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .auto-badge {
+      width: 12px;
+      height: 12px;
+      font-size: 8px;
+      bottom: -3px;
+      right: -3px;
+    }
+  }
+
+  /* Extra small screens (250-280px) */
+  @media (max-width: 280px) {
+    .login-page {
+      padding: 8px;
+    }
+
+    .login-card {
+      padding: 20px 14px;
+      border-radius: 12px;
+    }
+
+    .logo {
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    .logo-text {
+      font-size: 18px;
+    }
+
+    .tagline {
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .error-banner {
+      padding: 8px 10px;
+      font-size: 11px;
+      border-radius: 8px;
+    }
+
+    .google-btn, .demo-btn {
+      padding: 10px 12px;
+      font-size: 13px;
+      border-radius: 8px;
+      gap: 6px;
+    }
+
+    .google-btn svg, .demo-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .divider {
+      margin: 12px 0;
+      font-size: 11px;
+    }
+
+    .demo-note {
+      font-size: 11px;
+      margin-top: 10px;
+    }
+
+    .trust-section {
+      margin-top: 14px;
+      padding-top: 12px;
+    }
+
+    .trust-row {
+      gap: 8px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .trust-item {
+      font-size: 9px;
+      gap: 4px;
+    }
+
+    .trust-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .trust-icon svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .privacy-note {
+      font-size: 10px;
+      margin-top: 12px;
+    }
+
+    .footer {
+      margin-top: 12px;
+    }
+
+    .landing-link {
+      font-size: 11px;
+    }
+
+    .header-actions {
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .lang-select {
+      height: 26px;
+      font-size: 10px;
+      padding: 0 18px 0 6px;
+      border-radius: 5px;
+    }
+
+    .theme-toggle {
+      width: 26px;
+      height: 26px;
+      border-radius: 5px;
+    }
+
+    .theme-toggle svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .auto-badge {
+      width: 10px;
+      height: 10px;
+      font-size: 7px;
+      bottom: -2px;
+      right: -2px;
+      border-width: 1px;
+    }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
     }
   }
 </style>

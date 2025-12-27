@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-  import { isAuthenticated, authFetch } from '$lib/auth';
+  import { isAuthenticated, authFetch, isDemo } from '$lib/auth';
+  import { getDemoAchievements } from '$lib/demoData';
   import InfoTip from '$lib/components/InfoTip.svelte';
   import { t, locale } from '$lib/i18n';
 
@@ -87,7 +88,16 @@
     error = false;
 
     try {
-      // Single API call replaces 2 separate requests
+      // Demo mode: use static data (0ms, no API call)
+      if ($isDemo) {
+        const data = getDemoAchievements();
+        milestones = data.achievements;
+        stats = data.stats;
+        loading = false;
+        return;
+      }
+
+      // Regular users: API call
       const res = await authFetch('/achievements/dashboard');
       if (res.ok) {
         const data = await res.json();
@@ -135,18 +145,20 @@
         </svg>
       </a>
       <h1>{$t('achievements.title')}</h1>
-      <div class="view-toggle">
-        <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title={$t('common.tableView')}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
-        <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title={$t('common.cardView')}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
-          </svg>
-        </button>
-      </div>
+      {#if achievedCount > 0}
+        <div class="view-toggle">
+          <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title={$t('common.tableView')}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title={$t('common.cardView')}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </button>
+        </div>
+      {/if}
     </header>
 
     {#if loading}
@@ -159,15 +171,48 @@
         <button class="retry-btn" on:click={loadDashboard}>{$t('common.retry')}</button>
       </div>
     {:else if achievedCount === 0 && !loading}
-      <div class="empty-state animate-in">
-        <div class="empty-icon">
+      <div class="empty-state-enhanced animate-in">
+        <div class="empty-icon-wrap">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
           </svg>
         </div>
         <h3>{$t('achievements.noAchievements')}</h3>
         <p>{$t('achievements.noAchievementsHint')}</p>
-        <a href="/" class="back-btn-link">← {$t('common.backToDashboard')}</a>
+
+        <div class="achievement-categories">
+          <span class="cat-label">{$t('achievements.availableCategories')}</span>
+          <div class="cat-grid">
+            <div class="cat-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <span>{$t('achievements.categories.milestones')}</span>
+            </div>
+            <div class="cat-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+              <span>{$t('achievements.categories.balance')}</span>
+            </div>
+            <div class="cat-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+              <span>{$t('achievements.categories.performance')}</span>
+            </div>
+            <div class="cat-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span>{$t('achievements.categories.streaks')}</span>
+            </div>
+            <div class="cat-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span>{$t('achievements.categories.duration')}</span>
+            </div>
+            <div class="cat-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>{$t('achievements.categories.drills')}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-actions">
+          <a href="/" class="empty-action-btn">← {$t('nav.dashboard')}</a>
+        </div>
       </div>
     {:else}
       <!-- Stats Strip -->
@@ -432,6 +477,96 @@
 
   .card-date.pending {
     color: var(--text-muted);
+  }
+
+  /* Enhanced Empty State */
+  .empty-state-enhanced {
+    text-align: center;
+    padding: 60px 24px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .empty-icon-wrap {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    color: var(--text-muted);
+  }
+  .empty-state-enhanced h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .empty-state-enhanced > p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+  .achievement-categories {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  .cat-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .cat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--bg-base);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .cat-item svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .empty-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .empty-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+  }
+  .empty-action-btn:hover {
+    border-color: var(--border-default);
+    color: var(--text-primary);
   }
 
   /* Mobile */

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="48dp"
-    android:height="48dp"
-    android:viewportWidth="48"
-    android:viewportHeight="48">
-    <!-- Circle background -->
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Filled circle background -->
     <path
         android:fillColor="#4CAF50"
-        android:pathData="M24,24m-20,0a20,20 0,1 1,40 0a20,20 0,1 1,-40 0" />
-    <!-- Pedal icon (simplified crank) -->
+        android:pathData="M54,54m-36,0a36,36 0,1 1,72 0a36,36 0,1 1,-72 0" />
+    <!-- Left pedal -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M24,14L24,34M16,24L32,24"
-        android:strokeWidth="3"
-        android:strokeColor="#FFFFFF" />
-    <!-- Left circle -->
+        android:pathData="M32,54m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+    <!-- Right pedal -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M16,24m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
-    <!-- Right circle -->
+        android:pathData="M76,54m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+    <!-- Crank arm -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M32,24m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+        android:pathData="M40,54 L68,54"
+        android:strokeWidth="4"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
 </vector>

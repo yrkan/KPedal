@@ -103,7 +103,30 @@
     <string name="account">CUENTA</string>
     <string name="link_account">Vincular Cuenta</string>
     <string name="link_account_desc">Sincroniza salidas entre dispositivos</string>
+    <string name="why_how_sync">¿Por qué y cómo sincronizar?</string>
     <string name="account_linked">¡Cuenta Vinculada!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">Sincronización en la Nube</string>
+    <string name="cloud_sync_why_title">¿Por qué sincronizar?</string>
+    <string name="cloud_sync_why_1">Ver historial y análisis en cualquier dispositivo</string>
+    <string name="cloud_sync_why_2">Gráficos detallados y datos por minuto</string>
+    <string name="cloud_sync_why_3">Seguimiento de logros</string>
+    <string name="cloud_sync_why_4">Nunca pierdas datos si el dispositivo se reinicia</string>
+    <string name="cloud_sync_how_title">¿Cómo vincular?</string>
+    <string name="cloud_sync_how_1">Toca "Vincular Cuenta" arriba</string>
+    <string name="cloud_sync_how_2">Anota el código de 8 caracteres</string>
+    <string name="cloud_sync_how_3">Visita link.kpedal.com en cualquier dispositivo</string>
+    <string name="cloud_sync_how_3_prefix">Visita</string>
+    <string name="cloud_sync_how_4">Ingresa el código e inicia sesión con Google</string>
+    <string name="cloud_sync_how_5">¡Listo! Las salidas se sincronizan automáticamente</string>
+    <string name="cloud_sync_what_syncs">¿Qué se sincroniza?</string>
+    <string name="cloud_sync_syncs_rides">Resúmenes de salidas con datos por minuto</string>
+    <string name="cloud_sync_syncs_metrics">Potencia, FC, cadencia, distancia, elevación</string>
+    <string name="cloud_sync_syncs_drills">Resultados de ejercicios y logros</string>
+    <string name="cloud_sync_syncs_settings">Configuración de alertas y umbrales</string>
+    <string name="cloud_sync_not_syncs">GPS/rutas NO se recopilan</string>
+    <string name="cloud_sync_free">Gratis y sin anuncios. Tus datos son tuyos.</string>
     <string name="sign_out">Cerrar Sesión</string>
     <string name="sync">Sincronizar</string>
     <string name="syncing">Sincronizando…</string>
@@ -683,5 +706,5 @@
     <!-- Languages -->
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
-    <string name="language_system">Predeterminado del sistema</string>
+    <string name="language_system">Sistema</string>
 </resources>

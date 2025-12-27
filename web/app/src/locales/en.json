@@ -34,7 +34,8 @@
     "achievements": "Achievements",
     "goals": "Goals",
     "settings": "Settings",
-    "profile": "Profile"
+    "profile": "Profile",
+    "logout": "Sign Out"
   },
   "auth": {
     "signIn": "Sign In",
@@ -517,6 +518,15 @@
     "notAchieved": "Not achieved",
     "noAchievements": "No milestones yet",
     "noAchievementsHint": "Complete rides and drills on your Karoo to unlock achievements",
+    "availableCategories": "Achievement categories",
+    "categories": {
+      "milestones": "Ride Milestones",
+      "balance": "Balance Mastery",
+      "performance": "Performance Scores",
+      "streaks": "Consistency Streaks",
+      "duration": "Duration Goals",
+      "drills": "Drill Expertise"
+    },
     "stats": {
       "achieved": "achieved",
       "achievedTip": "Number of milestones you've unlocked.",
@@ -736,10 +746,6 @@
     "themeAuto": "Auto",
     "themeLight": "Light",
     "themeDark": "Dark",
-    "language": {
-      "title": "Language",
-      "description": "Choose your preferred language"
-    },
     "data": "Data",
     "rideData": "Ride Data",
     "rideDataHint": "Your data is stored securely and synced from your Karoo device",

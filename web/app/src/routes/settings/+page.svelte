@@ -3,7 +3,7 @@
   import { goto } from '$app/navigation';
   import { auth, isAuthenticated, user, authFetch } from '$lib/auth';
   import { theme, type Theme } from '$lib/theme';
-  import { t, locale, setLocale, locales, localeNames, type Locale } from '$lib/i18n';
+  import { t } from '$lib/i18n';
   import InfoTip from '$lib/components/InfoTip.svelte';
 
   interface Device {
@@ -744,8 +744,8 @@
               on:click={() => setTheme('auto')}
               aria-label={$t('settings.themeAuto')}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4L5 20M12 4L19 20M8 14h8"/>
               </svg>
               {$t('settings.themeAuto')}
             </button>
@@ -775,25 +775,6 @@
               </svg>
               {$t('settings.themeDark')}
             </button>
-          </div>
-        </div>
-        <div class="setting-row">
-          <div class="setting-info">
-            <span class="setting-label">{$t('settings.language.title')}</span>
-            <span class="setting-description">{$t('settings.language.description')}</span>
-          </div>
-          <div class="language-selector">
-            {#each locales as loc}
-              <button
-                class="language-option"
-                class:active={$locale === loc}
-                on:click={() => setLocale(loc)}
-                aria-label={localeNames[loc]}
-              >
-                <span class="lang-flag">{loc === 'en' ? '🇺🇸' : '🇪🇸'}</span>
-                <span class="lang-name">{localeNames[loc]}</span>
-              </button>
-            {/each}
           </div>
         </div>
       </div>
@@ -1050,44 +1031,6 @@
     background: var(--color-accent-soft);
     color: var(--color-accent);
     border-color: var(--color-accent);
-  }
-
-  .language-selector {
-    display: flex;
-    gap: 8px;
-  }
-
-  .language-option {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    background: var(--bg-elevated);
-    border: 1px solid transparent;
-    color: var(--text-secondary);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .language-option:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
-  }
-
-  .language-option.active {
-    background: var(--color-accent-soft);
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-  }
-
-  .lang-flag {
-    font-size: 16px;
-  }
-
-  .lang-name {
-    font-weight: 500;
   }
 
   .about-content {

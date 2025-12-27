@@ -5,8 +5,9 @@
   import { browser } from '$app/environment';
   import { isAuthenticated, user, authFetch, isDemo } from '$lib/auth';
   import { startDashboardTour, isTourCompleted, resetTour } from '$lib/tour';
-  import { theme } from '$lib/theme';
+  import { theme, resolvedTheme } from '$lib/theme';
   import { API_URL } from '$lib/config';
+  import { getDemoDashboard } from '$lib/demoData';
   import InfoTip from '$lib/components/InfoTip.svelte';
   import { t, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
 
@@ -234,19 +235,33 @@
   async function loadDashboardData() {
     loading = true;
     try {
-      // Single API call replaces 6 separate requests (7x faster)
-      const res = await authFetch('/rides/dashboard');
+      // Demo mode: use static data (0ms, no API call)
+      if ($isDemo) {
+        const data = getDemoDashboard();
+        stats = data.stats;
+        recentRides = data.recentRides;
+        weeklyRides = recentRides;
+        weeklyComparison = data.weeklyComparison;
+        trendData = data.trends;
+        if (data.lastRideSnapshots?.length >= 6) {
+          fatigueData = calculateFatigueAnalysis(data.lastRideSnapshots);
+        }
+        loading = false;
+        return;
+      }
+
+      // Regular users: API call
+      const res = await authFetch('/rides/dashboard?include=snapshots');
 
       if (res.ok) {
         const data = await res.json();
         if (data.success) {
           stats = data.data.stats;
           recentRides = data.data.recentRides || [];
-          weeklyRides = recentRides; // Use recent rides for weekly display
+          weeklyRides = recentRides;
           weeklyComparison = data.data.weeklyComparison;
           trendData = data.data.trends || [];
 
-          // Calculate fatigue from snapshots (included in dashboard response)
           if (data.data.lastRideSnapshots?.length >= 6) {
             fatigueData = calculateFatigueAnalysis(data.data.lastRideSnapshots);
           }
@@ -1145,11 +1160,7 @@
         </select>
 
         <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
-          {#if $theme === 'auto'}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
-            </svg>
-          {:else if $theme === 'light'}
+          {#if $resolvedTheme === 'light'}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="5"/>
               <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -1161,6 +1172,9 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
+          {/if}
+          {#if $theme === 'auto'}
+            <span class="auto-badge">A</span>
           {/if}
         </button>
       </div>
@@ -2911,6 +2925,7 @@
   }
 
   .theme-toggle {
+    position: relative;
     width: 36px;
     height: 36px;
     display: flex;
@@ -2927,6 +2942,24 @@
   .theme-toggle:hover {
     border-color: var(--border-default);
     color: var(--text-secondary);
+  }
+  .auto-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 14px;
+    height: 14px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 900;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    border: 1.5px solid var(--bg-base);
   }
 
   .landing-container {

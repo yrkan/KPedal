@@ -35,6 +35,7 @@ import io.github.kpedal.ui.screens.drills.DrillResultScreen
 import io.github.kpedal.ui.screens.drills.DrillsListScreen
 import io.github.kpedal.ui.screens.layouts.*
 import io.github.kpedal.ui.screens.analytics.AnalyticsScreen
+import io.github.kpedal.ui.screens.help.CloudSyncHelpScreen
 import io.github.kpedal.ui.screens.help.HelpScreen
 import io.github.kpedal.ui.screens.help.OnboardingScreen
 import io.github.kpedal.ui.screens.AchievementsScreen
@@ -237,7 +238,15 @@ fun KPedalApp(
                     }
                 },
                 onCheckSyncRequest = viewModel::checkForSyncRequest,
-                onDeviceRevokedAcknowledged = viewModel::clearDeviceRevokedFlag
+                onDeviceRevokedAcknowledged = viewModel::clearDeviceRevokedFlag,
+                onNavigateToLinkHelp = { navController.navigate("cloud-sync-help") }
+            )
+        }
+
+        // Cloud Sync Help
+        composable("cloud-sync-help") {
+            CloudSyncHelpScreen(
+                onBack = { navController.popBackStack() }
             )
         }
 

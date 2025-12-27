@@ -34,7 +34,8 @@
     "achievements": "Logros",
     "goals": "Metas",
     "settings": "Ajustes",
-    "profile": "Perfil"
+    "profile": "Perfil",
+    "logout": "Cerrar sesión"
   },
   "auth": {
     "signIn": "Iniciar sesión",
@@ -517,6 +518,15 @@
     "notAchieved": "No logrado",
     "noAchievements": "Sin logros todavía",
     "noAchievementsHint": "Completa salidas y ejercicios en tu Karoo para desbloquear logros",
+    "availableCategories": "Categorías de logros",
+    "categories": {
+      "milestones": "Hitos de Salidas",
+      "balance": "Dominio del Balance",
+      "performance": "Puntuaciones",
+      "streaks": "Rachas Constantes",
+      "duration": "Metas de Duración",
+      "drills": "Experto en Ejercicios"
+    },
     "stats": {
       "achieved": "logrados",
       "achievedTip": "Número de logros que has desbloqueado.",
@@ -736,10 +746,6 @@
     "themeAuto": "Auto",
     "themeLight": "Claro",
     "themeDark": "Oscuro",
-    "language": {
-      "title": "Idioma",
-      "description": "Elige tu idioma preferido"
-    },
     "data": "Datos",
     "rideData": "Datos de Salidas",
     "rideDataHint": "Tus datos se almacenan de forma segura y se sincronizan desde tu dispositivo Karoo",

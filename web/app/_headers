@@ -1,0 +1,25 @@
+# ============================================
+# KPedal Web - Cache Headers
+# ============================================
+
+# HTML pages - always revalidate after deploy
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Static assets with content hash - immutable
+/_app/immutable/*
+  Cache-Control: public, immutable, max-age=31536000
+
+# Other JS/CSS in _app - short cache with revalidate
+/_app/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# API error pages
+/api/*
+  Cache-Control: no-store
+
+# Sitemap, robots
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+/robots.txt
+  Cache-Control: public, max-age=86400

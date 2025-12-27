@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-  import { isAuthenticated, authFetch } from '$lib/auth';
+  import { isAuthenticated, authFetch, isDemo } from '$lib/auth';
+  import { getDemoDrills } from '$lib/demoData';
   import { t, locale } from '$lib/i18n';
   import InfoTip from '$lib/components/InfoTip.svelte';
 
@@ -73,7 +74,17 @@
     error = false;
 
     try {
-      // Single API call replaces 2 separate requests
+      // Demo mode: use static data (0ms, no API call)
+      if ($isDemo) {
+        const data = getDemoDrills();
+        drills = data.drills;
+        total = data.total;
+        stats = data.stats;
+        loading = false;
+        return;
+      }
+
+      // Regular users: API call
       let url = `/drills/dashboard?limit=${limit}&offset=${offset}`;
       if (filterDrillId) {
         url += `&drill_id=${filterDrillId}`;
@@ -201,18 +212,20 @@
         </svg>
       </a>
       <h1>{$t('drills.title')}</h1>
-      <div class="view-toggle">
-        <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title={$t('rides.viewTable')}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
-        <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title={$t('rides.viewCards')}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
-          </svg>
-        </button>
-      </div>
+      {#if drills.length > 0}
+        <div class="view-toggle">
+          <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title={$t('rides.viewTable')}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title={$t('rides.viewCards')}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </button>
+        </div>
+      {/if}
     </header>
 
     {#if loading && !stats}

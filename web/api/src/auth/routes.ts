@@ -946,40 +946,34 @@ auth.post('/logout', async (c) => {
   }
 });
 
+// Hardcoded demo user (never changes, avoids DB query)
+const DEMO_USER = {
+  id: DEMO_USER_ID,
+  email: 'demo@kpedal.com',
+  name: 'Demo Rider',
+  picture: null as string | null,
+};
+
 /**
  * POST /auth/demo
  * Login to demo account (no Google OAuth required)
  * Returns tokens for read-only demo account
+ * Optimized: no DB query, uses hardcoded demo user
  */
 auth.post('/demo', async (c) => {
   const env = c.env;
 
   try {
-    // Get demo user from database
-    const demoUser = await env.DB.prepare(
-      'SELECT id, email, name, picture FROM users WHERE id = ?'
-    ).bind(DEMO_USER_ID).first<{
-      id: string;
-      email: string;
-      name: string;
-      picture: string | null;
-    }>();
+    // Create tokens for demo user (no DB query needed)
+    const { accessToken, refreshToken } = await createTokens(env, DEMO_USER);
 
-    if (!demoUser) {
-      return c.json<ApiResponse>({
-        success: false,
-        error: 'Demo account not available',
-      }, 503);
-    }
-
-    // Create tokens for demo user
-    const { accessToken, refreshToken } = await createTokens(env, demoUser);
-
-    // Store refresh token in KV (short TTL for demo)
-    await env.SESSIONS.put(
-      `refresh:${demoUser.id}:${refreshToken.slice(-16)}`,
-      JSON.stringify({ createdAt: Date.now(), isDemo: true }),
-      { expirationTtl: 60 * 60 * 24 } // 24 hours for demo
+    // Store refresh token in KV (don't await - fire and forget)
+    c.executionCtx.waitUntil(
+      env.SESSIONS.put(
+        `refresh:${DEMO_USER.id}:${refreshToken.slice(-16)}`,
+        JSON.stringify({ createdAt: Date.now(), isDemo: true }),
+        { expirationTtl: 60 * 60 * 24 } // 24 hours for demo
+      )
     );
 
     return c.json<ApiResponse>({
@@ -988,10 +982,10 @@ auth.post('/demo', async (c) => {
         access_token: accessToken,
         refresh_token: refreshToken,
         user: {
-          id: demoUser.id,
-          email: demoUser.email,
-          name: demoUser.name,
-          picture: demoUser.picture,
+          id: DEMO_USER.id,
+          email: DEMO_USER.email,
+          name: DEMO_USER.name,
+          picture: DEMO_USER.picture,
         },
         is_demo: true,
       },

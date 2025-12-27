@@ -1,7 +1,8 @@
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 import { browser } from '$app/environment';
 
 export type Theme = 'light' | 'dark' | 'auto';
+export type ResolvedTheme = 'light' | 'dark';
 
 const STORAGE_KEY = 'kpedal_theme';
 
@@ -109,3 +110,9 @@ function createThemeStore() {
 }
 
 export const theme = createThemeStore();
+
+// Derived store for the resolved theme (for reactive UI updates)
+export const resolvedTheme = derived(theme, ($theme) => {
+  if ($theme === 'auto') return getTimeBasedTheme();
+  return $theme;
+});

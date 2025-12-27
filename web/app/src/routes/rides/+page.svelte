@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
-  import { isAuthenticated, authFetch } from '$lib/auth';
+  import { isAuthenticated, isDemo, authFetch } from '$lib/auth';
+  import { getDemoRides } from '$lib/demoData';
   import { t, locale } from '$lib/i18n';
   import InfoTip from '$lib/components/InfoTip.svelte';
 
@@ -18,11 +19,13 @@
     zone_optimal: number;
     zone_attention: number;
     zone_problem: number;
+    score: number;
     power_avg: number;
     power_max: number;
     cadence_avg: number;
     hr_avg: number;
     hr_max: number;
+    speed_avg: number;
     distance_km: number;
     // Pro cyclist metrics
     elevation_gain: number;
@@ -86,7 +89,16 @@
     error = false;
 
     try {
-      // Load more rides (100) to have enough data for filtering
+      // Demo mode: use static data (0ms, no API call)
+      if ($isDemo) {
+        const data = getDemoRides();
+        rides = data.rides;
+        total = data.total;
+        loading = false;
+        return;
+      }
+
+      // Regular users: API call
       const res = await authFetch(`/rides?limit=${limit}&offset=${offset}`);
       if (res.ok) {
         const data = await res.json();
@@ -237,18 +249,20 @@
         </svg>
       </a>
       <h1>{$t('rides.title')}</h1>
-      <div class="view-toggle">
-        <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title={$t('rides.viewTable')}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
-        <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title={$t('rides.viewCards')}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
-          </svg>
-        </button>
-      </div>
+      {#if rides.length > 0}
+        <div class="view-toggle">
+          <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title={$t('rides.viewTable')}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+          <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title={$t('rides.viewCards')}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </button>
+        </div>
+      {/if}
     </header>
 
     {#if loading && rides.length === 0}
@@ -270,19 +284,31 @@
         <h3>{$t('rides.noRides')}</h3>
         <p>{$t('rides.noRidesHint')}</p>
 
-        <div class="empty-preview">
-          <span class="empty-preview-label">{$t('rides.eachRideShows')}</span>
-          <div class="empty-preview-items">
-            <span class="preview-item"><span class="preview-dot balance"></span>{$t('metrics.leftRight')} {$t('metrics.balance')}</span>
-            <span class="preview-item"><span class="preview-dot te"></span>{$t('metrics.teShort')}</span>
-            <span class="preview-item"><span class="preview-dot ps"></span>{$t('metrics.psShort')}</span>
-            <span class="preview-item"><span class="preview-dot score"></span>{$t('zones.title')}</span>
+        <div class="ride-metrics-preview">
+          <span class="preview-label">{$t('rides.eachRideShows')}</span>
+          <div class="preview-grid">
+            <div class="preview-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+              <span>{$t('metrics.leftRight')} {$t('metrics.balance')}</span>
+            </div>
+            <div class="preview-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span>{$t('metrics.teShort')}</span>
+            </div>
+            <div class="preview-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+              <span>{$t('metrics.psShort')}</span>
+            </div>
+            <div class="preview-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+              <span>{$t('zones.title')}</span>
+            </div>
           </div>
         </div>
 
         <div class="empty-actions">
           <a href="/settings" class="empty-action-btn secondary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             {$t('settings.linkDevice')}
           </a>
           <a href="/" class="empty-action-btn">← {$t('nav.dashboard')}</a>
@@ -794,14 +820,14 @@
     line-height: 1.5;
     margin-bottom: 24px;
   }
-  .empty-preview {
+  .ride-metrics-preview {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
     padding: 16px;
     margin-bottom: 20px;
   }
-  .empty-preview-label {
+  .preview-label {
     display: block;
     font-size: 11px;
     font-weight: 600;
@@ -810,28 +836,25 @@
     color: var(--text-muted);
     margin-bottom: 12px;
   }
-  .empty-preview-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
   .preview-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--bg-base);
+    border-radius: 8px;
     font-size: 13px;
     color: var(--text-secondary);
   }
-  .preview-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+  .preview-item svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
   }
-  .preview-dot.balance { background: var(--color-accent); }
-  .preview-dot.te { background: var(--color-optimal); }
-  .preview-dot.ps { background: var(--color-attention); }
-  .preview-dot.score { background: var(--text-muted); }
   .empty-actions {
     display: flex;
     gap: 12px;

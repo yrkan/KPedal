@@ -69,7 +69,8 @@ fun SettingsScreen(
     onUpdateAutoSync: (Boolean) -> Unit,
     onUpdateLanguage: (LocaleHelper.AppLanguage) -> Unit,
     onCheckSyncRequest: () -> Unit = {},
-    onDeviceRevokedAcknowledged: () -> Unit = {}
+    onDeviceRevokedAcknowledged: () -> Unit = {},
+    onNavigateToLinkHelp: () -> Unit = {}
 ) {
     // Check for web sync request when screen opens
     LaunchedEffect(authState.isLoggedIn) {
@@ -137,7 +138,8 @@ fun SettingsScreen(
                 DeviceAuthSection(
                     deviceAuthState = deviceAuthState,
                     onStartAuth = onStartDeviceAuth,
-                    onCancel = onCancelDeviceAuth
+                    onCancel = onCancelDeviceAuth,
+                    onNavigateToLinkHelp = onNavigateToLinkHelp
                 )
             }
 
@@ -163,6 +165,13 @@ fun SettingsScreen(
                 subtitle = stringResource(R.string.background_mode_desc),
                 enabled = backgroundModeEnabled,
                 onToggle = onUpdateBackgroundMode
+            )
+
+            // Language section (visible on first screen)
+            SectionHeader(stringResource(R.string.language).uppercase())
+            LanguageRow(
+                currentLanguage = currentLanguage,
+                onSelectLanguage = onUpdateLanguage
             )
 
             // Balance threshold
@@ -201,13 +210,6 @@ fun SettingsScreen(
                 label = stringResource(R.string.settings_configure_alerts),
                 subtitle = stringResource(R.string.settings_configure_alerts_desc),
                 onClick = onNavigateToAlertSettings
-            )
-
-            // Language section
-            SectionHeader(stringResource(R.string.language).uppercase())
-            LanguageRow(
-                currentLanguage = currentLanguage,
-                onSelectLanguage = onUpdateLanguage
             )
 
             // About
@@ -481,7 +483,8 @@ private fun AccountRow(
 private fun DeviceAuthSection(
     deviceAuthState: DeviceAuthService.DeviceAuthState,
     onStartAuth: () -> Unit,
-    onCancel: () -> Unit
+    onCancel: () -> Unit,
+    onNavigateToLinkHelp: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -532,6 +535,25 @@ private fun DeviceAuthSection(
                             fontSize = 11.sp
                         )
                     }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // "Why & how sync to cloud?" link - styled as clickable
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Theme.colors.surface)
+                        .clickable { onNavigateToLinkHelp() }
+                        .padding(horizontal = 14.dp, vertical = 10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.why_how_sync),
+                        color = Theme.colors.optimal,
+                        fontSize = 12.sp
+                    )
                 }
             }
 

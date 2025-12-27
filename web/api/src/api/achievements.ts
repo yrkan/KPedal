@@ -1,5 +1,7 @@
 import { Hono } from 'hono';
-import { Env, ApiResponse } from '../types/env';
+import { Env, ApiResponse, isDemoUser } from '../types/env';
+import { getDemoCache, setDemoCache } from '../utils/demoCache';
+import { roundObjectValues, roundArrayValues } from '../utils/format';
 
 const achievements = new Hono<{ Bindings: Env }>();
 
@@ -46,11 +48,25 @@ achievements.get('/', async (c) => {
 /**
  * GET /api/achievements/dashboard
  * Combined endpoint - achievements list + stats in ONE request
+ * For demo users: KV cached for instant response
  */
 achievements.get('/dashboard', async (c) => {
   const user = c.get('user');
+  const cacheKey = 'achievements:dashboard';
 
   try {
+    // Check KV cache for demo users (instant response)
+    if (isDemoUser(user.sub)) {
+      const cached = await getDemoCache<unknown>(c.env.SESSIONS, user.sub, cacheKey);
+      if (cached) {
+        c.header('X-Cache', 'HIT');
+        return c.json<ApiResponse>({ success: true, data: cached });
+      }
+    }
+
+    // Cache-Control for authenticated users (1 minute)
+    c.header('Cache-Control', 'private, max-age=60');
+
     // Run ALL queries in a single batch - one D1 roundtrip
     const [achievementsResult, statsResult, recentResult] = await c.env.DB.batch([
       // 1. All achievements
@@ -77,17 +93,23 @@ achievements.get('/dashboard', async (c) => {
       `).bind(user.sub),
     ]);
 
-    return c.json<ApiResponse>({
-      success: true,
-      data: {
-        achievements: achievementsResult.results,
-        total: achievementsResult.results.length,
-        stats: {
-          summary: statsResult.results[0],
-          recent: recentResult.results,
-        },
+    const responseData = {
+      achievements: roundArrayValues(achievementsResult.results as object[]),
+      total: achievementsResult.results.length,
+      stats: {
+        summary: roundObjectValues(statsResult.results[0] as object),
+        recent: roundArrayValues(recentResult.results as object[]),
       },
-    });
+    };
+
+    // Cache response for demo users
+    if (isDemoUser(user.sub)) {
+      c.executionCtx.waitUntil(
+        setDemoCache(c.env.SESSIONS, user.sub, cacheKey, responseData).catch(() => {})
+      );
+    }
+
+    return c.json<ApiResponse>({ success: true, data: responseData });
   } catch (err) {
     console.error('Error fetching achievements dashboard:', err);
     return c.json<ApiResponse>({ success: false, error: 'Failed to fetch achievements' }, 500);

@@ -103,7 +103,30 @@
     <string name="account">ACCOUNT</string>
     <string name="link_account">Link Account</string>
     <string name="link_account_desc">Sync rides across devices</string>
+    <string name="why_how_sync">Why &amp; how sync to cloud?</string>
     <string name="account_linked">Account Linked!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">Cloud Sync</string>
+    <string name="cloud_sync_why_title">Why sync?</string>
+    <string name="cloud_sync_why_1">View ride history and analytics on any device</string>
+    <string name="cloud_sync_why_2">Detailed charts and per-minute snapshots</string>
+    <string name="cloud_sync_why_3">Track progress with achievements</string>
+    <string name="cloud_sync_why_4">Never lose your data if device resets</string>
+    <string name="cloud_sync_how_title">How to link?</string>
+    <string name="cloud_sync_how_1">Tap "Link Account" above</string>
+    <string name="cloud_sync_how_2">Note the 8-character code shown</string>
+    <string name="cloud_sync_how_3">Visit link.kpedal.com on any device</string>
+    <string name="cloud_sync_how_3_prefix">Visit</string>
+    <string name="cloud_sync_how_4">Enter the code and sign in with Google</string>
+    <string name="cloud_sync_how_5">Done! Rides sync automatically</string>
+    <string name="cloud_sync_what_syncs">What syncs?</string>
+    <string name="cloud_sync_syncs_rides">Ride summaries with per-minute snapshots</string>
+    <string name="cloud_sync_syncs_metrics">Power, HR, cadence, distance, elevation</string>
+    <string name="cloud_sync_syncs_drills">Drill results and achievements</string>
+    <string name="cloud_sync_syncs_settings">Alert and threshold settings</string>
+    <string name="cloud_sync_not_syncs">GPS/routes are NOT collected</string>
+    <string name="cloud_sync_free">Free &amp; no ads. Your data stays yours.</string>
     <string name="sign_out">Sign Out</string>
     <string name="sync">Sync</string>
     <string name="syncing">Syncing…</string>
@@ -683,5 +706,5 @@
     <!-- Languages -->
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
-    <string name="language_system">System default</string>
+    <string name="language_system">System</string>
 </resources>
