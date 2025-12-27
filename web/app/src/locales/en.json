@@ -732,10 +732,10 @@
     "autoSyncTip": "Automatically upload ride data after each ride ends.",
     "appearance": "Appearance",
     "theme": "Theme",
-    "themeHint": "Choose your preferred color scheme",
+    "themeHint": "Auto mode switches at 7 AM and 7 PM",
+    "themeAuto": "Auto",
     "themeLight": "Light",
     "themeDark": "Dark",
-    "themeSystem": "System",
     "language": {
       "title": "Language",
       "description": "Choose your preferred language"
@@ -806,9 +806,9 @@
     },
     "appearance_section": {
       "title": "Appearance",
+      "themeAuto": "Auto",
       "themeLight": "Light",
       "theme": "Theme",
-      "themeSystem": "System",
       "themeDark": "Dark"
     },
     "session_section": {
@@ -1208,9 +1208,9 @@
       "theme": {
         "title": "Appearance",
         "desc": "Choose your preferred color scheme:",
+        "auto": "<strong>Auto</strong> — Switches at 7 AM / 7 PM",
         "light": "<strong>Light</strong> — Clean white background",
-        "dark": "<strong>Dark</strong> — Easy on the eyes",
-        "system": "<strong>System</strong> — Follows your OS setting"
+        "dark": "<strong>Dark</strong> — Easy on the eyes"
       },
       "complete": {
         "title": "You're All Set! 🚴‍♂️",
@@ -1566,7 +1566,7 @@
           "refresh": "kpedal_auth_refresh",
           "refreshPurpose": "localStorage — JWT refresh token (persists up to 7 days)",
           "theme": "kpedal_theme",
-          "themePurpose": "localStorage — Theme preference (light/dark/system)"
+          "themePurpose": "localStorage — Theme preference (auto/light/dark)"
         },
         "browserStorageNote": "You can clear this data anytime by signing out or clearing browser storage. No cookies are used."
       }
@@ -1963,6 +1963,7 @@
     "footerNav": "Footer navigation",
     "viewOnGithub": "View KPedal on GitHub",
     "balanceTrendChart": "Balance trend chart",
-    "techniqueTrendChart": "Technique trend chart"
+    "techniqueTrendChart": "Technique trend chart",
+    "languageSelector": "Select language"
   }
 }

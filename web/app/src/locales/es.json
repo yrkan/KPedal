@@ -732,10 +732,10 @@
     "autoSyncTip": "Subir automáticamente datos de salida después de que termine cada salida.",
     "appearance": "Apariencia",
     "theme": "Tema",
-    "themeHint": "Elige tu esquema de colores preferido",
+    "themeHint": "El modo automático cambia a las 7:00 y 19:00",
+    "themeAuto": "Auto",
     "themeLight": "Claro",
     "themeDark": "Oscuro",
-    "themeSystem": "Sistema",
     "language": {
       "title": "Idioma",
       "description": "Elige tu idioma preferido"
@@ -794,9 +794,9 @@
     "appearance_section": {
       "title": "Apariencia",
       "theme": "Tema",
+      "themeAuto": "Auto",
       "themeLight": "Claro",
-      "themeDark": "Oscuro",
-      "themeSystem": "Sistema"
+      "themeDark": "Oscuro"
     },
     "data_section": {
       "title": "Datos",
@@ -1208,9 +1208,9 @@
       "theme": {
         "title": "Apariencia",
         "desc": "Elige tu esquema de colores preferido:",
+        "auto": "<strong>Auto</strong> — Cambia a las 7:00 / 19:00",
         "light": "<strong>Claro</strong> — Fondo blanco limpio",
-        "dark": "<strong>Oscuro</strong> — Fácil para los ojos",
-        "system": "<strong>Sistema</strong> — Sigue la configuración de tu SO"
+        "dark": "<strong>Oscuro</strong> — Fácil para los ojos"
       },
       "complete": {
         "title": "¡Todo Listo! 🚴‍♂️",
@@ -1566,7 +1566,7 @@
           "refresh": "kpedal_auth_refresh",
           "refreshPurpose": "localStorage — Token de refresh JWT (persiste hasta 7 días)",
           "theme": "kpedal_theme",
-          "themePurpose": "localStorage — Preferencia de tema (claro/oscuro/sistema)"
+          "themePurpose": "localStorage — Preferencia de tema (auto/claro/oscuro)"
         },
         "browserStorageNote": "Puedes borrar estos datos en cualquier momento cerrando sesión o limpiando el almacenamiento del navegador. No se usan cookies."
       }
@@ -1963,6 +1963,7 @@
     "footerNav": "Navegación del pie de página",
     "viewOnGithub": "Ver KPedal en GitHub",
     "balanceTrendChart": "Gráfico de tendencia de balance",
-    "techniqueTrendChart": "Gráfico de tendencia de técnica"
+    "techniqueTrendChart": "Gráfico de tendencia de técnica",
+    "languageSelector": "Seleccionar idioma"
   }
 }

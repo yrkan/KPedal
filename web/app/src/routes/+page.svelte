@@ -1,12 +1,14 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { browser } from '$app/environment';
   import { isAuthenticated, user, authFetch, isDemo } from '$lib/auth';
   import { startDashboardTour, isTourCompleted, resetTour } from '$lib/tour';
   import { theme } from '$lib/theme';
   import { API_URL } from '$lib/config';
   import InfoTip from '$lib/components/InfoTip.svelte';
-  import { t, locale } from '$lib/i18n';
+  import { t, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
 
   interface Stats {
     total_rides: number;
@@ -112,6 +114,14 @@
     avg_score: number;
     avg_zone_optimal: number;
   }
+
+  // Use $page.url.hostname - available immediately without waiting for onMount
+  // This eliminates the "pageReady" delay for client-side navigation
+  $: isLandingDomain = browser ? window.location.hostname === 'kpedal.com' : $page.url.hostname === 'kpedal.com';
+
+  // Show landing ONLY on kpedal.com (landing domain)
+  // On app.kpedal.com, guests are redirected to /login, authenticated users see dashboard
+  $: showLanding = isLandingDomain;
 
   // State
   let stats: Stats | null = null;
@@ -286,15 +296,14 @@
   }
 
   onMount(() => {
-    if (!$isAuthenticated) {
-      // On app.kpedal.com redirect to login, on kpedal.com show landing
-      const isAppSubdomain = window.location.hostname.startsWith('app.');
-      if (isAppSubdomain) {
-        goto('/login');
-        return;
-      }
+    // Redirect guests on app.kpedal.com to login
+    if (!$isAuthenticated && !isLandingDomain) {
+      goto('/login');
+      return;
+    }
 
-      // Show landing page
+    // On landing domain, start the data field rotation
+    if (isLandingDomain) {
       loading = false;
       const interval = setInterval(() => {
         activeDataField = (activeDataField + 1) % dataFields.length;
@@ -302,13 +311,10 @@
       return () => clearInterval(interval);
     }
 
-    // Load data and start tour for demo users
+    // On app.kpedal.com with authenticated user - load dashboard data
     loadDashboardData().then(() => {
       if ($isDemo && !isTourCompleted()) {
-        // Small delay to ensure DOM is ready
-        setTimeout(() => {
-          startDashboardTour();
-        }, 800);
+        setTimeout(() => startDashboardTour(), 800);
       }
     });
   });
@@ -1117,7 +1123,7 @@
   </script>`}
 </svelte:head>
 
-{#if !$isAuthenticated}
+{#if showLanding}
   <div class="landing" role="main" itemscope itemtype="https://schema.org/WebPage">
     <!-- Header with Logo and Theme Toggle -->
     <header class="landing-header">
@@ -1126,20 +1132,38 @@
         <span class="site-logo-text">KPedal</span>
       </a>
 
-      <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
-      {#if $theme === 'dark' || ($theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      {:else}
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      {/if}
-    </button>
+      <div class="header-actions">
+        <select
+          class="lang-select"
+          value={$locale}
+          on:change={(e) => setLocale(e.currentTarget.value as Locale)}
+          aria-label={$t('aria.languageSelector')}
+        >
+          {#each locales as loc}
+            <option value={loc}>{localeNames[loc]}</option>
+          {/each}
+        </select>
+
+        <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
+          {#if $theme === 'auto'}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+            </svg>
+          {:else if $theme === 'light'}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          {:else}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          {/if}
+        </button>
+      </div>
     </header>
 
     <article class="landing-container" itemscope itemtype="https://schema.org/SoftwareApplication">
@@ -1169,7 +1193,7 @@
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <a href="/login" class="hero-cta-secondary" aria-label={$t('aria.tryDemo')}>
+          <a href="https://app.kpedal.com/login" class="hero-cta-secondary" aria-label={$t('aria.tryDemo')}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/>
               <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
@@ -1953,7 +1977,7 @@
             </svg>
             {$t('landing.cta.downloadForKaroo')}
           </a>
-          <a href="/login" class="cta-btn secondary" aria-label={$t('aria.tryDemo')}>
+          <a href="https://app.kpedal.com/login" class="cta-btn secondary" aria-label={$t('aria.tryDemo')}>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/>
               <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
@@ -2843,28 +2867,66 @@
     letter-spacing: -0.5px;
   }
 
-  .theme-toggle {
+  .header-actions {
     position: fixed;
     top: 32px;
     right: 32px;
-    width: 44px;
-    height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 100;
+  }
+
+  .landing .lang-select {
+    appearance: none;
+    height: 36px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 0 28px 0 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    backdrop-filter: blur(12px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+  }
+
+  .landing .lang-select:hover {
+    border-color: var(--border-default);
+    color: var(--text-primary);
+  }
+
+  .landing .lang-select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .landing .lang-select option {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+  }
+
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
+    border-radius: 8px;
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    color: var(--text-muted);
+    color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 100;
+    transition: all 0.15s ease;
     backdrop-filter: blur(12px);
   }
   .theme-toggle:hover {
-    background: var(--bg-hover);
+    border-color: var(--border-default);
     color: var(--text-secondary);
-    transform: scale(1.05);
   }
 
   .landing-container {
@@ -6019,11 +6081,19 @@
 
     /* Fixed elements - larger touch targets */
     .site-logo { top: 16px; left: 16px; }
-    .theme-toggle {
+    .header-actions {
       top: 16px;
       right: 16px;
-      width: 44px;
-      height: 44px;
+      gap: 8px;
+    }
+    .landing .lang-select {
+      height: 34px;
+      padding: 0 26px 0 10px;
+      font-size: 12px;
+    }
+    .theme-toggle {
+      width: 34px;
+      height: 34px;
     }
 
     /* Hero */
@@ -6285,11 +6355,23 @@
       font-weight: 600;
       letter-spacing: -0.3px;
     }
-    .theme-toggle {
+    .header-actions {
       top: 16px;
       right: 20px;
-      width: 44px;
-      height: 44px;
+      gap: 6px;
+    }
+    .landing .lang-select {
+      height: 32px;
+      padding: 0 24px 0 10px;
+      font-size: 12px;
+    }
+    .theme-toggle {
+      width: 32px;
+      height: 32px;
+    }
+    .theme-toggle svg {
+      width: 16px;
+      height: 16px;
     }
 
     /* Hero - Apple-style bold typography */
@@ -6718,7 +6800,7 @@
 
     .site-logo { top: 12px; left: 12px; }
     .site-logo-text { font-size: 13px; }
-    .theme-toggle { top: 12px; right: 12px; width: 40px; height: 40px; }
+    .theme-toggle { top: 12px; right: 12px; width: 32px; height: 32px; }
 
     .hero { padding: 20px 0 32px; }
     .hero-eyebrow { font-size: 10px; }

@@ -1,50 +1,86 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { browser } from '$app/environment';
   import { page } from '$app/stores';
   import { auth, isAuthenticated, isLoading, user, isDemo } from '$lib/auth';
   import { startDashboardTour, resetTour, hasPendingTour, continueTourOnPage } from '$lib/tour';
   import { theme } from '$lib/theme';
   import '$lib/i18n';
-  import { t } from '$lib/i18n';
+  import { t, waitLocale, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
   import '../app.css';
 
-  let mounted = false;
+  // ===========================================
+  // State
+  // ===========================================
+  let ready = false;           // True when BOTH locale AND auth are initialized
+  let isLandingDomain = false; // Set only on client
 
+  // ===========================================
+  // Handlers
+  // ===========================================
   function handleRestartTour() {
     resetTour();
-    // Only start tour on dashboard - redirect if on other page
     if ($page.url.pathname === '/') {
       startDashboardTour();
     } else {
-      // Navigate to dashboard to start tour from beginning
       window.location.href = '/';
     }
   }
 
   async function handleDemoSignup() {
-    // Logout from demo first, then redirect to login
     await auth.logout();
-    window.location.href = '/login';
   }
 
-  // Handle tour continuation when navigating between pages
-  $: if (mounted && $isAuthenticated && $isDemo && hasPendingTour()) {
-    // Delay to let page render
-    setTimeout(() => {
-      continueTourOnPage($page.url.pathname);
-    }, 300);
-  }
-
-  onMount(() => {
-    // Skip initialize on auth callback pages - they handle auth themselves
-    const isAuthCallback = $page.url.pathname === '/auth/success';
-    if (!isAuthCallback) {
-      auth.initialize();
-    }
-    mounted = true;
-  });
-
+  // ===========================================
+  // Computed state (reactive)
+  // ===========================================
   $: currentPath = $page.url.pathname;
+
+  // Pages that NEVER show app UI (navbar, demo banner)
+  const noAppUIPages = ['/login', '/auth/success', '/link'];
+  $: isNoAppUIPage = noAppUIPages.includes(currentPath);
+
+  // Landing page = kpedal.com domain + root path
+  $: isLandingPage = isLandingDomain && currentPath === '/';
+
+  // Show app UI only when:
+  // 1. User is authenticated
+  // 2. Not on excluded pages (login, auth callback, link)
+  // 3. Not on landing page
+  $: showAppUI = $isAuthenticated && !isNoAppUIPage && !isLandingPage;
+
+  // ===========================================
+  // Tour continuation (only when ready and on app pages)
+  // ===========================================
+  $: if (ready && $isAuthenticated && $isDemo && hasPendingTour() && showAppUI) {
+    setTimeout(() => continueTourOnPage($page.url.pathname), 300);
+  }
+
+  // ===========================================
+  // Initialization
+  // ===========================================
+  onMount(async () => {
+    // Detect landing domain (client-side only)
+    isLandingDomain = window.location.hostname === 'kpedal.com';
+
+    // Wait for locale with timeout
+    try {
+      await Promise.race([
+        waitLocale(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 2000))
+      ]);
+    } catch {
+      console.warn('Locale timeout, using fallback');
+    }
+
+    // Initialize auth (skip on auth callback - it handles itself)
+    if (currentPath !== '/auth/success') {
+      await auth.initialize();
+    }
+
+    // NOW we're ready to show content
+    ready = true;
+  });
 </script>
 
 <svelte:head>
@@ -52,7 +88,7 @@
   <meta name="description" content="Real-time pedaling analytics for Hammerhead Karoo. Track power balance, torque effectiveness, and pedal smoothness with guided drills and cloud sync.">
 </svelte:head>
 
-{#if !mounted || ($isLoading && currentPath !== '/auth/success')}
+{#if !ready}
   <div class="loading-screen">
     <div class="loading-content">
       <div class="loading-logo">
@@ -63,7 +99,7 @@
     </div>
   </div>
 {:else}
-  {#if $isAuthenticated}
+  {#if showAppUI}
     <!-- Top navbar -->
     <nav class="navbar">
       <div class="nav-container">
@@ -81,20 +117,34 @@
         </div>
 
         <div class="nav-right">
+          <select
+            class="lang-select"
+            value={$locale}
+            on:change={(e) => setLocale(e.currentTarget.value as Locale)}
+            aria-label={$t('aria.languageSelector')}
+          >
+            {#each locales as loc}
+              <option value={loc}>{localeNames[loc]}</option>
+            {/each}
+          </select>
+
           <button class="icon-btn" on:click={() => theme.toggle()} title={$t('common.toggleTheme')}>
-            {#if $theme === 'dark'}
+            {#if $theme === 'auto'}
+              <!-- Auto: clock icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
+              </svg>
+            {:else if $theme === 'light'}
+              <!-- Light: sun icon -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"/>
-                <line x1="12" y1="1" x2="12" y2="3"/>
-                <line x1="12" y1="21" x2="12" y2="23"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                <line x1="1" y1="12" x2="3" y2="12"/>
-                <line x1="21" y1="12" x2="23" y2="12"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
               </svg>
             {:else}
+              <!-- Dark: moon icon -->
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
@@ -147,8 +197,8 @@
     </nav>
   {/if}
 
-  <main class="main-content" class:with-nav={$isAuthenticated}>
-    {#if $isDemo}
+  <main class="main-content" class:with-nav={showAppUI}>
+    {#if $isDemo && showAppUI}
       <div class="demo-banner">
         <div class="demo-banner-content">
           <span class="demo-badge">{$t('demo.mode')}</span>
@@ -332,23 +382,55 @@
     margin-left: auto;
   }
 
+  .lang-select {
+    appearance: none;
+    height: 36px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 0 28px 0 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+  }
+
+  .lang-select:hover {
+    border-color: var(--border-default);
+    color: var(--text-primary);
+  }
+
+  .lang-select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .lang-select option {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+  }
+
   .icon-btn {
-    width: 32px;
-    height: 32px;
+    height: 36px;
+    width: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
-    background: transparent;
-    border: none;
+    border-radius: 8px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
     color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.15s ease;
   }
 
   .icon-btn:hover {
+    border-color: var(--border-default);
     color: var(--text-primary);
-    background: var(--bg-hover);
   }
 
   .avatar-link {

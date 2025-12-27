@@ -288,3 +288,4 @@ temp/
 # KPedal specific ignores
 /web/worker/.dev.vars
 /web/dashboard/.env.local
+CLAUDE.md

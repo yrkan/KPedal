@@ -697,9 +697,9 @@ function getSettingsPageSteps(): DriveStep[] {
         description: `
           <p>${i('tour.settings.theme.desc')}</p>
           <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.settings.theme.auto')}</li>
             <li>${i('tour.settings.theme.light')}</li>
             <li>${i('tour.settings.theme.dark')}</li>
-            <li>${i('tour.settings.theme.system')}</li>
           </ul>
         `,
         side: 'bottom',
