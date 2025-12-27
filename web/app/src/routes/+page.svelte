@@ -1190,7 +1190,7 @@
       <section class="hero" aria-labelledby="hero-title">
         <p class="hero-eyebrow">
           <span itemprop="applicationSubCategory">{$t('landing.hero.eyebrow')}</span>
-          <span class="hero-version" itemprop="softwareVersion">{$t('landing.hero.version')}</span>
+          <a href="https://github.com/yrkan/KPedal/releases/latest" target="_blank" rel="noopener" class="hero-version" itemprop="softwareVersion">{$t('landing.hero.version')}</a>
         </p>
         <h1 id="hero-title" class="hero-title" itemprop="headline">
           <span class="hero-title-line">{$t('landing.hero.titleLine1')}</span>
@@ -3042,6 +3042,12 @@
     color: var(--text-tertiary);
     letter-spacing: 0;
     text-transform: none;
+    text-decoration: none;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .hero-version:hover {
+    border-color: var(--color-optimal);
+    color: var(--color-optimal);
   }
 
   .hero-actions {
@@ -6424,6 +6430,7 @@
       font-size: 11px;
       border-radius: 6px;
       background: var(--bg-elevated);
+      text-decoration: none;
     }
     .hero-title {
       font-size: 36px;
