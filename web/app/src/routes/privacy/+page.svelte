@@ -54,7 +54,7 @@
         </a>
       {/if}
       <h1>Privacy Policy</h1>
-      <p class="last-updated">Last updated: December 26, 2025</p>
+      <p class="last-updated">Last updated: December 27, 2025</p>
     </header>
 
     <!-- Quick Summary -->
@@ -184,6 +184,70 @@
           </div>
         </div>
 
+        <h3>Performance Metrics</h3>
+        <p>Additional cycling data synced for comprehensive ride analysis:</p>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-field">Power (avg/max)</span>
+            <span class="data-purpose">Average and maximum power output in watts</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Cadence (avg)</span>
+            <span class="data-purpose">Average pedaling cadence in RPM</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Heart Rate (avg/max)</span>
+            <span class="data-purpose">Average and maximum heart rate in BPM</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Speed (avg)</span>
+            <span class="data-purpose">Average speed in km/h</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Distance</span>
+            <span class="data-purpose">Total distance traveled in km</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Elevation (gain/loss)</span>
+            <span class="data-purpose">Total meters climbed and descended</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Grade (avg/max)</span>
+            <span class="data-purpose">Average and maximum gradient (%)</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Normalized Power</span>
+            <span class="data-purpose">Intensity-weighted power in watts</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Energy</span>
+            <span class="data-purpose">Total energy output in kilojoules</span>
+          </div>
+        </div>
+        <p class="note">These metrics provide context for your pedaling efficiency analysis. They are read from your Karoo's connected sensors (power meter, heart rate monitor, GPS).</p>
+
+        <h3>Per-Minute Snapshots</h3>
+        <p>For detailed timeline charts, we store per-minute averages during each ride:</p>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-field">Minute Index</span>
+            <span class="data-purpose">Which minute of the ride (0, 1, 2...)</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Balance L/R, TE L/R, PS L/R</span>
+            <span class="data-purpose">Averaged pedaling metrics for that minute</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Power, Cadence, Heart Rate</span>
+            <span class="data-purpose">Averaged performance metrics for that minute</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Zone Status</span>
+            <span class="data-purpose">Dominant zone for that minute (Optimal/Attention/Problem)</span>
+          </div>
+        </div>
+        <p class="note">Snapshots enable the timeline chart in ride details, showing how your technique evolved throughout the ride.</p>
+
         <h3>Device Data</h3>
         <div class="data-table">
           <div class="data-row">
@@ -298,7 +362,7 @@
       <!-- Section 2: What We Don't Collect -->
       <section id="what-we-dont-collect" class="privacy-section">
         <h2>2. What We Don't Collect</h2>
-        <p>KPedal is focused exclusively on pedaling efficiency. We do not collect:</p>
+        <p>While we collect performance metrics for analysis, we specifically avoid location and tracking data:</p>
 
         <div class="dont-collect-grid">
           <div class="dont-item">
@@ -320,35 +384,7 @@
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
-            <span>Heart Rate</span>
-          </div>
-          <div class="dont-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-            <span>Speed / Distance</span>
-          </div>
-          <div class="dont-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-            <span>Elevation / Climbing</span>
-          </div>
-          <div class="dont-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
             <span>Temperature</span>
-          </div>
-          <div class="dont-item">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-            <span>Total Power Output</span>
           </div>
           <div class="dont-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -357,25 +393,35 @@
             </svg>
             <span>Strava / Other Platforms</span>
           </div>
+          <div class="dont-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Ride Titles / Names</span>
+          </div>
+          <div class="dont-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+            <span>Photos / Media</span>
+          </div>
         </div>
+        <p class="note">Your rides cannot be traced to specific locations. We only store aggregate performance metrics, not where you rode.</p>
 
         <h3>Data Used But Not Stored</h3>
         <p>The following data is read in real-time for display purposes but is <strong>never saved</strong> to device or cloud:</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Power (Watts)</span>
-            <span class="data-purpose">Read from sensor but only for real-time display</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Cadence (RPM)</span>
-            <span class="data-purpose">Shown during drill execution for pacing guidance</span>
-          </div>
-          <div class="data-row">
             <span class="data-field">3s/10s Smoothed Balance</span>
-            <span class="data-purpose">Real-time trend indicators, not stored</span>
+            <span class="data-purpose">Real-time trend indicators for live display</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">Raw Sensor Stream (~20Hz)</span>
+            <span class="data-purpose">Individual data points are processed and discarded; only per-minute averages are stored</span>
           </div>
         </div>
-        <p class="note">These values are processed at ~20Hz during rides but discarded after display. Only the aggregated averages (Balance, TE, PS) are stored.</p>
 
         <h3>Android Permissions</h3>
         <p>The KPedal app requests the following permissions on your Karoo:</p>
@@ -718,15 +764,21 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: var(--text-tertiary);
-    font-size: 14px;
+    color: var(--text-muted);
+    font-size: 13px;
     text-decoration: none;
     margin-bottom: 24px;
-    transition: color 0.2s ease;
+    transition: color 0.15s ease;
+    white-space: nowrap;
   }
 
   .back-link:hover {
-    color: var(--text-primary);
+    color: var(--text-secondary);
+    text-decoration: underline;
+  }
+
+  .back-link svg {
+    flex-shrink: 0;
   }
 
   .privacy-header h1 {
@@ -1166,19 +1218,6 @@
 
     .privacy-header {
       padding: 24px 0 24px;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 8px 12px;
-      margin-left: -12px;
-      margin-bottom: 20px;
-      font-size: 13px;
-      border-radius: 8px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
     }
 
     .back-link svg {
