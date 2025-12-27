@@ -46,12 +46,7 @@
 
     <header class="privacy-header">
       {#if !$isAuthenticated}
-        <a href="/" class="back-link">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15,18 9,12 15,6"/>
-          </svg>
-          Back to KPedal
-        </a>
+        <a href="/" class="back-link">← Back to KPedal</a>
       {/if}
       <h1>Privacy Policy</h1>
       <p class="last-updated">Last updated: December 27, 2025</p>
@@ -761,24 +756,22 @@
   }
 
   .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-muted);
     font-size: 13px;
+    color: var(--text-muted);
     text-decoration: none;
-    margin-bottom: 24px;
-    transition: color 0.15s ease;
     white-space: nowrap;
+    display: block;
+    margin-bottom: 20px;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .back-link:hover {
-    color: var(--text-secondary);
+  .back-link:hover,
+  .back-link:focus,
+  .back-link:active {
     text-decoration: underline;
-  }
-
-  .back-link svg {
-    flex-shrink: 0;
+    background: transparent;
+    outline: none;
   }
 
   .privacy-header h1 {
