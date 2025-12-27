@@ -989,7 +989,7 @@
         "name": "What power pedals are compatible with KPedal?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "KPedal works with dual-sided power pedals that support ANT+ Cycling Dynamics: Garmin Rally, Garmin Vector 3, Favero Assioma DUO, SRM X-Power, Rotor 2INpower. Wahoo POWRLINK provides balance data only."
+          "text": "Full support (Balance + TE + PS): Garmin Rally RS/RK/XC, Garmin Vector 3, Favero Assioma DUO/DUO-Shi/Pro RS/Pro MX, SRM X-Power, Rotor 2INpower, Look Keo Blade Power, IQ2 Power Pedals. Balance only: Wahoo POWRLINK Zero, Power2Max, Quarq DZero, SRAM AXS PM, Stages LR, 4iiii Precision Dual, Sigeyi AXO, FSA Powerbox. Not compatible: single-sided power meters, trainer power, Garmin Vector 1/2."
         }
       },
       {
@@ -1469,33 +1469,128 @@
               <div class="browser-url">kpedal.com</div>
             </div>
             <div class="browser-content">
-              <div class="dash-header">
-                <div class="dash-greeting">Welcome back, Alex</div>
-                <div class="dash-period">Last 7 days</div>
-              </div>
-              <div class="dash-grid">
-                <div class="dash-stat-card">
-                  <span class="dash-stat-value">12</span>
-                  <span class="dash-stat-label">Rides</span>
-                </div>
-                <div class="dash-stat-card">
-                  <span class="dash-stat-value score">82</span>
-                  <span class="dash-stat-label">Avg Score</span>
-                </div>
-                <div class="dash-stat-card">
-                  <span class="dash-stat-value">49.2%</span>
-                  <span class="dash-stat-label">Left Balance</span>
-                </div>
-                <div class="dash-stat-card">
-                  <span class="dash-stat-value">8h 24m</span>
-                  <span class="dash-stat-label">Total Time</span>
+              <div class="dash-header-preview">
+                <div class="dash-greeting-preview">Hello, Yuri!</div>
+                <div class="period-selector-preview">
+                  <span class="period-btn-preview active">7d</span>
+                  <span class="period-btn-preview">14d</span>
+                  <span class="period-btn-preview">30d</span>
                 </div>
               </div>
-              <div class="dash-chart">
-                <div class="chart-label">Balance Trend</div>
-                <svg viewBox="0 0 200 50" class="trend-line">
-                  <path d="M0 35 L30 30 L60 38 L90 25 L120 28 L150 22 L180 20 L200 18" fill="none" stroke="var(--color-optimal)" stroke-width="2"/>
-                </svg>
+
+              <!-- Hero Stats Row -->
+              <div class="hero-stats-preview">
+                <div class="hero-stat-preview asymmetry-preview">
+                  <span class="hero-value optimal">0.8%</span>
+                  <span class="hero-label">Asymmetry</span>
+                  <span class="hero-detail">Balanced</span>
+                </div>
+                <div class="hero-stat-preview balance-preview">
+                  <div class="balance-bar-preview">
+                    <span class="balance-side-preview">49</span>
+                    <div class="balance-visual-preview">
+                      <div class="balance-fill-left" style="width: 49%"></div>
+                      <div class="balance-fill-right" style="width: 51%"></div>
+                    </div>
+                    <span class="balance-side-preview">51</span>
+                  </div>
+                </div>
+                <div class="hero-stat-preview zones-preview">
+                  <div class="zone-bars-preview">
+                    <div class="zone-bar optimal" style="width: 72%"></div>
+                    <div class="zone-bar attention" style="width: 20%"></div>
+                    <div class="zone-bar problem" style="width: 8%"></div>
+                  </div>
+                  <span class="hero-label">Time in Zone</span>
+                </div>
+                <div class="hero-stat-preview summary-preview">
+                  <div class="summary-row">
+                    <span class="summary-num">12</span>
+                    <span class="summary-unit">rides</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-num">8.4</span>
+                    <span class="summary-unit">hours</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Main Grid -->
+              <div class="main-grid-preview">
+                <div class="grid-card-preview rides-card">
+                  <div class="card-header-preview">
+                    <span>Recent Rides</span>
+                  </div>
+                  <div class="recent-rides-preview">
+                    <div class="ride-row-preview">
+                      <div class="ride-info">
+                        <span class="ride-title">Morning Ride</span>
+                        <span class="ride-meta">Today · 1h 23m</span>
+                      </div>
+                      <div class="ride-score optimal">87</div>
+                    </div>
+                    <div class="ride-row-preview">
+                      <div class="ride-info">
+                        <span class="ride-title">Evening Spin</span>
+                        <span class="ride-meta">Yesterday · 45m</span>
+                      </div>
+                      <div class="ride-score optimal">92</div>
+                    </div>
+                    <div class="ride-row-preview">
+                      <div class="ride-info">
+                        <span class="ride-title">Long Ride</span>
+                        <span class="ride-meta">2 days ago · 2h 15m</span>
+                      </div>
+                      <div class="ride-score attention">71</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid-card-preview technique-card">
+                  <div class="card-header-preview">
+                    <span>Technique</span>
+                    <span class="card-subtitle-preview">7d avg</span>
+                  </div>
+                  <div class="technique-preview">
+                    <div class="technique-metric-lr">
+                      <span class="metric-name">Torque Effectiveness</span>
+                      <div class="lr-comparison">
+                        <div class="leg left">
+                          <span class="leg-label">L</span>
+                          <div class="leg-bar-wrap">
+                            <div class="leg-bar te" style="width: 72%"></div>
+                          </div>
+                          <span class="leg-value">72%</span>
+                        </div>
+                        <div class="leg right">
+                          <span class="leg-label">R</span>
+                          <div class="leg-bar-wrap">
+                            <div class="leg-bar te" style="width: 76%"></div>
+                          </div>
+                          <span class="leg-value">76%</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="technique-metric-lr">
+                      <span class="metric-name">Pedal Smoothness</span>
+                      <div class="lr-comparison">
+                        <div class="leg left">
+                          <span class="leg-label">L</span>
+                          <div class="leg-bar-wrap">
+                            <div class="leg-bar ps" style="width: 52%"></div>
+                          </div>
+                          <span class="leg-value">21%</span>
+                        </div>
+                        <div class="leg right">
+                          <span class="leg-label">R</span>
+                          <div class="leg-bar-wrap">
+                            <div class="leg-bar ps" style="width: 58%"></div>
+                          </div>
+                          <span class="leg-value">23%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1505,7 +1600,7 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
               </svg>
-              <span>7-day & 30-day trend analysis</span>
+              <span>7-day, 14-day, 30-day, 60-day analysis</span>
             </div>
             <div class="dash-feature">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1522,9 +1617,9 @@
             </div>
             <div class="dash-feature">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
               </svg>
-              <span>Sync settings across devices</span>
+              <span>Open source on GitHub</span>
             </div>
           </div>
         </div>
@@ -1633,22 +1728,57 @@
           </div>
         </div>
 
-        <div class="compatible-pedals">
-          <span class="pedals-label">Compatible</span>
-          <div class="pedals-list">
-            <span>Garmin Rally</span>
-            <span class="pedals-sep">·</span>
-            <span>Garmin Vector 3</span>
-            <span class="pedals-sep">·</span>
-            <span>Favero Assioma DUO</span>
-            <span class="pedals-sep">·</span>
-            <span>SRM X-Power</span>
-            <span class="pedals-sep">·</span>
-            <span>Rotor 2INpower</span>
-            <span class="pedals-sep">·</span>
-            <span class="pedals-partial">Wahoo POWRLINK</span>
+        <div class="pedals-compatibility">
+          <div class="pedals-grid">
+            <div class="pedals-card full">
+              <div class="pedals-card-header">
+                <span class="pedals-icon">✓</span>
+                <span class="pedals-title">Full Support</span>
+              </div>
+              <p class="pedals-desc">Balance + TE + PS</p>
+              <div class="pedals-chips">
+                <span class="pedal-chip">Garmin Rally</span>
+                <span class="pedal-chip">Garmin Vector 3</span>
+                <span class="pedal-chip">Favero Assioma DUO</span>
+                <span class="pedal-chip">Favero Assioma DUO-Shi</span>
+                <span class="pedal-chip">Favero Assioma Pro RS</span>
+                <span class="pedal-chip">Favero Assioma Pro MX</span>
+                <span class="pedal-chip">SRM X-Power</span>
+                <span class="pedal-chip">Rotor 2INpower</span>
+                <span class="pedal-chip">Look Keo Blade</span>
+                <span class="pedal-chip">IQ2</span>
+              </div>
+            </div>
+            <div class="pedals-card balance">
+              <div class="pedals-card-header">
+                <span class="pedals-icon">◐</span>
+                <span class="pedals-title">Balance Only</span>
+              </div>
+              <p class="pedals-desc">L/R power but no TE/PS</p>
+              <div class="pedals-chips">
+                <span class="pedal-chip">Wahoo POWRLINK</span>
+                <span class="pedal-chip">Power2Max</span>
+                <span class="pedal-chip">Quarq DZero</span>
+                <span class="pedal-chip">SRAM AXS PM</span>
+                <span class="pedal-chip">Stages LR</span>
+                <span class="pedal-chip">4iiii Dual</span>
+                <span class="pedal-chip">Sigeyi AXO</span>
+                <span class="pedal-chip">FSA Powerbox</span>
+              </div>
+            </div>
+            <div class="pedals-card incompatible">
+              <div class="pedals-card-header">
+                <span class="pedals-icon">✗</span>
+                <span class="pedals-title">Not Compatible</span>
+              </div>
+              <p class="pedals-desc">No dual-sided data</p>
+              <div class="pedals-chips">
+                <span class="pedal-chip">Single-sided PM</span>
+                <span class="pedal-chip">Trainer power</span>
+                <span class="pedal-chip">Vector 1/2</span>
+              </div>
+            </div>
           </div>
-          <p class="pedals-note">Wahoo POWRLINK: balance only</p>
         </div>
       </section>
 
@@ -1658,43 +1788,93 @@
 
         <div class="faq-list" role="list">
           <details class="faq-item">
-            <summary>Does KPedal work offline?</summary>
-            <p>Yes! All core features work without internet. Cloud sync is optional — your data is always stored locally on the Karoo first.</p>
+            <summary>Which power meter pedals are compatible?</summary>
+            <p><strong>Full support (Balance + TE + PS):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Balance only:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Any pedal transmitting ANT+ Cycling Dynamics will work.</p>
           </details>
 
           <details class="faq-item">
-            <summary>Will it drain my Karoo battery?</summary>
-            <p>Minimal impact. KPedal only runs during active rides and uses efficient data collection. Background mode uses ~1-2% extra battery per hour.</p>
+            <summary>How do I install KPedal on my Karoo?</summary>
+            <p><strong>Option 1:</strong> Download APK from GitHub Releases → transfer via USB → open file manager on Karoo → tap to install.<br><strong>Option 2:</strong> Open the GitHub release link directly in Karoo's browser and download.<br><strong>Option 3:</strong> Use ADB: <code>adb install kpedal.apk</code></p>
           </details>
 
           <details class="faq-item">
-            <summary>Do I need to add data fields to see metrics?</summary>
-            <p>No. With Background Mode enabled, KPedal collects data for all rides automatically. Data fields are just for viewing live — all rides are saved regardless.</p>
+            <summary>Do I need to add KPedal data fields to my ride screen?</summary>
+            <p><strong>No.</strong> With Background Mode enabled, KPedal collects metrics for ALL rides automatically — even if you never add a single data field. Data fields are optional and only for viewing metrics live during the ride. Your complete ride history is saved regardless.</p>
           </details>
 
           <details class="faq-item">
-            <summary>What if I only have balance data (no TE/PS)?</summary>
-            <p>KPedal works with whatever your pedals provide. Balance-only pedals like Wahoo POWRLINK still get balance metrics, alerts, and drills.</p>
+            <summary>What is considered a "good" power balance?</summary>
+            <p><strong>48-52%</strong> (±2% from 50/50) is optimal. Most professional cyclists ride with 1-3% natural asymmetry. Don't obsess over perfect 50/50 — it's nearly impossible and not necessary. Focus on <strong>consistency within your range</strong> rather than chasing perfection.</p>
           </details>
 
           <details class="faq-item">
-            <summary>Is my data private?</summary>
-            <p>Your data is stored locally on your Karoo. Cloud sync is opt-in and uses Google Sign-In for authentication. We don't sell or share your data.</p>
+            <summary>Why is 70-80% Torque Effectiveness optimal and not higher?</summary>
+            <p>Based on <strong>Wattbike research</strong>: above 80% TE, you're likely over-pulling on the upstroke. This wastes energy and can actually reduce total power output. The 70-80% range indicates you're applying force efficiently through the pedal stroke without fighting yourself on the recovery phase.</p>
           </details>
 
           <details class="faq-item">
-            <summary>How do I install on Karoo?</summary>
-            <p>Download the APK from GitHub Releases. Transfer to Karoo via USB or use Karoo's built-in file browser with a direct download link. Open the APK to install.</p>
+            <summary>What exactly does Pedal Smoothness measure?</summary>
+            <p><strong>Formula:</strong> PS = (average power ÷ peak power) × 100.<br>Higher PS means more consistent power application through the pedal stroke. <strong>20%+ is good</strong> for most cyclists. Sprinters typically have lower PS (explosive, punchy power), while endurance riders tend toward higher values.</p>
           </details>
 
           <details class="faq-item">
-            <summary>Can I use KPedal with Garmin/Wahoo computers?</summary>
-            <p>No. KPedal is built specifically for Hammerhead Karoo using their SDK. It uses native Karoo features not available on other platforms.</p>
+            <summary>How is the Ride Score calculated?</summary>
+            <p><strong>Weighted formula:</strong> Balance (40%) + TE (35%) + PS (25%).<br>Each metric is scored 0-100 based on time spent in optimal zones.<br><strong>85+</strong> = Excellent technique<br><strong>70-84</strong> = Good, minor areas to improve<br><strong>Below 70</strong> = Significant room for improvement</p>
           </details>
 
           <details class="faq-item">
-            <summary>What's the difference between TE zones?</summary>
-            <p>70-80% is optimal based on Wattbike research. Higher isn't better — above 80% can reduce total power output. Below 60% indicates significant technique issues.</p>
+            <summary>How do the guided Drills work?</summary>
+            <p>Drills are structured exercises with real-time targets displayed on screen. Example: "Single Leg Focus" asks you to maintain 55-60% balance on one leg for 30 seconds. KPedal tracks your <strong>time-in-target</strong> and provides a score at the end. Perfect for warmups, recovery rides, or dedicated technique sessions.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can I create my own custom drills?</summary>
+            <p><strong>Yes.</strong> Custom Drills let you define your own phases, targets, and durations. Create drills tailored to your specific weaknesses — maybe a 45-second high-TE focus followed by 30-second balance work. Your custom drills are saved locally and sync to cloud.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>What triggers the in-ride alerts?</summary>
+            <p><strong>Configurable thresholds:</strong><br>• Balance: asymmetry exceeds your set limit (default 5%)<br>• TE: drops below minimum (default 60%)<br>• PS: drops below minimum (default 15%)<br>Alerts use <strong>vibration + beep</strong>. Cooldown (15s-2min) prevents spam. You can enable/disable each metric independently.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Does KPedal work without internet connection?</summary>
+            <p><strong>100% yes.</strong> All core features — data collection, drills, alerts, ride history — work completely offline. Cloud sync is optional and only activates when you enable it. Your data is always stored locally on the Karoo first. Sync happens automatically when you're back online.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Will KPedal drain my Karoo battery?</summary>
+            <p><strong>Minimal impact: ~1-2% extra per hour</strong> during active rides. KPedal only runs data collection while you're riding. Between rides, only a tiny listener waits for ride start — negligible power consumption. Heavily optimized for efficiency.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can I sync data across multiple Karoo devices?</summary>
+            <p><strong>Yes.</strong> Link multiple Karoos to your account. Settings sync between them automatically. All rides from all devices appear in one unified dashboard. Perfect if you have a backup Karoo, race and training devices, or upgrade to a new unit.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How does the Achievement system work?</summary>
+            <p>Achievements unlock as you hit milestones: ride count, total hours, consistency streaks, technique improvements. Examples: "Iron Balance" (10 rides with &lt;2% asymmetry), "Century Club" (100 rides tracked). Achievements sync to cloud and display on your web dashboard.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Can I use KPedal with Garmin, Wahoo, or other bike computers?</summary>
+            <p><strong>No.</strong> KPedal is built specifically for Hammerhead Karoo using their official karoo-ext SDK. It accesses ANT+ Cycling Dynamics data, native alert system, and ride state monitoring — deep integrations not available on other platforms.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Is my data private and secure?</summary>
+            <p><strong>Yes.</strong> Data stays on your Karoo unless you enable cloud sync. Cloud uses <strong>Google Sign-In</strong> — we never see or store your password. No tracking pixels, no ads, no data selling. The entire project is <strong>open source</strong> — audit the code yourself on GitHub.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Why does my balance change at different power outputs?</summary>
+            <p>This is normal. At low power, slight technique variations are amplified. At high power, you tend to recruit muscles more evenly. Many cyclists see 2-3% more asymmetry at endurance pace vs threshold. KPedal tracks this so you can identify patterns and work on weak spots.</p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How often should I do technique drills?</summary>
+            <p><strong>2-3 times per week</strong> is a good starting point. Include them in warmups (5-10 min) or dedicate recovery rides to technique work. Consistency matters more than volume — regular short sessions beat occasional long ones. Track progress via drill scores over time.</p>
           </details>
         </div>
       </section>
@@ -3616,70 +3796,361 @@
     letter-spacing: -0.1px;
   }
   .browser-content {
-    padding: 28px;
+    padding: 20px;
   }
-  .dash-header {
+  .dash-header-preview {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
-  .dash-greeting {
+  .dash-greeting-preview {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .period-selector-preview {
+    display: flex;
+    gap: 4px;
+  }
+  .period-btn-preview {
+    font-size: 10px;
+    padding: 4px 8px;
+    background: var(--bg-base);
+    border-radius: 6px;
+    color: var(--text-muted);
+  }
+  .period-btn-preview.active {
+    background: var(--text-primary);
+    color: var(--bg-base);
+  }
+  .hero-stats-preview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .hero-stat-preview {
+    background: var(--bg-base);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .asymmetry-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .hero-value.optimal { color: var(--color-optimal); }
+  .hero-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .hero-detail {
+    font-size: 10px;
+    color: var(--text-tertiary);
+  }
+  .balance-bar-preview {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+  }
+  .balance-side-preview {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .balance-visual-preview {
+    flex: 1;
+    height: 8px;
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .balance-fill-left {
+    background: var(--color-optimal);
+    height: 100%;
+  }
+  .balance-fill-right {
+    background: var(--color-optimal);
+    opacity: 0.5;
+    height: 100%;
+  }
+  .zones-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+  .zone-bars-preview {
+    display: flex;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .zone-bar.optimal { background: var(--color-optimal); }
+  .zone-bar.attention { background: var(--color-attention); }
+  .zone-bar.problem { background: var(--color-problem); }
+  .summary-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+  .summary-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .summary-row .summary-num {
     font-size: 16px;
     font-weight: 600;
     color: var(--text-primary);
-    letter-spacing: -0.2px;
   }
-  .dash-period {
-    font-size: 11px;
-    color: var(--text-muted);
-    padding: 6px 12px;
-    background: var(--bg-base);
-    border-radius: 100px;
-  }
-  .dash-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  .dash-stat-card {
-    background: var(--bg-base);
-    border-radius: 14px;
-    padding: 16px;
-    text-align: center;
-  }
-  .dash-stat-value {
-    display: block;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
-  }
-  .dash-stat-value.score { color: var(--color-optimal-text); }
-  .dash-stat-label {
+  .summary-row .summary-unit {
     font-size: 10px;
     color: var(--text-muted);
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
   }
-  .dash-chart {
+  .main-grid-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .main-grid-preview .grid-card-preview {
+    display: flex;
+    flex-direction: column;
+  }
+  .grid-card-preview {
     background: var(--bg-base);
-    border-radius: 14px;
-    padding: 20px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 14px;
   }
-  .chart-label {
-    font-size: 11px;
-    color: var(--text-muted);
+  .card-header-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  /* Recent Rides Card */
+  .recent-rides-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ride-row-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background: var(--bg-elevated);
+    border-radius: 8px;
+  }
+  .ride-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .ride-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .ride-meta {
+    font-size: 9px;
+    color: var(--text-muted);
+  }
+  .ride-score {
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .ride-score.optimal {
+    color: var(--color-optimal);
+    background: var(--color-optimal-soft);
+  }
+  .ride-score.attention {
+    color: var(--color-attention);
+    background: var(--color-attention-soft);
+  }
+  /* Progress Card */
+  .progress-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .progress-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .progress-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--color-optimal-soft);
+    color: var(--color-optimal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .progress-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .progress-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-optimal);
+    line-height: 1.1;
+  }
+  .progress-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .progress-period {
+    font-size: 9px;
+    color: var(--text-muted);
+  }
+  .progress-detail {
+    display: flex;
+    gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .progress-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .progress-item-label {
+    font-size: 9px;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.3px;
   }
-  .trend-line {
-    width: 100%;
-    height: 60px;
+  .progress-item-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
   }
+  .progress-item-value .delta {
+    font-size: 10px;
+    font-weight: 500;
+  }
+  /* Technique Card - L/R Comparison */
+  .technique-card .technique-preview {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+  .technique-metric-lr {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .metric-name {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .lr-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .leg {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .leg-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    width: 12px;
+  }
+  .leg-bar-wrap {
+    flex: 1;
+    height: 6px;
+    background: var(--bg-elevated);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .leg-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+  .leg-bar.te {
+    background: linear-gradient(90deg, var(--color-optimal) 0%, #4ade80 100%);
+  }
+  .leg-bar.ps {
+    background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 100%);
+  }
+  .leg-value {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    width: 28px;
+    text-align: right;
+  }
+  .card-subtitle-preview {
+    font-weight: 500;
+    color: var(--text-tertiary);
+    font-size: 10px;
+  }
+  .technique-bar-preview {
+    height: 8px;
+    background: var(--bg-elevated);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .technique-bar-preview .optimal-zone {
+    position: absolute;
+    height: 100%;
+    opacity: 0.15;
+    border-left: 1px dashed var(--color-optimal);
+    border-right: 1px dashed var(--color-optimal);
+  }
+  .technique-bar-preview .optimal-zone.te {
+    left: 70%;
+    width: 10%;
+    background: var(--color-optimal);
+  }
+  .technique-bar-preview .optimal-zone.ps {
+    left: 50%;
+    width: 50%;
+    background: var(--color-optimal);
+  }
+  .technique-bar-preview .fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+  .technique-bar-preview .fill.te { background: linear-gradient(90deg, var(--color-optimal) 0%, var(--color-optimal) 100%); }
+  .technique-bar-preview .fill.ps { background: linear-gradient(90deg, var(--color-optimal) 0%, var(--color-optimal) 100%); }
   .dash-features {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -3864,42 +4335,90 @@
     color: var(--text-tertiary);
     line-height: 1.65;
   }
-  .compatible-pedals {
-    padding: 32px 0;
-    text-align: center;
-    border-top: 1px solid var(--border-subtle);
+  .pedals-compatibility {
     margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-subtle);
   }
-  .pedals-label {
-    font-size: 11px;
-    font-weight: 600;
+  .pedals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .pedals-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: left;
+  }
+  .pedals-card.full {
+    border-color: var(--color-optimal);
+    border-width: 2px;
+  }
+  .pedals-card.balance {
+    border-color: var(--color-attention);
+  }
+  .pedals-card.incompatible {
+    opacity: 0.7;
+  }
+  .pedals-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .pedals-icon {
+    font-size: 16px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .pedals-card.full .pedals-icon {
+    background: var(--color-optimal-soft);
+    color: var(--color-optimal);
+  }
+  .pedals-card.balance .pedals-icon {
+    background: var(--color-attention-soft);
+    color: var(--color-attention);
+  }
+  .pedals-card.incompatible .pedals-icon {
+    background: var(--bg-elevated);
     color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: block;
-    margin-bottom: 16px;
   }
-  .pedals-list {
+  .pedals-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .pedals-desc {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin: 0 0 12px 0;
+  }
+  .pedals-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 14px;
+    gap: 6px;
   }
-  .pedals-list span {
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-  .pedals-sep {
-    color: var(--text-faint);
-  }
-  .pedals-partial {
-    color: var(--text-muted);
-  }
-  .pedals-note {
+  .pedal-chip {
     font-size: 12px;
-    color: var(--text-muted);
+    padding: 4px 10px;
+    background: var(--bg-elevated);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .pedals-card.full .pedal-chip {
+    background: var(--color-optimal-soft);
+    color: var(--color-optimal-text);
+  }
+  .pedals-card.balance .pedal-chip {
+    background: var(--color-attention-soft);
+    color: var(--color-attention-text);
   }
 
   /* CTA - Refined, spacious */
@@ -3965,6 +4484,8 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    max-width: 800px;
+    margin: 0 auto;
   }
   .faq-item {
     background: var(--bg-surface);
@@ -4003,7 +4524,7 @@
     color: var(--text-primary);
   }
   .faq-item p {
-    padding: 0 22px 18px;
+    padding: 14px 22px 18px;
     font-size: 14px;
     color: var(--text-tertiary);
     line-height: 1.7;
@@ -5610,10 +6131,8 @@
     .dashboard-preview { flex-direction: column; gap: 24px; }
     .dash-browser { max-width: 100%; }
     .browser-content { padding: 16px; }
-    .dash-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .dash-stat-card { padding: 14px; }
-    .dash-stat-value { font-size: 22px; }
-    .dash-stat-label { font-size: 11px; }
+    .hero-stats-preview { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .main-grid-preview { grid-template-columns: 1fr; gap: 12px; }
     .dash-features { grid-template-columns: 1fr; gap: 10px; }
     .dash-feature { padding: 12px 14px; font-size: 13px; }
 
@@ -5631,13 +6150,10 @@
     .req-card { padding: 20px; border-radius: 14px; }
     .req-card h4 { font-size: 16px; }
     .req-card p { font-size: 13px; }
-    .compatible-pedals { padding: 20px; }
-    .pedals-list {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 6px 0;
-    }
-    .pedals-list span { font-size: 13px; }
+    .pedals-grid { grid-template-columns: 1fr; gap: 12px; }
+    .pedals-card { padding: 16px; }
+    .pedals-title { font-size: 14px; }
+    .pedal-chip { font-size: 11px; padding: 3px 8px; }
 
     /* FAQ */
     .faq-item summary {
@@ -5645,7 +6161,7 @@
       font-size: 14px;
       min-height: 48px;
     }
-    .faq-item p { padding: 0 18px 16px; font-size: 14px; }
+    .faq-item p { padding: 12px 18px 16px; font-size: 14px; }
 
     /* CTA */
     .cta-section { padding: 56px 0 40px; }
@@ -5990,16 +6506,12 @@
     .req-icon svg { width: 20px; height: 20px; }
     .req-card h4 { font-size: 15px; }
     .req-card p { font-size: 12px; line-height: 1.5; }
-    .compatible-pedals {
-      padding: 16px;
-      margin-top: 14px;
-      border-radius: 10px;
-    }
-    .pedals-label { font-size: 10px; margin-bottom: 10px; }
-    .pedals-list { gap: 4px 0; }
-    .pedals-list span { font-size: 12px; }
-    .pedals-sep { margin: 0 6px; }
-    .pedals-note { font-size: 11px; margin-top: 10px; }
+    .pedals-compatibility { margin-top: 24px; padding-top: 20px; }
+    .pedals-grid { gap: 10px; }
+    .pedals-card { padding: 14px; border-radius: 10px; }
+    .pedals-title { font-size: 13px; }
+    .pedals-desc { font-size: 11px; margin-bottom: 10px; }
+    .pedal-chip { font-size: 10px; padding: 3px 7px; }
 
     /* FAQ */
     .faq-section { margin-bottom: 40px; }
@@ -6016,7 +6528,7 @@
       flex-shrink: 0;
     }
     .faq-item p {
-      padding: 0 16px 14px;
+      padding: 10px 16px 14px;
       font-size: 13px;
       line-height: 1.55;
     }
@@ -6138,10 +6650,10 @@
     .works-card { padding: 16px 14px; }
     .req-card { padding: 16px 14px; }
 
-    .pedals-list span { font-size: 11px; }
+    .pedal-chip { font-size: 10px; }
 
     .faq-item summary { font-size: 12px; padding: 12px 14px; }
-    .faq-item p { font-size: 12px; padding: 0 14px 12px; }
+    .faq-item p { font-size: 12px; padding: 10px 14px 12px; }
 
     .cta-headline { font-size: 20px; }
     .cta-subtext { font-size: 12px; }

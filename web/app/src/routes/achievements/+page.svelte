@@ -63,6 +63,12 @@
   let loading = true;
   let error: string | null = null;
   let viewMode: 'table' | 'cards' = 'table';
+  let viewModeInitialized = false;
+
+  // Save viewMode to localStorage when it changes (only after initialization)
+  $: if (viewModeInitialized && typeof localStorage !== 'undefined') {
+    localStorage.setItem('achievements-view-mode', viewMode);
+  }
 
   $: achievedIds = new Set(milestones.map(a => a.achievement_id));
   $: totalMilestones = Object.keys(MILESTONE_CATALOG).length;
@@ -85,6 +91,13 @@
   });
 
   onMount(async () => {
+    // Restore viewMode from localStorage
+    const savedViewMode = localStorage.getItem('achievements-view-mode');
+    if (savedViewMode === 'table' || savedViewMode === 'cards') {
+      viewMode = savedViewMode;
+    }
+    viewModeInitialized = true;
+
     if (!$isAuthenticated) {
       goto('/login');
       return;

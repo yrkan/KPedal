@@ -1099,6 +1099,27 @@ input::placeholder, textarea::placeholder {
   color: var(--color-accent-hover);
 }
 
+/* Skip tour link */
+.driver-popover.kpedal-tour-popover .skip-tour-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+
+.driver-popover.kpedal-tour-popover .skip-tour-link:hover {
+  opacity: 1;
+  color: var(--text-secondary);
+}
+
 /* Progress text */
 .driver-popover.kpedal-tour-popover .driver-popover-progress-text {
   font-size: 12px;
@@ -1153,22 +1174,41 @@ input::placeholder, textarea::placeholder {
   background: var(--color-accent-hover);
 }
 
+.driver-popover.kpedal-tour-popover .driver-popover-prev-btn:focus,
+.driver-popover.kpedal-tour-popover .driver-popover-next-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent-soft);
+}
+
 /* Close button */
 .driver-popover.kpedal-tour-popover .driver-popover-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
   color: var(--text-muted);
-  font-size: 20px;
-  width: 28px;
-  height: 28px;
+  font-size: 18px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 6px;
   transition: all 0.15s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
 }
 
 .driver-popover.kpedal-tour-popover .driver-popover-close-btn:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
+}
+
+.driver-popover.kpedal-tour-popover .driver-popover-close-btn:focus {
+  outline: none;
+  background: var(--bg-hover);
 }
 
 /* Arrow styling */

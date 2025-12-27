@@ -54,13 +54,14 @@
   let error: string | null = null;
   let deletingId: number | null = null;
   let viewMode: 'table' | 'cards' = 'table';
+  let viewModeInitialized = false;
 
   // Computed stats (all rides, sorted by date)
   $: sortedRides = [...rides].sort((a, b) => b.timestamp - a.timestamp);
   $: periodStats = calculatePeriodStats(sortedRides);
 
-  // Save viewMode to localStorage when it changes
-  $: if (typeof localStorage !== 'undefined' && viewMode) {
+  // Save viewMode to localStorage when it changes (only after initialization)
+  $: if (viewModeInitialized && typeof localStorage !== 'undefined') {
     localStorage.setItem('rides-view-mode', viewMode);
   }
 
@@ -70,6 +71,7 @@
     if (savedViewMode === 'table' || savedViewMode === 'cards') {
       viewMode = savedViewMode;
     }
+    viewModeInitialized = true;
 
     if (!$isAuthenticated) {
       goto('/login');

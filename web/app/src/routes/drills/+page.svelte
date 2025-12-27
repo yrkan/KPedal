@@ -44,9 +44,22 @@
   let error: string | null = null;
   let filterDrillId: string | null = null;
   let viewMode: 'table' | 'cards' = 'table';
+  let viewModeInitialized = false;
   let sortBy: 'date' | 'target' | 'duration' = 'date';
 
+  // Save viewMode to localStorage when it changes (only after initialization)
+  $: if (viewModeInitialized && typeof localStorage !== 'undefined') {
+    localStorage.setItem('drills-view-mode', viewMode);
+  }
+
   onMount(async () => {
+    // Restore viewMode from localStorage
+    const savedViewMode = localStorage.getItem('drills-view-mode');
+    if (savedViewMode === 'table' || savedViewMode === 'cards') {
+      viewMode = savedViewMode;
+    }
+    viewModeInitialized = true;
+
     if (!$isAuthenticated) {
       goto('/login');
       return;

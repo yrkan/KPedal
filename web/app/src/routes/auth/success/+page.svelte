@@ -6,6 +6,15 @@
 
   let error: string | null = null;
 
+  // Redirect to app.kpedal.com if on kpedal.com (landing domain)
+  function redirectToDashboard() {
+    if (typeof window !== 'undefined' && window.location.hostname === 'kpedal.com') {
+      window.location.href = 'https://app.kpedal.com/';
+    } else {
+      goto('/');
+    }
+  }
+
   onMount(() => {
     const accessToken = $page.url.searchParams.get('access_token');
     const refreshToken = $page.url.searchParams.get('refresh_token');
@@ -27,7 +36,7 @@
     if (deviceLinkCode) {
       goto('/link');
     } else {
-      goto('/');
+      redirectToDashboard();
     }
   });
 </script>

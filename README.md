@@ -1,6 +1,7 @@
 # KPedal
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/yrkan/KPedal/total)](https://github.com/yrkan/KPedal/releases)
 [![Platform: Karoo](https://img.shields.io/badge/Platform-Karoo%202%2F3-blue.svg)](https://www.hammerhead.io/)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20-7F52FF.svg)](https://kotlinlang.org/)
 [![AGP](https://img.shields.io/badge/AGP-8.13.2-3DDC84.svg)](https://developer.android.com/build)
@@ -28,7 +29,7 @@ Real-time pedaling efficiency extension for Hammerhead Karoo 2/3. Displays Balan
 - [Karoo App Features](#karoo-app-features)
 - [Web Portal](#web-portal)
   - [Demo Account](#demo-account)
-  - [Privacy & Security](#privacy--data)
+  - [Privacy & Security](#privacy--security)
 - [Compatible Pedals](#compatible-pedals)
 - [Installation](#installation)
 - [Development](#development)
@@ -614,7 +615,7 @@ From web Settings:
 - Request sync from device
 - **Revoke device access** → immediate logout on device
 
-### Privacy & Data
+### Privacy & Security
 
 KPedal is privacy-focused:
 - **No location/GPS data** — we only collect pedaling metrics
@@ -625,7 +626,7 @@ KPedal is privacy-focused:
 
 See full [Privacy Policy](https://kpedal.com/privacy).
 
-### Security
+#### Security Implementation
 
 | Feature | Implementation |
 |---------|----------------|
@@ -712,7 +713,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ./gradlew lint               # Android lint
 ```
 
-**Output:** `app/build/outputs/apk/release/kpedal-x.x.x.apk`
+**Output:** `app/build/outputs/apk/release/kpedal-1.0.0.apk`
 
 ---
 
@@ -775,13 +776,19 @@ app/src/main/java/io/github/kpedal/
 |-----------|:-------:|-------------|
 | **Kotlin** | 2.2.20 | Programming language |
 | **Android Gradle Plugin** | 8.13.2 | Build system |
+| **KSP** | 2.2.20-2.0.4 | Kotlin Symbol Processing |
 | **Jetpack Compose** | BOM 2025.01.00 | Modern UI toolkit |
 | **Room** | 2.7.2 | SQLite database abstraction |
 | **Coroutines** | 1.10.2 | Async programming |
+| **Kotlinx Serialization** | 1.8.0 | JSON serialization |
 | **karoo-ext SDK** | 1.1.7 | Hammerhead Karoo integration |
 | **Retrofit** | 2.11.0 | HTTP client |
+| **OkHttp** | 4.12.0 | HTTP client engine |
 | **DataStore** | 1.1.2 | Preferences storage |
 | **Navigation Compose** | 2.8.5 | Navigation framework |
+| **Lifecycle** | 2.8.7 | Lifecycle-aware components |
+| **Activity Compose** | 1.9.3 | Compose Activity integration |
+| **Security Crypto** | 1.1.0-alpha06 | Encrypted storage |
 | **Target SDK** | 35 | Android 15 |
 | **Min SDK** | 23 | Android 6.0 |
 
@@ -794,14 +801,17 @@ app/src/main/java/io/github/kpedal/
 | **TypeScript** | 5.7.0 | Type-safe JavaScript |
 | **Vitest** | 4.0.0 | Test framework |
 | **Wrangler** | 4.56.0 | Cloudflare CLI |
+| **Workers Types** | 4.20251225.0 | Cloudflare Workers TypeScript types |
 
 #### Web Frontend
 
 | Component | Version | Description |
 |-----------|:-------:|-------------|
-| **SvelteKit** | 5.x | Full-stack framework |
+| **SvelteKit** | 2.x | Full-stack framework |
 | **Svelte** | 5.x | Reactive UI (runes: $state, $derived) |
-| **driver.js** | 1.x | Product tour library |
+| **Vite** | 7.3.0 | Build tool |
+| **driver.js** | 1.4.0 | Product tour library |
+| **Chart.js** | 4.4.0 | Charts and visualizations |
 | **Cloudflare Pages** | - | Static hosting + edge functions |
 
 #### Infrastructure
@@ -899,14 +909,16 @@ cd web/app
 npm run dev                      # Local server :5173
 npm run build                    # Production build
 npm run check                    # Svelte check
-npx wrangler pages deploy .svelte-kit/cloudflare --project-name=kpedal-web
+npx wrangler pages deploy .svelte-kit/cloudflare --project-name=kpedal-web --commit-dirty=true
 ```
 
 ### API Endpoints
 
 | Route | Method | Description |
 |-------|--------|-------------|
+| `/` | GET | Health check |
 | `/auth/login` | GET | → Google OAuth |
+| `/auth/callback` | GET | OAuth callback, sets tokens |
 | `/auth/demo` | POST | Login as demo user (read-only) |
 | `/auth/device/code` | POST | Start Device Code Flow |
 | `/auth/device/token` | POST | Poll for authorization |
@@ -997,6 +1009,58 @@ user_settings (
     background_mode_enabled, auto_sync_enabled, updated_at
 )
 ```
+
+### Testing
+
+#### Android (JUnit 5)
+
+```bash
+# All tests
+./gradlew test
+
+# Single test class
+./gradlew test --tests "io.github.kpedal.engine.StatusCalculatorTest"
+
+# Single test method
+./gradlew test --tests "*.StatusCalculatorTest.testBalanceOptimal"
+```
+
+Test coverage:
+- `StatusCalculatorTest` — Metric threshold evaluation
+- `LiveDataCollectorLogicTest` — Ride statistics aggregation
+- `DrillLogicTest` — Drill scoring and phase transitions
+- `AchievementConditionsTest` — Achievement unlock logic
+
+**Testing libraries:**
+| Library | Version | Purpose |
+|---------|:-------:|---------|
+| JUnit 5 | 5.11.4 | Test framework |
+| Truth | 1.4.4 | Assertions |
+| MockK | 1.13.16 | Mocking |
+| Coroutines Test | 1.10.2 | Coroutine testing |
+
+#### Web API (Vitest)
+
+```bash
+cd web/api
+
+# All tests
+npx vitest run
+
+# Specific directory
+npx vitest run src/auth
+
+# Single file
+npx vitest run src/auth/device-code.test.ts
+
+# Watch mode
+npx vitest
+```
+
+Test coverage:
+- `auth/*.test.ts` — OAuth, JWT, Device Code Flow
+- `middleware/*.test.ts` — Auth, rate limiting, validation
+- `api/*.test.ts` — Rides, devices, sync endpoints
 
 ### API Performance
 
@@ -1095,82 +1159,6 @@ x-ratelimit-remaining: 96 # Rate limit status
 
 ---
 
-## Contributing
-
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push: `git push origin feature/amazing-feature`
-5. Open Pull Request
-
-### Development Setup
-
-```bash
-git clone https://github.com/yrkan/kpedal.git
-cd kpedal
-
-# Android
-./gradlew assembleDebug
-
-# API
-cd web/api && npm install && npm run dev
-
-# Frontend
-cd web/app && npm install && npm run dev
-```
-
-### Code Style
-
-- **Android**: Kotlin coding conventions, ktlint
-- **API**: TypeScript strict mode, ESLint
-- **Frontend**: Svelte 5 runes ($state, $derived, $props), CSS variables
-
-### Testing
-
-#### Android (JUnit 5)
-
-```bash
-# All tests
-./gradlew test
-
-# Single test class
-./gradlew test --tests "io.github.kpedal.engine.StatusCalculatorTest"
-
-# Single test method
-./gradlew test --tests "*.StatusCalculatorTest.testBalanceOptimal"
-```
-
-Test coverage:
-- `StatusCalculatorTest` — Metric threshold evaluation
-- `LiveDataCollectorLogicTest` — Ride statistics aggregation
-- `DrillLogicTest` — Drill scoring and phase transitions
-- `AchievementConditionsTest` — Achievement unlock logic
-
-#### Web API (Vitest)
-
-```bash
-cd web/api
-
-# All tests (372 tests)
-npx vitest run
-
-# Specific directory
-npx vitest run src/auth
-
-# Single file
-npx vitest run src/auth/device-code.test.ts
-
-# Watch mode
-npx vitest
-```
-
-Test coverage:
-- `auth/*.test.ts` — OAuth, JWT, Device Code Flow
-- `middleware/*.test.ts` — Auth, rate limiting, validation
-- `api/*.test.ts` — Rides, devices, sync endpoints
-
----
-
 ## Requirements
 
 | Requirement | Specification |
@@ -1191,6 +1179,38 @@ Test coverage:
 
 ---
 
+## Contributing
+
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push: `git push origin feature/amazing-feature`
+5. Open Pull Request
+
+### Development Setup
+
+```bash
+git clone https://github.com/yrkan/KPedal.git
+cd kpedal
+
+# Android
+./gradlew assembleDebug
+
+# API
+cd web/api && npm install && npm run dev
+
+# Frontend
+cd web/app && npm install && npm run dev
+```
+
+### Code Style
+
+- **Android**: Kotlin coding conventions, ktlint
+- **API**: TypeScript strict mode, ESLint
+- **Frontend**: Svelte 5 runes ($state, $derived, $props), CSS variables
+
+---
+
 ## License
 
 MIT
@@ -1206,25 +1226,44 @@ MIT
 | **Web App** | [app.kpedal.com](https://app.kpedal.com) |
 | **Device Link** | [link.kpedal.com](https://link.kpedal.com) |
 | **Privacy Policy** | [kpedal.com/privacy](https://kpedal.com/privacy) |
-| **GitHub** | [github.com/yrkan/kpedal](https://github.com/yrkan/kpedal) |
-| **Issues** | [github.com/yrkan/kpedal/issues](https://github.com/yrkan/kpedal/issues) |
+| **GitHub** | [github.com/yrkan/KPedal](https://github.com/yrkan/KPedal) |
+| **Issues** | [github.com/yrkan/KPedal/issues](https://github.com/yrkan/KPedal/issues) |
 
 ---
 
 ## Changelog
 
-### Latest Updates (December 2025)
+### v1.0.0 (December 2025)
 
-- **Kotlin 2.2.20** — Updated from 2.0.21, latest stable with AGP 8.x
-- **Android Gradle Plugin 8.13.2** — Latest stable build tools
-- **Target SDK 35** — Android 15 support
-- **Room 2.7.2** — Latest database abstraction
-- **Compose BOM 2025.01.00** — Latest Jetpack Compose
-- **Hono 4.11.0** — Updated API framework
-- **jose 6.1.0** — JWT library major update
-- **Vitest 4.0.0** — Test framework major update
-- **Demo instant loading** — 3-layer caching for instant demo experience
-- **Product tour** — Interactive 39-step walkthrough with driver.js
+**Android App:**
+- Kotlin 2.2.20 with KSP 2.2.20-2.0.4
+- Android Gradle Plugin 8.13.2
+- Target SDK 35 (Android 15)
+- Compose BOM 2025.01.00
+- Room 2.7.2
+- Coroutines 1.10.2
+- karoo-ext SDK 1.1.7
+- JUnit 5.11.4 with MockK 1.13.16
+
+**Web API:**
+- Hono 4.11.0
+- jose 6.1.0
+- Vitest 4.0.0
+- Wrangler 4.56.0
+- TypeScript 5.7.0
+
+**Web Frontend:**
+- SvelteKit 2.x with Svelte 5.x
+- Vite 7.3.0
+- driver.js 1.4.0
+- Chart.js 4.4.0
+
+**Features:**
+- 39-step interactive product tour
+- 3-layer caching for instant demo loading
+- Power zone breakdown in ride detail
+- Fatigue analysis (first ⅓ vs last ⅓)
+- Per-minute timeline charts
 
 ---
 

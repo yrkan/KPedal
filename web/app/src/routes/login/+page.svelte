@@ -9,9 +9,18 @@
   let error: string | null = null;
   let demoLoading = false;
 
+  // Redirect to app.kpedal.com if on kpedal.com (landing domain)
+  function redirectToDashboard() {
+    if (typeof window !== 'undefined' && window.location.hostname === 'kpedal.com') {
+      window.location.href = 'https://app.kpedal.com/';
+    } else {
+      goto('/');
+    }
+  }
+
   onMount(() => {
     if ($isAuthenticated) {
-      goto('/');
+      redirectToDashboard();
       return;
     }
 
@@ -40,7 +49,7 @@
     try {
       const success = await auth.demoLogin();
       if (success) {
-        goto('/');
+        redirectToDashboard();
       } else {
         error = 'Demo mode temporarily unavailable. Please try again later.';
       }
@@ -61,6 +70,7 @@
 
 <div class="login-page">
   <div class="bg-gradient"></div>
+  <div class="bg-pattern"></div>
 
   <div class="login-container">
     <button class="theme-toggle" on:click={() => theme.toggle()} aria-label="Toggle theme">
@@ -118,10 +128,7 @@
 
       <button class="demo-btn" on:click={handleDemoLogin} disabled={demoLoading}>
         {#if demoLoading}
-          <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
-            <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"/>
-          </svg>
+          <span class="spinner"></span>
           Loading demo...
         {:else}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -160,6 +167,10 @@
         By signing in, you agree to our <a href="/privacy">Privacy Policy</a>
       </p>
     </div>
+
+    <div class="footer">
+      <a href="https://kpedal.com" class="landing-link">← back to landing page</a>
+    </div>
   </div>
 </div>
 
@@ -181,8 +192,18 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 30%, var(--color-optimal-soft) 0%, transparent 50%);
-    opacity: 0.4;
+    background: radial-gradient(circle at 30% 20%, var(--color-optimal-soft) 0%, transparent 40%),
+                radial-gradient(circle at 70% 80%, var(--color-optimal-soft) 0%, transparent 30%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--border-subtle) 1px, transparent 1px);
+    background-size: 24px 24px;
+    opacity: 0.5;
     pointer-events: none;
   }
 
@@ -218,9 +239,10 @@
   .login-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 40px 32px;
     text-align: center;
+    box-shadow: var(--shadow-lg);
   }
 
   .logo {
@@ -236,6 +258,7 @@
     height: 12px;
     background: var(--color-optimal);
     border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-optimal);
   }
 
   .logo-text {
@@ -259,7 +282,7 @@
     padding: 12px 16px;
     background: var(--color-problem-soft);
     color: var(--color-problem-text);
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 13px;
     margin-bottom: 20px;
   }
@@ -273,7 +296,7 @@
     padding: 14px 24px;
     background: var(--bg-elevated);
     border: 1px solid var(--border-default);
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 15px;
     font-weight: 500;
     color: var(--text-primary);
@@ -284,6 +307,8 @@
   .google-btn:hover {
     background: var(--bg-hover);
     border-color: var(--border-strong);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .divider {
@@ -317,7 +342,7 @@
     padding: 14px 24px;
     background: var(--color-optimal);
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 15px;
     font-weight: 500;
     color: white;
@@ -368,12 +393,16 @@
     cursor: not-allowed;
   }
 
-  .demo-btn .spinner {
-    animation: spin 1s linear infinite;
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
   }
 
   @keyframes spin {
-    from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
 
@@ -386,7 +415,9 @@
   }
 
   .privacy-note {
-    margin: 20px 0 0 0;
+    margin: 16px 0 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-subtle);
     font-size: 12px;
     color: var(--text-muted);
   }
@@ -436,9 +467,26 @@
     color: var(--color-optimal-text);
   }
 
+  .footer {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .landing-link {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .landing-link:hover {
+    text-decoration: underline;
+  }
+
   @media (max-width: 400px) {
     .login-card {
       padding: 32px 24px;
+      border-radius: 20px;
     }
 
     .logo-text {

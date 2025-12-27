@@ -73,7 +73,8 @@ const dashboardSteps: DriveStep[] = [
       title: 'Welcome to KPedal! 👋',
       description: `
         <p>This is <strong>demo data from a real cyclist</strong> showing ~4 weeks of rides.</p>
-        <p style="margin-top: 8px;">Let me give you a complete tour of everything KPedal can do. It'll take about 2 minutes.</p>
+        <p style="margin-top: 8px;">Quick tour of what KPedal can do (~2 min).</p>
+        <p style="margin-top: 14px; text-align: center;"><button onclick="window.skipKPedalTour()" class="skip-tour-link">or skip the tour →</button></p>
       `,
       side: 'over',
       align: 'center',
@@ -822,6 +823,21 @@ function createDriver(
 // ============================================
 // PUBLIC TOUR FUNCTIONS
 // ============================================
+
+/**
+ * Skip tour completely (called from welcome popup)
+ */
+function skipTour(): void {
+  if (driverInstance) {
+    driverInstance.destroy();
+  }
+  markTourCompleted();
+}
+
+// Register global function for inline onclick
+if (browser) {
+  (window as unknown as { skipKPedalTour: () => void }).skipKPedalTour = skipTour;
+}
 
 /**
  * Start the dashboard tour
