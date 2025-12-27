@@ -12,9 +12,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.models.TrendData
 import io.github.kpedal.ui.components.charts.TrendChart
 import io.github.kpedal.ui.theme.Theme
@@ -55,7 +57,7 @@ fun AnalyticsScreen(
                         .padding(end = 12.dp)
                 )
                 Text(
-                    text = "Analytics",
+                    text = stringResource(R.string.analytics),
                     color = Theme.colors.text,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold
@@ -88,13 +90,13 @@ fun AnalyticsScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "No ride data",
+                        text = stringResource(R.string.no_ride_data),
                         color = Theme.colors.dim,
                         fontSize = 14.sp
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "Complete some rides to see trends",
+                        text = stringResource(R.string.complete_rides_to_see),
                         color = Theme.colors.muted,
                         fontSize = 12.sp
                     )
@@ -118,7 +120,7 @@ fun AnalyticsScreen(
             )
 
             // Balance Trend
-            ChartCard(title = "Balance Trend") {
+            ChartCard(title = stringResource(R.string.balance_trend_title)) {
                 TrendChart(
                     data = trendData.balanceTrend,
                     lineColor = getBalanceColor(trendData.avgBalance),
@@ -131,7 +133,7 @@ fun AnalyticsScreen(
             }
 
             // TE Trend
-            ChartCard(title = "Torque Effectiveness") {
+            ChartCard(title = stringResource(R.string.te_full)) {
                 TrendChart(
                     data = trendData.teTrend,
                     lineColor = getTEColor(trendData.avgTE),
@@ -144,7 +146,7 @@ fun AnalyticsScreen(
             }
 
             // PS Trend
-            ChartCard(title = "Pedal Smoothness") {
+            ChartCard(title = stringResource(R.string.ps_full)) {
                 TrendChart(
                     data = trendData.psTrend,
                     lineColor = getPSColor(trendData.avgPS),
@@ -174,6 +176,13 @@ private fun ProgressCard(
     rideCount: Int,
     avgBalance: Float
 ) {
+    val stableText = stringResource(R.string.stable)
+    val progressLabel = stringResource(R.string.progress_label)
+    val ridesLabel = stringResource(R.string.rides)
+    val avgBalanceLabel = stringResource(R.string.avg_balance_label)
+    val leftLabel = stringResource(R.string.left)
+    val rightLabel = stringResource(R.string.right)
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -183,11 +192,11 @@ private fun ProgressCard(
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         StatItem(
-            label = "Progress",
+            label = progressLabel,
             value = when {
                 progressScore > 5 -> "+$progressScore%"
                 progressScore < -5 -> "$progressScore%"
-                else -> "Stable"
+                else -> stableText
             },
             valueColor = when {
                 progressScore > 5 -> Theme.colors.optimal
@@ -196,13 +205,13 @@ private fun ProgressCard(
             }
         )
         StatItem(
-            label = "Rides",
+            label = ridesLabel,
             value = rideCount.toString(),
             valueColor = Theme.colors.text
         )
         StatItem(
-            label = "Avg Balance",
-            value = "L${(100 - avgBalance).toInt()}/R${avgBalance.toInt()}",
+            label = avgBalanceLabel,
+            value = "$leftLabel${(100 - avgBalance).toInt()}/$rightLabel${avgBalance.toInt()}",
             valueColor = getBalanceColor(avgBalance)
         )
     }
@@ -258,6 +267,8 @@ private fun AveragesCard(
     avgTE: Float,
     avgPS: Float
 ) {
+    val rightLabel = stringResource(R.string.right)
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -266,7 +277,7 @@ private fun AveragesCard(
             .padding(12.dp)
     ) {
         Text(
-            text = "Period Averages",
+            text = stringResource(R.string.period_averages),
             color = Theme.colors.text,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
@@ -278,17 +289,17 @@ private fun AveragesCard(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             AverageItem(
-                label = "Balance",
-                value = "${avgBalance.toInt()}% R",
+                label = stringResource(R.string.balance_lower),
+                value = "${avgBalance.toInt()}% $rightLabel",
                 color = getBalanceColor(avgBalance)
             )
             AverageItem(
-                label = "TE",
+                label = stringResource(R.string.te),
                 value = "${avgTE.toInt()}%",
                 color = getTEColor(avgTE)
             )
             AverageItem(
-                label = "PS",
+                label = stringResource(R.string.ps),
                 value = "${avgPS.toInt()}%",
                 color = getPSColor(avgPS)
             )

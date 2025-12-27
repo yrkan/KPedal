@@ -5,6 +5,7 @@
   import { isAuthenticated, auth } from '$lib/auth';
   import { theme } from '$lib/theme';
   import { API_URL } from '$lib/config';
+  import { t } from '$lib/i18n';
 
   let error: string | null = null;
   let demoLoading = false;
@@ -28,13 +29,13 @@
     if (errorParam) {
       switch (errorParam) {
         case 'invalid_state':
-          error = 'Security verification failed. Please try again.';
+          error = $t('errors.invalidState');
           break;
         case 'auth_failed':
-          error = 'Authentication failed. Please try again.';
+          error = $t('errors.authFailed');
           break;
         default:
-          error = 'Something went wrong. Please try again.';
+          error = $t('errors.somethingWrong');
       }
     }
   });
@@ -51,10 +52,10 @@
       if (success) {
         redirectToDashboard();
       } else {
-        error = 'Demo mode temporarily unavailable. Please try again later.';
+        error = $t('errors.demoUnavailable');
       }
     } catch {
-      error = 'Failed to start demo mode. Please try again.';
+      error = $t('errors.demoFailed');
     } finally {
       demoLoading = false;
     }
@@ -62,7 +63,7 @@
 </script>
 
 <svelte:head>
-  <title>Sign In — KPedal Pedaling Analytics</title>
+  <title>{$t('auth.signIn')} — KPedal</title>
   <meta name="description" content="Sign in to KPedal to access your pedaling analytics dashboard. View ride history, track balance improvements, and sync data across devices.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="canonical" href="https://kpedal.com/login">
@@ -73,7 +74,7 @@
   <div class="bg-pattern"></div>
 
   <div class="login-container">
-    <button class="theme-toggle" on:click={() => theme.toggle()} aria-label="Toggle theme">
+    <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
       {#if $theme === 'dark'}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"/>
@@ -99,7 +100,7 @@
         <span class="logo-text">KPedal</span>
       </div>
 
-      <p class="tagline">Pedaling efficiency analytics for Karoo</p>
+      <p class="tagline">{$t('app.tagline')}</p>
 
       {#if error}
         <div class="error-banner">
@@ -119,27 +120,27 @@
           <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
           <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
         </svg>
-        Continue with Google
+        {$t('auth.continueWithGoogle')}
       </button>
 
       <div class="divider">
-        <span>or</span>
+        <span>{$t('common.or')}</span>
       </div>
 
       <button class="demo-btn" on:click={handleDemoLogin} disabled={demoLoading}>
         {#if demoLoading}
           <span class="spinner"></span>
-          Loading demo...
+          {$t('auth.loadingDemo')}
         {:else}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/>
             <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
           </svg>
-          Try Demo
+          {$t('auth.tryDemo')}
         {/if}
       </button>
 
-      <p class="demo-note">Explore the dashboard with sample data.<br>No sign-up required.</p>
+      <p class="demo-note">{$t('auth.demoNote')}<br>{$t('auth.noSignupRequired')}</p>
 
       <div class="trust-section">
         <div class="trust-row">
@@ -150,7 +151,7 @@
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
               </svg>
             </div>
-            <span>Secure OAuth 2.0</span>
+            <span>{$t('auth.secureOAuth')}</span>
           </div>
           <div class="trust-item">
             <div class="trust-icon check">
@@ -158,18 +159,18 @@
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </div>
-            <span>Google verified</span>
+            <span>{$t('auth.googleVerified')}</span>
           </div>
         </div>
       </div>
 
       <p class="privacy-note">
-        By signing in, you agree to our <a href="/privacy">Privacy Policy</a>
+        {$t('auth.privacyNote')} <a href="/privacy">{$t('auth.privacyPolicy')}</a>
       </p>
     </div>
 
     <div class="footer">
-      <a href="https://kpedal.com" class="landing-link">← back to landing page</a>
+      <a href="https://kpedal.com" class="landing-link">← {$t('auth.backToLanding')}</a>
     </div>
   </div>
 </div>

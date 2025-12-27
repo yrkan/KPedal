@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { auth, isAuthenticated, user, authFetch } from '$lib/auth';
   import { theme, type Theme } from '$lib/theme';
+  import { t, locale, setLocale, locales, localeNames, type Locale } from '$lib/i18n';
   import InfoTip from '$lib/components/InfoTip.svelte';
 
   interface Device {
@@ -78,7 +79,7 @@
 
   let devices: Device[] = [];
   let devicesLoading = true;
-  let devicesError: string | null = null;
+  let devicesError = false;
   let removingDevice: string | null = null;
   let requestingSyncDevice: string | null = null;
   let syncRequestedDevice: string | null = null;
@@ -86,7 +87,7 @@
   // KPedal settings state
   let kpedalSettings: KPedalSettings = { ...DEFAULT_SETTINGS };
   let settingsLoading = true;
-  let settingsError: string | null = null;
+  let settingsError = false;
   let savingSettings = false;
   let settingsSaved = false;
   let saveTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -101,24 +102,24 @@
 
   async function loadDevices() {
     devicesLoading = true;
-    devicesError = null;
+    devicesError = false;
     try {
       const res = await authFetch('/devices');
       const data = await res.json();
       if (data.success) {
         devices = data.data.devices;
       } else {
-        devicesError = data.error || 'Failed to load devices';
+        devicesError = true;
       }
     } catch (err) {
-      devicesError = 'Failed to connect';
+      devicesError = true;
     } finally {
       devicesLoading = false;
     }
   }
 
   async function removeDevice(deviceId: string) {
-    if (!confirm('Remove this device? It will need to be re-linked.')) return;
+    if (!confirm($t('settings.removeDevice'))) return;
 
     removingDevice = deviceId;
     try {
@@ -169,16 +170,16 @@
 
   function getStatusLabel(status: string): string {
     switch (status) {
-      case 'connected': return 'Connected';
-      case 'idle': return 'Idle';
-      default: return 'Offline';
+      case 'connected': return $t('settings.deviceStatus.connected');
+      case 'idle': return $t('settings.deviceStatus.idle');
+      default: return $t('settings.deviceStatus.offline');
     }
   }
 
   // Load KPedal settings from server
   async function loadSettings() {
     settingsLoading = true;
-    settingsError = null;
+    settingsError = false;
     try {
       const res = await authFetch('/settings');
       const data = await res.json();
@@ -186,7 +187,7 @@
         kpedalSettings = { ...DEFAULT_SETTINGS, ...data.data.settings };
       }
     } catch (err) {
-      settingsError = 'Failed to load settings';
+      settingsError = true;
     } finally {
       settingsLoading = false;
     }
@@ -226,13 +227,13 @@
 </script>
 
 <svelte:head>
-  <title>Settings - KPedal</title>
+  <title>{$t('settings.title')} - KPedal</title>
 </svelte:head>
 
 <div class="page settings-page">
   <div class="container container-md">
     <header class="page-header animate-in">
-      <h1>Settings</h1>
+      <h1>{$t('settings.title')}</h1>
     </header>
 
     <!-- Account -->
@@ -242,7 +243,7 @@
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
           <circle cx="12" cy="7" r="4"/>
         </svg>
-        <h2>Account</h2>
+        <h2>{$t('settings.account')}</h2>
       </div>
       <div class="settings-card">
         <div class="account-row">
@@ -268,18 +269,18 @@
           <line x1="8" y1="6" x2="16" y2="6"/>
           <line x1="8" y1="9" x2="14" y2="9"/>
         </svg>
-        <h2>Connected Devices</h2>
+        <h2>{$t('settings.connectedDevices')}</h2>
       </div>
       <div class="settings-card">
         {#if devicesLoading}
           <div class="devices-loading">
             <div class="spinner-small"></div>
-            <span>Loading devices...</span>
+            <span>{$t('settings.loadingDevices')}</span>
           </div>
         {:else if devicesError}
           <div class="devices-error">
-            <span>{devicesError}</span>
-            <button class="text-btn" on:click={loadDevices}>Retry</button>
+            <span>{$t('errors.failedToLoadDevices')}</span>
+            <button class="text-btn" on:click={loadDevices}>{$t('common.retry')}</button>
           </div>
         {:else if devices.length === 0}
           <div class="devices-empty">
@@ -291,14 +292,14 @@
                 <line x1="8" y1="9" x2="14" y2="9"/>
               </svg>
             </div>
-            <p class="empty-text">No devices connected</p>
-            <p class="empty-hint">Link your Karoo device to sync ride data</p>
+            <p class="empty-text">{$t('settings.noDevices')}</p>
+            <p class="empty-hint">{$t('settings.noDevicesHint')}</p>
             <a href="/link" class="link-device-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="12" y1="5" x2="12" y2="19"/>
                 <line x1="5" y1="12" x2="19" y2="12"/>
               </svg>
-              Link Device
+              {$t('settings.linkDevice')}
             </a>
           </div>
         {:else}
@@ -323,11 +324,11 @@
                   </div>
                   <div class="device-meta">
                     {#if syncRequestedDevice === device.id}
-                      <span class="sync-requested">Sync requested - open app to sync</span>
+                      <span class="sync-requested">{$t('settings.syncRequested')}</span>
                     {:else if device.last_sync_relative}
-                      <span>Last sync: {device.last_sync_relative}</span>
+                      <span>{$t('settings.lastSync')}: {device.last_sync_relative}</span>
                     {:else}
-                      <span>Never synced</span>
+                      <span>{$t('settings.neverSynced')}</span>
                     {/if}
                   </div>
                 </div>
@@ -335,7 +336,7 @@
                   class="device-sync"
                   on:click={() => requestSync(device.id)}
                   disabled={requestingSyncDevice === device.id || syncRequestedDevice === device.id}
-                  title="Request sync"
+                  title={$t('settings.requestSync')}
                 >
                   {#if requestingSyncDevice === device.id}
                     <div class="spinner-tiny"></div>
@@ -355,7 +356,7 @@
                   class="device-remove"
                   on:click={() => removeDevice(device.id)}
                   disabled={removingDevice === device.id}
-                  title="Remove device"
+                  title={$t('common.remove')}
                 >
                   {#if removingDevice === device.id}
                     <div class="spinner-tiny"></div>
@@ -375,7 +376,7 @@
                 <line x1="12" y1="5" x2="12" y2="19"/>
                 <line x1="5" y1="12" x2="19" y2="12"/>
               </svg>
-              Link another device
+              {$t('settings.linkAnotherDevice')}
             </a>
           </div>
         {/if}
@@ -388,7 +389,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 20v-6M6 20V10M18 20V4"/>
         </svg>
-        <h2>Pedaling Metrics</h2>
+        <h2>{$t('settings.pedalingMetrics')}</h2>
       </div>
 
       <!-- Sync Banner -->
@@ -396,21 +397,21 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c-1.657 0-3-4.03-3-9s1.343-9 3-9m0 18c1.657 0 3-4.03 3-9s-1.343-9-3-9"/>
         </svg>
-        <span>Changes sync to your Karoo when you press <strong>Sync</strong> in the app or start a ride.</span>
+        <span>{@html $t('settings.syncBanner')}</span>
       </div>
 
       {#if settingsLoading}
         <div class="settings-card">
           <div class="devices-loading">
             <div class="spinner-small"></div>
-            <span>Loading...</span>
+            <span>{$t('common.loading')}</span>
           </div>
         </div>
       {:else if settingsError}
         <div class="settings-card">
           <div class="devices-error">
-            <span>{settingsError}</span>
-            <button class="text-btn" on:click={loadSettings}>Retry</button>
+            <span>{$t('errors.failedToLoadSettings')}</span>
+            <button class="text-btn" on:click={loadSettings}>{$t('common.retry')}</button>
           </div>
         </div>
       {:else}
@@ -418,17 +419,17 @@
           <!-- Thresholds Card -->
           <div class="metrics-card">
             <div class="metrics-card-header">
-              <h3>Thresholds</h3>
+              <h3>{$t('settings.thresholds')}</h3>
             </div>
             <div class="metrics-card-body thresholds-body">
               <!-- Balance Threshold -->
               <div class="threshold-row">
                 <div class="threshold-info">
                   <div class="threshold-label-row">
-                    <span class="threshold-label">Balance Threshold</span>
-                    <InfoTip text="Maximum acceptable L/R imbalance. Pro cyclists typically stay within ±2.5%." position="right" size="sm" />
+                    <span class="threshold-label">{$t('settings.balanceThreshold')}</span>
+                    <InfoTip text={$t('settings.balanceThresholdTip')} position="right" size="sm" />
                   </div>
-                  <span class="threshold-hint">Alerts trigger when imbalance exceeds this value</span>
+                  <span class="threshold-hint">{$t('settings.balanceThresholdHint')}</span>
                 </div>
                 <div class="threshold-input-group">
                   <button
@@ -449,10 +450,10 @@
               <div class="threshold-row">
                 <div class="threshold-info">
                   <div class="threshold-label-row">
-                    <span class="threshold-label">TE Optimal Range</span>
-                    <InfoTip text="Torque Effectiveness sweet spot. Research shows 70-80% is optimal — higher isn't better." position="right" size="sm" />
+                    <span class="threshold-label">{$t('settings.teOptimalRange')}</span>
+                    <InfoTip text={$t('settings.teOptimalRangeTip')} position="right" size="sm" />
                   </div>
-                  <span class="threshold-hint">Green zone for Torque Effectiveness</span>
+                  <span class="threshold-hint">{$t('settings.teOptimalRangeHint')}</span>
                 </div>
                 <div class="threshold-range-group">
                   <div class="threshold-input-group small">
@@ -489,10 +490,10 @@
               <div class="threshold-row">
                 <div class="threshold-info">
                   <div class="threshold-label-row">
-                    <span class="threshold-label">PS Minimum</span>
-                    <InfoTip text="Pedal Smoothness threshold for optimal zone. Elite cyclists achieve 25%+." position="right" size="sm" />
+                    <span class="threshold-label">{$t('settings.psMinimum')}</span>
+                    <InfoTip text={$t('settings.psMinimumTip')} position="right" size="sm" />
                   </div>
-                  <span class="threshold-hint">Values below this are marked as needing attention</span>
+                  <span class="threshold-hint">{$t('settings.psMinimumHint')}</span>
                 </div>
                 <div class="threshold-input-group">
                   <button
@@ -516,8 +517,8 @@
             <div class="metrics-card-header">
               <div class="header-with-toggle">
                 <div>
-                  <h3>In-Ride Alerts <InfoTip text="Real-time notifications on your Karoo when metrics need attention." position="right" size="sm" /></h3>
-                  <span class="metrics-card-hint">Notifications when metrics need attention</span>
+                  <h3>{$t('settings.inRideAlerts')} <InfoTip text={$t('settings.inRideAlertsTip')} position="right" size="sm" /></h3>
+                  <span class="metrics-card-hint">{$t('settings.inRideAlertsHint')}</span>
                 </div>
                 <label class="toggle">
                   <input
@@ -533,32 +534,32 @@
               <div class="metrics-card-body alerts-body">
                 <!-- Metrics to Monitor -->
                 <div class="alert-section">
-                  <span class="alert-section-label">Metrics to Monitor</span>
+                  <span class="alert-section-label">{$t('settings.metricsToMonitor')}</span>
                   <div class="alert-metrics-row">
                     <label class="alert-metric-check" class:active={kpedalSettings.balance_alert_enabled}>
                       <input type="checkbox" checked={kpedalSettings.balance_alert_enabled}
                         on:change={() => saveSettings({ balance_alert_enabled: !kpedalSettings.balance_alert_enabled })} />
                       <span class="metric-dot" style="background: var(--color-attention)"></span>
-                      <span>Balance</span>
+                      <span>{$t('metrics.balance')}</span>
                     </label>
                     <label class="alert-metric-check" class:active={kpedalSettings.te_alert_enabled}>
                       <input type="checkbox" checked={kpedalSettings.te_alert_enabled}
                         on:change={() => saveSettings({ te_alert_enabled: !kpedalSettings.te_alert_enabled })} />
                       <span class="metric-dot" style="background: var(--color-optimal)"></span>
-                      <span>Torque Eff.</span>
+                      <span>{$t('settings.torqueEff')}</span>
                     </label>
                     <label class="alert-metric-check" class:active={kpedalSettings.ps_alert_enabled}>
                       <input type="checkbox" checked={kpedalSettings.ps_alert_enabled}
                         on:change={() => saveSettings({ ps_alert_enabled: !kpedalSettings.ps_alert_enabled })} />
                       <span class="metric-dot" style="background: var(--color-problem)"></span>
-                      <span>Smoothness</span>
+                      <span>{$t('settings.smoothness')}</span>
                     </label>
                   </div>
                 </div>
 
                 <!-- Sensitivity -->
                 <div class="alert-section">
-                  <span class="alert-section-label">Sensitivity</span>
+                  <span class="alert-section-label">{$t('settings.sensitivity')}</span>
                   <div class="sensitivity-chips">
                     <button
                       class="sensitivity-chip"
@@ -572,8 +573,8 @@
                       <span class="sensitivity-dots">
                         <span class="dot-problem"></span>
                       </span>
-                      <span>Critical</span>
-                      <span class="sensitivity-hint">Problem zone only</span>
+                      <span>{$t('settings.critical')}</span>
+                      <span class="sensitivity-hint">{$t('settings.problemZoneOnly')}</span>
                     </button>
                     <button
                       class="sensitivity-chip"
@@ -588,15 +589,15 @@
                         <span class="dot-attention"></span>
                         <span class="dot-problem"></span>
                       </span>
-                      <span>Sensitive</span>
-                      <span class="sensitivity-hint">Attention & Problem</span>
+                      <span>{$t('settings.sensitive')}</span>
+                      <span class="sensitivity-hint">{$t('settings.attentionAndProblem')}</span>
                     </button>
                   </div>
                 </div>
 
                 <!-- Notify Via -->
                 <div class="alert-section">
-                  <span class="alert-section-label">Notify Via</span>
+                  <span class="alert-section-label">{$t('settings.notifyVia')}</span>
                   <div class="notify-chips">
                     <button
                       class="notify-chip"
@@ -610,7 +611,7 @@
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
                       </svg>
-                      Vibrate
+                      {$t('settings.vibrate')}
                     </button>
                     <button
                       class="notify-chip"
@@ -626,7 +627,7 @@
                         <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
                         <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
                       </svg>
-                      Sound
+                      {$t('settings.sound')}
                     </button>
                     <button
                       class="notify-chip"
@@ -641,17 +642,17 @@
                         <rect x="3" y="3" width="18" height="18" rx="2"/>
                         <path d="M3 9h18"/>
                       </svg>
-                      Banner
+                      {$t('settings.banner')}
                     </button>
                   </div>
                 </div>
 
                 <!-- Options -->
                 <div class="alert-section">
-                  <span class="alert-section-label">Options</span>
+                  <span class="alert-section-label">{$t('settings.options')}</span>
                   <div class="alert-options">
                     <div class="alert-option-row">
-                      <span class="alert-option-label">Wake screen on alert</span>
+                      <span class="alert-option-label">{$t('settings.wakeScreenOnAlert')}</span>
                       <label class="toggle toggle-sm">
                         <input type="checkbox" checked={kpedalSettings.screen_wake_on_alert}
                           on:change={(e) => saveSettings({ screen_wake_on_alert: e.currentTarget.checked })} />
@@ -659,7 +660,7 @@
                       </label>
                     </div>
                     <div class="alert-option-row">
-                      <span class="alert-option-label">Cooldown between alerts</span>
+                      <span class="alert-option-label">{$t('settings.cooldownBetweenAlerts')}</span>
                       <div class="cooldown-chips">
                         {#each [{ value: 15, label: '15s' }, { value: 30, label: '30s' }, { value: 60, label: '1m' }, { value: 120, label: '2m' }] as opt}
                           <button
@@ -683,14 +684,14 @@
           <!-- Data Collection Card -->
           <div class="metrics-card">
             <div class="metrics-card-header">
-              <h3>Data Collection</h3>
-              <span class="metrics-card-hint">How KPedal collects and syncs your data</span>
+              <h3>{$t('settings.dataCollection')}</h3>
+              <span class="metrics-card-hint">{$t('settings.dataCollectionHint')}</span>
             </div>
             <div class="metrics-card-body">
               <div class="data-option">
                 <div class="data-option-info">
-                  <span class="data-option-name">Background Mode <InfoTip text="Collect metrics even when KPedal data field isn't visible on screen." position="right" size="sm" /></span>
-                  <span class="data-option-desc">Collect metrics even when data field is hidden</span>
+                  <span class="data-option-name">{$t('settings.backgroundMode')} <InfoTip text={$t('settings.backgroundModeTip')} position="right" size="sm" /></span>
+                  <span class="data-option-desc">{$t('settings.backgroundModeHint')}</span>
                 </div>
                 <label class="toggle">
                   <input
@@ -703,8 +704,8 @@
               </div>
               <div class="data-option">
                 <div class="data-option-info">
-                  <span class="data-option-name">Auto-Sync <InfoTip text="Automatically upload ride data after each ride ends." position="right" size="sm" /></span>
-                  <span class="data-option-desc">Sync ride data automatically after each ride</span>
+                  <span class="data-option-name">{$t('settings.autoSync')} <InfoTip text={$t('settings.autoSyncTip')} position="right" size="sm" /></span>
+                  <span class="data-option-desc">{$t('settings.autoSyncHint')}</span>
                 </div>
                 <label class="toggle">
                   <input
@@ -728,20 +729,20 @@
           <circle cx="12" cy="12" r="3"/>
           <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
         </svg>
-        <h2>Appearance</h2>
+        <h2>{$t('settings.appearance')}</h2>
       </div>
       <div class="settings-card">
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-label">Theme</span>
-            <span class="setting-description">Choose your preferred color scheme</span>
+            <span class="setting-label">{$t('settings.theme')}</span>
+            <span class="setting-description">{$t('settings.themeHint')}</span>
           </div>
           <div class="theme-selector">
             <button
               class="theme-option"
               class:active={$theme === 'light'}
               on:click={() => setTheme('light')}
-              aria-label="Light theme"
+              aria-label={$t('settings.themeLight')}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="5"/>
@@ -754,32 +755,51 @@
                 <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
               </svg>
-              Light
+              {$t('settings.themeLight')}
             </button>
             <button
               class="theme-option"
               class:active={$theme === 'dark'}
               on:click={() => setTheme('dark')}
-              aria-label="Dark theme"
+              aria-label={$t('settings.themeDark')}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
               </svg>
-              Dark
+              {$t('settings.themeDark')}
             </button>
             <button
               class="theme-option"
               class:active={$theme === 'system'}
               on:click={() => setTheme('system')}
-              aria-label="System theme"
+              aria-label={$t('settings.themeSystem')}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="3" width="20" height="14" rx="2"/>
                 <line x1="8" y1="21" x2="16" y2="21"/>
                 <line x1="12" y1="17" x2="12" y2="21"/>
               </svg>
-              System
+              {$t('settings.themeSystem')}
             </button>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-label">{$t('settings.language.title')}</span>
+            <span class="setting-description">{$t('settings.language.description')}</span>
+          </div>
+          <div class="language-selector">
+            {#each locales as loc}
+              <button
+                class="language-option"
+                class:active={$locale === loc}
+                on:click={() => setLocale(loc)}
+                aria-label={localeNames[loc]}
+              >
+                <span class="lang-flag">{loc === 'en' ? '🇺🇸' : '🇪🇸'}</span>
+                <span class="lang-name">{localeNames[loc]}</span>
+              </button>
+            {/each}
           </div>
         </div>
       </div>
@@ -792,13 +812,13 @@
           <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
           <path d="M22 12A10 10 0 0 0 12 2v10z"/>
         </svg>
-        <h2>Data</h2>
+        <h2>{$t('settings.data')}</h2>
       </div>
       <div class="settings-card">
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-label">Ride Data</span>
-            <span class="setting-description">Your data is stored securely and synced from your Karoo device</span>
+            <span class="setting-label">{$t('settings.rideData')}</span>
+            <span class="setting-description">{$t('settings.rideDataHint')}</span>
           </div>
         </div>
       </div>
@@ -810,16 +830,16 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
         </svg>
-        <h2>Session</h2>
+        <h2>{$t('settings.session')}</h2>
       </div>
       <div class="settings-card">
         <div class="setting-row">
           <div class="setting-info">
-            <span class="setting-label">Signed in via Google</span>
-            <span class="setting-description">Your session will expire in 7 days</span>
+            <span class="setting-label">{$t('auth.signedInViaGoogle')}</span>
+            <span class="setting-description">{$t('auth.sessionExpires')}</span>
           </div>
           <button class="btn btn-danger btn-sm" on:click={() => auth.logout()}>
-            Sign Out
+            {$t('auth.signOut')}
           </button>
         </div>
       </div>
@@ -832,13 +852,13 @@
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
         </svg>
-        <h2>Privacy</h2>
+        <h2>{$t('settings.privacy')}</h2>
       </div>
       <div class="settings-card">
         <a href="/privacy" class="setting-row setting-link">
           <div class="setting-info">
-            <span class="setting-label">Privacy Policy</span>
-            <span class="setting-description">Learn how we collect, use, and protect your data</span>
+            <span class="setting-label">{$t('auth.privacyPolicy')}</span>
+            <span class="setting-description">{$t('settings.privacyHint')}</span>
           </div>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9,6 15,12 9,18"/>
@@ -855,13 +875,13 @@
           <path d="M12 16v-4"/>
           <circle cx="12" cy="8" r="0.5" fill="currentColor"/>
         </svg>
-        <h2>About</h2>
+        <h2>{$t('settings.about')}</h2>
       </div>
       <div class="settings-card">
         <div class="about-content">
           <p class="app-name">KPedal Web</p>
           <p class="app-version">Version 1.0.0</p>
-          <p class="app-description">Pedaling efficiency analytics for Karoo</p>
+          <p class="app-description">{$t('app.tagline')}</p>
         </div>
       </div>
     </section>
@@ -872,12 +892,12 @@
     <div class="save-toast" class:saving={savingSettings} class:saved={settingsSaved}>
       {#if savingSettings}
         <div class="toast-spinner"></div>
-        <span>Saving...</span>
+        <span>{$t('settings.saving')}</span>
       {:else}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="20 6 9 17 4 12"/>
         </svg>
-        <span>Saved</span>
+        <span>{$t('settings.saved')}</span>
       {/if}
     </div>
   {/if}
@@ -1036,6 +1056,44 @@
     background: var(--color-accent-soft);
     color: var(--color-accent);
     border-color: var(--color-accent);
+  }
+
+  .language-selector {
+    display: flex;
+    gap: 8px;
+  }
+
+  .language-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--bg-elevated);
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .language-option:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+  }
+
+  .language-option.active {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .lang-flag {
+    font-size: 16px;
+  }
+
+  .lang-name {
+    font-weight: 500;
   }
 
   .about-content {

@@ -19,10 +19,12 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.models.PedalInfo
 import io.github.kpedal.engine.PedalingMetrics
 import io.github.kpedal.ui.theme.Theme
@@ -60,7 +62,7 @@ fun PedalInfoScreen(
                     .padding(end = 8.dp)
             )
             Text(
-                text = "Pedal Status",
+                text = stringResource(R.string.pedal_status),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
@@ -113,6 +115,8 @@ private fun Divider() {
 private fun ConnectionStatusCard(pedalInfo: PedalInfo) {
     val statusColor = if (pedalInfo.isConnected) Theme.colors.optimal else Theme.colors.problem
     val bgColor = statusColor.copy(alpha = 0.12f)
+    val connectedText = stringResource(R.string.connected)
+    val disconnectedText = stringResource(R.string.disconnected)
 
     Box(
         modifier = Modifier
@@ -146,7 +150,7 @@ private fun ConnectionStatusCard(pedalInfo: PedalInfo) {
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = if (pedalInfo.isConnected) "Connected" else "Disconnected",
+                    text = if (pedalInfo.isConnected) connectedText else disconnectedText,
                     color = statusColor,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
@@ -215,7 +219,7 @@ private fun LiveMetricsSection(metrics: PedalingMetrics) {
             .padding(horizontal = 12.dp)
     ) {
         Text(
-            text = "LIVE DATA",
+            text = stringResource(R.string.live_data),
             color = Theme.colors.dim,
             fontSize = 10.sp,
             fontWeight = FontWeight.Medium
@@ -235,17 +239,17 @@ private fun LiveMetricsSection(metrics: PedalingMetrics) {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 MetricItem(
-                    label = "Balance",
+                    label = stringResource(R.string.balance_lower),
                     value = "${(100 - metrics.balance).toInt()}/${metrics.balance.toInt()}",
-                    unit = "L/R"
+                    unit = stringResource(R.string.lr)
                 )
                 MetricItem(
-                    label = "TE",
+                    label = stringResource(R.string.te),
                     value = "${metrics.torqueEffAvg.toInt()}",
                     unit = "%"
                 )
                 MetricItem(
-                    label = "PS",
+                    label = stringResource(R.string.ps),
                     value = "${metrics.pedalSmoothAvg.toInt()}",
                     unit = "%"
                 )
@@ -255,7 +259,7 @@ private fun LiveMetricsSection(metrics: PedalingMetrics) {
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = "Data is flowing correctly",
+            text = stringResource(R.string.data_flowing),
             color = Theme.colors.optimal,
             fontSize = 11.sp,
             modifier = Modifier.fillMaxWidth(),
@@ -297,13 +301,18 @@ private fun MetricItem(
 
 @Composable
 private fun SignalDetailsSection(pedalInfo: PedalInfo) {
+    val excellentText = stringResource(R.string.excellent)
+    val fairText = stringResource(R.string.fair)
+    val poorText = stringResource(R.string.poor)
+    val unknownText = stringResource(R.string.unknown)
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 12.dp)
     ) {
         Text(
-            text = "SIGNAL DETAILS",
+            text = stringResource(R.string.signal_details),
             color = Theme.colors.dim,
             fontSize = 10.sp,
             fontWeight = FontWeight.Medium
@@ -313,12 +322,12 @@ private fun SignalDetailsSection(pedalInfo: PedalInfo) {
 
         // Signal Quality
         DetailRow(
-            label = "Quality",
+            label = stringResource(R.string.quality),
             value = when (pedalInfo.signalQuality) {
-                PedalInfo.SignalQuality.GOOD -> "Excellent"
-                PedalInfo.SignalQuality.FAIR -> "Fair"
-                PedalInfo.SignalQuality.POOR -> "Poor"
-                PedalInfo.SignalQuality.UNKNOWN -> "Unknown"
+                PedalInfo.SignalQuality.GOOD -> excellentText
+                PedalInfo.SignalQuality.FAIR -> fairText
+                PedalInfo.SignalQuality.POOR -> poorText
+                PedalInfo.SignalQuality.UNKNOWN -> unknownText
             },
             valueColor = when (pedalInfo.signalQuality) {
                 PedalInfo.SignalQuality.GOOD -> Theme.colors.optimal
@@ -332,7 +341,7 @@ private fun SignalDetailsSection(pedalInfo: PedalInfo) {
 
         // Update Rate
         DetailRow(
-            label = "Update Rate",
+            label = stringResource(R.string.update_rate),
             value = if (pedalInfo.updateFrequency > 0) {
                 String.format("%.1f Hz", pedalInfo.updateFrequency)
             } else {
@@ -350,7 +359,7 @@ private fun SignalDetailsSection(pedalInfo: PedalInfo) {
 
         // Last Data
         DetailRow(
-            label = "Last Update",
+            label = stringResource(R.string.last_update),
             value = pedalInfo.getLastDataAgo()
         )
     }
@@ -385,13 +394,19 @@ private fun DetailRow(
 
 @Composable
 private fun TroubleshootingSection(pedalInfo: PedalInfo) {
+    val tipStartRiding = stringResource(R.string.pedal_tip_start_riding)
+    val tipEnsurePaired = stringResource(R.string.pedal_tip_ensure_paired)
+    val tipCheckBattery = stringResource(R.string.pedal_tip_check_battery)
+    val tipLowRate = stringResource(R.string.pedal_tip_low_rate)
+    val tipMoveAway = stringResource(R.string.pedal_tip_move_away)
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 12.dp)
     ) {
         Text(
-            text = "TROUBLESHOOTING",
+            text = stringResource(R.string.troubleshooting),
             color = Theme.colors.dim,
             fontSize = 10.sp,
             fontWeight = FontWeight.Medium
@@ -408,12 +423,12 @@ private fun TroubleshootingSection(pedalInfo: PedalInfo) {
         ) {
             Column {
                 if (!pedalInfo.isConnected) {
-                    TipItem("Start riding to detect pedals")
-                    TipItem("Ensure pedals are paired with Karoo")
-                    TipItem("Check pedal battery")
+                    TipItem(tipStartRiding)
+                    TipItem(tipEnsurePaired)
+                    TipItem(tipCheckBattery)
                 } else {
-                    TipItem("Low rate may indicate interference")
-                    TipItem("Move away from other ANT+ devices")
+                    TipItem(tipLowRate)
+                    TipItem(tipMoveAway)
                 }
             }
         }

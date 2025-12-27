@@ -26,9 +26,9 @@ class DrillCatalogTest {
         }
 
         @Test
-        fun `all drills have non-empty names`() {
+        fun `all drills have name resource set`() {
             DrillCatalog.all.forEach { drill ->
-                assertThat(drill.name).isNotEmpty()
+                assertThat(drill.nameRes).isNotEqualTo(0)
             }
         }
 
@@ -55,7 +55,7 @@ class DrillCatalogTest {
         fun `returns drill for existing ID`() {
             val drill = DrillCatalog.getDrill("left_leg_focus")
             assertThat(drill).isNotNull()
-            assertThat(drill!!.name).isEqualTo("Left Leg Focus")
+            assertThat(drill!!.id).isEqualTo("left_leg_focus")
         }
 
         @Test
@@ -184,10 +184,10 @@ class DrillCatalogTest {
         }
 
         @Test
-        fun `all phases have non-empty names`() {
+        fun `all phases have name resource set`() {
             DrillCatalog.all.forEach { drill ->
                 drill.phases.forEach { phase ->
-                    assertThat(phase.name).isNotEmpty()
+                    assertThat(phase.nameRes).isNotEqualTo(0)
                 }
             }
         }

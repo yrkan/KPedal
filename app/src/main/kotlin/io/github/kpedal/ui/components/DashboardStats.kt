@@ -7,10 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
+import io.github.kpedal.R
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.DashboardData
 import io.github.kpedal.ui.theme.Theme
@@ -36,18 +38,18 @@ fun DashboardSection(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             StatCard(
-                label = "Rides",
+                label = stringResource(R.string.rides),
                 value = data.totalRides.toString(),
                 modifier = Modifier.weight(1f)
             )
             StatCard(
-                label = "Avg Balance",
+                label = stringResource(R.string.avg_balance_label),
                 value = formatBalance(data.avgBalance),
                 modifier = Modifier.weight(1f)
             )
             StatCard(
-                label = "Streak",
-                value = "${data.currentStreak}d",
+                label = stringResource(R.string.streak),
+                value = stringResource(R.string.streak_days, data.currentStreak),
                 valueColor = if (data.currentStreak >= 3) Theme.colors.optimal else Theme.colors.text,
                 modifier = Modifier.weight(1f)
             )
@@ -102,7 +104,7 @@ private fun LastRideCard(ride: RideEntity) {
     ) {
         Column {
             Text(
-                text = "Last Ride",
+                text = stringResource(R.string.last_ride),
                 color = Theme.colors.dim,
                 fontSize = 9.sp
             )
@@ -121,13 +123,13 @@ private fun LastRideCard(ride: RideEntity) {
             // Balance
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "L${ride.balanceLeft}/R${ride.balanceRight}",
+                    text = stringResource(R.string.lr_balance_format, ride.balanceLeft, ride.balanceRight),
                     color = getBalanceColor(ride.balanceRight),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "Balance",
+                    text = stringResource(R.string.balance_lower),
                     color = Theme.colors.dim,
                     fontSize = 8.sp
                 )
@@ -142,7 +144,7 @@ private fun LastRideCard(ride: RideEntity) {
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "Optimal",
+                    text = stringResource(R.string.optimal),
                     color = Theme.colors.dim,
                     fontSize = 8.sp
                 )

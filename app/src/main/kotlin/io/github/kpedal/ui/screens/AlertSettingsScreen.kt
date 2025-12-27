@@ -14,9 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.AlertSettings
 import io.github.kpedal.data.AlertTriggerLevel
 import io.github.kpedal.data.MetricAlertConfig
@@ -59,7 +61,7 @@ fun AlertSettingsScreen(
                     .padding(end = 8.dp)
             )
             Text(
-                text = "Alerts",
+                text = stringResource(R.string.alert_settings),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
@@ -78,7 +80,7 @@ fun AlertSettingsScreen(
 
             // Master toggle
             ToggleRow(
-                label = "Enable alerts",
+                label = stringResource(R.string.enable_alerts),
                 checked = alertSettings.globalEnabled,
                 onCheckedChange = { onUpdateGlobalEnabled(it) }
             )
@@ -87,11 +89,11 @@ fun AlertSettingsScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Which metrics
-                SectionLabel("METRICS TO MONITOR")
+                SectionLabel(stringResource(R.string.metrics_to_monitor))
                 Spacer(modifier = Modifier.height(6.dp))
 
                 MetricCheckRow(
-                    name = "Balance",
+                    name = stringResource(R.string.balance_option),
                     color = Theme.colors.attention,
                     enabled = alertSettings.balanceConfig.triggerLevel != AlertTriggerLevel.DISABLED,
                     onToggle = {
@@ -103,7 +105,7 @@ fun AlertSettingsScreen(
                     }
                 )
                 MetricCheckRow(
-                    name = "Torque Effectiveness",
+                    name = stringResource(R.string.torque_effectiveness_option),
                     color = Theme.colors.optimal,
                     enabled = alertSettings.teConfig.triggerLevel != AlertTriggerLevel.DISABLED,
                     onToggle = {
@@ -115,7 +117,7 @@ fun AlertSettingsScreen(
                     }
                 )
                 MetricCheckRow(
-                    name = "Pedal Smoothness",
+                    name = stringResource(R.string.pedal_smoothness_option),
                     color = Theme.colors.problem,
                     enabled = alertSettings.psConfig.triggerLevel != AlertTriggerLevel.DISABLED,
                     onToggle = {
@@ -130,7 +132,7 @@ fun AlertSettingsScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Sensitivity (global)
-                SectionLabel("SENSITIVITY")
+                SectionLabel(stringResource(R.string.sensitivity))
                 Spacer(modifier = Modifier.height(6.dp))
 
                 val currentLevel = alertSettings.balanceConfig.triggerLevel
@@ -145,7 +147,7 @@ fun AlertSettingsScreen(
                 ) {
                     SensitivityChip(
                         icon = Theme.colors.problem,
-                        label = "Critical",
+                        label = stringResource(R.string.critical),
                         selected = currentLevel == AlertTriggerLevel.PROBLEM_ONLY,
                         onClick = {
                             if (alertSettings.balanceConfig.triggerLevel != AlertTriggerLevel.DISABLED)
@@ -160,7 +162,7 @@ fun AlertSettingsScreen(
                     SensitivityChip(
                         icon = Theme.colors.attention,
                         iconSecondary = Theme.colors.problem,
-                        label = "Sensitive",
+                        label = stringResource(R.string.sensitive),
                         selected = currentLevel == AlertTriggerLevel.ATTENTION_AND_UP,
                         onClick = {
                             if (alertSettings.balanceConfig.triggerLevel != AlertTriggerLevel.DISABLED)
@@ -177,7 +179,7 @@ fun AlertSettingsScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Notification type
-                SectionLabel("NOTIFY VIA")
+                SectionLabel(stringResource(R.string.notify_via))
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Row(
@@ -185,7 +187,7 @@ fun AlertSettingsScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     MethodChip(
-                        label = "Vibrate",
+                        label = stringResource(R.string.vibrate),
                         enabled = alertSettings.balanceConfig.vibrationAlert,
                         onClick = {
                             val newValue = !alertSettings.balanceConfig.vibrationAlert
@@ -196,7 +198,7 @@ fun AlertSettingsScreen(
                         modifier = Modifier.weight(1f)
                     )
                     MethodChip(
-                        label = "Sound",
+                        label = stringResource(R.string.sound),
                         enabled = alertSettings.balanceConfig.soundAlert,
                         onClick = {
                             val newValue = !alertSettings.balanceConfig.soundAlert
@@ -207,7 +209,7 @@ fun AlertSettingsScreen(
                         modifier = Modifier.weight(1f)
                     )
                     MethodChip(
-                        label = "Banner",
+                        label = stringResource(R.string.banner),
                         enabled = alertSettings.balanceConfig.visualAlert,
                         onClick = {
                             val newValue = !alertSettings.balanceConfig.visualAlert
@@ -222,11 +224,11 @@ fun AlertSettingsScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Options
-                SectionLabel("OPTIONS")
+                SectionLabel(stringResource(R.string.options))
                 Spacer(modifier = Modifier.height(6.dp))
 
                 ToggleRow(
-                    label = "Wake screen",
+                    label = stringResource(R.string.wake_screen),
                     checked = alertSettings.screenWakeOnAlert,
                     onCheckedChange = onUpdateScreenWake
                 )
@@ -436,7 +438,12 @@ private fun CooldownRow(
     seconds: Int,
     onChange: (Int) -> Unit
 ) {
-    val options = listOf(15 to "15s", 30 to "30s", 60 to "1m", 120 to "2m")
+    val options = listOf(
+        15 to stringResource(R.string.cooldown_15s),
+        30 to stringResource(R.string.cooldown_30s),
+        60 to stringResource(R.string.cooldown_1m),
+        120 to stringResource(R.string.cooldown_2m)
+    )
 
     Row(
         modifier = Modifier
@@ -447,7 +454,7 @@ private fun CooldownRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Cooldown",
+            text = stringResource(R.string.cooldown),
             color = Theme.colors.text,
             fontSize = 12.sp,
             modifier = Modifier.width(70.dp)

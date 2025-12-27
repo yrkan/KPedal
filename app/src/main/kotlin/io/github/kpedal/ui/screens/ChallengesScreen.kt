@@ -13,9 +13,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.models.ChallengeProgress
 import io.github.kpedal.data.models.WeeklyChallenges
 import io.github.kpedal.ui.theme.Theme
@@ -56,7 +58,7 @@ fun ChallengesScreen(
                     .padding(end = 8.dp)
             )
             Text(
-                text = "Weekly Challenge",
+                text = stringResource(R.string.weekly_challenge),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
@@ -74,7 +76,7 @@ fun ChallengesScreen(
             // Days remaining
             val daysLeft = getDaysLeftInWeek()
             Text(
-                text = "$daysLeft days left this week",
+                text = stringResource(R.string.days_left_this_week, daysLeft),
                 color = Theme.colors.dim,
                 fontSize = 10.sp,
                 modifier = Modifier.padding(bottom = 12.dp)
@@ -89,7 +91,7 @@ fun ChallengesScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             // All challenges list
-            SectionLabel("ALL CHALLENGES")
+            SectionLabel(stringResource(R.string.all_challenges))
             Spacer(modifier = Modifier.height(8.dp))
 
             WeeklyChallenges.challenges.forEach { challenge ->
@@ -104,7 +106,7 @@ fun ChallengesScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             // Next week preview
-            SectionLabel("NEXT WEEK")
+            SectionLabel(stringResource(R.string.next_week))
             Spacer(modifier = Modifier.height(8.dp))
 
             NextChallengePreview(challenge = nextChallenge)
@@ -142,6 +144,8 @@ private fun CurrentChallengeCard(
     val currentProgress = progress?.currentProgress ?: 0
     val progressPercent = progress?.progressPercent ?: 0
     val isComplete = progress?.isComplete == true
+    val completedText = stringResource(R.string.completed_upper)
+    val thisWeekText = stringResource(R.string.this_week)
 
     Column(
         modifier = Modifier
@@ -160,7 +164,7 @@ private fun CurrentChallengeCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = if (isComplete) "COMPLETED" else "THIS WEEK",
+                text = if (isComplete) completedText else thisWeekText,
                 color = if (isComplete) Theme.colors.optimal else Theme.colors.dim,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold
@@ -283,7 +287,7 @@ private fun ChallengeRow(
 
         if (isCurrent) {
             Text(
-                text = "Active",
+                text = stringResource(R.string.active),
                 color = Theme.colors.attention,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Medium

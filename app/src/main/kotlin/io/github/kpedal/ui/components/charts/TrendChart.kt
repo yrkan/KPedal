@@ -12,10 +12,12 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
+import io.github.kpedal.R
 import io.github.kpedal.ui.theme.Theme
 
 /**
@@ -52,7 +54,7 @@ fun TrendChart(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "No data",
+                    text = stringResource(R.string.no_data_lower),
                     color = Theme.colors.dim,
                     fontSize = 11.sp
                 )

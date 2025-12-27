@@ -15,9 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.ui.theme.Theme
 
 /**
@@ -54,7 +56,7 @@ fun HelpScreen(
                     .padding(end = 8.dp)
             )
             Text(
-                text = "Help",
+                text = stringResource(R.string.help),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
@@ -70,7 +72,7 @@ fun HelpScreen(
         ) {
             // Metrics
             SectionRow(
-                title = "Metrics",
+                title = stringResource(R.string.section_metrics),
                 isExpanded = expandedSection == "metrics",
                 onClick = { expandedSection = if (expandedSection == "metrics") null else "metrics" }
             )
@@ -81,7 +83,7 @@ fun HelpScreen(
 
             // Colors
             SectionRow(
-                title = "Colors",
+                title = stringResource(R.string.section_colors),
                 isExpanded = expandedSection == "colors",
                 onClick = { expandedSection = if (expandedSection == "colors") null else "colors" }
             )
@@ -92,7 +94,7 @@ fun HelpScreen(
 
             // Setup
             SectionRow(
-                title = "Setup",
+                title = stringResource(R.string.section_setup),
                 isExpanded = expandedSection == "setup",
                 onClick = { expandedSection = if (expandedSection == "setup") null else "setup" }
             )
@@ -103,7 +105,7 @@ fun HelpScreen(
 
             // Tips
             SectionRow(
-                title = "Tips",
+                title = stringResource(R.string.section_tips),
                 isExpanded = expandedSection == "tips",
                 onClick = { expandedSection = if (expandedSection == "tips") null else "tips" }
             )
@@ -114,7 +116,7 @@ fun HelpScreen(
 
             // FAQ
             SectionRow(
-                title = "FAQ",
+                title = stringResource(R.string.section_faq),
                 isExpanded = expandedSection == "faq",
                 onClick = { expandedSection = if (expandedSection == "faq") null else "faq" }
             )
@@ -125,7 +127,7 @@ fun HelpScreen(
 
             // Troubleshooting
             SectionRow(
-                title = "Troubleshooting",
+                title = stringResource(R.string.section_troubleshooting),
                 isExpanded = expandedSection == "trouble",
                 onClick = { expandedSection = if (expandedSection == "trouble") null else "trouble" }
             )
@@ -188,27 +190,27 @@ private fun MetricsContent() {
             .padding(12.dp)
     ) {
         MetricItem(
-            name = "Balance",
-            value = "48-52%",
+            name = stringResource(R.string.balance_option),
+            value = stringResource(R.string.help_balance_range),
             color = Theme.colors.attention,
-            desc = "L/R power split",
-            note = "2-5% asymmetry is normal"
+            desc = stringResource(R.string.help_balance_desc),
+            note = stringResource(R.string.help_balance_note)
         )
         Spacer(modifier = Modifier.height(12.dp))
         MetricItem(
             name = "TE",
-            value = "70-80%",
+            value = stringResource(R.string.help_te_range),
             color = Theme.colors.optimal,
-            desc = "Torque Effectiveness",
-            note = "Higher is NOT better! Limits power"
+            desc = stringResource(R.string.help_te_desc),
+            note = stringResource(R.string.help_te_note)
         )
         Spacer(modifier = Modifier.height(12.dp))
         MetricItem(
             name = "PS",
-            value = "≥20%",
+            value = stringResource(R.string.help_ps_range),
             color = Theme.colors.problem,
-            desc = "Pedal Smoothness",
-            note = "Elite: 25-35%"
+            desc = stringResource(R.string.help_ps_desc),
+            note = stringResource(R.string.help_ps_note)
         )
     }
 }
@@ -278,13 +280,13 @@ private fun ColorsContent() {
             .background(Theme.colors.surface)
             .padding(12.dp)
     ) {
-        ColorItem(Theme.colors.text, "White", "Normal / no data")
+        ColorItem(Theme.colors.text, stringResource(R.string.color_white), stringResource(R.string.color_white_meaning))
         Spacer(modifier = Modifier.height(8.dp))
-        ColorItem(Theme.colors.optimal, "Green", "Optimal range")
+        ColorItem(Theme.colors.optimal, stringResource(R.string.color_green), stringResource(R.string.color_green_meaning))
         Spacer(modifier = Modifier.height(8.dp))
-        ColorItem(Theme.colors.attention, "Yellow", "Needs attention")
+        ColorItem(Theme.colors.attention, stringResource(R.string.color_yellow), stringResource(R.string.color_yellow_meaning))
         Spacer(modifier = Modifier.height(8.dp))
-        ColorItem(Theme.colors.problem, "Red", "Problem")
+        ColorItem(Theme.colors.problem, stringResource(R.string.color_red), stringResource(R.string.color_red_meaning))
     }
 }
 
@@ -322,15 +324,15 @@ private fun SetupContent() {
             .background(Theme.colors.surface)
             .padding(12.dp)
     ) {
-        SetupStep(1, "Karoo → Profiles → Data Fields")
-        SetupStep(2, "Tap slot → More Data → kpedal")
-        SetupStep(3, "Choose layout")
-        SetupStep(4, "Pair pedals (ANT+)")
-        SetupStep(5, "Start riding")
+        SetupStep(1, stringResource(R.string.setup_step1))
+        SetupStep(2, stringResource(R.string.setup_step2))
+        SetupStep(3, stringResource(R.string.setup_step3))
+        SetupStep(4, stringResource(R.string.setup_step4))
+        SetupStep(5, stringResource(R.string.setup_step5))
 
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Requires: Garmin Rally, Favero Assioma, SRM, Rotor",
+            text = stringResource(R.string.setup_requires),
             color = Theme.colors.muted,
             fontSize = 10.sp,
             lineHeight = 12.sp
@@ -369,22 +371,22 @@ private fun TipsContent() {
             .background(Theme.colors.surface)
             .padding(12.dp)
     ) {
-        TipGroup("Balance", Theme.colors.attention, listOf(
-            "Single-leg drills for weak side",
-            "Check cleat position",
-            "Fatigue increases asymmetry"
+        TipGroup(stringResource(R.string.balance_option), Theme.colors.attention, listOf(
+            stringResource(R.string.tips_balance_1),
+            stringResource(R.string.tips_balance_2),
+            stringResource(R.string.tips_balance_3)
         ))
         Spacer(modifier = Modifier.height(10.dp))
         TipGroup("TE", Theme.colors.optimal, listOf(
-            "Don't aim for 100%",
-            "Scrape mud at bottom of stroke",
-            "Unweight, don't pull up"
+            stringResource(R.string.tips_te_1),
+            stringResource(R.string.tips_te_2),
+            stringResource(R.string.tips_te_3)
         ))
         Spacer(modifier = Modifier.height(10.dp))
         TipGroup("PS", Theme.colors.problem, listOf(
-            "Higher cadence helps",
-            "Eliminate dead spots",
-            "Practice on rollers"
+            stringResource(R.string.tips_ps_1),
+            stringResource(R.string.tips_ps_2),
+            stringResource(R.string.tips_ps_3)
         ))
     }
 }
@@ -425,23 +427,23 @@ private fun FAQContent() {
             .padding(12.dp)
     ) {
         FAQItem(
-            q = "TE 85%+ bad?",
-            a = "Yes. 70-80% is optimal. Higher limits downstroke power."
+            q = stringResource(R.string.faq_te85_q),
+            a = stringResource(R.string.faq_te85_a)
         )
         Spacer(modifier = Modifier.height(10.dp))
         FAQItem(
-            q = "Balance 45/55 ok?",
-            a = "Yes. ±5% is normal. Only >10% is concerning."
+            q = stringResource(R.string.faq_balance_q),
+            a = stringResource(R.string.faq_balance_a)
         )
         Spacer(modifier = Modifier.height(10.dp))
         FAQItem(
-            q = "Values jump around?",
-            a = "Focus on averages, not instant values."
+            q = stringResource(R.string.faq_jump_q),
+            a = stringResource(R.string.faq_jump_a)
         )
         Spacer(modifier = Modifier.height(10.dp))
         FAQItem(
-            q = "Compare to others?",
-            a = "No. Track your own trends instead."
+            q = stringResource(R.string.faq_compare_q),
+            a = stringResource(R.string.faq_compare_a)
         )
     }
 }
@@ -450,7 +452,7 @@ private fun FAQContent() {
 private fun FAQItem(q: String, a: String) {
     Column {
         Text(
-            text = "Q: $q",
+            text = stringResource(R.string.question_prefix, q),
             color = Theme.colors.text,
             fontSize = 11.sp,
             fontWeight = FontWeight.Medium,
@@ -476,23 +478,23 @@ private fun TroubleshootingContent() {
             .padding(12.dp)
     ) {
         TroubleItem(
-            problem = "No data",
-            fix = "Check pedals paired in Karoo settings. Start pedaling."
+            problem = stringResource(R.string.trouble_nodata),
+            fix = stringResource(R.string.trouble_nodata_fix)
         )
         Spacer(modifier = Modifier.height(10.dp))
         TroubleItem(
-            problem = "Only Balance, no TE/PS",
-            fix = "Pedals may not support TE/PS (e.g. Wahoo POWRLINK)."
+            problem = stringResource(R.string.trouble_balance_only),
+            fix = stringResource(R.string.trouble_balance_only_fix)
         )
         Spacer(modifier = Modifier.height(10.dp))
         TroubleItem(
-            problem = "Values stuck",
-            fix = "Restart ride. Check battery. Re-pair pedals."
+            problem = stringResource(R.string.trouble_stuck),
+            fix = stringResource(R.string.trouble_stuck_fix)
         )
         Spacer(modifier = Modifier.height(10.dp))
         TroubleItem(
-            problem = "App crash",
-            fix = "Restart app. Restart Karoo. Reinstall."
+            problem = stringResource(R.string.trouble_crash),
+            fix = stringResource(R.string.trouble_crash_fix)
         )
     }
 }

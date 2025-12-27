@@ -1,0 +1,1968 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "loadError": "Failed to load data",
+    "retry": "Retry",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "or": "or",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{days} days ago",
+    "noData": "No data",
+    "toggleTheme": "Toggle theme",
+    "tableView": "Table view",
+    "cardView": "Card view",
+    "backToDashboard": "Back to Dashboard",
+    "remove": "Remove"
+  },
+  "app": {
+    "name": "KPedal",
+    "tagline": "Pedaling efficiency analytics for Karoo",
+    "version": "Version 1.0.0",
+    "webTitle": "KPedal Web"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "rides": "Rides",
+    "drills": "Drills",
+    "achievements": "Achievements",
+    "goals": "Goals",
+    "settings": "Settings",
+    "profile": "Profile"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "continueWithGoogle": "Continue with Google",
+    "tryDemo": "Try Demo",
+    "loadingDemo": "Loading demo...",
+    "createFreeAccount": "Create Free Account",
+    "secureOAuth": "Secure OAuth 2.0",
+    "googleVerified": "Google verified",
+    "privacyNote": "By signing in, you agree to our",
+    "privacyPolicy": "Privacy Policy",
+    "demoNote": "Explore the dashboard with sample data.",
+    "noSignupRequired": "No sign-up required.",
+    "backToLanding": "back to landing page",
+    "signedInViaGoogle": "Signed in via Google",
+    "sessionExpires": "Your session will expire in 7 days",
+    "authenticating": "Authenticating...",
+    "signingIn": "Signing you in...",
+    "redirectingToLogin": "Redirecting to login...",
+    "missingTokens": "Missing authentication tokens"
+  },
+  "errors": {
+    "invalidState": "Security verification failed. Please try again.",
+    "authFailed": "Authentication failed. Please try again.",
+    "somethingWrong": "Something went wrong. Please try again.",
+    "demoUnavailable": "Demo mode temporarily unavailable. Please try again later.",
+    "demoFailed": "Failed to start demo mode. Please try again.",
+    "failedToLoad": "Failed to load data",
+    "failedToConnect": "Failed to connect",
+    "failedToLoadRides": "Failed to load rides",
+    "failedToLoadDrills": "Failed to load drills",
+    "failedToLoadMilestones": "Failed to load milestones",
+    "failedToLoadDevices": "Failed to load devices",
+    "failedToLoadSettings": "Failed to load settings"
+  },
+  "demo": {
+    "mode": "Demo Mode",
+    "viewingSampleData": "Viewing sample data",
+    "tour": "Tour"
+  },
+  "metrics": {
+    "balance": "Balance",
+    "balanceShort": "Bal",
+    "te": "Torque Effectiveness",
+    "teShort": "TE",
+    "ps": "Pedal Smoothness",
+    "psShort": "PS",
+    "power": "Power",
+    "powerAvg": "Avg Power",
+    "powerMax": "Max Power",
+    "normalizedPower": "Normalized Power",
+    "npShort": "NP",
+    "cadence": "Cadence",
+    "hr": "Heart Rate",
+    "hrShort": "HR",
+    "speed": "Speed",
+    "distance": "Distance",
+    "duration": "Duration",
+    "elevation": "Elevation",
+    "elevationGain": "Elevation Gain",
+    "energy": "Energy",
+    "score": "Score",
+    "asymmetry": "Asymmetry",
+    "left": "L",
+    "right": "R",
+    "leftRight": "L/R",
+    "avg": "Avg",
+    "max": "Max",
+    "total": "Total"
+  },
+  "zones": {
+    "title": "Zones",
+    "optimal": "Optimal",
+    "attention": "Attention",
+    "problem": "Problem",
+    "timeInZone": "Time in Zone",
+    "zoneStatus": "Zone Status",
+    "description": {
+      "attention": "Technique needs work",
+      "optimal": "Excellent form",
+      "problem": "Significant issues"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "period": {
+      "days7": "7 Days",
+      "days14": "14 Days",
+      "days30": "30 Days",
+      "days60": "60 Days",
+      "all": "All Time",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
+    },
+    "stats": {
+      "rides": "{count, plural, one {# ride} other {# rides}}",
+      "hours": "{count}h",
+      "km": "{value} km",
+      "avgScore": "Avg Score"
+    },
+    "powerAsymmetry": "Power Asymmetry",
+    "lrBalance": "L/R Balance",
+    "weeklyActivity": "Weekly Activity",
+    "technique": "Technique",
+    "trends": "Trends",
+    "recentRides": "Recent Rides",
+    "thisWeek": "This Week",
+    "lastWeek": "Last Week",
+    "vsLastWeek": "vs Last Week",
+    "noRides": "No rides in this period",
+    "viewAll": "View all →",
+    "leftDominant": "L dominant",
+    "rightDominant": "R dominant",
+    "balanced": "Balanced",
+    "hello": "Hello, {name}!",
+    "startRiding": "Start riding to see your data",
+    "welcome": "Welcome, {name}!",
+    "weeklyChart": {
+      "rides": "rides",
+      "title": "Weekly Activity",
+      "hours": "hours"
+    },
+    "yourProgress": "Your Progress",
+    "allTime": "All Time",
+    "summary": {
+      "rides": "rides",
+      "hours": "hours",
+      "km": "km"
+    },
+    "comparison": {
+      "rides": "Rides",
+      "hours": "Hours",
+      "distance": "Distance",
+      "climb": "Climb",
+      "balance": "Balance",
+      "optimal": "Optimal"
+    },
+    "sections": {
+      "performance": "Performance",
+      "insights": "Insights"
+    },
+    "perfStats": {
+      "score": "Score",
+      "optimal": "Optimal",
+      "power": "Power",
+      "energy": "Energy"
+    },
+    "trendCards": {
+      "balanceTrend": "Balance Trend",
+      "technique": "Technique",
+      "asym": "Asym"
+    },
+    "trendStats": {
+      "current": "Current",
+      "average": "Average",
+      "spread": "Spread",
+      "latest": "Latest",
+      "best": "Best"
+    },
+    "emptyStates": {
+      "needMoreRides": "Need more rides",
+      "needMoreData": "Need more data"
+    },
+    "progress": {
+      "title": "Progress vs Previous {period} Days",
+      "score": "Score",
+      "optimalZone": "Optimal Zone",
+      "time": "Time",
+      "distance": "Distance"
+    },
+    "table": {
+      "date": "Date",
+      "duration": "Duration",
+      "asym": "Asym",
+      "zones": "Zones",
+      "power": "Power",
+      "clickToView": "Click to view"
+    },
+    "actions": {
+      "downloadApk": "Download APK",
+      "linkDevice": "Link Device"
+    },
+    "onboarding": {
+      "dashboardWillShow": "Your dashboard will show real-time pedaling analytics once you start riding with KPedal on your Karoo.",
+      "whatYouWillSee": "What you'll see here",
+      "powerBalance": "Power Balance",
+      "proTarget": "Pro: ±2.5%",
+      "torqueEffectiveness": "Torque Effectiveness",
+      "teOptimal": "Optimal: 70-80%",
+      "pedalSmoothness": "Pedal Smoothness",
+      "psOptimal": "Optimal: ≥20%",
+      "getStarted": "Get started in 3 steps",
+      "step1Title": "Install on Karoo",
+      "step1Desc": "Download APK and install via USB or Karoo browser",
+      "step2Title": "Add data fields",
+      "step2Desc": "Edit your ride profile and add KPedal data fields",
+      "step3Title": "Link your device",
+      "step3Desc": "Connect Karoo to sync rides automatically",
+      "exampleBalance": "50% L / 50% R",
+      "exampleTe": "72% avg",
+      "examplePs": "22% avg",
+      "alreadyInstalled": "Already installed? Complete a ride on your Karoo — data will appear here after sync."
+    },
+    "fatigue": {
+      "title": "Fatigue (Last Ride)",
+      "trend": "Trend",
+      "dropped": "Dropped",
+      "slight": "Slight",
+      "stable": "Stable"
+    },
+    "units": {
+      "wAvg": "W avg",
+      "wMax": "W max",
+      "rpm": "rpm",
+      "bpmAvg": "bpm avg",
+      "bpmMax": "bpm max",
+      "kmh": "km/h",
+      "mUp": "m ↑",
+      "mDown": "m ↓",
+      "grade": "% grade",
+      "kJ": "kJ",
+      "rides": "rides"
+    },
+    "insights": {
+      "fatigueAction": "Your form drops late in rides. Build endurance with",
+      "fatigueLink": "Efficiency Builder",
+      "balanceAction": "{asymmetry}% {dominant}-dominant. Strengthen {weak} leg with",
+      "balanceLink": "{side} Leg Focus",
+      "leftLeg": "Left",
+      "rightLeg": "Right",
+      "leftDominant": "left",
+      "rightDominant": "right",
+      "lowTeAction": "TE {te}% — focus on pulling up at 6 o'clock. Try",
+      "lowTeLink": "Power Transfer",
+      "lowPsAction": "PS {ps}% means choppy stroke. Smooth it with",
+      "lowPsLink": "Smooth Circles",
+      "greatBalance": "{asymmetry}% asymmetry — that's pro-level balance!",
+      "teOptimal": "TE {te}% — sweet spot for power transfer.",
+      "excellentScore": "Score {score}% — elite level technique!",
+      "goodConsistency": "{count} rides — great week!",
+      "improvement": "Score up {points} points from last period.",
+      "encourageRides": "Only {count} {rideWord} — try to match last week's {lastCount}.",
+      "ride": "ride",
+      "ridesPl": "rides",
+      "nearOptimalTe": "TE {te}% — just {diff}% from optimal zone."
+    }
+  },
+  "rides": {
+    "title": "Rides",
+    "allRides": "All Rides",
+    "rideHistory": "Ride History",
+    "noRides": "No rides recorded yet",
+    "noRidesHint": "Your ride history will appear here once you complete rides with KPedal on your Karoo.",
+    "eachRideShows": "Each ride will show",
+    "deleteRide": "Delete this ride?",
+    "viewTable": "Table view",
+    "viewCards": "Card view",
+    "rideDetail": "Ride Detail",
+    "performanceData": "Performance Data",
+    "techniqueBreakdown": "Technique Breakdown",
+    "fatigueAnalysis": "Fatigue Analysis",
+    "timeline": "Timeline",
+    "minuteByMinute": "Minute by Minute",
+    "startToEnd": "Start to End",
+    "degradation": "Degradation",
+    "strong": "Strong",
+    "moderate": "Moderate",
+    "weak": "Weak",
+    "backToDashboard": "Back to Dashboard",
+    "backToRides": "Back to Rides",
+    "rideNotFound": "Ride not found",
+    "detail": {
+      "score": "Score",
+      "scoreTip": "Overall technique score from 0 to 100. Combines balance, TE, and PS.",
+      "asymmetry": "Asymmetry",
+      "asymmetryTip": "Deviation from 50/50 balance. Under 2.5% is pro level.",
+      "balanced": "Balanced",
+      "leftDominant": "L dominant",
+      "rightDominant": "R dominant",
+      "timeInZone": "Time in Zone",
+      "timeInZoneTip": "Time in optimal, attention, and problem zones. Higher green is better.",
+      "technique": "Technique",
+      "techniqueTip": "Pedaling efficiency metrics. TE is power transfer, PS is stroke smoothness.",
+      "te": "TE",
+      "teTip": "Torque Effectiveness. How much power goes into forward motion.",
+      "ps": "PS",
+      "psTip": "Pedal Smoothness. How evenly power is applied through the stroke.",
+      "teInZone": "TE in zone",
+      "teInZoneTip": "Time with TE in optimal 70-80% range.",
+      "psInZone": "PS in zone",
+      "psInZoneTip": "Time with PS above 20% threshold.",
+      "teStab": "TE stab",
+      "teStabTip": "How consistent TE was. Higher means steadier technique.",
+      "psStab": "PS stab",
+      "psStabTip": "How consistent PS was. Higher means steadier technique.",
+      "fatigue": "Fatigue Analysis",
+      "fatigueTip": "Compares first ⅓ vs last ⅓ of ride.",
+      "fatigueStrong": "Strong",
+      "fatigueModerate": "Moderate",
+      "fatigueFatigued": "Fatigued",
+      "fatigueAsymmetry": "Asymmetry",
+      "balanceDegradedInsight": "Balance degraded by {value}% — focus on even power distribution when tired",
+      "teDroppedInsight": "TE dropped {value}% — practice maintaining form in final third",
+      "psFellInsight": "PS fell {value}% — work on smooth pedaling under fatigue",
+      "excellentFatigueInsight": "Excellent fatigue resistance — technique stayed consistent throughout the ride",
+      "fatigueStartEnd": "Start of ride → End of ride",
+      "byPowerZone": "By Power Zone",
+      "byPowerZoneTip": "Technique at different intensities.",
+      "timelineTip": "Metrics over time. Look for drops indicating fatigue.",
+      "min": "Min",
+      "avg": "Avg",
+      "max": "Max",
+      "spread": "Spread",
+      "minuteByMinuteTip": "Detailed breakdown by minute. Useful for analyzing specific segments.",
+      "points": "points",
+      "balance": "Balance",
+      "balanceTip": "Left/Right power split for this minute.",
+      "teTip2": "Torque Effectiveness L/R for this minute.",
+      "psTip2": "Pedal Smoothness L/R for this minute.",
+      "power": "Power",
+      "hr": "HR",
+      "zone": "Zone",
+      "zoneTip": "Overall zone status for this minute.",
+      "asym": "Asym",
+      "tooltipMin": "Min {minute}",
+      "title": "Ride Detail",
+      "deleteWarning": "This action cannot be undone",
+      "rating": "Rating",
+      "performance": "Performance",
+      "confirmDelete": "Confirm Delete",
+      "comparison": "L/R Comparison",
+      "fatigueDesc": "How your technique changed during the ride",
+      "notes": "Notes",
+      "timeline": "Timeline",
+      "deleteRide": "Delete Ride"
+    },
+    "perf": {
+      "wattsTip": "Average power output in watts.",
+      "maxWattsTip": "Peak power achieved during the ride.",
+      "npTip": "Normalized Power adjusts for variability in effort.",
+      "bpmTip": "Average heart rate during the ride.",
+      "maxBpmTip": "Peak heart rate reached. Near max often hurts technique.",
+      "rpmTip": "Average cadence. Optimal is 80-95 rpm for most riders.",
+      "speedTip": "Average speed. Less reliable than power due to terrain.",
+      "kjTip": "Total energy output. Roughly equals calories burned.",
+      "elevGainTip": "Total elevation gained during the ride.",
+      "elevLossTip": "Total elevation lost during the ride.",
+      "gradeTip": "Maximum gradient. Above 10% is steep."
+    },
+    "zones": {
+      "recovery": "Recovery",
+      "endurance": "Endurance",
+      "tempo": "Tempo",
+      "threshold": "Threshold",
+      "vo2max": "VO2max",
+      "anaerobic": "Anaerobic"
+    },
+    "list": {
+      "ridesLabel": "rides",
+      "ridesTip": "Total number of rides in this view.",
+      "kmLabel": "km",
+      "kmTip": "Total distance covered across all rides.",
+      "elevLabel": "m ↑",
+      "elevTip": "Total elevation gained across all rides.",
+      "asymLabel": "asym",
+      "asymTip": "Average power asymmetry. Under 2.5% is pro level.",
+      "teLabel": "TE",
+      "teTip": "Average Torque Effectiveness. Optimal range is 70-80%.",
+      "psLabel": "PS",
+      "psTip": "Average Pedal Smoothness. Above 20% is good technique.",
+      "optimalLabel": "optimal",
+      "optimalTip": "Average time in optimal zone. Higher means better form.",
+      "wAvgLabel": "W avg",
+      "wAvgTip": "Average power output. Track over time for fitness trends.",
+      "npLabel": "NP",
+      "npTip": "Average Normalized Power. Accounts for variability in effort.",
+      "kjLabel": "kJ",
+      "kjTip": "Total energy output. Roughly equals calories burned.",
+      "dateCol": "Date",
+      "durationCol": "Duration",
+      "asymCol": "Asym",
+      "asymColTip": "Power asymmetry percentage. Lower means more balanced.",
+      "lrCol": "L / R",
+      "lrColTip": "Left and right power distribution.",
+      "teCol": "TE",
+      "teColTip": "Torque Effectiveness per leg. 70-80% is optimal.",
+      "psCol": "PS",
+      "psColTip": "Pedal Smoothness per leg. Above 20% is good.",
+      "zonesCol": "Zones",
+      "zonesColTip": "Time distribution across performance zones.",
+      "powerCol": "Power",
+      "powerColTip": "Average power in watts.",
+      "deleteAriaLabel": "Delete ride",
+      "balanceLR": "Balance L/R",
+      "teLR": "TE L/R",
+      "psLR": "PS L/R",
+      "powerLabel": "Power",
+      "asymmetryLabel": "asymmetry",
+      "domLabel": "dom",
+      "optimalPercent": "{percent}% optimal",
+      "pageInfo": "Page {page} of {total}",
+      "prevPage": "Previous page",
+      "nextPage": "Next page"
+    },
+    "stats": {
+      "totalRides": "Total Rides",
+      "avgDuration": "Avg Duration",
+      "totalTime": "Total Time"
+    },
+    "sort": {
+      "longest": "Longest",
+      "oldest": "Oldest",
+      "highestScore": "Highest Score",
+      "newest": "Newest"
+    },
+    "filters": {
+      "all": "All",
+      "thisWeek": "This Week",
+      "thisMonth": "This Month",
+      "last30Days": "Last 30 Days"
+    },
+    "emptyDescription": "Sync rides from your Karoo to see them here",
+    "empty": "No rides yet"
+  },
+  "drills": {
+    "title": "Drills",
+    "noDrills": "No drills completed yet",
+    "noDrillsHint": "KPedal includes guided drills to improve your pedaling technique. Complete them on your Karoo to track progress here.",
+    "availableTypes": "Available drill types",
+    "types": {
+      "balanceFocus": "Balance Focus",
+      "powerTransfer": "Power Transfer",
+      "smoothCircles": "Smooth Circles",
+      "challenges": "Challenges"
+    },
+    "timeInTarget": "Time in Target",
+    "completed": "Completed",
+    "incomplete": "Incomplete",
+    "abandoned": "Abandoned",
+    "sessions": "Sessions",
+    "avgTarget": "Avg Target",
+    "best": "Best",
+    "drillTypes": "Drill Types",
+    "date": "Date",
+    "drill": "Drill",
+    "duration": "Duration",
+    "status": "Status",
+    "of": "of",
+    "pageInfo": "Page {page} of {total}",
+    "prevPage": "Previous page",
+    "nextPage": "Next page",
+    "tips": {
+      "avgTarget": "Average time spent hitting target metrics. Higher is better.",
+      "sessions": "Total number of drill sessions completed.",
+      "best": "Best time-in-target percentage achieved.",
+      "completed": "Percentage of drills finished to completion.",
+      "types": "Number of different drill types you've tried.",
+      "timeInTarget": "Percentage of drill time spent in the target zone.",
+      "status": "Whether the drill was completed or abandoned early."
+    },
+    "detail": {
+      "timeInTarget": "Time in Target",
+      "score": "Score",
+      "phases": "Phases",
+      "completed": "Completed"
+    },
+    "categories": {
+      "balance": "Balance",
+      "technique": "Technique",
+      "smoothness": "Smoothness",
+      "all": "All"
+    },
+    "empty": "No drill history",
+    "emptyDescription": "Complete drills on your Karoo to see your history here"
+  },
+  "achievements": {
+    "title": "Achievements",
+    "notAchieved": "Not achieved",
+    "noAchievements": "No milestones yet",
+    "noAchievementsHint": "Complete rides and drills on your Karoo to unlock achievements",
+    "stats": {
+      "achieved": "achieved",
+      "achievedTip": "Number of milestones you've unlocked.",
+      "remaining": "remaining",
+      "remainingTip": "Milestones still available to unlock.",
+      "total": "total",
+      "totalTip": "Total milestones in the system.",
+      "progress": "progress",
+      "progressTip": "Overall completion percentage.",
+      "last": "last",
+      "lastTip": "Date of your most recent achievement."
+    },
+    "table": {
+      "milestone": "Milestone",
+      "milestoneTip": "Name and description of the achievement.",
+      "category": "Category",
+      "categoryTip": "Type of milestone (Volume, Balance, Technique, etc.).",
+      "target": "Target",
+      "targetTip": "Requirement to unlock this milestone.",
+      "date": "Date"
+    },
+    "milestones": {
+      "first_ride": {
+        "name": "First Tracked Ride",
+        "description": "Complete first ride with pedaling analysis",
+        "category": "Volume",
+        "target": "1 ride"
+      },
+      "rides_10": {
+        "name": "10 Rides Analyzed",
+        "description": "Build baseline data for trend analysis",
+        "category": "Volume",
+        "target": "10 rides"
+      },
+      "rides_50": {
+        "name": "50 Rides Analyzed",
+        "description": "Substantial dataset for pattern recognition",
+        "category": "Volume",
+        "target": "50 rides"
+      },
+      "rides_100": {
+        "name": "100 Rides Analyzed",
+        "description": "Comprehensive training history established",
+        "category": "Volume",
+        "target": "100 rides"
+      },
+      "rides_500": {
+        "name": "500 Rides Analyzed",
+        "description": "Long-term pedaling data archive",
+        "category": "Volume",
+        "target": "500 rides"
+      },
+      "perfect_balance": {
+        "name": "50/50 Balance Achieved",
+        "description": "Perfect left/right power distribution",
+        "category": "Balance",
+        "target": "50/50"
+      },
+      "balance_master": {
+        "name": "10 Optimal Balance Rides",
+        "description": "Consistent balance across multiple sessions",
+        "category": "Balance",
+        "target": "10 rides"
+      },
+      "score_80": {
+        "name": "80+ Technique Score",
+        "description": "Good pedaling technique on a ride",
+        "category": "Technique",
+        "target": "80+"
+      },
+      "score_90": {
+        "name": "90+ Technique Score",
+        "description": "Excellent technique across all metrics",
+        "category": "Technique",
+        "target": "90+"
+      },
+      "score_95": {
+        "name": "95+ Technique Score",
+        "description": "Near-optimal pedaling efficiency",
+        "category": "Technique",
+        "target": "95+"
+      },
+      "streak_3": {
+        "name": "3-Day Training Block",
+        "description": "Three consecutive days of tracked rides",
+        "category": "Consistency",
+        "target": "3 days"
+      },
+      "streak_7": {
+        "name": "7-Day Training Week",
+        "description": "Full week of consistent training",
+        "category": "Consistency",
+        "target": "7 days"
+      },
+      "streak_30": {
+        "name": "30-Day Training Month",
+        "description": "Month of dedicated technique work",
+        "category": "Consistency",
+        "target": "30 days"
+      },
+      "first_drill": {
+        "name": "First Drill Completed",
+        "description": "Begin structured technique training",
+        "category": "Training",
+        "target": "1 drill"
+      },
+      "drill_perfect": {
+        "name": "100% Time in Target",
+        "description": "Perfect execution on any drill",
+        "category": "Training",
+        "target": "100%"
+      },
+      "drills_10": {
+        "name": "10 Drills Completed",
+        "description": "Building drill proficiency",
+        "category": "Training",
+        "target": "10 drills"
+      },
+      "zone_optimal_80": {
+        "name": "80% Optimal Zone",
+        "description": "80%+ of ride time in optimal zone",
+        "category": "Zones",
+        "target": "80%"
+      },
+      "zone_optimal_90": {
+        "name": "90% Optimal Zone",
+        "description": "90%+ of ride time in optimal zone",
+        "category": "Zones",
+        "target": "90%"
+      },
+      "te_optimal": {
+        "name": "Full Ride Optimal TE",
+        "description": "Maintain optimal TE throughout entire ride",
+        "category": "Efficiency",
+        "target": "100%"
+      },
+      "duration_1h": {
+        "name": "1-Hour Ride",
+        "description": "Sustained pedaling analysis for 1+ hour",
+        "category": "Endurance",
+        "target": "1h+"
+      },
+      "duration_2h": {
+        "name": "2-Hour Ride",
+        "description": "Extended session with technique focus",
+        "category": "Endurance",
+        "target": "2h+"
+      },
+      "duration_4h": {
+        "name": "4-Hour Ride",
+        "description": "Long-duration technique maintenance",
+        "category": "Endurance",
+        "target": "4h+"
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "account": "Account",
+    "connectedDevices": "Connected Devices",
+    "loadingDevices": "Loading devices...",
+    "noDevices": "No devices connected",
+    "noDevicesHint": "Link your Karoo device to sync ride data",
+    "linkDevice": "Link Device",
+    "linkAnotherDevice": "Link another device",
+    "removeDevice": "Remove this device? It will need to be re-linked.",
+    "lastSync": "Last sync",
+    "neverSynced": "Never synced",
+    "requestSync": "Request sync",
+    "syncRequested": "Sync requested - open app to sync",
+    "deviceStatus": {
+      "connected": "Connected",
+      "idle": "Idle",
+      "offline": "Offline"
+    },
+    "pedalingMetrics": "Pedaling Metrics",
+    "syncBanner": "Changes sync to your Karoo when you press <strong>Sync</strong> in the app or start a ride.",
+    "thresholds": "Thresholds",
+    "balanceThreshold": "Balance Threshold",
+    "balanceThresholdHint": "Alerts trigger when imbalance exceeds this value",
+    "balanceThresholdTip": "Maximum acceptable L/R imbalance. Pro cyclists typically stay within ±2.5%.",
+    "teOptimalRange": "TE Optimal Range",
+    "teOptimalRangeHint": "Green zone for Torque Effectiveness",
+    "teOptimalRangeTip": "Torque Effectiveness sweet spot. Research shows 70-80% is optimal — higher isn't better.",
+    "psMinimum": "PS Minimum",
+    "psMinimumHint": "Values below this are marked as needing attention",
+    "psMinimumTip": "Pedal Smoothness threshold for optimal zone. Elite cyclists achieve 25%+.",
+    "inRideAlerts": "In-Ride Alerts",
+    "inRideAlertsHint": "Notifications when metrics need attention",
+    "inRideAlertsTip": "Real-time notifications on your Karoo when metrics need attention.",
+    "metricsToMonitor": "Metrics to Monitor",
+    "torqueEff": "Torque Eff.",
+    "smoothness": "Smoothness",
+    "sensitivity": "Sensitivity",
+    "critical": "Critical",
+    "problemZoneOnly": "Problem zone only",
+    "sensitive": "Sensitive",
+    "attentionAndProblem": "Attention & Problem",
+    "notifyVia": "Notify Via",
+    "vibrate": "Vibrate",
+    "sound": "Sound",
+    "banner": "Banner",
+    "options": "Options",
+    "wakeScreenOnAlert": "Wake screen on alert",
+    "cooldownBetweenAlerts": "Cooldown between alerts",
+    "dataCollection": "Data Collection",
+    "dataCollectionHint": "How KPedal collects and syncs your data",
+    "backgroundMode": "Background Mode",
+    "backgroundModeHint": "Collect metrics even when data field is hidden",
+    "backgroundModeTip": "Collect metrics even when KPedal data field isn't visible on screen.",
+    "autoSync": "Auto-Sync",
+    "autoSyncHint": "Sync ride data automatically after each ride",
+    "autoSyncTip": "Automatically upload ride data after each ride ends.",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeHint": "Choose your preferred color scheme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "language": {
+      "title": "Language",
+      "description": "Choose your preferred language"
+    },
+    "data": "Data",
+    "rideData": "Ride Data",
+    "rideDataHint": "Your data is stored securely and synced from your Karoo device",
+    "session": "Session",
+    "privacy": "Privacy",
+    "privacyHint": "Learn how we collect, use, and protect your data",
+    "about": "About",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "thresholds_section": {
+      "teOptimal": "TE Optimal Range",
+      "balance": "Balance Threshold",
+      "title": "Metric Thresholds",
+      "psMinimum": "PS Minimum",
+      "teOptimalDesc": "Target range for torque effectiveness",
+      "psMinimumDesc": "Alert when smoothness falls below this",
+      "balanceDesc": "Alert when asymmetry exceeds this value"
+    },
+    "sections": {
+      "data": "Data",
+      "session": "Session",
+      "devices": "Devices",
+      "appearance": "Appearance",
+      "about": "About",
+      "metrics": "Metrics",
+      "privacy": "Privacy",
+      "account": "Account"
+    },
+    "devices_section": {
+      "remove": "Remove",
+      "connectDescription": "Link your Karoo to sync rides",
+      "removeWarning": "You will need to re-link to sync rides",
+      "noDevices": "No devices connected",
+      "title": "Connected Devices",
+      "lastSync": "Last sync",
+      "connectDevice": "Connect Device",
+      "removeConfirm": "Remove this device?"
+    },
+    "alerts_section": {
+      "enabled": "Enabled",
+      "te": "Torque Effectiveness Alerts",
+      "balance": "Balance Alerts",
+      "title": "Alert Settings",
+      "ps": "Smoothness Alerts",
+      "screenWake": "Wake Screen"
+    },
+    "privacy_section": {
+      "viewPolicy": "View Privacy Policy",
+      "title": "Privacy"
+    },
+    "data_section": {
+      "exportDesc": "Download your data as JSON",
+      "deleteAllDesc": "Permanently delete all your rides and settings",
+      "deleteAllWarning": "This cannot be undone",
+      "export": "Export Data",
+      "title": "Data Management",
+      "deleteAll": "Delete All Data",
+      "deleteAllConfirm": "Type DELETE to confirm"
+    },
+    "account_section": {
+      "signedInAs": "Signed in as",
+      "memberSince": "Member since",
+      "email": "Email"
+    },
+    "appearance_section": {
+      "title": "Appearance",
+      "themeLight": "Light",
+      "theme": "Theme",
+      "themeSystem": "System",
+      "themeDark": "Dark"
+    },
+    "session_section": {
+      "title": "Session",
+      "signOutDesc": "You will need to sign in again",
+      "signOut": "Sign Out",
+      "signOutConfirm": "Sign out of your account?"
+    },
+    "about_section": {
+      "github": "GitHub",
+      "support": "Support",
+      "version": "Version"
+    }
+  },
+  "link": {
+    "title": "Link Device",
+    "pageTitle": "Link Your Karoo",
+    "metaDescription": "Link your Hammerhead Karoo to KPedal. Enter the code shown on your Karoo to sync rides and settings to the cloud.",
+    "secureConnection": "Secure Connection",
+    "linkKaroo": "Link your Karoo",
+    "enterCodeDescription": "Enter the 8-character code displayed on your device to securely connect it to your account.",
+    "verifying": "Verifying...",
+    "continue": "Continue",
+    "encryption256": "256-bit encryption",
+    "verifiedDomain": "Verified domain",
+    "signInToContinue": "Sign in to continue",
+    "linkingDevice": "Linking {device} to your account.",
+    "signInWithGoogle": "Sign in with Google to authorize this device.",
+    "useDifferentCode": "Use a different code",
+    "authorizeDevice": "Authorize device?",
+    "deviceRequestingAccess": "{device} is requesting access to sync ride data with your account.",
+    "permissionSync": "Sync pedaling metrics from rides",
+    "permissionView": "View analytics on app.kpedal.com",
+    "authorize": "Authorize",
+    "deviceLinked": "Device linked!",
+    "deviceConnected": "{device} is now connected to your account.",
+    "autoSync": "Your ride data will sync automatically.",
+    "secureConnectionEstablished": "Secure connection established",
+    "dataEncrypted": "Data is encrypted end-to-end",
+    "closePageHint": "You can close this page and return to your Karoo.",
+    "goToDashboard": "Go to Dashboard",
+    "errors": {
+      "failedToVerify": "Failed to verify code",
+      "failedToConnect": "Failed to connect",
+      "enterCompleteCode": "Please enter the complete code",
+      "invalidOrExpired": "This code is invalid or has expired. Please get a new code from your Karoo.",
+      "checkConnection": "Failed to connect. Please check your internet connection.",
+      "signInFirst": "Please sign in first",
+      "failedToAuthorize": "Failed to authorize device",
+      "failedTryAgain": "Failed to connect. Please try again."
+    }
+  },
+  "infotips": {
+    "asymmetry": "Your deviation from perfect 50/50 L/R balance. Under 2.5% is pro level.",
+    "balance": "How your power splits between left and right legs. 50/50 is perfect.",
+    "te": "Percentage of power going forward. Aim for 70-80% — higher isn't always better.",
+    "ps": "How even your power is through the pedal stroke. Aim for 20%+. Elite cyclists hit 25%+.",
+    "zones": "Time spent in optimal (green), attention (yellow), and problem (red) zones.",
+    "timeInZone": "Time spent in each zone. Green is optimal, yellow needs attention, red is a problem.",
+    "score": "Overall technique rating combining balance, TE, and PS. Higher is better.",
+    "achieved": "Number of milestones you've unlocked.",
+    "remaining": "Milestones still available to unlock.",
+    "total": "Total milestones in the system.",
+    "progress": "Overall completion percentage.",
+    "lastAchievement": "Date of your most recent achievement.",
+    "milestone": "Name and description of the achievement.",
+    "category": "Type of milestone (Volume, Balance, Technique, etc.).",
+    "target": "Requirement to unlock this milestone.",
+    "weeklyActivity": "Number of rides per day. Aim for 3-5 rides per week for steady progress.",
+    "compRides": "Number of rides compared to last week.",
+    "compHours": "Total saddle time. More hours equals more training adaptation.",
+    "compDistance": "Total kilometers ridden. Useful for tracking volume alongside hours.",
+    "compClimb": "Total elevation gained. Over 2000m per week builds climbing strength.",
+    "compBalance": "Power asymmetry vs last week. Lower is better, negative is improvement.",
+    "compOptimal": "Time in optimal zone vs last week. Higher is better technique.",
+    "perfScore": "Overall technique score from 0 to 100. Higher means better form.",
+    "perfOptimal": "Time with all metrics in the green zone. Higher is better.",
+    "perfPower": "Average power output in watts. Higher at same HR means better fitness.",
+    "perfEnergy": "Total energy in kilojoules. Roughly equals calories burned.",
+    "technique": "Pedaling efficiency metrics. TE is power transfer, PS is stroke smoothness.",
+    "balanceFatigue": "Left vs right power split. Changes indicate fatigue or compensation.",
+    "fatigueTrend": "Overall fatigue trend. Stable is good pacing, dropped is overexertion.",
+    "balanceTrend": "Left/right balance trend over time. Consistent values near 50% indicate good symmetry.",
+    "techniqueTrend": "Technique metrics trend over time. Look for steady improvement patterns.",
+    "compTe": "Torque Effectiveness vs last week. Positive change is improvement.",
+    "compPs": "Pedal Smoothness vs last week. Improves slowly, small gains matter.",
+    "fatigue": "Technique at ride start vs end. Dropping values indicate fatigue.",
+    "teFatigue": "TE change during ride. Drop indicates muscular fatigue.",
+    "psFatigue": "PS change during ride. Usually first metric to drop when tired.",
+    "powerAvg": "Average power in watts. Track over time to measure fitness gains.",
+    "powerMax": "Peak power achieved. Useful for sprints and FTP estimation.",
+    "np": "Normalized Power adjusts for surges. Close to average means steady effort.",
+    "cadence": "Pedal revolutions per minute. Optimal is 80-95 rpm for most riders.",
+    "hrAvg": "Average heart rate. Lower at same power means better fitness.",
+    "hrMax": "Peak heart rate reached. Near max often hurts technique.",
+    "speed": "Average speed. Less reliable than power due to terrain and wind.",
+    "elevationGain": "Total elevation gained. Over 1000m is a serious climbing workout.",
+    "elevationLoss": "Total elevation lost. Should match gain on loop rides.",
+    "grade": "Maximum gradient. Above 10% is steep, above 15% is very steep.",
+    "energy": "Total energy output. Plan nutrition at 250-300 kcal per hour.",
+    "trendCurrent": "Value from your most recent ride in this period.",
+    "trendAverage": "Average value across all rides in the selected period.",
+    "trendSpread": "Difference between best and worst. Lower spread means more consistent form.",
+    "trendLatest": "Value from your most recent ride for this metric.",
+    "trendBest": "Best value in the period. For asymmetry lower is better, for TE/PS higher is better.",
+    "recentRides": "Recent rides with technique metrics. Click any row to see full details.",
+    "tableAsym": "Power asymmetry percentage. Lower means more balanced power output.",
+    "tableZones": "Time distribution across optimal, attention, and problem zones."
+  },
+  "tour": {
+    "buttons": {
+      "next": "Next",
+      "prev": "Back",
+      "done": "Done",
+      "continue": "Continue →",
+      "skip": "or skip the tour →"
+    },
+    "dashboard": {
+      "welcome": {
+        "title": "Welcome to KPedal! 👋",
+        "desc": "This is <strong>demo data from a real cyclist</strong> showing ~4 weeks of rides.",
+        "hint": "Quick tour of what KPedal can do (~2 min)."
+      },
+      "period": {
+        "title": "Time Period Selector",
+        "desc": "Switch between <strong>7, 14, 30, or 60 days</strong> to analyze your trends over different timeframes.",
+        "hint": "Shorter periods show recent form. Longer periods reveal training patterns."
+      },
+      "asymmetry": {
+        "title": "Power Asymmetry",
+        "desc": "Your deviation from perfect 50/50 L/R balance.",
+        "under25": "Under 2.5%",
+        "proLevel": "Pro level",
+        "range25to5": "2.5-5%",
+        "goodRoom": "Good, room to improve",
+        "over5": "Over 5%",
+        "needsAttention": "Needs attention",
+        "hint": "This demo cyclist averages 1-2% — excellent symmetry!"
+      },
+      "infoTip": {
+        "title": "Info Tips Everywhere",
+        "desc": "See this <strong>ⓘ icon</strong>? Hover or tap it anytime for detailed explanations.",
+        "hint": "Every metric in KPedal has an info tip explaining what it means and what to aim for."
+      },
+      "balance": {
+        "title": "L/R Power Balance",
+        "desc": "Visual breakdown of your left vs right leg power distribution.",
+        "greenZone": "<strong>Green zone</strong> = balanced. The bar shows exactly how your power splits between legs.",
+        "hint": "Most cyclists are slightly dominant on one side. Track this to improve symmetry over time."
+      },
+      "zones": {
+        "title": "Time in Zone Distribution",
+        "desc": "How your ride time breaks down by technique quality:",
+        "optimal": "Green (Optimal)",
+        "optimalDesc": "All metrics in ideal range",
+        "attention": "Yellow (Attention)",
+        "attentionDesc": "One or more metrics drifting",
+        "problem": "Red (Problem)",
+        "problemDesc": "Significant form breakdown",
+        "hint": "Goal: Maximize green time, especially in long rides!"
+      },
+      "summary": {
+        "title": "Activity Summary",
+        "desc": "Quick glance at your training volume for the selected period:",
+        "rides": "Total rides",
+        "hours": "Hours",
+        "km": "Kilometers"
+      },
+      "weekly": {
+        "title": "Weekly Activity Chart",
+        "desc": "See your ride frequency per day of the week.",
+        "compareHint": "Below the chart, compare <strong>this week vs last week</strong>:",
+        "numRides": "Number of rides",
+        "totalHours": "Total hours",
+        "distanceClimb": "Distance and climbing",
+        "hint": "Consistency is key — aim for regular training, not sporadic big efforts."
+      },
+      "technique": {
+        "title": "Technique Metrics",
+        "desc": "The two core efficiency metrics from your power meter:",
+        "teTitle": "Torque Effectiveness (TE)",
+        "teDesc": "Percentage of power going forward. Aim for <strong>70-80%</strong> — higher isn't always better per Wattbike research.",
+        "psTitle": "Pedal Smoothness (PS)",
+        "psDesc": "How even your power is through the pedal stroke. Aim for <strong>≥20%</strong>. Elite cyclists hit 25%+."
+      },
+      "trends": {
+        "title": "Trends Over Time",
+        "desc": "Track your balance and technique improvements ride by ride.",
+        "left": "<strong>Left chart:</strong> Balance trend across rides",
+        "right": "<strong>Right chart:</strong> Switch between TE, PS, and Asymmetry",
+        "hint": "Click any point to jump to that ride's detailed analysis."
+      },
+      "recentRides": {
+        "title": "Recent Rides Table",
+        "desc": "All your synced rides with key metrics at a glance:",
+        "date": "Date, duration, and score",
+        "asymmetry": "Asymmetry percentage",
+        "lrBreakdown": "L/R breakdown for TE and PS",
+        "zoneBars": "Zone distribution bars",
+        "hint": "Click any row to see detailed minute-by-minute analysis!"
+      },
+      "nav": {
+        "title": "Navigation",
+        "desc": "Explore other sections:",
+        "rides": "<strong>Rides</strong> — Full history with filters and search",
+        "drills": "<strong>Drills</strong> — Guided training exercises",
+        "achievements": "<strong>Achievements</strong> — Milestones and badges",
+        "settings": "<strong>Settings</strong> — Devices, thresholds, and alerts"
+      },
+      "complete": {
+        "title": "Dashboard Complete! 🎉",
+        "desc": "You've seen the dashboard overview. Ready to explore more?",
+        "next": "Click <strong>Next</strong> to continue the tour on the <strong>Rides</strong> page, where you'll see your full ride history.",
+        "done": "Or click Done to end the tour here."
+      }
+    },
+    "rides": {
+      "welcome": {
+        "title": "Rides History 🚴",
+        "desc": "This page shows your <strong>complete ride history</strong> with filtering and sorting.",
+        "hint": "Let me show you the key features."
+      },
+      "stats": {
+        "title": "Period Statistics",
+        "desc": "Quick stats for the selected period:",
+        "ridesAndDuration": "Total rides and duration",
+        "scores": "Average and best scores",
+        "powerDistance": "Power and distance totals",
+        "hint": "These update based on your filters."
+      },
+      "viewToggle": {
+        "title": "View Toggle 📋↔️🃏",
+        "desc": "Switch between two view modes:",
+        "table": "<strong>Table View</strong> — Compact list with all metrics",
+        "card": "<strong>Card View</strong> — Visual cards with zone bars",
+        "hint": "Choose what works best for you!"
+      },
+      "rideRow": {
+        "title": "Click Any Ride",
+        "desc": "Each ride shows:",
+        "date": "Date, duration, and technique score",
+        "asymmetry": "Power asymmetry",
+        "lrMetrics": "L/R metrics for TE and PS",
+        "zones": "Zone distribution",
+        "hint": "<strong>Click any ride</strong> to see the full detail page with minute-by-minute charts!"
+      },
+      "complete": {
+        "title": "Rides Page Complete!",
+        "desc": "You can browse all your rides here.",
+        "next": "Click <strong>Next</strong> to see a <strong>ride detail page</strong> with in-depth analysis."
+      }
+    },
+    "rideDetail": {
+      "welcome": {
+        "title": "Ride Detail Analysis 📊",
+        "desc": "This is where the <strong>deep analysis</strong> happens.",
+        "hint": "Every ride gets a complete breakdown of your pedaling technique minute by minute."
+      },
+      "heroStats": {
+        "title": "Key Metrics at a Glance",
+        "desc": "The top row shows your most important ride metrics:",
+        "score": "<strong>Score</strong> — Overall technique rating (0-100)",
+        "asymmetry": "<strong>Asymmetry</strong> — L/R power imbalance",
+        "balance": "<strong>Balance Bar</strong> — Visual L/R split",
+        "zones": "<strong>Time in Zone</strong> — Quality distribution"
+      },
+      "perfStrip": {
+        "title": "Ride Performance Data",
+        "desc": "Detailed ride metrics:",
+        "power": "<strong>Power</strong> — Avg, max, and normalized",
+        "hr": "<strong>Heart Rate</strong> — Avg and max",
+        "cadence": "<strong>Cadence</strong> — Pedaling speed in RPM",
+        "elevation": "<strong>Elevation</strong> — Climbing and descending",
+        "hint": "Tap any info icon for detailed explanations!"
+      },
+      "techniqueCard": {
+        "title": "Technique Breakdown",
+        "desc": "Your pedaling efficiency metrics:",
+        "te": "<strong>TE (Torque Effectiveness)</strong> — Power going forward. Aim for 70-80%",
+        "ps": "<strong>PS (Pedal Smoothness)</strong> — Stroke evenness. Aim for ≥20%",
+        "lr": "<strong>L/R breakdown</strong> — See each leg's contribution",
+        "hint": "Large L/R differences indicate muscle imbalance or bike fit issues."
+      },
+      "fatigueCard": {
+        "title": "Fatigue Analysis",
+        "desc": "How your technique changed from start to end:",
+        "startEnd": "<strong>Start → End</strong> values for each metric",
+        "colors": "<strong>Green</strong> = improved, <strong>Red</strong> = degraded",
+        "badge": "<strong>Badge</strong> — STRONG (no drops), MODERATE, or WEAK",
+        "hint": "Consistent technique under fatigue is key to long-ride performance!"
+      },
+      "timeline": {
+        "title": "Minute-by-Minute Timeline",
+        "desc": "Track how metrics changed throughout your ride:",
+        "tabs": "<strong>Tabs</strong> — Switch between Balance, TE, PS, Power, HR",
+        "points": "<strong>Points</strong> — Each dot is one minute",
+        "hover": "<strong>Hover</strong> — See exact values at any point",
+        "hint": "Watch for patterns — does technique drop after 30 min? That's fatigue!"
+      },
+      "complete": {
+        "title": "Ride Detail Complete!",
+        "desc": "You now know how to analyze individual rides in depth.",
+        "next": "Click <strong>Next</strong> to explore the <strong>Drills</strong> page — guided exercises to improve your technique."
+      }
+    },
+    "drills": {
+      "welcome": {
+        "title": "Training Drills 🏋️",
+        "desc": "<strong>Drills</strong> are guided training exercises you do on your Karoo to improve specific skills.",
+        "hint": "Results sync here so you can track your progress!"
+      },
+      "stats": {
+        "title": "Drill Statistics",
+        "desc": "Your overall drill performance:",
+        "avgTarget": "<strong>Avg Target</strong> — How well you hit target zones",
+        "sessions": "<strong>Sessions</strong> — Total drills completed",
+        "best": "<strong>Best</strong> — Your highest time-in-target score",
+        "completion": "<strong>Completion rate</strong> — % finished vs abandoned"
+      },
+      "drillRow": {
+        "title": "Drill Results",
+        "desc": "Each drill session shows:",
+        "name": "<strong>Drill name</strong> — What type of exercise",
+        "timeInTarget": "<strong>Time in Target</strong> — % of time you hit the goal",
+        "duration": "<strong>Duration</strong> — How long you practiced",
+        "status": "<strong>Status</strong> — Completed or stopped early",
+        "hint": "Aim for 80%+ time in target as you improve!"
+      },
+      "complete": {
+        "title": "Drills Page Complete!",
+        "desc": "Drills help you deliberately practice specific skills.",
+        "next": "Click <strong>Next</strong> to see <strong>Achievements</strong> — milestones you can unlock!"
+      }
+    },
+    "achievements": {
+      "welcome": {
+        "title": "Achievements & Milestones 🏆",
+        "desc": "Unlock achievements as you train and improve!",
+        "hint": "These track your progress across volume, technique, and consistency."
+      },
+      "stats": {
+        "title": "Progress Overview",
+        "desc": "Your achievement progress:",
+        "achieved": "<strong>Achieved</strong> — Unlocked milestones",
+        "remaining": "<strong>Remaining</strong> — Still to unlock",
+        "progress": "<strong>Progress %</strong> — Overall completion",
+        "last": "<strong>Last</strong> — Most recent unlock date"
+      },
+      "categories": {
+        "title": "Achievement Categories",
+        "desc": "Achievements span multiple categories:",
+        "volume": "<strong>Volume</strong> — Ride counts (10, 50, 100+)",
+        "balance": "<strong>Balance</strong> — L/R symmetry goals",
+        "technique": "<strong>Technique</strong> — Score milestones (80+, 90+)",
+        "consistency": "<strong>Consistency</strong> — Training streaks",
+        "training": "<strong>Training</strong> — Drill completions",
+        "hint": "Achieved milestones show with a green checkmark!"
+      },
+      "complete": {
+        "title": "Achievements Complete!",
+        "desc": "Keep riding and training to unlock more milestones!",
+        "next": "Click <strong>Next</strong> for the final stop: <strong>Settings</strong>."
+      }
+    },
+    "settings": {
+      "welcome": {
+        "title": "Settings & Preferences ⚙️",
+        "desc": "Configure KPedal to work exactly how you want.",
+        "hint": "Settings sync between web and your Karoo device!"
+      },
+      "devices": {
+        "title": "Connected Devices",
+        "desc": "See all your linked Karoo devices:",
+        "name": "Device name and status",
+        "lastSync": "Last sync time",
+        "requestSync": "<strong>Request Sync</strong> to pull data from device",
+        "remove": "<strong>Remove</strong> to unlink a device",
+        "hint": "You can link multiple Karoos to one account."
+      },
+      "thresholds": {
+        "title": "Metric Thresholds",
+        "desc": "Customize what \"optimal\" means for you:",
+        "balance": "<strong>Balance Threshold</strong> — How much L/R imbalance triggers yellow/red",
+        "teRange": "<strong>TE Optimal Range</strong> — Your target torque effectiveness zone",
+        "psMin": "<strong>PS Minimum</strong> — Pedal smoothness floor",
+        "hint": "Defaults are based on cycling research, but you can adjust to your level."
+      },
+      "alerts": {
+        "title": "In-Ride Alerts",
+        "desc": "Get notified during rides when metrics need attention:",
+        "metrics": "Choose which metrics to monitor",
+        "sensitivity": "Set sensitivity (critical only or sensitive)",
+        "type": "Pick notification type (vibrate, sound, banner)",
+        "cooldown": "Set cooldown between alerts",
+        "hint": "Alerts are shown directly on your Karoo during the ride!"
+      },
+      "theme": {
+        "title": "Appearance",
+        "desc": "Choose your preferred color scheme:",
+        "light": "<strong>Light</strong> — Clean white background",
+        "dark": "<strong>Dark</strong> — Easy on the eyes",
+        "system": "<strong>System</strong> — Follows your OS setting"
+      },
+      "complete": {
+        "title": "You're All Set! 🚴‍♂️",
+        "desc": "You've completed the full KPedal tour!",
+        "toSeeData": "<strong>To see your own data:</strong>",
+        "step1": "Download KPedal on your Karoo",
+        "step2": "Add it to your ride screen",
+        "step3": "Go for a ride!",
+        "step4": "Data syncs automatically",
+        "download": "Download KPedal →"
+      }
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: {date}",
+    "backToKpedal": "Back to KPedal",
+    "summary": {
+      "encrypted": "Encrypted & Secure",
+      "encryptedDesc": "All data encrypted in transit and at rest",
+      "noLocation": "No Location Tracking",
+      "noLocationDesc": "We never collect GPS or route data",
+      "neverSold": "Never Sold",
+      "neverSoldDesc": "Your data is never sold to anyone",
+      "yourControl": "Your Control",
+      "yourControlDesc": "Delete your data anytime"
+    },
+    "toc": {
+      "title": "Contents",
+      "whatWeCollect": "What We Collect",
+      "whatWeDontCollect": "What We Don't Collect",
+      "howDataFlows": "How Data Flows",
+      "storageSecurity": "Storage & Security",
+      "yourRights": "Your Rights",
+      "thirdParties": "Third-Party Services",
+      "contact": "Contact"
+    },
+    "sections": {
+      "whatWeCollect": "1. What We Collect",
+      "whatWeDontCollect": "2. What We Don't Collect",
+      "howDataFlows": "3. How Data Flows",
+      "storageSecurity": "4. Storage & Security",
+      "yourRights": "5. Your Rights",
+      "thirdParties": "6. Third-Party Services",
+      "contact": "7. Contact",
+      "policyChanges": "Policy Changes"
+    },
+    "rights": {
+      "access": "Access",
+      "accessDesc": "View all your data anytime in the web dashboard. Every metric we store is visible to you.",
+      "delete": "Delete",
+      "deleteDesc": "Delete individual rides from the Rides page. For full account deletion, email us.",
+      "export": "Export",
+      "exportDesc": "Request a complete export of your data by contacting us.",
+      "optOut": "Opt Out",
+      "optOutDesc": "Use KPedal offline without signing in. No data leaves your device."
+    },
+    "contact": {
+      "text": "For privacy questions, data requests, or account deletion:",
+      "email": "privacy@kpedal.com",
+      "github": "GitHub Issues"
+    },
+    "policyChanges": "When we make significant changes to this policy, we update the \"Last updated\" date above. We encourage you to review this page periodically.",
+    "footer": "Pedaling efficiency analytics for Karoo",
+    "content": {
+      "accountData": {
+        "title": "Account Data",
+        "intro": "When you sign in with Google, we receive and store:",
+        "fields": {
+          "email": "Email",
+          "emailPurpose": "Account identification, login",
+          "name": "Name",
+          "namePurpose": "Display in dashboard",
+          "profilePicture": "Profile Picture URL",
+          "profilePicturePurpose": "Display as avatar",
+          "googleId": "Google ID",
+          "googleIdPurpose": "Link Google account to KPedal"
+        },
+        "note": "We do not have access to your Google password. Authentication uses OAuth 2.0."
+      },
+      "pedalingMetrics": {
+        "title": "Pedaling Metrics",
+        "intro": "For each ride synced from your Karoo device:",
+        "fields": {
+          "timestamp": "Timestamp",
+          "timestampPurpose": "When the ride was recorded",
+          "duration": "Duration",
+          "durationPurpose": "How long the ride lasted (milliseconds)",
+          "balance": "Balance Left / Right",
+          "balancePurpose": "Power distribution between legs (%)",
+          "te": "Torque Effectiveness L/R",
+          "tePurpose": "How efficiently you apply power (%)",
+          "ps": "Pedal Smoothness L/R",
+          "psPurpose": "How smooth your pedal stroke is (%)",
+          "zones": "Zone Distribution",
+          "zonesPurpose": "Time in Optimal/Attention/Problem zones (%)",
+          "score": "Efficiency Score",
+          "scorePurpose": "Calculated overall score (0-100)"
+        }
+      },
+      "performanceMetrics": {
+        "title": "Performance Metrics",
+        "intro": "Additional cycling data synced for comprehensive ride analysis:",
+        "fields": {
+          "power": "Power (avg/max)",
+          "powerPurpose": "Average and maximum power output in watts",
+          "cadence": "Cadence (avg)",
+          "cadencePurpose": "Average pedaling cadence in RPM",
+          "hr": "Heart Rate (avg/max)",
+          "hrPurpose": "Average and maximum heart rate in BPM",
+          "speed": "Speed (avg)",
+          "speedPurpose": "Average speed in km/h",
+          "distance": "Distance",
+          "distancePurpose": "Total distance traveled in km",
+          "elevation": "Elevation (gain/loss)",
+          "elevationPurpose": "Total meters climbed and descended",
+          "grade": "Grade (avg/max)",
+          "gradePurpose": "Average and maximum gradient (%)",
+          "np": "Normalized Power",
+          "npPurpose": "Intensity-weighted power in watts",
+          "energy": "Energy",
+          "energyPurpose": "Total energy output in kilojoules"
+        },
+        "note": "These metrics provide context for your pedaling efficiency analysis. They are read from your Karoo's connected sensors (power meter, heart rate monitor, GPS)."
+      },
+      "snapshots": {
+        "title": "Per-Minute Snapshots",
+        "intro": "For detailed timeline charts, we store per-minute averages during each ride:",
+        "fields": {
+          "minuteIndex": "Minute Index",
+          "minuteIndexPurpose": "Which minute of the ride (0, 1, 2...)",
+          "metricsAvg": "Balance L/R, TE L/R, PS L/R",
+          "metricsAvgPurpose": "Averaged pedaling metrics for that minute",
+          "perfAvg": "Power, Cadence, Heart Rate",
+          "perfAvgPurpose": "Averaged performance metrics for that minute",
+          "zoneStatus": "Zone Status",
+          "zoneStatusPurpose": "Dominant zone for that minute (Optimal/Attention/Problem)"
+        },
+        "note": "Snapshots enable the timeline chart in ride details, showing how your technique evolved throughout the ride."
+      },
+      "deviceData": {
+        "title": "Device Data",
+        "fields": {
+          "deviceId": "Device ID",
+          "deviceIdPurpose": "Unique identifier for your Karoo",
+          "deviceName": "Device Name",
+          "deviceNamePurpose": "e.g., \"Karoo 3\"",
+          "deviceType": "Device Type",
+          "deviceTypePurpose": "e.g., \"karoo\"",
+          "lastSync": "Last Sync Time",
+          "lastSyncPurpose": "When data was last synced"
+        }
+      },
+      "userSettings": {
+        "title": "User Settings (Synced if Signed In)",
+        "intro": "When signed in, your app settings are synced between your Karoo device and web dashboard:",
+        "fields": {
+          "thresholds": "Threshold Settings",
+          "thresholdsPurpose": "Balance threshold, TE optimal range, PS minimum",
+          "alertPrefs": "Alert Preferences",
+          "alertPrefsPurpose": "Which metrics trigger alerts, vibration/sound/visual options",
+          "cooldowns": "Alert Cooldowns",
+          "cooldownsPurpose": "Time between repeated alerts (seconds)",
+          "screenWake": "Screen Wake",
+          "screenWakePurpose": "Whether alerts wake the Karoo screen",
+          "bgMode": "Background Mode",
+          "bgModePurpose": "Collect data even when data field is hidden",
+          "autoSync": "Auto-Sync",
+          "autoSyncPurpose": "Automatically sync rides after completion"
+        },
+        "note": "Settings sync allows you to configure thresholds on the web and have them apply on your Karoo automatically. If not signed in, settings remain local only."
+      },
+      "drillResults": {
+        "title": "Drill Results (Synced if Signed In)",
+        "intro": "When signed in, your drill training data is synced:",
+        "fields": {
+          "drillId": "Drill ID & Name",
+          "drillIdPurpose": "Which drill was completed",
+          "drillTimestamp": "Timestamp & Duration",
+          "drillTimestampPurpose": "When the drill was done and how long it took",
+          "drillScore": "Score",
+          "drillScorePurpose": "Overall performance score (0-100)",
+          "timeInTarget": "Time in Target",
+          "timeInTargetPurpose": "How long you maintained target metrics",
+          "phaseScores": "Phase Scores",
+          "phaseScoresPurpose": "Performance for each drill phase"
+        }
+      },
+      "achievements": {
+        "title": "Achievements (Synced if Signed In)",
+        "intro": "When signed in, your unlocked achievements are synced:",
+        "fields": {
+          "achievementId": "Achievement ID",
+          "achievementIdPurpose": "Which achievement was unlocked",
+          "unlockedAt": "Unlocked At",
+          "unlockedAtPurpose": "When the achievement was earned"
+        }
+      },
+      "localOnly": {
+        "title": "Data Stored Only on Your Karoo (Never Synced)",
+        "intro": "The following data is stored locally on your Karoo device and is never sent to our servers:",
+        "fields": {
+          "ratings": "Ride Ratings",
+          "ratingsPurpose": "1-5 star ratings you assign to rides",
+          "notes": "Ride Notes",
+          "notesPurpose": "Personal notes you add to rides",
+          "customDrills": "Custom Drills",
+          "customDrillsPurpose": "Training drills you create yourself",
+          "onboarding": "Onboarding Status",
+          "onboardingPurpose": "Whether you've completed the app tutorial"
+        },
+        "note": "This data remains on your device. If you uninstall the app, this data is deleted."
+      },
+      "dontCollect": {
+        "intro": "While we collect performance metrics for analysis, we specifically avoid location and tracking data:",
+        "items": {
+          "gps": "GPS / Location",
+          "route": "Route / Map Data",
+          "temperature": "Temperature",
+          "strava": "Strava / Other Platforms",
+          "rideTitles": "Ride Titles / Names",
+          "photos": "Photos / Media"
+        },
+        "note": "Your rides cannot be traced to specific locations. We only store aggregate performance metrics, not where you rode."
+      },
+      "usedNotStored": {
+        "title": "Data Used But Not Stored",
+        "intro": "The following data is read in real-time for display purposes but is never saved to device or cloud:",
+        "fields": {
+          "smoothed": "3s/10s Smoothed Balance",
+          "smoothedPurpose": "Real-time trend indicators for live display",
+          "rawStream": "Raw Sensor Stream (~20Hz)",
+          "rawStreamPurpose": "Individual data points are processed and discarded; only per-minute averages are stored"
+        }
+      },
+      "permissions": {
+        "title": "Android Permissions",
+        "intro": "The KPedal app requests the following permissions on your Karoo:",
+        "fields": {
+          "foreground": "Foreground Service",
+          "foregroundPurpose": "Run in background to collect data during rides",
+          "notifications": "Notifications",
+          "notificationsPurpose": "Show alerts when pedaling technique needs attention",
+          "boot": "Boot Completed",
+          "bootPurpose": "Start automatically when Karoo powers on"
+        },
+        "note": "No internet, location, camera, microphone, or storage permissions are requested."
+      },
+      "dataFlow": {
+        "step1": {
+          "title": "Power Meter Pedals",
+          "desc": "Your pedals transmit balance, TE, and PS via ANT+ Cycling Dynamics protocol to your Karoo."
+        },
+        "step2": {
+          "title": "KPedal App on Karoo",
+          "desc": "The app processes real-time data locally at ~20Hz, calculates averages, and stores ride summaries in local database. Up to 100 rides are kept on device; older rides are auto-deleted."
+        },
+        "step3": {
+          "title": "Cloud Sync (Optional)",
+          "desc": "If signed in, ride summaries and settings are synced to KPedal cloud via HTTPS. Only aggregated data is sent — no raw sensor streams. Settings changes on web are automatically applied to your Karoo."
+        },
+        "step4": {
+          "title": "Web Dashboard",
+          "desc": "View your ride history, trends, and analytics at app.kpedal.com. Data is retrieved only for your authenticated account."
+        },
+        "offlineTitle": "Offline Mode",
+        "offlineDesc": "The KPedal app works fully offline. You can use all features without signing in or syncing. Data stays on your device."
+      },
+      "infrastructure": {
+        "title": "Infrastructure",
+        "workers": "Cloudflare Workers",
+        "workersUse": "API processing (serverless). Request logs stored ~7 days.",
+        "d1": "Cloudflare D1",
+        "d1Use": "SQLite database for users and rides",
+        "kv": "Cloudflare KV",
+        "kvUse": "Session tokens (auto-expire after 7 days)",
+        "pages": "Cloudflare Pages",
+        "pagesUse": "Static web dashboard hosting"
+      },
+      "security": {
+        "title": "Security Measures",
+        "https": "HTTPS Everywhere",
+        "httpsDesc": "All connections use TLS 1.3 encryption",
+        "jwt": "JWT Authentication",
+        "jwtDesc": "Signed tokens with 15-minute expiry for access, 7-day for refresh",
+        "rateLimit": "Rate Limiting",
+        "rateLimitDesc": "Auth: 10 req/min, API: 100 req/min, Sync: 30 req/min. Uses IP address for counting, auto-deleted after 60 seconds.",
+        "validation": "Input Validation",
+        "validationDesc": "All data validated and sanitized before storage",
+        "csrf": "CSRF Protection",
+        "csrfDesc": "OAuth state verification prevents cross-site attacks"
+      },
+      "retention": {
+        "title": "Data Retention",
+        "cloudTitle": "Cloud Storage (app.kpedal.com)",
+        "localTitle": "Local Storage (Karoo Device)",
+        "cloud": {
+          "rideData": "Ride data",
+          "rideDataPeriod": "Until you delete it",
+          "drillResults": "Drill results",
+          "drillResultsPeriod": "Until you delete it",
+          "achievements": "Achievements",
+          "achievementsPeriod": "Until account deletion",
+          "userSettings": "User settings",
+          "userSettingsPeriod": "Until account deletion",
+          "accountData": "Account data",
+          "accountDataPeriod": "Until account deletion",
+          "accessTokens": "Access tokens",
+          "accessTokensPeriod": "15 minutes",
+          "refreshTokens": "Refresh tokens",
+          "refreshTokensPeriod": "7 days",
+          "oauthState": "OAuth state",
+          "oauthStatePeriod": "10 minutes"
+        },
+        "local": {
+          "rideHistory": "Ride history",
+          "rideHistoryPeriod": "Up to 100 rides (oldest auto-deleted)",
+          "drillResults": "Drill results",
+          "drillResultsPeriod": "Until app uninstall (also synced to cloud if signed in)",
+          "achievements": "Achievements",
+          "achievementsPeriod": "Until app uninstall (also synced to cloud if signed in)",
+          "customDrills": "Custom drills",
+          "customDrillsPeriod": "Until you delete them (local only)",
+          "settings": "Settings",
+          "settingsPeriod": "Until app uninstall (synced to cloud if signed in)"
+        }
+      },
+      "thirdParties": {
+        "google": {
+          "title": "Google OAuth",
+          "desc": "Used for sign-in only. We request minimal scopes: openid, email, profile.",
+          "link": "Google Privacy Policy →"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "desc": "Our infrastructure provider. Handles API, database, and web hosting.",
+          "link": "Cloudflare Privacy Policy →"
+        },
+        "notUsedTitle": "What We Don't Use",
+        "notUsedIntro": "KPedal does not use:",
+        "notUsed": [
+          "Google Analytics or any analytics service",
+          "Facebook Pixel or any advertising tracker",
+          "Cookies (we use localStorage instead)",
+          "Crash reporting services (no Firebase Crashlytics, Sentry, etc.)",
+          "Any third-party data brokers"
+        ],
+        "browserStorageTitle": "Browser Storage",
+        "browserStorageIntro": "The KPedal web dashboard stores the following in your browser's local/session storage:",
+        "browserStorage": {
+          "access": "kpedal_auth_access",
+          "accessPurpose": "sessionStorage — JWT access token (cleared when tab closes)",
+          "refresh": "kpedal_auth_refresh",
+          "refreshPurpose": "localStorage — JWT refresh token (persists up to 7 days)",
+          "theme": "kpedal_theme",
+          "themePurpose": "localStorage — Theme preference (light/dark/system)"
+        },
+        "browserStorageNote": "You can clear this data anytime by signing out or clearing browser storage. No cookies are used."
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "Karoo Extension",
+      "version": "v1.0.0",
+      "titleLine1": "See your pedaling",
+      "titleLine2": "efficiency in real-time",
+      "subtitle": "Balance, Torque Effectiveness, Pedal Smoothness — displayed on your Karoo with real-time alerts and guided drills.",
+      "downloadFree": "Download Free",
+      "tryDemo": "Try Demo",
+      "free": "Free",
+      "openSource": "open source",
+      "noAccountRequired": "No account required"
+    },
+    "dataFields": {
+      "title": "See It On Your Karoo",
+      "subtitle": "5 data field layouts. Choose the view that fits your training.",
+      "tabs": {
+        "quickGlance": "Quick Glance",
+        "balance": "Balance",
+        "efficiency": "Efficiency",
+        "fullView": "Full View",
+        "trend": "Trend"
+      },
+      "quickGlance": {
+        "name": "Quick Glance",
+        "desc": "Status indicator with balance bar. Shows checkmark when optimal or lists metrics needing attention."
+      },
+      "powerBalance": {
+        "name": "Power Balance",
+        "desc": "Large L/R balance numbers with visual progress bar. Perfect for balance-focused training."
+      },
+      "efficiency": {
+        "name": "Efficiency",
+        "desc": "Torque Effectiveness and Pedal Smoothness with L/R splits and averages."
+      },
+      "fullOverview": {
+        "name": "Full Overview",
+        "desc": "All three metrics in one compact view. Complete pedaling picture at a glance."
+      },
+      "balanceTrend": {
+        "name": "Balance Trend",
+        "desc": "Current + 3s smoothed + 10s smoothed balance. See trends as they develop."
+      },
+      "karoo": {
+        "optimal": "Optimal",
+        "balance": "Balance",
+        "left": "Left",
+        "right": "Right",
+        "torqueEff": "Torque Eff.",
+        "smoothness": "Smoothness",
+        "te": "TE",
+        "ps": "PS",
+        "ok": "OK",
+        "now": "Now",
+        "avg3s": "3s Avg",
+        "avg10s": "10s Avg"
+      }
+    },
+    "comparison": {
+      "title": "The Difference",
+      "subtitle": "Stop guessing. Start improving.",
+      "without": "Without KPedal",
+      "with": "With KPedal",
+      "items": {
+        "before1": "Power number, but no technique insight",
+        "after1": "Balance, TE, PS visible live",
+        "before2": "Discover imbalance from injury",
+        "after2": "Alert before it becomes a problem",
+        "before3": "No structured way to improve",
+        "after3": "10 guided drills with scoring",
+        "before4": "Data stuck on one device",
+        "after4": "Cloud sync with web dashboard"
+      }
+    },
+    "metrics": {
+      "title": "What We Measure",
+      "subtitle": "Three metrics. Research-backed thresholds.",
+      "balance": {
+        "title": "Power Balance",
+        "range": "48-52% optimal",
+        "desc": "Left/right power distribution. Pro cyclists maintain within 2%. Imbalances above 5% increase overuse injury risk and waste energy through compensation patterns."
+      },
+      "te": {
+        "title": "Torque Effectiveness",
+        "range": "70-80% sweet spot",
+        "desc": "Percentage of power applied during the effective part of stroke. Based on Wattbike research — <strong>higher is NOT better</strong>. Above 80% can actually reduce total power output."
+      },
+      "ps": {
+        "title": "Pedal Smoothness",
+        "range": "≥20% target",
+        "desc": "How evenly power distributes through the entire pedal stroke. Eliminates \"dead spots\". Elite cyclists achieve 25-35% — this is the hardest metric to improve."
+      },
+      "zones": {
+        "optimal": "Optimal",
+        "attention": "Attention",
+        "problem": "Problem"
+      }
+    },
+    "drills": {
+      "title": "10 Guided Drills",
+      "subtitle": "From 30-second exercises to 15-minute workouts. Each scored 0-100%.",
+      "tabs": {
+        "focus": "Focus",
+        "challenge": "Challenge",
+        "workout": "Workout"
+      },
+      "target": "Target",
+      "levels": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      },
+      "featured": "Featured",
+      "featuredTitle": "Pedaling Mastery",
+      "featuredDesc": "15 minutes, 10 phases. Complete technique coverage. Recommended 1-2× per week.",
+      "items": {
+        "leftFocus": {
+          "name": "Left Leg Focus",
+          "duration": "30s",
+          "target": "Balance <48%",
+          "desc": "Build single-leg strength awareness by emphasizing your left leg."
+        },
+        "rightFocus": {
+          "name": "Right Leg Focus",
+          "duration": "30s",
+          "target": "Balance >52%",
+          "desc": "Identify and strengthen your weaker leg with focused practice."
+        },
+        "smoothCircles": {
+          "name": "Smooth Circles",
+          "duration": "45s",
+          "target": "PS ≥22%",
+          "desc": "Eliminate dead spots in your pedal stroke through smooth technique."
+        },
+        "powerTransfer": {
+          "name": "Power Transfer",
+          "duration": "60s",
+          "target": "TE 70-80%",
+          "desc": "Maximize power output without sacrificing efficiency."
+        },
+        "balanceChallenge": {
+          "name": "Balance Challenge",
+          "duration": "15s hold",
+          "target": "48-52%",
+          "desc": "Hold perfect 50/50 balance for 15 seconds. Tests symmetry and control."
+        },
+        "smoothnessTarget": {
+          "name": "Smoothness Target",
+          "duration": "20s hold",
+          "target": "PS ≥25%",
+          "desc": "Elite-level pedal smoothness. The most demanding technique challenge."
+        },
+        "highCadenceSmooth": {
+          "name": "High Cadence Smooth",
+          "duration": "30s",
+          "target": "PS ≥20% @ 100+ rpm",
+          "desc": "Maintain smooth form at high cadence. Ultimate coordination test."
+        },
+        "balanceRecovery": {
+          "name": "Balance Recovery",
+          "duration": "5 min",
+          "target": "3 phases",
+          "desc": "Alternate left focus → center → right focus. Helps correct imbalances over time."
+        },
+        "efficiencyBuilder": {
+          "name": "Efficiency Builder",
+          "duration": "10 min",
+          "target": "6 phases",
+          "desc": "Sequential blocks: balance → smoothness → TE. Build complete technique."
+        },
+        "pedalingMastery": {
+          "name": "Pedaling Mastery",
+          "duration": "15 min",
+          "target": "10 phases",
+          "desc": "Comprehensive 10-phase workout covering all aspects of pedaling technique."
+        }
+      }
+    },
+    "alerts": {
+      "title": "Real-Time Alerts",
+      "subtitle": "Get corrected mid-ride when technique drifts",
+      "demo": {
+        "title": "Balance Alert",
+        "detail": "Right leg dominant: 56%"
+      },
+      "features": {
+        "vibration": {
+          "title": "Vibration & Sound",
+          "desc": "Haptic feedback and audio beeps. Toggle each on/off."
+        },
+        "screenWake": {
+          "title": "Screen Wake",
+          "desc": "Auto-wake Karoo display when alert triggers."
+        },
+        "cooldown": {
+          "title": "Smart Cooldown",
+          "desc": "15s to 2min between alerts. Useful, not annoying."
+        },
+        "thresholds": {
+          "title": "Per-Metric Thresholds",
+          "desc": "Separate settings for Balance, TE, and PS."
+        }
+      }
+    },
+    "analytics": {
+      "title": "Analytics & Web Dashboard",
+      "subtitle": "Track improvement over time. See trends, not just numbers.",
+      "preview": {
+        "greeting": "Hello, Yuri!",
+        "recentRides": "Recent Rides",
+        "technique": "Technique",
+        "avgSuffix": "avg",
+        "morningRide": "Morning Ride",
+        "eveningSpin": "Evening Spin",
+        "longRide": "Long Ride",
+        "daysAgo": "days ago"
+      },
+      "features": {
+        "periods": "7-day, 14-day, 30-day, 60-day analysis",
+        "history": "Full ride history with filters",
+        "multiDevice": "Multi-device sync",
+        "openSource": "Open source on GitHub"
+      }
+    },
+    "motivation": {
+      "title": "Stay Motivated",
+      "subtitle": "Track progress with achievements and weekly challenges",
+      "achievements": "Achievements to unlock",
+      "challenges": "Weekly challenges",
+      "achievementsLabel": "Achievements",
+      "challengesLabel": "Challenges",
+      "examples": {
+        "firstRide": "First Ride",
+        "hundredRides": "100 Rides",
+        "perfectBalance": "Perfect Balance 10 min",
+        "thirtyDayStreak": "30-Day Streak",
+        "balancedRider": "Balanced Rider: 48-52% across 3 rides",
+        "zoneMaster": "Zone Master: 60%+ in optimal zone"
+      }
+    },
+    "works": {
+      "title": "Works Everywhere",
+      "subtitle": "Background collection. Automatic sync. Your data across all devices.",
+      "background": {
+        "title": "Background Mode",
+        "desc": "Collects data for ALL rides, even without data fields visible. Starts automatically on boot. Saves when you stop."
+      },
+      "sync": {
+        "title": "Cloud Sync",
+        "desc": "Rides sync after completion. Link device at link.kpedal.com with a simple code — no password needed on Karoo."
+      },
+      "multiDevice": {
+        "title": "Multi-Device",
+        "desc": "Link multiple Karoos. All rides go to one account. Settings sync bidirectionally between app and web."
+      }
+    },
+    "requirements": {
+      "title": "What You Need",
+      "subtitle": "Karoo 2 or 3 + dual-sided power pedals",
+      "karoo": {
+        "title": "Hammerhead Karoo",
+        "desc": "Karoo 2 or Karoo 3. KPedal uses the native Karoo SDK — not available on other computers."
+      },
+      "pedals": {
+        "title": "Dual Power Pedals",
+        "desc": "Left + right power measurement with ANT+ Cycling Dynamics for Balance, TE, and PS."
+      },
+      "fullSupport": {
+        "title": "Full Support",
+        "desc": "Balance + TE + PS"
+      },
+      "balanceOnly": {
+        "title": "Balance Only",
+        "desc": "L/R power but no TE/PS"
+      },
+      "notCompatible": {
+        "title": "Not Compatible",
+        "desc": "No dual-sided data"
+      },
+      "pedalsList": {
+        "singleSided": "Single-sided PM",
+        "trainerPower": "Trainer power"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "q": "Which power meter pedals are compatible?",
+        "a": "<strong>Full support (Balance + TE + PS):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Balance only:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Any pedal transmitting ANT+ Cycling Dynamics will work."
+      },
+      "q2": {
+        "q": "How do I install KPedal on my Karoo?",
+        "a": "<strong>Option 1:</strong> Download APK from GitHub Releases → transfer via USB → open file manager on Karoo → tap to install.<br><strong>Option 2:</strong> Open the GitHub release link directly in Karoo's browser and download.<br><strong>Option 3:</strong> Use ADB: <code>adb install kpedal.apk</code>"
+      },
+      "q3": {
+        "q": "Do I need to add KPedal data fields to my ride screen?",
+        "a": "<strong>No.</strong> With Background Mode enabled, KPedal collects metrics for ALL rides automatically — even if you never add a single data field. Data fields are optional and only for viewing metrics live during the ride. Your complete ride history is saved regardless."
+      },
+      "q4": {
+        "q": "What is considered a \"good\" power balance?",
+        "a": "<strong>48-52%</strong> (±2% from 50/50) is optimal. Most professional cyclists ride with 1-3% natural asymmetry. Don't obsess over perfect 50/50 — it's nearly impossible and not necessary. Focus on <strong>consistency within your range</strong> rather than chasing perfection."
+      },
+      "q5": {
+        "q": "Why is 70-80% Torque Effectiveness optimal and not higher?",
+        "a": "Based on <strong>Wattbike research</strong>: above 80% TE, you're likely over-pulling on the upstroke. This wastes energy and can actually reduce total power output. The 70-80% range indicates you're applying force efficiently through the pedal stroke without fighting yourself on the recovery phase."
+      },
+      "q6": {
+        "q": "What exactly does Pedal Smoothness measure?",
+        "a": "<strong>Formula:</strong> PS = (average power ÷ peak power) × 100.<br>Higher PS means more consistent power application through the pedal stroke. <strong>20%+ is good</strong> for most cyclists. Sprinters typically have lower PS (explosive, punchy power), while endurance riders tend toward higher values."
+      },
+      "q7": {
+        "q": "How is the Ride Score calculated?",
+        "a": "<strong>Weighted formula:</strong> Balance (40%) + TE (35%) + PS (25%).<br>Each metric is scored 0-100 based on time spent in optimal zones.<br><strong>85+</strong> = Excellent technique<br><strong>70-84</strong> = Good, minor areas to improve<br><strong>Below 70</strong> = Significant room for improvement"
+      },
+      "q8": {
+        "q": "How do the guided Drills work?",
+        "a": "Drills are structured exercises with real-time targets displayed on screen. Example: \"Single Leg Focus\" asks you to maintain 55-60% balance on one leg for 30 seconds. KPedal tracks your <strong>time-in-target</strong> and provides a score at the end. Perfect for warmups, recovery rides, or dedicated technique sessions."
+      },
+      "q9": {
+        "q": "Can I create my own custom drills?",
+        "a": "<strong>Yes.</strong> Custom Drills let you define your own phases, targets, and durations. Create drills tailored to your specific weaknesses — maybe a 45-second high-TE focus followed by 30-second balance work. Your custom drills are saved locally and sync to cloud."
+      },
+      "q10": {
+        "q": "What triggers the in-ride alerts?",
+        "a": "<strong>Configurable thresholds:</strong><br>• Balance: asymmetry exceeds your set limit (default 5%)<br>• TE: drops below minimum (default 60%)<br>• PS: drops below minimum (default 15%)<br>Alerts use <strong>vibration + beep</strong>. Cooldown (15s-2min) prevents spam. You can enable/disable each metric independently."
+      },
+      "q11": {
+        "q": "Does KPedal work without internet connection?",
+        "a": "<strong>100% yes.</strong> All core features — data collection, drills, alerts, ride history — work completely offline. Cloud sync is optional and only activates when you enable it. Your data is always stored locally on the Karoo first. Sync happens automatically when you're back online."
+      },
+      "q12": {
+        "q": "Will KPedal drain my Karoo battery?",
+        "a": "<strong>Minimal impact: ~1-2% extra per hour</strong> during active rides. KPedal only runs data collection while you're riding. Between rides, only a tiny listener waits for ride start — negligible power consumption. Heavily optimized for efficiency."
+      },
+      "q13": {
+        "q": "Can I sync data across multiple Karoo devices?",
+        "a": "<strong>Yes.</strong> Link multiple Karoos to your account. Settings sync between them automatically. All rides from all devices appear in one unified dashboard. Perfect if you have a backup Karoo, race and training devices, or upgrade to a new unit."
+      },
+      "q14": {
+        "q": "How does the Achievement system work?",
+        "a": "Achievements unlock as you hit milestones: ride count, total hours, consistency streaks, technique improvements. Examples: \"Iron Balance\" (10 rides with <2% asymmetry), \"Century Club\" (100 rides tracked). Achievements sync to cloud and display on your web dashboard."
+      },
+      "q15": {
+        "q": "Can I use KPedal with Garmin, Wahoo, or other bike computers?",
+        "a": "<strong>No.</strong> KPedal is built specifically for Hammerhead Karoo using their official karoo-ext SDK. It accesses ANT+ Cycling Dynamics data, native alert system, and ride state monitoring — deep integrations not available on other platforms."
+      },
+      "q16": {
+        "q": "Is my data private and secure?",
+        "a": "<strong>Yes.</strong> Data stays on your Karoo unless you enable cloud sync. Cloud uses <strong>Google Sign-In</strong> — we never see or store your password. No tracking pixels, no ads, no data selling. The entire project is <strong>open source</strong> — audit the code yourself on GitHub."
+      },
+      "q17": {
+        "q": "Why does my balance change at different power outputs?",
+        "a": "This is normal. At low power, slight technique variations are amplified. At high power, you tend to recruit muscles more evenly. Many cyclists see 2-3% more asymmetry at endurance pace vs threshold. KPedal tracks this so you can identify patterns and work on weak spots."
+      },
+      "q18": {
+        "q": "How often should I do technique drills?",
+        "a": "<strong>2-3 times per week</strong> is a good starting point. Include them in warmups (5-10 min) or dedicate recovery rides to technique work. Consistency matters more than volume — regular short sessions beat occasional long ones. Track progress via drill scores over time."
+      }
+    },
+    "cta": {
+      "headline": "Start improving your pedaling today",
+      "subtext": "Free. Open source. Syncs to the cloud.",
+      "downloadForKaroo": "Download for Karoo",
+      "tryDemo": "Try Demo"
+    },
+    "footer": {
+      "tagline": "Pedaling efficiency for Karoo",
+      "product": "Product",
+      "features": "Features",
+      "dataFields": "Data Fields",
+      "drills": "Drills",
+      "resources": "Resources",
+      "github": "GitHub",
+      "releases": "Releases",
+      "reportIssue": "Report Issue",
+      "legal": "Legal",
+      "privacyPolicy": "Privacy Policy",
+      "signIn": "Sign in",
+      "madeWith": "Made with ❤️ for the Karoo community"
+    }
+  },
+  "aria": {
+    "home": "KPedal - Home",
+    "downloadOptions": "Download options",
+    "downloadKpedal": "Download KPedal for free from GitHub",
+    "tryDemo": "Try demo account",
+    "getStartedOptions": "Get started options",
+    "downloadForKaroo": "Download KPedal for Karoo",
+    "footerNav": "Footer navigation",
+    "viewOnGithub": "View KPedal on GitHub",
+    "balanceTrendChart": "Balance trend chart",
+    "techniqueTrendChart": "Technique trend chart"
+  }
+}

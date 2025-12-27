@@ -13,10 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.drill.model.*
 import io.github.kpedal.engine.PedalingMetrics
 import io.github.kpedal.ui.theme.Theme
@@ -77,7 +79,7 @@ fun DrillExecutionScreen(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "rpm",
+                            text = stringResource(R.string.rpm),
                             color = Theme.colors.dim,
                             fontSize = 10.sp
                         )
@@ -109,7 +111,7 @@ fun DrillExecutionScreen(
                     // Current phase
                     Column {
                         Text(
-                            text = currentPhase?.name ?: "",
+                            text = currentPhase?.let { it.nameOverride ?: stringResource(it.nameRes) } ?: "",
                             color = Theme.colors.text,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium
@@ -125,12 +127,12 @@ fun DrillExecutionScreen(
                     state.nextPhase?.let { next ->
                         Column(horizontalAlignment = Alignment.End) {
                             Text(
-                                text = "Next",
+                                text = stringResource(R.string.next),
                                 color = Theme.colors.dim,
                                 fontSize = 10.sp
                             )
                             Text(
-                                text = next.name,
+                                text = next.nameOverride ?: stringResource(next.nameRes),
                                 color = Theme.colors.dim,
                                 fontSize = 11.sp
                             )
@@ -154,7 +156,7 @@ fun DrillExecutionScreen(
                             metrics = metrics
                         )
                     } else {
-                        RecoveryContent(phase = currentPhase)
+                        RecoveryContent(phase = currentPhase, defaultText = stringResource(R.string.spin_easy))
                     }
                 }
 
@@ -177,7 +179,7 @@ fun DrillExecutionScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Stop",
+                            text = stringResource(R.string.stop),
                             color = Theme.colors.problem,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
@@ -194,7 +196,7 @@ fun DrillExecutionScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Pause",
+                            text = stringResource(R.string.pause),
                             color = Theme.colors.text,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
@@ -216,7 +218,7 @@ fun DrillExecutionScreen(
                         modifier = Modifier.padding(horizontal = 32.dp)
                     ) {
                         Text(
-                            text = "Paused",
+                            text = stringResource(R.string.paused),
                             color = Theme.colors.dim,
                             fontSize = 14.sp
                         )
@@ -243,7 +245,7 @@ fun DrillExecutionScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "Resume",
+                                text = stringResource(R.string.resume),
                                 color = Theme.colors.background,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold
@@ -263,7 +265,7 @@ fun DrillExecutionScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "Stop",
+                                text = stringResource(R.string.stop),
                                 color = Theme.colors.problem,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold
@@ -343,7 +345,7 @@ private fun TargetContent(
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = "in zone",
+            text = stringResource(R.string.in_zone),
             color = Theme.colors.dim,
             fontSize = 10.sp
         )
@@ -351,7 +353,13 @@ private fun TargetContent(
 }
 
 @Composable
-private fun RecoveryContent(phase: DrillPhase?) {
+private fun RecoveryContent(phase: DrillPhase?, defaultText: String) {
+    val instruction = when {
+        phase?.instructionOverride != null -> phase.instructionOverride
+        phase != null && phase.instructionRes != 0 -> stringResource(phase.instructionRes)
+        else -> defaultText
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -359,7 +367,7 @@ private fun RecoveryContent(phase: DrillPhase?) {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = phase?.instruction?.ifEmpty { "Spin easy" } ?: "Spin easy",
+            text = instruction,
             color = Theme.colors.dim,
             fontSize = 16.sp,
             textAlign = TextAlign.Center

@@ -14,9 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.drill.model.*
 import io.github.kpedal.ui.theme.Theme
 
@@ -65,7 +67,7 @@ fun DrillDetailScreen(
                 )
                 Column {
                     Text(
-                        text = drill.name,
+                        text = drill.nameOverride ?: stringResource(drill.nameRes),
                         color = Theme.colors.text,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold
@@ -81,7 +83,7 @@ fun DrillDetailScreen(
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 bestScore?.let {
                     Text(
-                        text = "Best ${it.toInt()}%",
+                        text = stringResource(R.string.best_score, it.toInt()),
                         color = Theme.colors.optimal,
                         fontSize = 11.sp
                     )
@@ -107,7 +109,7 @@ fun DrillDetailScreen(
         ) {
             // Description
             Text(
-                text = drill.description,
+                text = drill.descriptionOverride ?: stringResource(drill.descriptionRes),
                 color = Theme.colors.dim,
                 fontSize = 12.sp,
                 lineHeight = 16.sp,
@@ -138,7 +140,7 @@ fun DrillDetailScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Start",
+                text = stringResource(R.string.start),
                 color = Theme.colors.background,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
@@ -189,7 +191,7 @@ private fun PhaseItem(
 
                 Column {
                     Text(
-                        text = phase.name,
+                        text = phase.nameOverride ?: stringResource(phase.nameRes),
                         color = Theme.colors.text,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Medium

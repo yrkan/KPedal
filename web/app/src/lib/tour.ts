@@ -8,9 +8,14 @@ import { driver, type DriveStep, type Driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
 import { browser } from '$app/environment';
 import { goto } from '$app/navigation';
+import { get } from 'svelte/store';
+import { t } from '$lib/i18n';
 
 const TOUR_STORAGE_KEY = 'kpedal_tour_completed';
 const TOUR_PAGE_KEY = 'kpedal_tour_page';
+
+// Helper to get translation
+const _ = () => get(t);
 
 /**
  * Check if user has completed the tour
@@ -66,669 +71,661 @@ export function clearNextTourPage(): void {
 // DASHBOARD TOUR STEPS
 // ============================================
 
-const dashboardSteps: DriveStep[] = [
-  // Welcome modal
-  {
-    popover: {
-      title: 'Welcome to KPedal! 👋',
-      description: `
-        <p>This is <strong>demo data from a real cyclist</strong> showing ~4 weeks of rides.</p>
-        <p style="margin-top: 8px;">Quick tour of what KPedal can do (~2 min).</p>
-        <p style="margin-top: 14px; text-align: center;"><button onclick="window.skipKPedalTour()" class="skip-tour-link">or skip the tour →</button></p>
-      `,
-      side: 'over',
-      align: 'center',
+function getDashboardSteps(): DriveStep[] {
+  const i = _();
+  return [
+    // Welcome modal
+    {
+      popover: {
+        title: i('tour.dashboard.welcome.title'),
+        description: `
+          <p>${i('tour.dashboard.welcome.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.dashboard.welcome.hint')}</p>
+          <p style="margin-top: 14px; text-align: center;"><button onclick="window.skipKPedalTour()" class="skip-tour-link">${i('tour.buttons.skip')}</button></p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-  // Period selector
-  {
-    element: '.period-selector',
-    popover: {
-      title: 'Time Period Selector',
-      description: `
-        <p>Switch between <strong>7, 14, 30, or 60 days</strong> to analyze your trends over different timeframes.</p>
-        <p style="margin-top: 8px; color: var(--text-secondary);">Shorter periods show recent form. Longer periods reveal training patterns.</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    // Period selector
+    {
+      element: '.period-selector',
+      popover: {
+        title: i('tour.dashboard.period.title'),
+        description: `
+          <p>${i('tour.dashboard.period.desc')}</p>
+          <p style="margin-top: 8px; color: var(--text-secondary);">${i('tour.dashboard.period.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // Power Asymmetry stat
-  {
-    element: '.hero-stat.asymmetry',
-    popover: {
-      title: 'Power Asymmetry',
-      description: `
-        <p>Your deviation from perfect 50/50 L/R balance.</p>
-        <ul style="margin: 8px 0; padding-left: 16px; line-height: 1.6;">
-          <li><strong style="color: var(--color-optimal)">Under 2.5%</strong> — Pro level</li>
-          <li><strong style="color: var(--color-attention)">2.5-5%</strong> — Good, room to improve</li>
-          <li><strong style="color: var(--color-problem)">Over 5%</strong> — Needs attention</li>
-        </ul>
-        <p style="color: var(--text-secondary);">This demo cyclist averages 1-2% — excellent symmetry!</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    // Power Asymmetry stat
+    {
+      element: '.hero-stat.asymmetry',
+      popover: {
+        title: i('tour.dashboard.asymmetry.title'),
+        description: `
+          <p>${i('tour.dashboard.asymmetry.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px; line-height: 1.6;">
+            <li><strong style="color: var(--color-optimal)">${i('tour.dashboard.asymmetry.under25')}</strong> — ${i('tour.dashboard.asymmetry.proLevel')}</li>
+            <li><strong style="color: var(--color-attention)">${i('tour.dashboard.asymmetry.range25to5')}</strong> — ${i('tour.dashboard.asymmetry.goodRoom')}</li>
+            <li><strong style="color: var(--color-problem)">${i('tour.dashboard.asymmetry.over5')}</strong> — ${i('tour.dashboard.asymmetry.needsAttention')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.dashboard.asymmetry.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // InfoTip highlight
-  {
-    element: '.hero-stat.asymmetry .info-tip-trigger',
-    popover: {
-      title: 'Info Tips Everywhere',
-      description: `
-        <p>See this <strong>ⓘ icon</strong>? Hover or tap it anytime for detailed explanations.</p>
-        <p style="margin-top: 8px; color: var(--text-secondary);">Every metric in KPedal has an info tip explaining what it means and what to aim for.</p>
-      `,
-      side: 'right',
-      align: 'center',
+    // InfoTip highlight
+    {
+      element: '.hero-stat.asymmetry .info-tip-trigger',
+      popover: {
+        title: i('tour.dashboard.infoTip.title'),
+        description: `
+          <p>${i('tour.dashboard.infoTip.desc')}</p>
+          <p style="margin-top: 8px; color: var(--text-secondary);">${i('tour.dashboard.infoTip.hint')}</p>
+        `,
+        side: 'right',
+        align: 'center',
+      },
     },
-  },
-  // Balance visual
-  {
-    element: '.hero-stat.balance-visual',
-    popover: {
-      title: 'L/R Power Balance',
-      description: `
-        <p>Visual breakdown of your left vs right leg power distribution.</p>
-        <p style="margin-top: 8px;"><strong>Green zone</strong> = balanced. The bar shows exactly how your power splits between legs.</p>
-        <p style="margin-top: 8px; color: var(--text-secondary);">Most cyclists are slightly dominant on one side. Track this to improve symmetry over time.</p>
-      `,
-      side: 'bottom',
-      align: 'center',
+    // Balance visual
+    {
+      element: '.hero-stat.balance-visual',
+      popover: {
+        title: i('tour.dashboard.balance.title'),
+        description: `
+          <p>${i('tour.dashboard.balance.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.dashboard.balance.greenZone')}</p>
+          <p style="margin-top: 8px; color: var(--text-secondary);">${i('tour.dashboard.balance.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'center',
+      },
     },
-  },
-  // Time in zones
-  {
-    element: '.hero-stat.zones',
-    popover: {
-      title: 'Time in Zone Distribution',
-      description: `
-        <p>How your ride time breaks down by technique quality:</p>
-        <ul style="margin: 8px 0; padding-left: 16px; line-height: 1.6;">
-          <li><strong style="color: var(--color-optimal)">Green (Optimal)</strong> — All metrics in ideal range</li>
-          <li><strong style="color: var(--color-attention)">Yellow (Attention)</strong> — One or more metrics drifting</li>
-          <li><strong style="color: var(--color-problem)">Red (Problem)</strong> — Significant form breakdown</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Goal: Maximize green time, especially in long rides!</p>
-      `,
-      side: 'bottom',
-      align: 'center',
+    // Time in zones
+    {
+      element: '.hero-stat.zones',
+      popover: {
+        title: i('tour.dashboard.zones.title'),
+        description: `
+          <p>${i('tour.dashboard.zones.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px; line-height: 1.6;">
+            <li><strong style="color: var(--color-optimal)">${i('tour.dashboard.zones.optimal')}</strong> — ${i('tour.dashboard.zones.optimalDesc')}</li>
+            <li><strong style="color: var(--color-attention)">${i('tour.dashboard.zones.attention')}</strong> — ${i('tour.dashboard.zones.attentionDesc')}</li>
+            <li><strong style="color: var(--color-problem)">${i('tour.dashboard.zones.problem')}</strong> — ${i('tour.dashboard.zones.problemDesc')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.dashboard.zones.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'center',
+      },
     },
-  },
-  // Summary stats
-  {
-    element: '.hero-stat.summary',
-    popover: {
-      title: 'Activity Summary',
-      description: `
-        <p>Quick glance at your training volume for the selected period:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Total rides</strong> completed</li>
-          <li><strong>Hours</strong> in the saddle</li>
-          <li><strong>Kilometers</strong> covered</li>
-        </ul>
-      `,
-      side: 'bottom',
-      align: 'end',
+    // Summary stats
+    {
+      element: '.hero-stat.summary',
+      popover: {
+        title: i('tour.dashboard.summary.title'),
+        description: `
+          <p>${i('tour.dashboard.summary.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li><strong>${i('tour.dashboard.summary.rides')}</strong></li>
+            <li><strong>${i('tour.dashboard.summary.hours')}</strong></li>
+            <li><strong>${i('tour.dashboard.summary.km')}</strong></li>
+          </ul>
+        `,
+        side: 'bottom',
+        align: 'end',
+      },
     },
-  },
-  // Weekly activity card
-  {
-    element: '.main-grid .grid-card:first-child',
-    popover: {
-      title: 'Weekly Activity Chart',
-      description: `
-        <p>See your ride frequency per day of the week.</p>
-        <p style="margin-top: 8px;">Below the chart, compare <strong>this week vs last week</strong>:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li>Number of rides</li>
-          <li>Total hours</li>
-          <li>Distance and climbing</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Consistency is key — aim for regular training, not sporadic big efforts.</p>
-      `,
-      side: 'right',
-      align: 'start',
+    // Weekly activity card
+    {
+      element: '.main-grid .grid-card:first-child',
+      popover: {
+        title: i('tour.dashboard.weekly.title'),
+        description: `
+          <p>${i('tour.dashboard.weekly.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.dashboard.weekly.compareHint')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.dashboard.weekly.numRides')}</li>
+            <li>${i('tour.dashboard.weekly.totalHours')}</li>
+            <li>${i('tour.dashboard.weekly.distanceClimb')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.dashboard.weekly.hint')}</p>
+        `,
+        side: 'right',
+        align: 'start',
+      },
     },
-  },
-  // Technique card - TE/PS gauges
-  {
-    element: '.main-grid .grid-card:last-child',
-    popover: {
-      title: 'Technique Metrics',
-      description: `
-        <p>The two core efficiency metrics from your power meter:</p>
-        <p style="margin-top: 8px;"><strong>Torque Effectiveness (TE)</strong><br/>
-        Percentage of power going forward. Aim for <strong>70-80%</strong> — higher isn't always better per Wattbike research.</p>
-        <p style="margin-top: 8px;"><strong>Pedal Smoothness (PS)</strong><br/>
-        How even your power is through the pedal stroke. Aim for <strong>≥20%</strong>. Elite cyclists hit 25%+.</p>
-      `,
-      side: 'left',
-      align: 'start',
+    // Technique card - TE/PS gauges
+    {
+      element: '.main-grid .grid-card:last-child',
+      popover: {
+        title: i('tour.dashboard.technique.title'),
+        description: `
+          <p>${i('tour.dashboard.technique.desc')}</p>
+          <p style="margin-top: 8px;"><strong>${i('tour.dashboard.technique.teTitle')}</strong><br/>
+          ${i('tour.dashboard.technique.teDesc')}</p>
+          <p style="margin-top: 8px;"><strong>${i('tour.dashboard.technique.psTitle')}</strong><br/>
+          ${i('tour.dashboard.technique.psDesc')}</p>
+        `,
+        side: 'left',
+        align: 'start',
+      },
     },
-  },
-  // Trend charts
-  {
-    element: '.trends-row',
-    popover: {
-      title: 'Trends Over Time',
-      description: `
-        <p>Track your balance and technique improvements ride by ride.</p>
-        <p style="margin-top: 8px;"><strong>Left chart:</strong> Balance trend across rides</p>
-        <p><strong>Right chart:</strong> Switch between TE, PS, and Asymmetry</p>
-        <p style="margin-top: 8px; color: var(--text-secondary);">Click any point to jump to that ride's detailed analysis.</p>
-      `,
-      side: 'top',
-      align: 'center',
+    // Trend charts
+    {
+      element: '.trends-row',
+      popover: {
+        title: i('tour.dashboard.trends.title'),
+        description: `
+          <p>${i('tour.dashboard.trends.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.dashboard.trends.left')}</p>
+          <p>${i('tour.dashboard.trends.right')}</p>
+          <p style="margin-top: 8px; color: var(--text-secondary);">${i('tour.dashboard.trends.hint')}</p>
+        `,
+        side: 'top',
+        align: 'center',
+      },
     },
-  },
-  // Recent rides table
-  {
-    element: '.recent-rides',
-    popover: {
-      title: 'Recent Rides Table',
-      description: `
-        <p>All your synced rides with key metrics at a glance:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li>Date, duration, and score</li>
-          <li>Asymmetry percentage</li>
-          <li>L/R breakdown for TE and PS</li>
-          <li>Zone distribution bars</li>
-        </ul>
-        <p style="margin-top: 8px; color: var(--text-secondary);">Click any row to see detailed minute-by-minute analysis!</p>
-      `,
-      side: 'top',
-      align: 'center',
+    // Recent rides table
+    {
+      element: '.recent-rides',
+      popover: {
+        title: i('tour.dashboard.recentRides.title'),
+        description: `
+          <p>${i('tour.dashboard.recentRides.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.dashboard.recentRides.date')}</li>
+            <li>${i('tour.dashboard.recentRides.asymmetry')}</li>
+            <li>${i('tour.dashboard.recentRides.lrBreakdown')}</li>
+            <li>${i('tour.dashboard.recentRides.zoneBars')}</li>
+          </ul>
+          <p style="margin-top: 8px; color: var(--text-secondary);">${i('tour.dashboard.recentRides.hint')}</p>
+        `,
+        side: 'top',
+        align: 'center',
+      },
     },
-  },
-  // Navigation hint
-  {
-    element: 'nav',
-    popover: {
-      title: 'Navigation',
-      description: `
-        <p>Explore other sections:</p>
-        <ul style="margin: 8px 0; padding-left: 16px; line-height: 1.6;">
-          <li><strong>Rides</strong> — Full history with filters and search</li>
-          <li><strong>Drills</strong> — Guided training exercises</li>
-          <li><strong>Achievements</strong> — Milestones and badges</li>
-          <li><strong>Settings</strong> — Devices, thresholds, and alerts</li>
-        </ul>
-      `,
-      side: 'bottom',
-      align: 'center',
+    // Navigation hint
+    {
+      element: 'nav',
+      popover: {
+        title: i('tour.dashboard.nav.title'),
+        description: `
+          <p>${i('tour.dashboard.nav.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px; line-height: 1.6;">
+            <li>${i('tour.dashboard.nav.rides')}</li>
+            <li>${i('tour.dashboard.nav.drills')}</li>
+            <li>${i('tour.dashboard.nav.achievements')}</li>
+            <li>${i('tour.dashboard.nav.settings')}</li>
+          </ul>
+        `,
+        side: 'bottom',
+        align: 'center',
+      },
     },
-  },
-  // End of dashboard, prompt for Rides page
-  {
-    popover: {
-      title: 'Dashboard Complete! 🎉',
-      description: `
-        <p>You've seen the dashboard overview. Ready to explore more?</p>
-        <p style="margin-top: 12px;">Click <strong>Next</strong> to continue the tour on the <strong>Rides</strong> page, where you'll see your full ride history.</p>
-        <p style="margin-top: 8px; color: var(--text-secondary);">Or click Done to end the tour here.</p>
-      `,
-      side: 'over',
-      align: 'center',
+    // End of dashboard
+    {
+      popover: {
+        title: i('tour.dashboard.complete.title'),
+        description: `
+          <p>${i('tour.dashboard.complete.desc')}</p>
+          <p style="margin-top: 12px;">${i('tour.dashboard.complete.next')}</p>
+          <p style="margin-top: 8px; color: var(--text-secondary);">${i('tour.dashboard.complete.done')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-];
+  ];
+}
 
 // ============================================
 // RIDES PAGE TOUR STEPS
 // ============================================
 
-const ridesPageSteps: DriveStep[] = [
-  // Welcome to rides
-  {
-    popover: {
-      title: 'Rides History 🚴',
-      description: `
-        <p>This page shows your <strong>complete ride history</strong> with filtering and sorting.</p>
-        <p style="margin-top: 8px;">Let me show you the key features.</p>
-      `,
-      side: 'over',
-      align: 'center',
+function getRidesPageSteps(): DriveStep[] {
+  const i = _();
+  return [
+    {
+      popover: {
+        title: i('tour.rides.welcome.title'),
+        description: `
+          <p>${i('tour.rides.welcome.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.rides.welcome.hint')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-  // Stats strip
-  {
-    element: '.stats-strip',
-    popover: {
-      title: 'Period Statistics',
-      description: `
-        <p>Quick stats for the selected period:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li>Total rides and duration</li>
-          <li>Average and best scores</li>
-          <li>Power and distance totals</li>
-        </ul>
-        <p style="color: var(--text-secondary);">These update based on your filters.</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.stats-strip',
+      popover: {
+        title: i('tour.rides.stats.title'),
+        description: `
+          <p>${i('tour.rides.stats.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.rides.stats.ridesAndDuration')}</li>
+            <li>${i('tour.rides.stats.scores')}</li>
+            <li>${i('tour.rides.stats.powerDistance')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.rides.stats.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // View toggle buttons
-  {
-    element: '.view-toggle',
-    popover: {
-      title: 'View Toggle 📋↔️🃏',
-      description: `
-        <p>Switch between two view modes:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Table View</strong> — Compact list with all metrics</li>
-          <li><strong>Card View</strong> — Visual cards with zone bars</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Choose what works best for you!</p>
-      `,
-      side: 'bottom',
-      align: 'end',
+    {
+      element: '.view-toggle',
+      popover: {
+        title: i('tour.rides.viewToggle.title'),
+        description: `
+          <p>${i('tour.rides.viewToggle.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.rides.viewToggle.table')}</li>
+            <li>${i('tour.rides.viewToggle.card')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.rides.viewToggle.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'end',
+      },
     },
-  },
-  // Ride row/card
-  {
-    element: '.ride-row[data-ride-id], .ride-card[data-ride-id]',
-    popover: {
-      title: 'Click Any Ride',
-      description: `
-        <p>Each ride shows:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li>Date, duration, and technique score</li>
-          <li>Power asymmetry</li>
-          <li>L/R metrics for TE and PS</li>
-          <li>Zone distribution</li>
-        </ul>
-        <p style="margin-top: 8px;"><strong>Click any ride</strong> to see the full detail page with minute-by-minute charts!</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.ride-row[data-ride-id], .ride-card[data-ride-id]',
+      popover: {
+        title: i('tour.rides.rideRow.title'),
+        description: `
+          <p>${i('tour.rides.rideRow.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.rides.rideRow.date')}</li>
+            <li>${i('tour.rides.rideRow.asymmetry')}</li>
+            <li>${i('tour.rides.rideRow.lrMetrics')}</li>
+            <li>${i('tour.rides.rideRow.zones')}</li>
+          </ul>
+          <p style="margin-top: 8px;">${i('tour.rides.rideRow.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // End of rides, prompt for ride detail
-  {
-    popover: {
-      title: 'Rides Page Complete!',
-      description: `
-        <p>You can browse all your rides here.</p>
-        <p style="margin-top: 12px;">Click <strong>Next</strong> to see a <strong>ride detail page</strong> with in-depth analysis.</p>
-      `,
-      side: 'over',
-      align: 'center',
+    {
+      popover: {
+        title: i('tour.rides.complete.title'),
+        description: `
+          <p>${i('tour.rides.complete.desc')}</p>
+          <p style="margin-top: 12px;">${i('tour.rides.complete.next')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-];
+  ];
+}
 
 // ============================================
 // RIDE DETAIL PAGE TOUR STEPS
 // ============================================
 
-const rideDetailSteps: DriveStep[] = [
-  // Welcome
-  {
-    popover: {
-      title: 'Ride Detail Analysis 📊',
-      description: `
-        <p>This is where the <strong>deep analysis</strong> happens.</p>
-        <p style="margin-top: 8px;">Every ride gets a complete breakdown of your pedaling technique minute by minute.</p>
-      `,
-      side: 'over',
-      align: 'center',
+function getRideDetailSteps(): DriveStep[] {
+  const i = _();
+  return [
+    {
+      popover: {
+        title: i('tour.rideDetail.welcome.title'),
+        description: `
+          <p>${i('tour.rideDetail.welcome.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.rideDetail.welcome.hint')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-  // Hero stats section
-  {
-    element: '.hero-stats',
-    popover: {
-      title: 'Key Metrics at a Glance',
-      description: `
-        <p>The top row shows your most important ride metrics:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Score</strong> — Overall technique rating (0-100)</li>
-          <li><strong>Asymmetry</strong> — L/R power imbalance</li>
-          <li><strong>Balance Bar</strong> — Visual L/R split</li>
-          <li><strong>Time in Zone</strong> — Quality distribution</li>
-        </ul>
-      `,
-      side: 'bottom',
-      align: 'center',
+    {
+      element: '.hero-stats',
+      popover: {
+        title: i('tour.rideDetail.heroStats.title'),
+        description: `
+          <p>${i('tour.rideDetail.heroStats.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.rideDetail.heroStats.score')}</li>
+            <li>${i('tour.rideDetail.heroStats.asymmetry')}</li>
+            <li>${i('tour.rideDetail.heroStats.balance')}</li>
+            <li>${i('tour.rideDetail.heroStats.zones')}</li>
+          </ul>
+        `,
+        side: 'bottom',
+        align: 'center',
+      },
     },
-  },
-  // Performance strip
-  {
-    element: '.perf-strip',
-    popover: {
-      title: 'Ride Performance Data',
-      description: `
-        <p>Detailed ride metrics:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Power</strong> — Avg, max, and normalized</li>
-          <li><strong>Heart Rate</strong> — Avg and max</li>
-          <li><strong>Cadence</strong> — Pedaling speed in RPM</li>
-          <li><strong>Elevation</strong> — Climbing and descending</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Tap any info icon for detailed explanations!</p>
-      `,
-      side: 'bottom',
-      align: 'center',
+    {
+      element: '.perf-strip',
+      popover: {
+        title: i('tour.rideDetail.perfStrip.title'),
+        description: `
+          <p>${i('tour.rideDetail.perfStrip.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.rideDetail.perfStrip.power')}</li>
+            <li>${i('tour.rideDetail.perfStrip.hr')}</li>
+            <li>${i('tour.rideDetail.perfStrip.cadence')}</li>
+            <li>${i('tour.rideDetail.perfStrip.elevation')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.rideDetail.perfStrip.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'center',
+      },
     },
-  },
-  // Technique card
-  {
-    element: '.technique-card',
-    popover: {
-      title: 'Technique Breakdown',
-      description: `
-        <p>Your pedaling efficiency metrics:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>TE (Torque Effectiveness)</strong> — Power going forward. Aim for 70-80%</li>
-          <li><strong>PS (Pedal Smoothness)</strong> — Stroke evenness. Aim for ≥20%</li>
-          <li><strong>L/R breakdown</strong> — See each leg's contribution</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Large L/R differences indicate muscle imbalance or bike fit issues.</p>
-      `,
-      side: 'right',
-      align: 'start',
+    {
+      element: '.technique-card',
+      popover: {
+        title: i('tour.rideDetail.techniqueCard.title'),
+        description: `
+          <p>${i('tour.rideDetail.techniqueCard.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.rideDetail.techniqueCard.te')}</li>
+            <li>${i('tour.rideDetail.techniqueCard.ps')}</li>
+            <li>${i('tour.rideDetail.techniqueCard.lr')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.rideDetail.techniqueCard.hint')}</p>
+        `,
+        side: 'right',
+        align: 'start',
+      },
     },
-  },
-  // Fatigue card
-  {
-    element: '.fatigue-card',
-    popover: {
-      title: 'Fatigue Analysis',
-      description: `
-        <p>How your technique changed from start to end:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Start → End</strong> values for each metric</li>
-          <li><strong>Green</strong> = improved, <strong>Red</strong> = degraded</li>
-          <li><strong>Badge</strong> — STRONG (no drops), MODERATE, or WEAK</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Consistent technique under fatigue is key to long-ride performance!</p>
-      `,
-      side: 'left',
-      align: 'start',
+    {
+      element: '.fatigue-card',
+      popover: {
+        title: i('tour.rideDetail.fatigueCard.title'),
+        description: `
+          <p>${i('tour.rideDetail.fatigueCard.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.rideDetail.fatigueCard.startEnd')}</li>
+            <li>${i('tour.rideDetail.fatigueCard.colors')}</li>
+            <li>${i('tour.rideDetail.fatigueCard.badge')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.rideDetail.fatigueCard.hint')}</p>
+        `,
+        side: 'left',
+        align: 'start',
+      },
     },
-  },
-  // Timeline chart
-  {
-    element: '.timeline-card',
-    popover: {
-      title: 'Minute-by-Minute Timeline',
-      description: `
-        <p>Track how metrics changed throughout your ride:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Tabs</strong> — Switch between Balance, TE, PS, Power, HR</li>
-          <li><strong>Points</strong> — Each dot is one minute</li>
-          <li><strong>Hover</strong> — See exact values at any point</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Watch for patterns — does technique drop after 30 min? That's fatigue!</p>
-      `,
-      side: 'top',
-      align: 'center',
+    {
+      element: '.timeline-card',
+      popover: {
+        title: i('tour.rideDetail.timeline.title'),
+        description: `
+          <p>${i('tour.rideDetail.timeline.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.rideDetail.timeline.tabs')}</li>
+            <li>${i('tour.rideDetail.timeline.points')}</li>
+            <li>${i('tour.rideDetail.timeline.hover')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.rideDetail.timeline.hint')}</p>
+        `,
+        side: 'top',
+        align: 'center',
+      },
     },
-  },
-  // End of ride detail
-  {
-    popover: {
-      title: 'Ride Detail Complete!',
-      description: `
-        <p>You now know how to analyze individual rides in depth.</p>
-        <p style="margin-top: 12px;">Click <strong>Next</strong> to explore the <strong>Drills</strong> page — guided exercises to improve your technique.</p>
-      `,
-      side: 'over',
-      align: 'center',
+    {
+      popover: {
+        title: i('tour.rideDetail.complete.title'),
+        description: `
+          <p>${i('tour.rideDetail.complete.desc')}</p>
+          <p style="margin-top: 12px;">${i('tour.rideDetail.complete.next')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-];
+  ];
+}
 
 // ============================================
 // DRILLS PAGE TOUR STEPS
 // ============================================
 
-const drillsPageSteps: DriveStep[] = [
-  // Welcome
-  {
-    popover: {
-      title: 'Training Drills 🏋️',
-      description: `
-        <p><strong>Drills</strong> are guided training exercises you do on your Karoo to improve specific skills.</p>
-        <p style="margin-top: 8px;">Results sync here so you can track your progress!</p>
-      `,
-      side: 'over',
-      align: 'center',
+function getDrillsPageSteps(): DriveStep[] {
+  const i = _();
+  return [
+    {
+      popover: {
+        title: i('tour.drills.welcome.title'),
+        description: `
+          <p>${i('tour.drills.welcome.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.drills.welcome.hint')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-  // Stats strip
-  {
-    element: '.stats-strip',
-    popover: {
-      title: 'Drill Statistics',
-      description: `
-        <p>Your overall drill performance:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Avg Target</strong> — How well you hit target zones</li>
-          <li><strong>Sessions</strong> — Total drills completed</li>
-          <li><strong>Best</strong> — Your highest time-in-target score</li>
-          <li><strong>Completion rate</strong> — % finished vs abandoned</li>
-        </ul>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.stats-strip',
+      popover: {
+        title: i('tour.drills.stats.title'),
+        description: `
+          <p>${i('tour.drills.stats.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.drills.stats.avgTarget')}</li>
+            <li>${i('tour.drills.stats.sessions')}</li>
+            <li>${i('tour.drills.stats.best')}</li>
+            <li>${i('tour.drills.stats.completion')}</li>
+          </ul>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // Drill row/card
-  {
-    element: '.drill-row, .drill-card',
-    popover: {
-      title: 'Drill Results',
-      description: `
-        <p>Each drill session shows:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Drill name</strong> — What type of exercise</li>
-          <li><strong>Time in Target</strong> — % of time you hit the goal</li>
-          <li><strong>Duration</strong> — How long you practiced</li>
-          <li><strong>Status</strong> — Completed or stopped early</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Aim for 80%+ time in target as you improve!</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.drill-row, .drill-card',
+      popover: {
+        title: i('tour.drills.drillRow.title'),
+        description: `
+          <p>${i('tour.drills.drillRow.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.drills.drillRow.name')}</li>
+            <li>${i('tour.drills.drillRow.timeInTarget')}</li>
+            <li>${i('tour.drills.drillRow.duration')}</li>
+            <li>${i('tour.drills.drillRow.status')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.drills.drillRow.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // End of drills
-  {
-    popover: {
-      title: 'Drills Page Complete!',
-      description: `
-        <p>Drills help you deliberately practice specific skills.</p>
-        <p style="margin-top: 12px;">Click <strong>Next</strong> to see <strong>Achievements</strong> — milestones you can unlock!</p>
-      `,
-      side: 'over',
-      align: 'center',
+    {
+      popover: {
+        title: i('tour.drills.complete.title'),
+        description: `
+          <p>${i('tour.drills.complete.desc')}</p>
+          <p style="margin-top: 12px;">${i('tour.drills.complete.next')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-];
+  ];
+}
 
 // ============================================
 // ACHIEVEMENTS PAGE TOUR STEPS
 // ============================================
 
-const achievementsPageSteps: DriveStep[] = [
-  // Welcome
-  {
-    popover: {
-      title: 'Achievements & Milestones 🏆',
-      description: `
-        <p>Unlock achievements as you train and improve!</p>
-        <p style="margin-top: 8px;">These track your progress across volume, technique, and consistency.</p>
-      `,
-      side: 'over',
-      align: 'center',
+function getAchievementsPageSteps(): DriveStep[] {
+  const i = _();
+  return [
+    {
+      popover: {
+        title: i('tour.achievements.welcome.title'),
+        description: `
+          <p>${i('tour.achievements.welcome.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.achievements.welcome.hint')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-  // Stats strip
-  {
-    element: '.stats-strip',
-    popover: {
-      title: 'Progress Overview',
-      description: `
-        <p>Your achievement progress:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Achieved</strong> — Unlocked milestones</li>
-          <li><strong>Remaining</strong> — Still to unlock</li>
-          <li><strong>Progress %</strong> — Overall completion</li>
-          <li><strong>Last</strong> — Most recent unlock date</li>
-        </ul>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.stats-strip',
+      popover: {
+        title: i('tour.achievements.stats.title'),
+        description: `
+          <p>${i('tour.achievements.stats.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.achievements.stats.achieved')}</li>
+            <li>${i('tour.achievements.stats.remaining')}</li>
+            <li>${i('tour.achievements.stats.progress')}</li>
+            <li>${i('tour.achievements.stats.last')}</li>
+          </ul>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // Achievement row/card
-  {
-    element: '.milestone-card',
-    popover: {
-      title: 'Achievement Categories',
-      description: `
-        <p>Achievements span multiple categories:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Volume</strong> — Ride counts (10, 50, 100+)</li>
-          <li><strong>Balance</strong> — L/R symmetry goals</li>
-          <li><strong>Technique</strong> — Score milestones (80+, 90+)</li>
-          <li><strong>Consistency</strong> — Training streaks</li>
-          <li><strong>Training</strong> — Drill completions</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Achieved milestones show with a green checkmark!</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.milestone-card',
+      popover: {
+        title: i('tour.achievements.categories.title'),
+        description: `
+          <p>${i('tour.achievements.categories.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.achievements.categories.volume')}</li>
+            <li>${i('tour.achievements.categories.balance')}</li>
+            <li>${i('tour.achievements.categories.technique')}</li>
+            <li>${i('tour.achievements.categories.consistency')}</li>
+            <li>${i('tour.achievements.categories.training')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.achievements.categories.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // End of achievements
-  {
-    popover: {
-      title: 'Achievements Complete!',
-      description: `
-        <p>Keep riding and training to unlock more milestones!</p>
-        <p style="margin-top: 12px;">Click <strong>Next</strong> for the final stop: <strong>Settings</strong>.</p>
-      `,
-      side: 'over',
-      align: 'center',
+    {
+      popover: {
+        title: i('tour.achievements.complete.title'),
+        description: `
+          <p>${i('tour.achievements.complete.desc')}</p>
+          <p style="margin-top: 12px;">${i('tour.achievements.complete.next')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-];
+  ];
+}
 
 // ============================================
 // SETTINGS PAGE TOUR STEPS
 // ============================================
 
-const settingsPageSteps: DriveStep[] = [
-  // Welcome
-  {
-    popover: {
-      title: 'Settings & Preferences ⚙️',
-      description: `
-        <p>Configure KPedal to work exactly how you want.</p>
-        <p style="margin-top: 8px;">Settings sync between web and your Karoo device!</p>
-      `,
-      side: 'over',
-      align: 'center',
+function getSettingsPageSteps(): DriveStep[] {
+  const i = _();
+  return [
+    {
+      popover: {
+        title: i('tour.settings.welcome.title'),
+        description: `
+          <p>${i('tour.settings.welcome.desc')}</p>
+          <p style="margin-top: 8px;">${i('tour.settings.welcome.hint')}</p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-  // Connected devices
-  {
-    element: '.settings-section:has(.devices-list), .settings-section:nth-child(2)',
-    popover: {
-      title: 'Connected Devices',
-      description: `
-        <p>See all your linked Karoo devices:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li>Device name and status</li>
-          <li>Last sync time</li>
-          <li><strong>Request Sync</strong> to pull data from device</li>
-          <li><strong>Remove</strong> to unlink a device</li>
-        </ul>
-        <p style="color: var(--text-secondary);">You can link multiple Karoos to one account.</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.settings-section:has(.devices-list), .settings-section:nth-child(2)',
+      popover: {
+        title: i('tour.settings.devices.title'),
+        description: `
+          <p>${i('tour.settings.devices.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.settings.devices.name')}</li>
+            <li>${i('tour.settings.devices.lastSync')}</li>
+            <li>${i('tour.settings.devices.requestSync')}</li>
+            <li>${i('tour.settings.devices.remove')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.settings.devices.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // Pedaling metrics thresholds
-  {
-    element: '.metrics-card:first-child',
-    popover: {
-      title: 'Metric Thresholds',
-      description: `
-        <p>Customize what "optimal" means for you:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Balance Threshold</strong> — How much L/R imbalance triggers yellow/red</li>
-          <li><strong>TE Optimal Range</strong> — Your target torque effectiveness zone</li>
-          <li><strong>PS Minimum</strong> — Pedal smoothness floor</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Defaults are based on cycling research, but you can adjust to your level.</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.metrics-card:first-child',
+      popover: {
+        title: i('tour.settings.thresholds.title'),
+        description: `
+          <p>${i('tour.settings.thresholds.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.settings.thresholds.balance')}</li>
+            <li>${i('tour.settings.thresholds.teRange')}</li>
+            <li>${i('tour.settings.thresholds.psMin')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.settings.thresholds.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // In-ride alerts
-  {
-    element: '.metrics-card:nth-child(2)',
-    popover: {
-      title: 'In-Ride Alerts',
-      description: `
-        <p>Get notified during rides when metrics need attention:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li>Choose which metrics to monitor</li>
-          <li>Set sensitivity (critical only or sensitive)</li>
-          <li>Pick notification type (vibrate, sound, banner)</li>
-          <li>Set cooldown between alerts</li>
-        </ul>
-        <p style="color: var(--text-secondary);">Alerts are shown directly on your Karoo during the ride!</p>
-      `,
-      side: 'bottom',
-      align: 'start',
+    {
+      element: '.metrics-card:nth-child(2)',
+      popover: {
+        title: i('tour.settings.alerts.title'),
+        description: `
+          <p>${i('tour.settings.alerts.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.settings.alerts.metrics')}</li>
+            <li>${i('tour.settings.alerts.sensitivity')}</li>
+            <li>${i('tour.settings.alerts.type')}</li>
+            <li>${i('tour.settings.alerts.cooldown')}</li>
+          </ul>
+          <p style="color: var(--text-secondary);">${i('tour.settings.alerts.hint')}</p>
+        `,
+        side: 'bottom',
+        align: 'start',
+      },
     },
-  },
-  // Theme
-  {
-    element: '.theme-selector',
-    popover: {
-      title: 'Appearance',
-      description: `
-        <p>Choose your preferred color scheme:</p>
-        <ul style="margin: 8px 0; padding-left: 16px;">
-          <li><strong>Light</strong> — Clean white background</li>
-          <li><strong>Dark</strong> — Easy on the eyes</li>
-          <li><strong>System</strong> — Follows your OS setting</li>
-        </ul>
-      `,
-      side: 'bottom',
-      align: 'center',
+    {
+      element: '.theme-selector',
+      popover: {
+        title: i('tour.settings.theme.title'),
+        description: `
+          <p>${i('tour.settings.theme.desc')}</p>
+          <ul style="margin: 8px 0; padding-left: 16px;">
+            <li>${i('tour.settings.theme.light')}</li>
+            <li>${i('tour.settings.theme.dark')}</li>
+            <li>${i('tour.settings.theme.system')}</li>
+          </ul>
+        `,
+        side: 'bottom',
+        align: 'center',
+      },
     },
-  },
-  // Tour complete!
-  {
-    popover: {
-      title: "You're All Set! 🚴‍♂️",
-      description: `
-        <p>You've completed the full KPedal tour!</p>
-        <p style="margin-top: 12px;"><strong>To see your own data:</strong></p>
-        <ol style="margin: 8px 0; padding-left: 20px; line-height: 1.6;">
-          <li>Download KPedal on your Karoo</li>
-          <li>Add it to your ride screen</li>
-          <li>Go for a ride!</li>
-          <li>Data syncs automatically</li>
-        </ol>
-        <p style="margin-top: 12px;"><a href="https://github.com/yrkan/kpedal/releases" target="_blank" style="color: var(--color-accent); text-decoration: underline;">Download KPedal →</a></p>
-      `,
-      side: 'over',
-      align: 'center',
+    {
+      popover: {
+        title: i('tour.settings.complete.title'),
+        description: `
+          <p>${i('tour.settings.complete.desc')}</p>
+          <p style="margin-top: 12px;"><strong>${i('tour.settings.complete.toSeeData')}</strong></p>
+          <ol style="margin: 8px 0; padding-left: 20px; line-height: 1.6;">
+            <li>${i('tour.settings.complete.step1')}</li>
+            <li>${i('tour.settings.complete.step2')}</li>
+            <li>${i('tour.settings.complete.step3')}</li>
+            <li>${i('tour.settings.complete.step4')}</li>
+          </ol>
+          <p style="margin-top: 12px;"><a href="https://github.com/yrkan/kpedal/releases" target="_blank" style="color: var(--color-accent); text-decoration: underline;">${i('tour.settings.complete.download')}</a></p>
+        `,
+        side: 'over',
+        align: 'center',
+      },
     },
-  },
-];
+  ];
+}
 
 // ============================================
 // TOUR DRIVER INSTANCES
@@ -749,7 +746,6 @@ function filterAvailableSteps(steps: DriveStep[]): DriveStep[] {
 
 /**
  * Wait for any of the specified selectors to appear in DOM
- * Returns true if found, false if timeout
  */
 async function waitForElement(selectors: string[], timeoutMs: number = 5000): Promise<boolean> {
   const startTime = Date.now();
@@ -767,7 +763,7 @@ async function waitForElement(selectors: string[], timeoutMs: number = 5000): Pr
 }
 
 /**
- * Wait for loading state to finish (no spinner visible)
+ * Wait for loading state to finish
  */
 async function waitForLoading(timeoutMs: number = 5000): Promise<boolean> {
   const startTime = Date.now();
@@ -791,13 +787,14 @@ function createDriver(
   nextPage: string | null,
   isFinalTour: boolean = false
 ): Driver {
+  const i = _();
   return driver({
     showProgress: true,
     progressText: '{{current}} / {{total}}',
     showButtons: ['next', 'previous', 'close'],
-    nextBtnText: 'Next',
-    prevBtnText: 'Back',
-    doneBtnText: nextPage ? 'Continue →' : 'Done',
+    nextBtnText: i('tour.buttons.next'),
+    prevBtnText: i('tour.buttons.prev'),
+    doneBtnText: nextPage ? i('tour.buttons.continue') : i('tour.buttons.done'),
     animate: true,
     overlayColor: 'rgba(0, 0, 0, 0.75)',
     stagePadding: 8,
@@ -807,7 +804,6 @@ function createDriver(
     onDestroyStarted: () => {
       if (nextPage) {
         setNextTourPage(nextPage);
-        // Navigate to next page
         goto(nextPage);
       } else if (isFinalTour) {
         markTourCompleted();
@@ -825,7 +821,7 @@ function createDriver(
 // ============================================
 
 /**
- * Skip tour completely (called from welcome popup)
+ * Skip tour completely
  */
 function skipTour(): void {
   if (driverInstance) {
@@ -845,7 +841,7 @@ if (browser) {
 export function startDashboardTour(): void {
   if (!browser) return;
 
-  const availableSteps = filterAvailableSteps(dashboardSteps);
+  const availableSteps = filterAvailableSteps(getDashboardSteps());
   driverInstance = createDriver(availableSteps, '/rides');
   driverInstance.drive();
 }
@@ -857,13 +853,11 @@ export async function startRidesPageTour(): Promise<void> {
   if (!browser) return;
   clearNextTourPage();
 
-  // Wait for data to load (ride rows or cards to appear)
   await waitForLoading(5000);
   await waitForElement(['.ride-row[data-ride-id]', '.ride-card[data-ride-id]', '.empty-state-enhanced'], 5000);
 
-  const availableSteps = filterAvailableSteps(ridesPageSteps);
+  const availableSteps = filterAvailableSteps(getRidesPageSteps());
 
-  // Find first ride ID for detail tour
   const firstRideRow = document.querySelector('.ride-row[data-ride-id], .ride-card[data-ride-id]') as HTMLElement;
   const rideId = firstRideRow?.dataset.rideId;
   const nextPage = rideId ? `/rides/${rideId}` : '/drills';
@@ -879,11 +873,10 @@ export async function startRideDetailTour(): Promise<void> {
   if (!browser) return;
   clearNextTourPage();
 
-  // Wait for ride data to load (hero stats to appear)
   await waitForLoading(5000);
   await waitForElement(['.hero-stats', '.error-state'], 5000);
 
-  const availableSteps = filterAvailableSteps(rideDetailSteps);
+  const availableSteps = filterAvailableSteps(getRideDetailSteps());
   driverInstance = createDriver(availableSteps, '/drills');
   driverInstance.drive();
 }
@@ -895,11 +888,10 @@ export async function startDrillsPageTour(): Promise<void> {
   if (!browser) return;
   clearNextTourPage();
 
-  // Wait for drills data to load
   await waitForLoading(5000);
   await waitForElement(['.drill-row', '.drill-card', '.empty-state-enhanced'], 5000);
 
-  const availableSteps = filterAvailableSteps(drillsPageSteps);
+  const availableSteps = filterAvailableSteps(getDrillsPageSteps());
   driverInstance = createDriver(availableSteps, '/achievements');
   driverInstance.drive();
 }
@@ -911,11 +903,10 @@ export async function startAchievementsPageTour(): Promise<void> {
   if (!browser) return;
   clearNextTourPage();
 
-  // Wait for achievements data to load
   await waitForLoading(5000);
   await waitForElement(['.milestone-card', '.empty-state-enhanced'], 5000);
 
-  const availableSteps = filterAvailableSteps(achievementsPageSteps);
+  const availableSteps = filterAvailableSteps(getAchievementsPageSteps());
   driverInstance = createDriver(availableSteps, '/settings');
   driverInstance.drive();
 }
@@ -927,17 +918,16 @@ export async function startSettingsPageTour(): Promise<void> {
   if (!browser) return;
   clearNextTourPage();
 
-  // Wait for settings to load
   await waitForLoading(5000);
   await waitForElement(['.settings-section', '.theme-selector'], 3000);
 
-  const availableSteps = filterAvailableSteps(settingsPageSteps);
-  driverInstance = createDriver(availableSteps, null, true); // Final tour
+  const availableSteps = filterAvailableSteps(getSettingsPageSteps());
+  driverInstance = createDriver(availableSteps, null, true);
   driverInstance.drive();
 }
 
 /**
- * Continue tour on current page (called from page components)
+ * Continue tour on current page
  */
 export async function continueTourOnPage(pathname: string): Promise<void> {
   if (!browser) return;
@@ -945,14 +935,11 @@ export async function continueTourOnPage(pathname: string): Promise<void> {
   const nextPage = getNextTourPage();
   if (!nextPage) return;
 
-  // Check if we're on the expected page
   if (!pathname.startsWith(nextPage.replace(/\/\[.*\]/, ''))) {
-    // Navigate to expected page
     goto(nextPage);
     return;
   }
 
-  // Small delay for initial render, then each tour function handles its own data loading wait
   await new Promise(resolve => setTimeout(resolve, 100));
 
   if (pathname === '/rides') {

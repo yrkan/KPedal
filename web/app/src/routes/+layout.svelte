@@ -4,6 +4,8 @@
   import { auth, isAuthenticated, isLoading, user, isDemo } from '$lib/auth';
   import { startDashboardTour, resetTour, hasPendingTour, continueTourOnPage } from '$lib/tour';
   import { theme } from '$lib/theme';
+  import '$lib/i18n';
+  import { t } from '$lib/i18n';
   import '../app.css';
 
   let mounted = false;
@@ -71,15 +73,15 @@
         </a>
 
         <div class="nav-links desktop-only">
-          <a href="/" class="nav-link" class:active={currentPath === '/'}>Dashboard</a>
-          <a href="/rides" class="nav-link" class:active={currentPath === '/rides'}>Rides</a>
-          <a href="/drills" class="nav-link" class:active={currentPath === '/drills'}>Drills</a>
-          <a href="/achievements" class="nav-link" class:active={currentPath === '/achievements'}>Achievements</a>
-          <a href="/settings" class="nav-link" class:active={currentPath === '/settings'}>Settings</a>
+          <a href="/" class="nav-link" class:active={currentPath === '/'}>{$t('nav.dashboard')}</a>
+          <a href="/rides" class="nav-link" class:active={currentPath === '/rides'}>{$t('nav.rides')}</a>
+          <a href="/drills" class="nav-link" class:active={currentPath === '/drills'}>{$t('nav.drills')}</a>
+          <a href="/achievements" class="nav-link" class:active={currentPath === '/achievements'}>{$t('nav.achievements')}</a>
+          <a href="/settings" class="nav-link" class:active={currentPath === '/settings'}>{$t('nav.settings')}</a>
         </div>
 
         <div class="nav-right">
-          <button class="icon-btn" on:click={() => theme.toggle()} title="Toggle theme">
+          <button class="icon-btn" on:click={() => theme.toggle()} title={$t('common.toggleTheme')}>
             {#if $theme === 'dark'}
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="5"/>
@@ -99,7 +101,7 @@
             {/if}
           </button>
 
-          <a href="/settings" class="avatar-link" title="Settings">
+          <a href="/settings" class="avatar-link" title={$t('nav.settings')}>
             {#if $user?.picture}
               <img src={$user.picture} alt="" class="avatar" referrerpolicy="no-referrer" />
             {:else}
@@ -116,31 +118,31 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
         </svg>
-        <span>Home</span>
+        <span>{$t('nav.home')}</span>
       </a>
       <a href="/rides" class="bottom-nav-item" class:active={currentPath === '/rides'}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
         </svg>
-        <span>Rides</span>
+        <span>{$t('nav.rides')}</span>
       </a>
       <a href="/drills" class="bottom-nav-item" class:active={currentPath === '/drills'}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/>
         </svg>
-        <span>Drills</span>
+        <span>{$t('nav.drills')}</span>
       </a>
       <a href="/achievements" class="bottom-nav-item" class:active={currentPath === '/achievements'}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
         </svg>
-        <span>Goals</span>
+        <span>{$t('nav.goals')}</span>
       </a>
       <a href="/settings" class="bottom-nav-item" class:active={currentPath === '/settings'}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
         </svg>
-        <span>Profile</span>
+        <span>{$t('nav.profile')}</span>
       </a>
     </nav>
   {/if}
@@ -149,8 +151,8 @@
     {#if $isDemo}
       <div class="demo-banner">
         <div class="demo-banner-content">
-          <span class="demo-badge">Demo Mode</span>
-          <span class="demo-text">Viewing sample data</span>
+          <span class="demo-badge">{$t('demo.mode')}</span>
+          <span class="demo-text">{$t('demo.viewingSampleData')}</span>
         </div>
         <div class="demo-actions">
           <button class="demo-signup-btn" on:click={handleDemoSignup}>
@@ -160,14 +162,14 @@
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
-            Create Free Account
+            {$t('auth.createFreeAccount')}
           </button>
           <button class="demo-tour-btn" on:click={handleRestartTour}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"/>
               <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
             </svg>
-            Tour
+            {$t('demo.tour')}
           </button>
         </div>
       </div>

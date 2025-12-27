@@ -177,30 +177,42 @@ data class DrillTarget(
 
 /**
  * A single phase within a drill.
+ * Uses @StringRes for localization.
+ * For custom drills, use string overrides (nameOverride, etc.) instead of @StringRes.
  */
 @Immutable
 data class DrillPhase(
-    val name: String,
-    val description: String,
+    @androidx.annotation.StringRes val nameRes: Int = 0,
+    @androidx.annotation.StringRes val descriptionRes: Int = 0,
     val durationMs: Long,             // Phase duration
     val target: DrillTarget? = null,  // Optional target to hit
     val holdTimeMs: Long = 0,         // For target-based: time to hold target
-    val instruction: String = ""      // Coaching instruction
+    @androidx.annotation.StringRes val instructionRes: Int = 0,  // Coaching instruction
+    // String overrides for custom drills (user-entered text)
+    val nameOverride: String? = null,
+    val descriptionOverride: String? = null,
+    val instructionOverride: String? = null
 )
 
 /**
  * Definition of a drill.
+ * Uses @StringRes for localization.
+ * For custom drills, use string overrides (nameOverride, etc.) instead of @StringRes.
  */
 @Immutable
 data class Drill(
     val id: String,
-    val name: String,
-    val description: String,
+    @androidx.annotation.StringRes val nameRes: Int = 0,
+    @androidx.annotation.StringRes val descriptionRes: Int = 0,
     val type: DrillType,
     val metric: DrillMetric,
     val difficulty: DrillDifficulty,
     val phases: List<DrillPhase>,
-    val tips: List<String> = emptyList()
+    val tipResIds: List<Int> = emptyList(),
+    // String overrides for custom drills (user-entered text)
+    val nameOverride: String? = null,
+    val descriptionOverride: String? = null,
+    val tipsOverride: List<String> = emptyList()
 ) {
     /**
      * Total duration of the drill.

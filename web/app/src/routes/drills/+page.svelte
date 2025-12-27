@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { isAuthenticated, authFetch } from '$lib/auth';
+  import { t, locale } from '$lib/i18n';
   import InfoTip from '$lib/components/InfoTip.svelte';
 
   interface DrillResult {
@@ -41,7 +42,7 @@
   let offset = 0;
   let limit = 50;
   let loading = true;
-  let error: string | null = null;
+  let error = false;
   let filterDrillId: string | null = null;
   let viewMode: 'table' | 'cards' = 'table';
   let viewModeInitialized = false;
@@ -69,7 +70,7 @@
 
   async function loadDashboard() {
     loading = true;
-    error = null;
+    error = false;
 
     try {
       // Single API call replaces 2 separate requests
@@ -86,13 +87,18 @@
           stats = data.data.stats;
         }
       } else {
-        error = 'Failed to load drills';
+        error = true;
       }
     } catch (err) {
-      error = 'Failed to load drills';
+      error = true;
     } finally {
       loading = false;
     }
+  }
+
+  function getLocaleString(currentLocale: string | null | undefined): string {
+    const localeMap: Record<string, string> = { en: 'en-US', es: 'es-ES' };
+    return currentLocale ? localeMap[currentLocale] || currentLocale : 'en-US';
   }
 
   function filterByDrill(drillId: string | null) {
@@ -129,24 +135,24 @@
     return `${minutes}m`;
   }
 
-  function formatDate(timestamp: number): string {
-    return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  function formatDate(timestamp: number, currentLocale?: string | null): string {
+    return new Date(timestamp).toLocaleDateString(getLocaleString(currentLocale), { month: 'short', day: 'numeric' });
   }
 
-  function formatFullDate(timestamp: number): string {
+  function formatFullDate(timestamp: number, currentLocale?: string | null, todayLabel?: string, yesterdayLabel?: string): string {
     const date = new Date(timestamp);
     const now = new Date();
     const diffDays = Math.floor((now.getTime() - date.getTime()) / 86400000);
 
-    if (diffDays === 0) return 'Today';
-    if (diffDays === 1) return 'Yesterday';
-    if (diffDays < 7) return date.toLocaleDateString('en-US', { weekday: 'short' });
+    if (diffDays === 0) return todayLabel || 'Today';
+    if (diffDays === 1) return yesterdayLabel || 'Yesterday';
+    if (diffDays < 7) return date.toLocaleDateString(getLocaleString(currentLocale), { weekday: 'short' });
 
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return date.toLocaleDateString(getLocaleString(currentLocale), { month: 'short', day: 'numeric' });
   }
 
-  function formatTime(timestamp: number): string {
-    return new Date(timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  function formatTime(timestamp: number, currentLocale?: string | null): string {
+    return new Date(timestamp).toLocaleTimeString(getLocaleString(currentLocale), { hour: 'numeric', minute: '2-digit' });
   }
 
   function getTargetStatus(percent: number): string {
@@ -183,25 +189,25 @@
 </script>
 
 <svelte:head>
-  <title>Drills - KPedal</title>
+  <title>{$t('drills.title')} - KPedal</title>
 </svelte:head>
 
 <div class="page drills-page">
   <div class="container container-lg">
     <header class="page-header animate-in">
-      <a href="/" class="back-link" aria-label="Back to dashboard">
+      <a href="/" class="back-link" aria-label={$t('rides.backToDashboard')}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="15,18 9,12 15,6"/>
         </svg>
       </a>
-      <h1>Drills</h1>
+      <h1>{$t('drills.title')}</h1>
       <div class="view-toggle">
-        <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title="Table view">
+        <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title={$t('rides.viewTable')}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
-        <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title="Card view">
+        <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title={$t('rides.viewCards')}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
           </svg>
@@ -215,8 +221,8 @@
       </div>
     {:else if error}
       <div class="error-state animate-in">
-        <p>{error}</p>
-        <button class="retry-btn" on:click={loadDashboard}>Retry</button>
+        <p>{$t('errors.failedToLoadDrills')}</p>
+        <button class="retry-btn" on:click={loadDashboard}>{$t('common.retry')}</button>
       </div>
     {:else if drills.length === 0 && !loading && !filterDrillId}
       <div class="empty-state-enhanced animate-in">
@@ -226,33 +232,33 @@
             <path d="M12 6v6l4 2"/>
           </svg>
         </div>
-        <h3>No drills completed yet</h3>
-        <p>KPedal includes guided drills to improve your pedaling technique. Complete them on your Karoo to track progress here.</p>
+        <h3>{$t('drills.noDrills')}</h3>
+        <p>{$t('drills.noDrillsHint')}</p>
 
         <div class="drill-categories">
-          <span class="drill-cat-label">Available drill types</span>
+          <span class="drill-cat-label">{$t('drills.availableTypes')}</span>
           <div class="drill-cat-grid">
             <div class="drill-cat">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
-              <span>Balance Focus</span>
+              <span>{$t('drills.types.balanceFocus')}</span>
             </div>
             <div class="drill-cat">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              <span>Power Transfer</span>
+              <span>{$t('drills.types.powerTransfer')}</span>
             </div>
             <div class="drill-cat">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-              <span>Smooth Circles</span>
+              <span>{$t('drills.types.smoothCircles')}</span>
             </div>
             <div class="drill-cat">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-              <span>Challenges</span>
+              <span>{$t('drills.types.challenges')}</span>
             </div>
           </div>
         </div>
 
         <div class="empty-actions">
-          <a href="/" class="empty-action-btn">← Dashboard</a>
+          <a href="/" class="empty-action-btn">← {$t('nav.dashboard')}</a>
         </div>
       </div>
     {:else}
@@ -261,26 +267,26 @@
         <div class="stats-strip animate-in">
           <div class="stat-chip highlight">
             <span class="stat-chip-val {getTargetStatus(avgTimeInTarget)}">{avgTimeInTarget}%</span>
-            <span class="stat-chip-label">avg target <InfoTip text="Average time spent hitting target metrics. Higher is better." position="bottom" size="sm" /></span>
+            <span class="stat-chip-label">{$t('drills.avgTarget').toLowerCase()} <InfoTip text={$t('drills.tips.avgTarget')} position="bottom" size="sm" /></span>
           </div>
           <div class="stat-chip">
             <span class="stat-chip-val">{stats.summary.total_drills}</span>
-            <span class="stat-chip-label">sessions <InfoTip text="Total number of drill sessions completed." position="bottom" size="sm" /></span>
+            <span class="stat-chip-label">{$t('drills.sessions').toLowerCase()} <InfoTip text={$t('drills.tips.sessions')} position="bottom" size="sm" /></span>
           </div>
           <div class="stat-chip">
             <span class="stat-chip-val">{formatTotalDuration(stats.summary.total_duration_ms)}</span>
           </div>
           <div class="stat-chip">
             <span class="stat-chip-val optimal">{bestTimeInTarget}%</span>
-            <span class="stat-chip-label">best <InfoTip text="Best time-in-target percentage achieved." position="bottom" size="sm" /></span>
+            <span class="stat-chip-label">{$t('drills.best').toLowerCase()} <InfoTip text={$t('drills.tips.best')} position="bottom" size="sm" /></span>
           </div>
           <div class="stat-chip">
             <span class="stat-chip-val">{completionRate}%</span>
-            <span class="stat-chip-label">completed <InfoTip text="Percentage of drills finished to completion." position="bottom" size="sm" /></span>
+            <span class="stat-chip-label">{$t('drills.completed').toLowerCase()} <InfoTip text={$t('drills.tips.completed')} position="bottom" size="sm" /></span>
           </div>
           <div class="stat-chip">
             <span class="stat-chip-val">{stats.summary.drill_types_tried}</span>
-            <span class="stat-chip-label">types <InfoTip text="Number of different drill types you've tried." position="bottom" size="sm" /></span>
+            <span class="stat-chip-label">{$t('drills.drillTypes').toLowerCase()} <InfoTip text={$t('drills.tips.types')} position="bottom" size="sm" /></span>
           </div>
         </div>
       {/if}
@@ -295,19 +301,19 @@
           <table class="data-table drills-table">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Drill</th>
-                <th>Duration</th>
-                <th>Time in Target <InfoTip text="Percentage of drill time spent in the target zone." position="bottom" size="sm" /></th>
-                <th>Status <InfoTip text="Whether the drill was completed or abandoned early." position="bottom" size="sm" /></th>
+                <th>{$t('drills.date')}</th>
+                <th>{$t('drills.drill')}</th>
+                <th>{$t('drills.duration')}</th>
+                <th>{$t('drills.timeInTarget')} <InfoTip text={$t('drills.tips.timeInTarget')} position="bottom" size="sm" /></th>
+                <th>{$t('drills.status')} <InfoTip text={$t('drills.tips.status')} position="bottom" size="sm" /></th>
               </tr>
             </thead>
             <tbody>
               {#each sortedDrills as drill}
                 <tr class="drill-row">
                   <td class="col-date">
-                    <span class="date-primary">{formatFullDate(drill.timestamp)}</span>
-                    <span class="date-secondary">{formatTime(drill.timestamp)}</span>
+                    <span class="date-primary">{formatFullDate(drill.timestamp, $locale, $t('common.today'), $t('common.yesterday'))}</span>
+                    <span class="date-secondary">{formatTime(drill.timestamp, $locale)}</span>
                   </td>
                   <td class="col-name">{drill.drill_name}</td>
                   <td class="col-duration">{formatDuration(drill.duration_ms)}</td>
@@ -326,10 +332,10 @@
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                           <polyline points="20,6 9,17 4,12"/>
                         </svg>
-                        Completed
+                        {$t('drills.completed')}
                       </span>
                     {:else}
-                      <span class="status-badge incomplete">Incomplete</span>
+                      <span class="status-badge incomplete">{$t('drills.incomplete')}</span>
                     {/if}
                   </td>
                 </tr>
@@ -346,8 +352,8 @@
                 <div class="drill-info">
                   <span class="drill-name">{drill.drill_name}</span>
                   <div class="drill-when">
-                    <span class="drill-date">{formatFullDate(drill.timestamp)}</span>
-                    <span class="drill-time">{formatTime(drill.timestamp)}</span>
+                    <span class="drill-date">{formatFullDate(drill.timestamp, $locale, $t('common.today'), $t('common.yesterday'))}</span>
+                    <span class="drill-time">{formatTime(drill.timestamp, $locale)}</span>
                   </div>
                 </div>
                 <div class="drill-badges">
@@ -365,13 +371,13 @@
               <div class="drill-target-section">
                 <div class="target-display">
                   <span class="target-number {getTargetStatus(drill.time_in_target_percent)}">{drill.time_in_target_percent.toFixed(0)}%</span>
-                  <span class="target-label">Time in Target</span>
+                  <span class="target-label">{$t('drills.timeInTarget')}</span>
                 </div>
                 <div class="target-details">
                   <div class="target-progress-bar">
                     <div class="target-progress-fill {getTargetStatus(drill.time_in_target_percent)}" style="width: {drill.time_in_target_percent}%"></div>
                   </div>
-                  <span class="target-duration">{formatDuration(drill.time_in_target_ms)} of {formatDuration(drill.duration_ms)}</span>
+                  <span class="target-duration">{formatDuration(drill.time_in_target_ms)} {$t('drills.of')} {formatDuration(drill.duration_ms)}</span>
                 </div>
               </div>
             </article>
@@ -381,13 +387,13 @@
 
       {#if total > limit}
         <div class="pagination animate-in">
-          <button class="page-btn" on:click={prevPage} disabled={offset === 0} aria-label="Previous page">
+          <button class="page-btn" on:click={prevPage} disabled={offset === 0} aria-label={$t('drills.prevPage')}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="15,18 9,12 15,6"/>
             </svg>
           </button>
-          <span class="page-info">Page {Math.floor(offset / limit) + 1} of {Math.ceil(total / limit)}</span>
-          <button class="page-btn" on:click={nextPage} disabled={offset + limit >= total} aria-label="Next page">
+          <span class="page-info">{$t('drills.pageInfo', { values: { page: Math.floor(offset / limit) + 1, total: Math.ceil(total / limit) }})}</span>
+          <button class="page-btn" on:click={nextPage} disabled={offset + limit >= total} aria-label={$t('drills.nextPage')}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="9,6 15,12 9,18"/>
             </svg>

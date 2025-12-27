@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { auth } from '$lib/auth';
+  import { t } from '$lib/i18n';
 
   let error: string | null = null;
 
@@ -20,7 +21,7 @@
     const refreshToken = $page.url.searchParams.get('refresh_token');
 
     if (!accessToken || !refreshToken) {
-      error = 'Missing authentication tokens';
+      error = $t('auth.missingTokens');
       setTimeout(() => goto('/login?error=auth_failed'), 2000);
       return;
     }
@@ -42,7 +43,7 @@
 </script>
 
 <svelte:head>
-  <title>Authenticating... - KPedal</title>
+  <title>{$t('auth.authenticating')} - KPedal</title>
 </svelte:head>
 
 <div class="auth-page">
@@ -57,12 +58,12 @@
           </svg>
         </div>
         <p class="error-message">{error}</p>
-        <p class="redirect">Redirecting to login...</p>
+        <p class="redirect">{$t('auth.redirectingToLogin')}</p>
       </div>
     {:else}
       <div class="loading">
         <div class="spinner"></div>
-        <p>Signing you in...</p>
+        <p>{$t('auth.signingIn')}</p>
       </div>
     {/if}
   </div>

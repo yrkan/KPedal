@@ -63,10 +63,16 @@ class DrillEngine(
     // Phase ending warning tracking
     private var lastPhaseWarningSecond = -1
 
+    // Resolved drill name (localized at start time)
+    private var resolvedDrillName: String = ""
+
     /**
      * Start a drill with countdown.
+     * @param drill The drill to execute
+     * @param drillName The localized drill name (resolved via stringResource in Composable)
      */
-    fun start(drill: Drill) {
+    fun start(drill: Drill, drillName: String) {
+        resolvedDrillName = drillName
         // Cancel any previous drill job to prevent overlapping
         drillJob?.cancel()
         drillJob = null
@@ -378,7 +384,7 @@ class DrillEngine(
 
         return DrillResult(
             drillId = state.drill.id,
-            drillName = state.drill.name,
+            drillName = resolvedDrillName,
             timestamp = System.currentTimeMillis(),
             durationMs = state.elapsedMs,
             score = timeInTargetPercent,

@@ -12,9 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.engine.PedalingMetrics
 import io.github.kpedal.engine.StatusCalculator
 import io.github.kpedal.ui.theme.Theme
@@ -254,7 +256,7 @@ private fun PowerView(metrics: PedalingMetrics) {
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = "POWER",
+                text = stringResource(R.string.power),
                 color = Theme.colors.dim,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
@@ -266,7 +268,7 @@ private fun PowerView(metrics: PedalingMetrics) {
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "W",
+                text = stringResource(R.string.watt_symbol),
                 color = Theme.colors.dim,
                 fontSize = 14.sp
             )
@@ -322,8 +324,8 @@ private fun BalanceTrendRow(label: String, left: Float, right: Float) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "L", color = Theme.colors.dim, fontSize = 12.sp)
-            Text(text = "R", color = Theme.colors.dim, fontSize = 12.sp)
+            Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
+            Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
         }
     }
 }
@@ -352,6 +354,13 @@ private fun StatusIndicator(metrics: PedalingMetrics) {
             .background(bgColor),
         contentAlignment = Alignment.Center
     ) {
+        val allGoodText = stringResource(R.string.all_good)
+        val issueText = if (issueCount > 1) {
+            stringResource(R.string.issues_count, issueCount)
+        } else {
+            stringResource(R.string.issue_count, issueCount)
+        }
+
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = if (allOptimal) "✓" else "!",
@@ -361,7 +370,7 @@ private fun StatusIndicator(metrics: PedalingMetrics) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = if (allOptimal) "ALL GOOD" else "$issueCount ISSUE${if (issueCount > 1) "S" else ""}",
+                text = if (allOptimal) allGoodText else issueText,
                 color = Theme.colors.dim,
                 fontSize = 12.sp
             )
@@ -399,7 +408,7 @@ private fun BalanceView(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "BALANCE",
+                text = stringResource(R.string.balance),
                 color = Theme.colors.dim,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
@@ -470,8 +479,8 @@ private fun BalanceView(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "L", color = Theme.colors.dim, fontSize = 12.sp)
-            Text(text = "R", color = Theme.colors.dim, fontSize = 12.sp)
+            Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
+            Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
         }
     }
 }
@@ -498,7 +507,7 @@ private fun TorqueEffView(metrics: PedalingMetrics, compact: Boolean = false) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "TE",
+                text = stringResource(R.string.te),
                 color = Theme.colors.dim,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
@@ -525,7 +534,7 @@ private fun TorqueEffView(metrics: PedalingMetrics, compact: Boolean = false) {
                     fontSize = fontSize,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "L", color = Theme.colors.dim, fontSize = 12.sp)
+                Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
             }
 
             Box(
@@ -542,7 +551,7 @@ private fun TorqueEffView(metrics: PedalingMetrics, compact: Boolean = false) {
                     fontSize = fontSize,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "R", color = Theme.colors.dim, fontSize = 12.sp)
+                Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
             }
         }
     }
@@ -570,7 +579,7 @@ private fun PedalSmoothView(metrics: PedalingMetrics, compact: Boolean = false) 
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "PS",
+                text = stringResource(R.string.ps),
                 color = Theme.colors.dim,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
@@ -597,7 +606,7 @@ private fun PedalSmoothView(metrics: PedalingMetrics, compact: Boolean = false) 
                     fontSize = fontSize,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "L", color = Theme.colors.dim, fontSize = 12.sp)
+                Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
             }
 
             Box(
@@ -614,7 +623,7 @@ private fun PedalSmoothView(metrics: PedalingMetrics, compact: Boolean = false) 
                     fontSize = fontSize,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "R", color = Theme.colors.dim, fontSize = 12.sp)
+                Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
             }
         }
     }

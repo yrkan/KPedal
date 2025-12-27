@@ -4,6 +4,7 @@
   import { page } from '$app/stores';
   import { isAuthenticated, authFetch } from '$lib/auth';
   import InfoTip from '$lib/components/InfoTip.svelte';
+  import { t, locale } from '$lib/i18n';
 
   interface Snapshot {
     minute_index: number;
@@ -54,7 +55,12 @@
 
   let ride: Ride | null = null;
   let loading = true;
-  let error: string | null = null;
+  let error = false;
+
+  function getLocaleString(currentLocale: string | null | undefined): string {
+    const localeMap: Record<string, string> = { en: 'en-US', es: 'es-ES' };
+    return currentLocale ? localeMap[currentLocale] || currentLocale : 'en-US';
+  }
   let activeChart: 'balance' | 'te' | 'ps' | 'power' | 'hr' = 'balance';
   let hoveredPoint: { index: number; x: number; y: number; value: number; minute: number } | null = null;
   let chartWidth = 300;
@@ -79,20 +85,18 @@
 
   async function loadRide() {
     loading = true;
-    error = null;
+    error = false;
     try {
       const res = await authFetch(`/rides/${rideId}`);
       if (res.ok) {
         const data = await res.json();
         if (data.success) ride = data.data;
-        else error = data.error || 'Failed to load ride';
-      } else if (res.status === 404) {
-        error = 'Ride not found';
+        else error = true;
       } else {
-        error = 'Failed to load ride';
+        error = true;
       }
     } catch {
-      error = 'Failed to load ride';
+      error = true;
     } finally {
       loading = false;
     }
@@ -176,18 +180,18 @@
     return h > 0 ? `${h}h ${m}m` : `${m}m`;
   }
 
-  function formatDate(ts: number): string {
-    return new Date(ts).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  function formatDate(ts: number, currentLocale?: string | null): string {
+    return new Date(ts).toLocaleDateString(getLocaleString(currentLocale), { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   }
 
-  function formatTime(ts: number): string {
-    return new Date(ts).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  function formatTime(ts: number, currentLocale?: string | null): string {
+    return new Date(ts).toLocaleTimeString(getLocaleString(currentLocale), { hour: 'numeric', minute: '2-digit' });
   }
 
   function getAsymmetry(bal: number): number { return Math.abs(bal - 50); }
   function getDominance(bal: number): string {
-    if (Math.abs(bal - 50) < 0.5) return 'Balanced';
-    return bal > 50 ? 'L dominant' : 'R dominant';
+    if (Math.abs(bal - 50) < 0.5) return $t('rides.detail.balanced');
+    return bal > 50 ? $t('rides.detail.leftDominant') : $t('rides.detail.rightDominant');
   }
 
   function getBalanceStatus(bal: number): string {
@@ -347,20 +351,20 @@
       <div class="loading-state animate-in"><div class="spinner"></div></div>
     {:else if error}
       <div class="error-state animate-in">
-        <p>{error}</p>
-        <a href="/rides" class="back-btn-link">← Back to Rides</a>
+        <p>{$t('errors.failedToLoad')}</p>
+        <a href="/rides" class="back-btn-link">← {$t('rides.backToRides')}</a>
       </div>
     {:else if ride}
       <header class="page-header animate-in">
-        <a href="/rides" class="back-link" aria-label="Back">
+        <a href="/rides" class="back-link" aria-label={$t('common.back')}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15,18 9,12 15,6"/></svg>
         </a>
         <div class="header-info">
-          <h1>{formatDate(ride.timestamp)}</h1>
+          <h1>{formatDate(ride.timestamp, $locale)}</h1>
           <div class="header-meta">
             <span class="meta-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
-              {formatTime(ride.timestamp)}
+              {formatTime(ride.timestamp, $locale)}
             </span>
             <span class="meta-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -382,7 +386,7 @@
           <div class="hero-stat score-stat">
             <span class="hero-stat-value {getScoreStatus(ride.score)}">{ride.score}</span>
             <div class="hero-stat-info">
-              <span class="hero-stat-label">Score <InfoTip text="Overall technique score from 0 to 100. Combines balance, TE, and PS." position="bottom" size="sm" /></span>
+              <span class="hero-stat-label">{$t('rides.detail.score')} <InfoTip text={$t('rides.detail.scoreTip')} position="bottom" size="sm" /></span>
             </div>
           </div>
         {/if}
@@ -390,7 +394,7 @@
         <div class="hero-stat asymmetry-stat">
           <span class="hero-stat-value {getBalanceStatus(ride.balance_left)}">{getAsymmetry(ride.balance_left).toFixed(1)}%</span>
           <div class="hero-stat-info">
-            <span class="hero-stat-label">Asymmetry <InfoTip text="Deviation from 50/50 balance. Under 2.5% is pro level." position="bottom" size="sm" /></span>
+            <span class="hero-stat-label">{$t('rides.detail.asymmetry')} <InfoTip text={$t('rides.detail.asymmetryTip')} position="bottom" size="sm" /></span>
             <span class="hero-stat-detail">{getDominance(ride.balance_left)}</span>
           </div>
         </div>
@@ -426,7 +430,7 @@
             <span class="zone-val attention">{ride.zone_attention}%</span>
             <span class="zone-val problem">{ride.zone_problem}%</span>
           </div>
-          <span class="hero-stat-label">Time in Zone <InfoTip text="Time in optimal, attention, and problem zones. Higher green is better." position="bottom" size="sm" /></span>
+          <span class="hero-stat-label">{$t('rides.detail.timeInZone')} <InfoTip text={$t('rides.detail.timeInZoneTip')} position="bottom" size="sm" /></span>
         </div>
       </div>
 
@@ -436,67 +440,67 @@
           {#if ride.power_avg > 0}
             <div class="perf-chip">
               <span class="perf-val">{Math.round(ride.power_avg)}</span>
-              <span class="perf-unit">W <InfoTip text="Average power output in watts." position="bottom" size="sm" /></span>
+              <span class="perf-unit">W <InfoTip text={$t('rides.perf.wattsTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.power_max > 0}
             <div class="perf-chip">
               <span class="perf-val">{Math.round(ride.power_max)}</span>
-              <span class="perf-unit">W max <InfoTip text="Peak power achieved during the ride." position="bottom" size="sm" /></span>
+              <span class="perf-unit">W max <InfoTip text={$t('rides.perf.maxWattsTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.normalized_power > 0}
             <div class="perf-chip">
               <span class="perf-val">{Math.round(ride.normalized_power)}</span>
-              <span class="perf-unit">NP <InfoTip text="Normalized Power adjusts for variability in effort." position="bottom" size="sm" /></span>
+              <span class="perf-unit">NP <InfoTip text={$t('rides.perf.npTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.hr_avg > 0}
             <div class="perf-chip">
               <span class="perf-val">{Math.round(ride.hr_avg)}</span>
-              <span class="perf-unit">bpm <InfoTip text="Average heart rate during the ride." position="bottom" size="sm" /></span>
+              <span class="perf-unit">bpm <InfoTip text={$t('rides.perf.bpmTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.hr_max > 0}
             <div class="perf-chip">
               <span class="perf-val">{Math.round(ride.hr_max)}</span>
-              <span class="perf-unit">max <InfoTip text="Peak heart rate reached. Near max often hurts technique." position="bottom" size="sm" /></span>
+              <span class="perf-unit">max <InfoTip text={$t('rides.perf.maxBpmTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.cadence_avg > 0}
             <div class="perf-chip">
               <span class="perf-val">{Math.round(ride.cadence_avg)}</span>
-              <span class="perf-unit">rpm <InfoTip text="Average cadence. Optimal is 80-95 rpm for most riders." position="bottom" size="sm" /></span>
+              <span class="perf-unit">rpm <InfoTip text={$t('rides.perf.rpmTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.speed_avg > 0}
             <div class="perf-chip">
               <span class="perf-val">{ride.speed_avg.toFixed(1)}</span>
-              <span class="perf-unit">km/h <InfoTip text="Average speed. Less reliable than power due to terrain." position="bottom" size="sm" /></span>
+              <span class="perf-unit">km/h <InfoTip text={$t('rides.perf.speedTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.energy_kj > 0}
             <div class="perf-chip">
               <span class="perf-val">{Math.round(ride.energy_kj)}</span>
-              <span class="perf-unit">kJ <InfoTip text="Total energy output. Roughly equals calories burned." position="bottom" size="sm" /></span>
+              <span class="perf-unit">kJ <InfoTip text={$t('rides.perf.kjTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.elevation_gain > 0}
             <div class="perf-chip">
               <span class="perf-val">+{Math.round(ride.elevation_gain)}</span>
-              <span class="perf-unit">m <InfoTip text="Total elevation gained during the ride." position="bottom" size="sm" /></span>
+              <span class="perf-unit">m <InfoTip text={$t('rides.perf.elevGainTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.elevation_loss > 0}
             <div class="perf-chip">
               <span class="perf-val">-{Math.round(ride.elevation_loss)}</span>
-              <span class="perf-unit">m <InfoTip text="Total elevation lost during the ride." position="bottom" size="sm" /></span>
+              <span class="perf-unit">m <InfoTip text={$t('rides.perf.elevLossTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if ride.grade_max > 0}
             <div class="perf-chip">
               <span class="perf-val">{ride.grade_max.toFixed(0)}%</span>
-              <span class="perf-unit">grade <InfoTip text="Maximum gradient. Above 10% is steep." position="bottom" size="sm" /></span>
+              <span class="perf-unit">grade <InfoTip text={$t('rides.perf.gradeTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
         </div>
@@ -507,7 +511,7 @@
         <!-- Technique Card -->
         <div class="grid-card technique-card">
           <div class="card-header">
-            <span class="card-title">Technique <InfoTip text="Pedaling efficiency metrics. TE is power transfer, PS is stroke smoothness." position="right" size="sm" /></span>
+            <span class="card-title">{$t('rides.detail.technique')} <InfoTip text={$t('rides.detail.techniqueTip')} position="right" size="sm" /></span>
           </div>
 
           <!-- Compact Metrics -->
@@ -515,7 +519,7 @@
             <!-- TE -->
             <div class="tech-metric-row">
               <div class="tech-metric-main">
-                <span class="tech-metric-name">TE <InfoTip text="Torque Effectiveness. How much power goes into forward motion." position="right" size="sm" /></span>
+                <span class="tech-metric-name">{$t('rides.detail.te')} <InfoTip text={$t('rides.detail.teTip')} position="right" size="sm" /></span>
                 <span class="tech-metric-value {getTeStatus((ride.te_left + ride.te_right) / 2)}">{((ride.te_left + ride.te_right) / 2).toFixed(0)}%</span>
               </div>
               <div class="tech-metric-bar">
@@ -540,7 +544,7 @@
             <!-- PS -->
             <div class="tech-metric-row">
               <div class="tech-metric-main">
-                <span class="tech-metric-name">PS <InfoTip text="Pedal Smoothness. How evenly power is applied through the stroke." position="right" size="sm" /></span>
+                <span class="tech-metric-name">{$t('rides.detail.ps')} <InfoTip text={$t('rides.detail.psTip')} position="right" size="sm" /></span>
                 <span class="tech-metric-value {getPsStatus((ride.ps_left + ride.ps_right) / 2)}">{((ride.ps_left + ride.ps_right) / 2).toFixed(0)}%</span>
               </div>
               <div class="tech-metric-bar">
@@ -567,19 +571,19 @@
             <div class="technique-stats">
               <div class="tech-stat">
                 <span class="tech-stat-value">{techniqueStats.teOptimalTime.toFixed(0)}%</span>
-                <span class="tech-stat-label">TE in zone <InfoTip text="Time with TE in optimal 70-80% range." position="top" size="sm" /></span>
+                <span class="tech-stat-label">{$t('rides.detail.teInZone')} <InfoTip text={$t('rides.detail.teInZoneTip')} position="top" size="sm" /></span>
               </div>
               <div class="tech-stat">
                 <span class="tech-stat-value">{techniqueStats.psOptimalTime.toFixed(0)}%</span>
-                <span class="tech-stat-label">PS in zone <InfoTip text="Time with PS above 20% threshold." position="top" size="sm" /></span>
+                <span class="tech-stat-label">{$t('rides.detail.psInZone')} <InfoTip text={$t('rides.detail.psInZoneTip')} position="top" size="sm" /></span>
               </div>
               <div class="tech-stat">
                 <span class="tech-stat-value">{techniqueStats.teStability.toFixed(0)}%</span>
-                <span class="tech-stat-label">TE stab <InfoTip text="How consistent TE was. Higher means steadier technique." position="top" size="sm" /></span>
+                <span class="tech-stat-label">{$t('rides.detail.teStab')} <InfoTip text={$t('rides.detail.teStabTip')} position="top" size="sm" /></span>
               </div>
               <div class="tech-stat">
                 <span class="tech-stat-value">{techniqueStats.psStability.toFixed(0)}%</span>
-                <span class="tech-stat-label">PS stab <InfoTip text="How consistent PS was. Higher means steadier technique." position="top" size="sm" /></span>
+                <span class="tech-stat-label">{$t('rides.detail.psStab')} <InfoTip text={$t('rides.detail.psStabTip')} position="top" size="sm" /></span>
               </div>
             </div>
           {/if}
@@ -602,15 +606,15 @@
             {@const psStatus = getFatigueStatus('ps', fatigueData.ps.delta)}
             <div class="grid-card fatigue-card">
               <div class="card-header">
-                <span class="card-title">Fatigue Analysis <InfoTip text="Compares first ⅓ vs last ⅓ of ride." position="bottom" size="sm" /></span>
+                <span class="card-title">{$t('rides.detail.fatigue')} <InfoTip text={$t('rides.detail.fatigueTip')} position="bottom" size="sm" /></span>
                 <span class="fatigue-badge {degradedCount === 0 ? 'good' : degradedCount <= 1 ? 'moderate' : 'poor'}">
-                  {degradedCount === 0 ? 'Strong' : degradedCount <= 1 ? 'Moderate' : 'Fatigued'}
+                  {degradedCount === 0 ? $t('rides.detail.fatigueStrong') : degradedCount <= 1 ? $t('rides.detail.fatigueModerate') : $t('rides.detail.fatigueFatigued')}
                 </span>
               </div>
 
               <div class="fatigue-list">
                 <div class="fatigue-row">
-                  <span class="fatigue-metric-name">Asymmetry</span>
+                  <span class="fatigue-metric-name">{$t('rides.detail.fatigueAsymmetry')}</span>
                   <span class="fatigue-vals">
                     <span>{fatigueData.balance.first.toFixed(1)}%</span>
                     <span class="fatigue-arrow">→</span>
@@ -648,31 +652,31 @@
                 {#if balStatus === 'degraded'}
                   <div class="fatigue-insight">
                     <span class="insight-icon problem">!</span>
-                    <span>Balance degraded by {Math.abs(fatigueData.balance.delta).toFixed(1)}% — focus on even power distribution when tired</span>
+                    <span>{$t('rides.detail.balanceDegradedInsight', { values: { value: Math.abs(fatigueData.balance.delta).toFixed(1) } })}</span>
                   </div>
                 {/if}
                 {#if teStatus === 'degraded'}
                   <div class="fatigue-insight">
                     <span class="insight-icon problem">!</span>
-                    <span>TE dropped {Math.abs(fatigueData.te.delta).toFixed(0)}% — practice maintaining form in final third</span>
+                    <span>{$t('rides.detail.teDroppedInsight', { values: { value: Math.abs(fatigueData.te.delta).toFixed(0) } })}</span>
                   </div>
                 {/if}
                 {#if psStatus === 'degraded'}
                   <div class="fatigue-insight">
                     <span class="insight-icon problem">!</span>
-                    <span>PS fell {Math.abs(fatigueData.ps.delta).toFixed(0)}% — work on smooth pedaling under fatigue</span>
+                    <span>{$t('rides.detail.psFellInsight', { values: { value: Math.abs(fatigueData.ps.delta).toFixed(0) } })}</span>
                   </div>
                 {/if}
                 {#if degradedCount === 0}
                   <div class="fatigue-insight">
                     <span class="insight-icon good">✓</span>
-                    <span>Excellent fatigue resistance — technique stayed consistent throughout the ride</span>
+                    <span>{$t('rides.detail.excellentFatigueInsight')}</span>
                   </div>
                 {/if}
               </div>
 
               <div class="fatigue-legend">
-                <span>Start of ride → End of ride</span>
+                <span>{$t('rides.detail.fatigueStartEnd')}</span>
               </div>
             </div>
           {/if}
@@ -682,7 +686,7 @@
             {@const totalMinutes = powerZoneBreakdown.reduce((a, z) => a + z.minutes, 0)}
             <div class="grid-card power-zones-card">
               <div class="card-header">
-                <span class="card-title">By Power Zone <InfoTip text="Technique at different intensities." position="bottom" size="sm" /></span>
+                <span class="card-title">{$t('rides.detail.byPowerZone')} <InfoTip text={$t('rides.detail.byPowerZoneTip')} position="bottom" size="sm" /></span>
               </div>
               <div class="pz-distribution">
                 {#each powerZoneBreakdown as zone}
@@ -706,9 +710,9 @@
                 {/each}
               </div>
               <div class="pz-legend">
-                <span>Asym</span>
-                <span>TE</span>
-                <span>PS</span>
+                <span>{$t('rides.detail.asym')}</span>
+                <span>{$t('rides.detail.te')}</span>
+                <span>{$t('rides.detail.ps')}</span>
               </div>
             </div>
           {/if}
@@ -719,30 +723,30 @@
       {#if ride.snapshots?.length > 0}
         <div class="grid-card wide timeline-card animate-in">
           <div class="card-header">
-            <span class="card-title">Timeline <InfoTip text="Metrics over time. Look for drops indicating fatigue." position="right" size="sm" /></span>
+            <span class="card-title">{$t('rides.timeline')} <InfoTip text={$t('rides.detail.timelineTip')} position="right" size="sm" /></span>
             <div class="chart-tabs">
               <button class="chart-tab" class:active={activeChart === 'balance'} on:click={() => activeChart = 'balance'}>
                 <span class="tab-icon" style="background: var(--color-accent)"></span>
-                Asym
+                {$t('rides.detail.asym')}
               </button>
               <button class="chart-tab" class:active={activeChart === 'te'} on:click={() => activeChart = 'te'}>
                 <span class="tab-icon" style="background: var(--color-optimal)"></span>
-                TE
+                {$t('rides.detail.te')}
               </button>
               <button class="chart-tab" class:active={activeChart === 'ps'} on:click={() => activeChart = 'ps'}>
                 <span class="tab-icon" style="background: var(--color-attention)"></span>
-                PS
+                {$t('rides.detail.ps')}
               </button>
               {#if ride.snapshots.some(s => s.power_avg > 0)}
                 <button class="chart-tab" class:active={activeChart === 'power'} on:click={() => activeChart = 'power'}>
                   <span class="tab-icon" style="background: #8B5CF6"></span>
-                  Power
+                  {$t('rides.detail.power')}
                 </button>
               {/if}
               {#if ride.snapshots.some(s => s.hr_avg > 0)}
                 <button class="chart-tab" class:active={activeChart === 'hr'} on:click={() => activeChart = 'hr'}>
                   <span class="tab-icon" style="background: #EF4444"></span>
-                  HR
+                  {$t('rides.detail.hr')}
                 </button>
               {/if}
             </div>
@@ -750,7 +754,7 @@
           <div class="timeline-chart-area" bind:clientWidth={chartWidth}>
             {#if hoveredPoint}
               <div class="timeline-tooltip" style="left: {hoveredPoint.x}px; top: {hoveredPoint.y - 10}px;">
-                <span class="tooltip-time">Min {hoveredPoint.minute + 1}</span>
+                <span class="tooltip-time">{$t('rides.detail.tooltipMin', { values: { minute: hoveredPoint.minute + 1 } })}</span>
                 <span class="tooltip-val">{hoveredPoint.value.toFixed(activeChart === 'balance' ? 1 : 0)}{activeChart === 'power' ? 'W' : activeChart === 'hr' ? 'bpm' : '%'}</span>
               </div>
             {/if}
@@ -790,19 +794,19 @@
           </div>
           <div class="timeline-stats">
             <div class="timeline-stat">
-              <span class="timeline-stat-label">Min</span>
+              <span class="timeline-stat-label">{$t('rides.detail.min')}</span>
               <span class="timeline-stat-value">{chartData.min.toFixed(activeChart === 'balance' ? 1 : 0)}{activeChart === 'power' ? 'W' : activeChart === 'hr' ? '' : '%'}</span>
             </div>
             <div class="timeline-stat">
-              <span class="timeline-stat-label">Avg</span>
+              <span class="timeline-stat-label">{$t('rides.detail.avg')}</span>
               <span class="timeline-stat-value">{chartData.avg.toFixed(activeChart === 'balance' ? 1 : 0)}{activeChart === 'power' ? 'W' : activeChart === 'hr' ? '' : '%'}</span>
             </div>
             <div class="timeline-stat">
-              <span class="timeline-stat-label">Max</span>
+              <span class="timeline-stat-label">{$t('rides.detail.max')}</span>
               <span class="timeline-stat-value">{chartData.max.toFixed(activeChart === 'balance' ? 1 : 0)}{activeChart === 'power' ? 'W' : activeChart === 'hr' ? '' : '%'}</span>
             </div>
             <div class="timeline-stat">
-              <span class="timeline-stat-label">Spread</span>
+              <span class="timeline-stat-label">{$t('rides.detail.spread')}</span>
               <span class="timeline-stat-value {(chartData.max - chartData.min) > (activeChart === 'balance' ? 3 : activeChart === 'power' ? 100 : 10) ? 'problem' : ''}">{(chartData.max - chartData.min).toFixed(activeChart === 'balance' ? 1 : 0)}</span>
             </div>
           </div>
@@ -813,20 +817,20 @@
       {#if ride.snapshots?.length > 0}
         <div class="grid-card wide animate-in">
           <div class="card-header">
-            <span class="card-title">Minute-by-Minute <InfoTip text="Detailed breakdown by minute. Useful for analyzing specific segments." position="right" size="sm" /></span>
-            <span class="card-subtitle">{ride.snapshots.length} points</span>
+            <span class="card-title">{$t('rides.minuteByMinute')} <InfoTip text={$t('rides.detail.minuteByMinuteTip')} position="right" size="sm" /></span>
+            <span class="card-subtitle">{ride.snapshots.length} {$t('rides.detail.points')}</span>
           </div>
           <div class="table-wrapper">
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Min</th>
-                  <th>Balance <InfoTip text="Left/Right power split for this minute." position="bottom" size="sm" /></th>
-                  <th>TE <InfoTip text="Torque Effectiveness L/R for this minute." position="bottom" size="sm" /></th>
-                  <th>PS <InfoTip text="Pedal Smoothness L/R for this minute." position="bottom" size="sm" /></th>
-                  {#if ride.snapshots.some(s => s.power_avg > 0)}<th>Power</th>{/if}
-                  {#if ride.snapshots.some(s => s.hr_avg > 0)}<th>HR</th>{/if}
-                  <th>Zone <InfoTip text="Overall zone status for this minute." position="bottom" size="sm" /></th>
+                  <th>{$t('rides.detail.min')}</th>
+                  <th>{$t('rides.detail.balance')} <InfoTip text={$t('rides.detail.balanceTip')} position="bottom" size="sm" /></th>
+                  <th>{$t('rides.detail.te')} <InfoTip text={$t('rides.detail.teTip2')} position="bottom" size="sm" /></th>
+                  <th>{$t('rides.detail.ps')} <InfoTip text={$t('rides.detail.psTip2')} position="bottom" size="sm" /></th>
+                  {#if ride.snapshots.some(s => s.power_avg > 0)}<th>{$t('rides.detail.power')}</th>{/if}
+                  {#if ride.snapshots.some(s => s.hr_avg > 0)}<th>{$t('rides.detail.hr')}</th>{/if}
+                  <th>{$t('rides.detail.zone')} <InfoTip text={$t('rides.detail.zoneTip')} position="bottom" size="sm" /></th>
                 </tr>
               </thead>
               <tbody>
@@ -838,7 +842,7 @@
                     <td><span class="{getPsStatus((s.ps_left + s.ps_right) / 2)}">{s.ps_left}/{s.ps_right}</span></td>
                     {#if ride.snapshots.some(ss => ss.power_avg > 0)}<td>{s.power_avg > 0 ? `${s.power_avg}W` : '—'}</td>{/if}
                     {#if ride.snapshots.some(ss => ss.hr_avg > 0)}<td>{s.hr_avg > 0 ? s.hr_avg : '—'}</td>{/if}
-                    <td><span class="zone-badge {s.zone_status.toLowerCase()}">{s.zone_status}</span></td>
+                    <td><span class="zone-badge {s.zone_status.toLowerCase()}">{$t(`zones.${s.zone_status.toLowerCase()}`)}</span></td>
                   </tr>
                 {/each}
               </tbody>

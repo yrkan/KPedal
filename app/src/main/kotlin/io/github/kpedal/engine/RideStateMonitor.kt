@@ -237,7 +237,7 @@ class RideStateMonitor(
         try {
             val newAchievements = checker.checkAfterRide(ride)
             if (newAchievements.isNotEmpty()) {
-                android.util.Log.i(TAG, "Unlocked ${newAchievements.size} achievements: ${newAchievements.map { it.name }}")
+                android.util.Log.i(TAG, "Unlocked ${newAchievements.size} achievements: ${newAchievements.map { it.id }}")
             }
         } catch (e: Exception) {
             android.util.Log.e(TAG, "Failed to check achievements: ${e.message}")

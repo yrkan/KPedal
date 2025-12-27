@@ -14,10 +14,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.HelpContent
 import io.github.kpedal.ui.theme.Theme
 import kotlinx.coroutines.launch
@@ -47,7 +49,7 @@ fun OnboardingScreen(
             horizontalArrangement = Arrangement.End
         ) {
             Text(
-                text = "Skip",
+                text = stringResource(R.string.skip),
                 color = Theme.colors.dim,
                 fontSize = 12.sp,
                 modifier = Modifier.clickable { onComplete() }
@@ -89,8 +91,10 @@ fun OnboardingScreen(
 
         // Next/Done button
         val isLastPage = pagerState.currentPage == pages.size - 1
+        val getStartedText = stringResource(R.string.get_started)
+        val nextText = stringResource(R.string.next)
         Text(
-            text = if (isLastPage) "Get Started" else "Next",
+            text = if (isLastPage) getStartedText else nextText,
             color = Theme.colors.background,
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
@@ -139,7 +143,7 @@ private fun OnboardingPage(
         )
 
         Text(
-            text = page.title,
+            text = stringResource(page.titleRes),
             color = Theme.colors.text,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
@@ -149,7 +153,7 @@ private fun OnboardingPage(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = page.description,
+            text = stringResource(page.descriptionRes),
             color = Theme.colors.dim,
             fontSize = 14.sp,
             textAlign = TextAlign.Center,

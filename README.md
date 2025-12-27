@@ -65,6 +65,7 @@ KPedal provides cyclists with real-time feedback on pedaling technique during ri
 | **Web Dashboard** | Full-featured portal with ride details, charts, device management |
 | **Demo Mode** | Try the web portal without sign-up — explore with sample data |
 | **Guided Tour** | Interactive 39-step walkthrough of all web portal features |
+| **Multi-language** | English and Spanish UI (web portal) |
 
 ### System Architecture
 
@@ -811,6 +812,7 @@ app/src/main/java/io/github/kpedal/
 | **Svelte** | 5.x | Reactive UI (runes: $state, $derived) |
 | **Vite** | 7.3.0 | Build tool |
 | **driver.js** | 1.4.0 | Product tour library |
+| **svelte-i18n** | 4.0.1 | Internationalization |
 | **Chart.js** | 4.4.0 | Charts and visualizations |
 | **Cloudflare Pages** | - | Static hosting + edge functions |
 
@@ -1232,6 +1234,22 @@ MIT
 ---
 
 ## Changelog
+
+### v1.1.0 (December 2025)
+
+**Web Portal:**
+- Full internationalization (i18n) with svelte-i18n
+- English and Spanish language support
+- 1460 translation keys covering all UI text
+- Localized privacy policy
+- Accessible aria-labels
+
+**Android App:**
+- Extracted all hardcoded strings to resources (350+ strings)
+- Spanish translations (values-es/strings.xml)
+- Resource-based drill names and descriptions
+
+---
 
 ### v1.0.0 (December 2025)
 

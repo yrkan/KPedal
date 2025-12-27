@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -44,8 +45,14 @@ import io.github.kpedal.data.models.TrendData
 import io.github.kpedal.ui.theme.KPedalTheme
 import kotlinx.coroutines.flow.first
 import io.github.kpedal.ui.theme.Theme
+import io.github.kpedal.util.LocaleHelper
 
 class MainActivity : ComponentActivity() {
+
+    override fun attachBaseContext(newBase: android.content.Context) {
+        // Wrap context with selected locale before activity is created
+        super.attachBaseContext(LocaleHelper.wrapContext(newBase))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -192,12 +199,14 @@ fun KPedalApp(
 
         // Settings (collects only when active)
         composable("settings") {
+            val context = androidx.compose.ui.platform.LocalContext.current
             val settings by viewModel.settings.collectAsState()
             val authState by viewModel.authState.collectAsState()
             val syncState by viewModel.syncState.collectAsState()
             val deviceAuthState by viewModel.deviceAuthState.collectAsState()
             val backgroundModeEnabled by viewModel.backgroundModeEnabled.collectAsState()
             val autoSyncEnabled by viewModel.autoSyncEnabled.collectAsState()
+            val currentLanguage by viewModel.currentLanguage.collectAsState()
 
             SettingsScreen(
                 settings = settings,
@@ -206,6 +215,7 @@ fun KPedalApp(
                 deviceAuthState = deviceAuthState,
                 backgroundModeEnabled = backgroundModeEnabled,
                 autoSyncEnabled = autoSyncEnabled,
+                currentLanguage = currentLanguage,
                 onBack = { navController.popBackStack() },
                 onNavigateToAlertSettings = { navController.navigate("alert-settings") },
                 onUpdateBalanceThreshold = viewModel::updateBalanceThreshold,
@@ -218,6 +228,14 @@ fun KPedalApp(
                 onFullSync = viewModel::triggerFullSync,
                 onUpdateBackgroundMode = viewModel::updateBackgroundModeEnabled,
                 onUpdateAutoSync = viewModel::updateAutoSyncEnabled,
+                onUpdateLanguage = { language ->
+                    if (viewModel.updateLanguage(language)) {
+                        // Delay for smooth transition, then recreate activity
+                        android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                            (context as? android.app.Activity)?.recreate()
+                        }, 200)
+                    }
+                },
                 onCheckSyncRequest = viewModel::checkForSyncRequest,
                 onDeviceRevokedAcknowledged = viewModel::clearDeviceRevokedFlag
             )
@@ -374,13 +392,14 @@ fun KPedalApp(
             val bestScore by viewModel.getBestScore(drillId).collectAsState(initial = null)
             val completedCount by viewModel.getCompletedCount(drillId).collectAsState(initial = 0)
 
+            val drillName = drill.nameOverride ?: stringResource(drill.nameRes)
             DrillDetailScreen(
                 drill = drill,
                 bestScore = bestScore,
                 completedCount = completedCount,
                 onBack = { navController.popBackStack() },
                 onStart = {
-                    viewModel.startDrill(drill)
+                    viewModel.startDrill(drill, drillName)
                     navController.navigate("drill-execution/$drillId") {
                         popUpTo("drill-detail/$drillId") { inclusive = true }
                     }
@@ -455,6 +474,8 @@ fun KPedalApp(
             }
 
             drillResult?.let { result ->
+                // Pre-resolve drill name for retry (using the name stored in result)
+                val retryDrillName = result.drillName
                 DrillResultScreen(
                     result = result,
                     previousBestScore = bestScore,
@@ -466,7 +487,7 @@ fun KPedalApp(
                     },
                     onRetry = {
                         viewModel.getDrill(drillId)?.let { drill ->
-                            viewModel.startDrill(drill)
+                            viewModel.startDrill(drill, retryDrillName)
                             navController.navigate("drill-execution/$drillId") {
                                 popUpTo("drill-result/$drillId") { inclusive = true }
                             }

@@ -6,6 +6,7 @@
   import { theme } from '$lib/theme';
   import { API_URL } from '$lib/config';
   import InfoTip from '$lib/components/InfoTip.svelte';
+  import { t, locale } from '$lib/i18n';
 
   interface Stats {
     total_rides: number;
@@ -120,7 +121,7 @@
   let fatigueData: FatigueAnalysis | null = null;
   let trendData: TrendData[] = [];
   let loading = true;
-  let error: string | null = null;
+  let error = false;
   let selectedPeriod: '7' | '14' | '30' | '60' = '7';
   let activeTrendMetric: 'asymmetry' | 'te' | 'ps' = 'asymmetry';
 
@@ -175,30 +176,30 @@
   let activeDrillCategory: 'focus' | 'challenge' | 'workout' = 'focus';
   let expandedDrill: string | null = null;
 
-  const dataFields = [
-    { id: 'quick', name: 'Quick Glance', desc: 'Status indicator with balance bar. Shows checkmark when optimal or lists metrics needing attention.' },
-    { id: 'balance', name: 'Power Balance', desc: 'Large L/R balance numbers with visual progress bar. Perfect for balance-focused training.' },
-    { id: 'efficiency', name: 'Efficiency', desc: 'Torque Effectiveness and Pedal Smoothness with L/R splits and averages.' },
-    { id: 'full', name: 'Full Overview', desc: 'All three metrics in one compact view. Complete pedaling picture at a glance.' },
-    { id: 'trend', name: 'Balance Trend', desc: 'Current + 3s smoothed + 10s smoothed balance. See trends as they develop.' }
+  $: dataFields = [
+    { id: 'quick', name: $t('landing.dataFields.quickGlance.name'), desc: $t('landing.dataFields.quickGlance.desc') },
+    { id: 'balance', name: $t('landing.dataFields.powerBalance.name'), desc: $t('landing.dataFields.powerBalance.desc') },
+    { id: 'efficiency', name: $t('landing.dataFields.efficiency.name'), desc: $t('landing.dataFields.efficiency.desc') },
+    { id: 'full', name: $t('landing.dataFields.fullOverview.name'), desc: $t('landing.dataFields.fullOverview.desc') },
+    { id: 'trend', name: $t('landing.dataFields.balanceTrend.name'), desc: $t('landing.dataFields.balanceTrend.desc') }
   ];
 
-  const drills = {
+  $: drills = {
     focus: [
-      { id: 'left', name: 'Left Leg Focus', duration: '30s', level: 'Beginner', target: 'Balance <48%', desc: 'Build single-leg strength awareness by emphasizing your left leg.' },
-      { id: 'right', name: 'Right Leg Focus', duration: '30s', level: 'Beginner', target: 'Balance >52%', desc: 'Identify and strengthen your weaker leg with focused practice.' },
-      { id: 'smooth', name: 'Smooth Circles', duration: '45s', level: 'Intermediate', target: 'PS ≥22%', desc: 'Eliminate dead spots in your pedal stroke through smooth technique.' },
-      { id: 'power', name: 'Power Transfer', duration: '60s', level: 'Intermediate', target: 'TE 70-80%', desc: 'Maximize power output without sacrificing efficiency.' }
+      { id: 'left', name: $t('landing.drills.items.leftFocus.name'), duration: $t('landing.drills.items.leftFocus.duration'), level: $t('landing.drills.levels.beginner'), target: $t('landing.drills.items.leftFocus.target'), desc: $t('landing.drills.items.leftFocus.desc') },
+      { id: 'right', name: $t('landing.drills.items.rightFocus.name'), duration: $t('landing.drills.items.rightFocus.duration'), level: $t('landing.drills.levels.beginner'), target: $t('landing.drills.items.rightFocus.target'), desc: $t('landing.drills.items.rightFocus.desc') },
+      { id: 'smooth', name: $t('landing.drills.items.smoothCircles.name'), duration: $t('landing.drills.items.smoothCircles.duration'), level: $t('landing.drills.levels.intermediate'), target: $t('landing.drills.items.smoothCircles.target'), desc: $t('landing.drills.items.smoothCircles.desc') },
+      { id: 'power', name: $t('landing.drills.items.powerTransfer.name'), duration: $t('landing.drills.items.powerTransfer.duration'), level: $t('landing.drills.levels.intermediate'), target: $t('landing.drills.items.powerTransfer.target'), desc: $t('landing.drills.items.powerTransfer.desc') }
     ],
     challenge: [
-      { id: 'balance-c', name: 'Balance Challenge', duration: '15s hold', level: 'Intermediate', target: '48-52%', desc: 'Hold perfect 50/50 balance for 15 seconds. Tests symmetry and control.' },
-      { id: 'smooth-t', name: 'Smoothness Target', duration: '20s hold', level: 'Advanced', target: 'PS ≥25%', desc: 'Elite-level pedal smoothness. The most demanding technique challenge.' },
-      { id: 'cadence', name: 'High Cadence Smooth', duration: '30s', level: 'Advanced', target: 'PS ≥20% @ 100+ rpm', desc: 'Maintain smooth form at high cadence. Ultimate coordination test.' }
+      { id: 'balance-c', name: $t('landing.drills.items.balanceChallenge.name'), duration: $t('landing.drills.items.balanceChallenge.duration'), level: $t('landing.drills.levels.intermediate'), target: $t('landing.drills.items.balanceChallenge.target'), desc: $t('landing.drills.items.balanceChallenge.desc') },
+      { id: 'smooth-t', name: $t('landing.drills.items.smoothnessTarget.name'), duration: $t('landing.drills.items.smoothnessTarget.duration'), level: $t('landing.drills.levels.advanced'), target: $t('landing.drills.items.smoothnessTarget.target'), desc: $t('landing.drills.items.smoothnessTarget.desc') },
+      { id: 'cadence', name: $t('landing.drills.items.highCadenceSmooth.name'), duration: $t('landing.drills.items.highCadenceSmooth.duration'), level: $t('landing.drills.levels.advanced'), target: $t('landing.drills.items.highCadenceSmooth.target'), desc: $t('landing.drills.items.highCadenceSmooth.desc') }
     ],
     workout: [
-      { id: 'recovery', name: 'Balance Recovery', duration: '5 min', level: 'Beginner', target: '3 phases', desc: 'Alternate left focus → center → right focus. Helps correct imbalances over time.' },
-      { id: 'builder', name: 'Efficiency Builder', duration: '10 min', level: 'Intermediate', target: '6 phases', desc: 'Sequential blocks: balance → smoothness → TE. Build complete technique.' },
-      { id: 'mastery', name: 'Pedaling Mastery', duration: '15 min', level: 'Advanced', target: '10 phases', desc: 'Comprehensive 10-phase workout covering all aspects of pedaling technique.' }
+      { id: 'recovery', name: $t('landing.drills.items.balanceRecovery.name'), duration: $t('landing.drills.items.balanceRecovery.duration'), level: $t('landing.drills.levels.beginner'), target: $t('landing.drills.items.balanceRecovery.target'), desc: $t('landing.drills.items.balanceRecovery.desc') },
+      { id: 'builder', name: $t('landing.drills.items.efficiencyBuilder.name'), duration: $t('landing.drills.items.efficiencyBuilder.duration'), level: $t('landing.drills.levels.intermediate'), target: $t('landing.drills.items.efficiencyBuilder.target'), desc: $t('landing.drills.items.efficiencyBuilder.desc') },
+      { id: 'mastery', name: $t('landing.drills.items.pedalingMastery.name'), duration: $t('landing.drills.items.pedalingMastery.duration'), level: $t('landing.drills.levels.advanced'), target: $t('landing.drills.items.pedalingMastery.target'), desc: $t('landing.drills.items.pedalingMastery.desc') }
     ]
   };
 
@@ -241,10 +242,10 @@
           }
         }
       } else {
-        error = 'Failed to load data';
+        error = true;
       }
     } catch (err) {
-      error = 'Failed to load data';
+      error = true;
     } finally {
       loading = false;
     }
@@ -322,18 +323,23 @@
     return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
   }
 
-  function formatDate(timestamp: number): string {
-    return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  function getLocaleString(currentLocale: string | null | undefined): string {
+    const localeMap: Record<string, string> = { en: 'en-US', es: 'es-ES' };
+    return currentLocale ? localeMap[currentLocale] || currentLocale : 'en-US';
   }
 
-  function formatRelativeTime(timestamp: number): string {
+  function formatDate(timestamp: number, currentLocale?: string | null): string {
+    return new Date(timestamp).toLocaleDateString(getLocaleString(currentLocale), { month: 'short', day: 'numeric' });
+  }
+
+  function formatRelativeTime(timestamp: number, translations: { today: string; yesterday: string; daysAgo: string }, currentLocale?: string | null): string {
     const now = Date.now();
     const diff = now - timestamp;
     const days = Math.floor(diff / (24 * 60 * 60 * 1000));
-    if (days === 0) return 'Today';
-    if (days === 1) return 'Yesterday';
-    if (days < 7) return `${days} days ago`;
-    return formatDate(timestamp);
+    if (days === 0) return translations.today;
+    if (days === 1) return translations.yesterday;
+    if (days < 7) return translations.daysAgo.replace('{days}', String(days));
+    return formatDate(timestamp, currentLocale);
   }
 
   function getBalanceStatus(left: number): 'optimal' | 'attention' | 'problem' {
@@ -363,12 +369,14 @@
     return rides.filter(r => r.timestamp >= cutoff);
   }
 
-  function getWeekDays(): string[] {
+  function getWeekDays(currentLocale: string | null | undefined): string[] {
     const days = [];
+    const localeMap: Record<string, string> = { en: 'en-US', es: 'es-ES' };
+    const browserLocale = currentLocale ? localeMap[currentLocale] || currentLocale : 'en-US';
     for (let i = 6; i >= 0; i--) {
       const d = new Date();
       d.setDate(d.getDate() - i);
-      days.push(d.toLocaleDateString('en-US', { weekday: 'short' }));
+      days.push(d.toLocaleDateString(browserLocale, { weekday: 'short' }));
     }
     return days;
   }
@@ -406,7 +414,7 @@
     optimalZone: { y1: number; y2: number };
   }
 
-  function getBalanceTrendData(rides: Ride[], maxPoints: number = 20, chartWidth: number = 300): BalanceTrendResult {
+  function getBalanceTrendData(rides: Ride[], maxPoints: number = 20, chartWidth: number = 300, currentLocale?: string | null): BalanceTrendResult {
     const empty: BalanceTrendResult = {
       path: '', areaPath: '', movingAvgPath: '', avgLine: 30,
       minBalance: 50, maxBalance: 50, points: [],
@@ -424,6 +432,7 @@
     const width = chartWidth;
     const height = CHART_HEIGHT;
     const padding = CHART_PADDING;
+    const browserLocale = getLocaleString(currentLocale);
 
     // Calculate optimal zone (47.5-52.5%)
     const optimalY1 = height - padding - ((52.5 - 40) / 20) * (height - 2 * padding);
@@ -438,7 +447,7 @@
         x,
         y: clampedY,
         balance: r.balance_left,
-        date: new Date(r.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        date: new Date(r.timestamp).toLocaleDateString(browserLocale, { month: 'short', day: 'numeric' }),
         rideId: r.id,
         status: deviation <= 2.5 ? 'optimal' : deviation <= 5 ? 'attention' : 'problem'
       };
@@ -493,13 +502,14 @@
     optimalZone: { y1: number; y2: number } | null;
   }
 
-  function getTechniqueTrendData(trends: TrendData[], metric: 'asymmetry' | 'te' | 'ps', chartWidth: number = 300): TechniqueTrendResult {
+  function getTechniqueTrendData(trends: TrendData[], metric: 'asymmetry' | 'te' | 'ps', chartWidth: number = 300, currentLocale?: string | null): TechniqueTrendResult {
     const empty: TechniqueTrendResult = {
       path: '', areaPath: '', movingAvgPath: '', min: 0, max: 100, points: [], optimalZone: null
     };
     if (!trends || trends.length < 2) return empty;
 
     const sorted = [...trends].sort((a, b) => a.date.localeCompare(b.date));
+    const browserLocale = getLocaleString(currentLocale);
 
     const values = sorted.map(t => {
       if (metric === 'asymmetry') return Math.abs(t.avg_balance_left - 50);
@@ -557,7 +567,7 @@
       const x = xPad + (i / (values.length - 1)) * (width - 2 * xPad);
       const y = height - yPad - ((values[i] - chartMin) / chartRange) * (height - 2 * yPad);
       return {
-        date: new Date(t.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        date: new Date(t.date).toLocaleDateString(browserLocale, { month: 'short', day: 'numeric' }),
         value: values[i],
         x,
         y,
@@ -733,11 +743,36 @@
     link?: { label: string; href: string };
   }
 
+  interface InsightTranslations {
+    fatigueAction: string;
+    fatigueLink: string;
+    balanceAction: string;
+    balanceLink: string;
+    leftLeg: string;
+    rightLeg: string;
+    leftDominant: string;
+    rightDominant: string;
+    lowTeAction: string;
+    lowTeLink: string;
+    lowPsAction: string;
+    lowPsLink: string;
+    greatBalance: string;
+    teOptimal: string;
+    excellentScore: string;
+    goodConsistency: string;
+    improvement: string;
+    encourageRides: string;
+    ride: string;
+    ridesPl: string;
+    nearOptimalTe: string;
+  }
+
   function generateInsights(
     stats: typeof periodStats,
     prevStats: typeof prevPeriodStats,
     weekly: typeof weeklyComparison,
-    fatigue: typeof fatigueData
+    fatigue: typeof fatigueData,
+    tr: InsightTranslations
   ): Insight[] {
     if (!stats || !weekly) return [];
 
@@ -745,6 +780,9 @@
     const asymmetry = Math.abs(stats.balance - 50);
     const dominant = stats.balance > 50 ? 'left' : 'right';
     const weak = stats.balance > 50 ? 'right' : 'left';
+    const dominantLabel = dominant === 'left' ? tr.leftDominant : tr.rightDominant;
+    const weakLabel = weak === 'left' ? tr.leftDominant : tr.rightDominant;
+    const sideLabel = weak === 'left' ? tr.leftLeg : tr.rightLeg;
 
     // === ACTIONABLE FEEDBACK (priority) ===
 
@@ -753,8 +791,8 @@
       insights.push({
         type: 'action',
         icon: '🔋',
-        text: 'Your form drops late in rides. Build endurance with',
-        link: { label: 'Efficiency Builder', href: '/drills' }
+        text: tr.fatigueAction,
+        link: { label: tr.fatigueLink, href: '/drills' }
       });
     }
 
@@ -763,8 +801,8 @@
       insights.push({
         type: 'action',
         icon: '⚖️',
-        text: `${asymmetry.toFixed(1)}% ${dominant}-dominant. Strengthen ${weak} leg with`,
-        link: { label: `${weak === 'left' ? 'Left' : 'Right'} Leg Focus`, href: '/drills' }
+        text: tr.balanceAction.replace('{asymmetry}', asymmetry.toFixed(1)).replace('{dominant}', dominantLabel).replace('{weak}', weakLabel),
+        link: { label: tr.balanceLink.replace('{side}', sideLabel), href: '/drills' }
       });
     }
 
@@ -773,8 +811,8 @@
       insights.push({
         type: 'action',
         icon: '⚡',
-        text: `TE ${stats.te.toFixed(0)}% — focus on pulling up at 6 o'clock. Try`,
-        link: { label: 'Power Transfer', href: '/drills' }
+        text: tr.lowTeAction.replace('{te}', stats.te.toFixed(0)),
+        link: { label: tr.lowTeLink, href: '/drills' }
       });
     }
 
@@ -783,8 +821,8 @@
       insights.push({
         type: 'action',
         icon: '🔄',
-        text: `PS ${stats.ps.toFixed(0)}% means choppy stroke. Smooth it with`,
-        link: { label: 'Smooth Circles', href: '/drills' }
+        text: tr.lowPsAction.replace('{ps}', stats.ps.toFixed(0)),
+        link: { label: tr.lowPsLink, href: '/drills' }
       });
     }
 
@@ -795,7 +833,7 @@
       insights.push({
         type: 'win',
         icon: '🎯',
-        text: `${asymmetry.toFixed(1)}% asymmetry — that's pro-level balance!`
+        text: tr.greatBalance.replace('{asymmetry}', asymmetry.toFixed(1))
       });
     }
 
@@ -804,7 +842,7 @@
       insights.push({
         type: 'win',
         icon: '✓',
-        text: `TE ${stats.te.toFixed(0)}% — sweet spot for power transfer.`
+        text: tr.teOptimal.replace('{te}', stats.te.toFixed(0))
       });
     }
 
@@ -813,7 +851,7 @@
       insights.push({
         type: 'win',
         icon: '🏆',
-        text: `Score ${stats.score}% — elite level technique!`
+        text: tr.excellentScore.replace('{score}', String(stats.score))
       });
     }
 
@@ -822,7 +860,7 @@
       insights.push({
         type: 'win',
         icon: '🔥',
-        text: `${weekly.thisWeek.rides_count} rides — great week!`
+        text: tr.goodConsistency.replace('{count}', String(weekly.thisWeek.rides_count))
       });
     }
 
@@ -831,7 +869,7 @@
       insights.push({
         type: 'win',
         icon: '📈',
-        text: `Score up ${(stats.score - prevStats.score).toFixed(0)} points from last period.`
+        text: tr.improvement.replace('{points}', (stats.score - prevStats.score).toFixed(0))
       });
     }
 
@@ -839,10 +877,11 @@
 
     // Encourage more rides
     if (weekly.thisWeek.rides_count < 2 && weekly.lastWeek.rides_count >= 2) {
+      const rideWord = weekly.thisWeek.rides_count === 1 ? tr.ride : tr.ridesPl;
       insights.push({
         type: 'tip',
         icon: '📅',
-        text: `Only ${weekly.thisWeek.rides_count} ride${weekly.thisWeek.rides_count === 1 ? '' : 's'} — try to match last week's ${weekly.lastWeek.rides_count}.`
+        text: tr.encourageRides.replace('{count}', String(weekly.thisWeek.rides_count)).replace('{rideWord}', rideWord).replace('{lastCount}', String(weekly.lastWeek.rides_count))
       });
     }
 
@@ -851,7 +890,7 @@
       insights.push({
         type: 'tip',
         icon: '💡',
-        text: `TE ${stats.te.toFixed(0)}% — just ${(70 - stats.te).toFixed(0)}% from optimal zone.`
+        text: tr.nearOptimalTe.replace('{te}', stats.te.toFixed(0)).replace('{diff}', (70 - stats.te).toFixed(0))
       });
     }
 
@@ -879,18 +918,41 @@
     ? getProgress(periodStats.totalDistance, prevPeriodStats.distance, 5) : null;
   $: filteredRides = getFilteredRides(weeklyRides, parseInt(selectedPeriod));
   $: balanceTrendMaxPoints = selectedPeriod === '60' ? 60 : selectedPeriod === '30' ? 30 : selectedPeriod === '14' ? 14 : 7;
-  $: balanceTrend = getBalanceTrendData(filteredRides, balanceTrendMaxPoints, balanceChartWidth);
+  $: balanceTrend = getBalanceTrendData(filteredRides, balanceTrendMaxPoints, balanceChartWidth, $locale);
 
   // Calculate rides count for each period (for disabling period buttons)
   $: ridesIn7Days = getFilteredRides(weeklyRides, 7).length;
   $: ridesIn14Days = getFilteredRides(weeklyRides, 14).length;
   $: ridesIn30Days = getFilteredRides(weeklyRides, 30).length;
   $: ridesIn60Days = getFilteredRides(weeklyRides, 60).length;
-  $: weekDays = getWeekDays();
+  $: weekDays = getWeekDays($locale);
   $: ridesPerDay = getRidesPerDay(weeklyRides);
   $: maxRidesPerDay = Math.max(...ridesPerDay, 1);
-  $: techniqueTrend = getTechniqueTrendData(trendData, activeTrendMetric, techniqueChartWidth);
-  $: insights = generateInsights(periodStats, prevPeriodStats, weeklyComparison, fatigueData);
+  $: techniqueTrend = getTechniqueTrendData(trendData, activeTrendMetric, techniqueChartWidth, $locale);
+  $: insightTranslations = {
+    fatigueAction: $t('dashboard.insights.fatigueAction'),
+    fatigueLink: $t('dashboard.insights.fatigueLink'),
+    balanceAction: $t('dashboard.insights.balanceAction'),
+    balanceLink: $t('dashboard.insights.balanceLink'),
+    leftLeg: $t('dashboard.insights.leftLeg'),
+    rightLeg: $t('dashboard.insights.rightLeg'),
+    leftDominant: $t('dashboard.insights.leftDominant'),
+    rightDominant: $t('dashboard.insights.rightDominant'),
+    lowTeAction: $t('dashboard.insights.lowTeAction'),
+    lowTeLink: $t('dashboard.insights.lowTeLink'),
+    lowPsAction: $t('dashboard.insights.lowPsAction'),
+    lowPsLink: $t('dashboard.insights.lowPsLink'),
+    greatBalance: $t('dashboard.insights.greatBalance'),
+    teOptimal: $t('dashboard.insights.teOptimal'),
+    excellentScore: $t('dashboard.insights.excellentScore'),
+    goodConsistency: $t('dashboard.insights.goodConsistency'),
+    improvement: $t('dashboard.insights.improvement'),
+    encourageRides: $t('dashboard.insights.encourageRides'),
+    ride: $t('dashboard.insights.ride'),
+    ridesPl: $t('dashboard.insights.ridesPl'),
+    nearOptimalTe: $t('dashboard.insights.nearOptimalTe')
+  } as InsightTranslations;
+  $: insights = generateInsights(periodStats, prevPeriodStats, weeklyComparison, fatigueData, insightTranslations);
 </script>
 
 <svelte:head>
@@ -1059,12 +1121,12 @@
   <div class="landing" role="main" itemscope itemtype="https://schema.org/WebPage">
     <!-- Header with Logo and Theme Toggle -->
     <header class="landing-header">
-      <a href="/" class="site-logo" aria-label="KPedal - Home">
+      <a href="/" class="site-logo" aria-label={$t('aria.home')}>
         <span class="site-logo-dot" aria-hidden="true"></span>
         <span class="site-logo-text">KPedal</span>
       </a>
 
-      <button class="theme-toggle" on:click={() => theme.toggle()} aria-label="Toggle dark mode">
+      <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
       {#if $theme === 'dark' || ($theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -1089,59 +1151,59 @@
       <!-- Hero -->
       <section class="hero" aria-labelledby="hero-title">
         <p class="hero-eyebrow">
-          <span itemprop="applicationSubCategory">Karoo Extension</span>
-          <span class="hero-version" itemprop="softwareVersion">v1.0.0</span>
+          <span itemprop="applicationSubCategory">{$t('landing.hero.eyebrow')}</span>
+          <span class="hero-version" itemprop="softwareVersion">{$t('landing.hero.version')}</span>
         </p>
         <h1 id="hero-title" class="hero-title" itemprop="headline">
-          <span class="hero-title-line">See your pedaling</span>
-          <span class="hero-title-line">efficiency in real-time</span>
+          <span class="hero-title-line">{$t('landing.hero.titleLine1')}</span>
+          <span class="hero-title-line">{$t('landing.hero.titleLine2')}</span>
         </h1>
         <p class="hero-subtitle" itemprop="description">
-          Balance, Torque Effectiveness, Pedal Smoothness — displayed on your Karoo with real-time alerts and guided drills.
+          {$t('landing.hero.subtitle')}
         </p>
 
-        <div class="hero-actions" role="group" aria-label="Download options">
-          <a href="https://github.com/yrkan/kpedal/releases" class="hero-cta" target="_blank" rel="noopener noreferrer" itemprop="downloadUrl" aria-label="Download KPedal for free from GitHub">
-            Download Free
+        <div class="hero-actions" role="group" aria-label={$t('aria.downloadOptions')}>
+          <a href="https://github.com/yrkan/kpedal/releases" class="hero-cta" target="_blank" rel="noopener noreferrer" itemprop="downloadUrl" aria-label={$t('aria.downloadKPedal')}>
+            {$t('landing.hero.downloadFree')}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <a href="/login" class="hero-cta-secondary" aria-label="Try demo account">
+          <a href="/login" class="hero-cta-secondary" aria-label={$t('aria.tryDemo')}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/>
               <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
             </svg>
-            Try Demo
+            {$t('landing.hero.tryDemo')}
           </a>
         </div>
 
         <p class="hero-note">
-          <span>Free</span> & <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">open source</a> · No account required
+          <span>{$t('landing.hero.free')}</span> & <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">{$t('landing.hero.openSource')}</a> · {$t('landing.hero.noAccountRequired')}
         </p>
       </section>
 
       <!-- Data Fields Interactive -->
       <section id="datafields" class="section datafields-section" aria-labelledby="datafields-title">
-        <h2 id="datafields-title" class="section-title">See It On Your Karoo</h2>
-        <p class="section-subtitle">5 data field layouts. Choose the view that fits your training.</p>
+        <h2 id="datafields-title" class="section-title">{$t('landing.dataFields.title')}</h2>
+        <p class="section-subtitle">{$t('landing.dataFields.subtitle')}</p>
 
         <div class="datafields-showcase">
           <div class="datafield-tabs">
             <button class="datafield-tab" class:active={activeDataField === 0} on:click={() => activeDataField = 0}>
-              Quick Glance
+              {$t('landing.dataFields.tabs.quickGlance')}
             </button>
             <button class="datafield-tab" class:active={activeDataField === 1} on:click={() => activeDataField = 1}>
-              Balance
+              {$t('landing.dataFields.tabs.balance')}
             </button>
             <button class="datafield-tab" class:active={activeDataField === 2} on:click={() => activeDataField = 2}>
-              Efficiency
+              {$t('landing.dataFields.tabs.efficiency')}
             </button>
             <button class="datafield-tab" class:active={activeDataField === 3} on:click={() => activeDataField = 3}>
-              Full View
+              {$t('landing.dataFields.tabs.fullView')}
             </button>
             <button class="datafield-tab" class:active={activeDataField === 4} on:click={() => activeDataField = 4}>
-              Trend
+              {$t('landing.dataFields.tabs.trend')}
             </button>
           </div>
           <div class="datafield-preview">
@@ -1156,11 +1218,11 @@
                         <svg class="qg-status-icon optimal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                           <polyline points="20 6 9 17 4 12"/>
                         </svg>
-                        <div class="qg-status-text">Optimal</div>
+                        <div class="qg-status-text">{$t('landing.dataFields.karoo.optimal')}</div>
                       </div>
                       <div class="karoo-divider"></div>
                       <div class="qg-balance-section">
-                        <div class="karoo-label">Balance</div>
+                        <div class="karoo-label">{$t('landing.dataFields.karoo.balance')}</div>
                         <div class="balance-values">
                           <span class="balance-num">48</span>
                           <span class="balance-num">52</span>
@@ -1173,18 +1235,18 @@
                     <!-- Power Balance -->
                     <div class="karoo-layout power-balance">
                       <div class="pb-header">
-                        <span class="karoo-label">Balance</span>
-                        <span class="pb-status optimal">Optimal</span>
+                        <span class="karoo-label">{$t('landing.dataFields.karoo.balance')}</span>
+                        <span class="pb-status optimal">{$t('landing.dataFields.karoo.optimal')}</span>
                       </div>
                       <div class="pb-main">
                         <div class="pb-side">
                           <span class="pb-value">48</span>
-                          <span class="pb-label">Left</span>
+                          <span class="pb-label">{$t('landing.dataFields.karoo.left')}</span>
                         </div>
                         <div class="pb-divider"></div>
                         <div class="pb-side">
                           <span class="pb-value">52</span>
-                          <span class="pb-label">Right</span>
+                          <span class="pb-label">{$t('landing.dataFields.karoo.right')}</span>
                         </div>
                       </div>
                       <div class="balance-bar"><div class="bar-fill" style="width: 48%"></div></div>
@@ -1194,7 +1256,7 @@
                     <div class="karoo-layout efficiency">
                       <div class="eff-section">
                         <div class="eff-header">
-                          <span class="karoo-label">Torque Eff.</span>
+                          <span class="karoo-label">{$t('landing.dataFields.karoo.torqueEff')}</span>
                           <span class="eff-avg optimal">76%</span>
                         </div>
                         <div class="eff-values">
@@ -1206,7 +1268,7 @@
                       <div class="karoo-divider"></div>
                       <div class="eff-section">
                         <div class="eff-header">
-                          <span class="karoo-label">Smoothness</span>
+                          <span class="karoo-label">{$t('landing.dataFields.karoo.smoothness')}</span>
                           <span class="eff-avg optimal">24%</span>
                         </div>
                         <div class="eff-values">
@@ -1220,17 +1282,17 @@
                     <!-- Full Overview -->
                     <div class="karoo-layout full-overview">
                       <div class="fo-section">
-                        <div class="fo-header"><span class="karoo-label">Balance</span><span class="fo-status optimal">OK</span></div>
+                        <div class="fo-header"><span class="karoo-label">{$t('landing.dataFields.karoo.balance')}</span><span class="fo-status optimal">{$t('landing.dataFields.karoo.ok')}</span></div>
                         <div class="fo-row"><span class="fo-num">48</span><span class="fo-sep">/</span><span class="fo-num">52</span></div>
                       </div>
                       <div class="karoo-divider"></div>
                       <div class="fo-section">
-                        <div class="fo-header"><span class="karoo-label">TE</span><span class="fo-status optimal">76%</span></div>
+                        <div class="fo-header"><span class="karoo-label">{$t('landing.dataFields.karoo.te')}</span><span class="fo-status optimal">76%</span></div>
                         <div class="fo-row"><span class="fo-num sm">74</span><span class="fo-sep">/</span><span class="fo-num sm">77</span></div>
                       </div>
                       <div class="karoo-divider"></div>
                       <div class="fo-section">
-                        <div class="fo-header"><span class="karoo-label">PS</span><span class="fo-status optimal">24%</span></div>
+                        <div class="fo-header"><span class="karoo-label">{$t('landing.dataFields.karoo.ps')}</span><span class="fo-status optimal">24%</span></div>
                         <div class="fo-row"><span class="fo-num sm">23</span><span class="fo-sep">/</span><span class="fo-num sm">25</span></div>
                       </div>
                     </div>
@@ -1238,16 +1300,16 @@
                     <!-- Balance Trend -->
                     <div class="karoo-layout balance-trend">
                       <div class="bt-section main">
-                        <div class="karoo-label">Now</div>
+                        <div class="karoo-label">{$t('landing.dataFields.karoo.now')}</div>
                         <div class="bt-values lg"><span>48</span><span class="bt-sep">:</span><span>52</span></div>
                       </div>
                       <div class="karoo-divider"></div>
                       <div class="bt-section">
-                        <div class="karoo-label">3s Avg</div>
+                        <div class="karoo-label">{$t('landing.dataFields.karoo.avg3s')}</div>
                         <div class="bt-values"><span>49</span><span class="bt-sep">:</span><span>51</span></div>
                       </div>
                       <div class="bt-section">
-                        <div class="karoo-label">10s Avg</div>
+                        <div class="karoo-label">{$t('landing.dataFields.karoo.avg10s')}</div>
                         <div class="bt-values"><span>50</span><span class="bt-sep">:</span><span>50</span></div>
                       </div>
                     </div>
@@ -1265,52 +1327,52 @@
 
       <!-- Before / After - MOVED UP -->
       <section class="section before-after-section" aria-labelledby="difference-title">
-        <h2 id="difference-title" class="section-title">The Difference</h2>
-        <p class="section-subtitle">Stop guessing. Start improving.</p>
+        <h2 id="difference-title" class="section-title">{$t('landing.comparison.title')}</h2>
+        <p class="section-subtitle">{$t('landing.comparison.subtitle')}</p>
 
         <div class="comparison-table">
           <div class="comparison-header">
-            <div class="comparison-col">Without KPedal</div>
-            <div class="comparison-col highlight">With KPedal</div>
+            <div class="comparison-col">{$t('landing.comparison.without')}</div>
+            <div class="comparison-col highlight">{$t('landing.comparison.with')}</div>
           </div>
           <div class="comparison-row">
             <div class="comparison-item before">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              <span>Power number, but no technique insight</span>
+              <span>{$t('landing.comparison.items.before1')}</span>
             </div>
             <div class="comparison-item after">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>Balance, TE, PS visible live</span>
-            </div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-item before">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              <span>Discover imbalance from injury</span>
-            </div>
-            <div class="comparison-item after">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>Alert before it becomes a problem</span>
+              <span>{$t('landing.comparison.items.after1')}</span>
             </div>
           </div>
           <div class="comparison-row">
             <div class="comparison-item before">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              <span>No structured way to improve</span>
+              <span>{$t('landing.comparison.items.before2')}</span>
             </div>
             <div class="comparison-item after">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>10 guided drills with scoring</span>
+              <span>{$t('landing.comparison.items.after2')}</span>
             </div>
           </div>
           <div class="comparison-row">
             <div class="comparison-item before">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              <span>Data stuck on one device</span>
+              <span>{$t('landing.comparison.items.before3')}</span>
             </div>
             <div class="comparison-item after">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <span>Cloud sync with web dashboard</span>
+              <span>{$t('landing.comparison.items.after3')}</span>
+            </div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-item before">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              <span>{$t('landing.comparison.items.before4')}</span>
+            </div>
+            <div class="comparison-item after">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>{$t('landing.comparison.items.after4')}</span>
             </div>
           </div>
         </div>
@@ -1318,23 +1380,23 @@
 
       <!-- Metrics Deep Dive -->
       <section id="features" class="section" aria-labelledby="features-title" itemprop="featureList">
-        <h2 id="features-title" class="section-title">What We Measure</h2>
-        <p class="section-subtitle">Three metrics. Research-backed thresholds.</p>
+        <h2 id="features-title" class="section-title">{$t('landing.metrics.title')}</h2>
+        <p class="section-subtitle">{$t('landing.metrics.subtitle')}</p>
 
         <div class="metrics-deep">
           <div class="metric-deep-card">
             <div class="metric-deep-header">
               <div class="metric-deep-icon balance"></div>
               <div>
-                <h3>Power Balance</h3>
-                <span class="metric-deep-range">48-52% optimal</span>
+                <h3>{$t('landing.metrics.balance.title')}</h3>
+                <span class="metric-deep-range">{$t('landing.metrics.balance.range')}</span>
               </div>
             </div>
-            <p class="metric-deep-desc">Left/right power distribution. Pro cyclists maintain within 2%. Imbalances above 5% increase overuse injury risk and waste energy through compensation patterns.</p>
+            <p class="metric-deep-desc">{$t('landing.metrics.balance.desc')}</p>
             <div class="metric-zones">
-              <div class="zone optimal"><span>48-52%</span> Optimal</div>
-              <div class="zone attention"><span>45-48% / 52-55%</span> Attention</div>
-              <div class="zone problem"><span>&lt;45% / &gt;55%</span> Problem</div>
+              <div class="zone optimal"><span>48-52%</span> {$t('landing.metrics.zones.optimal')}</div>
+              <div class="zone attention"><span>45-48% / 52-55%</span> {$t('landing.metrics.zones.attention')}</div>
+              <div class="zone problem"><span>&lt;45% / &gt;55%</span> {$t('landing.metrics.zones.problem')}</div>
             </div>
           </div>
 
@@ -1342,15 +1404,15 @@
             <div class="metric-deep-header">
               <div class="metric-deep-icon te"></div>
               <div>
-                <h3>Torque Effectiveness</h3>
-                <span class="metric-deep-range">70-80% sweet spot</span>
+                <h3>{$t('landing.metrics.te.title')}</h3>
+                <span class="metric-deep-range">{$t('landing.metrics.te.range')}</span>
               </div>
             </div>
-            <p class="metric-deep-desc">Percentage of power applied during the effective part of stroke. Based on Wattbike research — <strong>higher is NOT better</strong>. Above 80% can actually reduce total power output.</p>
+            <p class="metric-deep-desc">{@html $t('landing.metrics.te.desc')}</p>
             <div class="metric-zones">
-              <div class="zone optimal"><span>70-80%</span> Optimal</div>
-              <div class="zone attention"><span>60-70% / 80-85%</span> Attention</div>
-              <div class="zone problem"><span>&lt;60% / &gt;85%</span> Problem</div>
+              <div class="zone optimal"><span>70-80%</span> {$t('landing.metrics.zones.optimal')}</div>
+              <div class="zone attention"><span>60-70% / 80-85%</span> {$t('landing.metrics.zones.attention')}</div>
+              <div class="zone problem"><span>&lt;60% / &gt;85%</span> {$t('landing.metrics.zones.problem')}</div>
             </div>
           </div>
 
@@ -1358,15 +1420,15 @@
             <div class="metric-deep-header">
               <div class="metric-deep-icon ps"></div>
               <div>
-                <h3>Pedal Smoothness</h3>
-                <span class="metric-deep-range">≥20% target</span>
+                <h3>{$t('landing.metrics.ps.title')}</h3>
+                <span class="metric-deep-range">{$t('landing.metrics.ps.range')}</span>
               </div>
             </div>
-            <p class="metric-deep-desc">How evenly power distributes through the entire pedal stroke. Eliminates "dead spots". Elite cyclists achieve 25-35% — this is the hardest metric to improve.</p>
+            <p class="metric-deep-desc">{$t('landing.metrics.ps.desc')}</p>
             <div class="metric-zones">
-              <div class="zone optimal"><span>≥20%</span> Optimal</div>
-              <div class="zone attention"><span>15-20%</span> Attention</div>
-              <div class="zone problem"><span>&lt;15%</span> Problem</div>
+              <div class="zone optimal"><span>≥20%</span> {$t('landing.metrics.zones.optimal')}</div>
+              <div class="zone attention"><span>15-20%</span> {$t('landing.metrics.zones.attention')}</div>
+              <div class="zone problem"><span>&lt;15%</span> {$t('landing.metrics.zones.problem')}</div>
             </div>
           </div>
         </div>
@@ -1374,18 +1436,18 @@
 
       <!-- Drills Section -->
       <section id="drills" class="section drills-section" aria-labelledby="drills-title">
-        <h2 id="drills-title" class="section-title">10 Guided Drills</h2>
-        <p class="section-subtitle">From 30-second exercises to 15-minute workouts. Each scored 0-100%.</p>
+        <h2 id="drills-title" class="section-title">{$t('landing.drills.title')}</h2>
+        <p class="section-subtitle">{$t('landing.drills.subtitle')}</p>
 
         <div class="drills-tabs">
           <button class="drill-tab" class:active={activeDrillCategory === 'focus'} on:click={() => activeDrillCategory = 'focus'}>
-            Focus
+            {$t('landing.drills.tabs.focus')}
           </button>
           <button class="drill-tab" class:active={activeDrillCategory === 'challenge'} on:click={() => activeDrillCategory = 'challenge'}>
-            Challenge
+            {$t('landing.drills.tabs.challenge')}
           </button>
           <button class="drill-tab" class:active={activeDrillCategory === 'workout'} on:click={() => activeDrillCategory = 'workout'}>
-            Workout
+            {$t('landing.drills.tabs.workout')}
           </button>
         </div>
 
@@ -1398,7 +1460,7 @@
                   <span class="drill-meta">
                     <span class="drill-duration">{drill.duration}</span>
                     <span class="drill-dot"></span>
-                    <span class="drill-level" class:beginner={drill.level === 'Beginner'} class:intermediate={drill.level === 'Intermediate'} class:advanced={drill.level === 'Advanced'}>{drill.level}</span>
+                    <span class="drill-level" class:beginner={drill.level === $t('landing.drills.levels.beginner')} class:intermediate={drill.level === $t('landing.drills.levels.intermediate')} class:advanced={drill.level === $t('landing.drills.levels.advanced')}>{drill.level}</span>
                   </span>
                 </div>
                 <svg class="drill-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -1408,7 +1470,7 @@
               {#if expandedDrill === drill.id}
                 <div class="drill-details">
                   <p>{drill.desc}</p>
-                  <div class="drill-target">Target: {drill.target}</div>
+                  <div class="drill-target">{$t('landing.drills.target')}: {drill.target}</div>
                 </div>
               {/if}
             </button>
@@ -1416,42 +1478,42 @@
         </div>
 
         <div class="drills-highlight">
-          <span class="highlight-label">Featured</span>
-          <h4>Pedaling Mastery</h4>
-          <p>15 minutes, 10 phases. Complete technique coverage. Recommended 1-2× per week.</p>
+          <span class="highlight-label">{$t('landing.drills.featured')}</span>
+          <h4>{$t('landing.drills.featuredTitle')}</h4>
+          <p>{$t('landing.drills.featuredDesc')}</p>
         </div>
       </section>
 
       <!-- Alerts Section -->
       <section class="section alerts-section" aria-labelledby="alerts-title">
-        <h2 id="alerts-title" class="section-title">Real-Time Alerts</h2>
-        <p class="section-subtitle">Get corrected mid-ride when technique drifts</p>
+        <h2 id="alerts-title" class="section-title">{$t('landing.alerts.title')}</h2>
+        <p class="section-subtitle">{$t('landing.alerts.subtitle')}</p>
 
         <div class="alerts-demo">
           <div class="alert-banner-demo">
             <div class="alert-indicator"></div>
             <div class="alert-content">
-              <span class="alert-title">Balance Alert</span>
-              <span class="alert-detail">Right leg dominant: 56%</span>
+              <span class="alert-title">{$t('landing.alerts.demo.title')}</span>
+              <span class="alert-detail">{$t('landing.alerts.demo.detail')}</span>
             </div>
           </div>
 
           <div class="alerts-features">
             <div class="alert-feature">
-              <h4>Vibration & Sound</h4>
-              <p>Haptic feedback and audio beeps. Toggle each on/off.</p>
+              <h4>{$t('landing.alerts.features.vibration.title')}</h4>
+              <p>{$t('landing.alerts.features.vibration.desc')}</p>
             </div>
             <div class="alert-feature">
-              <h4>Screen Wake</h4>
-              <p>Auto-wake Karoo display when alert triggers.</p>
+              <h4>{$t('landing.alerts.features.screenWake.title')}</h4>
+              <p>{$t('landing.alerts.features.screenWake.desc')}</p>
             </div>
             <div class="alert-feature">
-              <h4>Smart Cooldown</h4>
-              <p>15s to 2min between alerts. Useful, not annoying.</p>
+              <h4>{$t('landing.alerts.features.cooldown.title')}</h4>
+              <p>{$t('landing.alerts.features.cooldown.desc')}</p>
             </div>
             <div class="alert-feature">
-              <h4>Per-Metric Thresholds</h4>
-              <p>Separate settings for Balance, TE, and PS.</p>
+              <h4>{$t('landing.alerts.features.thresholds.title')}</h4>
+              <p>{$t('landing.alerts.features.thresholds.desc')}</p>
             </div>
           </div>
         </div>
@@ -1459,8 +1521,8 @@
 
       <!-- Analytics & Dashboard -->
       <section class="section" aria-labelledby="analytics-title">
-        <h2 id="analytics-title" class="section-title">Analytics & Web Dashboard</h2>
-        <p class="section-subtitle">Track improvement over time. See trends, not just numbers.</p>
+        <h2 id="analytics-title" class="section-title">{$t('landing.analytics.title')}</h2>
+        <p class="section-subtitle">{$t('landing.analytics.subtitle')}</p>
 
         <div class="dashboard-preview">
           <div class="dash-browser">
@@ -1470,7 +1532,7 @@
             </div>
             <div class="browser-content">
               <div class="dash-header-preview">
-                <div class="dash-greeting-preview">Hello, Yuri!</div>
+                <div class="dash-greeting-preview">{$t('landing.analytics.preview.greeting')}</div>
                 <div class="period-selector-preview">
                   <span class="period-btn-preview active">7d</span>
                   <span class="period-btn-preview">14d</span>
@@ -1482,8 +1544,8 @@
               <div class="hero-stats-preview">
                 <div class="hero-stat-preview asymmetry-preview">
                   <span class="hero-value optimal">0.8%</span>
-                  <span class="hero-label">Asymmetry</span>
-                  <span class="hero-detail">Balanced</span>
+                  <span class="hero-label">{$t('metrics.asymmetry')}</span>
+                  <span class="hero-detail">{$t('dashboard.balanced')}</span>
                 </div>
                 <div class="hero-stat-preview balance-preview">
                   <div class="balance-bar-preview">
@@ -1501,16 +1563,16 @@
                     <div class="zone-bar attention" style="width: 20%"></div>
                     <div class="zone-bar problem" style="width: 8%"></div>
                   </div>
-                  <span class="hero-label">Time in Zone</span>
+                  <span class="hero-label">{$t('zones.timeInZone')}</span>
                 </div>
                 <div class="hero-stat-preview summary-preview">
                   <div class="summary-row">
                     <span class="summary-num">12</span>
-                    <span class="summary-unit">rides</span>
+                    <span class="summary-unit">{$t('dashboard.weeklyChart.rides')}</span>
                   </div>
                   <div class="summary-row">
                     <span class="summary-num">8.4</span>
-                    <span class="summary-unit">hours</span>
+                    <span class="summary-unit">{$t('dashboard.weeklyChart.hours')}</span>
                   </div>
                 </div>
               </div>
@@ -1519,27 +1581,27 @@
               <div class="main-grid-preview">
                 <div class="grid-card-preview rides-card">
                   <div class="card-header-preview">
-                    <span>Recent Rides</span>
+                    <span>{$t('landing.analytics.preview.recentRides')}</span>
                   </div>
                   <div class="recent-rides-preview">
                     <div class="ride-row-preview">
                       <div class="ride-info">
-                        <span class="ride-title">Morning Ride</span>
-                        <span class="ride-meta">Today · 1h 23m</span>
+                        <span class="ride-title">{$t('landing.analytics.preview.morningRide')}</span>
+                        <span class="ride-meta">{$t('common.today')} · 1h 23m</span>
                       </div>
                       <div class="ride-score optimal">87</div>
                     </div>
                     <div class="ride-row-preview">
                       <div class="ride-info">
-                        <span class="ride-title">Evening Spin</span>
-                        <span class="ride-meta">Yesterday · 45m</span>
+                        <span class="ride-title">{$t('landing.analytics.preview.eveningSpin')}</span>
+                        <span class="ride-meta">{$t('common.yesterday')} · 45m</span>
                       </div>
                       <div class="ride-score optimal">92</div>
                     </div>
                     <div class="ride-row-preview">
                       <div class="ride-info">
-                        <span class="ride-title">Long Ride</span>
-                        <span class="ride-meta">2 days ago · 2h 15m</span>
+                        <span class="ride-title">{$t('landing.analytics.preview.longRide')}</span>
+                        <span class="ride-meta">2 {$t('landing.analytics.preview.daysAgo')} · 2h 15m</span>
                       </div>
                       <div class="ride-score attention">71</div>
                     </div>
@@ -1547,12 +1609,12 @@
                 </div>
                 <div class="grid-card-preview technique-card">
                   <div class="card-header-preview">
-                    <span>Technique</span>
-                    <span class="card-subtitle-preview">7d avg</span>
+                    <span>{$t('landing.analytics.preview.technique')}</span>
+                    <span class="card-subtitle-preview">7d {$t('landing.analytics.preview.avgSuffix')}</span>
                   </div>
                   <div class="technique-preview">
                     <div class="technique-metric-lr">
-                      <span class="metric-name">Torque Effectiveness</span>
+                      <span class="metric-name">{$t('metrics.te')}</span>
                       <div class="lr-comparison">
                         <div class="leg left">
                           <span class="leg-label">L</span>
@@ -1571,7 +1633,7 @@
                       </div>
                     </div>
                     <div class="technique-metric-lr">
-                      <span class="metric-name">Pedal Smoothness</span>
+                      <span class="metric-name">{$t('metrics.ps')}</span>
                       <div class="lr-comparison">
                         <div class="leg left">
                           <span class="leg-label">L</span>
@@ -1600,26 +1662,26 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
               </svg>
-              <span>7-day, 14-day, 30-day, 60-day analysis</span>
+              <span>{$t('landing.analytics.features.periods')}</span>
             </div>
             <div class="dash-feature">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
-              <span>Full ride history with filters</span>
+              <span>{$t('landing.analytics.features.history')}</span>
             </div>
             <div class="dash-feature">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
-              <span>Multi-device sync</span>
+              <span>{$t('landing.analytics.features.multiDevice')}</span>
             </div>
             <div class="dash-feature">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
               </svg>
-              <span>Open source on GitHub</span>
+              <span>{$t('landing.analytics.features.openSource')}</span>
             </div>
           </div>
         </div>
@@ -1627,37 +1689,37 @@
 
       <!-- Stay Motivated -->
       <section class="section motivation-section" aria-labelledby="motivation-title">
-        <h2 id="motivation-title" class="section-title">Stay Motivated</h2>
-        <p class="section-subtitle">Track progress with achievements and weekly challenges</p>
+        <h2 id="motivation-title" class="section-title">{$t('landing.motivation.title')}</h2>
+        <p class="section-subtitle">{$t('landing.motivation.subtitle')}</p>
 
         <div class="motivation-content">
           <div class="motivation-stats">
             <div class="motivation-stat">
               <span class="stat-number">16</span>
-              <span class="stat-desc">Achievements to unlock</span>
+              <span class="stat-desc">{$t('landing.motivation.achievements')}</span>
             </div>
             <div class="motivation-divider"></div>
             <div class="motivation-stat">
               <span class="stat-number">7</span>
-              <span class="stat-desc">Weekly challenges</span>
+              <span class="stat-desc">{$t('landing.motivation.challenges')}</span>
             </div>
           </div>
 
           <div class="motivation-examples">
             <div class="example-group">
-              <span class="example-label">Achievements</span>
+              <span class="example-label">{$t('landing.motivation.achievementsLabel')}</span>
               <div class="example-items">
-                <span>First Ride</span>
-                <span>100 Rides</span>
-                <span>Perfect Balance 10 min</span>
-                <span>30-Day Streak</span>
+                <span>{$t('landing.motivation.examples.firstRide')}</span>
+                <span>{$t('landing.motivation.examples.hundredRides')}</span>
+                <span>{$t('landing.motivation.examples.perfectBalance')}</span>
+                <span>{$t('landing.motivation.examples.thirtyDayStreak')}</span>
               </div>
             </div>
             <div class="example-group">
-              <span class="example-label">Challenges</span>
+              <span class="example-label">{$t('landing.motivation.challengesLabel')}</span>
               <div class="example-items">
-                <span>Balanced Rider: 48-52% across 3 rides</span>
-                <span>Zone Master: 60%+ in optimal zone</span>
+                <span>{$t('landing.motivation.examples.balancedRider')}</span>
+                <span>{$t('landing.motivation.examples.zoneMaster')}</span>
               </div>
             </div>
           </div>
@@ -1666,8 +1728,8 @@
 
       <!-- Works Everywhere - Combined Background + Sync -->
       <section class="section works-everywhere-section" aria-labelledby="works-title">
-        <h2 id="works-title" class="section-title">Works Everywhere</h2>
-        <p class="section-subtitle">Background collection. Automatic sync. Your data across all devices.</p>
+        <h2 id="works-title" class="section-title">{$t('landing.works.title')}</h2>
+        <p class="section-subtitle">{$t('landing.works.subtitle')}</p>
 
         <div class="works-grid">
           <div class="works-card">
@@ -1676,8 +1738,8 @@
                 <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>
               </svg>
             </div>
-            <h4>Background Mode</h4>
-            <p>Collects data for ALL rides, even without data fields visible. Starts automatically on boot. Saves when you stop.</p>
+            <h4>{$t('landing.works.background.title')}</h4>
+            <p>{$t('landing.works.background.desc')}</p>
           </div>
           <div class="works-card">
             <div class="works-icon">
@@ -1686,8 +1748,8 @@
                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
               </svg>
             </div>
-            <h4>Cloud Sync</h4>
-            <p>Rides sync after completion. Link device at link.kpedal.com with a simple code — no password needed on Karoo.</p>
+            <h4>{$t('landing.works.sync.title')}</h4>
+            <p>{$t('landing.works.sync.desc')}</p>
           </div>
           <div class="works-card">
             <div class="works-icon">
@@ -1696,16 +1758,16 @@
                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
             </div>
-            <h4>Multi-Device</h4>
-            <p>Link multiple Karoos. All rides go to one account. Settings sync bidirectionally between app and web.</p>
+            <h4>{$t('landing.works.multiDevice.title')}</h4>
+            <p>{$t('landing.works.multiDevice.desc')}</p>
           </div>
         </div>
       </section>
 
       <!-- What You Need -->
       <section class="section requirements-section" aria-labelledby="requirements-title" itemprop="softwareRequirements">
-        <h2 id="requirements-title" class="section-title">What You Need</h2>
-        <p class="section-subtitle">Karoo 2 or 3 + dual-sided power pedals</p>
+        <h2 id="requirements-title" class="section-title">{$t('landing.requirements.title')}</h2>
+        <p class="section-subtitle">{$t('landing.requirements.subtitle')}</p>
 
         <div class="requirements-grid">
           <div class="req-card">
@@ -1714,8 +1776,8 @@
                 <rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
               </svg>
             </div>
-            <h4>Hammerhead Karoo</h4>
-            <p>Karoo 2 or Karoo 3. KPedal uses the native Karoo SDK — not available on other computers.</p>
+            <h4>{$t('landing.requirements.karoo.title')}</h4>
+            <p>{$t('landing.requirements.karoo.desc')}</p>
           </div>
           <div class="req-card">
             <div class="req-icon">
@@ -1723,8 +1785,8 @@
                 <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
               </svg>
             </div>
-            <h4>Dual Power Pedals</h4>
-            <p>Left + right power measurement with ANT+ Cycling Dynamics for Balance, TE, and PS.</p>
+            <h4>{$t('landing.requirements.pedals.title')}</h4>
+            <p>{$t('landing.requirements.pedals.desc')}</p>
           </div>
         </div>
 
@@ -1733,9 +1795,9 @@
             <div class="pedals-card full">
               <div class="pedals-card-header">
                 <span class="pedals-icon">✓</span>
-                <span class="pedals-title">Full Support</span>
+                <span class="pedals-title">{$t('landing.requirements.fullSupport.title')}</span>
               </div>
-              <p class="pedals-desc">Balance + TE + PS</p>
+              <p class="pedals-desc">{$t('landing.requirements.fullSupport.desc')}</p>
               <div class="pedals-chips">
                 <span class="pedal-chip">Garmin Rally</span>
                 <span class="pedal-chip">Garmin Vector 3</span>
@@ -1752,9 +1814,9 @@
             <div class="pedals-card balance">
               <div class="pedals-card-header">
                 <span class="pedals-icon">◐</span>
-                <span class="pedals-title">Balance Only</span>
+                <span class="pedals-title">{$t('landing.requirements.balanceOnly.title')}</span>
               </div>
-              <p class="pedals-desc">L/R power but no TE/PS</p>
+              <p class="pedals-desc">{$t('landing.requirements.balanceOnly.desc')}</p>
               <div class="pedals-chips">
                 <span class="pedal-chip">Wahoo POWRLINK</span>
                 <span class="pedal-chip">Power2Max</span>
@@ -1769,12 +1831,12 @@
             <div class="pedals-card incompatible">
               <div class="pedals-card-header">
                 <span class="pedals-icon">✗</span>
-                <span class="pedals-title">Not Compatible</span>
+                <span class="pedals-title">{$t('landing.requirements.notCompatible.title')}</span>
               </div>
-              <p class="pedals-desc">No dual-sided data</p>
+              <p class="pedals-desc">{$t('landing.requirements.notCompatible.desc')}</p>
               <div class="pedals-chips">
-                <span class="pedal-chip">Single-sided PM</span>
-                <span class="pedal-chip">Trainer power</span>
+                <span class="pedal-chip">{$t('landing.requirements.pedalsList.singleSided')}</span>
+                <span class="pedal-chip">{$t('landing.requirements.pedalsList.trainerPower')}</span>
                 <span class="pedal-chip">Vector 1/2</span>
               </div>
             </div>
@@ -1784,119 +1846,119 @@
 
       <!-- FAQ -->
       <section class="section faq-section" aria-labelledby="faq-title" itemscope itemtype="https://schema.org/FAQPage">
-        <h2 id="faq-title" class="section-title">Frequently Asked Questions</h2>
+        <h2 id="faq-title" class="section-title">{$t('landing.faq.title')}</h2>
 
         <div class="faq-list" role="list">
           <details class="faq-item">
-            <summary>Which power meter pedals are compatible?</summary>
-            <p><strong>Full support (Balance + TE + PS):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Balance only:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Any pedal transmitting ANT+ Cycling Dynamics will work.</p>
+            <summary>{$t('landing.faq.q1.q')}</summary>
+            <p>{@html $t('landing.faq.q1.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>How do I install KPedal on my Karoo?</summary>
-            <p><strong>Option 1:</strong> Download APK from GitHub Releases → transfer via USB → open file manager on Karoo → tap to install.<br><strong>Option 2:</strong> Open the GitHub release link directly in Karoo's browser and download.<br><strong>Option 3:</strong> Use ADB: <code>adb install kpedal.apk</code></p>
+            <summary>{$t('landing.faq.q2.q')}</summary>
+            <p>{@html $t('landing.faq.q2.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Do I need to add KPedal data fields to my ride screen?</summary>
-            <p><strong>No.</strong> With Background Mode enabled, KPedal collects metrics for ALL rides automatically — even if you never add a single data field. Data fields are optional and only for viewing metrics live during the ride. Your complete ride history is saved regardless.</p>
+            <summary>{$t('landing.faq.q3.q')}</summary>
+            <p>{@html $t('landing.faq.q3.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>What is considered a "good" power balance?</summary>
-            <p><strong>48-52%</strong> (±2% from 50/50) is optimal. Most professional cyclists ride with 1-3% natural asymmetry. Don't obsess over perfect 50/50 — it's nearly impossible and not necessary. Focus on <strong>consistency within your range</strong> rather than chasing perfection.</p>
+            <summary>{$t('landing.faq.q4.q')}</summary>
+            <p>{@html $t('landing.faq.q4.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Why is 70-80% Torque Effectiveness optimal and not higher?</summary>
-            <p>Based on <strong>Wattbike research</strong>: above 80% TE, you're likely over-pulling on the upstroke. This wastes energy and can actually reduce total power output. The 70-80% range indicates you're applying force efficiently through the pedal stroke without fighting yourself on the recovery phase.</p>
+            <summary>{$t('landing.faq.q5.q')}</summary>
+            <p>{@html $t('landing.faq.q5.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>What exactly does Pedal Smoothness measure?</summary>
-            <p><strong>Formula:</strong> PS = (average power ÷ peak power) × 100.<br>Higher PS means more consistent power application through the pedal stroke. <strong>20%+ is good</strong> for most cyclists. Sprinters typically have lower PS (explosive, punchy power), while endurance riders tend toward higher values.</p>
+            <summary>{$t('landing.faq.q6.q')}</summary>
+            <p>{@html $t('landing.faq.q6.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>How is the Ride Score calculated?</summary>
-            <p><strong>Weighted formula:</strong> Balance (40%) + TE (35%) + PS (25%).<br>Each metric is scored 0-100 based on time spent in optimal zones.<br><strong>85+</strong> = Excellent technique<br><strong>70-84</strong> = Good, minor areas to improve<br><strong>Below 70</strong> = Significant room for improvement</p>
+            <summary>{$t('landing.faq.q7.q')}</summary>
+            <p>{@html $t('landing.faq.q7.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>How do the guided Drills work?</summary>
-            <p>Drills are structured exercises with real-time targets displayed on screen. Example: "Single Leg Focus" asks you to maintain 55-60% balance on one leg for 30 seconds. KPedal tracks your <strong>time-in-target</strong> and provides a score at the end. Perfect for warmups, recovery rides, or dedicated technique sessions.</p>
+            <summary>{$t('landing.faq.q8.q')}</summary>
+            <p>{@html $t('landing.faq.q8.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Can I create my own custom drills?</summary>
-            <p><strong>Yes.</strong> Custom Drills let you define your own phases, targets, and durations. Create drills tailored to your specific weaknesses — maybe a 45-second high-TE focus followed by 30-second balance work. Your custom drills are saved locally and sync to cloud.</p>
+            <summary>{$t('landing.faq.q9.q')}</summary>
+            <p>{@html $t('landing.faq.q9.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>What triggers the in-ride alerts?</summary>
-            <p><strong>Configurable thresholds:</strong><br>• Balance: asymmetry exceeds your set limit (default 5%)<br>• TE: drops below minimum (default 60%)<br>• PS: drops below minimum (default 15%)<br>Alerts use <strong>vibration + beep</strong>. Cooldown (15s-2min) prevents spam. You can enable/disable each metric independently.</p>
+            <summary>{$t('landing.faq.q10.q')}</summary>
+            <p>{@html $t('landing.faq.q10.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Does KPedal work without internet connection?</summary>
-            <p><strong>100% yes.</strong> All core features — data collection, drills, alerts, ride history — work completely offline. Cloud sync is optional and only activates when you enable it. Your data is always stored locally on the Karoo first. Sync happens automatically when you're back online.</p>
+            <summary>{$t('landing.faq.q11.q')}</summary>
+            <p>{@html $t('landing.faq.q11.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Will KPedal drain my Karoo battery?</summary>
-            <p><strong>Minimal impact: ~1-2% extra per hour</strong> during active rides. KPedal only runs data collection while you're riding. Between rides, only a tiny listener waits for ride start — negligible power consumption. Heavily optimized for efficiency.</p>
+            <summary>{$t('landing.faq.q12.q')}</summary>
+            <p>{@html $t('landing.faq.q12.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Can I sync data across multiple Karoo devices?</summary>
-            <p><strong>Yes.</strong> Link multiple Karoos to your account. Settings sync between them automatically. All rides from all devices appear in one unified dashboard. Perfect if you have a backup Karoo, race and training devices, or upgrade to a new unit.</p>
+            <summary>{$t('landing.faq.q13.q')}</summary>
+            <p>{@html $t('landing.faq.q13.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>How does the Achievement system work?</summary>
-            <p>Achievements unlock as you hit milestones: ride count, total hours, consistency streaks, technique improvements. Examples: "Iron Balance" (10 rides with &lt;2% asymmetry), "Century Club" (100 rides tracked). Achievements sync to cloud and display on your web dashboard.</p>
+            <summary>{$t('landing.faq.q14.q')}</summary>
+            <p>{@html $t('landing.faq.q14.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Can I use KPedal with Garmin, Wahoo, or other bike computers?</summary>
-            <p><strong>No.</strong> KPedal is built specifically for Hammerhead Karoo using their official karoo-ext SDK. It accesses ANT+ Cycling Dynamics data, native alert system, and ride state monitoring — deep integrations not available on other platforms.</p>
+            <summary>{$t('landing.faq.q15.q')}</summary>
+            <p>{@html $t('landing.faq.q15.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Is my data private and secure?</summary>
-            <p><strong>Yes.</strong> Data stays on your Karoo unless you enable cloud sync. Cloud uses <strong>Google Sign-In</strong> — we never see or store your password. No tracking pixels, no ads, no data selling. The entire project is <strong>open source</strong> — audit the code yourself on GitHub.</p>
+            <summary>{$t('landing.faq.q16.q')}</summary>
+            <p>{@html $t('landing.faq.q16.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>Why does my balance change at different power outputs?</summary>
-            <p>This is normal. At low power, slight technique variations are amplified. At high power, you tend to recruit muscles more evenly. Many cyclists see 2-3% more asymmetry at endurance pace vs threshold. KPedal tracks this so you can identify patterns and work on weak spots.</p>
+            <summary>{$t('landing.faq.q17.q')}</summary>
+            <p>{@html $t('landing.faq.q17.a')}</p>
           </details>
 
           <details class="faq-item">
-            <summary>How often should I do technique drills?</summary>
-            <p><strong>2-3 times per week</strong> is a good starting point. Include them in warmups (5-10 min) or dedicate recovery rides to technique work. Consistency matters more than volume — regular short sessions beat occasional long ones. Track progress via drill scores over time.</p>
+            <summary>{$t('landing.faq.q18.q')}</summary>
+            <p>{@html $t('landing.faq.q18.a')}</p>
           </details>
         </div>
       </section>
 
       <!-- Final CTA -->
       <section class="section cta-section" aria-labelledby="cta-title">
-        <h2 id="cta-title" class="cta-headline">Start improving your pedaling today</h2>
-        <p class="cta-subtext">Free. Open source. Syncs to the cloud.</p>
-        <div class="cta-actions" role="group" aria-label="Get started options">
-          <a href="https://github.com/yrkan/kpedal/releases" class="cta-btn primary large" target="_blank" rel="noopener noreferrer" aria-label="Download KPedal for Karoo">
+        <h2 id="cta-title" class="cta-headline">{$t('landing.cta.headline')}</h2>
+        <p class="cta-subtext">{$t('landing.cta.subtext')}</p>
+        <div class="cta-actions" role="group" aria-label={$t('aria.getStartedOptions')}>
+          <a href="https://github.com/yrkan/kpedal/releases" class="cta-btn primary large" target="_blank" rel="noopener noreferrer" aria-label={$t('aria.downloadKaroo')}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
-            Download for Karoo
+            {$t('landing.cta.downloadForKaroo')}
           </a>
-          <a href="/login" class="cta-btn secondary" aria-label="Try demo account">
+          <a href="/login" class="cta-btn secondary" aria-label={$t('aria.tryDemo')}>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/>
               <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
             </svg>
-            Try Demo
+            {$t('landing.cta.tryDemo')}
           </a>
         </div>
       </section>
@@ -1907,35 +1969,35 @@
           <div class="footer-brand">
             <div class="footer-logo" aria-hidden="true">
               <span class="logo-dot small"></span>
-              <span class="footer-brand-name">KPedal</span>
+              <span class="footer-brand-name">{$t('app.name')}</span>
             </div>
-            <p class="footer-tagline">Pedaling efficiency for Karoo</p>
+            <p class="footer-tagline">{$t('landing.footer.tagline')}</p>
           </div>
 
-          <nav class="footer-nav" aria-label="Footer navigation">
+          <nav class="footer-nav" aria-label={$t('aria.footerNav')}>
             <div class="footer-col">
-              <h4>Product</h4>
-              <a href="#features">Features</a>
-              <a href="#datafields">Data Fields</a>
-              <a href="#drills">Drills</a>
+              <h4>{$t('landing.footer.product')}</h4>
+              <a href="#features">{$t('landing.footer.features')}</a>
+              <a href="#datafields">{$t('landing.footer.dataFields')}</a>
+              <a href="#drills">{$t('landing.footer.drills')}</a>
             </div>
             <div class="footer-col">
-              <h4>Resources</h4>
-              <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href="https://github.com/yrkan/kpedal/releases" target="_blank" rel="noopener noreferrer">Releases</a>
-              <a href="https://github.com/yrkan/kpedal/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+              <h4>{$t('landing.footer.resources')}</h4>
+              <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">{$t('landing.footer.github')}</a>
+              <a href="https://github.com/yrkan/kpedal/releases" target="_blank" rel="noopener noreferrer">{$t('landing.footer.releases')}</a>
+              <a href="https://github.com/yrkan/kpedal/issues" target="_blank" rel="noopener noreferrer">{$t('landing.footer.reportIssue')}</a>
             </div>
             <div class="footer-col">
-              <h4>Legal</h4>
-              <a href="/privacy">Privacy Policy</a>
-              <button class="footer-link-btn" on:click={handleLogin}>Sign in</button>
+              <h4>{$t('landing.footer.legal')}</h4>
+              <a href="/privacy">{$t('landing.footer.privacyPolicy')}</a>
+              <button class="footer-link-btn" on:click={handleLogin}>{$t('landing.footer.signIn')}</button>
             </div>
           </nav>
         </div>
 
         <div class="footer-bottom">
-          <p>Made with ❤️ for the Karoo community</p>
-          <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer" class="footer-github" aria-label="View KPedal on GitHub">
+          <p>{$t('landing.footer.madeWith')}</p>
+          <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer" class="footer-github" aria-label={$t('aria.viewGitHub')}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
@@ -1952,14 +2014,14 @@
         <div class="loading-state"><div class="spinner"></div></div>
       {:else if error}
         <div class="error-state">
-          <p>{error}</p>
-          <button class="btn btn-primary" on:click={() => location.reload()}>Retry</button>
+          <p>{$t('common.loadError')}</p>
+          <button class="btn btn-primary" on:click={() => location.reload()}>{$t('common.retry')}</button>
         </div>
       {:else}
         {#if stats && stats.total_rides > 0}
           <header class="dash-header animate-in">
             <div class="dash-greeting">
-              <h1>Hello, {getFirstName($user?.name)}!</h1>
+              <h1>{$t('dashboard.hello', { values: { name: getFirstName($user?.name) } })}</h1>
             </div>
             <div class="dash-controls">
               <div class="period-selector">
@@ -1978,13 +2040,13 @@
               </div>
               <div class="hero-stat-info">
                 <span class="hero-stat-label">
-                  Asymmetry
+                  {$t('metrics.asymmetry')}
                   <InfoTip
-                    text="Deviation from 50/50 balance. Under 2.5% is pro level, above 5% may cause issues."
+                    text={$t('infotips.asymmetry')}
                     position="bottom"
                   />
                 </span>
-                <span class="hero-stat-detail">{periodStats && periodStats.balance !== 50 ? (periodStats.balance > 50 ? 'L dominant' : 'R dominant') : 'Balanced'}</span>
+                <span class="hero-stat-detail">{periodStats && periodStats.balance !== 50 ? (periodStats.balance > 50 ? $t('dashboard.leftDominant') : $t('dashboard.rightDominant')) : $t('dashboard.balanced')}</span>
               </div>
             </div>
 
@@ -2020,9 +2082,9 @@
                 <span class="zone-mini-val problem">{periodStats?.zoneProblem?.toFixed(0) || 0}%</span>
               </div>
               <span class="hero-stat-label">
-                Time in Zone
+                {$t('zones.timeInZone')}
                 <InfoTip
-                  text="Time spent in each zone. Green is optimal, yellow needs attention, red is a problem."
+                  text={$t('infotips.timeInZone')}
                   position="bottom"
                 />
               </span>
@@ -2032,15 +2094,15 @@
               <div class="summary-grid">
                 <div class="summary-metric">
                   <span class="summary-num">{periodStats?.rides || 0}</span>
-                  <span class="summary-unit">rides</span>
+                  <span class="summary-unit">{$t('dashboard.summary.rides')}</span>
                 </div>
                 <div class="summary-metric">
                   <span class="summary-num">{periodStats ? (periodStats.duration / 3600000).toFixed(1) : 0}</span>
-                  <span class="summary-unit">hours</span>
+                  <span class="summary-unit">{$t('dashboard.summary.hours')}</span>
                 </div>
                 <div class="summary-metric">
                   <span class="summary-num">{periodStats?.totalDistance?.toFixed(0) || 0}</span>
-                  <span class="summary-unit">km</span>
+                  <span class="summary-unit">{$t('dashboard.summary.km')}</span>
                 </div>
               </div>
             </div>
@@ -2051,8 +2113,8 @@
             <!-- Left Column: Activity + Training -->
             <div class="grid-card">
               <div class="card-header">
-                <span class="card-title">Weekly Activity <InfoTip text="Number of rides per day. Aim for 3-5 rides per week for steady progress." position="bottom" /></span>
-                <span class="card-subtitle">{ridesPerDay.reduce((a, b) => a + b, 0)} rides</span>
+                <span class="card-title">{$t('dashboard.weeklyActivity')} <InfoTip text={$t('infotips.weeklyActivity')} position="bottom" /></span>
+                <span class="card-subtitle">{ridesPerDay.reduce((a, b) => a + b, 0)} {$t('dashboard.summary.rides')}</span>
               </div>
               <div class="bar-chart-enhanced">
                 <div class="bar-chart-area">
@@ -2072,24 +2134,24 @@
 
               {#if weeklyComparison}
                 <div class="card-section">
-                  <span class="section-label">vs Last Week</span>
+                  <span class="section-label">{$t('dashboard.vsLastWeek')}</span>
                   <div class="comparison-grid">
                     <div class="comp-item">
-                      <span class="comp-label">Rides <InfoTip text="Number of rides compared to last week." position="bottom" size="sm" /></span>
+                      <span class="comp-label">{$t('dashboard.comparison.rides')} <InfoTip text={$t('infotips.compRides')} position="bottom" size="sm" /></span>
                       <span class="comp-value">{weeklyComparison.thisWeek.rides_count}</span>
                       <span class="comp-delta {weeklyComparison.changes.rides_count >= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.rides_count >= 0 ? '+' : ''}{weeklyComparison.changes.rides_count}
                       </span>
                     </div>
                     <div class="comp-item">
-                      <span class="comp-label">Hours <InfoTip text="Total saddle time. More hours equals more training adaptation." position="bottom" size="sm" /></span>
+                      <span class="comp-label">{$t('dashboard.comparison.hours')} <InfoTip text={$t('infotips.compHours')} position="bottom" size="sm" /></span>
                       <span class="comp-value">{(weeklyComparison.thisWeek.total_duration_ms / 3600000).toFixed(1)}</span>
                       <span class="comp-delta {weeklyComparison.changes.duration >= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.duration >= 0 ? '+' : ''}{(weeklyComparison.changes.duration / 3600000).toFixed(1)}
                       </span>
                     </div>
                     <div class="comp-item">
-                      <span class="comp-label">Distance <InfoTip text="Total kilometers ridden. Useful for tracking volume alongside hours." position="bottom" size="sm" /></span>
+                      <span class="comp-label">{$t('dashboard.comparison.distance')} <InfoTip text={$t('infotips.compDistance')} position="bottom" size="sm" /></span>
                       <span class="comp-value">{weeklyComparison.thisWeek.total_distance_km.toFixed(0)}km</span>
                       <span class="comp-delta {weeklyComparison.changes.distance >= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.distance >= 0 ? '+' : ''}{weeklyComparison.changes.distance.toFixed(0)}
@@ -2097,7 +2159,7 @@
                     </div>
                     {#if weeklyComparison.thisWeek.total_elevation > 0}
                       <div class="comp-item">
-                        <span class="comp-label">Climb <InfoTip text="Total elevation gained. Over 2000m per week builds climbing strength." position="bottom" size="sm" /></span>
+                        <span class="comp-label">{$t('dashboard.comparison.climb')} <InfoTip text={$t('infotips.compClimb')} position="bottom" size="sm" /></span>
                         <span class="comp-value">{Math.round(weeklyComparison.thisWeek.total_elevation)}m</span>
                         <span class="comp-delta {weeklyComparison.changes.elevation >= 0 ? 'up' : 'down'}">
                           {weeklyComparison.changes.elevation >= 0 ? '+' : ''}{Math.round(weeklyComparison.changes.elevation)}
@@ -2108,17 +2170,17 @@
                 </div>
                 <!-- Weekly Performance Indicators -->
                 <div class="card-section">
-                  <span class="section-label">Performance</span>
+                  <span class="section-label">{$t('dashboard.sections.performance')}</span>
                   <div class="performance-mini-grid">
                     <div class="perf-mini-item">
-                      <span class="perf-mini-label">Score <InfoTip text="Overall technique score from 0 to 100. Higher means better form." position="top" /></span>
+                      <span class="perf-mini-label">{$t('dashboard.perfStats.score')} <InfoTip text={$t('infotips.perfScore')} position="top" /></span>
                       <span class="perf-mini-value">{weeklyComparison.thisWeek.avg_score.toFixed(0)}</span>
                       <span class="perf-mini-delta {weeklyComparison.changes.score >= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.score >= 0 ? '+' : ''}{weeklyComparison.changes.score.toFixed(0)}
                       </span>
                     </div>
                     <div class="perf-mini-item">
-                      <span class="perf-mini-label">Optimal <InfoTip text="Time with all metrics in the green zone. Higher is better." position="top" /></span>
+                      <span class="perf-mini-label">{$t('dashboard.perfStats.optimal')} <InfoTip text={$t('infotips.perfOptimal')} position="top" /></span>
                       <span class="perf-mini-value">{weeklyComparison.thisWeek.avg_zone_optimal.toFixed(0)}%</span>
                       <span class="perf-mini-delta {weeklyComparison.changes.zone_optimal >= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.zone_optimal >= 0 ? '+' : ''}{weeklyComparison.changes.zone_optimal.toFixed(0)}
@@ -2126,7 +2188,7 @@
                     </div>
                     {#if weeklyComparison.thisWeek.avg_power > 0}
                       <div class="perf-mini-item">
-                        <span class="perf-mini-label">Power <InfoTip text="Average power output in watts. Higher at same HR means better fitness." position="top" /></span>
+                        <span class="perf-mini-label">{$t('dashboard.perfStats.power')} <InfoTip text={$t('infotips.perfPower')} position="top" /></span>
                         <span class="perf-mini-value">{Math.round(weeklyComparison.thisWeek.avg_power)}W</span>
                         <span class="perf-mini-delta {weeklyComparison.changes.power >= 0 ? 'up' : 'down'}">
                           {weeklyComparison.changes.power >= 0 ? '+' : ''}{Math.round(weeklyComparison.changes.power)}
@@ -2135,7 +2197,7 @@
                     {/if}
                     {#if weeklyComparison.thisWeek.total_energy_kj > 0}
                       <div class="perf-mini-item">
-                        <span class="perf-mini-label">Energy <InfoTip text="Total energy in kilojoules. Roughly equals calories burned." position="top" /></span>
+                        <span class="perf-mini-label">{$t('dashboard.perfStats.energy')} <InfoTip text={$t('infotips.perfEnergy')} position="top" /></span>
                         <span class="perf-mini-value">{Math.round(weeklyComparison.thisWeek.total_energy_kj)}kJ</span>
                         <span class="perf-mini-delta {weeklyComparison.changes.energy >= 0 ? 'up' : 'down'}">
                           {weeklyComparison.changes.energy >= 0 ? '+' : ''}{Math.round(weeklyComparison.changes.energy)}
@@ -2149,7 +2211,7 @@
               <!-- Insights Section -->
               {#if insights.length > 0}
                 <div class="card-section insights-section">
-                  <span class="section-label">Insights</span>
+                  <span class="section-label">{$t('dashboard.sections.insights')}</span>
                   <div class="insights-list">
                     {#each insights as insight}
                       <div class="insight-item">
@@ -2165,17 +2227,17 @@
             <!-- Right Column: Technique -->
             <div class="grid-card">
               <div class="card-header">
-                <span class="card-title">Technique <InfoTip text="Pedaling efficiency metrics. TE is power transfer, PS is stroke smoothness." position="bottom" /></span>
-                <span class="card-subtitle">{selectedPeriod}d avg</span>
+                <span class="card-title">{$t('dashboard.technique')} <InfoTip text={$t('infotips.technique')} position="bottom" /></span>
+                <span class="card-subtitle">{selectedPeriod}d {$t('metrics.avg').toLowerCase()}</span>
               </div>
 
               <div class="technique-enhanced">
                 <div class="technique-metric">
                   <div class="technique-metric-header">
                     <span class="technique-metric-label">
-                      Torque Effectiveness
+                      {$t('metrics.te')}
                       <InfoTip
-                        text="Power going into forward motion. Optimal range is 70-80%."
+                        text={$t('infotips.te')}
                         position="top"
                       />
                     </span>
@@ -2203,9 +2265,9 @@
                 <div class="technique-metric">
                   <div class="technique-metric-header">
                     <span class="technique-metric-label">
-                      Pedal Smoothness
+                      {$t('metrics.ps')}
                       <InfoTip
-                        text="Smoothness of your pedal stroke. Target 20% or higher, elite is 25%+."
+                        text={$t('infotips.ps')}
                         position="top"
                       />
                     </span>
@@ -2232,31 +2294,31 @@
 
               {#if weeklyComparison}
                 <div class="card-section">
-                  <span class="section-label">vs Last Week</span>
+                  <span class="section-label">{$t('dashboard.vsLastWeek')}</span>
                   <div class="comparison-grid">
                     <div class="comp-item">
-                      <span class="comp-label">TE <InfoTip text="Torque Effectiveness vs last week. Positive change is improvement." position="bottom" size="sm" /></span>
+                      <span class="comp-label">{$t('metrics.teShort')} <InfoTip text={$t('infotips.compTe')} position="bottom" size="sm" /></span>
                       <span class="comp-value">{weeklyComparison.thisWeek.avg_te.toFixed(0)}%</span>
                       <span class="comp-delta {weeklyComparison.changes.te >= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.te >= 0 ? '+' : ''}{weeklyComparison.changes.te.toFixed(1)}
                       </span>
                     </div>
                     <div class="comp-item">
-                      <span class="comp-label">PS <InfoTip text="Pedal Smoothness vs last week. Improves slowly, small gains matter." position="bottom" size="sm" /></span>
+                      <span class="comp-label">{$t('metrics.psShort')} <InfoTip text={$t('infotips.compPs')} position="bottom" size="sm" /></span>
                       <span class="comp-value">{weeklyComparison.thisWeek.avg_ps.toFixed(0)}%</span>
                       <span class="comp-delta {weeklyComparison.changes.ps >= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.ps >= 0 ? '+' : ''}{weeklyComparison.changes.ps.toFixed(1)}
                       </span>
                     </div>
                     <div class="comp-item">
-                      <span class="comp-label">Balance <InfoTip text="Power asymmetry vs last week. Lower is better, negative is improvement." position="bottom" size="sm" /></span>
+                      <span class="comp-label">{$t('dashboard.comparison.balance')} <InfoTip text={$t('infotips.compBalance')} position="bottom" size="sm" /></span>
                       <span class="comp-value">{Math.abs(weeklyComparison.thisWeek.avg_balance_left - 50).toFixed(1)}%</span>
                       <span class="comp-delta {weeklyComparison.changes.balance <= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.balance <= 0 ? '' : '+'}{weeklyComparison.changes.balance.toFixed(1)}
                       </span>
                     </div>
                     <div class="comp-item">
-                      <span class="comp-label">Optimal <InfoTip text="Time in optimal zone vs last week. Higher is better technique." position="bottom" size="sm" /></span>
+                      <span class="comp-label">{$t('dashboard.comparison.optimal')} <InfoTip text={$t('infotips.compOptimal')} position="bottom" size="sm" /></span>
                       <span class="comp-value">{weeklyComparison.thisWeek.avg_zone_optimal.toFixed(0)}%</span>
                       <span class="comp-delta {weeklyComparison.changes.zone_optimal >= 0 ? 'up' : 'down'}">
                         {weeklyComparison.changes.zone_optimal >= 0 ? '+' : ''}{weeklyComparison.changes.zone_optimal.toFixed(0)}
@@ -2269,38 +2331,38 @@
                 {#if fatigueData && fatigueData.hasData}
                   <div class="card-section">
                     <span class="section-label">
-                      Fatigue (Last Ride)
+                      {$t('dashboard.fatigue.title')}
                       <InfoTip
-                        text="Technique at ride start vs end. Dropping values indicate fatigue."
+                        text={$t('infotips.fatigue')}
                         position="top"
                       />
                     </span>
                     <div class="performance-mini-grid">
                       <div class="perf-mini-item">
-                        <span class="perf-mini-label">Balance <InfoTip text="Left vs right power split. Changes indicate fatigue or compensation." position="top" size="sm" /></span>
+                        <span class="perf-mini-label">{$t('metrics.balance')} <InfoTip text={$t('infotips.balanceFatigue')} position="top" size="sm" /></span>
                         <span class="perf-mini-value">{fatigueData.firstThird.balance.toFixed(0)}→{fatigueData.lastThird.balance.toFixed(0)}</span>
                         <span class="perf-mini-delta {fatigueData.degradation.balance > 0.5 ? 'down' : fatigueData.degradation.balance < -0.5 ? 'up' : ''}">
                           {fatigueData.degradation.balance > 0.5 ? '↓' : fatigueData.degradation.balance < -0.5 ? '↑' : '—'}
                         </span>
                       </div>
                       <div class="perf-mini-item">
-                        <span class="perf-mini-label">TE <InfoTip text="TE change during ride. Drop indicates muscular fatigue." position="top" size="sm" /></span>
+                        <span class="perf-mini-label">{$t('metrics.teShort')} <InfoTip text={$t('infotips.teFatigue')} position="top" size="sm" /></span>
                         <span class="perf-mini-value">{fatigueData.firstThird.te.toFixed(0)}→{fatigueData.lastThird.te.toFixed(0)}</span>
                         <span class="perf-mini-delta {fatigueData.degradation.te > 2 ? 'down' : fatigueData.degradation.te < -2 ? 'up' : ''}">
                           {fatigueData.degradation.te > 2 ? '↓' : fatigueData.degradation.te < -2 ? '↑' : '—'}
                         </span>
                       </div>
                       <div class="perf-mini-item">
-                        <span class="perf-mini-label">PS <InfoTip text="PS change during ride. Usually first metric to drop when tired." position="top" size="sm" /></span>
+                        <span class="perf-mini-label">{$t('metrics.psShort')} <InfoTip text={$t('infotips.psFatigue')} position="top" size="sm" /></span>
                         <span class="perf-mini-value">{fatigueData.firstThird.ps.toFixed(0)}→{fatigueData.lastThird.ps.toFixed(0)}</span>
                         <span class="perf-mini-delta {fatigueData.degradation.ps > 1 ? 'down' : fatigueData.degradation.ps < -1 ? 'up' : ''}">
                           {fatigueData.degradation.ps > 1 ? '↓' : fatigueData.degradation.ps < -1 ? '↑' : '—'}
                         </span>
                       </div>
                       <div class="perf-mini-item">
-                        <span class="perf-mini-label">Trend <InfoTip text="Overall fatigue trend. Stable is good pacing, dropped is overexertion." position="top" size="sm" /></span>
+                        <span class="perf-mini-label">{$t('dashboard.fatigue.trend')} <InfoTip text={$t('infotips.fatigueTrend')} position="top" size="sm" /></span>
                         <span class="perf-mini-value fatigue-summary {fatigueData.degradation.te > 2 || fatigueData.degradation.ps > 1 ? 'problem' : fatigueData.degradation.te > 0 || fatigueData.degradation.ps > 0 ? 'attention' : 'optimal'}">
-                          {fatigueData.degradation.te > 2 || fatigueData.degradation.ps > 1 ? 'Dropped' : fatigueData.degradation.te > 0 || fatigueData.degradation.ps > 0 ? 'Slight' : 'Stable'}
+                          {fatigueData.degradation.te > 2 || fatigueData.degradation.ps > 1 ? $t('dashboard.fatigue.dropped') : fatigueData.degradation.te > 0 || fatigueData.degradation.ps > 0 ? $t('dashboard.fatigue.slight') : $t('dashboard.fatigue.stable')}
                         </span>
                       </div>
                     </div>
@@ -2316,22 +2378,22 @@
               {#if periodStats.avgPower > 0}
                 <div class="metric-chip">
                   <span class="metric-chip-val">{Math.round(periodStats.avgPower)}</span>
-                  <span class="metric-chip-unit">W avg <InfoTip text="Average power in watts. Track over time to measure fitness gains." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.wAvg')} <InfoTip text={$t('infotips.powerAvg')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.maxPower > 0}
                 <div class="metric-chip">
                   <span class="metric-chip-val">{Math.round(periodStats.maxPower)}</span>
-                  <span class="metric-chip-unit">W max <InfoTip text="Peak power achieved. Useful for sprints and FTP estimation." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.wMax')} <InfoTip text={$t('infotips.powerMax')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.avgNormalizedPower > 0}
                 <div class="metric-chip accent">
                   <span class="metric-chip-val">{Math.round(periodStats.avgNormalizedPower)}</span>
                   <span class="metric-chip-unit">
-                    NP
+                    {$t('metrics.npShort')}
                     <InfoTip
-                      text="Normalized Power adjusts for surges. Close to average means steady effort."
+                      text={$t('infotips.np')}
                       position="bottom"
                     />
                   </span>
@@ -2340,49 +2402,49 @@
               {#if periodStats.avgCadence > 0}
                 <div class="metric-chip">
                   <span class="metric-chip-val">{Math.round(periodStats.avgCadence)}</span>
-                  <span class="metric-chip-unit">rpm <InfoTip text="Pedal revolutions per minute. Optimal is 80-95 rpm for most riders." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.rpm')} <InfoTip text={$t('infotips.cadence')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.avgHr > 0}
                 <div class="metric-chip">
                   <span class="metric-chip-val">{Math.round(periodStats.avgHr)}</span>
-                  <span class="metric-chip-unit">bpm avg <InfoTip text="Average heart rate. Lower at same power means better fitness." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.bpmAvg')} <InfoTip text={$t('infotips.hrAvg')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.maxHr > 0}
                 <div class="metric-chip">
                   <span class="metric-chip-val">{Math.round(periodStats.maxHr)}</span>
-                  <span class="metric-chip-unit">bpm max <InfoTip text="Peak heart rate reached. Near max often hurts technique." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.bpmMax')} <InfoTip text={$t('infotips.hrMax')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.avgSpeed > 0}
                 <div class="metric-chip">
                   <span class="metric-chip-val">{periodStats.avgSpeed.toFixed(1)}</span>
-                  <span class="metric-chip-unit">km/h <InfoTip text="Average speed. Less reliable than power due to terrain and wind." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.kmh')} <InfoTip text={$t('infotips.speed')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.totalElevationGain > 0}
                 <div class="metric-chip elevation">
                   <span class="metric-chip-val">{Math.round(periodStats.totalElevationGain)}</span>
-                  <span class="metric-chip-unit">m ↑ <InfoTip text="Total elevation gained. Over 1000m is a serious climbing workout." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.mUp')} <InfoTip text={$t('infotips.elevationGain')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.totalElevationLoss > 0}
                 <div class="metric-chip elevation">
                   <span class="metric-chip-val">{Math.round(periodStats.totalElevationLoss)}</span>
-                  <span class="metric-chip-unit">m ↓ <InfoTip text="Total elevation lost. Should match gain on loop rides." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.mDown')} <InfoTip text={$t('infotips.elevationLoss')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.maxGrade > 0}
                 <div class="metric-chip">
                   <span class="metric-chip-val">{periodStats.maxGrade.toFixed(1)}</span>
-                  <span class="metric-chip-unit">% grade <InfoTip text="Maximum gradient. Above 10% is steep, above 15% is very steep." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.grade')} <InfoTip text={$t('infotips.grade')} position="bottom" /></span>
                 </div>
               {/if}
               {#if periodStats.totalEnergy > 0}
                 <div class="metric-chip energy">
                   <span class="metric-chip-val">{Math.round(periodStats.totalEnergy)}</span>
-                  <span class="metric-chip-unit">kJ <InfoTip text="Total energy output. Plan nutrition at 250-300 kcal per hour." position="bottom" /></span>
+                  <span class="metric-chip-unit">{$t('dashboard.units.kJ')} <InfoTip text={$t('infotips.energy')} position="bottom" /></span>
                 </div>
               {/if}
             </div>
@@ -2394,17 +2456,17 @@
               <!-- Balance Trend -->
               <div class="trend-card">
                 <div class="trend-card-header">
-                  <span class="trend-card-title">Balance Trend <InfoTip text="Left/right balance trend over time. Consistent values near 50% indicate good symmetry." position="bottom" /></span>
-                  <span class="trend-card-period">{filteredRides.length} rides</span>
+                  <span class="trend-card-title">{$t('dashboard.trendCards.balanceTrend')} <InfoTip text={$t('infotips.balanceTrend')} position="bottom" /></span>
+                  <span class="trend-card-period">{filteredRides.length} {$t('dashboard.units.rides')}</span>
                 </div>
                 {#if balanceTrend.path}
-                  <div class="trend-chart" role="img" aria-label="Balance trend chart" bind:clientWidth={balanceChartWidth}>
+                  <div class="trend-chart" role="img" aria-label={$t('aria.balanceTrendChart')} bind:clientWidth={balanceChartWidth}>
                     <!-- Tooltip -->
                     {#if hoveredBalancePoint}
                       <div class="chart-tooltip" style="left: {tooltipX}px; top: {tooltipY}px;">
                         <span class="tooltip-date">{hoveredBalancePoint.date}</span>
                         <span class="tooltip-value {hoveredBalancePoint.status}">{hoveredBalancePoint.balance.toFixed(1)}% L</span>
-                        <span class="tooltip-hint">Click to view</span>
+                        <span class="tooltip-hint">{$t('dashboard.table.clickToView')}</span>
                       </div>
                     {/if}
                     <svg viewBox="0 0 {balanceChartWidth} {CHART_HEIGHT}" class="trend-svg">
@@ -2442,35 +2504,35 @@
                   </div>
                   <div class="trend-stats">
                     <div class="trend-stat-item">
-                      <span class="trend-stat-label">Current <InfoTip text="Value from your most recent ride in this period." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-label">{$t('dashboard.trendStats.current')} <InfoTip text={$t('infotips.trendCurrent')} position="bottom" size="sm" /></span>
                       <span class="trend-stat-value {getBalanceStatus(balanceTrend.points[balanceTrend.points.length - 1]?.balance || 50)}">{(balanceTrend.points[balanceTrend.points.length - 1]?.balance || 50).toFixed(1)}%</span>
                     </div>
                     <div class="trend-stat-item">
-                      <span class="trend-stat-label">Average <InfoTip text="Average value across all rides in the selected period." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-label">{$t('dashboard.trendStats.average')} <InfoTip text={$t('infotips.trendAverage')} position="bottom" size="sm" /></span>
                       <span class="trend-stat-value">{((balanceTrend.minBalance + balanceTrend.maxBalance) / 2).toFixed(1)}%</span>
                     </div>
                     <div class="trend-stat-item">
-                      <span class="trend-stat-label">Spread <InfoTip text="Difference between best and worst. Lower spread means more consistent form." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-label">{$t('dashboard.trendStats.spread')} <InfoTip text={$t('infotips.trendSpread')} position="bottom" size="sm" /></span>
                       <span class="trend-stat-value {(balanceTrend.maxBalance - balanceTrend.minBalance) > 5 ? 'problem' : (balanceTrend.maxBalance - balanceTrend.minBalance) > 2.5 ? 'attention' : 'optimal'}">{(balanceTrend.maxBalance - balanceTrend.minBalance).toFixed(1)}%</span>
                     </div>
                   </div>
                 {:else}
-                  <div class="trend-empty">Need more rides</div>
+                  <div class="trend-empty">{$t('dashboard.emptyStates.needMoreRides')}</div>
                 {/if}
               </div>
 
               <!-- Technique Trend -->
               <div class="trend-card">
                 <div class="trend-card-header">
-                  <span class="trend-card-title">Technique <InfoTip text="Technique metrics trend over time. Look for steady improvement patterns." position="bottom" /></span>
+                  <span class="trend-card-title">{$t('dashboard.trendCards.technique')} <InfoTip text={$t('infotips.techniqueTrend')} position="bottom" /></span>
                   <div class="trend-metric-switcher">
-                    <button class:active={activeTrendMetric === 'asymmetry'} on:click={() => activeTrendMetric = 'asymmetry'}>Asym</button>
-                    <button class:active={activeTrendMetric === 'te'} on:click={() => activeTrendMetric = 'te'}>TE</button>
-                    <button class:active={activeTrendMetric === 'ps'} on:click={() => activeTrendMetric = 'ps'}>PS</button>
+                    <button class:active={activeTrendMetric === 'asymmetry'} on:click={() => activeTrendMetric = 'asymmetry'}>{$t('dashboard.trendCards.asym')}</button>
+                    <button class:active={activeTrendMetric === 'te'} on:click={() => activeTrendMetric = 'te'}>{$t('metrics.teShort')}</button>
+                    <button class:active={activeTrendMetric === 'ps'} on:click={() => activeTrendMetric = 'ps'}>{$t('metrics.psShort')}</button>
                   </div>
                 </div>
                 {#if techniqueTrend.path}
-                  <div class="trend-chart" role="img" aria-label="Technique trend chart" bind:clientWidth={techniqueChartWidth}>
+                  <div class="trend-chart" role="img" aria-label={$t('aria.techniqueTrendChart')} bind:clientWidth={techniqueChartWidth}>
                     <!-- Tooltip -->
                     {#if hoveredTechniquePoint}
                       <div class="chart-tooltip" style="left: {tooltipX}px; top: {tooltipY}px;">
@@ -2511,20 +2573,20 @@
                   </div>
                   <div class="trend-stats">
                     <div class="trend-stat-item">
-                      <span class="trend-stat-label">Latest <InfoTip text="Value from your most recent ride for this metric." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-label">{$t('dashboard.trendStats.latest')} <InfoTip text={$t('infotips.trendLatest')} position="bottom" size="sm" /></span>
                       <span class="trend-stat-value {activeTrendMetric === 'asymmetry' ? getAsymmetryClass(techniqueTrend.points[techniqueTrend.points.length - 1]?.value || 0) : ''}">{(techniqueTrend.points[techniqueTrend.points.length - 1]?.value || 0).toFixed(1)}%</span>
                     </div>
                     <div class="trend-stat-item">
-                      <span class="trend-stat-label">Average <InfoTip text="Average value across all rides in the selected period." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-label">{$t('dashboard.trendStats.average')} <InfoTip text={$t('infotips.trendAverage')} position="bottom" size="sm" /></span>
                       <span class="trend-stat-value">{(techniqueTrend.points.reduce((s, p) => s + p.value, 0) / techniqueTrend.points.length).toFixed(1)}%</span>
                     </div>
                     <div class="trend-stat-item">
-                      <span class="trend-stat-label">Best <InfoTip text="Best value in the period. For asymmetry lower is better, for TE/PS higher is better." position="bottom" size="sm" /></span>
+                      <span class="trend-stat-label">{$t('dashboard.trendStats.best')} <InfoTip text={$t('infotips.trendBest')} position="bottom" size="sm" /></span>
                       <span class="trend-stat-value optimal">{(activeTrendMetric === 'asymmetry' ? Math.min(...techniqueTrend.points.map(p => p.value)) : Math.max(...techniqueTrend.points.map(p => p.value))).toFixed(1)}%</span>
                     </div>
                   </div>
                 {:else}
-                  <div class="trend-empty">Need more data</div>
+                  <div class="trend-empty">{$t('dashboard.emptyStates.needMoreData')}</div>
                 {/if}
               </div>
             </div>
@@ -2534,47 +2596,47 @@
           {#if prevPeriodStats && periodStats}
             <div class="progress-row-card animate-in">
               <div class="progress-header">
-                <span class="progress-title">Progress vs Previous {selectedPeriod} Days</span>
+                <span class="progress-title">{$t('dashboard.progress.title', { values: { period: selectedPeriod } })}</span>
               </div>
               <div class="progress-items">
                 {#if scoreProgress}
                   <div class="progress-item">
-                    <span class="progress-item-label">Score</span>
+                    <span class="progress-item-label">{$t('dashboard.progress.score')}</span>
                     <span class="progress-item-now">{periodStats.score.toFixed(0)}</span>
                     <span class="progress-item-change {scoreProgress.direction}">{scoreProgress.direction === 'up' ? '↑' : scoreProgress.direction === 'down' ? '↓' : ''}{scoreProgress.value.toFixed(0)}</span>
                   </div>
                 {/if}
                 {#if optimalProgress}
                   <div class="progress-item">
-                    <span class="progress-item-label">Optimal Zone</span>
+                    <span class="progress-item-label">{$t('dashboard.progress.optimalZone')}</span>
                     <span class="progress-item-now">{periodStats.zoneOptimal.toFixed(0)}%</span>
                     <span class="progress-item-change {optimalProgress.direction}">{optimalProgress.direction === 'up' ? '↑' : optimalProgress.direction === 'down' ? '↓' : ''}{optimalProgress.value.toFixed(0)}%</span>
                   </div>
                 {/if}
                 {#if teProgress}
                   <div class="progress-item">
-                    <span class="progress-item-label">TE</span>
+                    <span class="progress-item-label">{$t('metrics.teShort')}</span>
                     <span class="progress-item-now">{periodStats.te.toFixed(0)}%</span>
                     <span class="progress-item-change {teProgress.direction}">{teProgress.direction === 'up' ? '↑' : teProgress.direction === 'down' ? '↓' : ''}{teProgress.value.toFixed(0)}</span>
                   </div>
                 {/if}
                 {#if psProgress}
                   <div class="progress-item">
-                    <span class="progress-item-label">PS</span>
+                    <span class="progress-item-label">{$t('metrics.psShort')}</span>
                     <span class="progress-item-now">{periodStats.ps.toFixed(0)}%</span>
                     <span class="progress-item-change {psProgress.direction}">{psProgress.direction === 'up' ? '↑' : psProgress.direction === 'down' ? '↓' : ''}{psProgress.value.toFixed(0)}</span>
                   </div>
                 {/if}
                 {#if durationProgress}
                   <div class="progress-item">
-                    <span class="progress-item-label">Time</span>
+                    <span class="progress-item-label">{$t('dashboard.progress.time')}</span>
                     <span class="progress-item-now">{(periodStats.duration / 3600000).toFixed(1)}h</span>
                     <span class="progress-item-change {durationProgress.direction}">{durationProgress.direction === 'up' ? '↑' : durationProgress.direction === 'down' ? '↓' : ''}{durationProgress.value.toFixed(1)}h</span>
                   </div>
                 {/if}
                 {#if distanceProgress}
                   <div class="progress-item">
-                    <span class="progress-item-label">Distance</span>
+                    <span class="progress-item-label">{$t('dashboard.progress.distance')}</span>
                     <span class="progress-item-now">{periodStats.totalDistance.toFixed(0)}km</span>
                     <span class="progress-item-change {distanceProgress.direction}">{distanceProgress.direction === 'up' ? '↑' : distanceProgress.direction === 'down' ? '↓' : ''}{distanceProgress.value.toFixed(0)}</span>
                   </div>
@@ -2587,21 +2649,21 @@
           {#if recentRides.length > 0}
             <div class="recent-rides animate-in">
               <div class="card-header">
-                <span class="card-title">Recent Rides <InfoTip text="Recent rides with technique metrics. Click any row to see full details." position="bottom" /></span>
-                <a href="/rides" class="view-all">View all →</a>
+                <span class="card-title">{$t('dashboard.recentRides')} <InfoTip text={$t('infotips.recentRides')} position="bottom" /></span>
+                <a href="/rides" class="view-all">{$t('dashboard.viewAll')}</a>
               </div>
               <div class="rides-table-wrap">
                 <table class="rides-table">
                   <thead>
                     <tr>
-                      <th class="col-date">Date</th>
-                      <th class="col-duration">Duration</th>
-                      <th class="col-asymmetry">Asym <InfoTip text="Power asymmetry percentage. Lower means more balanced power output." position="bottom" size="sm" /></th>
-                      <th class="col-balance">L / R</th>
-                      <th class="col-te">TE <InfoTip text="Torque Effectiveness for left and right legs separately." position="bottom" size="sm" /></th>
-                      <th class="col-ps">PS <InfoTip text="Pedal Smoothness for left and right legs separately." position="bottom" size="sm" /></th>
-                      <th class="col-zones">Zones <InfoTip text="Time distribution across optimal, attention, and problem zones." position="bottom" size="sm" /></th>
-                      {#if recentRides.some(r => r.power_avg > 0)}<th class="col-power">Power</th>{/if}
+                      <th class="col-date">{$t('dashboard.table.date')}</th>
+                      <th class="col-duration">{$t('dashboard.table.duration')}</th>
+                      <th class="col-asymmetry">{$t('dashboard.table.asym')} <InfoTip text={$t('infotips.tableAsym')} position="bottom" size="sm" /></th>
+                      <th class="col-balance">{$t('metrics.leftRight')}</th>
+                      <th class="col-te">{$t('metrics.teShort')} <InfoTip text={$t('infotips.te')} position="bottom" size="sm" /></th>
+                      <th class="col-ps">{$t('metrics.psShort')} <InfoTip text={$t('infotips.ps')} position="bottom" size="sm" /></th>
+                      <th class="col-zones">{$t('dashboard.table.zones')} <InfoTip text={$t('infotips.tableZones')} position="bottom" size="sm" /></th>
+                      {#if recentRides.some(r => r.power_avg > 0)}<th class="col-power">{$t('dashboard.table.power')}</th>{/if}
                     </tr>
                   </thead>
                   <tbody>
@@ -2609,12 +2671,12 @@
                       <tr on:click={() => window.location.href = `/rides/${ride.id}`}>
                         <td class="col-date">
                           <span class="date-primary">{formatDate(ride.timestamp)}</span>
-                          <span class="date-secondary">{formatRelativeTime(ride.timestamp)}</span>
+                          <span class="date-secondary">{formatRelativeTime(ride.timestamp, { today: $t('common.today'), yesterday: $t('common.yesterday'), daysAgo: $t('common.daysAgo') }, $locale)}</span>
                         </td>
                         <td class="col-duration">{formatDuration(ride.duration_ms)}</td>
                         <td class="col-asymmetry">
                           <span class="asymmetry-value {getBalanceStatus(ride.balance_left)}">{Math.abs(ride.balance_left - 50).toFixed(1)}%</span>
-                          <span class="dominance">{ride.balance_left > 50 ? 'L' : ride.balance_left < 50 ? 'R' : ''}</span>
+                          <span class="dominance">{ride.balance_left > 50 ? $t('metrics.left') : ride.balance_left < 50 ? $t('metrics.right') : ''}</span>
                         </td>
                         <td class="col-balance">{ride.balance_left.toFixed(0)} / {(100 - ride.balance_left).toFixed(0)}</td>
                         <td class="col-te">{ride.te_left.toFixed(0)}/{ride.te_right.toFixed(0)}</td>
@@ -2645,61 +2707,61 @@
                   <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
                 </svg>
               </div>
-              <h2>Welcome, {getFirstName($user?.name)}!</h2>
-              <p>Your dashboard will show real-time pedaling analytics once you start riding with KPedal on your Karoo.</p>
+              <h2>{$t('dashboard.welcome', { values: { name: getFirstName($user?.name) } })}</h2>
+              <p>{$t('dashboard.onboarding.dashboardWillShow')}</p>
             </div>
 
             <!-- Preview of what they'll see -->
             <div class="preview-section">
-              <h3>What you'll see here</h3>
+              <h3>{$t('dashboard.onboarding.whatYouWillSee')}</h3>
               <div class="preview-cards">
                 <div class="preview-card">
                   <div class="preview-icon balance-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
                   </div>
                   <div class="preview-info">
-                    <span class="preview-label">Power Balance</span>
-                    <span class="preview-example">50% L / 50% R</span>
+                    <span class="preview-label">{$t('dashboard.onboarding.powerBalance')}</span>
+                    <span class="preview-example">{$t('dashboard.onboarding.exampleBalance')}</span>
                   </div>
-                  <span class="preview-target">Pro: ±2.5%</span>
+                  <span class="preview-target">{$t('dashboard.onboarding.proTarget')}</span>
                 </div>
                 <div class="preview-card">
                   <div class="preview-icon te-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                   </div>
                   <div class="preview-info">
-                    <span class="preview-label">Torque Effectiveness</span>
-                    <span class="preview-example">72% avg</span>
+                    <span class="preview-label">{$t('dashboard.onboarding.torqueEffectiveness')}</span>
+                    <span class="preview-example">{$t('dashboard.onboarding.exampleTe')}</span>
                   </div>
-                  <span class="preview-target">Optimal: 70-80%</span>
+                  <span class="preview-target">{$t('dashboard.onboarding.teOptimal')}</span>
                 </div>
                 <div class="preview-card">
                   <div class="preview-icon ps-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
                   </div>
                   <div class="preview-info">
-                    <span class="preview-label">Pedal Smoothness</span>
-                    <span class="preview-example">22% avg</span>
+                    <span class="preview-label">{$t('dashboard.onboarding.pedalSmoothness')}</span>
+                    <span class="preview-example">{$t('dashboard.onboarding.examplePs')}</span>
                   </div>
-                  <span class="preview-target">Optimal: ≥20%</span>
+                  <span class="preview-target">{$t('dashboard.onboarding.psOptimal')}</span>
                 </div>
               </div>
             </div>
 
             <!-- Setup Steps -->
             <div class="setup-section">
-              <h3>Get started in 3 steps</h3>
+              <h3>{$t('dashboard.onboarding.getStarted')}</h3>
               <div class="setup-steps-new">
                 <div class="setup-step-new">
                   <div class="step-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                   </div>
                   <div class="step-content">
-                    <span class="step-title">Install on Karoo</span>
-                    <span class="step-desc">Download APK and install via USB or Karoo browser</span>
+                    <span class="step-title">{$t('dashboard.onboarding.step1Title')}</span>
+                    <span class="step-desc">{$t('dashboard.onboarding.step1Desc')}</span>
                   </div>
                   <a href="https://github.com/kpedal/kpedal/releases/latest" target="_blank" rel="noopener" class="step-action">
-                    Download APK
+                    {$t('dashboard.actions.downloadApk')}
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                   </a>
                 </div>
@@ -2708,8 +2770,8 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
                   </div>
                   <div class="step-content">
-                    <span class="step-title">Add data fields</span>
-                    <span class="step-desc">Edit your ride profile and add KPedal data fields</span>
+                    <span class="step-title">{$t('dashboard.onboarding.step2Title')}</span>
+                    <span class="step-desc">{$t('dashboard.onboarding.step2Desc')}</span>
                   </div>
                 </div>
                 <div class="setup-step-new">
@@ -2717,11 +2779,11 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c-1.657 0-3-4.03-3-9s1.343-9 3-9m0 18c1.657 0 3-4.03 3-9s-1.343-9-3-9m-9 9a9 9 0 0 1 9-9"/></svg>
                   </div>
                   <div class="step-content">
-                    <span class="step-title">Link your device</span>
-                    <span class="step-desc">Connect Karoo to sync rides automatically</span>
+                    <span class="step-title">{$t('dashboard.onboarding.step3Title')}</span>
+                    <span class="step-desc">{$t('dashboard.onboarding.step3Desc')}</span>
                   </div>
                   <a href="/link" class="step-action">
-                    Link Device
+                    {$t('dashboard.actions.linkDevice')}
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
                   </a>
                 </div>
@@ -2731,7 +2793,7 @@
             <!-- Already have device linked? -->
             <div class="sync-hint">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-              <span>Already installed? Complete a ride on your Karoo — data will appear here after sync.</span>
+              <span>{$t('dashboard.onboarding.alreadyInstalled')}</span>
             </div>
           </div>
         {/if}
@@ -6195,58 +6257,102 @@
   }
 
   /* ============================================
-     RESPONSIVE: 480px - Mobile phones
+     RESPONSIVE: 480px - Mobile phones (Apple-style)
      ============================================ */
   @media (max-width: 480px) {
-    /* Base layout - tighter padding */
-    .landing { padding: 16px; }
-    .landing-container { padding: 32px 0 48px; }
+    /* Base layout - Apple-style generous spacing */
+    .landing {
+      padding: 20px;
+      padding-bottom: 40px;
+    }
+    .landing-container {
+      padding: 40px 0 60px;
+    }
 
-    /* Fixed elements */
-    .site-logo { top: 14px; left: 14px; gap: 6px; }
-    .site-logo-dot { width: 7px; height: 7px; }
-    .site-logo-text { font-size: 14px; }
-    .theme-toggle { top: 14px; right: 14px; }
+    /* Fixed elements - refined */
+    .site-logo {
+      top: 16px;
+      left: 20px;
+      gap: 8px;
+    }
+    .site-logo-dot {
+      width: 8px;
+      height: 8px;
+      box-shadow: 0 0 8px var(--color-optimal);
+    }
+    .site-logo-text {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    .theme-toggle {
+      top: 16px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+    }
 
-    /* Hero - compact but readable */
-    .hero { padding: 24px 0 40px; }
+    /* Hero - Apple-style bold typography */
+    .hero {
+      padding: 32px 0 48px;
+      text-align: center;
+    }
     .hero-eyebrow {
-      font-size: 11px;
-      margin-bottom: 16px;
-      letter-spacing: 1px;
+      font-size: 12px;
+      margin-bottom: 20px;
+      letter-spacing: 1.2px;
+      opacity: 0.7;
     }
     .hero-version {
-      margin-left: 6px;
-      padding: 2px 6px;
-      font-size: 10px;
-      border-radius: 4px;
+      margin-left: 8px;
+      padding: 3px 8px;
+      font-size: 11px;
+      border-radius: 6px;
+      background: var(--bg-elevated);
     }
     .hero-title {
-      font-size: 32px;
-      letter-spacing: -1px;
-      line-height: 1.15;
+      font-size: 36px;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      font-weight: 600;
     }
-    .hero-title-line { display: block; }
+    .hero-title-line {
+      display: block;
+    }
     .hero-subtitle {
-      font-size: 14px;
-      max-width: 300px;
-      margin-bottom: 28px;
-      line-height: 1.55;
+      font-size: 15px;
+      max-width: 320px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+      color: var(--text-secondary);
     }
     .hero-actions {
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       width: 100%;
-      max-width: 280px;
+      max-width: 300px;
       margin: 0 auto;
     }
     .hero-cta, .hero-cta-secondary {
       width: 100%;
-      padding: 14px 24px;
-      font-size: 15px;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 500;
       justify-content: center;
+      border-radius: 14px;
+      min-height: 54px;
     }
-    .hero-note { font-size: 12px; margin-top: 18px; }
+    .hero-cta {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+    .hero-cta-secondary {
+      box-shadow: 0 4px 14px var(--glow-optimal, rgba(34, 197, 94, 0.25));
+    }
+    .hero-note {
+      font-size: 13px;
+      margin-top: 24px;
+      opacity: 0.7;
+    }
 
     /* Sections */
     .section { margin-bottom: 48px; }

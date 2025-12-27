@@ -297,7 +297,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Opt"
+                    android:text="@string/opt"
                     android:textSize="9sp"
                     android:textColor="@color/text_dim" />
             </LinearLayout>
@@ -322,7 +322,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Att"
+                    android:text="@string/att"
                     android:textSize="9sp"
                     android:textColor="@color/text_dim" />
             </LinearLayout>
@@ -347,7 +347,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Prob"
+                    android:text="@string/prob"
                     android:textSize="9sp"
                     android:textColor="@color/text_dim" />
             </LinearLayout>

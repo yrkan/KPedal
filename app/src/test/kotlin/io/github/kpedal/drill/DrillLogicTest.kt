@@ -368,15 +368,15 @@ class DrillLogicTest {
         fun `sums all phase durations`() {
             val drill = Drill(
                 id = "test",
-                name = "Test Drill",
-                description = "Test",
+                nameOverride = "Test Drill",
+                descriptionOverride = "Test",
                 type = DrillType.GUIDED_WORKOUT,
                 metric = DrillMetric.BALANCE,
                 difficulty = DrillDifficulty.BEGINNER,
                 phases = listOf(
-                    DrillPhase("P1", "", 30000L),
-                    DrillPhase("P2", "", 60000L),
-                    DrillPhase("P3", "", 30000L)
+                    DrillPhase(nameOverride = "P1", durationMs = 30000L),
+                    DrillPhase(nameOverride = "P2", durationMs = 60000L),
+                    DrillPhase(nameOverride = "P3", durationMs = 30000L)
                 )
             )
 
@@ -387,8 +387,8 @@ class DrillLogicTest {
         fun `empty phases returns 0`() {
             val drill = Drill(
                 id = "test",
-                name = "Test",
-                description = "Test",
+                nameOverride = "Test",
+                descriptionOverride = "Test",
                 type = DrillType.TIMED_FOCUS,
                 metric = DrillMetric.BALANCE,
                 difficulty = DrillDifficulty.BEGINNER,
@@ -429,12 +429,12 @@ class DrillLogicTest {
 
         private fun createDrill(durationMs: Long) = Drill(
             id = "test",
-            name = "Test",
-            description = "Test",
+            nameOverride = "Test",
+            descriptionOverride = "Test",
             type = DrillType.TIMED_FOCUS,
             metric = DrillMetric.BALANCE,
             difficulty = DrillDifficulty.BEGINNER,
-            phases = listOf(DrillPhase("P1", "", durationMs))
+            phases = listOf(DrillPhase(nameOverride = "P1", durationMs = durationMs))
         )
     }
 
@@ -444,15 +444,15 @@ class DrillLogicTest {
 
         private val testDrill = Drill(
             id = "test",
-            name = "Test Drill",
-            description = "Test",
+            nameOverride = "Test Drill",
+            descriptionOverride = "Test",
             type = DrillType.GUIDED_WORKOUT,
             metric = DrillMetric.BALANCE,
             difficulty = DrillDifficulty.BEGINNER,
             phases = listOf(
-                DrillPhase("Phase 1", "", 30000L),
-                DrillPhase("Phase 2", "", 60000L),
-                DrillPhase("Phase 3", "", 30000L)
+                DrillPhase(nameOverride = "Phase 1", durationMs = 30000L),
+                DrillPhase(nameOverride = "Phase 2", durationMs = 60000L),
+                DrillPhase(nameOverride = "Phase 3", durationMs = 30000L)
             )
         )
 
@@ -463,7 +463,7 @@ class DrillLogicTest {
                 currentPhaseIndex = 1
             )
 
-            assertThat(state.currentPhase?.name).isEqualTo("Phase 2")
+            assertThat(state.currentPhase?.nameOverride).isEqualTo("Phase 2")
         }
 
         @Test
@@ -473,7 +473,7 @@ class DrillLogicTest {
                 currentPhaseIndex = 0
             )
 
-            assertThat(state.nextPhase?.name).isEqualTo("Phase 2")
+            assertThat(state.nextPhase?.nameOverride).isEqualTo("Phase 2")
         }
 
         @Test

@@ -12,9 +12,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.database.CustomDrillEntity
 import io.github.kpedal.ui.theme.Theme
 
@@ -41,6 +43,14 @@ fun CustomDrillScreen(
     val totalSeconds = durationMinutes * 60 + durationSeconds
     val canSave = name.isNotBlank() && totalSeconds >= 10
 
+    val metricNameLocalized = when (metric) {
+        "BALANCE" -> stringResource(R.string.balance_option)
+        "TE" -> stringResource(R.string.torque_eff_short)
+        "PS" -> stringResource(R.string.smoothness_short)
+        else -> metric
+    }
+    val drillDescription = stringResource(R.string.custom_drill_desc, metricNameLocalized)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +65,7 @@ fun CustomDrillScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Cancel",
+                text = stringResource(R.string.cancel),
                 color = Theme.colors.dim,
                 fontSize = 13.sp,
                 modifier = Modifier
@@ -65,13 +75,13 @@ fun CustomDrillScreen(
                     ) { onBack() }
             )
             Text(
-                text = if (isEdit) "Edit Drill" else "New Drill",
+                text = stringResource(if (isEdit) R.string.edit_drill else R.string.new_drill),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
-                text = "Save",
+                text = stringResource(R.string.save),
                 color = if (canSave) Theme.colors.optimal else Theme.colors.muted,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium,
@@ -84,7 +94,7 @@ fun CustomDrillScreen(
                         val entity = CustomDrillEntity(
                             id = existingDrill?.id ?: 0,
                             name = name.trim(),
-                            description = "Custom ${getMetricName(metric)} drill",
+                            description = drillDescription,
                             metric = metric,
                             durationSeconds = totalSeconds,
                             targetType = targetType,
@@ -108,23 +118,23 @@ fun CustomDrillScreen(
                 .padding(12.dp)
         ) {
             // Step 1: Name
-            StepHeader(step = 1, title = "Name your drill")
+            StepHeader(step = 1, title = stringResource(R.string.name_your_drill))
             Spacer(modifier = Modifier.height(8.dp))
             TextInputField(
                 value = name,
-                placeholder = "e.g. Balance Focus, High TE",
+                placeholder = stringResource(R.string.drill_name_placeholder),
                 onValueChange = { name = it }
             )
 
             Spacer(modifier = Modifier.height(20.dp))
 
             // Step 2: Metric
-            StepHeader(step = 2, title = "What to focus on?")
+            StepHeader(step = 2, title = stringResource(R.string.what_to_focus))
             Spacer(modifier = Modifier.height(8.dp))
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 MetricOption(
-                    title = "Balance",
-                    description = "L/R power distribution",
+                    title = stringResource(R.string.balance_option),
+                    description = stringResource(R.string.lr_power_distribution),
                     isSelected = metric == "BALANCE",
                     onClick = {
                         metric = "BALANCE"
@@ -133,8 +143,8 @@ fun CustomDrillScreen(
                     }
                 )
                 MetricOption(
-                    title = "Torque Effectiveness",
-                    description = "Power transfer efficiency",
+                    title = stringResource(R.string.torque_effectiveness_option),
+                    description = stringResource(R.string.power_transfer_efficiency),
                     isSelected = metric == "TE",
                     onClick = {
                         metric = "TE"
@@ -143,8 +153,8 @@ fun CustomDrillScreen(
                     }
                 )
                 MetricOption(
-                    title = "Pedal Smoothness",
-                    description = "Circular pedal stroke",
+                    title = stringResource(R.string.pedal_smoothness_option),
+                    description = stringResource(R.string.circular_pedal_stroke),
                     isSelected = metric == "PS",
                     onClick = {
                         metric = "PS"
@@ -157,12 +167,12 @@ fun CustomDrillScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             // Step 3: Duration
-            StepHeader(step = 3, title = "How long?")
+            StepHeader(step = 3, title = stringResource(R.string.how_long))
             Spacer(modifier = Modifier.height(8.dp))
 
             // Quick presets
             Text(
-                text = "Quick select",
+                text = stringResource(R.string.quick_select),
                 color = Theme.colors.dim,
                 fontSize = 10.sp
             )
@@ -189,7 +199,7 @@ fun CustomDrillScreen(
 
             // Custom duration
             Text(
-                text = "Or set custom",
+                text = stringResource(R.string.or_set_custom),
                 color = Theme.colors.dim,
                 fontSize = 10.sp
             )
@@ -199,14 +209,14 @@ fun CustomDrillScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 DurationPicker(
-                    label = "Minutes",
+                    label = stringResource(R.string.minutes),
                     value = durationMinutes,
                     range = 0..10,
                     onValueChange = { durationMinutes = it },
                     modifier = Modifier.weight(1f)
                 )
                 DurationPicker(
-                    label = "Seconds",
+                    label = stringResource(R.string.seconds),
                     value = durationSeconds,
                     range = 0..59,
                     step = 5,
@@ -218,14 +228,14 @@ fun CustomDrillScreen(
             // Duration display
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Total: ${formatDuration(totalSeconds)}",
+                text = stringResource(R.string.total_duration, formatDuration(totalSeconds)),
                 color = if (totalSeconds >= 10) Theme.colors.text else Theme.colors.problem,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
             )
             if (totalSeconds < 10) {
                 Text(
-                    text = "Minimum 10 seconds",
+                    text = stringResource(R.string.min_10_seconds),
                     color = Theme.colors.problem,
                     fontSize = 10.sp
                 )
@@ -234,7 +244,7 @@ fun CustomDrillScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             // Step 4: Target
-            StepHeader(step = 4, title = "Set your target")
+            StepHeader(step = 4, title = stringResource(R.string.set_your_target))
             Spacer(modifier = Modifier.height(8.dp))
 
             // Target type
@@ -243,22 +253,22 @@ fun CustomDrillScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 TargetTypeOption(
-                    title = "Above",
-                    description = "≥ value",
+                    title = stringResource(R.string.above),
+                    description = stringResource(R.string.above_value),
                     isSelected = targetType == "MIN",
                     onClick = { targetType = "MIN" },
                     modifier = Modifier.weight(1f)
                 )
                 TargetTypeOption(
-                    title = "Below",
-                    description = "≤ value",
+                    title = stringResource(R.string.below),
+                    description = stringResource(R.string.below_value),
                     isSelected = targetType == "MAX",
                     onClick = { targetType = "MAX" },
                     modifier = Modifier.weight(1f)
                 )
                 TargetTypeOption(
-                    title = "Range",
-                    description = "min-max",
+                    title = stringResource(R.string.range),
+                    description = stringResource(R.string.min_max),
                     isSelected = targetType == "RANGE",
                     onClick = { targetType = "RANGE" },
                     modifier = Modifier.weight(1f)
@@ -268,10 +278,12 @@ fun CustomDrillScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             // Target values
+            val minimumLabel = stringResource(R.string.minimum)
+            val maximumLabel = stringResource(R.string.maximum)
             when (targetType) {
                 "MIN" -> {
                     TargetValueRow(
-                        label = "Minimum",
+                        label = minimumLabel,
                         value = targetMin ?: 50f,
                         metric = metric,
                         onValueChange = { targetMin = it }
@@ -279,7 +291,7 @@ fun CustomDrillScreen(
                 }
                 "MAX" -> {
                     TargetValueRow(
-                        label = "Maximum",
+                        label = maximumLabel,
                         value = targetMax ?: 50f,
                         metric = metric,
                         onValueChange = { targetMax = it }
@@ -287,14 +299,14 @@ fun CustomDrillScreen(
                 }
                 "RANGE" -> {
                     TargetValueRow(
-                        label = "Minimum",
+                        label = minimumLabel,
                         value = targetMin ?: 48f,
                         metric = metric,
                         onValueChange = { targetMin = it }
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     TargetValueRow(
-                        label = "Maximum",
+                        label = maximumLabel,
                         value = targetMax ?: 52f,
                         metric = metric,
                         onValueChange = { targetMax = it }
@@ -632,6 +644,13 @@ private fun PreviewCard(
     targetMin: Float?,
     targetMax: Float?
 ) {
+    val metricName = when (metric) {
+        "BALANCE" -> stringResource(R.string.balance_option)
+        "TE" -> stringResource(R.string.torque_eff_short)
+        "PS" -> stringResource(R.string.smoothness_short)
+        else -> metric
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -640,7 +659,7 @@ private fun PreviewCard(
             .padding(14.dp)
     ) {
         Text(
-            text = "PREVIEW",
+            text = stringResource(R.string.preview),
             color = Theme.colors.dim,
             fontSize = 9.sp,
             fontWeight = FontWeight.Medium
@@ -662,15 +681,15 @@ private fun PreviewCard(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
-                Text(text = "Metric", color = Theme.colors.muted, fontSize = 9.sp)
+                Text(text = stringResource(R.string.metric), color = Theme.colors.muted, fontSize = 9.sp)
                 Text(
-                    text = getMetricName(metric),
+                    text = metricName,
                     color = Theme.colors.text,
                     fontSize = 12.sp
                 )
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Duration", color = Theme.colors.muted, fontSize = 9.sp)
+                Text(text = stringResource(R.string.duration), color = Theme.colors.muted, fontSize = 9.sp)
                 Text(
                     text = formatDuration(duration),
                     color = Theme.colors.text,
@@ -678,7 +697,7 @@ private fun PreviewCard(
                 )
             }
             Column(horizontalAlignment = Alignment.End) {
-                Text(text = "Target", color = Theme.colors.muted, fontSize = 9.sp)
+                Text(text = stringResource(R.string.target), color = Theme.colors.muted, fontSize = 9.sp)
                 Text(
                     text = formatTargetPreview(metric, targetType, targetMin, targetMax),
                     color = Theme.colors.optimal,

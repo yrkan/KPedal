@@ -12,10 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
+import io.github.kpedal.R
 import io.github.kpedal.data.models.Achievement
 import io.github.kpedal.data.models.DashboardData
 import io.github.kpedal.data.models.UnlockedAchievement
@@ -83,14 +85,14 @@ fun HomeScreen(
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             ActionCard(
-                title = "Live",
-                subtitle = "Current ride",
+                title = stringResource(R.string.live),
+                subtitle = stringResource(R.string.current_ride),
                 modifier = Modifier.weight(1f),
                 onClick = { onNavigate("live") }
             )
             ActionCard(
-                title = "Drills",
-                subtitle = "Practice",
+                title = stringResource(R.string.drills),
+                subtitle = stringResource(R.string.practice),
                 highlighted = true,
                 modifier = Modifier.weight(1f),
                 onClick = { onNavigate("drills") }
@@ -134,33 +136,33 @@ fun HomeScreen(
                 .padding(horizontal = 12.dp)
         ) {
             // Data section
-            SectionLabel("DATA")
+            SectionLabel(stringResource(R.string.section_data))
             Spacer(modifier = Modifier.height(4.dp))
 
-            MenuRow("History", "Saved rides") { onNavigate("history") }
-            MenuRow("Analytics", "Trends") { onNavigate("analytics") }
+            MenuRow(stringResource(R.string.history), stringResource(R.string.saved_rides)) { onNavigate("history") }
+            MenuRow(stringResource(R.string.analytics), stringResource(R.string.trends)) { onNavigate("analytics") }
             MenuRow(
-                "Achievements",
+                stringResource(R.string.achievements),
                 "${unlockedAchievements.size}/${Achievement.all.size}"
             ) { onNavigate("achievements") }
-            MenuRow("Challenges", "Weekly goal") { onNavigate("challenges") }
+            MenuRow(stringResource(R.string.challenges), stringResource(R.string.weekly_goal)) { onNavigate("challenges") }
 
             Spacer(modifier = Modifier.height(14.dp))
 
             // Karoo section
-            SectionLabel("KAROO")
+            SectionLabel(stringResource(R.string.section_karoo))
             Spacer(modifier = Modifier.height(4.dp))
 
-            MenuRow("Data Fields", "6 layouts") { onNavigate("layouts") }
-            MenuRow("Pedal Status", "Connection") { onNavigate("pedal-info") }
+            MenuRow(stringResource(R.string.data_fields), stringResource(R.string.layouts_count)) { onNavigate("layouts") }
+            MenuRow(stringResource(R.string.pedal_status), stringResource(R.string.connection)) { onNavigate("pedal-info") }
 
             Spacer(modifier = Modifier.height(14.dp))
 
             // More section
-            SectionLabel("MORE")
+            SectionLabel(stringResource(R.string.section_more))
             Spacer(modifier = Modifier.height(4.dp))
 
-            MenuRow("Help", "Quick guide") { onNavigate("help") }
+            MenuRow(stringResource(R.string.help), stringResource(R.string.quick_guide)) { onNavigate("help") }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -181,17 +183,17 @@ private fun QuickStats(
             .padding(horizontal = 12.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        StatItem(value = "$totalRides", label = "rides")
+        StatItem(value = "$totalRides", label = stringResource(R.string.rides))
         Divider()
         StatItem(
             value = formatBalance(avgBalance),
-            label = "avg bal",
+            label = stringResource(R.string.avg_bal),
             valueColor = getBalanceColor(avgBalance.toInt())
         )
         Divider()
         StatItem(
             value = "${streak}d",
-            label = "streak",
+            label = stringResource(R.string.streak),
             valueColor = if (streak >= 3) Theme.colors.optimal else Theme.colors.text
         )
     }
@@ -280,7 +282,7 @@ private fun LastRideRow(
     ) {
         Column {
             Text(
-                text = "Last ride",
+                text = stringResource(R.string.last_ride),
                 color = Theme.colors.dim,
                 fontSize = 9.sp
             )
@@ -299,7 +301,7 @@ private fun LastRideRow(
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium
                 )
-                Text(text = "L/R", color = Theme.colors.dim, fontSize = 8.sp)
+                Text(text = stringResource(R.string.lr), color = Theme.colors.dim, fontSize = 8.sp)
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
@@ -308,7 +310,7 @@ private fun LastRideRow(
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium
                 )
-                Text(text = "optimal", color = Theme.colors.dim, fontSize = 8.sp)
+                Text(text = stringResource(R.string.optimal), color = Theme.colors.dim, fontSize = 8.sp)
             }
         }
     }

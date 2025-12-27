@@ -15,9 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.models.Achievement
 import io.github.kpedal.data.models.UnlockedAchievement
 import io.github.kpedal.ui.theme.Theme
@@ -59,7 +61,7 @@ fun AchievementsScreen(
                     .padding(end = 8.dp)
             )
             Text(
-                text = "Achievements",
+                text = stringResource(R.string.achievements),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
@@ -108,7 +110,7 @@ fun AchievementsScreen(
         ) {
             // Rides category
             AchievementCategory(
-                title = "RIDES",
+                title = stringResource(R.string.category_rides),
                 achievements = listOf(
                     Achievement.FirstRide,
                     Achievement.TenRides,
@@ -122,7 +124,7 @@ fun AchievementsScreen(
 
             // Balance category
             AchievementCategory(
-                title = "BALANCE",
+                title = stringResource(R.string.category_balance),
                 achievements = listOf(
                     Achievement.PerfectBalance1m,
                     Achievement.PerfectBalance5m,
@@ -135,7 +137,7 @@ fun AchievementsScreen(
 
             // Efficiency category
             AchievementCategory(
-                title = "EFFICIENCY",
+                title = stringResource(R.string.category_efficiency),
                 achievements = listOf(
                     Achievement.EfficiencyMaster,
                     Achievement.SmoothOperator
@@ -147,7 +149,7 @@ fun AchievementsScreen(
 
             // Streak category
             AchievementCategory(
-                title = "STREAKS",
+                title = stringResource(R.string.category_streaks),
                 achievements = listOf(
                     Achievement.ThreeDayStreak,
                     Achievement.SevenDayStreak,
@@ -161,7 +163,7 @@ fun AchievementsScreen(
 
             // Drills category
             AchievementCategory(
-                title = "DRILLS",
+                title = stringResource(R.string.category_drills),
                 achievements = listOf(
                     Achievement.FirstDrill,
                     Achievement.TenDrills,
@@ -281,13 +283,13 @@ private fun AchievementRow(
         // Name and description
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = achievement.name,
+                text = stringResource(achievement.nameRes),
                 color = if (isUnlocked) Theme.colors.text else Theme.colors.dim,
                 fontSize = 12.sp,
                 fontWeight = if (isUnlocked) FontWeight.Medium else FontWeight.Normal
             )
             Text(
-                text = achievement.description,
+                text = stringResource(achievement.descriptionRes),
                 color = Theme.colors.muted,
                 fontSize = 10.sp
             )

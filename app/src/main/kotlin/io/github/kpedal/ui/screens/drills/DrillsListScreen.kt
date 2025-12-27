@@ -13,9 +13,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.drill.DrillCatalog
 import io.github.kpedal.drill.model.*
 import io.github.kpedal.ui.theme.Theme
@@ -59,7 +61,7 @@ fun DrillsListScreen(
                 )
                 // Tabs: Live | Drills
                 Text(
-                    text = "Live",
+                    text = stringResource(R.string.live),
                     color = Theme.colors.dim,
                     fontSize = 14.sp,
                     modifier = Modifier.clickable(
@@ -73,7 +75,7 @@ fun DrillsListScreen(
                     fontSize = 14.sp
                 )
                 Text(
-                    text = "Drills",
+                    text = stringResource(R.string.drills),
                     color = Theme.colors.text,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold
@@ -81,7 +83,7 @@ fun DrillsListScreen(
             }
 
             Text(
-                text = "History",
+                text = stringResource(R.string.drill_history),
                 color = Theme.colors.dim,
                 fontSize = 12.sp,
                 modifier = Modifier.clickable { onHistoryClick() }
@@ -98,7 +100,7 @@ fun DrillsListScreen(
         ) {
             // Custom drills section
             if (customDrills.isNotEmpty()) {
-                SectionHeader("MY DRILLS")
+                SectionHeader(stringResource(R.string.my_drills))
                 customDrills.forEach { drill ->
                     DrillRow(
                         drill = drill,
@@ -116,7 +118,7 @@ fun DrillsListScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             // Built-in drills
-            SectionHeader("BUILT-IN DRILLS")
+            SectionHeader(stringResource(R.string.built_in_drills))
             drills.forEach { drill ->
                 DrillRow(drill = drill, onClick = { onDrillClick(drill.id) })
             }
@@ -159,7 +161,7 @@ private fun CreateDrillButton(onClick: () -> Unit) {
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = "Create Custom Drill",
+            text = stringResource(R.string.create_custom_drill),
             color = Theme.colors.optimal,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium
@@ -214,7 +216,7 @@ private fun DrillRow(
                 Column {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = drill.name,
+                            text = drill.nameOverride ?: stringResource(drill.nameRes),
                             color = Theme.colors.text,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Medium
@@ -222,7 +224,7 @@ private fun DrillRow(
                         if (isCustom) {
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
-                                text = "Custom",
+                                text = stringResource(R.string.custom),
                                 color = Theme.colors.muted,
                                 fontSize = 9.sp
                             )
@@ -239,7 +241,7 @@ private fun DrillRow(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (isCustom && onDelete != null) {
                     Text(
-                        text = "Delete",
+                        text = stringResource(R.string.delete),
                         color = Theme.colors.problem,
                         fontSize = 11.sp,
                         modifier = Modifier

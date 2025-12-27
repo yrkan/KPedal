@@ -12,9 +12,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.drill.model.DrillResult
 import io.github.kpedal.ui.theme.Theme
 import java.text.SimpleDateFormat
@@ -58,7 +60,7 @@ fun DrillHistoryScreen(
                             .padding(end = 8.dp)
                     )
                     Text(
-                        text = "History",
+                        text = stringResource(R.string.history),
                         color = Theme.colors.text,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold
@@ -73,7 +75,7 @@ fun DrillHistoryScreen(
                     )
                     if (results.isNotEmpty()) {
                         Text(
-                            text = "Clear",
+                            text = stringResource(R.string.clear),
                             color = Theme.colors.problem,
                             fontSize = 12.sp,
                             modifier = Modifier.clickable { showClearConfirm = true }
@@ -90,7 +92,7 @@ fun DrillHistoryScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "No history",
+                        text = stringResource(R.string.no_history),
                         color = Theme.colors.dim,
                         fontSize = 13.sp
                     )
@@ -111,8 +113,8 @@ fun DrillHistoryScreen(
         // Dialogs
         if (showClearConfirm) {
             ConfirmDialog(
-                title = "Clear all?",
-                confirmText = "Clear",
+                title = stringResource(R.string.clear_all_question),
+                confirmText = stringResource(R.string.clear),
                 onConfirm = {
                     onDeleteAll()
                     showClearConfirm = false
@@ -123,8 +125,8 @@ fun DrillHistoryScreen(
 
         resultToDelete?.let { result ->
             ConfirmDialog(
-                title = "Delete?",
-                confirmText = "Delete",
+                title = stringResource(R.string.delete_question),
+                confirmText = stringResource(R.string.delete),
                 onConfirm = {
                     onDeleteResult(result.id)
                     resultToDelete = null
@@ -232,7 +234,7 @@ private fun ConfirmDialog(
 
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel),
                     color = Theme.colors.dim,
                     fontSize = 13.sp,
                     modifier = Modifier.clickable { onDismiss() }

@@ -41,6 +41,7 @@ import io.github.kpedal.drill.model.DrillPhase
 import io.github.kpedal.drill.model.DrillResult
 import io.github.kpedal.engine.PedalingMetrics
 import io.github.kpedal.ui.screens.LiveRideData
+import io.github.kpedal.util.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -174,6 +175,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = true
         )
+
+    /**
+     * Current app language.
+     */
+    private val _currentLanguage = MutableStateFlow(LocaleHelper.getSavedLanguage(application))
+    val currentLanguage: StateFlow<LocaleHelper.AppLanguage> = _currentLanguage.asStateFlow()
 
     /**
      * Current pedaling metrics (from extension if connected).
@@ -486,8 +493,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * Start a drill.
+     * @param drill The drill to execute
+     * @param drillName The localized drill name (resolved via stringResource in Composable)
      */
-    fun startDrill(drill: Drill) {
+    fun startDrill(drill: Drill, drillName: String) {
         // Reset previous state
         _drillResult.value = null
 
@@ -554,7 +563,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         // Start the drill
-        drillEngine.start(drill)
+        drillEngine.start(drill, drillName)
     }
 
     // ========== Haptic Feedback for Drills ==========
@@ -680,9 +689,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         // If no result was set by onComplete, create one from current state
         if (_drillResult.value == null && currentState != null) {
+            val drill = currentState.drill
+            // Use nameOverride for custom drills, or drill ID as fallback
+            // (The actual localized name is stored in DrillEngine and used for completed drills)
+            val drillName = drill.nameOverride ?: drill.id.replace("_", " ").replaceFirstChar { it.uppercase() }
             _drillResult.value = io.github.kpedal.drill.model.DrillResult(
-                drillId = currentState.drill.id,
-                drillName = currentState.drill.name,
+                drillId = drill.id,
+                drillName = drillName,
                 timestamp = System.currentTimeMillis(),
                 durationMs = currentState.elapsedMs,
                 score = currentState.score,
@@ -709,7 +722,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         try {
             val newAchievements = achievementChecker.checkAfterDrill(score)
             if (newAchievements.isNotEmpty()) {
-                android.util.Log.i(TAG, "Unlocked ${newAchievements.size} drill achievements: ${newAchievements.map { it.name }}")
+                android.util.Log.i(TAG, "Unlocked ${newAchievements.size} drill achievements: ${newAchievements.map { it.id }}")
             }
         } catch (e: Exception) {
             android.util.Log.e(TAG, "Failed to check drill achievements: ${e.message}")
@@ -912,6 +925,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             preferencesRepository.updateAutoSyncEnabled(enabled)
         }
+    }
+
+    /**
+     * Update app language.
+     * Returns true if language changed (requires activity recreation).
+     */
+    fun updateLanguage(language: LocaleHelper.AppLanguage): Boolean {
+        _currentLanguage.value = language
+        return LocaleHelper.applyLanguage(getApplication(), language)
     }
 
     // ========== Achievements ==========

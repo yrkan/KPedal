@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import { isAuthenticated, authFetch } from '$lib/auth';
+  import { t, locale } from '$lib/i18n';
   import InfoTip from '$lib/components/InfoTip.svelte';
 
   interface Ride {
@@ -51,7 +52,7 @@
   let offset = 0;
   let limit = 100;
   let loading = true;
-  let error: string | null = null;
+  let error = false;
   let deletingId: number | null = null;
   let viewMode: 'table' | 'cards' = 'table';
   let viewModeInitialized = false;
@@ -82,7 +83,7 @@
 
   async function loadRides() {
     loading = true;
-    error = null;
+    error = false;
 
     try {
       // Load more rides (100) to have enough data for filtering
@@ -94,10 +95,10 @@
           total = data.data.total || 0;
         }
       } else {
-        error = 'Failed to load rides';
+        error = true;
       }
     } catch (err) {
-      error = 'Failed to load rides';
+      error = true;
     } finally {
       loading = false;
     }
@@ -127,7 +128,7 @@
 
   async function deleteRide(id: number, event: Event) {
     event.stopPropagation();
-    if (!confirm('Delete this ride?')) return;
+    if (!confirm($t('rides.deleteRide'))) return;
 
     deletingId = id;
     try {
@@ -147,6 +148,11 @@
     goto(`/rides/${id}`);
   }
 
+  function getLocaleString(currentLocale: string | null | undefined): string {
+    const localeMap: Record<string, string> = { en: 'en-US', es: 'es-ES' };
+    return currentLocale ? localeMap[currentLocale] || currentLocale : 'en-US';
+  }
+
   function formatDuration(ms: number): string {
     const hours = Math.floor(ms / 3600000);
     const minutes = Math.floor((ms % 3600000) / 60000);
@@ -162,27 +168,27 @@
     return `${minutes}m`;
   }
 
-  function formatDate(timestamp: number): string {
+  function formatDate(timestamp: number, currentLocale?: string | null): string {
     const date = new Date(timestamp);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return date.toLocaleDateString(getLocaleString(currentLocale), { month: 'short', day: 'numeric' });
   }
 
-  function formatFullDate(timestamp: number): string {
+  function formatFullDate(timestamp: number, currentLocale?: string | null): string {
     const date = new Date(timestamp);
-    return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    return date.toLocaleDateString(getLocaleString(currentLocale), { weekday: 'short', month: 'short', day: 'numeric' });
   }
 
-  function formatTime(timestamp: number): string {
-    return new Date(timestamp).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  function formatTime(timestamp: number, currentLocale?: string | null): string {
+    return new Date(timestamp).toLocaleTimeString(getLocaleString(currentLocale), { hour: 'numeric', minute: '2-digit' });
   }
 
   function getAsymmetry(ride: Ride): number {
     return Math.abs(ride.balance_left - 50);
   }
 
-  function getDominance(ride: Ride): string {
+  function getDominance(ride: Ride, leftLabel: string, rightLabel: string): string {
     if (Math.abs(ride.balance_left - 50) < 0.5) return '—';
-    return ride.balance_left > 50 ? 'L' : 'R';
+    return ride.balance_left > 50 ? leftLabel : rightLabel;
   }
 
   function getAsymmetryClass(asymmetry: number): string {
@@ -219,25 +225,25 @@
 </script>
 
 <svelte:head>
-  <title>Rides - KPedal</title>
+  <title>{$t('rides.title')} - KPedal</title>
 </svelte:head>
 
 <div class="page rides-page">
   <div class="container container-lg">
     <header class="page-header animate-in">
-      <a href="/" class="back-link" aria-label="Back to dashboard">
+      <a href="/" class="back-link" aria-label={$t('rides.backToDashboard')}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="15,18 9,12 15,6"/>
         </svg>
       </a>
-      <h1>Rides</h1>
+      <h1>{$t('rides.title')}</h1>
       <div class="view-toggle">
-        <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title="Table view">
+        <button class="view-btn" class:active={viewMode === 'table'} on:click={() => viewMode = 'table'} title={$t('rides.viewTable')}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
-        <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title="Card view">
+        <button class="view-btn" class:active={viewMode === 'cards'} on:click={() => viewMode = 'cards'} title={$t('rides.viewCards')}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
           </svg>
@@ -252,7 +258,7 @@
     {:else if error}
       <div class="error-state animate-in">
         <p>{error}</p>
-        <button class="retry-btn" on:click={loadRides}>Retry</button>
+        <button class="retry-btn" on:click={loadRides}>{$t('common.retry')}</button>
       </div>
     {:else if rides.length === 0}
       <div class="empty-state-enhanced animate-in">
@@ -261,25 +267,25 @@
             <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
           </svg>
         </div>
-        <h3>No rides recorded yet</h3>
-        <p>Your ride history will appear here once you complete rides with KPedal on your Karoo.</p>
+        <h3>{$t('rides.noRides')}</h3>
+        <p>{$t('rides.noRidesHint')}</p>
 
         <div class="empty-preview">
-          <span class="empty-preview-label">Each ride will show</span>
+          <span class="empty-preview-label">{$t('rides.eachRideShows')}</span>
           <div class="empty-preview-items">
-            <span class="preview-item"><span class="preview-dot balance"></span>Balance L/R</span>
-            <span class="preview-item"><span class="preview-dot te"></span>TE</span>
-            <span class="preview-item"><span class="preview-dot ps"></span>PS</span>
-            <span class="preview-item"><span class="preview-dot score"></span>Zones</span>
+            <span class="preview-item"><span class="preview-dot balance"></span>{$t('metrics.leftRight')} {$t('metrics.balance')}</span>
+            <span class="preview-item"><span class="preview-dot te"></span>{$t('metrics.teShort')}</span>
+            <span class="preview-item"><span class="preview-dot ps"></span>{$t('metrics.psShort')}</span>
+            <span class="preview-item"><span class="preview-dot score"></span>{$t('zones.title')}</span>
           </div>
         </div>
 
         <div class="empty-actions">
           <a href="/settings" class="empty-action-btn secondary">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3"/></svg>
-            Link Device
+            {$t('settings.linkDevice')}
           </a>
-          <a href="/" class="empty-action-btn">← Dashboard</a>
+          <a href="/" class="empty-action-btn">← {$t('nav.dashboard')}</a>
         </div>
       </div>
     {:else}
@@ -288,7 +294,7 @@
         <div class="stats-strip animate-in">
           <div class="stat-item">
             <span class="stat-value">{periodStats.rides}</span>
-            <span class="stat-label">rides <InfoTip text="Total number of rides in this view." position="bottom" size="sm" /></span>
+            <span class="stat-label">{$t('rides.list.ridesLabel')} <InfoTip text={$t('rides.list.ridesTip')} position="bottom" size="sm" /></span>
           </div>
           <div class="stat-item">
             <span class="stat-value">{formatTotalDuration(periodStats.totalDuration)}</span>
@@ -296,46 +302,46 @@
           {#if periodStats.totalDistance > 0}
             <div class="stat-item">
               <span class="stat-value">{periodStats.totalDistance.toFixed(0)}</span>
-              <span class="stat-label">km <InfoTip text="Total distance covered across all rides." position="bottom" size="sm" /></span>
+              <span class="stat-label">{$t('rides.list.kmLabel')} <InfoTip text={$t('rides.list.kmTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           {#if periodStats.totalElevation > 0}
             <div class="stat-item">
               <span class="stat-value">{Math.round(periodStats.totalElevation)}</span>
-              <span class="stat-label">m ↑ <InfoTip text="Total elevation gained across all rides." position="bottom" size="sm" /></span>
+              <span class="stat-label">{$t('rides.list.elevLabel')} <InfoTip text={$t('rides.list.elevTip')} position="bottom" size="sm" /></span>
             </div>
           {/if}
           <div class="stat-item">
             <span class="stat-value {getAsymmetryClass(periodStats.avgAsymmetry)}">{periodStats.avgAsymmetry.toFixed(1)}%</span>
-            <span class="stat-label">asym <InfoTip text="Average power asymmetry. Under 2.5% is pro level." position="bottom" size="sm" /></span>
+            <span class="stat-label">{$t('rides.list.asymLabel')} <InfoTip text={$t('rides.list.asymTip')} position="bottom" size="sm" /></span>
           </div>
           <div class="stat-item">
             <span class="stat-value">{periodStats.avgTe.toFixed(0)}%</span>
-            <span class="stat-label">TE <InfoTip text="Average Torque Effectiveness. Optimal range is 70-80%." position="bottom" size="sm" /></span>
+            <span class="stat-label">{$t('rides.list.teLabel')} <InfoTip text={$t('rides.list.teTip')} position="bottom" size="sm" /></span>
           </div>
           <div class="stat-item">
             <span class="stat-value">{periodStats.avgPs.toFixed(0)}%</span>
-            <span class="stat-label">PS <InfoTip text="Average Pedal Smoothness. Above 20% is good technique." position="bottom" size="sm" /></span>
+            <span class="stat-label">{$t('rides.list.psLabel')} <InfoTip text={$t('rides.list.psTip')} position="bottom" size="sm" /></span>
           </div>
           <div class="stat-item highlight">
             <span class="stat-value">{periodStats.avgOptimal.toFixed(0)}%</span>
-            <span class="stat-label">optimal <InfoTip text="Average time in optimal zone. Higher means better form." position="bottom" size="sm" /></span>
+            <span class="stat-label">{$t('rides.list.optimalLabel')} <InfoTip text={$t('rides.list.optimalTip')} position="bottom" size="sm" /></span>
           </div>
           {#if periodStats.avgPower > 0}
             <div class="stat-item">
               <span class="stat-value">{Math.round(periodStats.avgPower)}</span>
-              <span class="stat-label">W avg <InfoTip text="Average power output. Track over time for fitness trends." position="bottom" size="sm" /></span>
+              <span class="stat-label">{$t('rides.list.wAvgLabel')} <InfoTip text={$t('rides.list.wAvgTip')} position="bottom" size="sm" /></span>
             </div>
             {#if periodStats.avgNP > 0}
               <div class="stat-item highlight">
                 <span class="stat-value">{Math.round(periodStats.avgNP)}</span>
-                <span class="stat-label">NP <InfoTip text="Average Normalized Power. Accounts for variability in effort." position="bottom" size="sm" /></span>
+                <span class="stat-label">{$t('rides.list.npLabel')} <InfoTip text={$t('rides.list.npTip')} position="bottom" size="sm" /></span>
               </div>
             {/if}
             {#if periodStats.totalEnergy > 0}
               <div class="stat-item">
                 <span class="stat-value">{Math.round(periodStats.totalEnergy)}</span>
-                <span class="stat-label">kJ <InfoTip text="Total energy output. Roughly equals calories burned." position="bottom" size="sm" /></span>
+                <span class="stat-label">{$t('rides.list.kjLabel')} <InfoTip text={$t('rides.list.kjTip')} position="bottom" size="sm" /></span>
               </div>
             {/if}
           {/if}
@@ -352,15 +358,15 @@
           <table class="data-table rides-table">
             <thead>
               <tr>
-                <th class="col-date">Date</th>
-                <th class="col-duration">Duration</th>
-                <th class="col-asymmetry">Asym <InfoTip text="Power asymmetry percentage. Lower means more balanced." position="bottom" size="sm" /></th>
-                <th class="col-balance">L / R <InfoTip text="Left and right power distribution." position="bottom" size="sm" /></th>
-                <th class="col-te">TE <InfoTip text="Torque Effectiveness for left and right legs." position="bottom" size="sm" /></th>
-                <th class="col-ps">PS <InfoTip text="Pedal Smoothness for left and right legs." position="bottom" size="sm" /></th>
-                <th class="col-zones">Zones <InfoTip text="Time in optimal, attention, and problem zones." position="bottom" size="sm" /></th>
+                <th class="col-date">{$t('rides.list.dateCol')}</th>
+                <th class="col-duration">{$t('rides.list.durationCol')}</th>
+                <th class="col-asymmetry">{$t('rides.list.asymCol')} <InfoTip text={$t('rides.list.asymColTip')} position="bottom" size="sm" /></th>
+                <th class="col-balance">{$t('rides.list.lrCol')} <InfoTip text={$t('rides.list.lrColTip')} position="bottom" size="sm" /></th>
+                <th class="col-te">{$t('rides.list.teCol')} <InfoTip text={$t('rides.list.teColTip')} position="bottom" size="sm" /></th>
+                <th class="col-ps">{$t('rides.list.psCol')} <InfoTip text={$t('rides.list.psColTip')} position="bottom" size="sm" /></th>
+                <th class="col-zones">{$t('rides.list.zonesCol')} <InfoTip text={$t('rides.list.zonesColTip')} position="bottom" size="sm" /></th>
                 {#if sortedRides.some(r => r.power_avg > 0)}
-                  <th class="col-power">Power <InfoTip text="Average power output for this ride." position="bottom" size="sm" /></th>
+                  <th class="col-power">{$t('rides.list.powerCol')} <InfoTip text={$t('rides.list.powerColTip')} position="bottom" size="sm" /></th>
                 {/if}
                 <th class="col-actions"></th>
               </tr>
@@ -369,13 +375,13 @@
               {#each sortedRides as ride}
                 <tr on:click={() => goToRide(ride.id)} class="ride-row" data-ride-id={ride.id}>
                   <td class="col-date">
-                    <span class="date-primary">{formatDate(ride.timestamp)}</span>
-                    <span class="date-secondary">{formatTime(ride.timestamp)}</span>
+                    <span class="date-primary">{formatDate(ride.timestamp, $locale)}</span>
+                    <span class="date-secondary">{formatTime(ride.timestamp, $locale)}</span>
                   </td>
                   <td class="col-duration">{formatDuration(ride.duration_ms)}</td>
                   <td class="col-asymmetry">
                     <span class="asymmetry-value {getAsymmetryClass(getAsymmetry(ride))}">{getAsymmetry(ride).toFixed(1)}%</span>
-                    <span class="dominance">{getDominance(ride)}</span>
+                    <span class="dominance">{getDominance(ride, $t('metrics.left'), $t('metrics.right'))}</span>
                   </td>
                   <td class="col-balance">{ride.balance_left.toFixed(0)} / {ride.balance_right.toFixed(0)}</td>
                   <td class="col-te">{ride.te_left.toFixed(0)}/{ride.te_right.toFixed(0)}</td>
@@ -395,7 +401,7 @@
                       class="delete-btn"
                       on:click={(e) => deleteRide(ride.id, e)}
                       disabled={deletingId === ride.id}
-                      aria-label="Delete ride"
+                      aria-label={$t('rides.list.deleteAriaLabel')}
                     >
                       {#if deletingId === ride.id}
                         <span class="spinner-tiny"></span>
@@ -418,8 +424,8 @@
             <article class="ride-card" on:click={() => goToRide(ride.id)} data-ride-id={ride.id}>
               <div class="ride-card-header">
                 <div class="ride-date-info">
-                  <span class="ride-date">{formatFullDate(ride.timestamp)}</span>
-                  <span class="ride-time">{formatTime(ride.timestamp)}</span>
+                  <span class="ride-date">{formatFullDate(ride.timestamp, $locale)}</span>
+                  <span class="ride-time">{formatTime(ride.timestamp, $locale)}</span>
                 </div>
                 <div class="ride-header-right">
                   <span class="ride-duration">{formatDuration(ride.duration_ms)}</span>
@@ -427,7 +433,7 @@
                     class="delete-btn"
                     on:click={(e) => deleteRide(ride.id, e)}
                     disabled={deletingId === ride.id}
-                    aria-label="Delete ride"
+                    aria-label={$t('rides.list.deleteAriaLabel')}
                   >
                     {#if deletingId === ride.id}
                       <span class="spinner-tiny"></span>
@@ -443,7 +449,7 @@
               <div class="ride-main-stats">
                 <div class="asymmetry-display">
                   <span class="asymmetry-num {getAsymmetryClass(getAsymmetry(ride))}">{getAsymmetry(ride).toFixed(1)}%</span>
-                  <span class="asymmetry-label">asymmetry {getDominance(ride) !== '—' ? `(${getDominance(ride)} dom)` : ''}</span>
+                  <span class="asymmetry-label">{$t('rides.list.asymmetryLabel')} {getDominance(ride, $t('metrics.left'), $t('metrics.right')) !== '—' ? `(${getDominance(ride, $t('metrics.left'), $t('metrics.right'))} ${$t('rides.list.domLabel')})` : ''}</span>
                 </div>
                 <div class="zone-display">
                   <div class="zone-bar-card">
@@ -451,26 +457,26 @@
                     <div class="zone-segment attention" style="width: {ride.zone_attention}%"></div>
                     <div class="zone-segment problem" style="width: {ride.zone_problem}%"></div>
                   </div>
-                  <span class="zone-label">{ride.zone_optimal}% optimal</span>
+                  <span class="zone-label">{$t('rides.list.optimalPercent', { values: { percent: ride.zone_optimal } })}</span>
                 </div>
               </div>
 
               <div class="ride-metrics-grid">
                 <div class="metric-box">
-                  <span class="metric-name">Balance L/R</span>
+                  <span class="metric-name">{$t('rides.list.balanceLR')}</span>
                   <span class="metric-value">{ride.balance_left.toFixed(0)} / {ride.balance_right.toFixed(0)}</span>
                 </div>
                 <div class="metric-box">
-                  <span class="metric-name">TE L/R</span>
+                  <span class="metric-name">{$t('rides.list.teLR')}</span>
                   <span class="metric-value {getTeClass((ride.te_left + ride.te_right) / 2)}">{ride.te_left.toFixed(0)} / {ride.te_right.toFixed(0)}</span>
                 </div>
                 <div class="metric-box">
-                  <span class="metric-name">PS L/R</span>
+                  <span class="metric-name">{$t('rides.list.psLR')}</span>
                   <span class="metric-value {getPsClass((ride.ps_left + ride.ps_right) / 2)}">{ride.ps_left.toFixed(0)} / {ride.ps_right.toFixed(0)}</span>
                 </div>
                 {#if ride.power_avg > 0}
                   <div class="metric-box">
-                    <span class="metric-name">Power</span>
+                    <span class="metric-name">{$t('rides.list.powerLabel')}</span>
                     <span class="metric-value">{Math.round(ride.power_avg)}W</span>
                   </div>
                 {/if}
@@ -482,13 +488,13 @@
 
       {#if total > limit}
         <div class="pagination animate-in">
-          <button class="page-btn" on:click={prevPage} disabled={offset === 0} aria-label="Previous page">
+          <button class="page-btn" on:click={prevPage} disabled={offset === 0} aria-label={$t('rides.list.prevPage')}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="15,18 9,12 15,6"/>
             </svg>
           </button>
-          <span class="page-info">Page {Math.floor(offset / limit) + 1} of {Math.ceil(total / limit)}</span>
-          <button class="page-btn" on:click={nextPage} disabled={offset + limit >= total} aria-label="Next page">
+          <span class="page-info">{$t('rides.list.pageInfo', { values: { page: Math.floor(offset / limit) + 1, total: Math.ceil(total / limit) } })}</span>
+          <button class="page-btn" on:click={nextPage} disabled={offset + limit >= total} aria-label={$t('rides.list.nextPage')}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="9,6 15,12 9,18"/>
             </svg>

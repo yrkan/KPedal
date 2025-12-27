@@ -1,29 +1,30 @@
 <script lang="ts">
   import { isAuthenticated } from '$lib/auth';
   import { theme } from '$lib/theme';
+  import { t } from '$lib/i18n';
 </script>
 
 <svelte:head>
-  <title>Privacy Policy — KPedal</title>
+  <title>{$t('privacy.title')} — KPedal</title>
   <meta name="description" content="KPedal Privacy Policy. Learn how we collect, use, and protect your cycling data. No location tracking, encrypted storage, your data is never sold.">
   <link rel="canonical" href="https://kpedal.com/privacy">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kpedal.com/privacy">
-  <meta property="og:title" content="Privacy Policy — KPedal">
+  <meta property="og:title" content="{$t('privacy.title')} — KPedal">
   <meta property="og:description" content="Learn how KPedal protects your cycling data. No location tracking, encrypted storage, full control over your data.">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Privacy Policy — KPedal">
+  <meta name="twitter:title" content="{$t('privacy.title')} — KPedal">
   <meta name="twitter:description" content="Learn how KPedal protects your cycling data. No location tracking, encrypted storage, full control.">
 </svelte:head>
 
 <div class="privacy-page">
   <div class="privacy-container">
     {#if !$isAuthenticated}
-      <button class="theme-toggle" on:click={() => theme.toggle()} aria-label="Toggle theme">
+      <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
         {#if $theme === 'dark' || ($theme === 'system' && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches)}
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/>
@@ -46,10 +47,10 @@
 
     <header class="privacy-header">
       {#if !$isAuthenticated}
-        <a href="/" class="back-link">← Back to KPedal</a>
+        <a href="/" class="back-link">← {$t('privacy.backToKpedal')}</a>
       {/if}
-      <h1>Privacy Policy</h1>
-      <p class="last-updated">Last updated: December 27, 2025</p>
+      <h1>{$t('privacy.title')}</h1>
+      <p class="last-updated">{$t('privacy.lastUpdated', { values: { date: 'December 27, 2025' } })}</p>
     </header>
 
     <!-- Quick Summary -->
@@ -62,8 +63,8 @@
             </svg>
           </div>
           <div class="summary-text">
-            <strong>Encrypted & Secure</strong>
-            <span>All data encrypted in transit and at rest</span>
+            <strong>{$t('privacy.summary.encrypted')}</strong>
+            <span>{$t('privacy.summary.encryptedDesc')}</span>
           </div>
         </div>
         <div class="summary-item">
@@ -74,8 +75,8 @@
             </svg>
           </div>
           <div class="summary-text">
-            <strong>No Location Tracking</strong>
-            <span>We never collect GPS or route data</span>
+            <strong>{$t('privacy.summary.noLocation')}</strong>
+            <span>{$t('privacy.summary.noLocationDesc')}</span>
           </div>
         </div>
         <div class="summary-item">
@@ -86,8 +87,8 @@
             </svg>
           </div>
           <div class="summary-text">
-            <strong>Never Sold</strong>
-            <span>Your data is never sold to anyone</span>
+            <strong>{$t('privacy.summary.neverSold')}</strong>
+            <span>{$t('privacy.summary.neverSoldDesc')}</span>
           </div>
         </div>
         <div class="summary-item">
@@ -98,8 +99,8 @@
             </svg>
           </div>
           <div class="summary-text">
-            <strong>Your Control</strong>
-            <span>Delete your data anytime</span>
+            <strong>{$t('privacy.summary.yourControl')}</strong>
+            <span>{$t('privacy.summary.yourControlDesc')}</span>
           </div>
         </div>
       </div>
@@ -108,256 +109,256 @@
     <div class="privacy-content">
       <!-- Table of Contents -->
       <nav class="toc">
-        <h2>Contents</h2>
+        <h2>{$t('privacy.toc.title')}</h2>
         <ol>
-          <li><a href="#what-we-collect">What We Collect</a></li>
-          <li><a href="#what-we-dont-collect">What We Don't Collect</a></li>
-          <li><a href="#how-data-flows">How Data Flows</a></li>
-          <li><a href="#storage-security">Storage & Security</a></li>
-          <li><a href="#your-rights">Your Rights</a></li>
-          <li><a href="#third-parties">Third-Party Services</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#what-we-collect">{$t('privacy.toc.whatWeCollect')}</a></li>
+          <li><a href="#what-we-dont-collect">{$t('privacy.toc.whatWeDontCollect')}</a></li>
+          <li><a href="#how-data-flows">{$t('privacy.toc.howDataFlows')}</a></li>
+          <li><a href="#storage-security">{$t('privacy.toc.storageSecurity')}</a></li>
+          <li><a href="#your-rights">{$t('privacy.toc.yourRights')}</a></li>
+          <li><a href="#third-parties">{$t('privacy.toc.thirdParties')}</a></li>
+          <li><a href="#contact">{$t('privacy.toc.contact')}</a></li>
         </ol>
       </nav>
 
       <!-- Section 1: What We Collect -->
       <section id="what-we-collect" class="privacy-section">
-        <h2>1. What We Collect</h2>
+        <h2>{$t('privacy.sections.whatWeCollect')}</h2>
 
-        <h3>Account Data</h3>
-        <p>When you sign in with Google, we receive and store:</p>
+        <h3>{$t('privacy.content.accountData.title')}</h3>
+        <p>{$t('privacy.content.accountData.intro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Email</span>
-            <span class="data-purpose">Account identification, login</span>
+            <span class="data-field">{$t('privacy.content.accountData.fields.email')}</span>
+            <span class="data-purpose">{$t('privacy.content.accountData.fields.emailPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Name</span>
-            <span class="data-purpose">Display in dashboard</span>
+            <span class="data-field">{$t('privacy.content.accountData.fields.name')}</span>
+            <span class="data-purpose">{$t('privacy.content.accountData.fields.namePurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Profile Picture URL</span>
-            <span class="data-purpose">Display as avatar</span>
+            <span class="data-field">{$t('privacy.content.accountData.fields.profilePicture')}</span>
+            <span class="data-purpose">{$t('privacy.content.accountData.fields.profilePicturePurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Google ID</span>
-            <span class="data-purpose">Link Google account to KPedal</span>
+            <span class="data-field">{$t('privacy.content.accountData.fields.googleId')}</span>
+            <span class="data-purpose">{$t('privacy.content.accountData.fields.googleIdPurpose')}</span>
           </div>
         </div>
-        <p class="note">We do not have access to your Google password. Authentication uses OAuth 2.0.</p>
+        <p class="note">{$t('privacy.content.accountData.note')}</p>
 
-        <h3>Pedaling Metrics</h3>
-        <p>For each ride synced from your Karoo device:</p>
+        <h3>{$t('privacy.content.pedalingMetrics.title')}</h3>
+        <p>{$t('privacy.content.pedalingMetrics.intro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Timestamp</span>
-            <span class="data-purpose">When the ride was recorded</span>
+            <span class="data-field">{$t('privacy.content.pedalingMetrics.fields.timestamp')}</span>
+            <span class="data-purpose">{$t('privacy.content.pedalingMetrics.fields.timestampPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Duration</span>
-            <span class="data-purpose">How long the ride lasted (milliseconds)</span>
+            <span class="data-field">{$t('privacy.content.pedalingMetrics.fields.duration')}</span>
+            <span class="data-purpose">{$t('privacy.content.pedalingMetrics.fields.durationPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Balance Left / Right</span>
-            <span class="data-purpose">Power distribution between legs (%)</span>
+            <span class="data-field">{$t('privacy.content.pedalingMetrics.fields.balance')}</span>
+            <span class="data-purpose">{$t('privacy.content.pedalingMetrics.fields.balancePurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Torque Effectiveness L/R</span>
-            <span class="data-purpose">How efficiently you apply power (%)</span>
+            <span class="data-field">{$t('privacy.content.pedalingMetrics.fields.te')}</span>
+            <span class="data-purpose">{$t('privacy.content.pedalingMetrics.fields.tePurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Pedal Smoothness L/R</span>
-            <span class="data-purpose">How smooth your pedal stroke is (%)</span>
+            <span class="data-field">{$t('privacy.content.pedalingMetrics.fields.ps')}</span>
+            <span class="data-purpose">{$t('privacy.content.pedalingMetrics.fields.psPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Zone Distribution</span>
-            <span class="data-purpose">Time in Optimal/Attention/Problem zones (%)</span>
+            <span class="data-field">{$t('privacy.content.pedalingMetrics.fields.zones')}</span>
+            <span class="data-purpose">{$t('privacy.content.pedalingMetrics.fields.zonesPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Efficiency Score</span>
-            <span class="data-purpose">Calculated overall score (0-100)</span>
-          </div>
-        </div>
-
-        <h3>Performance Metrics</h3>
-        <p>Additional cycling data synced for comprehensive ride analysis:</p>
-        <div class="data-table">
-          <div class="data-row">
-            <span class="data-field">Power (avg/max)</span>
-            <span class="data-purpose">Average and maximum power output in watts</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Cadence (avg)</span>
-            <span class="data-purpose">Average pedaling cadence in RPM</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Heart Rate (avg/max)</span>
-            <span class="data-purpose">Average and maximum heart rate in BPM</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Speed (avg)</span>
-            <span class="data-purpose">Average speed in km/h</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Distance</span>
-            <span class="data-purpose">Total distance traveled in km</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Elevation (gain/loss)</span>
-            <span class="data-purpose">Total meters climbed and descended</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Grade (avg/max)</span>
-            <span class="data-purpose">Average and maximum gradient (%)</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Normalized Power</span>
-            <span class="data-purpose">Intensity-weighted power in watts</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Energy</span>
-            <span class="data-purpose">Total energy output in kilojoules</span>
-          </div>
-        </div>
-        <p class="note">These metrics provide context for your pedaling efficiency analysis. They are read from your Karoo's connected sensors (power meter, heart rate monitor, GPS).</p>
-
-        <h3>Per-Minute Snapshots</h3>
-        <p>For detailed timeline charts, we store per-minute averages during each ride:</p>
-        <div class="data-table">
-          <div class="data-row">
-            <span class="data-field">Minute Index</span>
-            <span class="data-purpose">Which minute of the ride (0, 1, 2...)</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Balance L/R, TE L/R, PS L/R</span>
-            <span class="data-purpose">Averaged pedaling metrics for that minute</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Power, Cadence, Heart Rate</span>
-            <span class="data-purpose">Averaged performance metrics for that minute</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Zone Status</span>
-            <span class="data-purpose">Dominant zone for that minute (Optimal/Attention/Problem)</span>
-          </div>
-        </div>
-        <p class="note">Snapshots enable the timeline chart in ride details, showing how your technique evolved throughout the ride.</p>
-
-        <h3>Device Data</h3>
-        <div class="data-table">
-          <div class="data-row">
-            <span class="data-field">Device ID</span>
-            <span class="data-purpose">Unique identifier for your Karoo</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Device Name</span>
-            <span class="data-purpose">e.g., "Karoo 3"</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Device Type</span>
-            <span class="data-purpose">e.g., "karoo"</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Last Sync Time</span>
-            <span class="data-purpose">When data was last synced</span>
+            <span class="data-field">{$t('privacy.content.pedalingMetrics.fields.score')}</span>
+            <span class="data-purpose">{$t('privacy.content.pedalingMetrics.fields.scorePurpose')}</span>
           </div>
         </div>
 
-        <h3>User Settings (Synced if Signed In)</h3>
-        <p>When signed in, your app settings are synced between your Karoo device and web dashboard:</p>
+        <h3>{$t('privacy.content.performanceMetrics.title')}</h3>
+        <p>{$t('privacy.content.performanceMetrics.intro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Threshold Settings</span>
-            <span class="data-purpose">Balance threshold, TE optimal range, PS minimum</span>
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.power')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.powerPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Alert Preferences</span>
-            <span class="data-purpose">Which metrics trigger alerts, vibration/sound/visual options</span>
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.cadence')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.cadencePurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Alert Cooldowns</span>
-            <span class="data-purpose">Time between repeated alerts (seconds)</span>
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.hr')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.hrPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Screen Wake</span>
-            <span class="data-purpose">Whether alerts wake the Karoo screen</span>
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.speed')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.speedPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Background Mode</span>
-            <span class="data-purpose">Collect data even when data field is hidden</span>
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.distance')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.distancePurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Auto-Sync</span>
-            <span class="data-purpose">Automatically sync rides after completion</span>
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.elevation')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.elevationPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.grade')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.gradePurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.np')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.npPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.performanceMetrics.fields.energy')}</span>
+            <span class="data-purpose">{$t('privacy.content.performanceMetrics.fields.energyPurpose')}</span>
           </div>
         </div>
-        <p class="note">Settings sync allows you to configure thresholds on the web and have them apply on your Karoo automatically. If not signed in, settings remain local only.</p>
+        <p class="note">{$t('privacy.content.performanceMetrics.note')}</p>
 
-        <h3>Drill Results (Synced if Signed In)</h3>
-        <p>When signed in, your drill training data is synced:</p>
+        <h3>{$t('privacy.content.snapshots.title')}</h3>
+        <p>{$t('privacy.content.snapshots.intro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Drill ID & Name</span>
-            <span class="data-purpose">Which drill was completed</span>
+            <span class="data-field">{$t('privacy.content.snapshots.fields.minuteIndex')}</span>
+            <span class="data-purpose">{$t('privacy.content.snapshots.fields.minuteIndexPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Timestamp & Duration</span>
-            <span class="data-purpose">When the drill was done and how long it took</span>
+            <span class="data-field">{$t('privacy.content.snapshots.fields.metricsAvg')}</span>
+            <span class="data-purpose">{$t('privacy.content.snapshots.fields.metricsAvgPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Score</span>
-            <span class="data-purpose">Overall performance score (0-100)</span>
+            <span class="data-field">{$t('privacy.content.snapshots.fields.perfAvg')}</span>
+            <span class="data-purpose">{$t('privacy.content.snapshots.fields.perfAvgPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Time in Target</span>
-            <span class="data-purpose">How long you maintained target metrics</span>
+            <span class="data-field">{$t('privacy.content.snapshots.fields.zoneStatus')}</span>
+            <span class="data-purpose">{$t('privacy.content.snapshots.fields.zoneStatusPurpose')}</span>
+          </div>
+        </div>
+        <p class="note">{$t('privacy.content.snapshots.note')}</p>
+
+        <h3>{$t('privacy.content.deviceData.title')}</h3>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.deviceData.fields.deviceId')}</span>
+            <span class="data-purpose">{$t('privacy.content.deviceData.fields.deviceIdPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Phase Scores</span>
-            <span class="data-purpose">Performance for each drill phase</span>
+            <span class="data-field">{$t('privacy.content.deviceData.fields.deviceName')}</span>
+            <span class="data-purpose">{$t('privacy.content.deviceData.fields.deviceNamePurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.deviceData.fields.deviceType')}</span>
+            <span class="data-purpose">{$t('privacy.content.deviceData.fields.deviceTypePurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.deviceData.fields.lastSync')}</span>
+            <span class="data-purpose">{$t('privacy.content.deviceData.fields.lastSyncPurpose')}</span>
           </div>
         </div>
 
-        <h3>Achievements (Synced if Signed In)</h3>
-        <p>When signed in, your unlocked achievements are synced:</p>
+        <h3>{$t('privacy.content.userSettings.title')}</h3>
+        <p>{$t('privacy.content.userSettings.intro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Achievement ID</span>
-            <span class="data-purpose">Which achievement was unlocked</span>
+            <span class="data-field">{$t('privacy.content.userSettings.fields.thresholds')}</span>
+            <span class="data-purpose">{$t('privacy.content.userSettings.fields.thresholdsPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Unlocked At</span>
-            <span class="data-purpose">When the achievement was earned</span>
+            <span class="data-field">{$t('privacy.content.userSettings.fields.alertPrefs')}</span>
+            <span class="data-purpose">{$t('privacy.content.userSettings.fields.alertPrefsPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.userSettings.fields.cooldowns')}</span>
+            <span class="data-purpose">{$t('privacy.content.userSettings.fields.cooldownsPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.userSettings.fields.screenWake')}</span>
+            <span class="data-purpose">{$t('privacy.content.userSettings.fields.screenWakePurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.userSettings.fields.bgMode')}</span>
+            <span class="data-purpose">{$t('privacy.content.userSettings.fields.bgModePurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.userSettings.fields.autoSync')}</span>
+            <span class="data-purpose">{$t('privacy.content.userSettings.fields.autoSyncPurpose')}</span>
+          </div>
+        </div>
+        <p class="note">{$t('privacy.content.userSettings.note')}</p>
+
+        <h3>{$t('privacy.content.drillResults.title')}</h3>
+        <p>{$t('privacy.content.drillResults.intro')}</p>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.drillResults.fields.drillId')}</span>
+            <span class="data-purpose">{$t('privacy.content.drillResults.fields.drillIdPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.drillResults.fields.drillTimestamp')}</span>
+            <span class="data-purpose">{$t('privacy.content.drillResults.fields.drillTimestampPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.drillResults.fields.drillScore')}</span>
+            <span class="data-purpose">{$t('privacy.content.drillResults.fields.drillScorePurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.drillResults.fields.timeInTarget')}</span>
+            <span class="data-purpose">{$t('privacy.content.drillResults.fields.timeInTargetPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.drillResults.fields.phaseScores')}</span>
+            <span class="data-purpose">{$t('privacy.content.drillResults.fields.phaseScoresPurpose')}</span>
           </div>
         </div>
 
-        <h3>Data Stored Only on Your Karoo (Never Synced)</h3>
-        <p>The following data is stored locally on your Karoo device and is <strong>never</strong> sent to our servers:</p>
+        <h3>{$t('privacy.content.achievements.title')}</h3>
+        <p>{$t('privacy.content.achievements.intro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Ride Ratings</span>
-            <span class="data-purpose">1-5 star ratings you assign to rides</span>
+            <span class="data-field">{$t('privacy.content.achievements.fields.achievementId')}</span>
+            <span class="data-purpose">{$t('privacy.content.achievements.fields.achievementIdPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Ride Notes</span>
-            <span class="data-purpose">Personal notes you add to rides</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Custom Drills</span>
-            <span class="data-purpose">Training drills you create yourself</span>
-          </div>
-          <div class="data-row">
-            <span class="data-field">Onboarding Status</span>
-            <span class="data-purpose">Whether you've completed the app tutorial</span>
+            <span class="data-field">{$t('privacy.content.achievements.fields.unlockedAt')}</span>
+            <span class="data-purpose">{$t('privacy.content.achievements.fields.unlockedAtPurpose')}</span>
           </div>
         </div>
-        <p class="note">This data remains on your device. If you uninstall the app, this data is deleted.</p>
+
+        <h3>{$t('privacy.content.localOnly.title')}</h3>
+        <p>{@html $t('privacy.content.localOnly.intro')}</p>
+        <div class="data-table">
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.localOnly.fields.ratings')}</span>
+            <span class="data-purpose">{$t('privacy.content.localOnly.fields.ratingsPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.localOnly.fields.notes')}</span>
+            <span class="data-purpose">{$t('privacy.content.localOnly.fields.notesPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.localOnly.fields.customDrills')}</span>
+            <span class="data-purpose">{$t('privacy.content.localOnly.fields.customDrillsPurpose')}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-field">{$t('privacy.content.localOnly.fields.onboarding')}</span>
+            <span class="data-purpose">{$t('privacy.content.localOnly.fields.onboardingPurpose')}</span>
+          </div>
+        </div>
+        <p class="note">{$t('privacy.content.localOnly.note')}</p>
       </section>
 
       <!-- Section 2: What We Don't Collect -->
       <section id="what-we-dont-collect" class="privacy-section">
-        <h2>2. What We Don't Collect</h2>
-        <p>While we collect performance metrics for analysis, we specifically avoid location and tracking data:</p>
+        <h2>{$t('privacy.sections.whatWeDontCollect')}</h2>
+        <p>{$t('privacy.content.dontCollect.intro')}</p>
 
         <div class="dont-collect-grid">
           <div class="dont-item">
@@ -365,88 +366,88 @@
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
-            <span>GPS / Location</span>
+            <span>{$t('privacy.content.dontCollect.items.gps')}</span>
           </div>
           <div class="dont-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
-            <span>Route / Map Data</span>
+            <span>{$t('privacy.content.dontCollect.items.route')}</span>
           </div>
           <div class="dont-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
-            <span>Temperature</span>
+            <span>{$t('privacy.content.dontCollect.items.temperature')}</span>
           </div>
           <div class="dont-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
-            <span>Strava / Other Platforms</span>
+            <span>{$t('privacy.content.dontCollect.items.strava')}</span>
           </div>
           <div class="dont-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
-            <span>Ride Titles / Names</span>
+            <span>{$t('privacy.content.dontCollect.items.rideTitles')}</span>
           </div>
           <div class="dont-item">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="18" y1="6" x2="6" y2="18"/>
               <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
-            <span>Photos / Media</span>
+            <span>{$t('privacy.content.dontCollect.items.photos')}</span>
           </div>
         </div>
-        <p class="note">Your rides cannot be traced to specific locations. We only store aggregate performance metrics, not where you rode.</p>
+        <p class="note">{$t('privacy.content.dontCollect.note')}</p>
 
-        <h3>Data Used But Not Stored</h3>
-        <p>The following data is read in real-time for display purposes but is <strong>never saved</strong> to device or cloud:</p>
+        <h3>{$t('privacy.content.usedNotStored.title')}</h3>
+        <p>{@html $t('privacy.content.usedNotStored.intro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">3s/10s Smoothed Balance</span>
-            <span class="data-purpose">Real-time trend indicators for live display</span>
+            <span class="data-field">{$t('privacy.content.usedNotStored.fields.smoothed')}</span>
+            <span class="data-purpose">{$t('privacy.content.usedNotStored.fields.smoothedPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Raw Sensor Stream (~20Hz)</span>
-            <span class="data-purpose">Individual data points are processed and discarded; only per-minute averages are stored</span>
+            <span class="data-field">{$t('privacy.content.usedNotStored.fields.rawStream')}</span>
+            <span class="data-purpose">{$t('privacy.content.usedNotStored.fields.rawStreamPurpose')}</span>
           </div>
         </div>
 
-        <h3>Android Permissions</h3>
-        <p>The KPedal app requests the following permissions on your Karoo:</p>
+        <h3>{$t('privacy.content.permissions.title')}</h3>
+        <p>{$t('privacy.content.permissions.intro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field">Foreground Service</span>
-            <span class="data-purpose">Run in background to collect data during rides</span>
+            <span class="data-field">{$t('privacy.content.permissions.fields.foreground')}</span>
+            <span class="data-purpose">{$t('privacy.content.permissions.fields.foregroundPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Notifications</span>
-            <span class="data-purpose">Show alerts when pedaling technique needs attention</span>
+            <span class="data-field">{$t('privacy.content.permissions.fields.notifications')}</span>
+            <span class="data-purpose">{$t('privacy.content.permissions.fields.notificationsPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field">Boot Completed</span>
-            <span class="data-purpose">Start automatically when Karoo powers on</span>
+            <span class="data-field">{$t('privacy.content.permissions.fields.boot')}</span>
+            <span class="data-purpose">{$t('privacy.content.permissions.fields.bootPurpose')}</span>
           </div>
         </div>
-        <p class="note">No internet, location, camera, microphone, or storage permissions are requested.</p>
+        <p class="note">{$t('privacy.content.permissions.note')}</p>
       </section>
 
       <!-- Section 3: How Data Flows -->
       <section id="how-data-flows" class="privacy-section">
-        <h2>3. How Data Flows</h2>
+        <h2>{$t('privacy.sections.howDataFlows')}</h2>
 
         <div class="flow-diagram">
           <div class="flow-step">
             <div class="flow-number">1</div>
             <div class="flow-content">
-              <h4>Power Meter Pedals</h4>
-              <p>Your pedals transmit balance, TE, and PS via ANT+ Cycling Dynamics protocol to your Karoo.</p>
+              <h4>{$t('privacy.content.dataFlow.step1.title')}</h4>
+              <p>{$t('privacy.content.dataFlow.step1.desc')}</p>
             </div>
           </div>
           <div class="flow-arrow">
@@ -458,8 +459,8 @@
           <div class="flow-step">
             <div class="flow-number">2</div>
             <div class="flow-content">
-              <h4>KPedal App on Karoo</h4>
-              <p>The app processes real-time data locally at ~20Hz, calculates averages, and stores ride summaries in local database. Up to 100 rides are kept on device; older rides are auto-deleted.</p>
+              <h4>{$t('privacy.content.dataFlow.step2.title')}</h4>
+              <p>{$t('privacy.content.dataFlow.step2.desc')}</p>
             </div>
           </div>
           <div class="flow-arrow">
@@ -471,8 +472,8 @@
           <div class="flow-step">
             <div class="flow-number">3</div>
             <div class="flow-content">
-              <h4>Cloud Sync (Optional)</h4>
-              <p>If signed in, ride summaries and settings are synced to KPedal cloud via HTTPS. Only aggregated data is sent — no raw sensor streams. Settings changes on web are automatically applied to your Karoo.</p>
+              <h4>{$t('privacy.content.dataFlow.step3.title')}</h4>
+              <p>{$t('privacy.content.dataFlow.step3.desc')}</p>
             </div>
           </div>
           <div class="flow-arrow">
@@ -484,221 +485,219 @@
           <div class="flow-step">
             <div class="flow-number">4</div>
             <div class="flow-content">
-              <h4>Web Dashboard</h4>
-              <p>View your ride history, trends, and analytics at app.kpedal.com. Data is retrieved only for your authenticated account.</p>
+              <h4>{$t('privacy.content.dataFlow.step4.title')}</h4>
+              <p>{$t('privacy.content.dataFlow.step4.desc')}</p>
             </div>
           </div>
         </div>
 
-        <h3>Offline Mode</h3>
-        <p>The KPedal app works fully offline. You can use all features without signing in or syncing. Data stays on your device.</p>
+        <h3>{$t('privacy.content.dataFlow.offlineTitle')}</h3>
+        <p>{$t('privacy.content.dataFlow.offlineDesc')}</p>
       </section>
 
       <!-- Section 4: Storage & Security -->
       <section id="storage-security" class="privacy-section">
-        <h2>4. Storage & Security</h2>
+        <h2>{$t('privacy.sections.storageSecurity')}</h2>
 
-        <h3>Infrastructure</h3>
+        <h3>{$t('privacy.content.infrastructure.title')}</h3>
         <div class="infra-table">
           <div class="infra-row">
-            <span class="infra-service">Cloudflare Workers</span>
-            <span class="infra-use">API processing (serverless). Request logs stored ~7 days.</span>
+            <span class="infra-service">{$t('privacy.content.infrastructure.workers')}</span>
+            <span class="infra-use">{$t('privacy.content.infrastructure.workersUse')}</span>
           </div>
           <div class="infra-row">
-            <span class="infra-service">Cloudflare D1</span>
-            <span class="infra-use">SQLite database for users and rides</span>
+            <span class="infra-service">{$t('privacy.content.infrastructure.d1')}</span>
+            <span class="infra-use">{$t('privacy.content.infrastructure.d1Use')}</span>
           </div>
           <div class="infra-row">
-            <span class="infra-service">Cloudflare KV</span>
-            <span class="infra-use">Session tokens (auto-expire after 7 days)</span>
+            <span class="infra-service">{$t('privacy.content.infrastructure.kv')}</span>
+            <span class="infra-use">{$t('privacy.content.infrastructure.kvUse')}</span>
           </div>
           <div class="infra-row">
-            <span class="infra-service">Cloudflare Pages</span>
-            <span class="infra-use">Static web dashboard hosting</span>
+            <span class="infra-service">{$t('privacy.content.infrastructure.pages')}</span>
+            <span class="infra-use">{$t('privacy.content.infrastructure.pagesUse')}</span>
           </div>
         </div>
 
-        <h3>Security Measures</h3>
+        <h3>{$t('privacy.content.security.title')}</h3>
         <div class="security-list">
           <div class="security-item">
-            <strong>HTTPS Everywhere</strong>
-            <p>All connections use TLS 1.3 encryption</p>
+            <strong>{$t('privacy.content.security.https')}</strong>
+            <p>{$t('privacy.content.security.httpsDesc')}</p>
           </div>
           <div class="security-item">
-            <strong>JWT Authentication</strong>
-            <p>Signed tokens with 15-minute expiry for access, 7-day for refresh</p>
+            <strong>{$t('privacy.content.security.jwt')}</strong>
+            <p>{$t('privacy.content.security.jwtDesc')}</p>
           </div>
           <div class="security-item">
-            <strong>Rate Limiting</strong>
-            <p>Auth: 10 req/min, API: 100 req/min, Sync: 30 req/min. Uses IP address for counting, auto-deleted after 60 seconds.</p>
+            <strong>{$t('privacy.content.security.rateLimit')}</strong>
+            <p>{$t('privacy.content.security.rateLimitDesc')}</p>
           </div>
           <div class="security-item">
-            <strong>Input Validation</strong>
-            <p>All data validated and sanitized before storage</p>
+            <strong>{$t('privacy.content.security.validation')}</strong>
+            <p>{$t('privacy.content.security.validationDesc')}</p>
           </div>
           <div class="security-item">
-            <strong>CSRF Protection</strong>
-            <p>OAuth state verification prevents cross-site attacks</p>
+            <strong>{$t('privacy.content.security.csrf')}</strong>
+            <p>{$t('privacy.content.security.csrfDesc')}</p>
           </div>
         </div>
 
-        <h3>Data Retention</h3>
-        <h4>Cloud Storage (app.kpedal.com)</h4>
+        <h3>{$t('privacy.content.retention.title')}</h3>
+        <h4>{$t('privacy.content.retention.cloudTitle')}</h4>
         <div class="retention-table">
           <div class="retention-row">
-            <span class="retention-data">Ride data</span>
-            <span class="retention-period">Until you delete it</span>
+            <span class="retention-data">{$t('privacy.content.retention.cloud.rideData')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.cloud.rideDataPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Drill results</span>
-            <span class="retention-period">Until you delete it</span>
+            <span class="retention-data">{$t('privacy.content.retention.cloud.drillResults')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.cloud.drillResultsPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Achievements</span>
-            <span class="retention-period">Until account deletion</span>
+            <span class="retention-data">{$t('privacy.content.retention.cloud.achievements')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.cloud.achievementsPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">User settings</span>
-            <span class="retention-period">Until account deletion</span>
+            <span class="retention-data">{$t('privacy.content.retention.cloud.userSettings')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.cloud.userSettingsPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Account data</span>
-            <span class="retention-period">Until account deletion</span>
+            <span class="retention-data">{$t('privacy.content.retention.cloud.accountData')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.cloud.accountDataPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Access tokens</span>
-            <span class="retention-period">15 minutes</span>
+            <span class="retention-data">{$t('privacy.content.retention.cloud.accessTokens')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.cloud.accessTokensPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Refresh tokens</span>
-            <span class="retention-period">7 days</span>
+            <span class="retention-data">{$t('privacy.content.retention.cloud.refreshTokens')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.cloud.refreshTokensPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">OAuth state</span>
-            <span class="retention-period">10 minutes</span>
+            <span class="retention-data">{$t('privacy.content.retention.cloud.oauthState')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.cloud.oauthStatePeriod')}</span>
           </div>
         </div>
 
-        <h4>Local Storage (Karoo Device)</h4>
+        <h4>{$t('privacy.content.retention.localTitle')}</h4>
         <div class="retention-table">
           <div class="retention-row">
-            <span class="retention-data">Ride history</span>
-            <span class="retention-period">Up to 100 rides (oldest auto-deleted)</span>
+            <span class="retention-data">{$t('privacy.content.retention.local.rideHistory')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.local.rideHistoryPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Drill results</span>
-            <span class="retention-period">Until app uninstall (also synced to cloud if signed in)</span>
+            <span class="retention-data">{$t('privacy.content.retention.local.drillResults')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.local.drillResultsPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Achievements</span>
-            <span class="retention-period">Until app uninstall (also synced to cloud if signed in)</span>
+            <span class="retention-data">{$t('privacy.content.retention.local.achievements')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.local.achievementsPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Custom drills</span>
-            <span class="retention-period">Until you delete them (local only)</span>
+            <span class="retention-data">{$t('privacy.content.retention.local.customDrills')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.local.customDrillsPeriod')}</span>
           </div>
           <div class="retention-row">
-            <span class="retention-data">Settings</span>
-            <span class="retention-period">Until app uninstall (synced to cloud if signed in)</span>
+            <span class="retention-data">{$t('privacy.content.retention.local.settings')}</span>
+            <span class="retention-period">{$t('privacy.content.retention.local.settingsPeriod')}</span>
           </div>
         </div>
       </section>
 
       <!-- Section 5: Your Rights -->
       <section id="your-rights" class="privacy-section">
-        <h2>5. Your Rights</h2>
+        <h2>{$t('privacy.sections.yourRights')}</h2>
 
         <div class="rights-grid">
           <div class="right-card">
-            <h4>Access</h4>
-            <p>View all your data anytime in the web dashboard. Every metric we store is visible to you.</p>
+            <h4>{$t('privacy.rights.access')}</h4>
+            <p>{$t('privacy.rights.accessDesc')}</p>
           </div>
           <div class="right-card">
-            <h4>Delete</h4>
-            <p>Delete individual rides from the Rides page. For full account deletion, email us.</p>
+            <h4>{$t('privacy.rights.delete')}</h4>
+            <p>{$t('privacy.rights.deleteDesc')}</p>
           </div>
           <div class="right-card">
-            <h4>Export</h4>
-            <p>Request a complete export of your data by contacting us.</p>
+            <h4>{$t('privacy.rights.export')}</h4>
+            <p>{$t('privacy.rights.exportDesc')}</p>
           </div>
           <div class="right-card">
-            <h4>Opt Out</h4>
-            <p>Use KPedal offline without signing in. No data leaves your device.</p>
+            <h4>{$t('privacy.rights.optOut')}</h4>
+            <p>{$t('privacy.rights.optOutDesc')}</p>
           </div>
         </div>
       </section>
 
       <!-- Section 6: Third Parties -->
       <section id="third-parties" class="privacy-section">
-        <h2>6. Third-Party Services</h2>
+        <h2>{$t('privacy.sections.thirdParties')}</h2>
 
         <div class="third-party-list">
           <div class="third-party-item">
-            <h4>Google OAuth</h4>
-            <p>Used for sign-in only. We request minimal scopes: <code>openid</code>, <code>email</code>, <code>profile</code>.</p>
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy →</a>
+            <h4>{$t('privacy.content.thirdParties.google.title')}</h4>
+            <p>{$t('privacy.content.thirdParties.google.desc')}</p>
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">{$t('privacy.content.thirdParties.google.link')}</a>
           </div>
           <div class="third-party-item">
-            <h4>Cloudflare</h4>
-            <p>Our infrastructure provider. Handles API, database, and web hosting.</p>
-            <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare Privacy Policy →</a>
+            <h4>{$t('privacy.content.thirdParties.cloudflare.title')}</h4>
+            <p>{$t('privacy.content.thirdParties.cloudflare.desc')}</p>
+            <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">{$t('privacy.content.thirdParties.cloudflare.link')}</a>
           </div>
         </div>
 
-        <h3>What We Don't Use</h3>
-        <p>KPedal does not use:</p>
+        <h3>{$t('privacy.content.thirdParties.notUsedTitle')}</h3>
+        <p>{$t('privacy.content.thirdParties.notUsedIntro')}</p>
         <ul>
-          <li>Google Analytics or any analytics service</li>
-          <li>Facebook Pixel or any advertising tracker</li>
-          <li>Cookies (we use localStorage instead)</li>
-          <li>Crash reporting services (no Firebase Crashlytics, Sentry, etc.)</li>
-          <li>Any third-party data brokers</li>
+          {#each $t('privacy.content.thirdParties.notUsed') as item}
+            <li>{item}</li>
+          {/each}
         </ul>
 
-        <h3>Browser Storage</h3>
-        <p>The KPedal web dashboard stores the following in your browser's local/session storage:</p>
+        <h3>{$t('privacy.content.thirdParties.browserStorageTitle')}</h3>
+        <p>{$t('privacy.content.thirdParties.browserStorageIntro')}</p>
         <div class="data-table">
           <div class="data-row">
-            <span class="data-field"><code>kpedal_auth_access</code></span>
-            <span class="data-purpose">sessionStorage — JWT access token (cleared when tab closes)</span>
+            <span class="data-field"><code>{$t('privacy.content.thirdParties.browserStorage.access')}</code></span>
+            <span class="data-purpose">{$t('privacy.content.thirdParties.browserStorage.accessPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field"><code>kpedal_auth_refresh</code></span>
-            <span class="data-purpose">localStorage — JWT refresh token (persists up to 7 days)</span>
+            <span class="data-field"><code>{$t('privacy.content.thirdParties.browserStorage.refresh')}</code></span>
+            <span class="data-purpose">{$t('privacy.content.thirdParties.browserStorage.refreshPurpose')}</span>
           </div>
           <div class="data-row">
-            <span class="data-field"><code>kpedal_theme</code></span>
-            <span class="data-purpose">localStorage — Theme preference (light/dark/system)</span>
+            <span class="data-field"><code>{$t('privacy.content.thirdParties.browserStorage.theme')}</code></span>
+            <span class="data-purpose">{$t('privacy.content.thirdParties.browserStorage.themePurpose')}</span>
           </div>
         </div>
-        <p class="note">You can clear this data anytime by signing out or clearing browser storage. No cookies are used.</p>
+        <p class="note">{$t('privacy.content.thirdParties.browserStorageNote')}</p>
       </section>
 
       <!-- Section 7: Contact -->
       <section id="contact" class="privacy-section">
-        <h2>7. Contact</h2>
-        <p>For privacy questions, data requests, or account deletion:</p>
+        <h2>{$t('privacy.sections.contact')}</h2>
+        <p>{$t('privacy.contact.text')}</p>
         <div class="contact-info">
           <a href="mailto:privacy@kpedal.com" class="contact-link">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
               <polyline points="22,6 12,13 2,6"/>
             </svg>
-            privacy@kpedal.com
+            {$t('privacy.contact.email')}
           </a>
           <a href="https://github.com/yrkan/kpedal/issues" target="_blank" rel="noopener noreferrer" class="contact-link">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
             </svg>
-            GitHub Issues
+            {$t('privacy.contact.github')}
           </a>
         </div>
       </section>
 
       <!-- Policy Changes -->
       <section class="privacy-section">
-        <h2>Policy Changes</h2>
-        <p>When we make significant changes to this policy, we update the "Last updated" date above. We encourage you to review this page periodically.</p>
+        <h2>{$t('privacy.sections.policyChanges')}</h2>
+        <p>{$t('privacy.policyChanges')}</p>
       </section>
     </div>
 
@@ -707,7 +706,7 @@
         <span class="logo-dot"></span>
         <span>KPedal</span>
       </a>
-      <p>Pedaling efficiency analytics for Karoo</p>
+      <p>{$t('privacy.footer')}</p>
     </footer>
   </div>
 </div>

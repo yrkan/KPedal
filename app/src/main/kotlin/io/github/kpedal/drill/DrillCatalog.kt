@@ -1,10 +1,12 @@
 package io.github.kpedal.drill
 
+import io.github.kpedal.R
 import io.github.kpedal.drill.model.*
 
 /**
  * Catalog of predefined drills.
  * Contains 10 drills: 4 timed focus, 3 target-based, 3 guided workouts.
+ * Uses @StringRes for localization.
  */
 object DrillCatalog {
 
@@ -51,155 +53,155 @@ object DrillCatalog {
 
     private val leftLegFocus = Drill(
         id = "left_leg_focus",
-        name = "Left Leg Focus",
-        description = "Focus on your left leg for 30 seconds. Mentally emphasize the left pedal stroke while maintaining normal cadence.",
+        nameRes = R.string.drill_left_leg_focus,
+        descriptionRes = R.string.drill_left_leg_focus_desc,
         type = DrillType.TIMED_FOCUS,
         metric = DrillMetric.BALANCE,
         difficulty = DrillDifficulty.BEGINNER,
         phases = listOf(
             DrillPhase(
-                name = "Warm Up",
-                description = "Easy spinning",
+                nameRes = R.string.phase_warmup,
+                descriptionRes = R.string.phase_desc_easy_spinning,
                 durationMs = 10_000,
-                instruction = "Spin easy, prepare to focus"
+                instructionRes = R.string.instr_spin_easy_prepare
             ),
             DrillPhase(
-                name = "Left Focus",
-                description = "Emphasize left leg",
+                nameRes = R.string.phase_left_focus,
+                descriptionRes = R.string.phase_desc_emphasize_left,
                 durationMs = 30_000,
                 target = DrillTarget(
                     metric = DrillMetric.BALANCE,
                     maxValue = 48f  // Left leg stronger = balance < 50
                 ),
-                instruction = "Focus on pushing through with your LEFT leg"
+                instructionRes = R.string.instr_focus_left_leg
             ),
             DrillPhase(
-                name = "Recovery",
-                description = "Return to normal",
+                nameRes = R.string.phase_recovery,
+                descriptionRes = R.string.phase_desc_return_normal,
                 durationMs = 10_000,
-                instruction = "Relax and spin normally"
+                instructionRes = R.string.instr_relax_spin_normally
             )
         ),
-        tips = listOf(
-            "Visualize power coming from your left leg",
-            "Don't completely neglect the right leg",
-            "Maintain smooth cadence throughout"
+        tipResIds = listOf(
+            R.string.tip_visualize_left,
+            R.string.tip_dont_neglect_right,
+            R.string.tip_maintain_cadence
         )
     )
 
     private val rightLegFocus = Drill(
         id = "right_leg_focus",
-        name = "Right Leg Focus",
-        description = "Focus on your right leg for 30 seconds. Mentally emphasize the right pedal stroke while maintaining normal cadence.",
+        nameRes = R.string.drill_right_leg_focus,
+        descriptionRes = R.string.drill_right_leg_focus_desc,
         type = DrillType.TIMED_FOCUS,
         metric = DrillMetric.BALANCE,
         difficulty = DrillDifficulty.BEGINNER,
         phases = listOf(
             DrillPhase(
-                name = "Warm Up",
-                description = "Easy spinning",
+                nameRes = R.string.phase_warmup,
+                descriptionRes = R.string.phase_desc_easy_spinning,
                 durationMs = 10_000,
-                instruction = "Spin easy, prepare to focus"
+                instructionRes = R.string.instr_spin_easy_prepare
             ),
             DrillPhase(
-                name = "Right Focus",
-                description = "Emphasize right leg",
+                nameRes = R.string.phase_right_focus,
+                descriptionRes = R.string.phase_desc_emphasize_right,
                 durationMs = 30_000,
                 target = DrillTarget(
                     metric = DrillMetric.BALANCE,
                     minValue = 52f  // Right leg stronger = balance > 50
                 ),
-                instruction = "Focus on pushing through with your RIGHT leg"
+                instructionRes = R.string.instr_focus_right_leg
             ),
             DrillPhase(
-                name = "Recovery",
-                description = "Return to normal",
+                nameRes = R.string.phase_recovery,
+                descriptionRes = R.string.phase_desc_return_normal,
                 durationMs = 10_000,
-                instruction = "Relax and spin normally"
+                instructionRes = R.string.instr_relax_spin_normally
             )
         ),
-        tips = listOf(
-            "Visualize power coming from your right leg",
-            "Don't completely neglect the left leg",
-            "Maintain smooth cadence throughout"
+        tipResIds = listOf(
+            R.string.tip_visualize_right,
+            R.string.tip_dont_neglect_left,
+            R.string.tip_maintain_cadence
         )
     )
 
     private val smoothCircles = Drill(
         id = "smooth_circles",
-        name = "Smooth Circles",
-        description = "Focus on making perfect circles with your pedal stroke for 45 seconds. Eliminate dead spots.",
+        nameRes = R.string.drill_smooth_circles,
+        descriptionRes = R.string.drill_smooth_circles_desc,
         type = DrillType.TIMED_FOCUS,
         metric = DrillMetric.PEDAL_SMOOTHNESS,
         difficulty = DrillDifficulty.INTERMEDIATE,
         phases = listOf(
             DrillPhase(
-                name = "Prepare",
-                description = "Find your rhythm",
+                nameRes = R.string.phase_prepare,
+                descriptionRes = R.string.phase_desc_find_rhythm,
                 durationMs = 15_000,
-                instruction = "Settle into a comfortable cadence"
+                instructionRes = R.string.instr_settle_cadence
             ),
             DrillPhase(
-                name = "Smooth Circles",
-                description = "Maximize smoothness",
+                nameRes = R.string.phase_smooth_circles,
+                descriptionRes = R.string.phase_desc_max_smoothness,
                 durationMs = 45_000,
                 target = DrillTarget(
                     metric = DrillMetric.PEDAL_SMOOTHNESS,
                     minValue = 22f  // Target good smoothness
                 ),
-                instruction = "Imagine drawing smooth circles. Scrape mud off your shoe at the bottom."
+                instructionRes = R.string.instr_smooth_circles
             ),
             DrillPhase(
-                name = "Cool Down",
-                description = "Easy spinning",
+                nameRes = R.string.phase_cooldown,
+                descriptionRes = R.string.phase_desc_easy_spinning,
                 durationMs = 15_000,
-                instruction = "Relax and maintain the feeling"
+                instructionRes = R.string.instr_maintain_feeling
             )
         ),
-        tips = listOf(
-            "Think about the entire 360° of the pedal stroke",
-            "Engage hamstrings at the bottom",
-            "Pull up slightly through the back stroke",
-            "Keep core engaged for stability"
+        tipResIds = listOf(
+            R.string.tip_think_360,
+            R.string.tip_engage_hamstrings,
+            R.string.tip_pull_up,
+            R.string.tip_core_stability
         )
     )
 
     private val powerTransfer = Drill(
         id = "power_transfer",
-        name = "Power Transfer",
-        description = "Focus on efficient power transfer for 60 seconds. Maximize torque effectiveness without sacrificing power.",
+        nameRes = R.string.drill_power_transfer,
+        descriptionRes = R.string.drill_power_transfer_desc,
         type = DrillType.TIMED_FOCUS,
         metric = DrillMetric.TORQUE_EFFECTIVENESS,
         difficulty = DrillDifficulty.INTERMEDIATE,
         phases = listOf(
             DrillPhase(
-                name = "Build Up",
-                description = "Gradually increase focus",
+                nameRes = R.string.phase_build,
+                descriptionRes = R.string.phase_desc_increase_focus,
                 durationMs = 15_000,
-                instruction = "Start easy, focus on feeling the power transfer"
+                instructionRes = R.string.instr_feel_power_transfer
             ),
             DrillPhase(
-                name = "Max Transfer",
-                description = "Optimize TE",
+                nameRes = R.string.phase_max_transfer,
+                descriptionRes = R.string.phase_desc_optimize_te,
                 durationMs = 60_000,
                 target = DrillTarget(
                     metric = DrillMetric.TORQUE_EFFECTIVENESS,
                     minValue = 70f,
                     maxValue = 80f  // Optimal range
                 ),
-                instruction = "Apply power through the entire stroke. Avoid mashing."
+                instructionRes = R.string.instr_apply_power
             ),
             DrillPhase(
-                name = "Recover",
-                description = "Easy spin",
+                nameRes = R.string.phase_recover,
+                descriptionRes = R.string.phase_desc_easy_spin,
                 durationMs = 15_000,
-                instruction = "Spin easy, let legs recover"
+                instructionRes = R.string.instr_spin_easy_recover
             )
         ),
-        tips = listOf(
-            "TE above 80% can actually reduce total power",
-            "Focus on the 70-80% optimal zone",
-            "Don't sacrifice main power phase for recovery phase"
+        tipResIds = listOf(
+            R.string.tip_te_above_80,
+            R.string.tip_focus_70_80,
+            R.string.tip_dont_sacrifice
         )
     )
 
@@ -207,21 +209,21 @@ object DrillCatalog {
 
     private val balanceChallenge = Drill(
         id = "balance_challenge",
-        name = "Balance Challenge",
-        description = "Hold perfect 50/50 balance for 15 seconds. Test your control and symmetry.",
+        nameRes = R.string.drill_balance_challenge,
+        descriptionRes = R.string.drill_balance_challenge_desc,
         type = DrillType.TARGET_BASED,
         metric = DrillMetric.BALANCE,
         difficulty = DrillDifficulty.INTERMEDIATE,
         phases = listOf(
             DrillPhase(
-                name = "Find Center",
-                description = "Center your power",
+                nameRes = R.string.phase_find_center,
+                descriptionRes = R.string.phase_desc_center_power,
                 durationMs = 20_000,
-                instruction = "Find your natural balance point"
+                instructionRes = R.string.instr_find_balance_point
             ),
             DrillPhase(
-                name = "Hold Balance",
-                description = "Hold 50/50",
+                nameRes = R.string.phase_hold_balance,
+                descriptionRes = R.string.phase_desc_hold_5050,
                 durationMs = 30_000,
                 target = DrillTarget(
                     metric = DrillMetric.BALANCE,
@@ -229,104 +231,104 @@ object DrillCatalog {
                     tolerance = 2f  // 48-52% is success
                 ),
                 holdTimeMs = 15_000,  // Need 15 seconds in target
-                instruction = "Hold 50/50 balance. Small adjustments only!"
+                instructionRes = R.string.instr_hold_5050
             ),
             DrillPhase(
-                name = "Relax",
-                description = "Release focus",
+                nameRes = R.string.phase_relax,
+                descriptionRes = R.string.phase_desc_release_focus,
                 durationMs = 10_000,
-                instruction = "Good work! Relax and spin easy"
+                instructionRes = R.string.instr_good_work_relax
             )
         ),
-        tips = listOf(
-            "Focus on equal pressure from both legs",
-            "Minor imbalance is normal, aim for the zone",
-            "Keep cadence steady - don't chase the numbers"
+        tipResIds = listOf(
+            R.string.tip_equal_pressure,
+            R.string.tip_minor_imbalance,
+            R.string.tip_steady_cadence
         )
     )
 
     private val smoothnessTarget = Drill(
         id = "smoothness_target",
-        name = "Smoothness Target",
-        description = "Hold pedal smoothness above 25% for 20 seconds. Challenge your technique.",
+        nameRes = R.string.drill_smoothness_target,
+        descriptionRes = R.string.drill_smoothness_target_desc,
         type = DrillType.TARGET_BASED,
         metric = DrillMetric.PEDAL_SMOOTHNESS,
         difficulty = DrillDifficulty.ADVANCED,
         phases = listOf(
             DrillPhase(
-                name = "Warm Up",
-                description = "Loosen up",
+                nameRes = R.string.phase_warmup,
+                descriptionRes = R.string.phase_desc_loosen_up,
                 durationMs = 20_000,
-                instruction = "Easy spinning, focus on form"
+                instructionRes = R.string.instr_easy_spin_form
             ),
             DrillPhase(
-                name = "Target Zone",
-                description = "Hold PS ≥25%",
+                nameRes = R.string.phase_target_zone,
+                descriptionRes = R.string.phase_desc_hold_ps_25,
                 durationMs = 40_000,
                 target = DrillTarget(
                     metric = DrillMetric.PEDAL_SMOOTHNESS,
                     minValue = 25f
                 ),
                 holdTimeMs = 20_000,  // Need 20 seconds in target
-                instruction = "Keep smoothness above 25%. Full circles!"
+                instructionRes = R.string.instr_keep_ps_25
             ),
             DrillPhase(
-                name = "Cool Down",
-                description = "Recover",
+                nameRes = R.string.phase_cooldown,
+                descriptionRes = R.string.phase_desc_recover,
                 durationMs = 15_000,
-                instruction = "Great effort! Spin easy"
+                instructionRes = R.string.instr_great_effort
             )
         ),
-        tips = listOf(
-            "Elite cyclists maintain 25-35% smoothness",
-            "Engage all muscle groups through the stroke",
-            "Maintain moderate cadence (85-95 rpm works well)"
+        tipResIds = listOf(
+            R.string.tip_elite_smoothness,
+            R.string.tip_engage_all_muscles,
+            R.string.tip_moderate_cadence
         )
     )
 
     private val highCadenceSmoothness = Drill(
         id = "high_cadence_smoothness",
-        name = "High Cadence Smoothness",
-        description = "Maintain smooth pedaling at higher cadence. The ultimate coordination test.",
+        nameRes = R.string.drill_high_cadence_smooth,
+        descriptionRes = R.string.drill_high_cadence_smooth_desc,
         type = DrillType.TARGET_BASED,
         metric = DrillMetric.PEDAL_SMOOTHNESS,
         difficulty = DrillDifficulty.ADVANCED,
         phases = listOf(
             DrillPhase(
-                name = "Normal Cadence",
-                description = "Establish baseline",
+                nameRes = R.string.phase_normal_cadence,
+                descriptionRes = R.string.phase_desc_establish_baseline,
                 durationMs = 15_000,
-                instruction = "Start at your normal cadence"
+                instructionRes = R.string.instr_start_normal_cadence
             ),
             DrillPhase(
-                name = "Build Cadence",
-                description = "Increase to 100+ rpm",
+                nameRes = R.string.phase_build_cadence,
+                descriptionRes = R.string.phase_desc_increase_100rpm,
                 durationMs = 15_000,
-                instruction = "Gradually increase cadence to 100+ rpm"
+                instructionRes = R.string.instr_increase_cadence_100
             ),
             DrillPhase(
-                name = "Hold Smooth",
-                description = "Smooth at high cadence",
+                nameRes = R.string.phase_hold_smooth,
+                descriptionRes = R.string.phase_desc_smooth_high_cadence,
                 durationMs = 30_000,
                 target = DrillTarget(
                     metric = DrillMetric.PEDAL_SMOOTHNESS,
                     minValue = 20f
                 ),
                 holdTimeMs = 15_000,
-                instruction = "Keep smoothness above 20% at high cadence!"
+                instructionRes = R.string.instr_keep_ps_high_cadence
             ),
             DrillPhase(
-                name = "Wind Down",
-                description = "Return to normal",
+                nameRes = R.string.phase_wind_down,
+                descriptionRes = R.string.phase_desc_return_to_normal,
                 durationMs = 15_000,
-                instruction = "Gradually reduce cadence, stay smooth"
+                instructionRes = R.string.instr_reduce_cadence_smooth
             )
         ),
-        tips = listOf(
-            "Smoothness naturally drops at very high cadence",
-            "Focus on relaxing your hips",
-            "Don't bounce in the saddle",
-            "Core stability is crucial"
+        tipResIds = listOf(
+            R.string.tip_smoothness_drops,
+            R.string.tip_relax_hips,
+            R.string.tip_dont_bounce,
+            R.string.tip_core_crucial
         )
     )
 
@@ -334,203 +336,203 @@ object DrillCatalog {
 
     private val balanceRecovery = Drill(
         id = "balance_recovery",
-        name = "Balance Recovery",
-        description = "5-minute workout to correct balance imbalances. Alternate leg focus with centering.",
+        nameRes = R.string.drill_balance_recovery,
+        descriptionRes = R.string.drill_balance_recovery_desc,
         type = DrillType.GUIDED_WORKOUT,
         metric = DrillMetric.BALANCE,
         difficulty = DrillDifficulty.BEGINNER,
         phases = listOf(
             DrillPhase(
-                name = "Baseline",
-                description = "Find natural balance",
+                nameRes = R.string.phase_baseline,
+                descriptionRes = R.string.phase_desc_find_natural_balance,
                 durationMs = 30_000,
-                instruction = "Spin naturally, observe your balance"
+                instructionRes = R.string.instr_observe_balance
             ),
             DrillPhase(
-                name = "Left Emphasis",
-                description = "Focus left",
+                nameRes = R.string.phase_left_emphasis,
+                descriptionRes = R.string.phase_desc_focus_left,
                 durationMs = 45_000,
                 target = DrillTarget(metric = DrillMetric.BALANCE, maxValue = 48f),
-                instruction = "Emphasize your LEFT leg"
+                instructionRes = R.string.instr_emphasize_left
             ),
             DrillPhase(
-                name = "Center",
-                description = "Find 50/50",
+                nameRes = R.string.phase_center,
+                descriptionRes = R.string.phase_desc_find_5050,
                 durationMs = 30_000,
                 target = DrillTarget(metric = DrillMetric.BALANCE, targetValue = 50f, tolerance = 3f),
-                instruction = "Return to center, 50/50 balance"
+                instructionRes = R.string.instr_return_center
             ),
             DrillPhase(
-                name = "Right Emphasis",
-                description = "Focus right",
+                nameRes = R.string.phase_right_emphasis,
+                descriptionRes = R.string.phase_desc_focus_right,
                 durationMs = 45_000,
                 target = DrillTarget(metric = DrillMetric.BALANCE, minValue = 52f),
-                instruction = "Emphasize your RIGHT leg"
+                instructionRes = R.string.instr_emphasize_right
             ),
             DrillPhase(
-                name = "Center Again",
-                description = "Find 50/50",
+                nameRes = R.string.phase_center_again,
+                descriptionRes = R.string.phase_desc_find_5050,
                 durationMs = 30_000,
                 target = DrillTarget(metric = DrillMetric.BALANCE, targetValue = 50f, tolerance = 3f),
-                instruction = "Return to center, feel the symmetry"
+                instructionRes = R.string.instr_feel_symmetry
             ),
             DrillPhase(
-                name = "Natural Finish",
-                description = "Spin naturally",
+                nameRes = R.string.phase_natural_finish,
+                descriptionRes = R.string.phase_desc_spin_naturally,
                 durationMs = 30_000,
-                instruction = "Spin naturally, notice any improvement"
+                instructionRes = R.string.instr_notice_improvement
             )
         ),
-        tips = listOf(
-            "This workout helps identify your weaker leg",
-            "Regular practice improves neural pathways",
-            "Don't force extreme imbalance"
+        tipResIds = listOf(
+            R.string.tip_identify_weaker,
+            R.string.tip_neural_pathways,
+            R.string.tip_dont_force
         )
     )
 
     private val efficiencyBuilder = Drill(
         id = "efficiency_builder",
-        name = "Efficiency Builder",
-        description = "10-minute structured workout targeting all efficiency metrics. Build complete pedaling technique.",
+        nameRes = R.string.drill_efficiency_builder,
+        descriptionRes = R.string.drill_efficiency_builder_desc,
         type = DrillType.GUIDED_WORKOUT,
         metric = DrillMetric.COMBINED,
         difficulty = DrillDifficulty.INTERMEDIATE,
         phases = listOf(
             DrillPhase(
-                name = "Warm Up",
-                description = "Easy spinning",
+                nameRes = R.string.phase_warmup,
+                descriptionRes = R.string.phase_desc_easy_spinning,
                 durationMs = 60_000,
-                instruction = "Warm up with easy spinning"
+                instructionRes = R.string.instr_warmup_easy
             ),
             DrillPhase(
-                name = "Balance Focus",
-                description = "Center your power",
+                nameRes = R.string.phase_balance_focus,
+                descriptionRes = R.string.phase_desc_center_power,
                 durationMs = 90_000,
                 target = DrillTarget(metric = DrillMetric.BALANCE, targetValue = 50f, tolerance = 3f),
-                instruction = "Focus on even balance, 50/50 power"
+                instructionRes = R.string.instr_focus_even_balance
             ),
             DrillPhase(
-                name = "Smoothness Block",
-                description = "Smooth circles",
+                nameRes = R.string.phase_smoothness_block,
+                descriptionRes = R.string.phase_desc_smooth_circles,
                 durationMs = 120_000,
                 target = DrillTarget(metric = DrillMetric.PEDAL_SMOOTHNESS, minValue = 22f),
-                instruction = "Focus on smooth, circular pedal stroke"
+                instructionRes = R.string.instr_smooth_circular
             ),
             DrillPhase(
-                name = "Recovery",
-                description = "Easy spin",
+                nameRes = R.string.phase_recovery,
+                descriptionRes = R.string.phase_desc_easy_spin,
                 durationMs = 45_000,
-                instruction = "Easy spinning, shake out legs"
+                instructionRes = R.string.instr_shake_out
             ),
             DrillPhase(
-                name = "TE Focus",
-                description = "Power transfer",
+                nameRes = R.string.phase_te_focus,
+                descriptionRes = R.string.phase_desc_power_transfer,
                 durationMs = 120_000,
                 target = DrillTarget(metric = DrillMetric.TORQUE_EFFECTIVENESS, minValue = 70f, maxValue = 80f),
-                instruction = "Optimize torque effectiveness 70-80%"
+                instructionRes = R.string.instr_optimize_te
             ),
             DrillPhase(
-                name = "Combined",
-                description = "All metrics",
+                nameRes = R.string.phase_combined,
+                descriptionRes = R.string.phase_desc_all_metrics,
                 durationMs = 90_000,
-                instruction = "Now combine: Balance + Smooth + Efficient"
+                instructionRes = R.string.instr_combine_all
             ),
             DrillPhase(
-                name = "Cool Down",
-                description = "Wind down",
+                nameRes = R.string.phase_cooldown,
+                descriptionRes = R.string.phase_desc_wind_down,
                 durationMs = 60_000,
-                instruction = "Easy spinning, appreciate your effort"
+                instructionRes = R.string.instr_appreciate_effort
             )
         ),
-        tips = listOf(
-            "Don't expect perfection on all metrics at once",
-            "Focus on one aspect at a time initially",
-            "Progress comes with regular practice",
-            "Notice which metric is hardest for you"
+        tipResIds = listOf(
+            R.string.tip_no_perfection,
+            R.string.tip_one_at_time,
+            R.string.tip_regular_practice,
+            R.string.tip_notice_hardest
         )
     )
 
     private val pedalingMastery = Drill(
         id = "pedaling_mastery",
-        name = "Pedaling Mastery",
-        description = "15-minute comprehensive workout. The ultimate pedaling technique session with progressive challenges.",
+        nameRes = R.string.drill_pedaling_mastery,
+        descriptionRes = R.string.drill_pedaling_mastery_desc,
         type = DrillType.GUIDED_WORKOUT,
         metric = DrillMetric.COMBINED,
         difficulty = DrillDifficulty.ADVANCED,
         phases = listOf(
             DrillPhase(
-                name = "Activation",
-                description = "Wake up the legs",
+                nameRes = R.string.phase_activation,
+                descriptionRes = R.string.phase_desc_wake_legs,
                 durationMs = 60_000,
-                instruction = "Light spinning, prepare mentally"
+                instructionRes = R.string.instr_prepare_mentally
             ),
             DrillPhase(
-                name = "Left Leg Isolation",
-                description = "Left focus",
+                nameRes = R.string.phase_left_isolation,
+                descriptionRes = R.string.phase_desc_left_focus,
                 durationMs = 60_000,
                 target = DrillTarget(metric = DrillMetric.BALANCE, maxValue = 47f),
-                instruction = "Strong left leg emphasis"
+                instructionRes = R.string.instr_strong_left
             ),
             DrillPhase(
-                name = "Right Leg Isolation",
-                description = "Right focus",
+                nameRes = R.string.phase_right_isolation,
+                descriptionRes = R.string.phase_desc_right_focus,
                 durationMs = 60_000,
                 target = DrillTarget(metric = DrillMetric.BALANCE, minValue = 53f),
-                instruction = "Strong right leg emphasis"
+                instructionRes = R.string.instr_strong_right
             ),
             DrillPhase(
-                name = "Perfect Balance",
-                description = "50/50 hold",
+                nameRes = R.string.phase_perfect_balance,
+                descriptionRes = R.string.phase_desc_5050_hold,
                 durationMs = 60_000,
                 target = DrillTarget(metric = DrillMetric.BALANCE, targetValue = 50f, tolerance = 2f),
-                instruction = "Perfect balance, 50/50"
+                instructionRes = R.string.instr_perfect_5050
             ),
             DrillPhase(
-                name = "Smoothness Focus",
-                description = "Circular motion",
+                nameRes = R.string.phase_smoothness_focus,
+                descriptionRes = R.string.phase_desc_circular_motion,
                 durationMs = 90_000,
                 target = DrillTarget(metric = DrillMetric.PEDAL_SMOOTHNESS, minValue = 24f),
-                instruction = "Maximum smoothness, eliminate dead spots"
+                instructionRes = R.string.instr_max_smoothness
             ),
             DrillPhase(
-                name = "Recovery",
-                description = "Easy spin",
+                nameRes = R.string.phase_recovery,
+                descriptionRes = R.string.phase_desc_easy_spin,
                 durationMs = 60_000,
-                instruction = "Easy spinning, recover"
+                instructionRes = R.string.instr_easy_recover
             ),
             DrillPhase(
-                name = "TE Optimization",
-                description = "Power transfer",
+                nameRes = R.string.phase_te_optimization,
+                descriptionRes = R.string.phase_desc_power_transfer,
                 durationMs = 90_000,
                 target = DrillTarget(metric = DrillMetric.TORQUE_EFFECTIVENESS, minValue = 72f, maxValue = 78f),
-                instruction = "Dial in TE to 72-78% zone"
+                instructionRes = R.string.instr_dial_te
             ),
             DrillPhase(
-                name = "High Cadence Test",
-                description = "Speed + form",
+                nameRes = R.string.phase_high_cadence_test,
+                descriptionRes = R.string.phase_desc_speed_form,
                 durationMs = 60_000,
                 target = DrillTarget(metric = DrillMetric.PEDAL_SMOOTHNESS, minValue = 18f),
-                instruction = "Increase cadence, maintain form"
+                instructionRes = R.string.instr_increase_cadence_form
             ),
             DrillPhase(
-                name = "Integration",
-                description = "Everything together",
+                nameRes = R.string.phase_integration,
+                descriptionRes = R.string.phase_desc_everything_together,
                 durationMs = 120_000,
-                instruction = "Combine all skills: Balance + Smooth + Efficient"
+                instructionRes = R.string.instr_combine_skills
             ),
             DrillPhase(
-                name = "Cool Down",
-                description = "Wind down",
+                nameRes = R.string.phase_cooldown,
+                descriptionRes = R.string.phase_desc_wind_down,
                 durationMs = 90_000,
-                instruction = "Easy spinning, appreciate your mastery work"
+                instructionRes = R.string.instr_appreciate_mastery
             )
         ),
-        tips = listOf(
-            "This is a demanding session - be well rested",
-            "Each phase builds on previous skills",
-            "Focus on quality over perfection",
-            "Track your progress over multiple sessions",
-            "Consider doing this 1-2x per week"
+        tipResIds = listOf(
+            R.string.tip_demanding_session,
+            R.string.tip_phases_build,
+            R.string.tip_quality_over_perfection,
+            R.string.tip_track_progress,
+            R.string.tip_once_twice_week
         )
     )
 }

@@ -13,9 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.RideAnalyzer
 import io.github.kpedal.engine.StatusCalculator
@@ -82,7 +84,7 @@ fun RideDetailScreen(
                 }
 
                 Text(
-                    text = "Delete",
+                    text = stringResource(R.string.delete),
                     color = Theme.colors.problem,
                     fontSize = 12.sp,
                     modifier = Modifier.clickable { showDeleteConfirm = true }
@@ -188,14 +190,14 @@ private fun RatingSection(
     ) {
         Column {
             Text(
-                text = "RATING",
+                text = stringResource(R.string.rating),
                 color = Theme.colors.dim,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Medium
             )
             if (rating == 0) {
                 Text(
-                    text = "Suggested: $suggestedRating stars",
+                    text = stringResource(R.string.suggested_stars, suggestedRating),
                     color = Theme.colors.muted,
                     fontSize = 9.sp
                 )
@@ -233,10 +235,10 @@ private fun ScoreOverview(
             .padding(horizontal = 12.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        ScoreItem("Overall", overallScore, true)
-        ScoreItem("Balance", balanceScore)
-        ScoreItem("Efficiency", efficiencyScore)
-        ScoreItem("Consistency", consistencyScore)
+        ScoreItem(stringResource(R.string.overall), overallScore, true)
+        ScoreItem(stringResource(R.string.balance_lower), balanceScore)
+        ScoreItem(stringResource(R.string.efficiency), efficiencyScore)
+        ScoreItem(stringResource(R.string.consistency), consistencyScore)
     }
 }
 
@@ -275,7 +277,7 @@ private fun AnalysisSection(
             .padding(horizontal = 12.dp, vertical = 10.dp)
     ) {
         Text(
-            text = "ANALYSIS",
+            text = stringResource(R.string.analysis),
             color = Theme.colors.dim,
             fontSize = 10.sp,
             fontWeight = FontWeight.Medium
@@ -292,7 +294,7 @@ private fun AnalysisSection(
         if (strengths.isNotEmpty()) {
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Strengths",
+                text = stringResource(R.string.strengths),
                 color = Theme.colors.optimal,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Medium
@@ -310,7 +312,7 @@ private fun AnalysisSection(
         if (improvements.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Areas to improve",
+                text = stringResource(R.string.areas_to_improve),
                 color = Theme.colors.attention,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Medium
@@ -336,7 +338,7 @@ private fun BalanceSection(balanceLeft: Int, balanceRight: Int) {
             .padding(top = 8.dp, bottom = 8.dp)
     ) {
         Text(
-            text = "BALANCE",
+            text = stringResource(R.string.balance),
             color = Theme.colors.dim,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium
@@ -400,8 +402,8 @@ private fun BalanceSection(balanceLeft: Int, balanceRight: Int) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "L", color = Theme.colors.dim, fontSize = 12.sp)
-            Text(text = "R", color = Theme.colors.dim, fontSize = 12.sp)
+            Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
+            Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
         }
     }
 }
@@ -444,7 +446,7 @@ private fun MetricSection(
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "L", color = Theme.colors.dim, fontSize = 10.sp)
+                Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 10.sp)
             }
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -454,7 +456,7 @@ private fun MetricSection(
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "R", color = Theme.colors.dim, fontSize = 10.sp)
+                Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 10.sp)
             }
         }
     }
@@ -469,7 +471,7 @@ private fun TimeInZoneSection(zoneOptimal: Int, zoneAttention: Int, zoneProblem:
             .padding(top = 8.dp, bottom = 12.dp)
     ) {
         Text(
-            text = "TIME IN ZONE",
+            text = stringResource(R.string.time_in_zone),
             color = Theme.colors.dim,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium
@@ -489,7 +491,7 @@ private fun TimeInZoneSection(zoneOptimal: Int, zoneAttention: Int, zoneProblem:
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "optimal", color = Theme.colors.dim, fontSize = 9.sp)
+                Text(text = stringResource(R.string.optimal), color = Theme.colors.dim, fontSize = 9.sp)
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
@@ -498,7 +500,7 @@ private fun TimeInZoneSection(zoneOptimal: Int, zoneAttention: Int, zoneProblem:
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "attention", color = Theme.colors.dim, fontSize = 9.sp)
+                Text(text = stringResource(R.string.attention), color = Theme.colors.dim, fontSize = 9.sp)
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
@@ -507,7 +509,7 @@ private fun TimeInZoneSection(zoneOptimal: Int, zoneAttention: Int, zoneProblem:
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "problem", color = Theme.colors.dim, fontSize = 9.sp)
+                Text(text = stringResource(R.string.problem), color = Theme.colors.dim, fontSize = 9.sp)
             }
         }
 
@@ -578,7 +580,7 @@ private fun DeleteConfirmDialog(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Delete ride?",
+                text = stringResource(R.string.delete_ride),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium
@@ -586,13 +588,13 @@ private fun DeleteConfirmDialog(
             Spacer(modifier = Modifier.height(16.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel),
                     color = Theme.colors.dim,
                     fontSize = 13.sp,
                     modifier = Modifier.clickable { onDismiss() }
                 )
                 Text(
-                    text = "Delete",
+                    text = stringResource(R.string.delete),
                     color = Theme.colors.problem,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,

@@ -5,12 +5,13 @@
   import { auth, isAuthenticated, user } from '$lib/auth';
   import { theme } from '$lib/theme';
   import { API_URL } from '$lib/config';
+  import { t } from '$lib/i18n';
 
   let code = '';
   let codeInputs: string[] = ['', '', '', '', '', '', '', ''];
   let loading = false;
   let verifying = false;
-  let error: string | null = null;
+  let error: 'failedToVerify' | 'failedToConnect' | 'enterCompleteCode' | 'invalidOrExpired' | 'checkConnection' | 'signInFirst' | 'failedToAuthorize' | 'failedTryAgain' | null = null;
   let deviceName: string | null = null;
   let authorized = false;
   let step: 'enter_code' | 'login' | 'authorize' | 'success' = 'enter_code';
@@ -47,11 +48,11 @@
           // Auto-authorize since we just logged in
           await authorizeDevice();
         } else {
-          error = data.error || 'Failed to verify code';
+          error = 'failedToVerify';
           step = 'enter_code';
         }
       } catch {
-        error = 'Failed to connect';
+        error = 'failedToConnect';
         step = 'enter_code';
       } finally {
         verifying = false;
@@ -118,7 +119,7 @@
 
   async function verifyCode() {
     if (code.length < 9) {
-      error = 'Please enter the complete code';
+      error = 'enterCompleteCode';
       return;
     }
     verifying = true;
@@ -134,12 +135,10 @@
           step = 'login';
         }
       } else {
-        error = data.error === 'Invalid or expired code'
-          ? 'This code is invalid or has expired. Please get a new code from your Karoo.'
-          : data.error || 'Failed to verify code';
+        error = data.error === 'Invalid or expired code' ? 'invalidOrExpired' : 'failedToVerify';
       }
     } catch (err) {
-      error = 'Failed to connect. Please check your internet connection.';
+      error = 'checkConnection';
     } finally {
       verifying = false;
     }
@@ -153,7 +152,7 @@
 
   async function authorizeDevice() {
     if (!$user) {
-      error = 'Please sign in first';
+      error = 'signInFirst';
       step = 'login';
       return;
     }
@@ -173,10 +172,10 @@
         step = 'success';
         authorized = true;
       } else {
-        error = data.error || 'Failed to authorize device';
+        error = 'failedToAuthorize';
       }
     } catch (err) {
-      error = 'Failed to connect. Please try again.';
+      error = 'failedTryAgain';
     } finally {
       loading = false;
     }
@@ -185,20 +184,20 @@
 </script>
 
 <svelte:head>
-  <title>Link Your Karoo — KPedal</title>
-  <meta name="description" content="Link your Hammerhead Karoo to KPedal. Enter the code shown on your Karoo to sync rides and settings to the cloud.">
+  <title>{$t('link.pageTitle')} — KPedal</title>
+  <meta name="description" content={$t('link.metaDescription')}>
   <link rel="canonical" href="https://kpedal.com/link">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kpedal.com/link">
-  <meta property="og:title" content="Link Your Karoo — KPedal">
-  <meta property="og:description" content="Connect your Hammerhead Karoo to sync pedaling analytics to the cloud.">
+  <meta property="og:title" content="{$t('link.pageTitle')} — KPedal">
+  <meta property="og:description" content={$t('link.metaDescription')}>
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Link Your Karoo — KPedal">
-  <meta name="twitter:description" content="Connect your Hammerhead Karoo to sync pedaling analytics to the cloud.">
+  <meta name="twitter:title" content="{$t('link.pageTitle')} — KPedal">
+  <meta name="twitter:description" content={$t('link.metaDescription')}>
 </svelte:head>
 
 <div class="link-page">
@@ -209,7 +208,7 @@
   <div class="link-container">
     <!-- Theme toggle - only show if not authenticated -->
     {#if !$isAuthenticated}
-      <button class="theme-toggle" on:click={() => theme.toggle()} aria-label="Toggle theme">
+      <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
         {#if $theme === 'dark'}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/>
@@ -242,7 +241,7 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <polyline points="9 12 11 14 15 10"/>
           </svg>
-          <span>Secure Connection</span>
+          <span>{$t('link.secureConnection')}</span>
         </div>
       </div>
 
@@ -266,8 +265,8 @@
           </div>
         </div>
 
-        <h1>Link your Karoo</h1>
-        <p class="subtitle">Enter the 8-character code displayed on your device to securely connect it to your account.</p>
+        <h1>{$t('link.linkKaroo')}</h1>
+        <p class="subtitle">{$t('link.enterCodeDescription')}</p>
 
         {#if error}
           <div class="error-banner">
@@ -276,7 +275,7 @@
               <line x1="12" y1="8" x2="12" y2="12"/>
               <line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            {error}
+            {$t('link.errors.' + error)}
           </div>
         {/if}
 
@@ -319,12 +318,12 @@
         <button class="primary-btn" on:click={verifyCode} disabled={verifying || code.length < 9}>
           {#if verifying}
             <span class="spinner"></span>
-            Verifying...
+            {$t('link.verifying')}
           {:else}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
-            Continue
+            {$t('link.continue')}
           {/if}
         </button>
 
@@ -338,7 +337,7 @@
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
               </div>
-              <span>256-bit encryption</span>
+              <span>{$t('link.encryption256')}</span>
             </div>
             <div class="trust-item">
               <div class="trust-icon check">
@@ -346,7 +345,7 @@
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
               </div>
-              <span>Verified domain</span>
+              <span>{$t('link.verifiedDomain')}</span>
             </div>
           </div>
           <div class="trust-url">
@@ -366,10 +365,10 @@
           </svg>
         </div>
 
-        <h1>Sign in to continue</h1>
+        <h1>{$t('link.signInToContinue')}</h1>
         <p class="subtitle">
-          Linking <strong>{deviceName || 'Karoo'}</strong> to your account.<br/>
-          Sign in with Google to authorize this device.
+          {$t('link.linkingDevice', { values: { device: deviceName || 'Karoo' } })}<br/>
+          {$t('link.signInWithGoogle')}
         </p>
 
         {#if error}
@@ -379,7 +378,7 @@
               <line x1="12" y1="8" x2="12" y2="12"/>
               <line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            {error}
+            {$t('link.errors.' + error)}
           </div>
         {/if}
 
@@ -390,11 +389,11 @@
             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
           </svg>
-          Continue with Google
+          {$t('auth.continueWithGoogle')}
         </button>
 
         <button class="text-btn" on:click={() => { step = 'enter_code'; code = ''; codeInputs = ['','','','','','','','']; error = null; }}>
-          Use a different code
+          {$t('link.useDifferentCode')}
         </button>
 
         <div class="trust-section compact">
@@ -406,7 +405,7 @@
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
               </div>
-              <span>Secure OAuth 2.0</span>
+              <span>{$t('auth.secureOAuth')}</span>
             </div>
             <div class="trust-item">
               <div class="trust-icon check">
@@ -414,7 +413,7 @@
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
               </div>
-              <span>Google verified</span>
+              <span>{$t('auth.googleVerified')}</span>
             </div>
           </div>
         </div>
@@ -427,9 +426,9 @@
           </svg>
         </div>
 
-        <h1>Authorize device?</h1>
+        <h1>{$t('link.authorizeDevice')}</h1>
         <p class="subtitle">
-          <strong>{deviceName || 'Karoo'}</strong> is requesting access to sync ride data with your account.
+          {$t('link.deviceRequestingAccess', { values: { device: deviceName || 'Karoo' } })}
         </p>
 
         <div class="account-info">
@@ -453,7 +452,7 @@
               <line x1="12" y1="8" x2="12" y2="12"/>
               <line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            {error}
+            {$t('link.errors.' + error)}
           </div>
         {/if}
 
@@ -462,19 +461,19 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            <span>Sync pedaling metrics from rides</span>
+            <span>{$t('link.permissionSync')}</span>
           </div>
           <div class="permission-item">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            <span>View analytics on app.kpedal.com</span>
+            <span>{$t('link.permissionView')}</span>
           </div>
         </div>
 
         <div class="button-row">
           <button class="secondary-btn" on:click={() => { step = 'enter_code'; code = ''; codeInputs = ['','','','','','','','']; }}>
-            Cancel
+            {$t('common.cancel')}
           </button>
           <button class="primary-btn" on:click={authorizeDevice} disabled={loading}>
             {#if loading}
@@ -483,7 +482,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
-              Authorize
+              {$t('link.authorize')}
             {/if}
           </button>
         </div>
@@ -497,10 +496,10 @@
           </div>
         </div>
 
-        <h1>Device linked!</h1>
+        <h1>{$t('link.deviceLinked')}</h1>
         <p class="subtitle">
-          <strong>{deviceName}</strong> is now connected to your account.<br/>
-          Your ride data will sync automatically.
+          {$t('link.deviceConnected', { values: { device: deviceName } })}<br/>
+          {$t('link.autoSync')}
         </p>
 
         <div class="success-info">
@@ -509,22 +508,22 @@
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
             <div>
-              <strong>Secure connection established</strong>
-              <span>Data is encrypted end-to-end</span>
+              <strong>{$t('link.secureConnectionEstablished')}</strong>
+              <span>{$t('link.dataEncrypted')}</span>
             </div>
           </div>
         </div>
 
-        <p class="hint">You can close this page and return to your Karoo.</p>
+        <p class="hint">{$t('link.closePageHint')}</p>
 
         <button class="primary-btn" on:click={() => goto('/')}>
-          Go to Dashboard
+          {$t('link.goToDashboard')}
         </button>
       {/if}
     </div>
 
     <div class="footer">
-      <a href="/privacy">Privacy Policy</a>
+      <a href="/privacy">{$t('auth.privacyPolicy')}</a>
       <span class="footer-dot"></span>
       <span class="footer-brand">kpedal.com</span>
     </div>

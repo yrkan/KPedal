@@ -14,9 +14,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.RideFilter
 import io.github.kpedal.ui.theme.Theme
@@ -69,14 +71,14 @@ fun HistoryScreen(
                             .padding(end = 12.dp)
                     )
                     Text(
-                        text = "Ride History",
+                        text = stringResource(R.string.ride_history),
                         color = Theme.colors.text,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold
                     )
                 }
                 Text(
-                    text = if (filter.isActive) "${filteredRides.size}/${rides.size}" else "${rides.size} rides",
+                    text = if (filter.isActive) "${filteredRides.size}/${rides.size}" else stringResource(R.string.rides_count, rides.size),
                     color = if (filter.isActive) Theme.colors.optimal else Theme.colors.dim,
                     fontSize = 12.sp
                 )
@@ -100,13 +102,13 @@ fun HistoryScreen(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = if (filter.isActive) "No matching rides" else "No rides saved",
+                            text = if (filter.isActive) stringResource(R.string.no_matching_rides) else stringResource(R.string.no_rides_saved),
                             color = Theme.colors.dim,
                             fontSize = 14.sp
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = if (filter.isActive) "Try adjusting the filter" else "Rides are saved automatically",
+                            text = if (filter.isActive) stringResource(R.string.try_adjusting_filter) else stringResource(R.string.rides_saved_auto),
                             color = Theme.colors.muted,
                             fontSize = 12.sp
                         )
@@ -171,7 +173,7 @@ private fun RideListItem(
                     )
                     if (ride.savedManually) {
                         Text(
-                            text = "manual",
+                            text = stringResource(R.string.manual),
                             color = Theme.colors.attention,
                             fontSize = 10.sp
                         )
@@ -187,12 +189,12 @@ private fun RideListItem(
                         fontSize = 11.sp
                     )
                     Text(
-                        text = "L${ride.balanceLeft}/R${ride.balanceRight}",
+                        text = stringResource(R.string.lr_balance_format, ride.balanceLeft, ride.balanceRight),
                         color = Theme.colors.dim,
                         fontSize = 11.sp
                     )
                     Text(
-                        text = "${ride.zoneOptimal}% optimal",
+                        text = stringResource(R.string.percent_optimal, ride.zoneOptimal),
                         color = Theme.colors.optimal,
                         fontSize = 11.sp
                     )
@@ -244,7 +246,7 @@ private fun DeleteConfirmDialog(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Delete ride?",
+                text = stringResource(R.string.delete_ride),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium
@@ -252,13 +254,13 @@ private fun DeleteConfirmDialog(
             Spacer(modifier = Modifier.height(16.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel),
                     color = Theme.colors.dim,
                     fontSize = 13.sp,
                     modifier = Modifier.clickable { onDismiss() }
                 )
                 Text(
-                    text = "Delete",
+                    text = stringResource(R.string.delete),
                     color = Theme.colors.problem,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,

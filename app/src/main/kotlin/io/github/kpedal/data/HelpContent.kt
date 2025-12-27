@@ -1,104 +1,108 @@
 package io.github.kpedal.data
 
+import androidx.annotation.StringRes
+import io.github.kpedal.R
+
 /**
  * Static help content for metric explanations and tips.
+ * Uses @StringRes for localization.
  */
 object HelpContent {
 
     data class MetricInfo(
         val id: String,
-        val name: String,
-        val shortDescription: String,
-        val explanation: String,
-        val optimalRange: String,
-        val tips: List<String>,
-        val research: String? = null
+        @StringRes val nameRes: Int,
+        @StringRes val shortDescriptionRes: Int,
+        @StringRes val explanationRes: Int,
+        @StringRes val optimalRangeRes: Int,
+        val tipResIds: List<Int>,
+        @StringRes val researchRes: Int? = null
     )
 
     val metrics = listOf(
         MetricInfo(
             id = "balance",
-            name = "Power Balance",
-            shortDescription = "L/R power distribution",
-            explanation = "Power Balance shows how evenly you distribute power between your left and right legs. A perfect balance would be 50/50, but minor asymmetry (48-52%) is normal and not concerning.",
-            optimalRange = "48-52% (optimal), 45-55% (acceptable)",
-            tips = listOf(
-                "Focus on even pressure through the entire pedal stroke",
-                "Try single-leg drills to strengthen your weaker side",
-                "Check your bike fit - saddle height can affect balance",
-                "Minor imbalances are normal and often correct themselves",
-                "Don't obsess over small fluctuations during a ride"
+            nameRes = R.string.metric_balance_name,
+            shortDescriptionRes = R.string.metric_balance_short,
+            explanationRes = R.string.metric_balance_explanation,
+            optimalRangeRes = R.string.metric_balance_optimal,
+            tipResIds = listOf(
+                R.string.metric_balance_tip1,
+                R.string.metric_balance_tip2,
+                R.string.metric_balance_tip3,
+                R.string.metric_balance_tip4,
+                R.string.metric_balance_tip5
             ),
-            research = "Studies show most cyclists have 1-5% natural imbalance. Pro cyclists average 48-52%."
+            researchRes = R.string.metric_balance_research
         ),
         MetricInfo(
             id = "te",
-            name = "Torque Effectiveness",
-            shortDescription = "Pedal stroke efficiency",
-            explanation = "Torque Effectiveness (TE) measures how much of your pedaling motion contributes to forward propulsion. A score of 100% would mean every part of your stroke adds power, but this is neither realistic nor optimal.",
-            optimalRange = "70-80% (optimal, NOT higher)",
-            tips = listOf(
-                "Focus on pulling through the bottom of the stroke",
-                "Think of 'scraping mud' off your shoe at the bottom",
-                "Higher TE (>80%) often REDUCES main power output",
-                "Smooth, circular pedaling is more efficient than forcing high TE",
-                "TE naturally varies with cadence and power"
+            nameRes = R.string.metric_te_name,
+            shortDescriptionRes = R.string.metric_te_short,
+            explanationRes = R.string.metric_te_explanation,
+            optimalRangeRes = R.string.metric_te_optimal,
+            tipResIds = listOf(
+                R.string.metric_te_tip1,
+                R.string.metric_te_tip2,
+                R.string.metric_te_tip3,
+                R.string.metric_te_tip4,
+                R.string.metric_te_tip5
             ),
-            research = "Wattbike research shows TE above 80% actually decreases power output. Elite cyclists aim for 70-80%."
+            researchRes = R.string.metric_te_research
         ),
         MetricInfo(
             id = "ps",
-            name = "Pedal Smoothness",
-            shortDescription = "Power delivery consistency",
-            explanation = "Pedal Smoothness (PS) shows how evenly power is applied throughout the pedal stroke. Higher values mean more consistent power delivery with fewer spikes and dips.",
-            optimalRange = "20%+ (good), 25-35% (elite)",
-            tips = listOf(
-                "Practice high-cadence spinning drills",
-                "Focus on eliminating dead spots in your stroke",
-                "Keep consistent pressure throughout the rotation",
-                "Lower gears and higher cadence often improve smoothness",
-                "PS naturally decreases at very high power outputs"
+            nameRes = R.string.metric_ps_name,
+            shortDescriptionRes = R.string.metric_ps_short,
+            explanationRes = R.string.metric_ps_explanation,
+            optimalRangeRes = R.string.metric_ps_optimal,
+            tipResIds = listOf(
+                R.string.metric_ps_tip1,
+                R.string.metric_ps_tip2,
+                R.string.metric_ps_tip3,
+                R.string.metric_ps_tip4,
+                R.string.metric_ps_tip5
             ),
-            research = "Professional cyclists typically achieve 25-35% pedal smoothness."
+            researchRes = R.string.metric_ps_research
         )
     )
 
     val onboardingPages = listOf(
         OnboardingPage(
-            title = "Welcome to KPedal",
-            description = "Real-time pedaling metrics from your power meter pedals. Track balance, efficiency, and smoothness to improve your technique.",
+            titleRes = R.string.onboarding_welcome_title,
+            descriptionRes = R.string.onboarding_welcome_desc,
             icon = "bike"
         ),
         OnboardingPage(
-            title = "Data Fields",
-            description = "Add KPedal data fields to your Karoo screens to see metrics during your ride. Choose from 6 different layouts.",
+            titleRes = R.string.onboarding_data_fields_title,
+            descriptionRes = R.string.onboarding_data_fields_desc,
             icon = "layout"
         ),
         OnboardingPage(
-            title = "Drills",
-            description = "Practice with guided drills to improve your pedaling technique. Each drill targets specific aspects of your stroke.",
+            titleRes = R.string.onboarding_drills_title,
+            descriptionRes = R.string.onboarding_drills_desc,
             icon = "drill"
         ),
         OnboardingPage(
-            title = "Alerts",
-            description = "Get notified when your metrics go outside optimal ranges. Configure alerts in Settings.",
+            titleRes = R.string.onboarding_alerts_title,
+            descriptionRes = R.string.onboarding_alerts_desc,
             icon = "alert"
         ),
         OnboardingPage(
-            title = "Background Data",
-            description = "KPedal collects pedaling metrics for all your rides automatically. You can disable this in Settings if you prefer.",
+            titleRes = R.string.onboarding_background_title,
+            descriptionRes = R.string.onboarding_background_desc,
             icon = "background"
         ),
         OnboardingPage(
-            title = "Cloud Sync",
-            description = "Sign in with Google to sync your ride data and view analytics on app.kpedal.com. This is optional - your data stays on device until you sync.",
+            titleRes = R.string.onboarding_cloud_title,
+            descriptionRes = R.string.onboarding_cloud_desc,
             icon = "cloud"
         )
     )
 
     data class OnboardingPage(
-        val title: String,
-        val description: String,
+        @StringRes val titleRes: Int,
+        @StringRes val descriptionRes: Int,
         val icon: String
     )
 

@@ -16,9 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.engine.StatusCalculator
 import io.github.kpedal.ui.theme.Theme
 
@@ -130,7 +132,7 @@ fun LiveScreen(
                 )
                 // Tabs: Live | Drills
                 Text(
-                    text = "Live",
+                    text = stringResource(R.string.live),
                     color = Theme.colors.text,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold
@@ -141,7 +143,7 @@ fun LiveScreen(
                     fontSize = 14.sp
                 )
                 Text(
-                    text = "Drills",
+                    text = stringResource(R.string.drills),
                     color = Theme.colors.dim,
                     fontSize = 14.sp,
                     modifier = Modifier.clickable(
@@ -178,7 +180,7 @@ fun LiveScreen(
                 when (saveStatus) {
                     SaveStatus.Idle -> {
                         Text(
-                            text = "Save",
+                            text = stringResource(R.string.save),
                             color = Theme.colors.optimal,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium,
@@ -193,14 +195,14 @@ fun LiveScreen(
                     }
                     SaveStatus.Saved -> {
                         Text(
-                            text = "Saved ✓",
+                            text = stringResource(R.string.saved),
                             color = Theme.colors.dim,
                             fontSize = 12.sp
                         )
                     }
                     SaveStatus.Failed -> {
                         Text(
-                            text = "No data",
+                            text = stringResource(R.string.no_data_lower),
                             color = Theme.colors.problem,
                             fontSize = 12.sp
                         )
@@ -221,13 +223,13 @@ fun LiveScreen(
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = "Waiting for pedal data...",
+                        text = stringResource(R.string.waiting_pedal_data),
                         color = Theme.colors.dim,
                         fontSize = 14.sp
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Start riding or check pedal connection",
+                        text = stringResource(R.string.start_riding),
                         color = Theme.colors.muted,
                         fontSize = 12.sp
                     )
@@ -288,7 +290,7 @@ private fun BalanceSection(liveData: LiveRideData) {
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = "BALANCE",
+                text = stringResource(R.string.balance),
                 color = Theme.colors.dim,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
@@ -366,8 +368,8 @@ private fun BalanceSection(liveData: LiveRideData) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = "L", color = Theme.colors.dim, fontSize = 12.sp)
-            Text(text = "R", color = Theme.colors.dim, fontSize = 12.sp)
+            Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
+            Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
         }
     }
 }
@@ -427,7 +429,7 @@ private fun MetricSection(
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "L", color = Theme.colors.dim, fontSize = 12.sp)
+                Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
             }
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -437,7 +439,7 @@ private fun MetricSection(
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Text(text = "R", color = Theme.colors.dim, fontSize = 12.sp)
+                Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
             }
         }
     }
@@ -452,7 +454,7 @@ private fun TimeInZoneSection(liveData: LiveRideData) {
             .padding(top = 8.dp, bottom = 12.dp)
     ) {
         Text(
-            text = "TIME IN ZONE",
+            text = stringResource(R.string.time_in_zone),
             color = Theme.colors.dim,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium
@@ -477,7 +479,7 @@ private fun TimeInZoneSection(liveData: LiveRideData) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "Opt",
+                        text = stringResource(R.string.opt),
                         color = Theme.colors.dim,
                         fontSize = 10.sp
                     )
@@ -497,7 +499,7 @@ private fun TimeInZoneSection(liveData: LiveRideData) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "Att",
+                        text = stringResource(R.string.att),
                         color = Theme.colors.dim,
                         fontSize = 10.sp
                     )
@@ -517,7 +519,7 @@ private fun TimeInZoneSection(liveData: LiveRideData) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "Prob",
+                        text = stringResource(R.string.prob),
                         color = Theme.colors.dim,
                         fontSize = 10.sp
                     )

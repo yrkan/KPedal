@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.drill.model.DrillResult
 import io.github.kpedal.ui.theme.Theme
 
@@ -44,7 +46,7 @@ fun DrillResultScreen(
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = if (result.completed) "Complete" else "Stopped",
+                text = stringResource(if (result.completed) R.string.complete else R.string.stopped),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
@@ -78,7 +80,7 @@ fun DrillResultScreen(
                 if (isNewBest) {
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        text = "New best!",
+                        text = stringResource(R.string.new_best),
                         color = Theme.colors.optimal,
                         fontSize = 13.sp
                     )
@@ -96,7 +98,7 @@ fun DrillResultScreen(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "duration",
+                            text = stringResource(R.string.duration),
                             color = Theme.colors.dim,
                             fontSize = 10.sp
                         )
@@ -109,7 +111,7 @@ fun DrillResultScreen(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "in zone",
+                            text = stringResource(R.string.in_zone),
                             color = Theme.colors.dim,
                             fontSize = 10.sp
                         )
@@ -137,7 +139,7 @@ fun DrillResultScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Done",
+                    text = stringResource(R.string.done),
                     color = Theme.colors.text,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
@@ -154,7 +156,7 @@ fun DrillResultScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Retry",
+                    text = stringResource(R.string.retry),
                     color = Theme.colors.background,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold

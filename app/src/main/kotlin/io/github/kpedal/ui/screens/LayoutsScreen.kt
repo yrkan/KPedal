@@ -13,9 +13,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.kpedal.R
 import io.github.kpedal.ui.theme.Theme
 
 /**
@@ -50,7 +52,7 @@ fun LayoutsScreen(
                     .padding(end = 8.dp)
             )
             Text(
-                text = "Data Field Layouts",
+                text = stringResource(R.string.data_field_layouts),
                 color = Theme.colors.text,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
@@ -66,40 +68,40 @@ fun LayoutsScreen(
                 .padding(12.dp)
         ) {
             Text(
-                text = "Tap to preview layout on Karoo",
+                text = stringResource(R.string.tap_to_preview),
                 color = Theme.colors.dim,
                 fontSize = 10.sp,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
             LayoutRow(
-                name = "Quick Glance",
-                description = "Status + balance bar",
+                name = stringResource(R.string.datatype_quick_glance),
+                description = stringResource(R.string.layout_quick_glance_short),
                 onClick = { onNavigate("quick-glance") }
             )
             LayoutRow(
-                name = "Power + Balance",
-                description = "Large L/R focus",
+                name = stringResource(R.string.datatype_power_balance),
+                description = stringResource(R.string.layout_power_balance_short),
                 onClick = { onNavigate("power-balance") }
             )
             LayoutRow(
-                name = "Efficiency",
-                description = "TE and PS metrics",
+                name = stringResource(R.string.datatype_efficiency),
+                description = stringResource(R.string.layout_efficiency_short),
                 onClick = { onNavigate("efficiency") }
             )
             LayoutRow(
-                name = "Full Overview",
-                description = "All metrics compact",
+                name = stringResource(R.string.datatype_full_overview),
+                description = stringResource(R.string.layout_full_overview_short),
                 onClick = { onNavigate("full-overview") }
             )
             LayoutRow(
-                name = "Balance Trend",
-                description = "3s/10s smoothed",
+                name = stringResource(R.string.datatype_balance_trend),
+                description = stringResource(R.string.layout_balance_trend_short),
                 onClick = { onNavigate("balance-trend") }
             )
             LayoutRow(
-                name = "Single Balance",
-                description = "Balance only",
+                name = stringResource(R.string.datatype_single_balance),
+                description = stringResource(R.string.layout_single_balance_short),
                 onClick = { onNavigate("single-balance") }
             )
 

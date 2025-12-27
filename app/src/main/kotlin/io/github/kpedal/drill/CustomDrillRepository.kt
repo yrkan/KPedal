@@ -57,6 +57,7 @@ class CustomDrillRepository(context: Context) {
 
     /**
      * Convert entity to Drill model for execution.
+     * Uses string overrides since custom drills have user-entered text.
      */
     private fun CustomDrillEntity.toDrill(): Drill {
         val drillMetric = when (metric) {
@@ -69,36 +70,36 @@ class CustomDrillRepository(context: Context) {
         val target = createTarget(drillMetric)
 
         val phase = DrillPhase(
-            name = "Focus",
-            description = description,
             durationMs = durationSeconds * 1000L,
             target = target,
-            instruction = "Maintain target ${drillMetric.name.lowercase().replace("_", " ")}"
+            nameOverride = "Focus",
+            descriptionOverride = description,
+            instructionOverride = "Maintain target ${drillMetric.name.lowercase().replace("_", " ")}"
         )
 
         return Drill(
             id = "custom_$id",
-            name = name,
-            description = description,
             type = DrillType.TARGET_BASED,
             metric = drillMetric,
             difficulty = DrillDifficulty.INTERMEDIATE,
             phases = listOf(
                 DrillPhase(
-                    name = "Prepare",
-                    description = "Get ready",
                     durationMs = 5_000L,
-                    instruction = "Prepare for the drill"
+                    nameOverride = "Prepare",
+                    descriptionOverride = "Get ready",
+                    instructionOverride = "Prepare for the drill"
                 ),
                 phase,
                 DrillPhase(
-                    name = "Recovery",
-                    description = "Cool down",
                     durationMs = 5_000L,
-                    instruction = "Good work! Spin easy"
+                    nameOverride = "Recovery",
+                    descriptionOverride = "Cool down",
+                    instructionOverride = "Good work! Spin easy"
                 )
             ),
-            tips = listOf("Custom drill: $name")
+            nameOverride = name,
+            descriptionOverride = description,
+            tipsOverride = listOf("Custom drill: $name")
         )
     }
 
