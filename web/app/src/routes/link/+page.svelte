@@ -6,6 +6,7 @@
   import { theme, resolvedTheme } from '$lib/theme';
   import { API_URL } from '$lib/config';
   import { t, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
+  import Footer from '$lib/components/Footer.svelte';
 
   let code = '';
   let codeInputs: string[] = ['', '', '', '', '', '', '', ''];
@@ -205,7 +206,13 @@
   <div class="bg-gradient"></div>
   <div class="bg-pattern"></div>
 
-  <div class="link-container">
+  <main class="link-main">
+    <a href="/" class="site-logo" aria-label={$t('aria.home')}>
+      <span class="site-logo-dot" aria-hidden="true"></span>
+      <span class="site-logo-text">KPedal</span>
+    </a>
+
+    <div class="link-container">
     <!-- Header actions - only show if not authenticated -->
     {#if !$isAuthenticated}
       <div class="header-actions">
@@ -242,12 +249,8 @@
     {/if}
 
     <div class="link-card">
-      <!-- Header with logo and security badge -->
+      <!-- Header with security badge -->
       <div class="card-header">
-        <div class="logo">
-          <span class="logo-dot"></span>
-          <span class="logo-text">KPedal</span>
-        </div>
         <div class="security-badge">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -534,28 +537,23 @@
       {/if}
     </div>
 
-    <div class="footer">
-      <a href="/privacy">{$t('auth.privacyPolicy')}</a>
-      <span class="footer-dot"></span>
-      <span class="footer-brand">kpedal.com</span>
-    </div>
   </div>
+  </main>
+
+  <Footer />
 </div>
 
 <style>
   .link-page {
     min-height: 100dvh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    flex-direction: column;
     background: var(--bg-base);
     position: relative;
-    overflow-x: hidden;
   }
 
   .bg-gradient {
-    position: absolute;
+    position: fixed;
     top: -50%;
     left: -50%;
     width: 200%;
@@ -564,15 +562,27 @@
                 radial-gradient(circle at 70% 80%, var(--color-optimal-soft) 0%, transparent 30%);
     opacity: 0.5;
     pointer-events: none;
+    z-index: 0;
   }
 
   .bg-pattern {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background-image: radial-gradient(var(--border-subtle) 1px, transparent 1px);
     background-size: 24px 24px;
+    z-index: 0;
     opacity: 0.5;
     pointer-events: none;
+  }
+
+  .link-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
   }
 
   .link-container {
@@ -660,32 +670,33 @@
     text-align: center;
   }
 
-  .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
-  }
-
-  .logo {
+  .site-logo {
     display: flex;
     align-items: center;
     gap: 10px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    z-index: 100;
   }
-
-  .logo-dot {
-    width: 10px;
-    height: 10px;
+  .site-logo-dot {
+    width: 8px;
+    height: 8px;
     background: var(--color-optimal);
     border-radius: 50%;
-    box-shadow: 0 0 8px var(--color-optimal);
+  }
+  .site-logo-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
   }
 
-  .logo-text {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
   }
 
   .security-badge {
@@ -1181,37 +1192,6 @@
     margin: 20px 0;
   }
 
-  .footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 24px;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  .footer a {
-    color: var(--text-secondary);
-    text-decoration: none;
-  }
-
-  .footer a:hover {
-    text-decoration: underline;
-  }
-
-  .footer-dot {
-    width: 3px;
-    height: 3px;
-    background: var(--text-muted);
-    border-radius: 50%;
-  }
-
-  .footer-brand {
-    font-weight: 500;
-    color: var(--text-secondary);
-  }
-
   .spinner {
     width: 16px;
     height: 16px;
@@ -1230,6 +1210,9 @@
     .link-page {
       padding: 16px;
     }
+
+    .site-logo { top: 12px; left: 12px; }
+    .site-logo-text { font-size: 14px; }
 
     .link-card {
       padding: 24px 20px;

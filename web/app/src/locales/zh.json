@@ -37,6 +37,13 @@
     "profile": "个人资料",
     "logout": "退出登录"
   },
+  "footer": {
+    "start": "开始使用",
+    "login": "登录",
+    "linkDevice": "连接设备",
+    "privacy": "隐私政策",
+    "support": "技术支持"
+  },
   "auth": {
     "signIn": "登录",
     "signOut": "退出登录",
@@ -1866,75 +1873,75 @@
       "title": "常见问题",
       "q1": {
         "q": "哪些功率计踏板兼容？",
-        "a": "<strong>完全支持（平衡 + TE + PS）：</strong>Garmin Rally、Favero Assioma、SRM X-Power、PowerTap P2。<br><strong>仅平衡：</strong>Wahoo POWRLINK、Stages LR、4iiii Precision、Rotor INpower。<br>任何传输 ANT+ Cycling Dynamics 的踏板都可以使用。"
+        "a": "<strong>完全支持（平衡 + TE + PS）：</strong>Garmin Rally RS/XC、Favero Assioma Duo/Duo-Shi、SRM X-Power、PowerTap P2、Wahoo SPEEDPLAY Powrlink Zero。这些踏板传输完整的 ANT+ Cycling Dynamics 数据，包括左右平衡、扭矩效率和踏频流畅度。<br><br><strong>仅平衡：</strong>Wahoo POWRLINK Zero（单边）、Stages LR、4iiii Precision Dual、Rotor 2INpower、Power2Max NG/NGeco。这些提供准确的平衡数据，但不传输 TE/PS 指标。<br><br><strong>不兼容：</strong>通过估算平衡的单边功率计（Stages 单边、4iiii 单边、Assioma Uno）— KPedal 需要真正的双边测量。"
       },
       "q2": {
         "q": "如何在 Karoo 上安装 KPedal？",
-        "a": "<strong>方式 1：</strong>从 GitHub Releases 下载 APK → 通过 USB 传输 → 在 Karoo 上打开文件管理器 → 点击安装。<br><strong>方式 2：</strong>直接在 Karoo 浏览器中打开 GitHub 发布链接下载。<br><strong>方式 3：</strong>使用 ADB：<code>adb install kpedal.apk</code>"
+        "a": "<strong>方式 1 — 直接下载（最简单）：</strong>在您的 Karoo 上打开浏览器，访问 github.com/yrkan/kpedal/releases。点击 .apk 文件下载，然后点击通知进行安装。<br><br><strong>方式 2 — USB 传输：</strong>在电脑上下载 APK → 通过 USB 连接 Karoo → 复制到 Downloads 文件夹 → 在 Karoo 上打开文件应用 → 点击 APK → 安装。<br><br><strong>方式 3 — ADB（开发者）：</strong>在 Karoo 上启用开发者模式，通过 USB 连接，运行：<code>adb install kpedal-x.x.x.apk</code><br><br>安装后，首次打开 KPedal 以授予权限并启用后台模式，实现自动数据收集。"
       },
       "q3": {
         "q": "我需要将 KPedal 数据字段添加到骑行屏幕吗？",
-        "a": "<strong>不需要。</strong>启用后台模式后，KPedal 会自动为所有骑行收集指标 — 即使您从未添加任何数据字段。数据字段是可选的，仅用于骑行中实时查看指标。无论如何，您的完整骑行历史都会保存。"
+        "a": "<strong>不需要 — 数据字段完全是可选的。</strong>一旦您在 KPedal 设置中启用后台模式，应用会自动为您的每次骑行收集踏频指标。无论您显示哪些数据字段，这都会在后台静默进行。<br><br><strong>那为什么要添加数据字段？</strong>只有当您想在骑行中实时查看指标时才需要。可用字段：快速一览（状态 + 平衡）、功率平衡（带进度条的左/右）、扭矩效率（左/右数值）、踏频流畅度、完整概览（所有指标）以及平衡趋势（时间平滑）。<br><br>无论您是否使用数据字段，您完整的骑行历史和每分钟快照都会被保存。"
       },
       "q4": {
-        "q": "什么样的功率平衡被认为是「好「的？",
-        "a": "<strong>48-52%</strong>（与 50/50 偏差 ±2%）是最佳的。大多数专业骑行者有 1-3% 的自然不对称。不要纠结于完美的 50/50 — 这几乎不可能也不必要。关注<strong>在您的范围内保持一致</strong>而非追求完美。"
+        "q": "什么样的功率平衡被认为是「好」的？",
+        "a": "<strong>最佳范围：48-52%（与完美 50/50 偏差 ±2%）。</strong>研究表明，即使是专业自行车运动员通常也有 1-3% 的自然不对称 — 完美对称很少见，对于高水平表现也不是必需的。<br><br><strong>关键见解：</strong>一致性比完美更重要。一个持续 48/52 的骑手比一个在 45/55 和 52/48 之间波动的骑手状态更好。KPedal 跟踪您的个人基线，以便您发现偏差。<br><br><strong>何时需要关注：</strong>在多次骑行中持续超过 5% 的不对称可能表明自行车适配问题、肌肉不平衡或正在发展的伤病。如果您注意到典型模式的突然变化，在问题恶化之前进行调查。"
       },
       "q5": {
         "q": "为什么 70-80% 的扭矩效率是最佳的，而不是更高？",
-        "a": "基于 <strong>Wattbike 研究</strong>：超过 80% TE，您可能在上拉阶段过度用力。这会浪费能量，实际上可能降低总功率输出。70-80% 的范围表明您在整个踩踏过程中有效施力，而不会在恢复阶段与自己对抗。"
+        "a": "<strong>科学原理：</strong>扭矩效率测量您踩踏行程中产生前进动力的百分比。TE =（正向扭矩 - 负向扭矩）÷ 正向扭矩 × 100。<br><br><strong>为什么不追求 100%？</strong>来自 Wattbike 和运动科学实验室的研究表明，TE 超过 80% 时，骑行者通常在上拉阶段过度用力。这会低效地调用髋屈肌，增加代谢成本，实际上可能降低可持续功率输出。<br><br><strong>70-80% 的最佳区间</strong>表明在动力阶段（12 点到 6 点位置）有效施力，而不会在恢复阶段浪费能量。精英自行车运动员在持续努力时自然落在这个范围内。<br><br><strong>较低的 TE（低于 65%）</strong>表明您在「踩踏板」— 全是下踩，没有跟进。这在疲劳时或在非常高的功率输出时很常见。"
       },
       "q6": {
-        "q": "踏频平滑度到底测量什么？",
-        "a": "<strong>公式：</strong>PS = (平均功率 ÷ 峰值功率) × 100。<br>更高的 PS 意味着整个踩踏过程中更一致的功率施加。<strong>20%+ 对大多数骑行者来说是好的</strong>。冲刺型骑手通常 PS 较低（爆发性、有冲击力的功率），而耐力型骑手倾向于更高值。"
+        "q": "踏频流畅度到底测量什么？",
+        "a": "<strong>公式：</strong>PS =（整个踩踏行程的平均功率 ÷ 峰值功率）× 100。<br><br><strong>含义：</strong>较高的 PS 表示在整个 360° 旋转过程中功率输出更均匀。较低的 PS 意味着您在尖峰时产生功率（通常在 3 点钟位置）。<br><br><strong>典型数值：</strong><br>• 15-20%：休闲骑行者的正常水平<br>• 20-25%：良好，高效踩踏<br>• 25%+：优秀，非常流畅的功率输出<br><br><strong>情境很重要：</strong>冲刺型选手自然 PS 较低（爆发性功率输出是目标）。爬坡选手和计时赛选手从较高的 PS 中受益。在间歇训练中，随着功率增加 PS 会下降 — 这是正常的。<br><br><strong>提高 PS：</strong>单腿训练、高踏频转动（100+ RPM）以及专注于「画圈」而不是踩踏可以随时间提高流畅度。"
       },
       "q7": {
         "q": "骑行得分是如何计算的？",
-        "a": "<strong>加权公式：</strong>平衡 (40%) + TE (35%) + PS (25%)。<br>每个指标根据在最佳区间的时间评分 0-100。<br><strong>85+</strong> = 出色技术<br><strong>70-84</strong> = 良好，有小改进空间<br><strong>低于 70</strong> = 有较大改进空间"
+        "a": "<strong>加权公式：</strong>平衡贡献 40%，扭矩效率 35%，踏频流畅度 25%。<br><br><strong>每个指标如何评分（0-100）：</strong><br>• 平衡：基于骑行时间在 ±2.5% 偏离 50/50 范围内的百分比<br>• TE：基于在 70-80% 范围内的时间<br>• PS：基于在 20% 以上的时间<br><br><strong>得分解读：</strong><br>• <strong>90-100：</strong>精英级技术，整个骑行保持一致<br>• <strong>80-89：</strong>优秀，有小幅优化空间<br>• <strong>70-79：</strong>良好基础，有明确的改进领域<br>• <strong>60-69：</strong>一般，建议进行专注的技术训练<br>• <strong>低于 60：</strong>有显著改进潜力<br><br><strong>专业提示：</strong>比较相似骑行类型的得分。您的间歇训练得分与耐力骑行会有所不同 — 两者都是各自努力类型的有效基线。"
       },
       "q8": {
         "q": "引导式训练是如何工作的？",
-        "a": "训练是结构化练习，屏幕上显示实时目标。例如：「单腿专注「要求您在一条腿上保持 55-60% 平衡 30 秒。KPedal 跟踪您的<strong>达标时间</strong>并在结束时给出得分。非常适合热身、恢复骑行或专门的技术训练。"
+        "a": "<strong>训练是带有实时视觉反馈的结构化练习。</strong>每个训练有多个阶段，在您的 Karoo 屏幕上显示特定目标。<br><br><strong>示例 — 单腿专注训练：</strong><br>1. 热身阶段：30 秒自然平衡<br>2. 左腿专注：45 秒目标 55-60% 左腿<br>3. 恢复：15 秒<br>4. 右腿专注：45 秒目标 55-60% 右腿<br>5. 放松：30 秒自然平衡<br><br><strong>评分：</strong>KPedal 跟踪您每个阶段的达标时间。在阶段持续时间的 80% 以上达到目标范围即为「通过」该环节。您的最终训练得分反映整体准确性。<br><br><strong>训练类别：</strong><br>• <strong>专注：</strong>隔离单个指标（平衡、TE 或 PS）<br>• <strong>挑战：</strong>渐进难度，多个指标<br>• <strong>锻炼：</strong>较长的课程，结合技术与努力"
       },
       "q9": {
         "q": "我可以创建自己的自定义训练吗？",
-        "a": "<strong>可以。</strong>自定义训练让您定义自己的阶段、目标和持续时间。创建针对您特定弱点的训练 — 也许是 45 秒高 TE 专注后跟 30 秒平衡训练。您的自定义训练保存在本地并同步到云端。"
+        "a": "<strong>可以 — 自定义训练构建器让您设计您需要的内容。</strong><br><br><strong>您可以自定义：</strong><br>• 阶段数量（1-10）<br>• 每阶段持续时间（10 秒到 5 分钟）<br>• 目标指标（平衡、TE、PS 或组合）<br>• 目标范围（例如 45-48% 平衡，75-85% TE）<br>• 阶段名称和说明<br><br><strong>针对左腿弱点的自定义训练示例：</strong><br>1.「热身」— 60 秒，无目标<br>2.「左腿激活」— 45 秒，平衡 54-58% 左<br>3.「休息」— 20 秒，无目标<br>4.「左腿发力」— 45 秒，平衡 56-60% 左<br>5.「均衡」— 30 秒，平衡 48-52%<br><br><strong>同步：</strong>自定义训练保存到您的设备，启用后同步到云端。在任何关联的 Karoo 上访问它们，或在网页仪表盘上查看训练历史。"
       },
       "q10": {
         "q": "什么会触发骑行中警报？",
-        "a": "<strong>可配置阈值：</strong><br>• 平衡：不对称超过设定限制（默认 5%）<br>• TE：低于最低值（默认 60%）<br>• PS：低于最低值（默认 15%）<br>警报使用<strong>振动 + 提示音</strong>。冷却时间（15秒-2分钟）防止过多提醒。您可以独立启用/禁用每个指标。"
+        "a": "<strong>当指标偏离您配置的阈值时，警报会通知您。</strong><br><br><strong>可配置触发条件：</strong><br>• <strong>平衡：</strong>不对称超过限制（默认：5% — 在 45/55 或更差时触发）<br>• <strong>扭矩效率：</strong>低于最低值（默认：60%）<br>• <strong>踏频流畅度：</strong>低于最低值（默认：15%）<br><br><strong>警报方式：</strong><br>• 振动（短促震动模式）<br>• 音频提示（如果 Karoo 声音已启用）<br>• 屏幕闪烁（细微颜色脉冲）<br><br><strong>智能冷却：</strong>警报触发后，有一个可配置的冷却时间（15 秒到 2 分钟），之后才能再次触发。这可以防止在持续高强度努力期间警报过多。<br><br><strong>每指标控制：</strong>可以独立启用或禁用每个指标的警报。许多骑手只想要平衡警报，而更愿意在骑行后检查 TE/PS。"
       },
       "q11": {
         "q": "KPedal 在没有网络的情况下能用吗？",
-        "a": "<strong>100% 可以。</strong>所有核心功能 — 数据收集、训练、警报、骑行历史 — 完全离线工作。云同步是可选的，只有在您启用后才激活。您的数据始终首先存储在 Karoo 本地。重新联网时会自动同步。"
+        "a": "<strong>可以 — KPedal 完全支持离线使用。</strong>所有核心功能无需任何网络连接即可工作。<br><br><strong>离线可用：</strong><br>• 骑行中实时数据收集<br>• 所有 5 种数据字段类型<br>• 完整训练库（内置和自定义）<br>• 警报系统<br>• 骑行历史和统计<br>• 成就追踪<br><br><strong>需要网络（可选）：</strong><br>• 首次 Google 登录（一次性）<br>• 骑行数据云同步<br>• 网页仪表盘访问<br><br><strong>同步工作原理：</strong>骑行始终首先保存在本地。当您恢复在线且启用了云同步时，数据会在后台自动上传。如果您从不启用云同步，您的数据将完全保留在 Karoo 上 — 由您决定。"
       },
       "q12": {
         "q": "KPedal 会耗费 Karoo 电池吗？",
-        "a": "<strong>影响很小：活动骑行期间每小时约多 1-2%</strong>。KPedal 仅在骑行时运行数据收集。骑行之间，只有一个很小的监听器等待骑行开始 — 功耗可忽略不计。已针对效率进行大量优化。"
+        "a": "<strong>影响：骑行期间每小时约多 1-2% 的电池消耗。</strong><br><br><strong>为什么影响很小：</strong><br>• KPedal 仅在您骑行时主动处理数据<br>• 骑行之间，一个轻量级监听器等待骑行开始 — 几乎零功耗<br>• 不使用 GPS（Karoo 处理）<br>• 无持续后台轮询<br>• 高效数据存储（批量写入，非持续 I/O）<br><br><strong>实际示例：</strong>在 4 小时骑行中，与不使用 KPedal 相比，预计约多 4-8% 的电池使用。考虑到 Karoo 3 超过 12 小时的电池续航，这对大多数骑行来说可以忽略不计。<br><br><strong>优化提示：</strong>如果您进行超长耐力赛事并需要最大电池续航，可以禁用 KPedal 数据字段（后台收集仍然工作）并关闭警报。"
       },
       "q13": {
         "q": "我可以在多台 Karoo 设备上同步数据吗？",
-        "a": "<strong>可以。</strong>将多台 Karoo 连接到您的账户。设置在它们之间自动同步。所有设备的骑行都显示在一个统一的仪表盘中。非常适合备用 Karoo、比赛和训练设备，或升级到新设备时。"
+        "a": "<strong>可以 — 将多台 Karoo 关联到一个账户即可无缝同步。</strong><br><br><strong>工作原理：</strong><br>1. 在每台 Karoo 上安装 KPedal<br>2. 在每台设备上使用相同的 Google 账户登录<br>3. 在每台设备上启用云同步<br><br><strong>同步内容：</strong><br>• 所有骑行数据和每分钟快照<br>• 您创建的自定义训练<br>• 警报设置和阈值<br>• 成就进度<br><br><strong>使用场景：</strong><br>• 比赛日备用 Karoo<br>• 不同自行车上的不同 Karoo<br>• 从 Karoo 2 升级到 Karoo 3<br>• 与教练分享技术数据（他们需要您的登录）<br><br><strong>冲突解决：</strong>如果您同时在两台设备上骑行（不常见但可能），两次骑行都会以各自的时间戳保存。设置同步使用「最后写入优先」— 最近的更改生效。"
       },
       "q14": {
         "q": "成就系统是如何工作的？",
-        "a": "当您达到里程碑时解锁成就：骑行次数、总小时数、连续记录、技术改进。例如：「铁人平衡「（10 次骑行不对称 <2%）、「百骑俱乐部「（100 次追踪骑行）。成就同步到云端并显示在网页仪表盘上。"
+        "a": "<strong>成就奖励一致性和技术里程碑。</strong><br><br><strong>成就类别：</strong><br>• <strong>数量：</strong>追踪的总骑行次数、骑行小时数、骑行公里数<br>• <strong>坚持：</strong>骑行连续记录（连续骑行的天数/周数）<br>• <strong>技术：</strong>骑行得分、在最佳区间的时间、指标改进<br>• <strong>训练：</strong>完成的训练次数、满分次数、训练类型多样性<br><br><strong>成就示例：</strong><br>•「首次骑行」— 完成您的第一次追踪骑行<br>•「铁人平衡」— 10 次骑行平均不对称低于 2%<br>•「百骑俱乐部」— 追踪 100 次骑行<br>•「流畅操作者」— 整个骑行保持 25%+ PS<br>•「训练教官」— 完成 50 次训练<br><br><strong>进度追踪：</strong>在网页仪表盘上查看您的成就进度。一些成就有铜/银/金等级（例如 10/50/100 次骑行）。成就同步到云端并在设备间保留。"
       },
       "q15": {
         "q": "我可以在 Garmin、Wahoo 或其他自行车电脑上使用 KPedal 吗？",
-        "a": "<strong>不可以。</strong>KPedal 是专门为 Hammerhead Karoo 使用其官方 karoo-ext SDK 构建的。它访问 ANT+ Cycling Dynamics 数据、原生警报系统和骑行状态监控 — 这些深度集成在其他平台上不可用。"
+        "a": "<strong>不可以 — KPedal 专为 Hammerhead Karoo 设计。</strong><br><br><strong>技术原因：</strong>KPedal 使用 Hammerhead 的官方 karoo-ext SDK 构建，该 SDK 提供与以下功能的深度集成：<br>• ANT+ Cycling Dynamics 数据流<br>• 原生骑行状态检测（开始/暂停/停止）<br>• 系统警报基础设施（振动、声音）<br>• 数据字段渲染引擎<br>• 后台服务权限<br><br>这些集成在 Garmin、Wahoo 或其他平台上不存在。每个平台都需要使用各自（通常更受限）的 SDK 从头构建完全不同的应用。<br><br><strong>未来平台：</strong>目前没有将 KPedal 移植到其他设备的计划。该项目专注于做好一件事，而不是在多个平台上分散精力。"
       },
       "q16": {
         "q": "我的数据是私密和安全的吗？",
-        "a": "<strong>是的。</strong>除非您启用云同步，否则数据保留在 Karoo 上。云端使用 <strong>Google 登录</strong> — 我们永远不会看到或存储您的密码。没有追踪像素、没有广告、不出售数据。整个项目是<strong>开源的</strong> — 您可以在 GitHub 上自己审核代码。"
+        "a": "<strong>是的 — 隐私是核心设计原则。</strong><br><br><strong>本地优先架构：</strong><br>• 所有数据首先存储在您的 Karoo 上<br>• 云同步是可选加入的，不是默认启用<br>• 您可以无限期使用 KPedal 而无需创建账户<br><br><strong>如果您启用云同步：</strong><br>• 通过 Google 登录进行身份验证 — 我们永远不会看到或存储您的密码<br>• 数据通过 HTTPS（TLS 1.3）传输<br>• 存储在 Cloudflare 的全球基础设施中<br>• 无第三方分析或追踪<br>• 无广告、不出售数据、无「匿名」使用统计<br><br><strong>开源透明：</strong>整个代码库 — Android 应用、Web API 和网页仪表盘 — 在 GitHub 上公开。审核收集了哪些数据以及如何处理。如果您发现安全问题，请负责任地报告。"
       },
       "q17": {
         "q": "为什么我的平衡在不同功率输出下会变化？",
-        "a": "这是正常的。在低功率时，轻微的技术变化会被放大。在高功率时，您倾向于更均匀地调动肌肉。许多骑行者在耐力配速与阈值时不对称相差 2-3%。KPedal 跟踪这些，以便您识别模式并改进弱点。"
+        "a": "<strong>这是完全正常的，在自行车运动科学中有充分记录。</strong><br><br><strong>模式：</strong>大多数骑行者在低功率（1-2 区）时比高功率（4-5 区）时不对称多 2-4%。有些骑手表现出相反的模式。<br><br><strong>为什么会这样：</strong><br>• <strong>低功率：</strong>较小的力量意味着微小的技术变化会产生较大的百分比影响。当努力轻松时，您的优势腿可能会「接管」。<br>• <strong>高功率：</strong>双腿的最大调动往往使事情均衡。您更加专注，双侧调动更多肌肉群。<br>• <strong>疲劳：</strong>随着疲劳，您较弱的腿会更快疲劳，增加不对称。这是配速的宝贵数据。<br><br><strong>利用这一见解：</strong>KPedal 的每分钟快照让您确切看到平衡在骑行过程中如何变化。与功率区间关联以了解您的个人模式，并相应地针对训练。"
       },
       "q18": {
         "q": "我应该多久做一次技术训练？",
-        "a": "<strong>每周 2-3 次</strong>是一个好的起点。在热身中加入（5-10 分钟）或将恢复骑行专门用于技术训练。坚持比训练量更重要 — 规律的短训练胜过偶尔的长训练。通过训练得分随时间跟踪进度。"
+        "a": "<strong>建议：每周 2-3 次专门训练，加上将训练融入热身。</strong><br><br><strong>有效方法：</strong><br>• <strong>热身融入：</strong>每次骑行开始时 5-10 分钟训练。低强度，高专注。非常适合肌肉激活。<br>• <strong>恢复骑行专注：</strong>利用轻松日进行延长技术训练（20-30 分钟）。低功率意味着您可以专注于姿势。<br>• <strong>专门训练：</strong>每周 30-45 分钟以技术为重点的骑行。结构化训练渐进与休息间隔。<br><br><strong>进阶策略：</strong><br>1. 从单指标训练开始（仅平衡、仅 TE）<br>2. 进展到多指标挑战<br>3. 随时间增加持续时间并收紧目标范围<br>4. 每周追踪训练得分 — 目标是逐步改进，而非完美<br><br><strong>关键见解：</strong>坚持比强度更重要。一周内三次 10 分钟的训练比一次 30 分钟的训练更能提高您的技术。神经适应需要规律强化。"
       }
     },
     "cta": {
@@ -1957,6 +1964,85 @@
       "privacyPolicy": "隐私政策",
       "signIn": "登录",
       "madeWith": "用爱为 Karoo 社区制作"
+    }
+  },
+  "start": {
+    "title": "设置 KPedal",
+    "subtitle": "5分钟开始实时踏频分析",
+    "progress": "{completed}/{total} 完成",
+    "reset": "重置",
+    "optional": "可选",
+    "continue": "继续",
+    "done": "完成",
+    "skip": "跳过",
+    "steps": {
+      "install": {
+        "title": "安装应用",
+        "time": "2分钟",
+        "intro": "您需要在手机上安装 <strong>Hammerhead Companion</strong> 应用才能将 KPedal 安装到您的 Karoo 上。",
+        "hasCompanion": "我已安装 Companion 应用",
+        "downloadApk": "下载 APK",
+        "opensGithub": "打开 GitHub Releases",
+        "step1": "在 GitHub 上，点击 <code>.apk</code> 文件进行下载",
+        "step2": "打开<strong>下载</strong>，长按文件 → <strong>分享</strong>",
+        "step3": "选择 <strong>Hammerhead Companion</strong>",
+        "step4": "在 Karoo 上提示时点击<strong>安装</strong>",
+        "installed": "KPedal 已安装在我的 Karoo 上"
+      },
+      "fields": {
+        "title": "添加到配置文件",
+        "time": "1分钟",
+        "intro": "将 KPedal 数据字段添加到您的骑行配置文件，以便在骑行期间查看指标。",
+        "step1": "在 Karoo 上：<strong>配置文件</strong> → 选择您的配置文件",
+        "step2": "点击任意数据页面 → <strong>添加字段</strong>",
+        "step3": "滚动到 <strong>KPedal</strong> 部分",
+        "step4": "添加<strong>快速概览</strong>（推荐初始使用）",
+        "allFields": "所有可用字段",
+        "fieldQuickGlance": "<strong>快速概览</strong> — 平衡+效率一目了然",
+        "fieldPowerBalance": "<strong>功率平衡</strong> — 带可视化条的左/右显示",
+        "fieldEfficiency": "<strong>效率</strong> — 扭矩效率+平滑度",
+        "fieldFullOverview": "<strong>完整概览</strong> — 所有指标综合显示",
+        "fieldBalanceTrend": "<strong>平衡趋势</strong> — 5分钟滚动图表"
+      },
+      "configure": {
+        "title": "调整设置",
+        "time": "1分钟",
+        "intro": "默认设置适合大多数骑手。如有需要可进行调整。",
+        "step1": "在 Karoo 上：<strong>设置</strong> → <strong>应用</strong> → <strong>KPedal</strong>",
+        "whatYouCanAdjust": "可调整项目",
+        "optionBalance": "<strong>平衡阈值</strong> — 可接受的左/右不平衡程度（默认±2.5%）",
+        "optionAlerts": "<strong>警报</strong> — 指标偏离时的振动/声音提醒",
+        "optionDrills": "<strong>训练</strong> — 改善技术的指导练习"
+      },
+      "sync": {
+        "title": "云同步",
+        "time": "1分钟",
+        "intro": "可选：将骑行同步到网页仪表板进行详细分析。",
+        "step1": "在 Karoo 上：打开 KPedal 应用 → <strong>关联账户</strong>",
+        "step2": "您将看到一个8位代码",
+        "step3": "在手机上访问：",
+        "step4": "输入代码并使用 Google 登录",
+        "note": "KPedal 完全支持离线使用。云同步只是添加网页仪表板功能。"
+      }
+    },
+    "completion": {
+      "title": "准备好骑行了！",
+      "subtitle": "在您的 Karoo 上开始骑行，查看踏频指标。",
+      "optimal": "最佳",
+      "attention": "注意",
+      "problem": "问题",
+      "webDashboard": "网页仪表板"
+    },
+    "footer": {
+      "home": "首页",
+      "privacy": "隐私",
+      "github": "GitHub",
+      "copyright": "© {year} KPedal",
+      "madeFor": "为 Karoo 骑行者打造"
+    },
+    "meta": {
+      "title": "开始使用 — KPedal",
+      "description": "5分钟在您的 Karoo 上设置 KPedal。下载、安装，开始追踪您的踏频效率。"
     }
   },
   "aria": {

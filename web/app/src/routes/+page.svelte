@@ -9,6 +9,7 @@
   import { API_URL } from '$lib/config';
   import { getDemoDashboard } from '$lib/demoData';
   import InfoTip from '$lib/components/InfoTip.svelte';
+  import Footer from '$lib/components/Footer.svelte';
   import { t, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
 
   interface Stats {
@@ -2001,47 +2002,7 @@
         </div>
       </section>
 
-      <!-- Footer -->
-      <footer class="landing-footer" role="contentinfo">
-        <div class="footer-top">
-          <div class="footer-brand">
-            <div class="footer-logo" aria-hidden="true">
-              <span class="logo-dot small"></span>
-              <span class="footer-brand-name">{$t('app.name')}</span>
-            </div>
-            <p class="footer-tagline">{$t('landing.footer.tagline')}</p>
-          </div>
-
-          <nav class="footer-nav" aria-label={$t('aria.footerNav')}>
-            <div class="footer-col">
-              <h4>{$t('landing.footer.product')}</h4>
-              <a href="#features">{$t('landing.footer.features')}</a>
-              <a href="#datafields">{$t('landing.footer.dataFields')}</a>
-              <a href="#drills">{$t('landing.footer.drills')}</a>
-            </div>
-            <div class="footer-col">
-              <h4>{$t('landing.footer.resources')}</h4>
-              <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer">{$t('landing.footer.github')}</a>
-              <a href="https://github.com/yrkan/kpedal/releases" target="_blank" rel="noopener noreferrer">{$t('landing.footer.releases')}</a>
-              <a href="https://github.com/yrkan/kpedal/issues" target="_blank" rel="noopener noreferrer">{$t('landing.footer.reportIssue')}</a>
-            </div>
-            <div class="footer-col">
-              <h4>{$t('landing.footer.legal')}</h4>
-              <a href="/privacy">{$t('landing.footer.privacyPolicy')}</a>
-              <button class="footer-link-btn" on:click={handleLogin}>{$t('landing.footer.signIn')}</button>
-            </div>
-          </nav>
-        </div>
-
-        <div class="footer-bottom">
-          <p>{$t('landing.footer.madeWith')}</p>
-          <a href="https://github.com/yrkan/kpedal" target="_blank" rel="noopener noreferrer" class="footer-github" aria-label={$t('aria.viewGitHub')}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </a>
-        </div>
-      </footer>
+      <Footer />
     </article>
   </div>
 {:else}
@@ -2064,9 +2025,15 @@
             <div class="dash-controls">
               <div class="period-selector">
                 <button class="period-btn" class:active={selectedPeriod === '7'} on:click={() => selectedPeriod = '7'}>7d</button>
-                <button class="period-btn" class:active={selectedPeriod === '14'} on:click={() => selectedPeriod = '14'} disabled={ridesIn14Days === ridesIn7Days}>14d</button>
-                <button class="period-btn" class:active={selectedPeriod === '30'} on:click={() => selectedPeriod = '30'} disabled={ridesIn30Days === ridesIn14Days}>30d</button>
-                <button class="period-btn" class:active={selectedPeriod === '60'} on:click={() => selectedPeriod = '60'} disabled={ridesIn60Days === ridesIn30Days}>60d</button>
+                {#if ridesIn14Days > ridesIn7Days}
+                  <button class="period-btn" class:active={selectedPeriod === '14'} on:click={() => selectedPeriod = '14'}>14d</button>
+                {/if}
+                {#if ridesIn30Days > ridesIn14Days}
+                  <button class="period-btn" class:active={selectedPeriod === '30'} on:click={() => selectedPeriod = '30'}>30d</button>
+                {/if}
+                {#if ridesIn60Days > ridesIn30Days}
+                  <button class="period-btn" class:active={selectedPeriod === '60'} on:click={() => selectedPeriod = '60'}>60d</button>
+                {/if}
               </div>
             </div>
           </header>
@@ -4694,92 +4661,6 @@
     margin: 0;
   }
 
-  /* Footer - WattRamp style */
-  .landing-footer {
-    padding: 60px 0 40px;
-    border-top: 1px solid var(--border-subtle);
-  }
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 48px;
-    margin-bottom: 40px;
-  }
-  .footer-brand {
-    max-width: 200px;
-  }
-  .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .footer-brand-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
-  }
-  .footer-tagline {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-  .footer-nav {
-    display: flex;
-    gap: 56px;
-  }
-  .footer-col {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .footer-col h4 {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
-  .footer-col a,
-  .footer-link-btn {
-    font-size: 14px;
-    color: var(--text-secondary);
-    text-decoration: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    text-align: left;
-    font-family: inherit;
-    transition: color 0.15s ease;
-  }
-  .footer-col a:hover,
-  .footer-link-btn:hover {
-    color: var(--text-primary);
-  }
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 24px;
-    border-top: 1px solid var(--border-subtle);
-  }
-  .footer-bottom p {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin: 0;
-  }
-  .footer-github {
-    color: var(--text-muted);
-    transition: color 0.15s ease;
-  }
-  .footer-github:hover {
-    color: var(--text-primary);
-  }
-
   /* Dashboard (authenticated) - Compact Design */
   .dashboard { padding: 24px 0 48px; }
   .loading-state, .error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; gap: 16px; color: var(--text-secondary); }
@@ -6228,7 +6109,7 @@
     .metric-chip-unit { font-size: 11px; }
 
     /* Trends Row */
-    .trends-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .trends-row { grid-template-columns: 1fr; gap: 12px; }
     .trend-card { padding: 10px; }
     .trend-card-header { flex-wrap: nowrap; min-height: 28px; }
     .trend-card-title { font-size: 13px; white-space: nowrap; }
@@ -6343,26 +6224,6 @@
       min-height: 48px;
     }
 
-    /* Footer */
-    .landing-footer { padding: 48px 20px 32px; }
-    .footer-top { flex-direction: column; gap: 32px; align-items: center; }
-    .footer-brand { max-width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; }
-    .footer-logo { justify-content: center; }
-    .footer-nav { display: flex; justify-content: center; gap: 48px; }
-    .footer-col {
-      align-items: center;
-      text-align: center;
-      gap: 10px;
-    }
-    .footer-col h4 { font-size: 11px; }
-    .footer-col a, .footer-link-btn {
-      font-size: 14px;
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .footer-bottom { justify-content: center; gap: 20px; }
   }
 
   /* ============================================
@@ -6778,58 +6639,6 @@
       font-size: 15px;
     }
 
-    /* Footer - simplified single column */
-    .landing-footer { padding: 32px 20px 24px; }
-    .footer-top { gap: 28px; align-items: center; }
-    .footer-brand { text-align: center; display: flex; flex-direction: column; align-items: center; }
-    .footer-logo { justify-content: center; }
-    .footer-brand-name { font-size: 17px; }
-    .footer-tagline { font-size: 13px; }
-    .footer-nav {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 24px 32px;
-    }
-    .footer-col {
-      display: none; /* Hide column headers on mobile */
-    }
-    .footer-col h4 { display: none; }
-    .footer-col a, .footer-link-btn {
-      display: inline-flex;
-      font-size: 14px;
-      padding: 8px 4px;
-      min-height: 44px;
-      align-items: center;
-      justify-content: center;
-    }
-    /* Show links directly without columns */
-    .footer-nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px 24px;
-    }
-    .footer-col {
-      display: contents;
-    }
-    .footer-bottom {
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      padding-top: 24px;
-      font-size: 13px;
-    }
-    .footer-bottom p { text-align: center; }
-    .footer-github {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .footer-github svg { width: 20px; height: 20px; }
   }
 
   /* ============================================
@@ -6887,11 +6696,6 @@
     .cta-subtext { font-size: 12px; }
     .cta-btn.large { padding: 12px 20px; font-size: 14px; }
 
-    /* Footer */
-    .landing-footer { padding: 28px 16px 20px; }
-    .footer-nav { gap: 6px 20px; }
-    .footer-col a, .footer-link-btn { font-size: 13px; }
-    .footer-bottom { font-size: 12px; gap: 12px; }
   }
 
   /* ============================================
@@ -6906,9 +6710,7 @@
     .drill-item:hover,
     .metric-deep-card:hover,
     .works-card:hover,
-    .req-card:hover,
-    .footer-col a:hover,
-    .footer-link-btn:hover {
+    .req-card:hover {
       transform: none;
     }
 

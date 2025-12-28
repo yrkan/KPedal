@@ -37,6 +37,13 @@
     "profile": "Profiel",
     "logout": "Uitloggen"
   },
+  "footer": {
+    "start": "Aan de slag",
+    "login": "Inloggen",
+    "linkDevice": "Apparaat koppelen",
+    "privacy": "Privacy",
+    "support": "Ondersteuning"
+  },
   "auth": {
     "signIn": "Inloggen",
     "signOut": "Uitloggen",
@@ -1866,75 +1873,75 @@
       "title": "Veelgestelde vragen",
       "q1": {
         "q": "Welke vermogensmeter-pedalen zijn compatibel?",
-        "a": "<strong>Volledige ondersteuning (Balans + KE + TV):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Alleen balans:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Elke pedaal die ANT+ Cycling Dynamics verzendt werkt."
+        "a": "<strong>Volledige ondersteuning (Balans + KE + TV):</strong> Garmin Rally RS/XC, Favero Assioma Duo/Duo-Shi, SRM X-Power, PowerTap P2, Wahoo SPEEDPLAY Powrlink Zero. Deze pedalen verzenden volledige ANT+ Cycling Dynamics-gegevens inclusief links/rechts balans, koppeleffectiviteit en trapvloeiendheid.<br><br><strong>Alleen balans:</strong> Wahoo POWRLINK Zero (enkelzijdig), Stages LR, 4iiii Precision Dual, Rotor 2INpower, Power2Max NG/NGeco. Deze leveren nauwkeurige balansgegevens maar verzenden geen KE/TV-metingen.<br><br><strong>Niet compatibel:</strong> Enkelzijdige vermogensmeters die balans schatten (Stages enkel, 4iiii enkel, Assioma Uno) — KPedal vereist daadwerkelijke dubbelzijdige meting."
       },
       "q2": {
         "q": "Hoe installeer ik KPedal op mijn Karoo?",
-        "a": "<strong>Optie 1:</strong> Download APK van GitHub Releases → breng over via USB → open bestandsbeheer op Karoo → tik om te installeren.<br><strong>Optie 2:</strong> Open de GitHub release-link direct in de browser van Karoo en download.<br><strong>Optie 3:</strong> Gebruik ADB: <code>adb install kpedal.apk</code>"
+        "a": "<strong>Methode 1 — Directe download (eenvoudigst):</strong> Open op uw Karoo de browser en ga naar github.com/yrkan/kpedal/releases. Tik op het .apk-bestand om te downloaden, tik vervolgens op de melding om te installeren.<br><br><strong>Methode 2 — USB-overdracht:</strong> Download APK op computer → sluit Karoo aan via USB → kopieer naar Downloads-map → open op Karoo de Bestanden-app → tik op de APK → Installeren.<br><br><strong>Methode 3 — ADB (voor ontwikkelaars):</strong> Schakel Ontwikkelaarsmodus in op Karoo, verbind via USB, voer uit: <code>adb install kpedal-x.x.x.apk</code><br><br>Open na installatie KPedal eenmalig om machtigingen te verlenen en Achtergrondmodus in te schakelen voor automatische gegevensverzameling."
       },
       "q3": {
         "q": "Moet ik KPedal-gegevensvelden toevoegen aan mijn ritscherm?",
-        "a": "<strong>Nee.</strong> Met Achtergrondmodus ingeschakeld, verzamelt KPedal automatisch statistieken voor ALLE ritten — zelfs als u nooit een gegevensveld toevoegt. Gegevensvelden zijn optioneel en alleen voor het live bekijken van statistieken tijdens de rit. Uw volledige ritgeschiedenis wordt hoe dan ook opgeslagen."
+        "a": "<strong>Nee — gegevensvelden zijn volledig optioneel.</strong> Zodra u Achtergrondmodus inschakelt in KPedal-instellingen, verzamelt de app automatisch trapstatistieken voor elke rit die u maakt. Dit gebeurt stil op de achtergrond, ongeacht welke gegevensvelden u weergeeft.<br><br><strong>Waarom dan gegevensvelden toevoegen?</strong> Alleen als u uw statistieken live wilt zien tijdens de rit. Beschikbare velden: Snelle Blik (status + balans), Vermogensbalans (L/R met balk), Koppeleffectiviteit (L/R waarden), Trapvloeiendheid, Volledig Overzicht (alle statistieken), en Balanstrend (uitgesmeerd over tijd).<br><br>Uw volledige ritgeschiedenis met per-minuut snapshots wordt opgeslagen, of u nu gegevensvelden gebruikt of niet."
       },
       "q4": {
         "q": "Wat wordt beschouwd als een \"goede\" vermogensbalans?",
-        "a": "<strong>48-52%</strong> (±2% van 50/50) is optimaal. De meeste professionele wielrenners fietsen met 1-3% natuurlijke asymmetrie. Obsedeer niet over perfecte 50/50 — het is bijna onmogelijk en niet nodig. Focus op <strong>consistentie binnen uw bereik</strong> in plaats van perfectie najagen."
+        "a": "<strong>Optimaal bereik: 48-52% (±2% van perfecte 50/50).</strong> Onderzoek toont aan dat zelfs professionele wielrenners doorgaans 1-3% natuurlijke asymmetrie hebben — perfecte symmetrie is zeldzaam en niet noodzakelijk voor hoge prestaties.<br><br><strong>Belangrijk inzicht:</strong> Consistentie is belangrijker dan perfectie. Een fietser die consistent 48/52 rijdt is beter af dan iemand die schommelt tussen 45/55 en 52/48. KPedal volgt uw persoonlijke basislijn zodat u afwijkingen kunt opmerken.<br><br><strong>Wanneer u zich zorgen moet maken:</strong> Asymmetrie boven 5% aangehouden over meerdere ritten kan wijzen op een fietsafstellingsprobleem, spierdebalans of een zich ontwikkelende blessure. Als u plotselinge veranderingen in uw typische patroon opmerkt, onderzoek dit voordat het een probleem wordt."
       },
       "q5": {
-        "q": "Waarom is 70-80% Koppel-efficiëntie optimaal en niet hoger?",
-        "a": "Gebaseerd op <strong>Wattbike-onderzoek</strong>: boven 80% KE trekt u waarschijnlijk te hard aan de opwaartse slag. Dit verspilt energie en kan de totale vermogensoutput daadwerkelijk verminderen. Het 70-80% bereik geeft aan dat u kracht efficiënt toepast door de trapslag zonder uzelf tegen te werken in de herstelfase."
+        "q": "Waarom is 70-80% Koppeleffectiviteit optimaal en niet hoger?",
+        "a": "<strong>De wetenschap:</strong> Koppeleffectiviteit meet welk percentage van uw trapbeweging voorwaartse beweging produceert. KE = (positief koppel − negatief koppel) ÷ positief koppel × 100.<br><br><strong>Waarom niet streven naar 100%?</strong> Onderzoek van Wattbike en sportwetenschappelijke laboratoria toont aan dat boven 80% KE, fietsers doorgaans te hard trekken aan de opwaartse slag. Dit rekruteert heupflexoren inefficiënt, verhoogt de metabole kosten en kan de duurzame vermogensoutput daadwerkelijk verminderen.<br><br><strong>De 70-80% sweet spot</strong> geeft aan dat u kracht efficiënt toepast door de vermogensfase (12 uur naar 6 uur) zonder energie te verspillen aan het bestrijden van de herstelfase. Elite wielrenners vallen natuurlijk in dit bereik tijdens volgehouden inspanningen.<br><br><strong>Lagere KE (onder 65%)</strong> suggereert dat u op de pedalen \"stampt\" — alleen neerwaartse druk, geen doorvolging. Dit is gebruikelijk bij vermoeidheid of bij zeer hoge vermogensoutputs."
       },
       "q6": {
         "q": "Wat meet Trapvloeiendheid precies?",
-        "a": "<strong>Formule:</strong> TV = (gemiddeld vermogen ÷ piekvermogen) × 100.<br>Hogere TV betekent consistentere krachtstoepassing door de trapslag. <strong>20%+ is goed</strong> voor de meeste fietsers. Sprinters hebben doorgaans lagere TV (explosief, puntig vermogen), terwijl duurfietsers naar hogere waarden neigen."
+        "a": "<strong>Formule:</strong> TV = (gemiddeld vermogen door trapbeweging ÷ piekvermogen) × 100.<br><br><strong>Wat het betekent:</strong> Een hogere TV geeft gelijkmatigere vermogenslevering aan door de volledige 360° rotatie. Lagere TV betekent dat u vermogen produceert in scherpe pieken (typisch op de 3 uur positie).<br><br><strong>Typische waarden:</strong><br>• 15-20%: Normaal voor recreatieve fietsers<br>• 20-25%: Goed, efficiënt trappen<br>• 25%+: Uitstekend, zeer vloeiende vermogenslevering<br><br><strong>Context is belangrijk:</strong> Sprinters hebben natuurlijk lagere TV (explosieve vermogenslevering is het doel). Klimmers en tijdrijders profiteren van hogere TV. Tijdens intervallen daalt TV als vermogen stijgt — dit is normaal.<br><br><strong>TV verbeteren:</strong> Enkelbeenovefeningen, hoge cadans spinnen (100+ RPM) en focussen op \"cirkels trappen\" in plaats van stampen kan de vloeiendheid na verloop van tijd verhogen."
       },
       "q7": {
         "q": "Hoe wordt de Ritscore berekend?",
-        "a": "<strong>Gewogen formule:</strong> Balans (40%) + KE (35%) + TV (25%).<br>Elke statistiek wordt gescoord 0-100 gebaseerd op tijd in optimale zones.<br><strong>85+</strong> = Uitstekende techniek<br><strong>70-84</strong> = Goed, kleine verbeterpunten<br><strong>Onder 70</strong> = Aanzienlijke ruimte voor verbetering"
+        "a": "<strong>Gewogen formule:</strong> Balans draagt 40% bij, Koppeleffectiviteit 35% en Trapvloeiendheid 25%.<br><br><strong>Hoe elke metriek wordt gescoord (0-100):</strong><br>• Balans: Gebaseerd op percentage rit-tijd binnen ±2,5% van 50/50<br>• KE: Gebaseerd op tijd doorgebracht in 70-80% bereik<br>• TV: Gebaseerd op tijd doorgebracht boven 20%<br><br><strong>Score interpretatie:</strong><br>• <strong>90-100:</strong> Elite techniek, consistent door de rit<br>• <strong>80-89:</strong> Uitstekend, kleine ruimte voor optimalisatie<br>• <strong>70-79:</strong> Goede basislijn, duidelijke verbeterpunten<br>• <strong>60-69:</strong> Gemiddeld, gericht techniekwerk aanbevolen<br>• <strong>Onder 60:</strong> Aanzienlijk verbeterpotentieel<br><br><strong>Pro tip:</strong> Vergelijk scores over vergelijkbare rittypes. Uw intervalscore zal verschillen van uw duurrit — beide zijn geldige basislijnen voor hun respectievelijke inspanningen."
       },
       "q8": {
         "q": "Hoe werken de begeleide Oefeningen?",
-        "a": "Oefeningen zijn gestructureerde oefeningen met realtime doelen op het scherm. Voorbeeld: \"Enkelbeenfocus\" vraagt u om 55-60% balans op één been te behouden gedurende 30 seconden. KPedal volgt uw <strong>tijd-in-doel</strong> en geeft aan het einde een score. Perfect voor warming-ups, herstelritten of toegewijde technieksessies."
+        "a": "<strong>Oefeningen zijn gestructureerde trainingen met realtime visuele feedback.</strong> Elke oefening heeft meerdere fasen met specifieke doelen weergegeven op uw Karoo-scherm.<br><br><strong>Voorbeeld — Enkelbeenfocus oefening:</strong><br>1. Opwarmfase: 30 seconden op natuurlijke balans<br>2. Linkerfocus: 45 seconden gericht op 55-60% linkerbeen<br>3. Herstel: 15 seconden<br>4. Rechterfocus: 45 seconden gericht op 55-60% rechterbeen<br>5. Cooling-down: 30 seconden op natuurlijke balans<br><br><strong>Scoring:</strong> KPedal volgt uw tijd-in-doel voor elke fase. Behaal het doelbereik voor 80%+ van de faseduur om dat segment te \"halen\". Uw eindscore van de oefening weerspiegelt de totale nauwkeurigheid.<br><br><strong>Oefencategorieën:</strong><br>• <strong>Focus:</strong> Isoleer één metriek (balans, KE of TV)<br>• <strong>Uitdaging:</strong> Progressieve moeilijkheid, meerdere metrieken<br>• <strong>Workout:</strong> Langere sessies die techniek combineren met inspanning"
       },
       "q9": {
         "q": "Kan ik mijn eigen aangepaste oefeningen maken?",
-        "a": "<strong>Ja.</strong> Aangepaste oefeningen laten u uw eigen fasen, doelen en duren definiëren. Maak oefeningen afgestemd op uw specifieke zwaktes — misschien een 45-seconden hoge-KE focus gevolgd door 30 seconden balanswerk. Uw aangepaste oefeningen worden lokaal opgeslagen en synchroniseren naar de cloud."
+        "a": "<strong>Ja — de Aangepaste Oefening-bouwer laat u precies ontwerpen wat u nodig hebt.</strong><br><br><strong>U kunt aanpassen:</strong><br>• Aantal fasen (1-10)<br>• Duur per fase (10 seconden tot 5 minuten)<br>• Doelmetriek (Balans, KE, TV of combinatie)<br>• Doelbereik (bijv. 45-48% balans, 75-85% KE)<br>• Fasenamen en instructies<br><br><strong>Voorbeeld aangepaste oefening voor linkerbeen zwakte:</strong><br>1. \"Opwarmen\" — 60s, geen doel<br>2. \"Linker activatie\" — 45s, Balans 54-58% links<br>3. \"Rust\" — 20s, geen doel<br>4. \"Linker kracht\" — 45s, Balans 56-60% links<br>5. \"Egaliseren\" — 30s, Balans 48-52%<br><br><strong>Synchronisatie:</strong> Aangepaste oefeningen worden opgeslagen op uw apparaat en synchroniseren naar de cloud indien ingeschakeld. Benader ze op elke gekoppelde Karoo of bekijk oefengeschiedenis op het webdashboard."
       },
       "q10": {
         "q": "Wat activeert de waarschuwingen tijdens de rit?",
-        "a": "<strong>Configureerbare drempels:</strong><br>• Balans: asymmetrie overschrijdt uw ingestelde limiet (standaard 5%)<br>• KE: daalt onder minimum (standaard 60%)<br>• TV: daalt onder minimum (standaard 15%)<br>Waarschuwingen gebruiken <strong>trillen + piep</strong>. Cooldown (15s-2min) voorkomt spam. U kunt elke statistiek onafhankelijk in-/uitschakelen."
+        "a": "<strong>Waarschuwingen informeren u wanneer metrieken buiten uw geconfigureerde drempels drijven.</strong><br><br><strong>Configureerbare triggers:</strong><br>• <strong>Balans:</strong> Asymmetrie overschrijdt limiet (standaard: 5% — triggert bij 45/55 of slechter)<br>• <strong>Koppeleffectiviteit:</strong> Daalt onder minimum (standaard: 60%)<br>• <strong>Trapvloeiendheid:</strong> Daalt onder minimum (standaard: 15%)<br><br><strong>Waarschuwingsmethoden:</strong><br>• Trilling (kort buzz-patroon)<br>• Audiopiep (als Karoo-geluid is ingeschakeld)<br>• Schermflits (subtiele kleurpuls)<br><br><strong>Slimme cooldown:</strong> Nadat een waarschuwing afgaat, is er een configureerbare cooldown (15 seconden tot 2 minuten) voordat deze opnieuw kan triggeren. Dit voorkomt waarschuwingsspam tijdens aanhoudende zware inspanningen.<br><br><strong>Per-metriek controle:</strong> Schakel waarschuwingen voor elke metriek onafhankelijk in of uit. Veel fietsers willen alleen balanswaarschuwingen, bijvoorbeeld, en checken liever KE/TV na de rit."
       },
       "q11": {
         "q": "Werkt KPedal zonder internetverbinding?",
-        "a": "<strong>100% ja.</strong> Alle kernfuncties — gegevensverzameling, oefeningen, waarschuwingen, ritgeschiedenis — werken volledig offline. Cloudsync is optioneel en wordt alleen geactiveerd wanneer u het inschakelt. Uw gegevens worden altijd eerst lokaal op de Karoo opgeslagen. Synchronisatie gebeurt automatisch wanneer u weer online bent."
+        "a": "<strong>Ja — KPedal is volledig functioneel offline.</strong> Elke kernfunctie werkt zonder enige internetverbinding.<br><br><strong>Werkt offline:</strong><br>• Realtime gegevensverzameling tijdens ritten<br>• Alle 5 gegevensveldtypen<br>• Complete oefenbibliotheek (ingebouwd en aangepast)<br>• Waarschuwingssysteem<br>• Ritgeschiedenis en statistieken<br>• Prestatietracking<br><br><strong>Vereist internet (optioneel):</strong><br>• Initiële Google Sign-In (eenmalig)<br>• Cloudsync van ritgegevens<br>• Webdashboardtoegang<br><br><strong>Hoe sync werkt:</strong> Ritten worden altijd eerst lokaal opgeslagen. Wanneer u weer online bent en cloudsync is ingeschakeld, worden gegevens automatisch op de achtergrond geüpload. Als u nooit cloudsync inschakelt, blijven uw gegevens exclusief op de Karoo — uw keuze."
       },
       "q12": {
-        "q": "Zal KPedal mijn Karoo-batterij leegmaken?",
-        "a": "<strong>Minimale impact: ~1-2% extra per uur</strong> tijdens actieve ritten. KPedal draait alleen gegevensverzameling terwijl u fietst. Tussen ritten wacht alleen een kleine listener op ritstart — verwaarloosbaar stroomverbruik. Sterk geoptimaliseerd voor efficiëntie."
+        "q": "Zal KPedal mijn Karoo-batterij leegtrekken?",
+        "a": "<strong>Impact: ongeveer 1-2% extra batterijverbruik per uur tijdens ritten.</strong><br><br><strong>Waarom het minimaal is:</strong><br>• KPedal verwerkt alleen actief gegevens terwijl u in een rit bent<br>• Tussen ritten wacht een lichtgewicht listener op ritstart — bijna nul stroomverbruik<br>• Geen GPS-gebruik (Karoo handelt dat af)<br>• Geen continue achtergrondpolling<br>• Efficiënte gegevensopslag (gebatchte schrijfacties, niet constant I/O)<br><br><strong>Praktijkvoorbeeld:</strong> Op een 4-uursrit kunt u ruwweg 4-8% meer batterijverbruik verwachten vergeleken met rijden zonder KPedal. Gezien de 12+ uur batterijduur van Karoo 3 is dit verwaarloosbaar voor de meeste ritten.<br><br><strong>Optimalisatietip:</strong> Als u een ultra-endurance evenement doet en maximale batterij nodig hebt, kunt u KPedal-gegevensvelden uitschakelen (achtergrondverzameling werkt nog steeds) en waarschuwingen uitzetten."
       },
       "q13": {
         "q": "Kan ik gegevens synchroniseren over meerdere Karoo-apparaten?",
-        "a": "<strong>Ja.</strong> Koppel meerdere Karoos aan uw account. Instellingen synchroniseren automatisch tussen hen. Alle ritten van alle apparaten verschijnen in één unified dashboard. Perfect als u een reserve-Karoo hebt, race- en trainingsapparaten, of upgradet naar een nieuw apparaat."
+        "a": "<strong>Ja — koppel meerdere Karoos aan één account voor naadloze sync.</strong><br><br><strong>Hoe het werkt:</strong><br>1. Installeer KPedal op elke Karoo<br>2. Log in met hetzelfde Google-account op elk apparaat<br>3. Schakel cloudsync in op elk apparaat<br><br><strong>Wat synchroniseert:</strong><br>• Alle ritgegevens en per-minuut snapshots<br>• Aangepaste oefeningen die u hebt gemaakt<br>• Waarschuwingsinstellingen en drempels<br>• Prestatievoortgang<br><br><strong>Gebruikssituaties:</strong><br>• Reserve-Karoo voor wedstrijddag<br>• Verschillende Karoos op verschillende fietsen<br>• Upgraden van Karoo 2 naar Karoo 3<br>• Techniekgegevens delen met een coach (zij hebben uw login nodig)<br><br><strong>Conflictoplossing:</strong> Als u op twee apparaten tegelijk rijdt (ongebruikelijk maar mogelijk), worden beide ritten opgeslagen met hun respectievelijke tijdstempels. Instellingensync gebruikt \"laatste schrijfactie wint\" — de meest recente wijziging is van toepassing."
       },
       "q14": {
         "q": "Hoe werkt het Prestatiesysteem?",
-        "a": "Prestaties ontgrendelen wanneer u mijlpalen bereikt: ritaantal, totale uren, consistentiestreaks, techniekverbeteringen. Voorbeelden: \"IJzeren balans\" (10 ritten met <2% asymmetrie), \"Century Club\" (100 getrackte ritten). Prestaties synchroniseren naar de cloud en worden weergegeven op uw webdashboard."
+        "a": "<strong>Prestaties belonen consistentie en techniekmijlpalen.</strong><br><br><strong>Prestatiecategorieën:</strong><br>• <strong>Volume:</strong> Totaal aantal getrackte ritten, gefietste uren, afgelegde kilometers<br>• <strong>Consistentie:</strong> Fietsreeksen (dagen/weken achter elkaar met ritten)<br>• <strong>Techniek:</strong> Ritscores, tijd in optimale zones, metriekverbeteringen<br>• <strong>Oefeningen:</strong> Voltooide oefeningen, perfecte scores, variëteit aan oefentypen<br><br><strong>Voorbeeldprestaties:</strong><br>• \"Eerste Draai\" — Voltooi uw eerste getrackte rit<br>• \"IJzeren Balans\" — 10 ritten met gemiddelde asymmetrie onder 2%<br>• \"Century Club\" — 100 getrackte ritten<br>• \"Vloeiende Operator\" — Behoud 25%+ TV voor een volledige rit<br>• \"Drill Sergeant\" — Voltooi 50 oefeningen<br><br><strong>Voortgangsvolging:</strong> Bekijk uw prestatievoortgang op het webdashboard. Sommige prestaties hebben brons/zilver/goud niveaus (bijv. 10/50/100 ritten). Prestaties synchroniseren naar de cloud en blijven behouden over apparaten."
       },
       "q15": {
         "q": "Kan ik KPedal gebruiken met Garmin, Wahoo of andere fietscomputers?",
-        "a": "<strong>Nee.</strong> KPedal is specifiek gebouwd voor Hammerhead Karoo met hun officiële karoo-ext SDK. Het heeft toegang tot ANT+ Cycling Dynamics-gegevens, native waarschuwingssysteem en ritstatusmonitoring — diepe integraties niet beschikbaar op andere platforms."
+        "a": "<strong>Nee — KPedal is exclusief voor Hammerhead Karoo.</strong><br><br><strong>Technische reden:</strong> KPedal is gebouwd met Hammerhead's officiële karoo-ext SDK, die diepe integratie biedt met:<br>• ANT+ Cycling Dynamics datastromen<br>• Native ritstatus-detectie (start/pauze/stop)<br>• Systeemwaarschuwingsinfrastructuur (trilling, geluid)<br>• Gegevensveld render-engine<br>• Achtergronddienst-machtigingen<br><br>Deze integraties bestaan niet op Garmin, Wahoo of andere platformen. Elk zou een volledig andere app vereisen, van nul opgebouwd met hun respectievelijke (vaak beperktere) SDK's.<br><br><strong>Toekomstige platformen:</strong> Er zijn momenteel geen plannen om KPedal naar andere apparaten te porten. Het project richt zich op één ding goed doen in plaats van dun te spreiden over platformen."
       },
       "q16": {
         "q": "Zijn mijn gegevens privé en veilig?",
-        "a": "<strong>Ja.</strong> Gegevens blijven op uw Karoo tenzij u cloudsync inschakelt. Cloud gebruikt <strong>Google Sign-In</strong> — wij zien of bewaren nooit uw wachtwoord. Geen trackingpixels, geen advertenties, geen gegevensverkoop. Het hele project is <strong>open source</strong> — audit de code zelf op GitHub."
+        "a": "<strong>Ja — privacy is een kernprincipe van het ontwerp.</strong><br><br><strong>Lokaal-eerst architectuur:</strong><br>• Alle gegevens worden eerst op uw Karoo opgeslagen<br>• Cloudsync is opt-in, niet standaard<br>• U kunt KPedal onbeperkt gebruiken zonder ooit een account aan te maken<br><br><strong>Als u cloudsync inschakelt:</strong><br>• Authenticatie via Google Sign-In — wij zien of bewaren nooit uw wachtwoord<br>• Gegevens verzonden over HTTPS (TLS 1.3)<br>• Opgeslagen in Cloudflare's wereldwijde infrastructuur<br>• Geen third-party analytics of tracking<br>• Geen advertenties, geen gegevensverkoop, geen \"anonieme\" gebruiksstatistieken<br><br><strong>Open source transparantie:</strong> De gehele codebase — Android-app, web-API en webdashboard — is openbaar op GitHub. Audit precies welke gegevens worden verzameld en hoe ze worden behandeld. Als u een beveiligingsprobleem vindt, meld dit alstublieft verantwoord."
       },
       "q17": {
         "q": "Waarom verandert mijn balans bij verschillende vermogensoutputs?",
-        "a": "Dit is normaal. Bij laag vermogen worden kleine techniekVariaties versterkt. Bij hoog vermogen neigt u ertoe spieren gelijkmatiger te rekruteren. Veel fietsers zien 2-3% meer asymmetrie bij duurpace vs. drempel. KPedal volgt dit zodat u patronen kunt identificeren en aan zwakke punten kunt werken."
+        "a": "<strong>Dit is volledig normaal en goed gedocumenteerd in de wielerwetenschap.</strong><br><br><strong>Het patroon:</strong> De meeste fietsers tonen 2-4% meer asymmetrie bij laag vermogen (Zone 1-2) vergeleken met hoog vermogen (Zone 4-5). Sommige fietsers tonen het tegenovergestelde patroon.<br><br><strong>Waarom het gebeurt:</strong><br>• <strong>Laag vermogen:</strong> Kleinere krachten betekenen dat kleine techniekVariaties een buitenproportionele procentuele impact hebben. Uw dominante been kan \"overnemen\" wanneer de inspanning makkelijk is.<br>• <strong>Hoog vermogen:</strong> Maximale rekrutering van beide benen neigt dingen gelijk te trekken. U concentreert zich harder en activeert meer spiergroepen bilateraal.<br>• <strong>Vermoeidheid:</strong> Naarmate u vermoeid raakt, vermoeit uw zwakkere been sneller, wat asymmetrie verhoogt. Dit is waardevolle informatie voor pacing.<br><br><strong>Dit inzicht gebruiken:</strong> KPedal's per-minuut snapshots laten u precies zien hoe uw balans verandert door een rit. Correleer met vermogenszones om uw persoonlijke patroon te begrijpen en oefeningen dienovereenkomstig te richten."
       },
       "q18": {
         "q": "Hoe vaak moet ik techniek-oefeningen doen?",
-        "a": "<strong>2-3 keer per week</strong> is een goed startpunt. Neem ze op in warming-ups (5-10 min) of wijd herstelritten aan techniekwerk. Consistentie is belangrijker dan volume — regelmatige korte sessies verslaan incidentele lange. Volg voortgang via oefenscores in de tijd."
+        "a": "<strong>Aanbevolen: 2-3 toegewijde sessies per week, plus oefenintegratie in warming-ups.</strong><br><br><strong>Effectieve benaderingen:</strong><br>• <strong>Warming-up integratie:</strong> 5-10 minuten oefeningen aan het begin van elke rit. Lage intensiteit, hoge focus. Geweldig voor spieractivatie.<br>• <strong>Herstelrit focus:</strong> Gebruik makkelijke dagen voor uitgebreid techniekwerk (20-30 minuten). Laag vermogen betekent dat u zich kunt concentreren op vorm.<br>• <strong>Toegewijde sessies:</strong> Wekelijkse 30-45 minuten techniekgerichte rit. Gestructureerde oefenprogressies met rustintervallen.<br><br><strong>Progressiestrategie:</strong><br>1. Begin met enkelvoudige-metriek oefeningen (alleen balans, alleen KE)<br>2. Ga verder naar multi-metriek uitdagingen<br>3. Verhoog duur en verscherp doelbereiken na verloop van tijd<br>4. Volg oefenscores wekelijks — streef naar geleidelijke verbetering, niet perfectie<br><br><strong>Belangrijk inzicht:</strong> Consistentie verslaat intensiteit. Drie 10-minuten sessies verspreid over een week verbeteren uw techniek sneller dan één 30-minuten sessie. Neurale aanpassingen vereisen regelmatige versterking."
       }
     },
     "cta": {
@@ -1957,6 +1964,85 @@
       "privacyPolicy": "Privacybeleid",
       "signIn": "Inloggen",
       "madeWith": "Gemaakt met ❤️ voor de Karoo-gemeenschap"
+    }
+  },
+  "start": {
+    "title": "KPedal Instellen",
+    "subtitle": "5 minuten naar realtime trapanalyse",
+    "progress": "{completed}/{total} voltooid",
+    "reset": "Resetten",
+    "optional": "Optioneel",
+    "continue": "Doorgaan",
+    "done": "Klaar",
+    "skip": "Overslaan",
+    "steps": {
+      "install": {
+        "title": "App Installeren",
+        "time": "2 min",
+        "intro": "Je hebt de <strong>Hammerhead Companion</strong>-app op je telefoon nodig om KPedal op je Karoo te installeren.",
+        "hasCompanion": "Ik heb de Companion-app geïnstalleerd",
+        "downloadApk": "APK Downloaden",
+        "opensGithub": "Opent GitHub Releases",
+        "step1": "Op GitHub, tik op het <code>.apk</code>-bestand om te downloaden",
+        "step2": "Open <strong>Downloads</strong>, houd het bestand ingedrukt → <strong>Delen</strong>",
+        "step3": "Selecteer <strong>Hammerhead Companion</strong>",
+        "step4": "Tik op <strong>Installeren</strong> wanneer gevraagd op Karoo",
+        "installed": "KPedal is geïnstalleerd op mijn Karoo"
+      },
+      "fields": {
+        "title": "Toevoegen aan Profiel",
+        "time": "1 min",
+        "intro": "Voeg KPedal-gegevensvelden toe aan je rijprofiel om statistieken te zien tijdens ritten.",
+        "step1": "Op Karoo: <strong>Profielen</strong> → selecteer je profiel",
+        "step2": "Tik op een gegevenspagina → <strong>Veld Toevoegen</strong>",
+        "step3": "Scroll naar de <strong>KPedal</strong>-sectie",
+        "step4": "Voeg <strong>Snel Overzicht</strong> toe (aanbevolen om te beginnen)",
+        "allFields": "Alle beschikbare velden",
+        "fieldQuickGlance": "<strong>Snel Overzicht</strong> — balans + efficiëntie in één weergave",
+        "fieldPowerBalance": "<strong>Vermogensbalans</strong> — L/R met visuele balk",
+        "fieldEfficiency": "<strong>Efficiëntie</strong> — koppeleffectiviteit + vloeiendheid",
+        "fieldFullOverview": "<strong>Volledig Overzicht</strong> — alle statistieken gecombineerd",
+        "fieldBalanceTrend": "<strong>Balanstrend</strong> — 5-min rollende grafiek"
+      },
+      "configure": {
+        "title": "Instellingen Aanpassen",
+        "time": "1 min",
+        "intro": "Standaardinstellingen werken prima voor de meeste fietsers. Pas aan indien nodig.",
+        "step1": "Op Karoo: <strong>Instellingen</strong> → <strong>Apps</strong> → <strong>KPedal</strong>",
+        "whatYouCanAdjust": "Wat je kunt aanpassen",
+        "optionBalance": "<strong>Balansdrempel</strong> — hoeveel L/R-onbalans acceptabel is (standaard ±2,5%)",
+        "optionAlerts": "<strong>Waarschuwingen</strong> — trillen/geluid wanneer statistieken afwijken",
+        "optionDrills": "<strong>Oefeningen</strong> — begeleide oefeningen om techniek te verbeteren"
+      },
+      "sync": {
+        "title": "Cloud Sync",
+        "time": "1 min",
+        "intro": "Optioneel: synchroniseer ritten naar het webdashboard voor gedetailleerde analyse.",
+        "step1": "Op Karoo: Open de KPedal-app → <strong>Account Koppelen</strong>",
+        "step2": "Je ziet een code van 8 tekens",
+        "step3": "Op telefoon: ga naar",
+        "step4": "Voer de code in en log in met Google",
+        "note": "KPedal werkt volledig offline. Cloud sync voegt alleen het webdashboard toe."
+      }
+    },
+    "completion": {
+      "title": "Je bent klaar om te fietsen!",
+      "subtitle": "Start een rit op je Karoo om je trapstatistieken te zien.",
+      "optimal": "Optimaal",
+      "attention": "Aandacht",
+      "problem": "Probleem",
+      "webDashboard": "Webdashboard"
+    },
+    "footer": {
+      "home": "Home",
+      "privacy": "Privacy",
+      "github": "GitHub",
+      "copyright": "© {year} KPedal",
+      "madeFor": "Gemaakt voor Karoo-fietsers"
+    },
+    "meta": {
+      "title": "Aan de Slag — KPedal",
+      "description": "Stel KPedal in op je Karoo in 5 minuten. Download, installeer en begin met het volgen van je trapefficiëntie."
     }
   },
   "aria": {

@@ -37,6 +37,13 @@
     "profile": "Profile",
     "logout": "Sign Out"
   },
+  "footer": {
+    "start": "Get Started",
+    "login": "Sign In",
+    "linkDevice": "Link Device",
+    "privacy": "Privacy",
+    "support": "Support"
+  },
   "auth": {
     "signIn": "Sign In",
     "signOut": "Sign Out",
@@ -1866,75 +1873,75 @@
       "title": "Frequently Asked Questions",
       "q1": {
         "q": "Which power meter pedals are compatible?",
-        "a": "<strong>Full support (Balance + TE + PS):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Balance only:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Any pedal transmitting ANT+ Cycling Dynamics will work."
+        "a": "<strong>Full support (Balance + TE + PS):</strong> Garmin Rally RS/XC, Favero Assioma Duo/Duo-Shi, SRM X-Power, PowerTap P2, Wahoo SPEEDPLAY Powrlink Zero. These pedals transmit complete ANT+ Cycling Dynamics data including left/right balance, torque effectiveness, and pedal smoothness.<br><br><strong>Balance only:</strong> Wahoo POWRLINK Zero (single-sided), Stages LR, 4iiii Precision Dual, Rotor 2INpower, Power2Max NG/NGeco. These provide accurate balance data but don't transmit TE/PS metrics.<br><br><strong>Not compatible:</strong> Single-sided power meters that estimate balance (Stages single, 4iiii single, Assioma Uno) — KPedal requires actual dual-sided measurement."
       },
       "q2": {
         "q": "How do I install KPedal on my Karoo?",
-        "a": "<strong>Option 1:</strong> Download APK from GitHub Releases → transfer via USB → open file manager on Karoo → tap to install.<br><strong>Option 2:</strong> Open the GitHub release link directly in Karoo's browser and download.<br><strong>Option 3:</strong> Use ADB: <code>adb install kpedal.apk</code>"
+        "a": "<strong>Method 1 — Direct download (easiest):</strong> On your Karoo, open the browser and go to github.com/yrkan/kpedal/releases. Tap the .apk file to download, then tap the notification to install.<br><br><strong>Method 2 — USB transfer:</strong> Download APK on computer → connect Karoo via USB → copy to Downloads folder → on Karoo, open Files app → tap the APK → Install.<br><br><strong>Method 3 — ADB (for developers):</strong> Enable Developer Mode on Karoo, connect via USB, run: <code>adb install kpedal-x.x.x.apk</code><br><br>After installation, open KPedal once to grant permissions and enable Background Mode for automatic data collection."
       },
       "q3": {
         "q": "Do I need to add KPedal data fields to my ride screen?",
-        "a": "<strong>No.</strong> With Background Mode enabled, KPedal collects metrics for ALL rides automatically — even if you never add a single data field. Data fields are optional and only for viewing metrics live during the ride. Your complete ride history is saved regardless."
+        "a": "<strong>No — data fields are completely optional.</strong> Once you enable Background Mode in KPedal settings, the app automatically collects pedaling metrics for every ride you do. This happens silently in the background regardless of which data fields you display.<br><br><strong>Why add data fields then?</strong> Only if you want to see your metrics live during the ride. Available fields: Quick Glance (status + balance), Power Balance (L/R with bar), Torque Effectiveness (L/R values), Pedal Smoothness, Full Overview (all metrics), and Balance Trend (smoothed over time).<br><br>Your complete ride history with per-minute snapshots is saved whether you use data fields or not."
       },
       "q4": {
         "q": "What is considered a \"good\" power balance?",
-        "a": "<strong>48-52%</strong> (±2% from 50/50) is optimal. Most professional cyclists ride with 1-3% natural asymmetry. Don't obsess over perfect 50/50 — it's nearly impossible and not necessary. Focus on <strong>consistency within your range</strong> rather than chasing perfection."
+        "a": "<strong>Optimal range: 48-52% (±2% from perfect 50/50).</strong> Research shows even professional cyclists typically have 1-3% natural asymmetry — perfect symmetry is rare and not necessary for high performance.<br><br><strong>Key insight:</strong> Consistency matters more than perfection. A rider who's consistently 48/52 is better off than one who swings between 45/55 and 52/48. KPedal tracks your personal baseline so you can spot deviations.<br><br><strong>When to be concerned:</strong> Asymmetry above 5% sustained over multiple rides may indicate a bike fit issue, muscle imbalance, or developing injury. If you notice sudden changes in your typical pattern, investigate before it becomes a problem."
       },
       "q5": {
         "q": "Why is 70-80% Torque Effectiveness optimal and not higher?",
-        "a": "Based on <strong>Wattbike research</strong>: above 80% TE, you're likely over-pulling on the upstroke. This wastes energy and can actually reduce total power output. The 70-80% range indicates you're applying force efficiently through the pedal stroke without fighting yourself on the recovery phase."
+        "a": "<strong>The science:</strong> Torque Effectiveness measures what percentage of your pedal stroke produces forward motion. TE = (positive torque − negative torque) ÷ positive torque × 100.<br><br><strong>Why not aim for 100%?</strong> Research from Wattbike and sports science labs shows that above 80% TE, cyclists typically over-pull on the upstroke. This recruits hip flexors inefficiently, increases metabolic cost, and can actually reduce sustainable power output.<br><br><strong>The 70-80% sweet spot</strong> indicates efficient force application through the power phase (12 o'clock to 6 o'clock) without wasting energy fighting the recovery phase. Elite cyclists naturally fall in this range during sustained efforts.<br><br><strong>Lower TE (below 65%)</strong> suggests you're \"stomping\" on the pedals — all downstroke, no follow-through. This is common when fatigued or at very high power outputs."
       },
       "q6": {
         "q": "What exactly does Pedal Smoothness measure?",
-        "a": "<strong>Formula:</strong> PS = (average power ÷ peak power) × 100.<br>Higher PS means more consistent power application through the pedal stroke. <strong>20%+ is good</strong> for most cyclists. Sprinters typically have lower PS (explosive, punchy power), while endurance riders tend toward higher values."
+        "a": "<strong>Formula:</strong> PS = (average power throughout pedal stroke ÷ peak power) × 100.<br><br><strong>What it means:</strong> A higher PS indicates more even power delivery throughout the entire 360° rotation. Lower PS means you're producing power in sharp spikes (typically at 3 o'clock position).<br><br><strong>Typical values:</strong><br>• 15-20%: Normal for recreational cyclists<br>• 20-25%: Good, efficient pedaling<br>• 25%+: Excellent, very smooth power delivery<br><br><strong>Context matters:</strong> Sprinters naturally have lower PS (explosive power delivery is the goal). Climbers and time trialists benefit from higher PS. During intervals, PS drops as power increases — this is normal.<br><br><strong>Improving PS:</strong> Single-leg drills, high-cadence spinning (100+ RPM), and focusing on \"pedaling circles\" rather than stomping can increase smoothness over time."
       },
       "q7": {
         "q": "How is the Ride Score calculated?",
-        "a": "<strong>Weighted formula:</strong> Balance (40%) + TE (35%) + PS (25%).<br>Each metric is scored 0-100 based on time spent in optimal zones.<br><strong>85+</strong> = Excellent technique<br><strong>70-84</strong> = Good, minor areas to improve<br><strong>Below 70</strong> = Significant room for improvement"
+        "a": "<strong>Weighted formula:</strong> Balance contributes 40%, Torque Effectiveness 35%, and Pedal Smoothness 25%.<br><br><strong>How each metric is scored (0-100):</strong><br>• Balance: Based on percentage of ride time within ±2.5% of 50/50<br>• TE: Based on time spent in 70-80% range<br>• PS: Based on time spent above 20%<br><br><strong>Score interpretation:</strong><br>• <strong>90-100:</strong> Elite technique, consistent across the ride<br>• <strong>80-89:</strong> Excellent, minor room for optimization<br>• <strong>70-79:</strong> Good baseline, clear areas to improve<br>• <strong>60-69:</strong> Average, focused technique work recommended<br>• <strong>Below 60:</strong> Significant improvement potential<br><br><strong>Pro tip:</strong> Compare scores across similar ride types. Your interval workout score will differ from your endurance ride — both are valid baselines for their respective efforts."
       },
       "q8": {
         "q": "How do the guided Drills work?",
-        "a": "Drills are structured exercises with real-time targets displayed on screen. Example: \"Single Leg Focus\" asks you to maintain 55-60% balance on one leg for 30 seconds. KPedal tracks your <strong>time-in-target</strong> and provides a score at the end. Perfect for warmups, recovery rides, or dedicated technique sessions."
+        "a": "<strong>Drills are structured exercises with real-time visual feedback.</strong> Each drill has multiple phases with specific targets displayed on your Karoo screen.<br><br><strong>Example — Single Leg Focus drill:</strong><br>1. Warm-up phase: 30 seconds at natural balance<br>2. Left focus: 45 seconds targeting 55-60% left leg<br>3. Recovery: 15 seconds<br>4. Right focus: 45 seconds targeting 55-60% right leg<br>5. Cool-down: 30 seconds at natural balance<br><br><strong>Scoring:</strong> KPedal tracks your time-in-target for each phase. Hit the target range for 80%+ of the phase duration to \"pass\" that segment. Your final drill score reflects overall accuracy.<br><br><strong>Drill categories:</strong><br>• <strong>Focus:</strong> Isolate one metric (balance, TE, or PS)<br>• <strong>Challenge:</strong> Progressive difficulty, multiple metrics<br>• <strong>Workout:</strong> Longer sessions combining technique with effort"
       },
       "q9": {
         "q": "Can I create my own custom drills?",
-        "a": "<strong>Yes.</strong> Custom Drills let you define your own phases, targets, and durations. Create drills tailored to your specific weaknesses — maybe a 45-second high-TE focus followed by 30-second balance work. Your custom drills are saved locally and sync to cloud."
+        "a": "<strong>Yes — the Custom Drill builder lets you design exactly what you need.</strong><br><br><strong>You can customize:</strong><br>• Number of phases (1-10)<br>• Duration per phase (10 seconds to 5 minutes)<br>• Target metric (Balance, TE, PS, or combination)<br>• Target range (e.g., 45-48% balance, 75-85% TE)<br>• Phase names and instructions<br><br><strong>Example custom drill for left leg weakness:</strong><br>1. \"Warm up\" — 60s, no target<br>2. \"Left activation\" — 45s, Balance 54-58% left<br>3. \"Rest\" — 20s, no target<br>4. \"Left power\" — 45s, Balance 56-60% left<br>5. \"Equalize\" — 30s, Balance 48-52%<br><br><strong>Sync:</strong> Custom drills save to your device and sync to cloud when enabled. Access them on any linked Karoo or view drill history on the web dashboard."
       },
       "q10": {
         "q": "What triggers the in-ride alerts?",
-        "a": "<strong>Configurable thresholds:</strong><br>• Balance: asymmetry exceeds your set limit (default 5%)<br>• TE: drops below minimum (default 60%)<br>• PS: drops below minimum (default 15%)<br>Alerts use <strong>vibration + beep</strong>. Cooldown (15s-2min) prevents spam. You can enable/disable each metric independently."
+        "a": "<strong>Alerts notify you when metrics drift outside your configured thresholds.</strong><br><br><strong>Configurable triggers:</strong><br>• <strong>Balance:</strong> Asymmetry exceeds limit (default: 5% — triggers at 45/55 or worse)<br>• <strong>Torque Effectiveness:</strong> Drops below minimum (default: 60%)<br>• <strong>Pedal Smoothness:</strong> Drops below minimum (default: 15%)<br><br><strong>Alert methods:</strong><br>• Vibration (short buzz pattern)<br>• Audio beep (if Karoo sound is enabled)<br>• Screen flash (subtle color pulse)<br><br><strong>Smart cooldown:</strong> After an alert fires, there's a configurable cooldown (15 seconds to 2 minutes) before it can trigger again. This prevents alert spam during sustained difficult efforts.<br><br><strong>Per-metric control:</strong> Enable or disable alerts for each metric independently. Many riders only want balance alerts, for example, and prefer to check TE/PS post-ride."
       },
       "q11": {
         "q": "Does KPedal work without internet connection?",
-        "a": "<strong>100% yes.</strong> All core features — data collection, drills, alerts, ride history — work completely offline. Cloud sync is optional and only activates when you enable it. Your data is always stored locally on the Karoo first. Sync happens automatically when you're back online."
+        "a": "<strong>Yes — KPedal is fully functional offline.</strong> Every core feature works without any internet connection.<br><br><strong>Works offline:</strong><br>• Real-time data collection during rides<br>• All 5 data field types<br>• Complete drill library (built-in and custom)<br>• Alert system<br>• Ride history and statistics<br>• Achievement tracking<br><br><strong>Requires internet (optional):</strong><br>• Initial Google Sign-In (one time)<br>• Cloud sync of ride data<br>• Web dashboard access<br><br><strong>How sync works:</strong> Rides are always saved locally first. When you're back online and cloud sync is enabled, data uploads automatically in the background. If you never enable cloud sync, your data stays exclusively on the Karoo — your choice."
       },
       "q12": {
         "q": "Will KPedal drain my Karoo battery?",
-        "a": "<strong>Minimal impact: ~1-2% extra per hour</strong> during active rides. KPedal only runs data collection while you're riding. Between rides, only a tiny listener waits for ride start — negligible power consumption. Heavily optimized for efficiency."
+        "a": "<strong>Impact: approximately 1-2% additional battery drain per hour during rides.</strong><br><br><strong>Why it's minimal:</strong><br>• KPedal only actively processes data while you're in a ride<br>• Between rides, a lightweight listener waits for ride start — nearly zero power draw<br>• No GPS usage (Karoo handles that)<br>• No continuous background polling<br>• Efficient data storage (batched writes, not constant I/O)<br><br><strong>Real-world example:</strong> On a 4-hour ride, expect roughly 4-8% more battery usage compared to riding without KPedal. Given Karoo 3's 12+ hour battery life, this is negligible for most rides.<br><br><strong>Optimization tip:</strong> If you're doing an ultra-endurance event and need maximum battery, you can disable KPedal data fields (background collection still works) and turn off alerts."
       },
       "q13": {
         "q": "Can I sync data across multiple Karoo devices?",
-        "a": "<strong>Yes.</strong> Link multiple Karoos to your account. Settings sync between them automatically. All rides from all devices appear in one unified dashboard. Perfect if you have a backup Karoo, race and training devices, or upgrade to a new unit."
+        "a": "<strong>Yes — link multiple Karoos to one account for seamless sync.</strong><br><br><strong>How it works:</strong><br>1. Install KPedal on each Karoo<br>2. Sign in with the same Google account on each device<br>3. Enable cloud sync on each device<br><br><strong>What syncs:</strong><br>• All ride data and per-minute snapshots<br>• Custom drills you've created<br>• Alert settings and thresholds<br>• Achievement progress<br><br><strong>Use cases:</strong><br>• Backup Karoo for race day<br>• Different Karoos on different bikes<br>• Upgrading from Karoo 2 to Karoo 3<br>• Sharing technique data with a coach (they'd need your login)<br><br><strong>Conflict resolution:</strong> If you ride on two devices simultaneously (unusual but possible), both rides are saved with their respective timestamps. Settings sync uses \"last write wins\" — the most recent change applies."
       },
       "q14": {
         "q": "How does the Achievement system work?",
-        "a": "Achievements unlock as you hit milestones: ride count, total hours, consistency streaks, technique improvements. Examples: \"Iron Balance\" (10 rides with <2% asymmetry), \"Century Club\" (100 rides tracked). Achievements sync to cloud and display on your web dashboard."
+        "a": "<strong>Achievements reward consistency and technique milestones.</strong><br><br><strong>Achievement categories:</strong><br>• <strong>Volume:</strong> Total rides tracked, hours pedaled, kilometers covered<br>• <strong>Consistency:</strong> Riding streaks (days/weeks in a row with rides)<br>• <strong>Technique:</strong> Ride scores, time in optimal zones, metric improvements<br>• <strong>Drills:</strong> Drills completed, perfect scores, variety of drill types<br><br><strong>Example achievements:</strong><br>• \"First Spin\" — Complete your first tracked ride<br>• \"Iron Balance\" — 10 rides with average asymmetry under 2%<br>• \"Century Club\" — 100 rides tracked<br>• \"Smooth Operator\" — Maintain 25%+ PS for an entire ride<br>• \"Drill Sergeant\" — Complete 50 drills<br><br><strong>Progress tracking:</strong> View your achievement progress on the web dashboard. Some achievements have bronze/silver/gold tiers (e.g., 10/50/100 rides). Achievements sync to cloud and persist across devices."
       },
       "q15": {
         "q": "Can I use KPedal with Garmin, Wahoo, or other bike computers?",
-        "a": "<strong>No.</strong> KPedal is built specifically for Hammerhead Karoo using their official karoo-ext SDK. It accesses ANT+ Cycling Dynamics data, native alert system, and ride state monitoring — deep integrations not available on other platforms."
+        "a": "<strong>No — KPedal is exclusively for Hammerhead Karoo.</strong><br><br><strong>Technical reason:</strong> KPedal is built using Hammerhead's official karoo-ext SDK, which provides deep integration with:<br>• ANT+ Cycling Dynamics data streams<br>• Native ride state detection (start/pause/stop)<br>• System alert infrastructure (vibration, sound)<br>• Data field rendering engine<br>• Background service permissions<br><br>These integrations don't exist on Garmin, Wahoo, or other platforms. Each would require a completely different app built from scratch with their respective (often more limited) SDKs.<br><br><strong>Future platforms:</strong> There are no current plans to port KPedal to other devices. The project focuses on doing one thing well rather than spreading thin across platforms."
       },
       "q16": {
         "q": "Is my data private and secure?",
-        "a": "<strong>Yes.</strong> Data stays on your Karoo unless you enable cloud sync. Cloud uses <strong>Google Sign-In</strong> — we never see or store your password. No tracking pixels, no ads, no data selling. The entire project is <strong>open source</strong> — audit the code yourself on GitHub."
+        "a": "<strong>Yes — privacy is a core design principle.</strong><br><br><strong>Local-first architecture:</strong><br>• All data is stored on your Karoo first<br>• Cloud sync is opt-in, not default<br>• You can use KPedal indefinitely without ever creating an account<br><br><strong>If you enable cloud sync:</strong><br>• Authentication via Google Sign-In — we never see or store your password<br>• Data transmitted over HTTPS (TLS 1.3)<br>• Stored in Cloudflare's global infrastructure<br>• No third-party analytics or tracking<br>• No ads, no data selling, no \"anonymous\" usage statistics<br><br><strong>Open source transparency:</strong> The entire codebase — Android app, web API, and web dashboard — is public on GitHub. Audit exactly what data is collected and how it's handled. If you find a security issue, please report it responsibly."
       },
       "q17": {
         "q": "Why does my balance change at different power outputs?",
-        "a": "This is normal. At low power, slight technique variations are amplified. At high power, you tend to recruit muscles more evenly. Many cyclists see 2-3% more asymmetry at endurance pace vs threshold. KPedal tracks this so you can identify patterns and work on weak spots."
+        "a": "<strong>This is completely normal and well-documented in cycling science.</strong><br><br><strong>The pattern:</strong> Most cyclists show 2-4% more asymmetry at low power (Zone 1-2) compared to high power (Zone 4-5). Some riders show the opposite pattern.<br><br><strong>Why it happens:</strong><br>• <strong>Low power:</strong> Smaller forces mean small technique variations have outsized percentage impact. Your dominant leg may \"take over\" when effort is easy.<br>• <strong>High power:</strong> Maximum recruitment of both legs tends to even things out. You're focusing harder and engaging more muscle groups bilaterally.<br>• <strong>Fatigue:</strong> As you tire, your weaker leg fatigues faster, increasing asymmetry. This is valuable data for pacing.<br><br><strong>Using this insight:</strong> KPedal's per-minute snapshots let you see exactly how your balance changes throughout a ride. Correlate with power zones to understand your personal pattern and target drills accordingly."
       },
       "q18": {
         "q": "How often should I do technique drills?",
-        "a": "<strong>2-3 times per week</strong> is a good starting point. Include them in warmups (5-10 min) or dedicate recovery rides to technique work. Consistency matters more than volume — regular short sessions beat occasional long ones. Track progress via drill scores over time."
+        "a": "<strong>Recommended: 2-3 dedicated sessions per week, plus drill integration into warmups.</strong><br><br><strong>Effective approaches:</strong><br>• <strong>Warmup integration:</strong> 5-10 minutes of drills at the start of every ride. Low intensity, high focus. Great for muscle activation.<br>• <strong>Recovery ride focus:</strong> Use easy days for extended technique work (20-30 minutes). Low power means you can concentrate on form.<br>• <strong>Dedicated sessions:</strong> Weekly 30-45 minute technique-focused ride. Structured drill progressions with rest intervals.<br><br><strong>Progression strategy:</strong><br>1. Start with single-metric drills (balance only, TE only)<br>2. Progress to multi-metric challenges<br>3. Increase duration and tighten target ranges over time<br>4. Track drill scores weekly — aim for gradual improvement, not perfection<br><br><strong>Key insight:</strong> Consistency beats intensity. Three 10-minute sessions across a week will improve your technique faster than one 30-minute session. Neural adaptations require regular reinforcement."
       }
     },
     "cta": {
@@ -1957,6 +1964,85 @@
       "privacyPolicy": "Privacy Policy",
       "signIn": "Sign in",
       "madeWith": "Made with ❤️ for the Karoo community"
+    }
+  },
+  "start": {
+    "title": "Set Up KPedal",
+    "subtitle": "5 minutes to real-time pedaling analytics",
+    "progress": "{completed}/{total} done",
+    "reset": "Reset",
+    "optional": "Optional",
+    "continue": "Continue",
+    "done": "Done",
+    "skip": "Skip",
+    "steps": {
+      "install": {
+        "title": "Install App",
+        "time": "2 min",
+        "intro": "You'll need the <strong>Hammerhead Companion</strong> app on your phone to install KPedal on your Karoo.",
+        "hasCompanion": "I have Companion app installed",
+        "downloadApk": "Download APK",
+        "opensGithub": "Opens GitHub Releases",
+        "step1": "On GitHub, tap the <code>.apk</code> file to download",
+        "step2": "Open <strong>Downloads</strong>, long-press the file → <strong>Share</strong>",
+        "step3": "Select <strong>Hammerhead Companion</strong>",
+        "step4": "Tap <strong>Install</strong> when prompted on Karoo",
+        "installed": "KPedal is installed on my Karoo"
+      },
+      "fields": {
+        "title": "Add to Profile",
+        "time": "1 min",
+        "intro": "Add KPedal data fields to your ride profile to see metrics during rides.",
+        "step1": "On Karoo: <strong>Profiles</strong> → select your profile",
+        "step2": "Tap any data page → <strong>Add Field</strong>",
+        "step3": "Scroll to <strong>KPedal</strong> section",
+        "step4": "Add <strong>Quick Glance</strong> (recommended for start)",
+        "allFields": "All available fields",
+        "fieldQuickGlance": "<strong>Quick Glance</strong> — balance + efficiency in one view",
+        "fieldPowerBalance": "<strong>Power Balance</strong> — L/R with visual bar",
+        "fieldEfficiency": "<strong>Efficiency</strong> — torque effectiveness + smoothness",
+        "fieldFullOverview": "<strong>Full Overview</strong> — all metrics combined",
+        "fieldBalanceTrend": "<strong>Balance Trend</strong> — 5-min rolling graph"
+      },
+      "configure": {
+        "title": "Adjust Settings",
+        "time": "1 min",
+        "intro": "Default settings work great for most riders. Adjust if needed.",
+        "step1": "On Karoo: <strong>Settings</strong> → <strong>Apps</strong> → <strong>KPedal</strong>",
+        "whatYouCanAdjust": "What you can adjust",
+        "optionBalance": "<strong>Balance Threshold</strong> — how much L/R imbalance is OK (default ±2.5%)",
+        "optionAlerts": "<strong>Alerts</strong> — vibration/sound when metrics drift",
+        "optionDrills": "<strong>Drills</strong> — guided exercises to improve technique"
+      },
+      "sync": {
+        "title": "Cloud Sync",
+        "time": "1 min",
+        "intro": "Optional: sync rides to web dashboard for detailed analysis.",
+        "step1": "On Karoo: Open KPedal app → <strong>Link Account</strong>",
+        "step2": "You'll see an 8-character code",
+        "step3": "On phone: go to",
+        "step4": "Enter the code and sign in with Google",
+        "note": "KPedal works fully offline. Cloud sync just adds the web dashboard."
+      }
+    },
+    "completion": {
+      "title": "You're ready to ride!",
+      "subtitle": "Start a ride on your Karoo to see your pedaling metrics.",
+      "optimal": "Optimal",
+      "attention": "Attention",
+      "problem": "Problem",
+      "webDashboard": "Web Dashboard"
+    },
+    "footer": {
+      "home": "Home",
+      "privacy": "Privacy",
+      "github": "GitHub",
+      "copyright": "© {year} KPedal",
+      "madeFor": "Made for Karoo cyclists"
+    },
+    "meta": {
+      "title": "Get Started — KPedal",
+      "description": "Set up KPedal on your Karoo in 5 minutes. Download, install, and start tracking your pedaling efficiency."
     }
   },
   "aria": {

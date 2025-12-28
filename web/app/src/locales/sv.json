@@ -37,6 +37,13 @@
     "profile": "Profil",
     "logout": "Logga ut"
   },
+  "footer": {
+    "start": "Kom igång",
+    "login": "Logga in",
+    "linkDevice": "Anslut enhet",
+    "privacy": "Integritet",
+    "support": "Support"
+  },
   "auth": {
     "signIn": "Logga in",
     "signOut": "Logga ut",
@@ -1866,75 +1873,75 @@
       "title": "Vanliga frågor",
       "q1": {
         "q": "Vilka effektmätarpedaler är kompatibla?",
-        "a": "<strong>Fullt stöd (Balans + VE + TJ):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Endast balans:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Alla pedaler som överför ANT+ Cycling Dynamics fungerar."
+        "a": "<strong>Fullt stöd (Balans + VE + TJ):</strong> Garmin Rally RS/XC, Favero Assioma Duo/Duo-Shi, SRM X-Power, PowerTap P2, Wahoo SPEEDPLAY Powrlink Zero. Dessa pedaler överför komplett ANT+ Cycling Dynamics-data inklusive vänster/höger-balans, vridmomentseffektivitet och trampjämnhet.<br><br><strong>Endast balans:</strong> Wahoo POWRLINK Zero (ensidig), Stages LR, 4iiii Precision Dual, Rotor 2INpower, Power2Max NG/NGeco. Dessa ger korrekt balansdata men överför inte VE/TJ-mätvärden.<br><br><strong>Ej kompatibel:</strong> Ensidiga effektmätare som uppskattar balans (Stages ensidig, 4iiii ensidig, Assioma Uno) — KPedal kräver faktisk dubbelsidig mätning."
       },
       "q2": {
         "q": "Hur installerar jag KPedal på min Karoo?",
-        "a": "<strong>Alternativ 1:</strong> Ladda ner APK från GitHub Releases → överför via USB → öppna filhanteraren på Karoo → tryck för att installera.<br><strong>Alternativ 2:</strong> Öppna GitHub release-länken direkt i Karoos webbläsare och ladda ner.<br><strong>Alternativ 3:</strong> Använd ADB: <code>adb install kpedal.apk</code>"
+        "a": "<strong>Metod 1 — Direktnedladdning (enklast):</strong> På din Karoo, öppna webbläsaren och gå till github.com/yrkan/kpedal/releases. Tryck på .apk-filen för att ladda ner, sedan tryck på aviseringen för att installera.<br><br><strong>Metod 2 — USB-överföring:</strong> Ladda ner APK på dator → anslut Karoo via USB → kopiera till mappen Nedladdningar → på Karoo, öppna Filer-appen → tryck på APK → Installera.<br><br><strong>Metod 3 — ADB (för utvecklare):</strong> Aktivera Utvecklarläge på Karoo, anslut via USB, kör: <code>adb install kpedal-x.x.x.apk</code><br><br>Efter installation, öppna KPedal en gång för att bevilja behörigheter och aktivera Bakgrundsläge för automatisk datainsamling."
       },
       "q3": {
         "q": "Måste jag lägga till KPedal-datafält på min turskärm?",
-        "a": "<strong>Nej.</strong> Med Bakgrundsläge aktiverat samlar KPedal mätvärden för ALLA turer automatiskt — även om du aldrig lägger till ett enda datafält. Datafält är valfria och endast för att se mätvärden live under turen. Din kompletta turhistorik sparas oavsett."
+        "a": "<strong>Nej — datafält är helt valfria.</strong> När du aktiverar Bakgrundsläge i KPedal-inställningarna samlar appen automatiskt trampmätvärden för varje tur du gör. Detta sker tyst i bakgrunden oavsett vilka datafält du visar.<br><br><strong>Varför lägga till datafält då?</strong> Endast om du vill se dina mätvärden live under turen. Tillgängliga fält: Snabböversikt (status + balans), Effektbalans (V/H med stapel), Vridmomentseffektivitet (V/H-värden), Trampjämnhet, Full översikt (alla mätvärden) och Balanstrend (utjämnad över tid).<br><br>Din kompletta turhistorik med ögonblicksbilder per minut sparas oavsett om du använder datafält eller inte."
       },
       "q4": {
         "q": "Vad anses vara en \"bra\" effektbalans?",
-        "a": "<strong>48-52%</strong> (±2% från 50/50) är optimalt. De flesta professionella cyklister cyklar med 1-3% naturlig asymmetri. Var inte besatt av perfekt 50/50 — det är nästan omöjligt och inte nödvändigt. Fokusera på <strong>konsekvens inom ditt intervall</strong> snarare än att jaga perfektion."
+        "a": "<strong>Optimalt intervall: 48-52% (±2% från perfekt 50/50).</strong> Forskning visar att även professionella cyklister vanligtvis har 1-3% naturlig asymmetri — perfekt symmetri är sällsynt och inte nödvändigt för hög prestation.<br><br><strong>Viktig insikt:</strong> Konsekvens är viktigare än perfektion. En cyklist som konsekvent ligger på 48/52 har det bättre än en som svänger mellan 45/55 och 52/48. KPedal spårar din personliga baslinje så du kan upptäcka avvikelser.<br><br><strong>När du bör vara uppmärksam:</strong> Asymmetri över 5% som kvarstår över flera turer kan indikera ett cykelpassningsproblem, muskelobalans eller begynnande skada. Om du märker plötsliga förändringar i ditt typiska mönster, undersök innan det blir ett problem."
       },
       "q5": {
         "q": "Varför är 70-80% vridmomentseffektivitet optimalt och inte högre?",
-        "a": "Baserat på <strong>Wattbike-forskning</strong>: över 80% VE drar du troligen för hårt i uppåtfasen. Detta slösar energi och kan faktiskt minska den totala effektutmatningen. Intervallet 70-80% indikerar att du applicerar kraft effektivt genom tramptaget utan att motarbeta dig själv i återhämtningsfasen."
+        "a": "<strong>Vetenskapen:</strong> Vridmomentseffektivitet mäter hur stor andel av ditt trampslag som producerar framåtrörelse. VE = (positivt vridmoment − negativt vridmoment) ÷ positivt vridmoment × 100.<br><br><strong>Varför inte sikta på 100%?</strong> Forskning från Wattbike och idrottsvetenskapliga laboratorier visar att över 80% VE drar cyklister vanligtvis för hårt i uppåtfasen. Detta aktiverar höftböjarna ineffektivt, ökar den metaboliska kostnaden och kan faktiskt minska den uthålliga effekten.<br><br><strong>Det optimala intervallet 70-80%</strong> indikerar effektiv kraftapplicering genom kraftfasen (kl 12 till kl 6) utan att slösa energi på att motarbeta återhämtningsfasen. Elitcyklister hamnar naturligt i detta intervall under uthålliga ansträngningar.<br><br><strong>Lägre VE (under 65%)</strong> antyder att du \"stampar\" på pedalerna — bara nedtryck, inget genomförande. Detta är vanligt vid utmattning eller vid mycket hög effekt."
       },
       "q6": {
         "q": "Vad mäter trampjämnhet exakt?",
-        "a": "<strong>Formel:</strong> TJ = (genomsnittlig effekt ÷ toppeffekt) × 100.<br>Högre TJ betyder mer konsekvent kraftapplicering genom tramptaget. <strong>20%+ är bra</strong> för de flesta cyklister. Sprinters har vanligtvis lägre TJ (explosiv, punchy kraft), medan uthållighetscyklister tenderar mot högre värden."
+        "a": "<strong>Formel:</strong> TJ = (genomsnittlig effekt genom tramptaget ÷ toppeffekt) × 100.<br><br><strong>Vad det betyder:</strong> Högre TJ indikerar jämnare kraftleverans genom hela 360°-rotationen. Lägre TJ betyder att du producerar kraft i skarpa toppar (vanligtvis vid kl 3-positionen).<br><br><strong>Typiska värden:</strong><br>• 15-20%: Normalt för motionscyklister<br>• 20-25%: Bra, effektiv trampteknik<br>• 25%+: Utmärkt, mycket jämn kraftleverans<br><br><strong>Sammanhang är viktigt:</strong> Spurters har naturligt lägre TJ (explosiv kraftleverans är målet). Klättrare och tempoåkare gynnas av högre TJ. Under intervaller sjunker TJ när effekten ökar — detta är normalt.<br><br><strong>Förbättra TJ:</strong> Enbensövningar, högkadenssnurr (100+ RPM) och fokus på att \"trampa cirklar\" istället för att stampa kan öka jämnheten över tid."
       },
       "q7": {
-        "q": "Hur beräknas turpoängen?",
-        "a": "<strong>Viktad formel:</strong> Balans (40%) + VE (35%) + TJ (25%).<br>Varje mätvärde poängsätts 0-100 baserat på tid i optimala zoner.<br><strong>85+</strong> = Utmärkt teknik<br><strong>70-84</strong> = Bra, mindre områden att förbättra<br><strong>Under 70</strong> = Betydande utrymme för förbättring"
+        "q": "Hur beräknas åkpoängen?",
+        "a": "<strong>Viktad formel:</strong> Balans bidrar med 40%, Vridmomentseffektivitet 35% och Trampjämnhet 25%.<br><br><strong>Hur varje mätvärde poängsätts (0-100):</strong><br>• Balans: Baserat på andel av turtid inom ±2,5% från 50/50<br>• VE: Baserat på tid i intervallet 70-80%<br>• TJ: Baserat på tid över 20%<br><br><strong>Tolkning av poäng:</strong><br>• <strong>90-100:</strong> Elitteknik, konsekvent genom turen<br>• <strong>80-89:</strong> Utmärkt, mindre utrymme för optimering<br>• <strong>70-79:</strong> Bra baslinje, tydliga områden att förbättra<br>• <strong>60-69:</strong> Genomsnitt, fokuserat teknikarbete rekommenderas<br>• <strong>Under 60:</strong> Betydande förbättringspotential<br><br><strong>Proffstips:</strong> Jämför poäng mellan liknande turtyper. Din intervallträningspoäng kommer att skilja sig från din uthållighetstur — båda är giltiga baslinjer för sina respektive ansträngningar."
       },
       "q8": {
         "q": "Hur fungerar de guidade övningarna?",
-        "a": "Övningar är strukturerade träningar med realtidsmål som visas på skärmen. Exempel: \"Enbenfokus\" ber dig behålla 55-60% balans på ett ben i 30 sekunder. KPedal spårar din <strong>tid-i-mål</strong> och ger en poäng i slutet. Perfekt för uppvärmningar, återhämtningsturer eller dedikerade tekniksessioner."
+        "a": "<strong>Övningar är strukturerade träningar med visuell realtidsåterkoppling.</strong> Varje övning har flera faser med specifika mål som visas på din Karoo-skärm.<br><br><strong>Exempel — Övning Enbenfokus:</strong><br>1. Uppvärmningsfas: 30 sekunder med naturlig balans<br>2. Vänsterfokus: 45 sekunder med mål 55-60% vänster ben<br>3. Återhämtning: 15 sekunder<br>4. Högerfokus: 45 sekunder med mål 55-60% höger ben<br>5. Nedvarvning: 30 sekunder med naturlig balans<br><br><strong>Poängsättning:</strong> KPedal spårar din tid-i-mål för varje fas. Nå målintervallet i 80%+ av fasens längd för att \"klara\" det segmentet. Din slutliga övningspoäng återspeglar den övergripande noggrannheten.<br><br><strong>Övningskategorier:</strong><br>• <strong>Fokus:</strong> Isolera ett mätvärde (balans, VE eller TJ)<br>• <strong>Utmaning:</strong> Progressiv svårighetsgrad, flera mätvärden<br>• <strong>Träning:</strong> Längre sessioner som kombinerar teknik med ansträngning"
       },
       "q9": {
         "q": "Kan jag skapa mina egna anpassade övningar?",
-        "a": "<strong>Ja.</strong> Anpassade övningar låter dig definiera dina egna faser, mål och längder. Skapa övningar anpassade efter dina specifika svagheter — kanske ett 45-sekunders hög-VE-fokus följt av 30 sekunders balansarbete. Dina anpassade övningar sparas lokalt och synkas till molnet."
+        "a": "<strong>Ja — den anpassade övningsbyggaren låter dig designa exakt vad du behöver.</strong><br><br><strong>Du kan anpassa:</strong><br>• Antal faser (1-10)<br>• Längd per fas (10 sekunder till 5 minuter)<br>• Målmätvärde (Balans, VE, TJ eller kombination)<br>• Målintervall (t.ex. 45-48% balans, 75-85% VE)<br>• Fasnamn och instruktioner<br><br><strong>Exempel på anpassad övning för svaghet i vänster ben:</strong><br>1. \"Uppvärmning\" — 60s, inget mål<br>2. \"Vänster aktivering\" — 45s, Balans 54-58% vänster<br>3. \"Vila\" — 20s, inget mål<br>4. \"Vänster kraft\" — 45s, Balans 56-60% vänster<br>5. \"Utjämna\" — 30s, Balans 48-52%<br><br><strong>Synkronisering:</strong> Anpassade övningar sparas på din enhet och synkas till molnet när det är aktiverat. Få tillgång till dem på vilken länkad Karoo som helst eller visa övningshistorik på webbinstrumentpanelen."
       },
       "q10": {
         "q": "Vad utlöser varningarna under turen?",
-        "a": "<strong>Konfigurerbara trösklar:</strong><br>• Balans: asymmetri överstiger din inställda gräns (standard 5%)<br>• VE: sjunker under minimum (standard 60%)<br>• TJ: sjunker under minimum (standard 15%)<br>Varningar använder <strong>vibration + pip</strong>. Nedkylning (15s-2min) förhindrar spam. Du kan aktivera/inaktivera varje mätvärde oberoende."
+        "a": "<strong>Varningar meddelar dig när mätvärden glider utanför dina konfigurerade trösklar.</strong><br><br><strong>Konfigurerbara utlösare:</strong><br>• <strong>Balans:</strong> Asymmetri överstiger gränsen (standard: 5% — utlöses vid 45/55 eller sämre)<br>• <strong>Vridmomentseffektivitet:</strong> Sjunker under minimum (standard: 60%)<br>• <strong>Trampjämnhet:</strong> Sjunker under minimum (standard: 15%)<br><br><strong>Varningsmetoder:</strong><br>• Vibration (kort vibrationsmönster)<br>• Ljudsignal (om Karoo-ljud är aktiverat)<br>• Skärmblixt (subtil färgpuls)<br><br><strong>Smart nedkylning:</strong> Efter att en varning utlösts finns det en konfigurerbar nedkylningstid (15 sekunder till 2 minuter) innan den kan utlösas igen. Detta förhindrar varningsspam under ihållande svåra ansträngningar.<br><br><strong>Kontroll per mätvärde:</strong> Aktivera eller inaktivera varningar för varje mätvärde oberoende. Många cyklister vill bara ha balansvarningar, till exempel, och föredrar att kontrollera VE/TJ efter turen."
       },
       "q11": {
         "q": "Fungerar KPedal utan internetanslutning?",
-        "a": "<strong>100% ja.</strong> Alla kärnfunktioner — datainsamling, övningar, varningar, turhistorik — fungerar helt offline. Molnsynk är valfritt och aktiveras endast när du aktiverar det. Din data lagras alltid lokalt på Karoo först. Synk sker automatiskt när du är online igen."
+        "a": "<strong>Ja — KPedal är fullt funktionellt offline.</strong> Varje kärnfunktion fungerar utan någon internetanslutning.<br><br><strong>Fungerar offline:</strong><br>• Realtidsdatainsamling under turer<br>• Alla 5 datafältstyper<br>• Komplett övningsbibliotek (inbyggda och anpassade)<br>• Varningssystem<br>• Turhistorik och statistik<br>• Prestationsspårning<br><br><strong>Kräver internet (valfritt):</strong><br>• Initial Google-inloggning (en gång)<br>• Molnsynkronisering av turdata<br>• Åtkomst till webbinstrumentpanel<br><br><strong>Hur synk fungerar:</strong> Turer sparas alltid lokalt först. När du är online igen och molnsynk är aktiverat laddas data automatiskt upp i bakgrunden. Om du aldrig aktiverar molnsynk stannar din data uteslutande på Karoo — ditt val."
       },
       "q12": {
         "q": "Kommer KPedal att tömma min Karoos batteri?",
-        "a": "<strong>Minimal påverkan: ~1-2% extra per timme</strong> under aktiva turer. KPedal kör endast datainsamling medan du cyklar. Mellan turer väntar bara en liten lyssnare på turstart — försumbar strömförbrukning. Kraftigt optimerad för effektivitet."
+        "a": "<strong>Påverkan: ungefär 1-2% extra batteriförbrukning per timme under turer.</strong><br><br><strong>Varför det är minimalt:</strong><br>• KPedal bearbetar endast aktivt data medan du är i en tur<br>• Mellan turer väntar en lättviktig lyssnare på turstart — nästan noll strömförbrukning<br>• Ingen GPS-användning (Karoo hanterar det)<br>• Ingen kontinuerlig bakgrundsavfrågning<br>• Effektiv datalagring (batchade skrivningar, inte konstant I/O)<br><br><strong>Verkligt exempel:</strong> På en 4-timmarstur, förvänta dig ungefär 4-8% mer batteriförbrukning jämfört med att cykla utan KPedal. Med tanke på Karoo 3:s 12+ timmars batteritid är detta försumbart för de flesta turer.<br><br><strong>Optimeringstips:</strong> Om du gör ett ultradistansevenemang och behöver maximal batteritid kan du inaktivera KPedal-datafält (bakgrundsinsamling fungerar fortfarande) och stänga av varningar."
       },
       "q13": {
         "q": "Kan jag synka data mellan flera Karoo-enheter?",
-        "a": "<strong>Ja.</strong> Länka flera Karoos till ditt konto. Inställningar synkas mellan dem automatiskt. Alla turer från alla enheter visas i en samlad instrumentpanel. Perfekt om du har en reserv-Karoo, tävlings- och träningsenheter, eller uppgraderar till en ny enhet."
+        "a": "<strong>Ja — länka flera Karoos till ett konto för sömlös synkronisering.</strong><br><br><strong>Så fungerar det:</strong><br>1. Installera KPedal på varje Karoo<br>2. Logga in med samma Google-konto på varje enhet<br>3. Aktivera molnsynk på varje enhet<br><br><strong>Vad som synkas:</strong><br>• All turdata och ögonblicksbilder per minut<br>• Anpassade övningar du har skapat<br>• Varningsinställningar och trösklar<br>• Prestationsframsteg<br><br><strong>Användningsfall:</strong><br>• Reserv-Karoo för tävlingsdag<br>• Olika Karoos på olika cyklar<br>• Uppgradering från Karoo 2 till Karoo 3<br>• Dela teknikdata med en tränare (de skulle behöva din inloggning)<br><br><strong>Konflikthantering:</strong> Om du cyklar på två enheter samtidigt (ovanligt men möjligt) sparas båda turerna med sina respektive tidsstämplar. Inställningssynk använder \"senaste skrivning vinner\" — den senaste ändringen gäller."
       },
       "q14": {
         "q": "Hur fungerar prestationssystemet?",
-        "a": "Prestationer låses upp när du når milstolpar: turantal, totala timmar, konsekvensvanor, teknikförbättringar. Exempel: \"Järnbalans\" (10 turer med <2% asymmetri), \"Hundraklubben\" (100 spårade turer). Prestationer synkas till molnet och visas på din webbinstrumentpanel."
+        "a": "<strong>Prestationer belönar konsekvens och teknikmilstolpar.</strong><br><br><strong>Prestationskategorier:</strong><br>• <strong>Volym:</strong> Totalt antal spårade turer, trampade timmar, tillryggalagda kilometer<br>• <strong>Konsekvens:</strong> Cykelserier (dagar/veckor i rad med turer)<br>• <strong>Teknik:</strong> Åkpoäng, tid i optimala zoner, mätvärdesförbättringar<br>• <strong>Övningar:</strong> Genomförda övningar, perfekta poäng, variation av övningstyper<br><br><strong>Exempelprestationer:</strong><br>• \"Första snurret\" — Genomför din första spårade tur<br>• \"Järnbalans\" — 10 turer med genomsnittlig asymmetri under 2%<br>• \"Hundraklubben\" — 100 spårade turer<br>• \"Mjuk som silke\" — Bibehåll 25%+ TJ genom en hel tur<br>• \"Övningssergeanten\" — Genomför 50 övningar<br><br><strong>Framstegsspårning:</strong> Se dina prestationsframsteg på webbinstrumentpanelen. Vissa prestationer har brons/silver/guld-nivåer (t.ex. 10/50/100 turer). Prestationer synkas till molnet och bevaras mellan enheter."
       },
       "q15": {
         "q": "Kan jag använda KPedal med Garmin, Wahoo eller andra cykeldatorer?",
-        "a": "<strong>Nej.</strong> KPedal är byggt specifikt för Hammerhead Karoo med deras officiella karoo-ext SDK. Den får åtkomst till ANT+ Cycling Dynamics-data, inbyggt varningssystem och turstatusövervakning — djupa integrationer som inte finns på andra plattformar."
+        "a": "<strong>Nej — KPedal är exklusivt för Hammerhead Karoo.</strong><br><br><strong>Teknisk anledning:</strong> KPedal är byggt med Hammerheads officiella karoo-ext SDK, som ger djup integration med:<br>• ANT+ Cycling Dynamics-dataströmmar<br>• Inbyggd turstatusdetektering (start/paus/stopp)<br>• Systemvarningsinfrastruktur (vibration, ljud)<br>• Datafältsrenderingsmotor<br>• Bakgrundstjänstbehörigheter<br><br>Dessa integrationer finns inte på Garmin, Wahoo eller andra plattformar. Var och en skulle kräva en helt annan app byggd från grunden med deras respektive (ofta mer begränsade) SDK:er.<br><br><strong>Framtida plattformar:</strong> Det finns inga nuvarande planer på att porta KPedal till andra enheter. Projektet fokuserar på att göra en sak bra snarare än att sprida sig tunt över plattformar."
       },
       "q16": {
         "q": "Är min data privat och säker?",
-        "a": "<strong>Ja.</strong> Data stannar på din Karoo om du inte aktiverar molnsynk. Molnet använder <strong>Google-inloggning</strong> — vi ser eller lagrar aldrig ditt lösenord. Inga spårningspixlar, inga annonser, ingen dataförsäljning. Hela projektet är <strong>öppen källkod</strong> — granska koden själv på GitHub."
+        "a": "<strong>Ja — integritet är en grundläggande designprincip.</strong><br><br><strong>Lokal-först-arkitektur:</strong><br>• All data lagras på din Karoo först<br>• Molnsynk är valfritt, inte standard<br>• Du kan använda KPedal på obestämd tid utan att någonsin skapa ett konto<br><br><strong>Om du aktiverar molnsynk:</strong><br>• Autentisering via Google-inloggning — vi ser eller lagrar aldrig ditt lösenord<br>• Data överförs via HTTPS (TLS 1.3)<br>• Lagras i Cloudflares globala infrastruktur<br>• Ingen tredjepartsanalys eller spårning<br>• Inga annonser, ingen dataförsäljning, ingen \"anonym\" användningsstatistik<br><br><strong>Öppen källkod-transparens:</strong> Hela kodbasen — Android-app, webb-API och webbinstrumentpanel — är offentlig på GitHub. Granska exakt vilken data som samlas in och hur den hanteras. Om du hittar ett säkerhetsproblem, vänligen rapportera det ansvarsfullt."
       },
       "q17": {
         "q": "Varför ändras min balans vid olika effektnivåer?",
-        "a": "Detta är normalt. Vid låg effekt förstärks små teknikvariationer. Vid hög effekt tenderar du att rekrytera muskler mer jämnt. Många cyklister ser 2-3% mer asymmetri vid uthållighetstempo vs tröskel. KPedal spårar detta så du kan identifiera mönster och arbeta på svaga punkter."
+        "a": "<strong>Detta är helt normalt och väldokumenterat inom cykelvetenskap.</strong><br><br><strong>Mönstret:</strong> De flesta cyklister visar 2-4% mer asymmetri vid låg effekt (Zon 1-2) jämfört med hög effekt (Zon 4-5). Vissa cyklister visar det motsatta mönstret.<br><br><strong>Varför det händer:</strong><br>• <strong>Låg effekt:</strong> Mindre krafter betyder att små teknikvariationer får oproportionerligt stor procentuell påverkan. Ditt dominanta ben kan \"ta över\" när ansträngningen är lätt.<br>• <strong>Hög effekt:</strong> Maximal rekrytering av båda benen tenderar att jämna ut saker. Du fokuserar hårdare och aktiverar fler muskelgrupper bilateralt.<br>• <strong>Utmattning:</strong> När du tröttas tappar ditt svagare ben ork snabbare, vilket ökar asymmetrin. Detta är värdefull data för pacing.<br><br><strong>Använd denna insikt:</strong> KPedals ögonblicksbilder per minut låter dig se exakt hur din balans förändras genom en tur. Korrelera med effektzoner för att förstå ditt personliga mönster och rikta övningar därefter."
       },
       "q18": {
         "q": "Hur ofta bör jag göra teknikövningar?",
-        "a": "<strong>2-3 gånger per vecka</strong> är en bra utgångspunkt. Inkludera dem i uppvärmningar (5-10 min) eller dedikera återhämtningsturer till teknikarbete. Konsekvens spelar större roll än volym — regelbundna korta sessioner slår sporadiska långa. Följ framsteg via övningspoäng över tid."
+        "a": "<strong>Rekommenderat: 2-3 dedikerade sessioner per vecka, plus övningsintegration i uppvärmningar.</strong><br><br><strong>Effektiva tillvägagångssätt:</strong><br>• <strong>Uppvärmningsintegration:</strong> 5-10 minuters övningar i början av varje tur. Låg intensitet, högt fokus. Utmärkt för muskelaktivering.<br>• <strong>Fokus på återhämtningsturer:</strong> Använd lätta dagar för utökat teknikarbete (20-30 minuter). Låg effekt betyder att du kan koncentrera dig på form.<br>• <strong>Dedikerade sessioner:</strong> Veckovis 30-45 minuters teknikfokuserad tur. Strukturerade övningsprogressioner med vilopauser.<br><br><strong>Progressionsstrategi:</strong><br>1. Börja med övningar för enskilda mätvärden (endast balans, endast VE)<br>2. Gå vidare till utmaningar med flera mätvärden<br>3. Öka längden och snäva åt målintervallen över tid<br>4. Spåra övningspoäng veckovis — sikta på gradvis förbättring, inte perfektion<br><br><strong>Viktig insikt:</strong> Konsekvens slår intensitet. Tre 10-minuterssessioner under en vecka kommer att förbättra din teknik snabbare än en 30-minuterssession. Neurala anpassningar kräver regelbunden förstärkning."
       }
     },
     "cta": {
@@ -1957,6 +1964,85 @@
       "privacyPolicy": "Integritetspolicy",
       "signIn": "Logga in",
       "madeWith": "Gjort med kärlek för Karoo-communityn"
+    }
+  },
+  "start": {
+    "title": "Konfigurera KPedal",
+    "subtitle": "5 minuter till pedalanalys i realtid",
+    "progress": "{completed}/{total} klart",
+    "reset": "Återställ",
+    "optional": "Valfritt",
+    "continue": "Fortsätt",
+    "done": "Klart",
+    "skip": "Hoppa över",
+    "steps": {
+      "install": {
+        "title": "Installera app",
+        "time": "2 min",
+        "intro": "Du behöver <strong>Hammerhead Companion</strong>-appen på din telefon för att installera KPedal på din Karoo.",
+        "hasCompanion": "Jag har Companion-appen installerad",
+        "downloadApk": "Ladda ner APK",
+        "opensGithub": "Öppnar GitHub Releases",
+        "step1": "På GitHub, tryck på <code>.apk</code>-filen för att ladda ner",
+        "step2": "Öppna <strong>Nedladdningar</strong>, håll fingret på filen → <strong>Dela</strong>",
+        "step3": "Välj <strong>Hammerhead Companion</strong>",
+        "step4": "Tryck på <strong>Installera</strong> när du uppmanas på Karoo",
+        "installed": "KPedal är installerad på min Karoo"
+      },
+      "fields": {
+        "title": "Lägg till i profil",
+        "time": "1 min",
+        "intro": "Lägg till KPedal-datafält i din åkprofil för att se mätvärden under åkturer.",
+        "step1": "På Karoo: <strong>Profiler</strong> → välj din profil",
+        "step2": "Tryck på en datasida → <strong>Lägg till fält</strong>",
+        "step3": "Scrolla till <strong>KPedal</strong>-sektionen",
+        "step4": "Lägg till <strong>Snabböversikt</strong> (rekommenderas för start)",
+        "allFields": "Alla tillgängliga fält",
+        "fieldQuickGlance": "<strong>Snabböversikt</strong> — balans + effektivitet i en vy",
+        "fieldPowerBalance": "<strong>Kraftbalans</strong> — V/H med visuell stapel",
+        "fieldEfficiency": "<strong>Effektivitet</strong> — vridmoment-effektivitet + jämnhet",
+        "fieldFullOverview": "<strong>Full översikt</strong> — alla mätvärden kombinerade",
+        "fieldBalanceTrend": "<strong>Balanstrend</strong> — 5-min rullande graf"
+      },
+      "configure": {
+        "title": "Justera inställningar",
+        "time": "1 min",
+        "intro": "Standardinställningar fungerar bra för de flesta cyklister. Justera vid behov.",
+        "step1": "På Karoo: <strong>Inställningar</strong> → <strong>Appar</strong> → <strong>KPedal</strong>",
+        "whatYouCanAdjust": "Vad du kan justera",
+        "optionBalance": "<strong>Balanströskel</strong> — hur mycket V/H-obalans är OK (standard ±2,5%)",
+        "optionAlerts": "<strong>Varningar</strong> — vibration/ljud när mätvärden avviker",
+        "optionDrills": "<strong>Övningar</strong> — guidade övningar för att förbättra teknik"
+      },
+      "sync": {
+        "title": "Molnsynkronisering",
+        "time": "1 min",
+        "intro": "Valfritt: synkronisera åkturer till webbpanelen för detaljerad analys.",
+        "step1": "På Karoo: Öppna KPedal-app → <strong>Länka konto</strong>",
+        "step2": "Du kommer att se en 8-teckens kod",
+        "step3": "På telefon: gå till",
+        "step4": "Ange koden och logga in med Google",
+        "note": "KPedal fungerar helt offline. Molnsynkronisering lägger bara till webbpanelen."
+      }
+    },
+    "completion": {
+      "title": "Du är redo att cykla!",
+      "subtitle": "Starta en åktur på din Karoo för att se dina pedalmätvärden.",
+      "optimal": "Optimal",
+      "attention": "Uppmärksamhet",
+      "problem": "Problem",
+      "webDashboard": "Webbpanel"
+    },
+    "footer": {
+      "home": "Hem",
+      "privacy": "Integritet",
+      "github": "GitHub",
+      "copyright": "© {year} KPedal",
+      "madeFor": "Gjort för Karoo-cyklister"
+    },
+    "meta": {
+      "title": "Kom igång — KPedal",
+      "description": "Konfigurera KPedal på din Karoo på 5 minuter. Ladda ner, installera och börja spåra din pedaleffektivitet."
     }
   },
   "aria": {

@@ -12,10 +12,10 @@ Real-time pedaling efficiency extension for Hammerhead Karoo 2/3. Displays Balan
 
 <p align="center">
   <a href="https://kpedal.com">Website</a> •
+  <a href="https://start.kpedal.com">Get Started</a> •
   <a href="https://kpedal.com/login">Try Demo</a> •
   <a href="https://app.kpedal.com">Web App</a> •
   <a href="#installation">Installation</a> •
-  <a href="#quick-start">Quick Start</a> •
   <a href="https://kpedal.com/privacy">Privacy</a>
 </p>
 
@@ -443,6 +443,7 @@ Create personalized drills with configurable parameters:
 | Domain | Purpose |
 |--------|---------|
 | [kpedal.com](https://kpedal.com) | Landing page (guests), Dashboard (authenticated) |
+| [start.kpedal.com](https://start.kpedal.com) | Interactive setup guide |
 | [app.kpedal.com](https://app.kpedal.com) | Web application (redirects to login if guest) |
 | [link.kpedal.com](https://link.kpedal.com) | Device Code verification |
 | [api.kpedal.com](https://api.kpedal.com) | REST API |
@@ -863,8 +864,9 @@ web/
 └── app/                        # SvelteKit 5
     ├── src/
     │   ├── routes/             # Pages
-    │   │   ├── +page.svelte        # Dashboard
+    │   │   ├── +page.svelte        # Landing / Dashboard
     │   │   ├── +layout.svelte      # App shell
+    │   │   ├── start/              # Setup guide (start.kpedal.com)
     │   │   ├── login/              # Google sign-in
     │   │   ├── link/               # Device Code entry
     │   │   ├── rides/              # Ride list
@@ -880,7 +882,7 @@ web/
     │   │   ├── tour.ts             # Product tour (driver.js)
     │   │   ├── i18n.ts             # Internationalization (17 languages)
     │   │   ├── config.ts           # API_URL constant
-    │   │   └── components/         # Shared components (InfoTip, etc.)
+    │   │   └── components/         # Shared components (Footer, InfoTip)
     │   ├── locales/                # Translation files (17 languages)
     │   │   ├── en.json             # English (1467 keys)
     │   │   └── *.json              # DE, FR, IT, PT, NL, JA, ZH, UK, RU, HE, AR, PL, KO, DA, SV
@@ -1230,6 +1232,7 @@ MIT
 | | |
 |---|---|
 | **Website** | [kpedal.com](https://kpedal.com) |
+| **Get Started** | [start.kpedal.com](https://start.kpedal.com) |
 | **Try Demo** | [kpedal.com/login](https://kpedal.com/login) |
 | **Web App** | [app.kpedal.com](https://app.kpedal.com) |
 | **Device Link** | [link.kpedal.com](https://link.kpedal.com) |

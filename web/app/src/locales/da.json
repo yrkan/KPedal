@@ -1,17 +1,17 @@
 {
   "common": {
-    "loading": "Indlaeser...",
+    "loading": "Indlæser...",
     "error": "Der opstod en fejl",
-    "loadError": "Kunne ikke indlaese data",
-    "retry": "Proev igen",
+    "loadError": "Kunne ikke indlæse data",
+    "retry": "Prøv igen",
     "back": "Tilbage",
     "save": "Gem",
     "cancel": "Annuller",
     "delete": "Slet",
-    "confirm": "Bekraeft",
+    "confirm": "Bekræft",
     "or": "eller",
     "today": "I dag",
-    "yesterday": "I gaar",
+    "yesterday": "I går",
     "daysAgo": "{days} dage siden",
     "noData": "Ingen data",
     "toggleTheme": "Skift tema",
@@ -30,47 +30,54 @@
     "dashboard": "Dashboard",
     "home": "Hjem",
     "rides": "Ture",
-    "drills": "Oevelser",
-    "achievements": "Praestationer",
-    "goals": "Maal",
+    "drills": "Øvelser",
+    "achievements": "Præstationer",
+    "goals": "Mål",
     "settings": "Indstillinger",
     "profile": "Profil",
     "logout": "Log ud"
   },
+  "footer": {
+    "start": "Kom i gang",
+    "login": "Log ind",
+    "linkDevice": "Tilknyt enhed",
+    "privacy": "Privatliv",
+    "support": "Support"
+  },
   "auth": {
     "signIn": "Log ind",
     "signOut": "Log ud",
-    "continueWithGoogle": "Fortsaet med Google",
-    "tryDemo": "Proev demo",
-    "loadingDemo": "Indlaeser demo...",
+    "continueWithGoogle": "Fortsæt med Google",
+    "tryDemo": "Prøv demo",
+    "loadingDemo": "Indlæser demo...",
     "createFreeAccount": "Opret gratis konto",
     "secureOAuth": "Sikker OAuth 2.0",
     "googleVerified": "Google verificeret",
     "privacyNote": "Ved at logge ind accepterer du vores",
     "privacyPolicy": "Privatlivspolitik",
     "demoNote": "Udforsk dashboardet med eksempeldata.",
-    "noSignupRequired": "Ingen tilmelding kraeves.",
+    "noSignupRequired": "Ingen tilmelding kræves.",
     "backToLanding": "tilbage til forsiden",
     "signedInViaGoogle": "Logget ind via Google",
-    "sessionExpires": "Din session udloeber om 7 dage",
+    "sessionExpires": "Din session udløber om 7 dage",
     "authenticating": "Godkender...",
     "signingIn": "Logger dig ind...",
     "redirectingToLogin": "Omdirigerer til login...",
     "missingTokens": "Manglende godkendelsestokens"
   },
   "errors": {
-    "invalidState": "Sikkerhedsbekraeftelse mislykkedes. Proev igen.",
-    "authFailed": "Godkendelse mislykkedes. Proev igen.",
-    "somethingWrong": "Noget gik galt. Proev igen.",
-    "demoUnavailable": "Demo-tilstand midlertidigt utilgaengelig. Proev igen senere.",
-    "demoFailed": "Kunne ikke starte demo-tilstand. Proev igen.",
-    "failedToLoad": "Kunne ikke indlaese data",
+    "invalidState": "Sikkerhedsbekræftelse mislykkedes. Prøv igen.",
+    "authFailed": "Godkendelse mislykkedes. Prøv igen.",
+    "somethingWrong": "Noget gik galt. Prøv igen.",
+    "demoUnavailable": "Demo-tilstand midlertidigt utilgængelig. Prøv igen senere.",
+    "demoFailed": "Kunne ikke starte demo-tilstand. Prøv igen.",
+    "failedToLoad": "Kunne ikke indlæse data",
     "failedToConnect": "Kunne ikke oprette forbindelse",
-    "failedToLoadRides": "Kunne ikke indlaese ture",
-    "failedToLoadDrills": "Kunne ikke indlaese oevelser",
-    "failedToLoadMilestones": "Kunne ikke indlaese milepæle",
-    "failedToLoadDevices": "Kunne ikke indlaese enheder",
-    "failedToLoadSettings": "Kunne ikke indlaese indstillinger"
+    "failedToLoadRides": "Kunne ikke indlæse ture",
+    "failedToLoadDrills": "Kunne ikke indlæse øvelser",
+    "failedToLoadMilestones": "Kunne ikke indlæse milepæle",
+    "failedToLoadDevices": "Kunne ikke indlæse enheder",
+    "failedToLoadSettings": "Kunne ikke indlæse indstillinger"
   },
   "demo": {
     "mode": "Demo-tilstand",
@@ -95,8 +102,8 @@
     "speed": "Hastighed",
     "distance": "Distance",
     "duration": "Varighed",
-    "elevation": "Hoejde",
-    "elevationGain": "Hoejdestigning",
+    "elevation": "Højde",
+    "elevationGain": "Højdestigning",
     "energy": "Energi",
     "score": "Score",
     "asymmetry": "Asymmetri",
@@ -110,12 +117,12 @@
   "zones": {
     "title": "Zoner",
     "optimal": "Optimal",
-    "attention": "Opmaerksomhed",
+    "attention": "Opmærksomhed",
     "problem": "Problem",
     "timeInZone": "Tid i zone",
     "zoneStatus": "Zonestatus",
     "description": {
-      "attention": "Teknik kraever arbejde",
+      "attention": "Teknik kræver arbejde",
       "optimal": "Fremragende form",
       "problem": "Betydelige problemer"
     }
@@ -129,8 +136,8 @@
       "days60": "60 dage",
       "all": "Al tid",
       "week": "Uge",
-      "month": "Maaned",
-      "year": "Aar"
+      "month": "Måned",
+      "year": "År"
     },
     "stats": {
       "rides": "{count, plural, one {# tur} other {# ture}}",
@@ -176,7 +183,7 @@
       "optimal": "Optimal"
     },
     "sections": {
-      "performance": "Praestationer",
+      "performance": "Præstationer",
       "insights": "Indsigter"
     },
     "perfStats": {
@@ -198,11 +205,11 @@
       "best": "Bedste"
     },
     "emptyStates": {
-      "needMoreRides": "Kraever flere ture",
-      "needMoreData": "Kraever flere data"
+      "needMoreRides": "Kræver flere ture",
+      "needMoreData": "Kræver flere data"
     },
     "progress": {
-      "title": "Fremgang vs foregaaende {period} dage",
+      "title": "Fremgang vs foregående {period} dage",
       "score": "Score",
       "optimalZone": "Optimal zone",
       "time": "Tid",
@@ -221,7 +228,7 @@
       "linkDevice": "Tilknyt enhed"
     },
     "onboarding": {
-      "dashboardWillShow": "Dit dashboard vil vise pedal-analyser i realtid, naar du begynder at cykle med KPedal paa din Karoo.",
+      "dashboardWillShow": "Dit dashboard vil vise pedal-analyser i realtid, når du begynder at cykle med KPedal på din Karoo.",
       "whatYouWillSee": "Hvad du vil se her",
       "powerBalance": "Effekt-balance",
       "proTarget": "Pro: ±2,5%",
@@ -229,20 +236,20 @@
       "teOptimal": "Optimal: 70-80%",
       "pedalSmoothness": "Pedaljævnhed",
       "psOptimal": "Optimal: ≥20%",
-      "getStarted": "Kom i gang paa 3 trin",
-      "step1Title": "Installer paa Karoo",
+      "getStarted": "Kom i gang på 3 trin",
+      "step1Title": "Installer på Karoo",
       "step1Desc": "Download APK og installer via USB eller Karoo-browser",
-      "step2Title": "Tilfoej datafelter",
-      "step2Desc": "Rediger din turprofil og tilfoej KPedal-datafelter",
+      "step2Title": "Tilføj datafelter",
+      "step2Desc": "Rediger din turprofil og tilføj KPedal-datafelter",
       "step3Title": "Tilknyt din enhed",
       "step3Desc": "Forbind Karoo for at synkronisere ture automatisk",
       "exampleBalance": "50% V / 50% H",
       "exampleTe": "72% gns",
       "examplePs": "22% gns",
-      "alreadyInstalled": "Allerede installeret? Gennemfoer en tur paa din Karoo — data vises her efter synkronisering."
+      "alreadyInstalled": "Allerede installeret? Gennemfør en tur på din Karoo — data vises her efter synkronisering."
     },
     "fatigue": {
-      "title": "Traethed (sidste tur)",
+      "title": "Træthed (sidste tur)",
       "trend": "Tendens",
       "dropped": "Faldet",
       "slight": "Let",
@@ -257,29 +264,29 @@
       "kmh": "km/t",
       "mUp": "m ↑",
       "mDown": "m ↓",
-      "grade": "% haeldning",
+      "grade": "% hældning",
       "kJ": "kJ",
       "rides": "ture"
     },
     "insights": {
-      "fatigueAction": "Din form falder sent paa turene. Byg udholdenhed med",
+      "fatigueAction": "Din form falder sent på turene. Byg udholdenhed med",
       "fatigueLink": "Effektivitetsbygger",
       "balanceAction": "{asymmetry}% {dominant}-dominant. Styrk {weak} ben med",
       "balanceLink": "{side} ben-fokus",
       "leftLeg": "Venstre",
-      "rightLeg": "Hoejre",
+      "rightLeg": "Højre",
       "leftDominant": "venstre",
-      "rightDominant": "hoejre",
-      "lowTeAction": "TE {te}% — fokuser paa at traekke op kl. 6. Proev",
-      "lowTeLink": "Kraftoverfoersel",
-      "lowPsAction": "PJ {ps}% betyder ujævn pedaltag. Udjaevn det med",
+      "rightDominant": "højre",
+      "lowTeAction": "TE {te}% — fokuser på at trække op kl. 6. Prøv",
+      "lowTeLink": "Kraftoverførsel",
+      "lowPsAction": "PJ {ps}% betyder ujævn pedaltag. Udjævn det med",
       "lowPsLink": "Jævne cirkler",
-      "greatBalance": "{asymmetry}% asymmetri — det er balance paa pro-niveau!",
-      "teOptimal": "TE {te}% — det perfekte omraade for kraftoverfoersel.",
+      "greatBalance": "{asymmetry}% asymmetri — det er balance på pro-niveau!",
+      "teOptimal": "TE {te}% — det perfekte område for kraftoverførsel.",
       "excellentScore": "Score {score}% — eliteteknik!",
       "goodConsistency": "{count} ture — fantastisk uge!",
       "improvement": "Score steget med {points} point fra sidste periode.",
-      "encourageRides": "Kun {count} {rideWord} — proev at matche sidste uges {lastCount}.",
+      "encourageRides": "Kun {count} {rideWord} — prøv at matche sidste uges {lastCount}.",
       "ride": "tur",
       "ridesPl": "ture",
       "nearOptimalTe": "TE {te}% — kun {diff}% fra optimal zone."
@@ -290,20 +297,20 @@
     "allRides": "Alle ture",
     "rideHistory": "Turhistorik",
     "noRides": "Ingen ture registreret endnu",
-    "noRidesHint": "Din turhistorik vises her, naar du gennemfoerer ture med KPedal paa din Karoo.",
+    "noRidesHint": "Din turhistorik vises her, når du gennemfører ture med KPedal på din Karoo.",
     "eachRideShows": "Hver tur viser",
     "deleteRide": "Slet denne tur?",
     "viewTable": "Tabelvisning",
     "viewCards": "Kortvisning",
     "rideDetail": "Turdetaljer",
-    "performanceData": "Praestationsdata",
+    "performanceData": "Præstationsdata",
     "techniqueBreakdown": "Teknik-analyse",
-    "fatigueAnalysis": "Traetheds-analyse",
+    "fatigueAnalysis": "Trætheds-analyse",
     "timeline": "Tidslinje",
     "minuteByMinute": "Minut for minut",
     "startToEnd": "Start til slut",
     "degradation": "Forringelse",
-    "strong": "Staerk",
+    "strong": "Stærk",
     "moderate": "Moderat",
     "weak": "Svag",
     "backToDashboard": "Tilbage til Dashboard",
@@ -318,35 +325,35 @@
       "leftDominant": "V dominant",
       "rightDominant": "H dominant",
       "timeInZone": "Tid i zone",
-      "timeInZoneTip": "Tid i optimal, opmaerksomheds- og problemzoner. Mere groent er bedre.",
+      "timeInZoneTip": "Tid i optimal, opmærksomheds- og problemzoner. Mere grønt er bedre.",
       "technique": "Teknik",
-      "techniqueTip": "Pedal-effektivitetsmetrikker. TE er kraftoverfoersel, PJ er pedaltag-jævnhed.",
+      "techniqueTip": "Pedal-effektivitetsmetrikker. TE er kraftoverførsel, PJ er pedaltag-jævnhed.",
       "te": "TE",
-      "teTip": "Drejningsmoment-effektivitet. Hvor meget kraft gaar til fremadrettet bevaegelse.",
+      "teTip": "Drejningsmoment-effektivitet. Hvor meget kraft går til fremadrettet bevægelse.",
       "ps": "PJ",
-      "psTip": "Pedaljævnhed. Hvor jævnt kraft paafores gennem pedaltaget.",
+      "psTip": "Pedaljævnhed. Hvor jævnt kraft påfores gennem pedaltaget.",
       "teInZone": "TE i zone",
-      "teInZoneTip": "Tid med TE i optimalt 70-80% omraade.",
+      "teInZoneTip": "Tid med TE i optimalt 70-80% område.",
       "psInZone": "PJ i zone",
-      "psInZoneTip": "Tid med PJ over 20%-graensen.",
+      "psInZoneTip": "Tid med PJ over 20%-grænsen.",
       "teStab": "TE stab",
-      "teStabTip": "Hvor konsistent TE var. Hoejere betyder mere stabil teknik.",
+      "teStabTip": "Hvor konsistent TE var. Højere betyder mere stabil teknik.",
       "psStab": "PJ stab",
-      "psStabTip": "Hvor konsistent PJ var. Hoejere betyder mere stabil teknik.",
-      "fatigue": "Traetheds-analyse",
-      "fatigueTip": "Sammenligner foerste ⅓ vs sidste ⅓ af turen.",
-      "fatigueStrong": "Staerk",
+      "psStabTip": "Hvor konsistent PJ var. Højere betyder mere stabil teknik.",
+      "fatigue": "Trætheds-analyse",
+      "fatigueTip": "Sammenligner første ⅓ vs sidste ⅓ af turen.",
+      "fatigueStrong": "Stærk",
       "fatigueModerate": "Moderat",
-      "fatigueFatigued": "Traet",
+      "fatigueFatigued": "Træt",
       "fatigueAsymmetry": "Asymmetri",
-      "balanceDegradedInsight": "Balance forringedes med {value}% — fokuser paa jævn kraftfordeling naar du er traet",
-      "teDroppedInsight": "TE faldt {value}% — oev at fastholde form i sidste tredjedel",
-      "psFellInsight": "PJ faldt {value}% — arbejd med jævn pedaltag under traethed",
-      "excellentFatigueInsight": "Fremragende traetheds-modstand — teknik forblev konsistent gennem hele turen",
+      "balanceDegradedInsight": "Balance forringedes med {value}% — fokuser på jævn kraftfordeling når du er træt",
+      "teDroppedInsight": "TE faldt {value}% — øv at fastholde form i sidste tredjedel",
+      "psFellInsight": "PJ faldt {value}% — arbejd med jævn pedaltag under træthed",
+      "excellentFatigueInsight": "Fremragende trætheds-modstand — teknik forblev konsistent gennem hele turen",
       "fatigueStartEnd": "Start af tur → Slut af tur",
       "byPowerZone": "Efter effektzone",
       "byPowerZoneTip": "Teknik ved forskellige intensiteter.",
-      "timelineTip": "Metrikker over tid. Se efter fald der indikerer traethed.",
+      "timelineTip": "Metrikker over tid. Se efter fald der indikerer træthed.",
       "min": "Min",
       "avg": "Gns",
       "max": "Maks",
@@ -354,7 +361,7 @@
       "minuteByMinuteTip": "Detaljeret opdeling efter minut. Nyttigt til analyse af specifikke segmenter.",
       "points": "point",
       "balance": "Balance",
-      "balanceTip": "Venstre/hoejre kraftfordeling for dette minut.",
+      "balanceTip": "Venstre/højre kraftfordeling for dette minut.",
       "teTip2": "Drejningsmoment-effektivitet V/H for dette minut.",
       "psTip2": "Pedaljævnhed V/H for dette minut.",
       "power": "Effekt",
@@ -366,68 +373,68 @@
       "title": "Turdetaljer",
       "deleteWarning": "Denne handling kan ikke fortrydes",
       "rating": "Vurdering",
-      "performance": "Praestation",
-      "confirmDelete": "Bekraeft sletning",
+      "performance": "Præstation",
+      "confirmDelete": "Bekræft sletning",
       "comparison": "V/H sammenligning",
-      "fatigueDesc": "Hvordan din teknik aendrede sig under turen",
+      "fatigueDesc": "Hvordan din teknik ændrede sig under turen",
       "notes": "Noter",
       "timeline": "Tidslinje",
       "deleteRide": "Slet tur"
     },
     "perf": {
       "wattsTip": "Gennemsnitlig effektoutput i watt.",
-      "maxWattsTip": "Maksimal effekt opnaaet under turen.",
+      "maxWattsTip": "Maksimal effekt opnået under turen.",
       "npTip": "Normaliseret effekt justerer for variation i indsats.",
       "bpmTip": "Gennemsnitlig puls under turen.",
-      "maxBpmTip": "Maksimal puls opnaaet. Naer maksimum paavirkter ofte teknik.",
+      "maxBpmTip": "Maksimal puls opnået. Nær maksimum påvirkter ofte teknik.",
       "rpmTip": "Gennemsnitlig kadence. Optimalt er 80-95 rpm for de fleste cyklister.",
-      "speedTip": "Gennemsnitlig hastighed. Mindre paalidelig end effekt pga. terraen.",
-      "kjTip": "Samlet energioutput. Svarer omtrent til forbraendte kalorier.",
-      "elevGainTip": "Samlet hoejdestigning under turen.",
-      "elevLossTip": "Samlet hoejdetab under turen.",
-      "gradeTip": "Maksimal haeldning. Over 10% er stejlt."
+      "speedTip": "Gennemsnitlig hastighed. Mindre pålidelig end effekt pga. terræn.",
+      "kjTip": "Samlet energioutput. Svarer omtrent til forbrændte kalorier.",
+      "elevGainTip": "Samlet højdestigning under turen.",
+      "elevLossTip": "Samlet højdetab under turen.",
+      "gradeTip": "Maksimal hældning. Over 10% er stejlt."
     },
     "zones": {
       "recovery": "Restitution",
       "endurance": "Udholdenhed",
       "tempo": "Tempo",
-      "threshold": "Taerskel",
+      "threshold": "Tærskel",
       "vo2max": "VO2max",
-      "anaerobic": "Anaerob"
+      "anærobic": "Anærob"
     },
     "list": {
       "ridesLabel": "ture",
       "ridesTip": "Samlet antal ture i denne visning.",
       "kmLabel": "km",
-      "kmTip": "Samlet distance koert paa alle ture.",
+      "kmTip": "Samlet distance kørt på alle ture.",
       "elevLabel": "m ↑",
-      "elevTip": "Samlet hoejdestigning paa alle ture.",
+      "elevTip": "Samlet højdestigning på alle ture.",
       "asymLabel": "asym",
       "asymTip": "Gennemsnitlig effekt-asymmetri. Under 2,5% er pro-niveau.",
       "teLabel": "TE",
-      "teTip": "Gennemsnitlig drejningsmoment-effektivitet. Optimalt omraade er 70-80%.",
+      "teTip": "Gennemsnitlig drejningsmoment-effektivitet. Optimalt område er 70-80%.",
       "psLabel": "PJ",
       "psTip": "Gennemsnitlig pedaljævnhed. Over 20% er god teknik.",
       "optimalLabel": "optimal",
-      "optimalTip": "Gennemsnitlig tid i optimal zone. Hoejere betyder bedre form.",
+      "optimalTip": "Gennemsnitlig tid i optimal zone. Højere betyder bedre form.",
       "wAvgLabel": "W gns",
-      "wAvgTip": "Gennemsnitlig effektoutput. Foelg over tid for fitnesstendenser.",
+      "wAvgTip": "Gennemsnitlig effektoutput. Følg over tid for fitnesstendenser.",
       "npLabel": "NP",
-      "npTip": "Gennemsnitlig normaliseret effekt. Tager hoejde for variation i indsats.",
+      "npTip": "Gennemsnitlig normaliseret effekt. Tager højde for variation i indsats.",
       "kjLabel": "kJ",
-      "kjTip": "Samlet energioutput. Svarer omtrent til forbraendte kalorier.",
+      "kjTip": "Samlet energioutput. Svarer omtrent til forbrændte kalorier.",
       "dateCol": "Dato",
       "durationCol": "Varighed",
       "asymCol": "Asym",
       "asymColTip": "Effekt-asymmetri i procent. Lavere betyder mere balanceret.",
       "lrCol": "V / H",
-      "lrColTip": "Venstre og hoejre effektfordeling.",
+      "lrColTip": "Venstre og højre effektfordeling.",
       "teCol": "TE",
       "teColTip": "Drejningsmoment-effektivitet pr. ben. 70-80% er optimalt.",
       "psCol": "PJ",
       "psColTip": "Pedaljævnhed pr. ben. Over 20% er godt.",
       "zonesCol": "Zoner",
-      "zonesColTip": "Tidsfordeling paa tvaers af praestationszoner.",
+      "zonesColTip": "Tidsfordeling på tværs af præstationszoner.",
       "powerCol": "Effekt",
       "powerColTip": "Gennemsnitlig effekt i watt.",
       "deleteAriaLabel": "Slet tur",
@@ -440,7 +447,7 @@
       "optimalPercent": "{percent}% optimal",
       "pageInfo": "Side {page} af {total}",
       "prevPage": "Forrige side",
-      "nextPage": "Naeste side"
+      "nextPage": "Næste side"
     },
     "stats": {
       "totalRides": "Samlet antal ture",
@@ -448,61 +455,61 @@
       "totalTime": "Samlet tid"
     },
     "sort": {
-      "longest": "Laengste",
-      "oldest": "Aeldste",
-      "highestScore": "Hoejeste score",
+      "longest": "Længste",
+      "oldest": "Ældste",
+      "highestScore": "Højeste score",
       "newest": "Nyeste"
     },
     "filters": {
       "all": "Alle",
       "thisWeek": "Denne uge",
-      "thisMonth": "Denne maaned",
+      "thisMonth": "Denne måned",
       "last30Days": "Sidste 30 dage"
     },
     "emptyDescription": "Synkroniser ture fra din Karoo for at se dem her",
     "empty": "Ingen ture endnu"
   },
   "drills": {
-    "title": "Oevelser",
-    "noDrills": "Ingen oevelser gennemfoert endnu",
-    "noDrillsHint": "KPedal indeholder guidede oevelser til at forbedre din pedalteknik. Gennemfoer dem paa din Karoo for at spore fremgang her.",
-    "availableTypes": "Tilgaengelige oevelsestyper",
+    "title": "Øvelser",
+    "noDrills": "Ingen øvelser gennemført endnu",
+    "noDrillsHint": "KPedal indeholder guidede øvelser til at forbedre din pedalteknik. Gennemfør dem på din Karoo for at spore fremgang her.",
+    "availableTypes": "Tilgængelige øvelsestyper",
     "types": {
       "balanceFocus": "Balance-fokus",
-      "powerTransfer": "Kraftoverfoersel",
+      "powerTransfer": "Kraftoverførsel",
       "smoothCircles": "Jævne cirkler",
       "challenges": "Udfordringer"
     },
-    "timeInTarget": "Tid i maal",
-    "completed": "Gennemfoert",
-    "incomplete": "Ufuldstaendig",
+    "timeInTarget": "Tid i mål",
+    "completed": "Gennemført",
+    "incomplete": "Ufuldstændig",
     "abandoned": "Afbrudt",
     "sessions": "Sessioner",
-    "avgTarget": "Gns. maal",
+    "avgTarget": "Gns. mål",
     "best": "Bedste",
-    "drillTypes": "Oevelsestyper",
+    "drillTypes": "Øvelsestyper",
     "date": "Dato",
-    "drill": "Oevelse",
+    "drill": "Øvelse",
     "duration": "Varighed",
     "status": "Status",
     "of": "af",
     "pageInfo": "Side {page} af {total}",
     "prevPage": "Forrige side",
-    "nextPage": "Naeste side",
+    "nextPage": "Næste side",
     "tips": {
-      "avgTarget": "Gennemsnitlig tid brugt paa at ramme maal-metrikker. Hoejere er bedre.",
-      "sessions": "Samlet antal gennemfoerte oevelsessessioner.",
-      "best": "Bedste tid-i-maal procent opnaaet.",
-      "completed": "Procent af oevelser faerdiggjort til slut.",
-      "types": "Antal forskellige oevelsestyper du har proevet.",
-      "timeInTarget": "Procent af oevelsestid brugt i maalzonen.",
-      "status": "Om oevelsen blev gennemfoert eller afbrudt tidligt."
+      "avgTarget": "Gennemsnitlig tid brugt på at ramme mål-metrikker. Højere er bedre.",
+      "sessions": "Samlet antal gennemførte øvelsessessioner.",
+      "best": "Bedste tid-i-mål procent opnået.",
+      "completed": "Procent af øvelser færdiggjort til slut.",
+      "types": "Antal forskellige øvelsestyper du har prøvet.",
+      "timeInTarget": "Procent af øvelsestid brugt i målzonen.",
+      "status": "Om øvelsen blev gennemført eller afbrudt tidligt."
     },
     "detail": {
-      "timeInTarget": "Tid i maal",
+      "timeInTarget": "Tid i mål",
       "score": "Score",
       "phases": "Faser",
-      "completed": "Gennemfoert"
+      "completed": "Gennemført"
     },
     "categories": {
       "balance": "Balance",
@@ -510,48 +517,48 @@
       "smoothness": "Jævnhed",
       "all": "Alle"
     },
-    "empty": "Ingen oevelseshistorik",
-    "emptyDescription": "Gennemfoer oevelser paa din Karoo for at se din historik her"
+    "empty": "Ingen øvelseshistorik",
+    "emptyDescription": "Gennemfør øvelser på din Karoo for at se din historik her"
   },
   "achievements": {
-    "title": "Praestationer",
-    "notAchieved": "Ikke opnaaet",
+    "title": "Præstationer",
+    "notAchieved": "Ikke opnået",
     "noAchievements": "Ingen milepæle endnu",
-    "noAchievementsHint": "Gennemfoer ture og oevelser paa din Karoo for at laase praestationer op",
-    "availableCategories": "Praestationskategorier",
+    "noAchievementsHint": "Gennemfør ture og øvelser på din Karoo for at låse præstationer op",
+    "availableCategories": "Præstationskategorier",
     "categories": {
       "milestones": "Tur-milepæle",
       "balance": "Balance-mesterskab",
-      "performance": "Praestationsscorer",
-      "streaks": "Konsistens-raekker",
-      "duration": "Varigheds-maal",
-      "drills": "Oevelses-ekspertise"
+      "performance": "Præstationsscorer",
+      "streaks": "Konsistens-rækker",
+      "duration": "Varigheds-mål",
+      "drills": "Øvelses-ekspertise"
     },
     "stats": {
-      "achieved": "opnaaet",
-      "achievedTip": "Antal milepæle du har laast op.",
+      "achieved": "opnået",
+      "achievedTip": "Antal milepæle du har låst op.",
       "remaining": "resterende",
-      "remainingTip": "Milepæle der stadig kan laases op.",
+      "remainingTip": "Milepæle der stadig kan låses op.",
       "total": "total",
       "totalTip": "Samlet antal milepæle i systemet.",
       "progress": "fremgang",
-      "progressTip": "Samlet faerdiggoerelse i procent.",
+      "progressTip": "Samlet færdiggørelse i procent.",
       "last": "seneste",
-      "lastTip": "Dato for din seneste praestation."
+      "lastTip": "Dato for din seneste præstation."
     },
     "table": {
       "milestone": "Milepæl",
-      "milestoneTip": "Navn og beskrivelse af praestationen.",
+      "milestoneTip": "Navn og beskrivelse af præstationen.",
       "category": "Kategori",
       "categoryTip": "Type af milepæl (Volumen, Balance, Teknik osv.).",
-      "target": "Maal",
-      "targetTip": "Krav for at laase denne milepæl op.",
+      "target": "Mål",
+      "targetTip": "Krav for at låse denne milepæl op.",
       "date": "Dato"
     },
     "milestones": {
       "first_ride": {
-        "name": "Foerste sporede tur",
-        "description": "Gennemfoer foerste tur med pedal-analyse",
+        "name": "Første sporede tur",
+        "description": "Gennemfør første tur med pedal-analyse",
         "category": "Volumen",
         "target": "1 tur"
       },
@@ -563,13 +570,13 @@
       },
       "rides_50": {
         "name": "50 ture analyseret",
-        "description": "Betydeligt datasaet til moenstergenkendelse",
+        "description": "Betydeligt datasæt til mønstergenkendelse",
         "category": "Volumen",
         "target": "50 ture"
       },
       "rides_100": {
         "name": "100 ture analyseret",
-        "description": "Omfattende traeningshistorik etableret",
+        "description": "Omfattende træningshistorik etableret",
         "category": "Volumen",
         "target": "100 ture"
       },
@@ -580,70 +587,70 @@
         "target": "500 ture"
       },
       "perfect_balance": {
-        "name": "50/50 balance opnaaet",
-        "description": "Perfekt venstre/hoejre kraftfordeling",
+        "name": "50/50 balance opnået",
+        "description": "Perfekt venstre/højre kraftfordeling",
         "category": "Balance",
         "target": "50/50"
       },
       "balance_master": {
         "name": "10 optimale balance-ture",
-        "description": "Konsistent balance paa tvaers af flere sessioner",
+        "description": "Konsistent balance på tværs af flere sessioner",
         "category": "Balance",
         "target": "10 ture"
       },
       "score_80": {
         "name": "80+ teknik-score",
-        "description": "God pedalteknik paa en tur",
+        "description": "God pedalteknik på en tur",
         "category": "Teknik",
         "target": "80+"
       },
       "score_90": {
         "name": "90+ teknik-score",
-        "description": "Fremragende teknik paa tvaers af alle metrikker",
+        "description": "Fremragende teknik på tværs af alle metrikker",
         "category": "Teknik",
         "target": "90+"
       },
       "score_95": {
         "name": "95+ teknik-score",
-        "description": "Naesten optimal pedal-effektivitet",
+        "description": "Næsten optimal pedal-effektivitet",
         "category": "Teknik",
         "target": "95+"
       },
       "streak_3": {
-        "name": "3-dages traeningsblok",
-        "description": "Tre paa hinanden foelgende dage med sporede ture",
+        "name": "3-dages træningsblok",
+        "description": "Tre på hinanden følgende dage med sporede ture",
         "category": "Konsistens",
         "target": "3 dage"
       },
       "streak_7": {
-        "name": "7-dages traeningsuge",
-        "description": "Hel uge med konsistent traening",
+        "name": "7-dages træningsuge",
+        "description": "Hel uge med konsistent træning",
         "category": "Konsistens",
         "target": "7 dage"
       },
       "streak_30": {
-        "name": "30-dages traeningsmaaned",
-        "description": "Maaned med dedikeret teknikarbejde",
+        "name": "30-dages træningsmåned",
+        "description": "Måned med dedikeret teknikarbejde",
         "category": "Konsistens",
         "target": "30 dage"
       },
       "first_drill": {
-        "name": "Foerste oevelse gennemfoert",
-        "description": "Begynd struktureret teknik-traening",
-        "category": "Traening",
-        "target": "1 oevelse"
+        "name": "Første øvelse gennemført",
+        "description": "Begynd struktureret teknik-træning",
+        "category": "Træning",
+        "target": "1 øvelse"
       },
       "drill_perfect": {
-        "name": "100% tid i maal",
-        "description": "Perfekt udførelse paa enhver oevelse",
-        "category": "Traening",
+        "name": "100% tid i mål",
+        "description": "Perfekt udførelse på enhver øvelse",
+        "category": "Træning",
         "target": "100%"
       },
       "drills_10": {
-        "name": "10 oevelser gennemfoert",
-        "description": "Opbygger oevelses-faerdighed",
-        "category": "Traening",
-        "target": "10 oevelser"
+        "name": "10 øvelser gennemført",
+        "description": "Opbygger øvelses-færdighed",
+        "category": "Træning",
+        "target": "10 øvelser"
       },
       "zone_optimal_80": {
         "name": "80% optimal zone",
@@ -687,7 +694,7 @@
     "title": "Indstillinger",
     "account": "Konto",
     "connectedDevices": "Tilknyttede enheder",
-    "loadingDevices": "Indlaeser enheder...",
+    "loadingDevices": "Indlæser enheder...",
     "noDevices": "Ingen enheder tilknyttet",
     "noDevicesHint": "Tilknyt din Karoo-enhed for at synkronisere turdata",
     "linkDevice": "Tilknyt enhed",
@@ -696,79 +703,79 @@
     "lastSync": "Seneste synk",
     "neverSynced": "Aldrig synkroniseret",
     "requestSync": "Anmod om synk",
-    "syncRequested": "Synk anmodet - aaben app for at synke",
+    "syncRequested": "Synk anmodet - åben app for at synke",
     "deviceStatus": {
       "connected": "Tilsluttet",
       "idle": "Inaktiv",
       "offline": "Offline"
     },
     "pedalingMetrics": "Pedal-metrikker",
-    "syncBanner": "Aendringer synkroniserer til din Karoo, naar du trykker <strong>Synk</strong> i appen eller starter en tur.",
-    "thresholds": "Taerskler",
-    "balanceThreshold": "Balance-taerskel",
-    "balanceThresholdHint": "Alarmer udloeses naar ubalance overstiger denne vaerdi",
+    "syncBanner": "Ændringer synkroniserer til din Karoo, når du trykker <strong>Synk</strong> i appen eller starter en tur.",
+    "thresholds": "Tærskler",
+    "balanceThreshold": "Balance-tærskel",
+    "balanceThresholdHint": "Alarmer udløses når ubalance overstiger denne værdi",
     "balanceThresholdTip": "Maksimal acceptabel V/H ubalance. Pro-cyklister holder sig typisk indenfor ±2,5%.",
-    "teOptimalRange": "TE optimalt omraade",
-    "teOptimalRangeHint": "Groent zone for drejningsmoment-effektivitet",
-    "teOptimalRangeTip": "Drejningsmoment-effektivitet sweet spot. Forskning viser 70-80% er optimalt — hoejere er ikke bedre.",
+    "teOptimalRange": "TE optimalt område",
+    "teOptimalRangeHint": "Grønt zone for drejningsmoment-effektivitet",
+    "teOptimalRangeTip": "Drejningsmoment-effektivitet sweet spot. Forskning viser 70-80% er optimalt — højere er ikke bedre.",
     "psMinimum": "PJ minimum",
-    "psMinimumHint": "Vaerdier under dette markeres som kraevende opmaerksomhed",
-    "psMinimumTip": "Pedaljævnheds-taerskel for optimal zone. Elite-cyklister opnaar 25%+.",
+    "psMinimumHint": "Værdier under dette markeres som krævende opmærksomhed",
+    "psMinimumTip": "Pedaljævnheds-tærskel for optimal zone. Elite-cyklister opnår 25%+.",
     "inRideAlerts": "Alarmer under tur",
-    "inRideAlertsHint": "Notifikationer naar metrikker kraever opmaerksomhed",
-    "inRideAlertsTip": "Real-time notifikationer paa din Karoo naar metrikker kraever opmaerksomhed.",
-    "metricsToMonitor": "Metrikker at overvaage",
+    "inRideAlertsHint": "Notifikationer når metrikker kræver opmærksomhed",
+    "inRideAlertsTip": "Real-time notifikationer på din Karoo når metrikker kræver opmærksomhed.",
+    "metricsToMonitor": "Metrikker at overvåge",
     "torqueEff": "Drejningsm. eff.",
     "smoothness": "Jævnhed",
-    "sensitivity": "Foelsomhed",
+    "sensitivity": "Følsomhed",
     "critical": "Kritisk",
     "problemZoneOnly": "Kun problemzone",
-    "sensitive": "Folsom",
-    "attentionAndProblem": "Opmaerksomhed & Problem",
+    "sensitive": "Følsom",
+    "attentionAndProblem": "Opmærksomhed & Problem",
     "notifyVia": "Notificer via",
     "vibrate": "Vibrer",
     "sound": "Lyd",
     "banner": "Banner",
     "options": "Indstillinger",
-    "wakeScreenOnAlert": "Vaek skaerm ved alarm",
-    "cooldownBetweenAlerts": "Afkoeling mellem alarmer",
+    "wakeScrénOnAlert": "Væk skærm ved alarm",
+    "cooldownBetwénAlerts": "Afkøling mellem alarmer",
     "dataCollection": "Dataindsamling",
     "dataCollectionHint": "Hvordan KPedal indsamler og synkroniserer dine data",
     "backgroundMode": "Baggrundstilstand",
-    "backgroundModeHint": "Indsaml metrikker selv naar datafelt er skjult",
-    "backgroundModeTip": "Indsaml metrikker selv naar KPedal-datafelt ikke er synligt paa skaermen.",
+    "backgroundModeHint": "Indsaml metrikker selv når datafelt er skjult",
+    "backgroundModeTip": "Indsaml metrikker selv når KPedal-datafelt ikke er synligt på skærmen.",
     "autoSync": "Auto-synk",
     "autoSyncHint": "Synkroniser turdata automatisk efter hver tur",
     "autoSyncTip": "Upload automatisk turdata efter hver tur slutter.",
-    "appearance": "Udseende",
+    "appearance": "Udsénde",
     "theme": "Tema",
     "themeHint": "Auto-tilstand skifter kl. 7 og kl. 19",
     "themeAuto": "Auto",
     "themeLight": "Lyst",
-    "themeDark": "Moerkt",
+    "themeDark": "Mørkt",
     "data": "Data",
     "rideData": "Turdata",
     "rideDataHint": "Dine data gemmes sikkert og synkroniseres fra din Karoo-enhed",
     "session": "Session",
     "privacy": "Privatliv",
-    "privacyHint": "Laer hvordan vi indsamler, bruger og beskytter dine data",
+    "privacyHint": "Lær hvordan vi indsamler, bruger og beskytter dine data",
     "about": "Om",
     "saving": "Gemmer...",
     "saved": "Gemt",
     "thresholds_section": {
-      "teOptimal": "TE optimalt omraade",
-      "balance": "Balance-taerskel",
-      "title": "Metrik-taerskler",
+      "teOptimal": "TE optimalt område",
+      "balance": "Balance-tærskel",
+      "title": "Metrik-tærskler",
       "psMinimum": "PJ minimum",
-      "teOptimalDesc": "Maalomraade for drejningsmoment-effektivitet",
-      "psMinimumDesc": "Alarm naar jævnhed falder under dette",
-      "balanceDesc": "Alarm naar asymmetri overstiger denne vaerdi"
+      "teOptimalDesc": "Målområde for drejningsmoment-effektivitet",
+      "psMinimumDesc": "Alarm når jævnhed falder under dette",
+      "balanceDesc": "Alarm når asymmetri overstiger denne værdi"
     },
     "sections": {
       "data": "Data",
       "session": "Session",
       "devices": "Enheder",
-      "appearance": "Udseende",
+      "appearance": "Udsénde",
       "about": "Om",
       "metrics": "Metrikker",
       "privacy": "Privatliv",
@@ -790,7 +797,7 @@
       "balance": "Balance-alarmer",
       "title": "Alarm-indstillinger",
       "ps": "Jævnheds-alarmer",
-      "screenWake": "Vaek skaerm"
+      "scrénWake": "Væk skærm"
     },
     "privacy_section": {
       "viewPolicy": "Se privatlivspolitik",
@@ -801,9 +808,9 @@
       "deleteAllDesc": "Slet permanent alle dine ture og indstillinger",
       "deleteAllWarning": "Dette kan ikke fortrydes",
       "export": "Eksporter data",
-      "title": "Datahaandtering",
+      "title": "Datahåndtering",
       "deleteAll": "Slet alle data",
-      "deleteAllConfirm": "Skriv SLET for at bekraefte"
+      "deleteAllConfirm": "Skriv SLET for at bekræfte"
     },
     "account_section": {
       "signedInAs": "Logget ind som",
@@ -811,11 +818,11 @@
       "email": "E-mail"
     },
     "appearance_section": {
-      "title": "Udseende",
+      "title": "Udsénde",
       "themeAuto": "Auto",
       "themeLight": "Lyst",
       "theme": "Tema",
-      "themeDark": "Moerkt"
+      "themeDark": "Mørkt"
     },
     "session_section": {
       "title": "Session",
@@ -832,22 +839,22 @@
   "link": {
     "title": "Tilknyt enhed",
     "pageTitle": "Tilknyt din Karoo",
-    "metaDescription": "Tilknyt din Hammerhead Karoo til KPedal. Indtast koden vist paa din Karoo for at synke ture og indstillinger til skyen.",
+    "metaDescription": "Tilknyt din Hammerhead Karoo til KPedal. Indtast koden vist på din Karoo for at synke ture og indstillinger til skyen.",
     "secureConnection": "Sikker forbindelse",
     "linkKaroo": "Tilknyt din Karoo",
-    "enterCodeDescription": "Indtast den 8-tegns kode vist paa din enhed for sikkert at forbinde den til din konto.",
+    "enterCodeDescription": "Indtast den 8-tegns kode vist på din enhed for sikkert at forbinde den til din konto.",
     "verifying": "Verificerer...",
-    "continue": "Fortsaet",
+    "continue": "Fortsæt",
     "encryption256": "256-bit kryptering",
-    "verifiedDomain": "Verificeret domaene",
-    "signInToContinue": "Log ind for at fortsaette",
+    "verifiedDomain": "Verificeret domæne",
+    "signInToContinue": "Log ind for at fortsætte",
     "linkingDevice": "Tilknytter {device} til din konto.",
     "signInWithGoogle": "Log ind med Google for at godkende denne enhed.",
     "useDifferentCode": "Brug en anden kode",
     "authorizeDevice": "Godkend enhed?",
     "deviceRequestingAccess": "{device} anmoder om adgang til at synke turdata med din konto.",
     "permissionSync": "Synk pedal-metrikker fra ture",
-    "permissionView": "Se analyser paa app.kpedal.com",
+    "permissionView": "Se analyser på app.kpedal.com",
     "authorize": "Godkend",
     "deviceLinked": "Enhed tilknyttet!",
     "deviceConnected": "{device} er nu forbundet til din konto.",
@@ -855,81 +862,81 @@
     "secureConnectionEstablished": "Sikker forbindelse etableret",
     "dataEncrypted": "Data er krypteret ende-til-ende",
     "closePageHint": "Du kan lukke denne side og vende tilbage til din Karoo.",
-    "goToDashboard": "Gaa til Dashboard",
+    "goToDashboard": "Gå til Dashboard",
     "errors": {
       "failedToVerify": "Kunne ikke verificere kode",
       "failedToConnect": "Kunne ikke oprette forbindelse",
       "enterCompleteCode": "Indtast venligst den fulde kode",
-      "invalidOrExpired": "Denne kode er ugyldig eller udloebet. Hent venligst en ny kode fra din Karoo.",
+      "invalidOrExpired": "Denne kode er ugyldig eller udløbet. Hent venligst en ny kode fra din Karoo.",
       "checkConnection": "Kunne ikke oprette forbindelse. Kontroller venligst din internetforbindelse.",
-      "signInFirst": "Log venligst ind foerst",
+      "signInFirst": "Log venligst ind først",
       "failedToAuthorize": "Kunne ikke godkende enhed",
-      "failedTryAgain": "Kunne ikke oprette forbindelse. Proev venligst igen."
+      "failedTryAgain": "Kunne ikke oprette forbindelse. Prøv venligst igen."
     }
   },
   "infotips": {
     "asymmetry": "Din afvigelse fra perfekt 50/50 V/H balance. Under 2,5% er pro-niveau.",
-    "balance": "Hvordan din kraft fordeles mellem venstre og hoejre ben. 50/50 er perfekt.",
-    "te": "Procent af kraft der gaar fremad. Sigt efter 70-80% — hoejere er ikke altid bedre.",
+    "balance": "Hvordan din kraft fordeles mellem venstre og højre ben. 50/50 er perfekt.",
+    "te": "Procent af kraft der går fremad. Sigt efter 70-80% — højere er ikke altid bedre.",
     "ps": "Hvor jævnt din kraft er gennem pedaltaget. Sigt efter 20%+. Elite-cyklister rammer 25%+.",
-    "zones": "Tid brugt i optimal (groent), opmaerksomhed (gul) og problem (roed) zoner.",
-    "timeInZone": "Tid brugt i hver zone. Groent er optimalt, gul kraever opmaerksomhed, roedt er et problem.",
-    "score": "Samlet teknik-vurdering der kombinerer balance, TE og PJ. Hoejere er bedre.",
-    "achieved": "Antal milepæle du har laast op.",
-    "remaining": "Milepæle der stadig kan laases op.",
+    "zones": "Tid brugt i optimal (grønt), opmærksomhed (gul) og problem (rød) zoner.",
+    "timeInZone": "Tid brugt i hver zone. Grønt er optimalt, gul kræver opmærksomhed, rødt er et problem.",
+    "score": "Samlet teknik-vurdering der kombinerer balance, TE og PJ. Højere er bedre.",
+    "achieved": "Antal milepæle du har låst op.",
+    "remaining": "Milepæle der stadig kan låses op.",
     "total": "Samlet antal milepæle i systemet.",
-    "progress": "Samlet faerdiggoerelse i procent.",
-    "lastAchievement": "Dato for din seneste praestation.",
-    "milestone": "Navn og beskrivelse af praestationen.",
+    "progress": "Samlet færdiggørelse i procent.",
+    "lastAchievement": "Dato for din seneste præstation.",
+    "milestone": "Navn og beskrivelse af præstationen.",
     "category": "Type af milepæl (Volumen, Balance, Teknik osv.).",
-    "target": "Krav for at laase denne milepæl op.",
+    "target": "Krav for at låse denne milepæl op.",
     "weeklyActivity": "Antal ture pr. dag. Sigt efter 3-5 ture pr. uge for stadig fremgang.",
     "compRides": "Antal ture sammenlignet med sidste uge.",
-    "compHours": "Samlet sadeltid. Flere timer betyder mere traeningsadaptation.",
-    "compDistance": "Samlet kilometer koert. Nyttigt til at spore volumen sammen med timer.",
-    "compClimb": "Samlet hoejdestigning. Over 2000m pr. uge bygger klatrestyrke.",
+    "compHours": "Samlet sadeltid. Flere timer betyder mere træningsadaptation.",
+    "compDistance": "Samlet kilometer kørt. Nyttigt til at spore volumen sammen med timer.",
+    "compClimb": "Samlet højdestigning. Over 2000m pr. uge bygger klatrestyrke.",
     "compBalance": "Effekt-asymmetri vs sidste uge. Lavere er bedre, negativt er forbedring.",
-    "compOptimal": "Tid i optimal zone vs sidste uge. Hoejere er bedre teknik.",
-    "perfScore": "Samlet teknik-score fra 0 til 100. Hoejere betyder bedre form.",
-    "perfOptimal": "Tid med alle metrikker i den groenne zone. Hoejere er bedre.",
-    "perfPower": "Gennemsnitlig effektoutput i watt. Hoejere ved samme puls betyder bedre fitness.",
-    "perfEnergy": "Samlet energi i kilojoule. Svarer omtrent til forbraendte kalorier.",
-    "technique": "Pedal-effektivitetsmetrikker. TE er kraftoverfoersel, PJ er pedaltag-jævnhed.",
-    "balanceFatigue": "Venstre vs hoejre kraftfordeling. Aendringer indikerer traethed eller kompensation.",
-    "fatigueTrend": "Samlet traetheds-tendens. Stabil er god pacing, faldet er overanstrengelse.",
-    "balanceTrend": "Venstre/hoejre balance-tendens over tid. Konsistente vaerdier naer 50% indikerer god symmetri.",
-    "techniqueTrend": "Teknik-metrikker tendens over tid. Se efter stabile forbedringmoenstre.",
-    "compTe": "Drejningsmoment-effektivitet vs sidste uge. Positiv aendring er forbedring.",
-    "compPs": "Pedaljævnhed vs sidste uge. Forbedres langsomt, smaa fremskridt taeller.",
-    "fatigue": "Teknik ved turstart vs slut. Faldende vaerdier indikerer traethed.",
-    "teFatigue": "TE-aendring under tur. Fald indikerer muskel-traethed.",
-    "psFatigue": "PJ-aendring under tur. Normalt den foerste metrik der falder naar man er traet.",
-    "powerAvg": "Gennemsnitlig effekt i watt. Foelg over tid for at maale fitness-fremgang.",
-    "powerMax": "Maksimal effekt opnaaet. Nyttigt til sprints og FTP-estimering.",
-    "np": "Normaliseret effekt justerer for udsving. Taet paa gennemsnit betyder jaevn indsats.",
+    "compOptimal": "Tid i optimal zone vs sidste uge. Højere er bedre teknik.",
+    "perfScore": "Samlet teknik-score fra 0 til 100. Højere betyder bedre form.",
+    "perfOptimal": "Tid med alle metrikker i den grønne zone. Højere er bedre.",
+    "perfPower": "Gennemsnitlig effektoutput i watt. Højere ved samme puls betyder bedre fitness.",
+    "perfEnergy": "Samlet energi i kilojoule. Svarer omtrent til forbrændte kalorier.",
+    "technique": "Pedal-effektivitetsmetrikker. TE er kraftoverførsel, PJ er pedaltag-jævnhed.",
+    "balanceFatigue": "Venstre vs højre kraftfordeling. Ændringer indikerer træthed eller kompensation.",
+    "fatigueTrend": "Samlet trætheds-tendens. Stabil er god pacing, faldet er overanstrengelse.",
+    "balanceTrend": "Venstre/højre balance-tendens over tid. Konsistente værdier nær 50% indikerer god symmetri.",
+    "techniqueTrend": "Teknik-metrikker tendens over tid. Se efter stabile forbedringmønstre.",
+    "compTe": "Drejningsmoment-effektivitet vs sidste uge. Positiv ændring er forbedring.",
+    "compPs": "Pedaljævnhed vs sidste uge. Forbedres langsomt, små fremskridt tæller.",
+    "fatigue": "Teknik ved turstart vs slut. Faldende værdier indikerer træthed.",
+    "teFatigue": "TE-ændring under tur. Fald indikerer muskel-træthed.",
+    "psFatigue": "PJ-ændring under tur. Normalt den første metrik der falder når man er træt.",
+    "powerAvg": "Gennemsnitlig effekt i watt. Følg over tid for at måle fitness-fremgang.",
+    "powerMax": "Maksimal effekt opnået. Nyttigt til sprints og FTP-estimering.",
+    "np": "Normaliseret effekt justerer for udsving. Tæt på gennemsnit betyder jævn indsats.",
     "cadence": "Pedalomdrejninger pr. minut. Optimalt er 80-95 rpm for de fleste cyklister.",
     "hrAvg": "Gennemsnitlig puls. Lavere ved samme effekt betyder bedre fitness.",
-    "hrMax": "Maksimal puls opnaaet. Naer maksimum paavirkter ofte teknik.",
-    "speed": "Gennemsnitlig hastighed. Mindre paalidelig end effekt pga. terraen og vind.",
-    "elevationGain": "Samlet hoejdestigning. Over 1000m er en serioes klatretraening.",
-    "elevationLoss": "Samlet hoejdetab. Boer matche stigning paa rundture.",
-    "grade": "Maksimal haeldning. Over 10% er stejlt, over 15% er meget stejlt.",
-    "energy": "Samlet energioutput. Planlaeg naering ved 250-300 kcal pr. time.",
-    "trendCurrent": "Vaerdi fra din seneste tur i denne periode.",
-    "trendAverage": "Gennemsnitsvaerdi paa tvaers af alle ture i den valgte periode.",
-    "trendSpread": "Forskel mellem bedste og vaerste. Lavere spredning betyder mere konsistent form.",
-    "trendLatest": "Vaerdi fra din seneste tur for denne metrik.",
-    "trendBest": "Bedste vaerdi i perioden. For asymmetri er lavere bedre, for TE/PJ er hoejere bedre.",
-    "recentRides": "Seneste ture med teknik-metrikker. Klik paa en raekke for at se fulde detaljer.",
+    "hrMax": "Maksimal puls opnået. Nær maksimum påvirkter ofte teknik.",
+    "speed": "Gennemsnitlig hastighed. Mindre pålidelig end effekt pga. terræn og vind.",
+    "elevationGain": "Samlet højdestigning. Over 1000m er en seriøs klatretræning.",
+    "elevationLoss": "Samlet højdetab. Bør matche stigning på rundture.",
+    "grade": "Maksimal hældning. Over 10% er stejlt, over 15% er meget stejlt.",
+    "energy": "Samlet energioutput. Planlæg næring ved 250-300 kcal pr. time.",
+    "trendCurrent": "Værdi fra din seneste tur i denne periode.",
+    "trendAverage": "Gennemsnitsværdi på tværs af alle ture i den valgte periode.",
+    "trendSpread": "Forskel mellem bedste og værste. Lavere spredning betyder mere konsistent form.",
+    "trendLatest": "Værdi fra din seneste tur for denne metrik.",
+    "trendBest": "Bedste værdi i perioden. For asymmetri er lavere bedre, for TE/PJ er højere bedre.",
+    "recentRides": "Seneste ture med teknik-metrikker. Klik på en række for at se fulde detaljer.",
     "tableAsym": "Effekt-asymmetri i procent. Lavere betyder mere balanceret effektoutput.",
-    "tableZones": "Tidsfordeling paa tvaers af optimal, opmaerksomheds- og problemzoner."
+    "tableZones": "Tidsfordeling på tværs af optimal, opmærksomheds- og problemzoner."
   },
   "tour": {
     "buttons": {
-      "next": "Naeste",
+      "next": "Næste",
       "prev": "Tilbage",
-      "done": "Faerdig",
-      "continue": "Fortsaet →",
+      "done": "Færdig",
+      "continue": "Fortsæt →",
       "skip": "eller spring rundvisningen over →"
     },
     "dashboard": {
@@ -939,9 +946,9 @@
         "hint": "Hurtig rundvisning af hvad KPedal kan (ca. 2 min)."
       },
       "period": {
-        "title": "Tidsperiode-vaelger",
+        "title": "Tidsperiode-vælger",
         "desc": "Skift mellem <strong>7, 14, 30 eller 60 dage</strong> for at analysere dine tendenser over forskellige tidsrammer.",
-        "hint": "Kortere perioder viser nylig form. Laengere perioder afsloerer traeningsmoenstre."
+        "hint": "Kortere perioder viser nylig form. Længere perioder afslører træningsmønstre."
       },
       "asymmetry": {
         "title": "Effekt-asymmetri",
@@ -951,34 +958,34 @@
         "range25to5": "2,5-5%",
         "goodRoom": "Godt, plads til forbedring",
         "over5": "Over 5%",
-        "needsAttention": "Kraever opmaerksomhed",
-        "hint": "Denne demo-cyklist ligger i gennemsnit paa 1-2% — fremragende symmetri!"
+        "needsAttention": "Kræver opmærksomhed",
+        "hint": "Denne demo-cyklist ligger i gennemsnit på 1-2% — fremragende symmetri!"
       },
       "infoTip": {
         "title": "Info-tips overalt",
-        "desc": "Ser du dette <strong>i-ikon</strong>? Hold musen over eller tryk paa det for detaljerede forklaringer.",
+        "desc": "Ser du dette <strong>i-ikon</strong>? Hold musen over eller tryk på det for detaljerede forklaringer.",
         "hint": "Hver metrik i KPedal har et info-tip der forklarer hvad det betyder og hvad man skal sigte efter."
       },
       "balance": {
         "title": "V/H effekt-balance",
-        "desc": "Visuel opdeling af din venstre vs hoejre ben-kraftfordeling.",
-        "greenZone": "<strong>Groent zone</strong> = balanceret. Baren viser praecist hvordan din kraft fordeles mellem benene.",
-        "hint": "De fleste cyklister er lidt dominante paa den ene side. Foelg dette for at forbedre symmetri over tid."
+        "desc": "Visuel opdeling af din venstre vs højre ben-kraftfordeling.",
+        "grénZone": "<strong>Grønt zone</strong> = balanceret. Baren viser præcist hvordan din kraft fordeles mellem benene.",
+        "hint": "De fleste cyklister er lidt dominante på den ene side. Følg dette for at forbedre symmetri over tid."
       },
       "zones": {
         "title": "Tid i zone-fordeling",
         "desc": "Hvordan din turtid fordeles efter teknik-kvalitet:",
-        "optimal": "Groent (Optimal)",
-        "optimalDesc": "Alle metrikker i ideelt omraade",
-        "attention": "Gul (Opmaerksomhed)",
+        "optimal": "Grønt (Optimal)",
+        "optimalDesc": "Alle metrikker i ideelt område",
+        "attention": "Gul (Opmærksomhed)",
         "attentionDesc": "En eller flere metrikker glider",
-        "problem": "Roedt (Problem)",
+        "problem": "Rødt (Problem)",
         "problemDesc": "Betydeligt form-sammenbrud",
-        "hint": "Maal: Maksimer groent tid, specielt paa lange ture!"
+        "hint": "Mål: Maksimer grønt tid, specielt på lange ture!"
       },
       "summary": {
         "title": "Aktivitets-oversigt",
-        "desc": "Hurtigt overblik over din traeningsvolumen for den valgte periode:",
+        "desc": "Hurtigt overblik over din træningsvolumen for den valgte periode:",
         "rides": "Samlet antal ture",
         "hours": "Timer",
         "km": "Kilometer"
@@ -990,52 +997,52 @@
         "numRides": "Antal ture",
         "totalHours": "Samlet antal timer",
         "distanceClimb": "Distance og stigning",
-        "hint": "Konsistens er noeglen — sigt efter regelmaessig traening, ikke sporadiske store indsatser."
+        "hint": "Konsistens er nøglen — sigt efter regelmæssig træning, ikke sporadiske store indsatser."
       },
       "technique": {
         "title": "Teknik-metrikker",
-        "desc": "De to centrale effektivitets-metrikker fra din effektmaaler:",
+        "desc": "De to centrale effektivitets-metrikker fra din effektmåler:",
         "teTitle": "Drejningsmoment-effektivitet (TE)",
-        "teDesc": "Procent af kraft der gaar fremad. Sigt efter <strong>70-80%</strong> — hoejere er ikke altid bedre ifoelge Wattbike-forskning.",
+        "teDesc": "Procent af kraft der går fremad. Sigt efter <strong>70-80%</strong> — højere er ikke altid bedre ifølge Wattbike-forskning.",
         "psTitle": "Pedaljævnhed (PJ)",
         "psDesc": "Hvor jævnt din kraft er gennem pedaltaget. Sigt efter <strong>≥20%</strong>. Elite-cyklister rammer 25%+."
       },
       "trends": {
         "title": "Tendenser over tid",
-        "desc": "Foelg dine balance- og teknikforbedringer tur for tur.",
-        "left": "<strong>Venstre diagram:</strong> Balance-tendens paa tvaers af ture",
-        "right": "<strong>Hoejre diagram:</strong> Skift mellem TE, PJ og Asymmetri",
-        "hint": "Klik paa et punkt for at springe til den paaglende turs detaljerede analyse."
+        "desc": "Følg dine balance- og teknikforbedringer tur for tur.",
+        "left": "<strong>Venstre diagram:</strong> Balance-tendens på tværs af ture",
+        "right": "<strong>Højre diagram:</strong> Skift mellem TE, PJ og Asymmetri",
+        "hint": "Klik på et punkt for at springe til den påglende turs detaljerede analyse."
       },
       "recentRides": {
         "title": "Seneste ture-tabel",
-        "desc": "Alle dine synkede ture med noegle-metrikker med et overblik:",
+        "desc": "Alle dine synkede ture med nøgle-metrikker med et overblik:",
         "date": "Dato, varighed og score",
         "asymmetry": "Asymmetri-procent",
         "lrBreakdown": "V/H opdeling for TE og PJ",
         "zoneBars": "Zone-fordelings-barer",
-        "hint": "Klik paa en raekke for at se detaljeret minut-for-minut analyse!"
+        "hint": "Klik på en række for at se detaljeret minut-for-minut analyse!"
       },
       "nav": {
         "title": "Navigation",
         "desc": "Udforsk andre sektioner:",
-        "rides": "<strong>Ture</strong> — Fuld historik med filtre og soegning",
-        "drills": "<strong>Oevelser</strong> — Guidede traeningsoevelser",
-        "achievements": "<strong>Praestationer</strong> — Milepæle og maerker",
-        "settings": "<strong>Indstillinger</strong> — Enheder, taerskler og alarmer"
+        "rides": "<strong>Ture</strong> — Fuld historik med filtre og søgning",
+        "drills": "<strong>Øvelser</strong> — Guidede træningsøvelser",
+        "achievements": "<strong>Præstationer</strong> — Milepæle og mærker",
+        "settings": "<strong>Indstillinger</strong> — Enheder, tærskler og alarmer"
       },
       "complete": {
-        "title": "Dashboard faerdigt!",
+        "title": "Dashboard færdigt!",
         "desc": "Du har set dashboard-oversigten. Klar til at udforske mere?",
-        "next": "Klik <strong>Naeste</strong> for at fortsaette rundvisningen paa <strong>Ture</strong>-siden, hvor du ser din fulde turhistorik.",
-        "done": "Eller klik Faerdig for at afslutte rundvisningen her."
+        "next": "Klik <strong>Næste</strong> for at fortsætte rundvisningen på <strong>Ture</strong>-siden, hvor du ser din fulde turhistorik.",
+        "done": "Eller klik Færdig for at afslutte rundvisningen her."
       }
     },
     "rides": {
       "welcome": {
         "title": "Tur-historik",
         "desc": "Denne side viser din <strong>komplette turhistorik</strong> med filtrering og sortering.",
-        "hint": "Lad mig vise dig noegle-funktionerne."
+        "hint": "Lad mig vise dig nøgle-funktionerne."
       },
       "stats": {
         "title": "Periode-statistik",
@@ -1043,146 +1050,146 @@
         "ridesAndDuration": "Samlet antal ture og varighed",
         "scores": "Gennemsnitlige og bedste scorer",
         "powerDistance": "Effekt- og distance-totaler",
-        "hint": "Disse opdateres baseret paa dine filtre."
+        "hint": "Disse opdateres baseret på dine filtre."
       },
       "viewToggle": {
         "title": "Visnings-skift",
         "desc": "Skift mellem to visningstilstande:",
         "table": "<strong>Tabelvisning</strong> — Kompakt liste med alle metrikker",
         "card": "<strong>Kortvisning</strong> — Visuelle kort med zone-barer",
-        "hint": "Vaelg hvad der virker bedst for dig!"
+        "hint": "Vælg hvad der virker bedst for dig!"
       },
       "rideRow": {
-        "title": "Klik paa en tur",
+        "title": "Klik på en tur",
         "desc": "Hver tur viser:",
         "date": "Dato, varighed og teknik-score",
         "asymmetry": "Effekt-asymmetri",
         "lrMetrics": "V/H metrikker for TE og PJ",
         "zones": "Zone-fordeling",
-        "hint": "<strong>Klik paa en tur</strong> for at se den fulde detalje-side med minut-for-minut diagrammer!"
+        "hint": "<strong>Klik på en tur</strong> for at se den fulde detalje-side med minut-for-minut diagrammer!"
       },
       "complete": {
-        "title": "Ture-side faerdig!",
+        "title": "Ture-side færdig!",
         "desc": "Du kan gennemse alle dine ture her.",
-        "next": "Klik <strong>Naeste</strong> for at se en <strong>tur-detalje-side</strong> med dybdegaaende analyse."
+        "next": "Klik <strong>Næste</strong> for at se en <strong>tur-detalje-side</strong> med dybdegående analyse."
       }
     },
     "rideDetail": {
       "welcome": {
         "title": "Tur-detalje-analyse",
         "desc": "Det er her den <strong>dybe analyse</strong> sker.",
-        "hint": "Hver tur faar en komplet opdeling af din pedalteknik minut for minut."
+        "hint": "Hver tur får en komplet opdeling af din pedalteknik minut for minut."
       },
       "heroStats": {
-        "title": "Noegle-metrikker med et overblik",
-        "desc": "Den oeverste raekke viser dine vigtigste tur-metrikker:",
+        "title": "Nøgle-metrikker med et overblik",
+        "desc": "Den øverste række viser dine vigtigste tur-metrikker:",
         "score": "<strong>Score</strong> — Samlet teknik-vurdering (0-100)",
         "asymmetry": "<strong>Asymmetri</strong> — V/H kraft-ubalance",
         "balance": "<strong>Balance-bar</strong> — Visuel V/H fordeling",
         "zones": "<strong>Tid i zone</strong> — Kvalitets-fordeling"
       },
       "perfStrip": {
-        "title": "Tur-praestationsdata",
+        "title": "Tur-præstationsdata",
         "desc": "Detaljerede tur-metrikker:",
         "power": "<strong>Effekt</strong> — Gns, maks og normaliseret",
         "hr": "<strong>Puls</strong> — Gns og maks",
         "cadence": "<strong>Kadence</strong> — Pedalhastighed i RPM",
-        "elevation": "<strong>Hoejde</strong> — Stigning og fald",
-        "hint": "Tryk paa et info-ikon for detaljerede forklaringer!"
+        "elevation": "<strong>Højde</strong> — Stigning og fald",
+        "hint": "Tryk på et info-ikon for detaljerede forklaringer!"
       },
       "techniqueCard": {
         "title": "Teknik-opdeling",
         "desc": "Dine pedal-effektivitets-metrikker:",
-        "te": "<strong>TE (Drejningsmoment-effektivitet)</strong> — Kraft der gaar fremad. Sigt efter 70-80%",
+        "te": "<strong>TE (Drejningsmoment-effektivitet)</strong> — Kraft der går fremad. Sigt efter 70-80%",
         "ps": "<strong>PJ (Pedaljævnhed)</strong> — Pedaltag-jævnhed. Sigt efter ≥20%",
         "lr": "<strong>V/H opdeling</strong> — Se hvert bens bidrag",
         "hint": "Store V/H forskelle indikerer muskel-ubalance eller cykel-tilpasningsproblemer."
       },
       "fatigueCard": {
-        "title": "Traetheds-analyse",
-        "desc": "Hvordan din teknik aendrede sig fra start til slut:",
-        "startEnd": "<strong>Start → Slut</strong> vaerdier for hver metrik",
-        "colors": "<strong>Groent</strong> = forbedret, <strong>Roedt</strong> = forringet",
-        "badge": "<strong>Maerke</strong> — STAERK (ingen fald), MODERAT eller SVAG",
-        "hint": "Konsistent teknik under traethed er noeglen til lang-tur praestation!"
+        "title": "Trætheds-analyse",
+        "desc": "Hvordan din teknik ændrede sig fra start til slut:",
+        "startEnd": "<strong>Start → Slut</strong> værdier for hver metrik",
+        "colors": "<strong>Grønt</strong> = forbedret, <strong>Rødt</strong> = forringet",
+        "badge": "<strong>Mærke</strong> — STÆRK (ingen fald), MODERAT eller SVAG",
+        "hint": "Konsistent teknik under træthed er nøglen til lang-tur præstation!"
       },
       "timeline": {
         "title": "Minut-for-minut tidslinje",
-        "desc": "Foelg hvordan metrikker aendrede sig gennem din tur:",
+        "desc": "Følg hvordan metrikker ændrede sig gennem din tur:",
         "tabs": "<strong>Faner</strong> — Skift mellem Balance, TE, PJ, Effekt, Puls",
         "points": "<strong>Punkter</strong> — Hvert punkt er et minut",
-        "hover": "<strong>Hold over</strong> — Se praecise vaerdier paa et hvilket som helst tidspunkt",
-        "hint": "Se efter moenstre — falder teknikken efter 30 min? Det er traethed!"
+        "hover": "<strong>Hold over</strong> — Se præcise værdier på et hvilket som helst tidspunkt",
+        "hint": "Se efter mønstre — falder teknikken efter 30 min? Det er træthed!"
       },
       "complete": {
-        "title": "Tur-detalje faerdig!",
+        "title": "Tur-detalje færdig!",
         "desc": "Du ved nu hvordan man analyserer individuelle ture i dybden.",
-        "next": "Klik <strong>Naeste</strong> for at udforske <strong>Oevelser</strong>-siden — guidede oevelser til at forbedre din teknik."
+        "next": "Klik <strong>Næste</strong> for at udforske <strong>Øvelser</strong>-siden — guidede øvelser til at forbedre din teknik."
       }
     },
     "drills": {
       "welcome": {
-        "title": "Traenings-oevelser",
-        "desc": "<strong>Oevelser</strong> er guidede traeningsoevelser du laver paa din Karoo for at forbedre specifikke faerdigheder.",
-        "hint": "Resultater synkroniseres hertil saa du kan foelge din fremgang!"
+        "title": "Trænings-øvelser",
+        "desc": "<strong>Øvelser</strong> er guidede træningsøvelser du laver på din Karoo for at forbedre specifikke færdigheder.",
+        "hint": "Resultater synkroniseres hertil så du kan følge din fremgang!"
       },
       "stats": {
-        "title": "Oevelses-statistik",
-        "desc": "Din samlede oevelses-praestation:",
-        "avgTarget": "<strong>Gns. maal</strong> — Hvor godt du rammer maalzoner",
-        "sessions": "<strong>Sessioner</strong> — Samlet antal gennemfoerte oevelser",
-        "best": "<strong>Bedste</strong> — Din hoejeste tid-i-maal score",
-        "completion": "<strong>Faerdiggoerelses-rate</strong> — % faerdiggjort vs afbrudt"
+        "title": "Øvelses-statistik",
+        "desc": "Din samlede øvelses-præstation:",
+        "avgTarget": "<strong>Gns. mål</strong> — Hvor godt du rammer målzoner",
+        "sessions": "<strong>Sessioner</strong> — Samlet antal gennemførte øvelser",
+        "best": "<strong>Bedste</strong> — Din højeste tid-i-mål score",
+        "completion": "<strong>Færdiggørelses-rate</strong> — % færdiggjort vs afbrudt"
       },
       "drillRow": {
-        "title": "Oevelses-resultater",
-        "desc": "Hver oevelses-session viser:",
-        "name": "<strong>Oevelses-navn</strong> — Hvilken type oevelse",
-        "timeInTarget": "<strong>Tid i maal</strong> — % af tid du ramte maalet",
-        "duration": "<strong>Varighed</strong> — Hvor laenge du oevede",
-        "status": "<strong>Status</strong> — Gennemfoert eller stoppet tidligt",
-        "hint": "Sigt efter 80%+ tid i maal efterhaanden som du forbedrer dig!"
+        "title": "Øvelses-resultater",
+        "desc": "Hver øvelses-session viser:",
+        "name": "<strong>Øvelses-navn</strong> — Hvilken type øvelse",
+        "timeInTarget": "<strong>Tid i mål</strong> — % af tid du ramte målet",
+        "duration": "<strong>Varighed</strong> — Hvor længe du øvede",
+        "status": "<strong>Status</strong> — Gennemført eller stoppet tidligt",
+        "hint": "Sigt efter 80%+ tid i mål efterhånden som du forbedrer dig!"
       },
       "complete": {
-        "title": "Oevelses-side faerdig!",
-        "desc": "Oevelser hjaelper dig med bevidst at oeve specifikke faerdigheder.",
-        "next": "Klik <strong>Naeste</strong> for at se <strong>Praestationer</strong> — milepæle du kan laase op!"
+        "title": "Øvelses-side færdig!",
+        "desc": "Øvelser hjælper dig med bevidst at øve specifikke færdigheder.",
+        "next": "Klik <strong>Næste</strong> for at se <strong>Præstationer</strong> — milepæle du kan låse op!"
       }
     },
     "achievements": {
       "welcome": {
-        "title": "Praestationer & Milepæle",
-        "desc": "Laas praestationer op efterhaanden som du traener og forbedrer dig!",
-        "hint": "Disse sporer din fremgang paa tvaers af volumen, teknik og konsistens."
+        "title": "Præstationer & Milepæle",
+        "desc": "Lås præstationer op efterhånden som du træner og forbedrer dig!",
+        "hint": "Disse sporer din fremgang på tværs af volumen, teknik og konsistens."
       },
       "stats": {
         "title": "Fremgangs-oversigt",
-        "desc": "Din praestations-fremgang:",
-        "achieved": "<strong>Opnaaet</strong> — Oplaaslte milepæle",
-        "remaining": "<strong>Resterende</strong> — Stadig at laase op",
-        "progress": "<strong>Fremgang %</strong> — Samlet faerdiggoerelse",
-        "last": "<strong>Seneste</strong> — Seneste oplaasningsdato"
+        "desc": "Din præstations-fremgang:",
+        "achieved": "<strong>Opnået</strong> — Oplåste milepæle",
+        "remaining": "<strong>Resterende</strong> — Stadig at låse op",
+        "progress": "<strong>Fremgang %</strong> — Samlet færdiggørelse",
+        "last": "<strong>Seneste</strong> — Seneste oplåsningsdato"
       },
       "categories": {
-        "title": "Praestations-kategorier",
-        "desc": "Praestationer spaender over flere kategorier:",
+        "title": "Præstations-kategorier",
+        "desc": "Præstationer spænder over flere kategorier:",
         "volume": "<strong>Volumen</strong> — Tur-antal (10, 50, 100+)",
-        "balance": "<strong>Balance</strong> — V/H symmetri-maal",
+        "balance": "<strong>Balance</strong> — V/H symmetri-mål",
         "technique": "<strong>Teknik</strong> — Score-milepæle (80+, 90+)",
-        "consistency": "<strong>Konsistens</strong> — Traenings-raekker",
-        "training": "<strong>Traening</strong> — Oevelses-faerdiggoerelse",
-        "hint": "Opnaaede milepæle vises med et groent flueben!"
+        "consistency": "<strong>Konsistens</strong> — Trænings-rækker",
+        "training": "<strong>Træning</strong> — Øvelses-færdiggørelse",
+        "hint": "Opnåede milepæle vises med et grønt flueben!"
       },
       "complete": {
-        "title": "Praestationer faerdig!",
-        "desc": "Fortsaet med at cykle og traene for at laase flere milepæle op!",
-        "next": "Klik <strong>Naeste</strong> for sidste stop: <strong>Indstillinger</strong>."
+        "title": "Præstationer færdig!",
+        "desc": "Fortsæt med at cykle og træne for at låse flere milepæle op!",
+        "next": "Klik <strong>Næste</strong> for sidste stop: <strong>Indstillinger</strong>."
       }
     },
     "settings": {
       "welcome": {
-        "title": "Indstillinger & Praeferencer",
-        "desc": "Konfigurer KPedal til at virke praecis som du oensker.",
+        "title": "Indstillinger & Præferencer",
+        "desc": "Konfigurer KPedal til at virke præcis som du ønsker.",
         "hint": "Indstillinger synkroniserer mellem web og din Karoo-enhed!"
       },
       "devices": {
@@ -1192,39 +1199,39 @@
         "lastSync": "Seneste synk-tid",
         "requestSync": "<strong>Anmod om synk</strong> for at hente data fra enhed",
         "remove": "<strong>Fjern</strong> for at frakoble en enhed",
-        "hint": "Du kan tilknytte flere Karooer til een konto."
+        "hint": "Du kan tilknytte flere Karoo'er til én konto."
       },
       "thresholds": {
-        "title": "Metrik-taerskler",
+        "title": "Metrik-tærskler",
         "desc": "Tilpas hvad \"optimal\" betyder for dig:",
-        "balance": "<strong>Balance-taerskel</strong> — Hvor meget V/H ubalance udloeser gul/roed",
-        "teRange": "<strong>TE optimalt omraade</strong> — Dit maal for drejningsmoment-effektivitets-zone",
+        "balance": "<strong>Balance-tærskel</strong> — Hvor meget V/H ubalance udløser gul/rød",
+        "teRange": "<strong>TE optimalt område</strong> — Dit mål for drejningsmoment-effektivitets-zone",
         "psMin": "<strong>PJ minimum</strong> — Pedaljævnheds-gulv",
-        "hint": "Standarder er baseret paa cykel-forskning, men du kan justere til dit niveau."
+        "hint": "Standarder er baseret på cykel-forskning, men du kan justere til dit niveau."
       },
       "alerts": {
         "title": "Alarmer under tur",
-        "desc": "Faa besked under ture naar metrikker kraever opmaerksomhed:",
-        "metrics": "Vaelg hvilke metrikker der skal overvaages",
-        "sensitivity": "Indstil foelsomhed (kun kritisk eller folsom)",
-        "type": "Vaelg notifikationstype (vibration, lyd, banner)",
-        "cooldown": "Indstil afkoeling mellem alarmer",
-        "hint": "Alarmer vises direkte paa din Karoo under turen!"
+        "desc": "Få besked under ture når metrikker kræver opmærksomhed:",
+        "metrics": "Vælg hvilke metrikker der skal overvåges",
+        "sensitivity": "Indstil følsomhed (kun kritisk eller folsom)",
+        "type": "Vælg notifikationstype (vibration, lyd, banner)",
+        "cooldown": "Indstil afkøling mellem alarmer",
+        "hint": "Alarmer vises direkte på din Karoo under turen!"
       },
       "theme": {
-        "title": "Udseende",
-        "desc": "Vaelg dit foretrukne farveskema:",
+        "title": "Udsénde",
+        "desc": "Vælg dit foretrukne farveskema:",
         "auto": "<strong>Auto</strong> — Skifter kl. 7 / kl. 19",
         "light": "<strong>Lyst</strong> — Ren hvid baggrund",
-        "dark": "<strong>Moerkt</strong> — Behageligt for oejnene"
+        "dark": "<strong>Mørkt</strong> — Behageligt for øjnene"
       },
       "complete": {
         "title": "Du er klar!",
-        "desc": "Du har gennemfoert den fulde KPedal rundvisning!",
+        "desc": "Du har gennemført den fulde KPedal rundvisning!",
         "toSeeData": "<strong>For at se dine egne data:</strong>",
-        "step1": "Download KPedal paa din Karoo",
-        "step2": "Tilfoej det til din tur-skaerm",
-        "step3": "Tag paa en tur!",
+        "step1": "Download KPedal på din Karoo",
+        "step2": "Tilføj det til din tur-skærm",
+        "step3": "Tag på en tur!",
         "step4": "Data synkroniserer automatisk",
         "download": "Download KPedal →"
       }
@@ -1239,10 +1246,10 @@
       "encryptedDesc": "Alle data krypteret under transport og i hvile",
       "noLocation": "Ingen lokationssporing",
       "noLocationDesc": "Vi indsamler aldrig GPS eller rutedata",
-      "neverSold": "Saelges aldrig",
-      "neverSoldDesc": "Dine data saelges aldrig til nogen",
+      "neverSold": "Sælges aldrig",
+      "neverSoldDesc": "Dine data sælges aldrig til nogen",
       "yourControl": "Din kontrol",
-      "yourControlDesc": "Slet dine data naar som helst"
+      "yourControlDesc": "Slet dine data når som helst"
     },
     "toc": {
       "title": "Indhold",
@@ -1262,11 +1269,11 @@
       "yourRights": "5. Dine rettigheder",
       "thirdParties": "6. Tredjepartstjenester",
       "contact": "7. Kontakt",
-      "policyChanges": "Politikaendringer"
+      "policyChanges": "Politikændringer"
     },
     "rights": {
       "access": "Adgang",
-      "accessDesc": "Se alle dine data naar som helst i web-dashboardet. Hver metrik vi gemmer er synlig for dig.",
+      "accessDesc": "Se alle dine data når som helst i web-dashboardet. Hver metrik vi gemmer er synlig for dig.",
       "delete": "Slet",
       "deleteDesc": "Slet individuelle ture fra Ture-siden. For fuld kontosletning, send os en e-mail.",
       "export": "Eksporter",
@@ -1275,16 +1282,16 @@
       "optOutDesc": "Brug KPedal offline uden at logge ind. Ingen data forlader din enhed."
     },
     "contact": {
-      "text": "For privatlivsspoergsmaal, dataanmodninger eller kontosletning:",
+      "text": "For privatlivsspørgsmål, dataanmodninger eller kontosletning:",
       "email": "privacy@kpedal.com",
       "github": "GitHub Issues"
     },
-    "policyChanges": "Naar vi laver betydelige aendringer i denne politik, opdaterer vi datoen \"Sidst opdateret\" ovenfor. Vi opfordrer dig til at gennemse denne side periodisk.",
+    "policyChanges": "Når vi laver betydelige ændringer i denne politik, opdaterer vi datoen \"Sidst opdateret\" ovenfor. Vi opfordrer dig til at gennemse denne side periodisk.",
     "footer": "Pedal-effektivitetsanalyse til Karoo",
     "content": {
       "accountData": {
         "title": "Kontodata",
-        "intro": "Naar du logger ind med Google, modtager og gemmer vi:",
+        "intro": "Når du logger ind med Google, modtager og gemmer vi:",
         "fields": {
           "email": "E-mail",
           "emailPurpose": "Kontoidentifikation, login",
@@ -1302,23 +1309,23 @@
         "intro": "For hver tur synkroniseret fra din Karoo-enhed:",
         "fields": {
           "timestamp": "Tidsstempel",
-          "timestampPurpose": "Hvornaar turen blev optaget",
+          "timestampPurpose": "Hvornår turen blev optaget",
           "duration": "Varighed",
-          "durationPurpose": "Hvor laenge turen varede (millisekunder)",
-          "balance": "Balance venstre / hoejre",
+          "durationPurpose": "Hvor længe turen varede (millisekunder)",
+          "balance": "Balance venstre / højre",
           "balancePurpose": "Kraftfordeling mellem ben (%)",
           "te": "Drejningsmoment-effektivitet V/H",
           "tePurpose": "Hvor effektivt du anvender kraft (%)",
           "ps": "Pedaljævnhed V/H",
           "psPurpose": "Hvor jævnt dit pedaltag er (%)",
           "zones": "Zone-fordeling",
-          "zonesPurpose": "Tid i Optimal/Opmaerksomhed/Problem zoner (%)",
+          "zonesPurpose": "Tid i Optimal/Opmærksomhed/Problem zoner (%)",
           "score": "Effektivitets-score",
           "scorePurpose": "Beregnet samlet score (0-100)"
         }
       },
       "performanceMetrics": {
-        "title": "Praestations-metrikker",
+        "title": "Præstations-metrikker",
         "intro": "Yderligere cykeldata synkroniseret for omfattende tur-analyse:",
         "fields": {
           "power": "Effekt (gns/maks)",
@@ -1331,16 +1338,16 @@
           "speedPurpose": "Gennemsnitlig hastighed i km/t",
           "distance": "Distance",
           "distancePurpose": "Samlet tilbagelagt distance i km",
-          "elevation": "Hoejde (stigning/fald)",
+          "elevation": "Højde (stigning/fald)",
           "elevationPurpose": "Samlet meter op og ned",
-          "grade": "Haeldning (gns/maks)",
-          "gradePurpose": "Gennemsnitlig og maksimal haeldning (%)",
+          "grade": "Hældning (gns/maks)",
+          "gradePurpose": "Gennemsnitlig og maksimal hældning (%)",
           "np": "Normaliseret effekt",
-          "npPurpose": "Intensitets-vaegtet effekt i watt",
+          "npPurpose": "Intensitets-vægtet effekt i watt",
           "energy": "Energi",
           "energyPurpose": "Samlet energioutput i kilojoule"
         },
-        "note": "Disse metrikker giver kontekst for din pedal-effektivitets-analyse. De laeses fra din Karoos tilsluttede sensorer (effektmaaler, pulsmaaler, GPS)."
+        "note": "Disse metrikker giver kontekst for din pedal-effektivitets-analyse. De læses fra din Karoos tilsluttede sensorer (effektmåler, pulsmåler, GPS)."
       },
       "snapshots": {
         "title": "Pr-minut snapshots",
@@ -1351,11 +1358,11 @@
           "metricsAvg": "Balance V/H, TE V/H, PJ V/H",
           "metricsAvgPurpose": "Gennemsnitlige pedal-metrikker for det minut",
           "perfAvg": "Effekt, Kadence, Puls",
-          "perfAvgPurpose": "Gennemsnitlige praestations-metrikker for det minut",
+          "perfAvgPurpose": "Gennemsnitlige præstations-metrikker for det minut",
           "zoneStatus": "Zone-status",
-          "zoneStatusPurpose": "Dominerende zone for det minut (Optimal/Opmaerksomhed/Problem)"
+          "zoneStatusPurpose": "Dominerende zone for det minut (Optimal/Opmærksomhed/Problem)"
         },
-        "note": "Snapshots muliggoer tidslinjegrafen i turdetaljer, der viser hvordan din teknik udviklede sig gennem turen."
+        "note": "Snapshots muliggør tidslinjegrafen i turdetaljer, der viser hvordan din teknik udviklede sig gennem turen."
       },
       "deviceData": {
         "title": "Enhedsdata",
@@ -1367,71 +1374,71 @@
           "deviceType": "Enhedstype",
           "deviceTypePurpose": "f.eks. \"karoo\"",
           "lastSync": "Seneste synk-tid",
-          "lastSyncPurpose": "Hvornaar data sidst blev synkroniseret"
+          "lastSyncPurpose": "Hvornår data sidst blev synkroniseret"
         }
       },
       "userSettings": {
         "title": "Brugerindstillinger (synkroniseret hvis logget ind)",
-        "intro": "Naar du er logget ind, synkroniseres dine app-indstillinger mellem din Karoo-enhed og web-dashboard:",
+        "intro": "Når du er logget ind, synkroniseres dine app-indstillinger mellem din Karoo-enhed og web-dashboard:",
         "fields": {
-          "thresholds": "Taerskel-indstillinger",
-          "thresholdsPurpose": "Balance-taerskel, TE optimalt omraade, PJ minimum",
-          "alertPrefs": "Alarm-praeferencer",
-          "alertPrefsPurpose": "Hvilke metrikker udloeser alarmer, vibrations-/lyd-/visuelle muligheder",
-          "cooldowns": "Alarm-afkoeling",
+          "thresholds": "Tærskel-indstillinger",
+          "thresholdsPurpose": "Balance-tærskel, TE optimalt område, PJ minimum",
+          "alertPrefs": "Alarm-præferencer",
+          "alertPrefsPurpose": "Hvilke metrikker udløser alarmer, vibrations-/lyd-/visuelle muligheder",
+          "cooldowns": "Alarm-afkøling",
           "cooldownsPurpose": "Tid mellem gentagne alarmer (sekunder)",
-          "screenWake": "Skaerm-vaek",
-          "screenWakePurpose": "Om alarmer vaekker Karoo-skaermen",
+          "scrénWake": "Skærm-væk",
+          "scrénWakePurpose": "Om alarmer vækker Karoo-skærmen",
           "bgMode": "Baggrundstilstand",
-          "bgModePurpose": "Indsaml data selv naar datafelt er skjult",
+          "bgModePurpose": "Indsaml data selv når datafelt er skjult",
           "autoSync": "Auto-synk",
-          "autoSyncPurpose": "Synkroniser automatisk ture efter faerdiggoerelse"
+          "autoSyncPurpose": "Synkroniser automatisk ture efter færdiggørelse"
         },
-        "note": "Indstillingssynk giver dig mulighed for at konfigurere taerskler paa web og faa dem anvendt automatisk paa din Karoo. Hvis du ikke er logget ind, forbliver indstillinger kun lokale."
+        "note": "Indstillingssynk giver dig mulighed for at konfigurere tærskler på web og få dem anvendt automatisk på din Karoo. Hvis du ikke er logget ind, forbliver indstillinger kun lokale."
       },
       "drillResults": {
-        "title": "Oevelses-resultater (synkroniseret hvis logget ind)",
-        "intro": "Naar du er logget ind, synkroniseres dine oevelses-traeningsdata:",
+        "title": "Øvelses-resultater (synkroniseret hvis logget ind)",
+        "intro": "Når du er logget ind, synkroniseres dine øvelses-træningsdata:",
         "fields": {
-          "drillId": "Oevelses-ID & Navn",
-          "drillIdPurpose": "Hvilken oevelse der blev gennemfoert",
+          "drillId": "Øvelses-ID & Navn",
+          "drillIdPurpose": "Hvilken øvelse der blev gennemført",
           "drillTimestamp": "Tidsstempel & Varighed",
-          "drillTimestampPurpose": "Hvornaar oevelsen blev lavet og hvor laenge den tog",
+          "drillTimestampPurpose": "Hvornår øvelsen blev lavet og hvor længe den tog",
           "drillScore": "Score",
-          "drillScorePurpose": "Samlet praestations-score (0-100)",
-          "timeInTarget": "Tid i maal",
-          "timeInTargetPurpose": "Hvor laenge du fastholdt maal-metrikker",
+          "drillScorePurpose": "Samlet præstations-score (0-100)",
+          "timeInTarget": "Tid i mål",
+          "timeInTargetPurpose": "Hvor længe du fastholdt mål-metrikker",
           "phaseScores": "Fase-scorer",
-          "phaseScoresPurpose": "Praestation for hver oevelsesfase"
+          "phaseScoresPurpose": "Præstation for hver øvelsesfase"
         }
       },
       "achievements": {
-        "title": "Praestationer (synkroniseret hvis logget ind)",
-        "intro": "Naar du er logget ind, synkroniseres dine oplaaste praestationer:",
+        "title": "Præstationer (synkroniseret hvis logget ind)",
+        "intro": "Når du er logget ind, synkroniseres dine oplåste præstationer:",
         "fields": {
-          "achievementId": "Praestations-ID",
-          "achievementIdPurpose": "Hvilken praestation der blev oplaast",
-          "unlockedAt": "Oplaast ved",
-          "unlockedAtPurpose": "Hvornaar praestationen blev opnaaet"
+          "achievementId": "Præstations-ID",
+          "achievementIdPurpose": "Hvilken præstation der blev oplåst",
+          "unlockedAt": "Oplåst ved",
+          "unlockedAtPurpose": "Hvornår præstationen blev opnået"
         }
       },
       "localOnly": {
-        "title": "Data gemt kun paa din Karoo (aldrig synkroniseret)",
-        "intro": "Foelgende data gemmes lokalt paa din Karoo-enhed og sendes aldrig til vores servere:",
+        "title": "Data gemt kun på din Karoo (aldrig synkroniseret)",
+        "intro": "Følgende data gemmes lokalt på din Karoo-enhed og sendes aldrig til vores servere:",
         "fields": {
           "ratings": "Tur-vurderinger",
           "ratingsPurpose": "1-5 stjerne-vurderinger du tildeler ture",
           "notes": "Tur-noter",
-          "notesPurpose": "Personlige noter du tilfojer til ture",
-          "customDrills": "Tilpassede oevelser",
-          "customDrillsPurpose": "Traeningsoevelser du selv opretter",
+          "notesPurpose": "Personlige noter du tilføjer til ture",
+          "customDrills": "Tilpassede øvelser",
+          "customDrillsPurpose": "Træningsøvelser du selv opretter",
           "onboarding": "Onboarding-status",
-          "onboardingPurpose": "Om du har gennemfoert app-vejledningen"
+          "onboardingPurpose": "Om du har gennemført app-vejledningen"
         },
-        "note": "Disse data forbliver paa din enhed. Hvis du afinstallerer appen, slettes disse data."
+        "note": "Disse data forbliver på din enhed. Hvis du afinstallerer appen, slettes disse data."
       },
       "dontCollect": {
-        "intro": "Mens vi indsamler praestations-metrikker til analyse, undgaar vi specifikt lokations- og sporingsdata:",
+        "intro": "Mens vi indsamler præstations-metrikker til analyse, undgår vi specifikt lokations- og sporingsdata:",
         "items": {
           "gps": "GPS / Lokation",
           "route": "Rute / Kortdata",
@@ -1440,50 +1447,50 @@
           "rideTitles": "Turnavne / Titler",
           "photos": "Fotos / Medier"
         },
-        "note": "Dine ture kan ikke spores til specifikke lokationer. Vi gemmer kun samlede praestations-metrikker, ikke hvor du koerte."
+        "note": "Dine ture kan ikke spores til specifikke lokationer. Vi gemmer kun samlede præstations-metrikker, ikke hvor du kørte."
       },
       "usedNotStored": {
         "title": "Data brugt men ikke gemt",
-        "intro": "Foelgende data laeses i realtid til visningsformaal men gemmes aldrig paa enhed eller sky:",
+        "intro": "Følgende data læses i realtid til visningsformål men gemmes aldrig på enhed eller sky:",
         "fields": {
           "smoothed": "3s/10s udjævnet balance",
           "smoothedPurpose": "Realtids-tendens-indikatorer til live-visning",
-          "rawStream": "Raa sensor-stream (~20Hz)",
+          "rawStream": "Rå sensor-stream (~20Hz)",
           "rawStreamPurpose": "Individuelle datapunkter behandles og kasseres; kun pr-minut gennemsnit gemmes"
         }
       },
       "permissions": {
         "title": "Android-tilladelser",
-        "intro": "KPedal-appen anmoder om foelgende tilladelser paa din Karoo:",
+        "intro": "KPedal-appen anmoder om følgende tilladelser på din Karoo:",
         "fields": {
           "foreground": "Forgrundstjeneste",
-          "foregroundPurpose": "Koer i baggrunden for at indsamle data under ture",
+          "foregroundPurpose": "Kør i baggrunden for at indsamle data under ture",
           "notifications": "Notifikationer",
-          "notificationsPurpose": "Vis alarmer naar pedalteknik kraever opmaerksomhed",
-          "boot": "Boot faerdiggjort",
-          "bootPurpose": "Start automatisk naar Karoo taendes"
+          "notificationsPurpose": "Vis alarmer når pedalteknik kræver opmærksomhed",
+          "boot": "Boot færdiggjort",
+          "bootPurpose": "Start automatisk når Karoo tændes"
         },
         "note": "Ingen internet-, lokations-, kamera-, mikrofon- eller lagringstilladelser anmodes."
       },
       "dataFlow": {
         "step1": {
-          "title": "Effektmaaler-pedaler",
+          "title": "Effektmåler-pedaler",
           "desc": "Dine pedaler sender balance, TE og PJ via ANT+ Cycling Dynamics-protokol til din Karoo."
         },
         "step2": {
-          "title": "KPedal-app paa Karoo",
-          "desc": "Appen behandler realtidsdata lokalt ved ca. 20Hz, beregner gennemsnit og gemmer tur-opsummeringer i lokal database. Op til 100 ture opbevares paa enheden; aeldre ture slettes automatisk."
+          "title": "KPedal-app på Karoo",
+          "desc": "Appen behandler realtidsdata lokalt ved ca. 20Hz, beregner gennemsnit og gemmer tur-opsummeringer i lokal database. Op til 100 ture opbevares på enheden; ældre ture slettes automatisk."
         },
         "step3": {
           "title": "Skysynk (valgfri)",
-          "desc": "Hvis du er logget ind, synkroniseres tur-opsummeringer og indstillinger til KPedal sky via HTTPS. Kun aggregerede data sendes — ingen raa sensor-streams. Indstillingsaendringer paa web anvendes automatisk paa din Karoo."
+          "desc": "Hvis du er logget ind, synkroniseres tur-opsummeringer og indstillinger til KPedal sky via HTTPS. Kun aggregerede data sendes — ingen rå sensor-streams. Indstillingsændringer på web anvendes automatisk på din Karoo."
         },
         "step4": {
           "title": "Web-dashboard",
-          "desc": "Se din turhistorik, tendenser og analyser paa app.kpedal.com. Data hentes kun for din godkendte konto."
+          "desc": "Se din turhistorik, tendenser og analyser på app.kpedal.com. Data hentes kun for din godkendte konto."
         },
         "offlineTitle": "Offline-tilstand",
-        "offlineDesc": "KPedal-appen fungerer fuldt offline. Du kan bruge alle funktioner uden at logge ind eller synkronisere. Data forbliver paa din enhed."
+        "offlineDesc": "KPedal-appen fungerer fuldt offline. Du kan bruge alle funktioner uden at logge ind eller synkronisere. Data forbliver på din enhed."
       },
       "infrastructure": {
         "title": "Infrastruktur",
@@ -1492,7 +1499,7 @@
         "d1": "Cloudflare D1",
         "d1Use": "SQLite-database til brugere og ture",
         "kv": "Cloudflare KV",
-        "kvUse": "Sessions-tokens (udloeber automatisk efter 7 dage)",
+        "kvUse": "Sessions-tokens (udløber automatisk efter 7 dage)",
         "pages": "Cloudflare Pages",
         "pagesUse": "Statisk web-dashboard hosting"
       },
@@ -1501,11 +1508,11 @@
         "https": "HTTPS overalt",
         "httpsDesc": "Alle forbindelser bruger TLS 1.3-kryptering",
         "jwt": "JWT-godkendelse",
-        "jwtDesc": "Signerede tokens med 15-minutters udloeb for adgang, 7 dage for opdatering",
-        "rateLimit": "Hastighedsbegraensning",
-        "rateLimitDesc": "Auth: 10 anm/min, API: 100 anm/min, Synk: 30 anm/min. Bruger IP-adresse til taelling, slettes automatisk efter 60 sekunder.",
+        "jwtDesc": "Signerede tokens med 15-minutters udløb for adgang, 7 dage for opdatering",
+        "rateLimit": "Hastighedsbegrænsning",
+        "rateLimitDesc": "Auth: 10 anm/min, API: 100 anm/min, Synk: 30 anm/min. Bruger IP-adresse til tælling, slettes automatisk efter 60 sekunder.",
         "validation": "Input-validering",
-        "validationDesc": "Alle data valideres og renses foer lagring",
+        "validationDesc": "Alle data valideres og renses før lagring",
         "csrf": "CSRF-beskyttelse",
         "csrfDesc": "OAuth state-verifikation forhindrer cross-site angreb"
       },
@@ -1516,9 +1523,9 @@
         "cloud": {
           "rideData": "Turdata",
           "rideDataPeriod": "Indtil du sletter det",
-          "drillResults": "Oevelses-resultater",
+          "drillResults": "Øvelses-resultater",
           "drillResultsPeriod": "Indtil du sletter det",
-          "achievements": "Praestationer",
+          "achievements": "Præstationer",
           "achievementsPeriod": "Indtil kontosletning",
           "userSettings": "Brugerindstillinger",
           "userSettingsPeriod": "Indtil kontosletning",
@@ -1533,12 +1540,12 @@
         },
         "local": {
           "rideHistory": "Turhistorik",
-          "rideHistoryPeriod": "Op til 100 ture (aeldste slettes automatisk)",
-          "drillResults": "Oevelses-resultater",
-          "drillResultsPeriod": "Indtil app-afinstallation (synkroniseres ogsaa til sky hvis logget ind)",
-          "achievements": "Praestationer",
-          "achievementsPeriod": "Indtil app-afinstallation (synkroniseres ogsaa til sky hvis logget ind)",
-          "customDrills": "Tilpassede oevelser",
+          "rideHistoryPeriod": "Op til 100 ture (ældste slettes automatisk)",
+          "drillResults": "Øvelses-resultater",
+          "drillResultsPeriod": "Indtil app-afinstallation (synkroniseres også til sky hvis logget ind)",
+          "achievements": "Præstationer",
+          "achievementsPeriod": "Indtil app-afinstallation (synkroniseres også til sky hvis logget ind)",
+          "customDrills": "Tilpassede øvelser",
           "customDrillsPeriod": "Indtil du sletter dem (kun lokalt)",
           "settings": "Indstillinger",
           "settingsPeriod": "Indtil app-afinstallation (synkroniseres til sky hvis logget ind)"
@@ -1552,7 +1559,7 @@
         },
         "cloudflare": {
           "title": "Cloudflare",
-          "desc": "Vores infrastrukturudbyder. Haandterer API, database og web-hosting.",
+          "desc": "Vores infrastrukturudbyder. Håndterer API, database og web-hosting.",
           "link": "Cloudflare privatlivspolitik →"
         },
         "notUsedTitle": "Hvad vi ikke bruger",
@@ -1565,16 +1572,16 @@
           "Nogen tredjeparts datamaglere"
         ],
         "browserStorageTitle": "Browser-lagring",
-        "browserStorageIntro": "KPedal web-dashboard gemmer foelgende i din browsers lokale/sessions-lagring:",
+        "browserStorageIntro": "KPedal web-dashboard gemmer følgende i din browsers lokale/sessions-lagring:",
         "browserStorage": {
           "access": "kpedal_auth_access",
-          "accessPurpose": "sessionStorage — JWT adgangstoken (ryddes naar fane lukkes)",
+          "accessPurpose": "sessionStorage — JWT adgangstoken (ryddes når fane lukkes)",
           "refresh": "kpedal_auth_refresh",
           "refreshPurpose": "localStorage — JWT opdateringstoken (bevares op til 7 dage)",
           "theme": "kpedal_theme",
-          "themePurpose": "localStorage — Tema-praference (auto/lyst/moerkt)"
+          "themePurpose": "localStorage — Tema-præference (auto/lyst/mørkt)"
         },
-        "browserStorageNote": "Du kan rydde disse data naar som helst ved at logge ud eller rydde browser-lagring. Ingen cookies bruges."
+        "browserStorageNote": "Du kan rydde disse data når som helst ved at logge ud eller rydde browser-lagring. Ingen cookies bruges."
       }
     }
   },
@@ -1584,16 +1591,16 @@
       "version": "v1.3.0",
       "titleLine1": "Se din pedal-",
       "titleLine2": "effektivitet i realtid",
-      "subtitle": "Balance, drejningsmoment-effektivitet, pedaljævnhed — vist paa din Karoo med realtidsalarmer og guidede oevelser.",
+      "subtitle": "Balance, drejningsmoment-effektivitet, pedaljævnhed — vist på din Karoo med realtidsalarmer og guidede øvelser.",
       "downloadFree": "Download gratis",
-      "tryDemo": "Proev demo",
+      "tryDemo": "Prøv demo",
       "free": "Gratis",
       "openSource": "open source",
-      "noAccountRequired": "Ingen konto kraeves"
+      "noAccountRequired": "Ingen konto kræves"
     },
     "dataFields": {
-      "title": "Se det paa din Karoo",
-      "subtitle": "5 datafelt-layouts. Vaelg den visning der passer til din traening.",
+      "title": "Se det på din Karoo",
+      "subtitle": "5 datafelt-layouts. Vælg den visning der passer til din træning.",
       "tabs": {
         "quickGlance": "Hurtigt kig",
         "balance": "Balance",
@@ -1603,11 +1610,11 @@
       },
       "quickGlance": {
         "name": "Hurtigt kig",
-        "desc": "Statusindikator med balance-bar. Viser flueben naar optimal eller lister metrikker der kraever opmaerksomhed."
+        "desc": "Statusindikator med balance-bar. Viser flueben når optimal eller lister metrikker der kræver opmærksomhed."
       },
       "powerBalance": {
         "name": "Effekt-balance",
-        "desc": "Store V/H balance-tal med visuel fremdriftsbar. Perfekt til balance-fokuseret traening."
+        "desc": "Store V/H balance-tal med visuel fremdriftsbar. Perfekt til balance-fokuseret træning."
       },
       "efficiency": {
         "name": "Effektivitet",
@@ -1615,7 +1622,7 @@
       },
       "fullOverview": {
         "name": "Fuld oversigt",
-        "desc": "Alle tre metrikker i een kompakt visning. Komplet pedal-billede med et overblik."
+        "desc": "Alle tre metrikker i én kompakt visning. Komplet pedal-billede med et overblik."
       },
       "balanceTrend": {
         "name": "Balance-tendens",
@@ -1625,7 +1632,7 @@
         "optimal": "Optimal",
         "balance": "Balance",
         "left": "Venstre",
-        "right": "Hoejre",
+        "right": "Højre",
         "torqueEff": "Drejningsm. eff.",
         "smoothness": "Jævnhed",
         "te": "TE",
@@ -1638,85 +1645,85 @@
     },
     "comparison": {
       "title": "Forskellen",
-      "subtitle": "Stop med at gaette. Begynd at forbedre dig.",
+      "subtitle": "Stop med at gætte. Begynd at forbedre dig.",
       "without": "Uden KPedal",
       "with": "Med KPedal",
       "items": {
         "before1": "Effekt-tal, men ingen teknik-indsigt",
         "after1": "Balance, TE, PJ synlig live",
         "before2": "Opdag ubalance fra skade",
-        "after2": "Alarm foer det bliver et problem",
-        "before3": "Ingen struktureret maade at forbedre sig",
-        "after3": "10 guidede oevelser med scoring",
-        "before4": "Data fanget paa een enhed",
+        "after2": "Alarm før det bliver et problem",
+        "before3": "Ingen struktureret måde at forbedre sig",
+        "after3": "10 guidede øvelser med scoring",
+        "before4": "Data fanget på én enhed",
         "after4": "Sky-synk med web-dashboard"
       }
     },
     "metrics": {
-      "title": "Hvad vi maaler",
-      "subtitle": "Tre metrikker. Forskningsbaserede taerskler.",
+      "title": "Hvad vi måler",
+      "subtitle": "Tre metrikker. Forskningsbaserede tærskler.",
       "balance": {
         "title": "Effekt-balance",
         "range": "48-52% optimalt",
-        "desc": "Venstre/hoejre kraftfordeling. Pro-cyklister holder sig indenfor 2%. Ubalancer over 5% oeger risiko for overbelastningsskader og spilder energi gennem kompensationsmoenstre."
+        "desc": "Venstre/højre kraftfordeling. Pro-cyklister holder sig indenfor 2%. Ubalancer over 5% øger risiko for overbelastningsskader og spilder energi gennem kompensationsmønstre."
       },
       "te": {
         "title": "Drejningsmoment-effektivitet",
         "range": "70-80% sweet spot",
-        "desc": "Procent af kraft anvendt under den effektive del af pedaltaget. Baseret paa Wattbike-forskning — <strong>hoejere er IKKE bedre</strong>. Over 80% kan faktisk reducere samlet effektoutput."
+        "desc": "Procent af kraft anvendt under den effektive del af pedaltaget. Baseret på Wattbike-forskning — <strong>højere er IKKE bedre</strong>. Over 80% kan faktisk reducere samlet effektoutput."
       },
       "ps": {
         "title": "Pedaljævnhed",
-        "range": "≥20% maal",
-        "desc": "Hvor jævnt kraft fordeles gennem hele pedaltaget. Eliminerer \"doede punkter\". Elite-cyklister opnaar 25-35% — dette er den svaereste metrik at forbedre."
+        "range": "≥20% mål",
+        "desc": "Hvor jævnt kraft fordeles gennem hele pedaltaget. Eliminerer \"døde punkter\". Elite-cyklister opnår 25-35% — dette er den sværeste metrik at forbedre."
       },
       "zones": {
         "optimal": "Optimal",
-        "attention": "Opmaerksomhed",
+        "attention": "Opmærksomhed",
         "problem": "Problem"
       }
     },
     "drills": {
-      "title": "10 guidede oevelser",
-      "subtitle": "Fra 30-sekunders oevelser til 15-minutters traening. Hver scores 0-100%.",
+      "title": "10 guidede øvelser",
+      "subtitle": "Fra 30-sekunders øvelser til 15-minutters træning. Hver scores 0-100%.",
       "tabs": {
         "focus": "Fokus",
         "challenge": "Udfordring",
-        "workout": "Traening"
+        "workout": "Træning"
       },
-      "target": "Maal",
+      "target": "Mål",
       "levels": {
         "beginner": "Begynder",
-        "intermediate": "Oevet",
+        "intermediate": "Øvet",
         "advanced": "Avanceret"
       },
       "featured": "Fremhævet",
       "featuredTitle": "Pedal-mesterskab",
-      "featuredDesc": "15 minutter, 10 faser. Komplet teknik-daekning. Anbefalet 1-2× pr. uge.",
+      "featuredDesc": "15 minutter, 10 faser. Komplet teknik-dækning. Anbefalet 1-2× pr. uge.",
       "items": {
         "leftFocus": {
           "name": "Venstre ben-fokus",
           "duration": "30s",
           "target": "Balance <48%",
-          "desc": "Byg enkelt-ben styrkebevidsthed ved at fokusere paa dit venstre ben."
+          "desc": "Byg enkelt-ben styrkebevidsthed ved at fokusere på dit venstre ben."
         },
         "rightFocus": {
-          "name": "Hoejre ben-fokus",
+          "name": "Højre ben-fokus",
           "duration": "30s",
           "target": "Balance >52%",
-          "desc": "Identificer og styrk dit svagere ben med fokuseret oevelse."
+          "desc": "Identificer og styrk dit svagere ben med fokuseret øvelse."
         },
         "smoothCircles": {
           "name": "Jævne cirkler",
           "duration": "45s",
           "target": "PJ ≥22%",
-          "desc": "Eliminer doede punkter i dit pedaltag gennem jævn teknik."
+          "desc": "Eliminer døde punkter i dit pedaltag gennem jævn teknik."
         },
         "powerTransfer": {
-          "name": "Kraftoverfoersel",
+          "name": "Kraftoverførsel",
           "duration": "60s",
           "target": "TE 70-80%",
-          "desc": "Maksimer effektoutput uden at gaa paa kompromis med effektivitet."
+          "desc": "Maksimer effektoutput uden at gå på kompromis med effektivitet."
         },
         "balanceChallenge": {
           "name": "Balance-udfordring",
@@ -1725,22 +1732,22 @@
           "desc": "Hold perfekt 50/50 balance i 15 sekunder. Tester symmetri og kontrol."
         },
         "smoothnessTarget": {
-          "name": "Jævnheds-maal",
+          "name": "Jævnheds-mål",
           "duration": "20s hold",
           "target": "PJ ≥25%",
-          "desc": "Elite-niveau pedaljævnhed. Den mest kraevende teknik-udfordring."
+          "desc": "Elite-niveau pedaljævnhed. Den mest krævende teknik-udfordring."
         },
         "highCadenceSmooth": {
-          "name": "Hoej kadence jævn",
+          "name": "Høj kadence jævn",
           "duration": "30s",
           "target": "PJ ≥20% @ 100+ rpm",
-          "desc": "Fasthold jævn form ved hoej kadence. Ultimativ koordinationstest."
+          "desc": "Fasthold jævn form ved høj kadence. Ultimativ koordinationstest."
         },
         "balanceRecovery": {
           "name": "Balance-genopretning",
           "duration": "5 min",
           "target": "3 faser",
-          "desc": "Veksl venstre-fokus → center → hoejre-fokus. Hjaelper med at rette ubalancer over tid."
+          "desc": "Veksl venstre-fokus → center → højre-fokus. Hjælper med at rette ubalancer over tid."
         },
         "efficiencyBuilder": {
           "name": "Effektivitetsbygger",
@@ -1752,39 +1759,39 @@
           "name": "Pedal-mesterskab",
           "duration": "15 min",
           "target": "10 faser",
-          "desc": "Omfattende 10-fase traening der daekker alle aspekter af pedalteknik."
+          "desc": "Omfattende 10-fase træning der dækker alle aspekter af pedalteknik."
         }
       }
     },
     "alerts": {
       "title": "Realtids-alarmer",
-      "subtitle": "Bliv korrigeret midt paa turen naar teknik glider",
+      "subtitle": "Bliv korrigeret midt på turen når teknik glider",
       "demo": {
         "title": "Balance-alarm",
-        "detail": "Hoejre ben dominant: 56%"
+        "detail": "Højre ben dominant: 56%"
       },
       "features": {
         "vibration": {
           "title": "Vibration & Lyd",
-          "desc": "Haptisk feedback og lyd-bip. Slaa hver til/fra."
+          "desc": "Haptisk feedback og lyd-bip. Slå hver til/fra."
         },
-        "screenWake": {
-          "title": "Skaerm-vaek",
-          "desc": "Auto-vaek Karoo-display naar alarm udloeses."
+        "scrénWake": {
+          "title": "Skærm-væk",
+          "desc": "Auto-væk Karoo-display når alarm udløses."
         },
         "cooldown": {
-          "title": "Smart afkoeling",
+          "title": "Smart afkøling",
           "desc": "15s til 2min mellem alarmer. Nyttigt, ikke irriterende."
         },
         "thresholds": {
-          "title": "Pr-metrik taerskler",
+          "title": "Pr-metrik tærskler",
           "desc": "Separate indstillinger for Balance, TE og PJ."
         }
       }
     },
     "analytics": {
       "title": "Analyser & Web-dashboard",
-      "subtitle": "Foelg forbedring over tid. Se tendenser, ikke kun tal.",
+      "subtitle": "Følg forbedring over tid. Se tendenser, ikke kun tal.",
       "preview": {
         "greeting": "Hej, Yuri!",
         "recentRides": "Seneste ture",
@@ -1799,39 +1806,39 @@
         "periods": "7-dages, 14-dages, 30-dages, 60-dages analyse",
         "history": "Fuld turhistorik med filtre",
         "multiDevice": "Multi-enhed synk",
-        "openSource": "Open source paa GitHub"
+        "openSource": "Open source på GitHub"
       }
     },
     "motivation": {
       "title": "Forbliv motiveret",
-      "subtitle": "Foelg fremgang med praestationer og ugentlige udfordringer",
-      "achievements": "Praestationer at laase op",
+      "subtitle": "Følg fremgang med præstationer og ugentlige udfordringer",
+      "achievements": "Præstationer at låse op",
       "challenges": "Ugentlige udfordringer",
-      "achievementsLabel": "Praestationer",
+      "achievementsLabel": "Præstationer",
       "challengesLabel": "Udfordringer",
       "examples": {
-        "firstRide": "Foerste tur",
+        "firstRide": "Første tur",
         "hundredRides": "100 ture",
         "perfectBalance": "Perfekt balance 10 min",
-        "thirtyDayStreak": "30-dages raekke",
-        "balancedRider": "Balanceret cyklist: 48-52% paa 3 ture",
+        "thirtyDayStreak": "30-dages række",
+        "balancedRider": "Balanceret cyklist: 48-52% på 3 ture",
         "zoneMaster": "Zone-mester: 60%+ i optimal zone"
       }
     },
     "works": {
       "title": "Virker overalt",
-      "subtitle": "Baggrunds-indsamling. Automatisk synk. Dine data paa alle enheder.",
+      "subtitle": "Baggrunds-indsamling. Automatisk synk. Dine data på alle enheder.",
       "background": {
         "title": "Baggrundstilstand",
-        "desc": "Indsamler data for ALLE ture, selv uden datafelter synlige. Starter automatisk ved opstart. Gemmer naar du stopper."
+        "desc": "Indsamler data for ALLE ture, selv uden datafelter synlige. Starter automatisk ved opstart. Gemmer når du stopper."
       },
       "sync": {
         "title": "Sky-synk",
-        "desc": "Ture synkroniserer efter faerdiggoerelse. Tilknyt enhed paa link.kpedal.com med en simpel kode — ingen adgangskode noedvendig paa Karoo."
+        "desc": "Ture synkroniserer efter færdiggørelse. Tilknyt enhed på link.kpedal.com med en simpel kode — ingen adgangskode nødvendig på Karoo."
       },
       "multiDevice": {
         "title": "Multi-enhed",
-        "desc": "Tilknyt flere Karooer. Alle ture gaar til een konto. Indstillinger synkroniserer begge veje mellem app og web."
+        "desc": "Tilknyt flere Karoo'er. Alle ture går til én konto. Indstillinger synkroniserer begge veje mellem app og web."
       }
     },
     "requirements": {
@@ -1839,11 +1846,11 @@
       "subtitle": "Karoo 2 eller 3 + dobbeltsidet effekt-pedaler",
       "karoo": {
         "title": "Hammerhead Karoo",
-        "desc": "Karoo 2 eller Karoo 3. KPedal bruger den native Karoo SDK — ikke tilgaengelig paa andre computere."
+        "desc": "Karoo 2 eller Karoo 3. KPedal bruger den native Karoo SDK — ikke tilgængelig på andre computere."
       },
       "pedals": {
         "title": "Dobbelt effekt-pedaler",
-        "desc": "Venstre + hoejre effektmaaling med ANT+ Cycling Dynamics for Balance, TE og PJ."
+        "desc": "Venstre + højre effektmåling med ANT+ Cycling Dynamics for Balance, TE og PJ."
       },
       "fullSupport": {
         "title": "Fuld support",
@@ -1863,92 +1870,92 @@
       }
     },
     "faq": {
-      "title": "Ofte stillede spoergsmaal",
+      "title": "Ofte stillede spørgsmål",
       "q1": {
-        "q": "Hvilke effektmaaler-pedaler er kompatible?",
-        "a": "<strong>Fuld support (Balance + TE + PJ):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Kun balance:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Alle pedaler der sender ANT+ Cycling Dynamics vil virke."
+        "q": "Hvilke effektmåler-pedaler er kompatible?",
+        "a": "<strong>Fuld understøttelse (Balance + TE + PJ):</strong> Garmin Rally RS/XC, Favero Assioma Duo/Duo-Shi, SRM X-Power, PowerTap P2, Wahoo SPEEDPLAY Powrlink Zero. Disse pedaler sender komplette ANT+ Cycling Dynamics-data inklusive venstre/højre balance, drejningsmoment-effektivitet og pedaljævnhed.<br><br><strong>Kun balance:</strong> Wahoo POWRLINK Zero (enkeltsidet), Stages LR, 4iiii Precision Dual, Rotor 2INpower, Power2Max NG/NGeco. Disse giver nøjagtige balancedata men sender ikke TE/PJ-metrikker.<br><br><strong>Ikke kompatibel:</strong> Enkeltsidede effektmålere der estimerer balance (Stages single, 4iiii single, Assioma Uno) — KPedal kræver faktisk dobbelsidet måling."
       },
       "q2": {
-        "q": "Hvordan installerer jeg KPedal paa min Karoo?",
-        "a": "<strong>Mulighed 1:</strong> Download APK fra GitHub Releases → overfoer via USB → aaben filhaandtering paa Karoo → tryk for at installere.<br><strong>Mulighed 2:</strong> Aaben GitHub release-linket direkte i Karoos browser og download.<br><strong>Mulighed 3:</strong> Brug ADB: <code>adb install kpedal.apk</code>"
+        "q": "Hvordan installerer jeg KPedal på min Karoo?",
+        "a": "<strong>Metode 1 — Direkte download (nemmest):</strong> På din Karoo, åbn browseren og gå til github.com/yrkan/kpedal/releases. Tryk på .apk-filen for at downloade, derefter tryk på notifikationen for at installere.<br><br><strong>Metode 2 — USB-overførsel:</strong> Download APK på computer → tilslut Karoo via USB → kopier til Downloads-mappen → på Karoo, åbn Filer-appen → tryk på APK'en → Installer.<br><br><strong>Metode 3 — ADB (for udviklere):</strong> Aktiver Udviklertilstand på Karoo, tilslut via USB, kør: <code>adb install kpedal-x.x.x.apk</code><br><br>Efter installation, åbn KPedal én gang for at give tilladelser og aktivere Baggrundstilstand til automatisk dataindsamling."
       },
       "q3": {
-        "q": "Skal jeg tilfoeje KPedal-datafelter til min tur-skaerm?",
-        "a": "<strong>Nej.</strong> Med baggrundstilstand aktiveret indsamler KPedal metrikker for ALLE ture automatisk — selv hvis du aldrig tilfojer et eneste datafelt. Datafelter er valgfrie og kun til visning af metrikker live under turen. Din komplette turhistorik gemmes uanset."
+        "q": "Skal jeg tilføje KPedal-datafelter til min turskærm?",
+        "a": "<strong>Nej — datafelter er helt valgfrie.</strong> Når du aktiverer Baggrundstilstand i KPedal-indstillinger, indsamler appen automatisk pedalmetrikker for hver tur du kører. Dette sker lydløst i baggrunden uanset hvilke datafelter du viser.<br><br><strong>Hvorfor så tilføje datafelter?</strong> Kun hvis du vil se dine metrikker live under turen. Tilgængelige felter: Hurtigt Overblik (status + balance), Effektbalance (V/H med bjælke), Drejningsmoment-effektivitet (V/H værdier), Pedaljævnhed, Fuldt Overblik (alle metrikker), og Balance-tendens (udjævnet over tid).<br><br>Din komplette turhistorik med øjebliksbilleder pr. minut gemmes uanset om du bruger datafelter eller ej."
       },
       "q4": {
-        "q": "Hvad betragtes som en \"god\" effekt-balance?",
-        "a": "<strong>48-52%</strong> (±2% fra 50/50) er optimalt. De fleste professionelle cyklister koerer med 1-3% naturlig asymmetri. Vaer ikke besat af perfekt 50/50 — det er naesten umuligt og ikke noedvendigt. Fokuser paa <strong>konsistens indenfor dit omraade</strong> fremfor at jagte perfektion."
+        "q": "Hvad betragtes som en \"god\" effektbalance?",
+        "a": "<strong>Optimalt interval: 48-52% (±2% fra perfekt 50/50).</strong> Forskning viser at selv professionelle cyklister typisk har 1-3% naturlig asymmetri — perfekt symmetri er sjældent og ikke nødvendigt for høj præstation.<br><br><strong>Vigtig indsigt:</strong> Konsistens betyder mere end perfektion. En rytter der konsistent er 48/52 er bedre stillet end en der svinger mellem 45/55 og 52/48. KPedal sporer din personlige baseline så du kan opdage afvigelser.<br><br><strong>Hvornår man bør være bekymret:</strong> Asymmetri over 5% vedvarende over flere ture kan indikere et cykelopsætningsproblem, muskelubalance eller en udviklende skade. Hvis du bemærker pludselige ændringer i dit typiske mønster, undersøg det før det bliver et problem."
       },
       "q5": {
-        "q": "Hvorfor er 70-80% drejningsmoment-effektivitet optimal og ikke hoejere?",
-        "a": "Baseret paa <strong>Wattbike-forskning</strong>: over 80% TE traekker du sandsynligvis for meget paa opslaget. Dette spilder energi og kan faktisk reducere samlet effektoutput. 70-80% omraadet indikerer at du anvender kraft effektivt gennem pedaltaget uden at kaempe mod dig selv paa restitutionsfasen."
+        "q": "Hvorfor er 70-80% drejningsmoment-effektivitet optimal og ikke højere?",
+        "a": "<strong>Videnskaben:</strong> Drejningsmoment-effektivitet måler hvor stor procentdel af dit pedaltag der producerer fremadgående bevægelse. TE = (positivt drejningsmoment − negativt drejningsmoment) ÷ positivt drejningsmoment × 100.<br><br><strong>Hvorfor ikke sigte efter 100%?</strong> Forskning fra Wattbike og sportsvidenskabelige laboratorier viser at over 80% TE trækker cyklister typisk for meget på opslaget. Dette rekrutterer hoftefleksorer ineffektivt, øger metabolisk omkostning og kan faktisk reducere vedvarende effektoutput.<br><br><strong>70-80% sweet spot</strong> indikerer effektiv kraftanvendelse gennem kraftfasen (kl. 12 til kl. 6) uden at spilde energi på at modarbejde restitutionsfasen. Elite-cyklister falder naturligt i dette interval under vedvarende indsats.<br><br><strong>Lavere TE (under 65%)</strong> antyder at du \"stamper\" på pedalerne — kun nedslag, ingen opfølgning. Dette er almindeligt ved træthed eller ved meget høje effektniveauer."
       },
       "q6": {
-        "q": "Hvad maaler pedaljævnhed praecist?",
-        "a": "<strong>Formel:</strong> PJ = (gennemsnitlig effekt ÷ maksimal effekt) × 100.<br>Hoejere PJ betyder mere konsistent kraftanvendelse gennem pedaltaget. <strong>20%+ er godt</strong> for de fleste cyklister. Sprintere har typisk lavere PJ (eksplosiv, punchende kraft), mens udholdenheds-cyklister tenderer mod hoejere vaerdier."
+        "q": "Hvad måler pedaljævnhed præcist?",
+        "a": "<strong>Formel:</strong> PJ = (gennemsnitlig effekt gennem pedaltag ÷ maksimal effekt) × 100.<br><br><strong>Hvad det betyder:</strong> En højere PJ indikerer mere jævn effektlevering gennem hele 360° rotationen. Lavere PJ betyder at du producerer effekt i skarpe spidser (typisk ved kl. 3-positionen).<br><br><strong>Typiske værdier:</strong><br>• 15-20%: Normalt for motionscyklister<br>• 20-25%: Godt, effektiv pedalering<br>• 25%+: Fremragende, meget jævn effektlevering<br><br><strong>Kontekst betyder noget:</strong> Sprintere har naturligt lavere PJ (eksplosiv effektlevering er målet). Bjergcyklister og enkeltstartere drager fordel af højere PJ. Under intervaller falder PJ når effekt stiger — dette er normalt.<br><br><strong>Forbedring af PJ:</strong> Enkeltbensøvelser, høj-kadence spinning (100+ RPM), og fokus på at \"træde cirkler\" i stedet for at stampe kan øge jævnheden over tid."
       },
       "q7": {
-        "q": "Hvordan beregnes tur-scoren?",
-        "a": "<strong>Vaegtet formel:</strong> Balance (40%) + TE (35%) + PJ (25%).<br>Hver metrik scores 0-100 baseret paa tid brugt i optimale zoner.<br><strong>85+</strong> = Fremragende teknik<br><strong>70-84</strong> = Godt, mindre omraader at forbedre<br><strong>Under 70</strong> = Betydelig plads til forbedring"
+        "q": "Hvordan beregnes turscoren?",
+        "a": "<strong>Vægtet formel:</strong> Balance bidrager med 40%, Drejningsmoment-effektivitet 35%, og Pedaljævnhed 25%.<br><br><strong>Hvordan hver metrik scores (0-100):</strong><br>• Balance: Baseret på procentdel af turtid indenfor ±2,5% af 50/50<br>• TE: Baseret på tid brugt i 70-80% intervallet<br>• PJ: Baseret på tid brugt over 20%<br><br><strong>Score-fortolkning:</strong><br>• <strong>90-100:</strong> Elite-teknik, konsistent gennem turen<br>• <strong>80-89:</strong> Fremragende, mindre plads til optimering<br>• <strong>70-79:</strong> God baseline, klare områder at forbedre<br>• <strong>60-69:</strong> Gennemsnitlig, fokuseret teknikarbejde anbefales<br>• <strong>Under 60:</strong> Betydeligt forbedringspotentiale<br><br><strong>Pro-tip:</strong> Sammenlign scorer på tværs af lignende turtyper. Din intervaltræningsscore vil adskille sig fra din udholdenheds-tur — begge er gyldige baselines for deres respektive indsatser."
       },
       "q8": {
-        "q": "Hvordan virker de guidede oevelser?",
-        "a": "Oevelser er strukturerede oevelser med realtids-maal vist paa skaermen. Eksempel: \"Enkelt ben-fokus\" beder dig om at holde 55-60% balance paa et ben i 30 sekunder. KPedal sporer din <strong>tid-i-maal</strong> og giver en score til sidst. Perfekt til opvarmning, restitutionsture eller dedikerede teknik-sessioner."
+        "q": "Hvordan fungerer de guidede øvelser?",
+        "a": "<strong>Øvelser er strukturerede træninger med realtids visuel feedback.</strong> Hver øvelse har flere faser med specifikke mål vist på din Karoo-skærm.<br><br><strong>Eksempel — Enkeltbens-fokus øvelse:</strong><br>1. Opvarmningsfase: 30 sekunder ved naturlig balance<br>2. Venstre fokus: 45 sekunder med mål 55-60% venstre ben<br>3. Restitution: 15 sekunder<br>4. Højre fokus: 45 sekunder med mål 55-60% højre ben<br>5. Nedkøling: 30 sekunder ved naturlig balance<br><br><strong>Scoring:</strong> KPedal sporer din tid-i-mål for hver fase. Ram målintervallet i 80%+ af fasevarigheden for at \"bestå\" det segment. Din endelige øvelsesscore afspejler samlet nøjagtighed.<br><br><strong>Øvelseskategorier:</strong><br>• <strong>Fokus:</strong> Isoler én metrik (balance, TE eller PJ)<br>• <strong>Udfordring:</strong> Progressiv sværhedsgrad, flere metrikker<br>• <strong>Træning:</strong> Længere sessioner der kombinerer teknik med indsats"
       },
       "q9": {
-        "q": "Kan jeg oprette mine egne tilpassede oevelser?",
-        "a": "<strong>Ja.</strong> Tilpassede oevelser lader dig definere dine egne faser, maal og varigheder. Opret oevelser skraeeddersyet til dine specifikke svagheder — maske et 45-sekunders hoejt-TE fokus efterfulgt af 30-sekunders balancearbejde. Dine tilpassede oevelser gemmes lokalt og synkroniseres til sky."
+        "q": "Kan jeg oprette mine egne tilpassede øvelser?",
+        "a": "<strong>Ja — den tilpassede øvelsesbygger lader dig designe præcis hvad du har brug for.</strong><br><br><strong>Du kan tilpasse:</strong><br>• Antal faser (1-10)<br>• Varighed pr. fase (10 sekunder til 5 minutter)<br>• Målmetrik (Balance, TE, PJ eller kombination)<br>• Målinterval (f.eks. 45-48% balance, 75-85% TE)<br>• Fasenavne og instruktioner<br><br><strong>Eksempel på tilpasset øvelse for venstre bens svaghed:</strong><br>1. \"Opvarmning\" — 60s, intet mål<br>2. \"Venstre aktivering\" — 45s, Balance 54-58% venstre<br>3. \"Hvile\" — 20s, intet mål<br>4. \"Venstre kraft\" — 45s, Balance 56-60% venstre<br>5. \"Udlign\" — 30s, Balance 48-52%<br><br><strong>Synkronisering:</strong> Tilpassede øvelser gemmes på din enhed og synkroniseres til skyen når aktiveret. Tilgå dem på enhver tilknyttet Karoo eller se øvelseshistorik på web-dashboardet."
       },
       "q10": {
-        "q": "Hvad udloeser alarmer under turen?",
-        "a": "<strong>Konfigurerbare taerskler:</strong><br>• Balance: asymmetri overstiger din indstillede graense (standard 5%)<br>• TE: falder under minimum (standard 60%)<br>• PJ: falder under minimum (standard 15%)<br>Alarmer bruger <strong>vibration + bip</strong>. Afkoeling (15s-2min) forhindrer spam. Du kan aktivere/deaktivere hver metrik uafhaengigt."
+        "q": "Hvad udløser alarmer under turen?",
+        "a": "<strong>Alarmer giver dig besked når metrikker glider udenfor dine konfigurerede tærskler.</strong><br><br><strong>Konfigurerbare triggere:</strong><br>• <strong>Balance:</strong> Asymmetri overstiger grænse (standard: 5% — udløses ved 45/55 eller værre)<br>• <strong>Drejningsmoment-effektivitet:</strong> Falder under minimum (standard: 60%)<br>• <strong>Pedaljævnhed:</strong> Falder under minimum (standard: 15%)<br><br><strong>Alarmmetoder:</strong><br>• Vibration (kort summemønster)<br>• Lydbip (hvis Karoo-lyd er aktiveret)<br>• Skærmblitz (subtil farvepuls)<br><br><strong>Smart nedkøling:</strong> Efter en alarm udløses, er der en konfigurerbar nedkøling (15 sekunder til 2 minutter) før den kan udløses igen. Dette forhindrer alarm-spam under vedvarende hårde indsatser.<br><br><strong>Per-metrik kontrol:</strong> Aktiver eller deaktiver alarmer for hver metrik uafhængigt. Mange ryttere vil kun have balance-alarmer, for eksempel, og foretrækker at tjekke TE/PJ efter turen."
       },
       "q11": {
-        "q": "Virker KPedal uden internetforbindelse?",
-        "a": "<strong>100% ja.</strong> Alle kernefunktioner — dataindsamling, oevelser, alarmer, turhistorik — virker fuldstaendig offline. Sky-synk er valgfri og aktiveres kun naar du aktiverer det. Dine data gemmes altid lokalt paa Karoo foerst. Synk sker automatisk naar du er online igen."
+        "q": "Fungerer KPedal uden internetforbindelse?",
+        "a": "<strong>Ja — KPedal er fuldt funktionelt offline.</strong> Alle kernefunktioner virker uden nogen internetforbindelse.<br><br><strong>Virker offline:</strong><br>• Realtids dataindsamling under ture<br>• Alle 5 datafelttyper<br>• Komplet øvelsesbibliotek (indbyggede og tilpassede)<br>• Alarmsystem<br>• Turhistorik og statistik<br>• Præstationssporing<br><br><strong>Kræver internet (valgfrit):</strong><br>• Første Google-login (én gang)<br>• Sky-synkronisering af turdata<br>• Web-dashboard adgang<br><br><strong>Sådan fungerer synk:</strong> Ture gemmes altid lokalt først. Når du er online igen og sky-synk er aktiveret, uploades data automatisk i baggrunden. Hvis du aldrig aktiverer sky-synk, forbliver dine data udelukkende på Karoo'en — dit valg."
       },
       "q12": {
-        "q": "Vil KPedal draene min Karoo-batteri?",
-        "a": "<strong>Minimal paavirkning: ca. 1-2% ekstra pr. time</strong> under aktive ture. KPedal koerer kun dataindsamling mens du cykler. Mellem ture venter kun en lille listener paa tur-start — ubetydelig stroemforbrug. Staerkt optimeret til effektivitet."
+        "q": "Vil KPedal dræne mit Karoo-batteri?",
+        "a": "<strong>Påvirkning: cirka 1-2% ekstra batteriforbrug pr. time under ture.</strong><br><br><strong>Hvorfor det er minimalt:</strong><br>• KPedal behandler kun aktivt data mens du er på en tur<br>• Mellem ture venter en letvægts-listener på tur-start — næsten nul strømforbrug<br>• Ingen GPS-brug (Karoo håndterer det)<br>• Ingen kontinuerlig baggrundspolling<br>• Effektiv datalagring (batchede skrivninger, ikke konstant I/O)<br><br><strong>Eksempel fra virkeligheden:</strong> På en 4-timers tur, forvent cirka 4-8% mere batteriforbrug sammenlignet med at køre uden KPedal. Givet Karoo 3's 12+ timers batterilevetid er dette ubetydeligt for de fleste ture.<br><br><strong>Optimeringstip:</strong> Hvis du laver et ultra-udholdenhedsevent og har brug for maksimal batteritid, kan du deaktivere KPedal-datafelter (baggrundsindsamling virker stadig) og slå alarmer fra."
       },
       "q13": {
-        "q": "Kan jeg synke data paa tvaers af flere Karoo-enheder?",
-        "a": "<strong>Ja.</strong> Tilknyt flere Karooer til din konto. Indstillinger synkroniserer mellem dem automatisk. Alle ture fra alle enheder vises i eet samlet dashboard. Perfekt hvis du har en backup-Karoo, loeb- og traeningsenheder, eller opgraderer til en ny enhed."
+        "q": "Kan jeg synkronisere data på tværs af flere Karoo-enheder?",
+        "a": "<strong>Ja — tilknyt flere Karoo'er til én konto for problemfri synkronisering.</strong><br><br><strong>Sådan fungerer det:</strong><br>1. Installer KPedal på hver Karoo<br>2. Log ind med den samme Google-konto på hver enhed<br>3. Aktiver sky-synk på hver enhed<br><br><strong>Hvad synkroniseres:</strong><br>• Alle turdata og øjebliksbilleder pr. minut<br>• Tilpassede øvelser du har oprettet<br>• Alarmindstillinger og tærskler<br>• Præstationsfremgang<br><br><strong>Brugsscenarier:</strong><br>• Backup-Karoo til løbsdag<br>• Forskellige Karoo'er på forskellige cykler<br>• Opgradering fra Karoo 2 til Karoo 3<br>• Deling af teknikdata med en træner (de skal bruge dit login)<br><br><strong>Konfliktløsning:</strong> Hvis du kører på to enheder samtidig (usædvanligt men muligt), gemmes begge ture med deres respektive tidsstempler. Indstillingssynk bruger \"seneste skrivning vinder\" — den seneste ændring anvendes."
       },
       "q14": {
-        "q": "Hvordan virker praestations-systemet?",
-        "a": "Praestationer laases op efterhaanden som du naar milepæle: tur-antal, samlet antal timer, konsistens-raekker, teknik-forbedringer. Eksempler: \"Jern-balance\" (10 ture med <2% asymmetri), \"Hundred-klubben\" (100 sporede ture). Praestationer synkroniserer til sky og vises paa dit web-dashboard."
+        "q": "Hvordan fungerer præstationssystemet?",
+        "a": "<strong>Præstationer belønner konsistens og teknik-milepæle.</strong><br><br><strong>Præstationskategorier:</strong><br>• <strong>Volumen:</strong> Samlede ture sporet, timer på pedalen, kilometer dækket<br>• <strong>Konsistens:</strong> Kørselsrækker (dage/uger i træk med ture)<br>• <strong>Teknik:</strong> Turscorer, tid i optimale zoner, metrikforbedringer<br>• <strong>Øvelser:</strong> Øvelser gennemført, perfekte scorer, variation af øvelsestyper<br><br><strong>Eksempler på præstationer:</strong><br>• \"Første Spin\" — Gennemfør din første sporede tur<br>• \"Jernbalance\" — 10 ture med gennemsnitlig asymmetri under 2%<br>• \"Hundred-klubben\" — 100 sporede ture<br>• \"Blød Operatør\" — Oprethold 25%+ PJ for en hel tur<br>• \"Øvelsessergeant\" — Gennemfør 50 øvelser<br><br><strong>Fremgangssporing:</strong> Se din præstationsfremgang på web-dashboardet. Nogle præstationer har bronze/sølv/guld-niveauer (f.eks. 10/50/100 ture). Præstationer synkroniseres til skyen og bevares på tværs af enheder."
       },
       "q15": {
         "q": "Kan jeg bruge KPedal med Garmin, Wahoo eller andre cykelcomputere?",
-        "a": "<strong>Nej.</strong> KPedal er bygget specifikt til Hammerhead Karoo ved brug af deres officielle karoo-ext SDK. Det tilgaar ANT+ Cycling Dynamics-data, native alarm-system og tur-tilstands-overvagning — dybe integrationer ikke tilgaengelige paa andre platforme."
+        "a": "<strong>Nej — KPedal er udelukkende til Hammerhead Karoo.</strong><br><br><strong>Teknisk årsag:</strong> KPedal er bygget ved brug af Hammerheads officielle karoo-ext SDK, som giver dyb integration med:<br>• ANT+ Cycling Dynamics datastrømme<br>• Native tur-tilstandsdetektion (start/pause/stop)<br>• System-alarminfrastruktur (vibration, lyd)<br>• Datafelt-gengivelsesmotor<br>• Baggrundstjeneste-tilladelser<br><br>Disse integrationer findes ikke på Garmin, Wahoo eller andre platforme. Hver ville kræve en helt anden app bygget fra bunden med deres respektive (ofte mere begrænsede) SDK'er.<br><br><strong>Fremtidige platforme:</strong> Der er ingen aktuelle planer om at portere KPedal til andre enheder. Projektet fokuserer på at gøre én ting godt frem for at sprede sig tyndt på tværs af platforme."
       },
       "q16": {
         "q": "Er mine data private og sikre?",
-        "a": "<strong>Ja.</strong> Data forbliver paa din Karoo medmindre du aktiverer sky-synk. Sky bruger <strong>Google login</strong> — vi ser eller gemmer aldrig din adgangskode. Ingen sporings-pixels, ingen reklamer, ingen datasalg. Hele projektet er <strong>open source</strong> — gennemgaa koden selv paa GitHub."
+        "a": "<strong>Ja — privatliv er et kernedesignprincip.</strong><br><br><strong>Lokal-først arkitektur:</strong><br>• Alle data gemmes på din Karoo først<br>• Sky-synk er tilvalg, ikke standard<br>• Du kan bruge KPedal på ubestemt tid uden nogensinde at oprette en konto<br><br><strong>Hvis du aktiverer sky-synk:</strong><br>• Godkendelse via Google-login — vi ser eller gemmer aldrig din adgangskode<br>• Data transmitteres over HTTPS (TLS 1.3)<br>• Gemt i Cloudflares globale infrastruktur<br>• Ingen tredjeparts-analyse eller sporing<br>• Ingen reklamer, ingen datasalg, ingen \"anonyme\" brugsstatistikker<br><br><strong>Open source gennemsigtighed:</strong> Hele kodebasen — Android-app, web-API og web-dashboard — er offentlig på GitHub. Gennemgå præcis hvilke data der indsamles og hvordan de håndteres. Hvis du finder et sikkerhedsproblem, rapporter det venligst ansvarligt."
       },
       "q17": {
-        "q": "Hvorfor aendres min balance ved forskellige effekt-niveauer?",
-        "a": "Dette er normalt. Ved lav effekt forstorres smaa teknik-variationer. Ved hoej effekt har du tendens til at rekruttere muskler mere jævnt. Mange cyklister ser 2-3% mere asymmetri ved udholdenheds-tempo vs taerskel. KPedal sporer dette saa du kan identificere moenstre og arbejde med svage punkter."
+        "q": "Hvorfor ændres min balance ved forskellige effektniveauer?",
+        "a": "<strong>Dette er helt normalt og veldokumenteret i cykelvidenskab.</strong><br><br><strong>Mønsteret:</strong> De fleste cyklister viser 2-4% mere asymmetri ved lav effekt (Zone 1-2) sammenlignet med høj effekt (Zone 4-5). Nogle ryttere viser det modsatte mønster.<br><br><strong>Hvorfor det sker:</strong><br>• <strong>Lav effekt:</strong> Mindre kræfter betyder at små teknikvariationer har overdimensioneret procentvis påvirkning. Dit dominante ben kan \"tage over\" når indsatsen er let.<br>• <strong>Høj effekt:</strong> Maksimal rekruttering af begge ben har tendens til at udjævne tingene. Du fokuserer hårdere og engagerer flere muskelgrupper bilateralt.<br>• <strong>Træthed:</strong> Når du bliver træt, udmattes dit svagere ben hurtigere, hvilket øger asymmetrien. Dette er værdifuld data til pacing.<br><br><strong>Brug af denne indsigt:</strong> KPedals øjebliksbilleder pr. minut lader dig se præcis hvordan din balance ændres gennem en tur. Korreler med effektzoner for at forstå dit personlige mønster og målret øvelser derefter."
       },
       "q18": {
-        "q": "Hvor ofte boer jeg lave teknik-oevelser?",
-        "a": "<strong>2-3 gange pr. uge</strong> er et godt udgangspunkt. Inkluder dem i opvarmning (5-10 min) eller dediker restitutionsture til teknikarbejde. Konsistens betyder mere end volumen — regelmaessige korte sessioner slaar lejlighedsvise lange. Foelg fremgang via oevelses-scorer over tid."
+        "q": "Hvor ofte bør jeg lave teknikøvelser?",
+        "a": "<strong>Anbefalet: 2-3 dedikerede sessioner pr. uge, plus øvelsesintegration i opvarmning.</strong><br><br><strong>Effektive tilgange:</strong><br>• <strong>Opvarmningsintegration:</strong> 5-10 minutters øvelser ved starten af hver tur. Lav intensitet, højt fokus. Fremragende til muskelaktivering.<br>• <strong>Restitutionstur-fokus:</strong> Brug lette dage til udvidet teknikarbejde (20-30 minutter). Lav effekt betyder at du kan koncentrere dig om form.<br>• <strong>Dedikerede sessioner:</strong> Ugentlig 30-45 minutters teknikfokuseret tur. Strukturerede øvelsesprogressioner med hvileintervaller.<br><br><strong>Progressionsstrategi:</strong><br>1. Start med enkelt-metrik øvelser (kun balance, kun TE)<br>2. Progreder til multi-metrik udfordringer<br>3. Øg varighed og stram målintervaller over tid<br>4. Spor øvelsesscorer ugentligt — sigt efter gradvis forbedring, ikke perfektion<br><br><strong>Vigtig indsigt:</strong> Konsistens slår intensitet. Tre 10-minutters sessioner over en uge vil forbedre din teknik hurtigere end én 30-minutters session. Neurale tilpasninger kræver regelmæssig forstærkning."
       }
     },
     "cta": {
       "headline": "Begynd at forbedre din pedalteknik i dag",
       "subtext": "Gratis. Open source. Synkroniserer til skyen.",
       "downloadForKaroo": "Download til Karoo",
-      "tryDemo": "Proev demo"
+      "tryDemo": "Prøv demo"
     },
     "footer": {
       "tagline": "Pedal-effektivitet til Karoo",
       "product": "Produkt",
       "features": "Funktioner",
       "dataFields": "Datafelter",
-      "drills": "Oevelser",
+      "drills": "Øvelser",
       "resources": "Ressourcer",
       "github": "GitHub",
       "releases": "Udgivelser",
@@ -1956,20 +1963,99 @@
       "legal": "Juridisk",
       "privacyPolicy": "Privatlivspolitik",
       "signIn": "Log ind",
-      "madeWith": "Lavet med kaerlighed til Karoo-faellesskabet"
+      "madeWith": "Lavet med kærlighed til Karoo-fællesskabet"
+    }
+  },
+  "start": {
+    "title": "Konfigurer KPedal",
+    "subtitle": "5 minutter til pedalanalyse i realtid",
+    "progress": "{completed}/{total} færdig",
+    "reset": "Nulstil",
+    "optional": "Valgfri",
+    "continue": "Fortsæt",
+    "done": "Færdig",
+    "skip": "Spring over",
+    "steps": {
+      "install": {
+        "title": "Installer app",
+        "time": "2 min",
+        "intro": "Du skal bruge <strong>Hammerhead Companion</strong>-appen på din telefon for at installere KPedal på din Karoo.",
+        "hasCompanion": "Jeg har Companion-appen installeret",
+        "downloadApk": "Download APK",
+        "opensGithub": "Åbner GitHub Releases",
+        "step1": "På GitHub, tryk på <code>.apk</code>-filen for at downloade",
+        "step2": "Åbn <strong>Downloads</strong>, hold fingeren på filen → <strong>Del</strong>",
+        "step3": "Vælg <strong>Hammerhead Companion</strong>",
+        "step4": "Tryk på <strong>Installer</strong> når du bliver bedt om det på Karoo",
+        "installed": "KPedal er installeret på min Karoo"
+      },
+      "fields": {
+        "title": "Tilføj til profil",
+        "time": "1 min",
+        "intro": "Tilføj KPedal-datafelter til din kørselsprofil for at se målinger under kørsler.",
+        "step1": "På Karoo: <strong>Profiler</strong> → vælg din profil",
+        "step2": "Tryk på en dataside → <strong>Tilføj felt</strong>",
+        "step3": "Rul til <strong>KPedal</strong>-sektionen",
+        "step4": "Tilføj <strong>Hurtigt overblik</strong> (anbefalet til start)",
+        "allFields": "Alle tilgængelige felter",
+        "fieldQuickGlance": "<strong>Hurtigt overblik</strong> — balance + effektivitet i ét view",
+        "fieldPowerBalance": "<strong>Kraftbalance</strong> — V/H med visuel bjælke",
+        "fieldEfficiency": "<strong>Effektivitet</strong> — drejningsmoment-effektivitet + glathed",
+        "fieldFullOverview": "<strong>Fuldt overblik</strong> — alle målinger kombineret",
+        "fieldBalanceTrend": "<strong>Balancetrend</strong> — 5-min rullende graf"
+      },
+      "configure": {
+        "title": "Juster indstillinger",
+        "time": "1 min",
+        "intro": "Standardindstillinger fungerer godt for de fleste cyklister. Juster efter behov.",
+        "step1": "På Karoo: <strong>Indstillinger</strong> → <strong>Apps</strong> → <strong>KPedal</strong>",
+        "whatYouCanAdjust": "Hvad du kan justere",
+        "optionBalance": "<strong>Balancetærskel</strong> — hvor meget V/H-ubalance er OK (standard ±2,5%)",
+        "optionAlerts": "<strong>Advarsler</strong> — vibration/lyd når målinger afviger",
+        "optionDrills": "<strong>Øvelser</strong> — guidede øvelser til at forbedre teknik"
+      },
+      "sync": {
+        "title": "Cloud-synkronisering",
+        "time": "1 min",
+        "intro": "Valgfrit: synkroniser kørsler til web-dashboard for detaljeret analyse.",
+        "step1": "På Karoo: Åbn KPedal-app → <strong>Link konto</strong>",
+        "step2": "Du vil se en 8-tegns kode",
+        "step3": "På telefon: gå til",
+        "step4": "Indtast koden og log ind med Google",
+        "note": "KPedal fungerer fuldt ud offline. Cloud-synkronisering tilføjer kun web-dashboardet."
+      }
+    },
+    "completion": {
+      "title": "Du er klar til at køre!",
+      "subtitle": "Start en kørsel på din Karoo for at se dine pedalmålinger.",
+      "optimal": "Optimal",
+      "attention": "Opmærksomhed",
+      "problem": "Problem",
+      "webDashboard": "Web-dashboard"
+    },
+    "footer": {
+      "home": "Hjem",
+      "privacy": "Privatliv",
+      "github": "GitHub",
+      "copyright": "© {year} KPedal",
+      "madeFor": "Lavet til Karoo-cyklister"
+    },
+    "meta": {
+      "title": "Kom i gang — KPedal",
+      "description": "Konfigurer KPedal på din Karoo på 5 minutter. Download, installer og begynd at spore din pedaleffektivitet."
     }
   },
   "aria": {
     "home": "KPedal - Hjem",
     "downloadOptions": "Download-muligheder",
     "downloadKpedal": "Download KPedal gratis fra GitHub",
-    "tryDemo": "Proev demo-konto",
+    "tryDemo": "Prøv demo-konto",
     "getStartedOptions": "Kom i gang-muligheder",
     "downloadForKaroo": "Download KPedal til Karoo",
     "footerNav": "Sidefods-navigation",
-    "viewOnGithub": "Se KPedal paa GitHub",
+    "viewOnGithub": "Se KPedal på GitHub",
     "balanceTrendChart": "Balance-tendens-diagram",
     "techniqueTrendChart": "Teknik-tendens-diagram",
-    "languageSelector": "Vaelg sprog"
+    "languageSelector": "Vælg sprog"
   }
 }

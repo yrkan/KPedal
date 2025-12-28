@@ -2,6 +2,7 @@
   import { isAuthenticated } from '$lib/auth';
   import { theme, resolvedTheme } from '$lib/theme';
   import { t, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
+  import Footer from '$lib/components/Footer.svelte';
 </script>
 
 <svelte:head>
@@ -22,6 +23,13 @@
 </svelte:head>
 
 <div class="privacy-page">
+  {#if !$isAuthenticated}
+    <a href="/" class="site-logo" aria-label={$t('aria.home')}>
+      <span class="site-logo-dot" aria-hidden="true"></span>
+      <span class="site-logo-text">KPedal</span>
+    </a>
+  {/if}
+
   <div class="privacy-container">
     {#if !$isAuthenticated}
       <div class="top-controls">
@@ -712,26 +720,47 @@
       </section>
     </div>
 
-    <footer class="privacy-footer">
-      <a href="/" class="footer-logo">
-        <span class="logo-dot"></span>
-        <span>KPedal</span>
-      </a>
-      <p>{$t('privacy.footer')}</p>
-    </footer>
   </div>
+
+  <Footer />
 </div>
 
 <style>
   .privacy-page {
-    min-height: 100vh;
-    padding: 24px;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
     background: var(--bg-base);
+    position: relative;
+  }
+
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    z-index: 100;
+  }
+  .site-logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-optimal);
+    border-radius: 50%;
+  }
+  .site-logo-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
   }
 
   .privacy-container {
+    flex: 1;
     max-width: 720px;
     margin: 0 auto;
+    padding: 24px;
     position: relative;
   }
 
@@ -1236,41 +1265,14 @@
     font-family: 'SF Mono', Monaco, monospace;
   }
 
-  /* Footer */
-  .privacy-footer {
-    text-align: center;
-    padding-top: 40px;
-    border-top: 1px solid var(--border-subtle);
-    margin-top: 40px;
-  }
-
-  .footer-logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .logo-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-optimal);
-    border-radius: 50%;
-  }
-
-  .privacy-footer p {
-    font-size: 13px;
-    color: var(--text-muted);
-  }
-
   /* Responsive */
   @media (max-width: 640px) {
     .privacy-page {
       padding: 16px;
     }
+
+    .site-logo { top: 16px; left: 16px; }
+    .site-logo-text { font-size: 14px; }
 
     .top-controls {
       top: 16px;

@@ -7,6 +7,7 @@
   import { theme, resolvedTheme } from '$lib/theme';
   import { API_URL } from '$lib/config';
   import { t, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
+  import Footer from '$lib/components/Footer.svelte';
 
   let error: string | null = null;
   let demoLoading = false;
@@ -78,7 +79,13 @@
   <div class="bg-gradient"></div>
   <div class="bg-pattern"></div>
 
-  <div class="login-container">
+  <main class="login-main">
+    <a href="/" class="site-logo" aria-label={$t('aria.home')}>
+      <span class="site-logo-dot" aria-hidden="true"></span>
+      <span class="site-logo-text">KPedal</span>
+    </a>
+
+    <div class="login-container">
     <div class="header-actions">
       <select
         class="lang-select"
@@ -112,11 +119,6 @@
     </div>
 
     <div class="login-card">
-      <div class="logo">
-        <span class="logo-dot"></span>
-        <span class="logo-text">KPedal</span>
-      </div>
-
       <p class="tagline">{$t('app.tagline')}</p>
 
       {#if error}
@@ -186,26 +188,26 @@
       </p>
     </div>
 
-    <div class="footer">
+    <div class="back-link">
       <a href="https://kpedal.com" class="landing-link">← {$t('auth.backToLanding')}</a>
     </div>
   </div>
+  </main>
+
+  <Footer />
 </div>
 
 <style>
   .login-page {
     min-height: 100dvh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    flex-direction: column;
     background: var(--bg-base);
     position: relative;
-    overflow-x: hidden;
   }
 
   .bg-gradient {
-    position: absolute;
+    position: fixed;
     top: -50%;
     left: -50%;
     width: 200%;
@@ -214,15 +216,27 @@
                 radial-gradient(circle at 70% 80%, var(--color-optimal-soft) 0%, transparent 30%);
     opacity: 0.5;
     pointer-events: none;
+    z-index: 0;
   }
 
   .bg-pattern {
-    position: absolute;
+    position: fixed;
     inset: 0;
     background-image: radial-gradient(var(--border-subtle) 1px, transparent 1px);
     background-size: 24px 24px;
     opacity: 0.5;
     pointer-events: none;
+    z-index: 0;
+  }
+
+  .login-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
   }
 
   .login-container {
@@ -311,6 +325,28 @@
     border: 1.5px solid var(--bg-base);
   }
 
+  .site-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    z-index: 100;
+  }
+  .site-logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-optimal);
+    border-radius: 50%;
+  }
+  .site-logo-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
   .login-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
@@ -318,29 +354,6 @@
     padding: 40px 32px;
     text-align: center;
     box-shadow: var(--shadow-lg);
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-
-  .logo-dot {
-    width: 12px;
-    height: 12px;
-    background: var(--color-optimal);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--color-optimal);
-  }
-
-  .logo-text {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
   }
 
   .tagline {
@@ -542,19 +555,30 @@
     color: var(--color-optimal-text);
   }
 
-  .footer {
+  .back-link {
     margin-top: 24px;
     display: flex;
     justify-content: flex-start;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background: none;
+  }
+
+  .back-link:hover {
+    background: none;
   }
 
   .landing-link {
     font-size: 13px;
     color: var(--text-muted);
     text-decoration: none;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .landing-link:hover {
+    color: var(--text-secondary);
     text-decoration: underline;
   }
 
@@ -568,9 +592,8 @@
       border-radius: 20px;
     }
 
-    .logo-text {
-      font-size: 24px;
-    }
+    .site-logo { top: 12px; left: 12px; }
+    .site-logo-text { font-size: 14px; }
 
     .header-actions {
       position: static;
@@ -606,19 +629,8 @@
       border-radius: 16px;
     }
 
-    .logo {
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .logo-dot {
-      width: 10px;
-      height: 10px;
-    }
-
-    .logo-text {
-      font-size: 22px;
-    }
+    .site-logo { top: 10px; left: 10px; gap: 8px; }
+    .site-logo-text { font-size: 13px; }
 
     .tagline {
       font-size: 13px;
@@ -675,7 +687,7 @@
       margin-top: 16px;
     }
 
-    .footer {
+    .back-link {
       margin-top: 16px;
     }
 
@@ -726,19 +738,8 @@
       border-radius: 12px;
     }
 
-    .logo {
-      gap: 6px;
-      margin-bottom: 4px;
-    }
-
-    .logo-dot {
-      width: 8px;
-      height: 8px;
-    }
-
-    .logo-text {
-      font-size: 18px;
-    }
+    .site-logo { top: 8px; left: 8px; gap: 6px; }
+    .site-logo-text { font-size: 12px; }
 
     .tagline {
       font-size: 12px;
@@ -804,7 +805,7 @@
       margin-top: 12px;
     }
 
-    .footer {
+    .back-link {
       margin-top: 12px;
     }
 

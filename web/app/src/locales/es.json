@@ -37,6 +37,13 @@
     "profile": "Perfil",
     "logout": "Cerrar sesión"
   },
+  "footer": {
+    "start": "Empezar",
+    "login": "Iniciar sesión",
+    "linkDevice": "Vincular dispositivo",
+    "privacy": "Privacidad",
+    "support": "Soporte"
+  },
   "auth": {
     "signIn": "Iniciar sesión",
     "signOut": "Cerrar sesión",
@@ -1866,75 +1873,75 @@
       "title": "Preguntas Frecuentes",
       "q1": {
         "q": "¿Qué pedales de potencia son compatibles?",
-        "a": "<strong>Soporte completo (Balance + ET + SP):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Solo balance:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Cualquier pedal que transmita ANT+ Cycling Dynamics funcionará."
+        "a": "<strong>Soporte completo (Balance + ET + SP):</strong> Garmin Rally RS/XC, Favero Assioma Duo/Duo-Shi, SRM X-Power, PowerTap P2, Wahoo SPEEDPLAY Powrlink Zero. Estos pedales transmiten datos ANT+ Cycling Dynamics completos incluyendo balance izquierda/derecha, efectividad de torque y suavidad de pedaleo.<br><br><strong>Solo balance:</strong> Wahoo POWRLINK Zero (un lado), Stages LR, 4iiii Precision Dual, Rotor 2INpower, Power2Max NG/NGeco. Proporcionan datos de balance precisos pero no transmiten métricas ET/SP.<br><br><strong>No compatibles:</strong> Potenciómetros de un solo lado que estiman balance (Stages single, 4iiii single, Assioma Uno) — KPedal requiere medición real de ambos lados."
       },
       "q2": {
         "q": "¿Cómo instalo KPedal en mi Karoo?",
-        "a": "<strong>Opción 1:</strong> Descarga APK de GitHub Releases → transfiere vía USB → abre el gestor de archivos en Karoo → toca para instalar.<br><strong>Opción 2:</strong> Abre el enlace de release de GitHub directamente en el navegador del Karoo y descarga.<br><strong>Opción 3:</strong> Usa ADB: <code>adb install kpedal.apk</code>"
+        "a": "<strong>Método 1 — Descarga directa (más fácil):</strong> En tu Karoo, abre el navegador y ve a github.com/yrkan/kpedal/releases. Toca el archivo .apk para descargar, luego toca la notificación para instalar.<br><br><strong>Método 2 — Transferencia USB:</strong> Descarga APK en computadora → conecta Karoo vía USB → copia a carpeta Descargas → en Karoo, abre app Archivos → toca el APK → Instalar.<br><br><strong>Método 3 — ADB (para desarrolladores):</strong> Habilita Modo Desarrollador en Karoo, conecta vía USB, ejecuta: <code>adb install kpedal-x.x.x.apk</code><br><br>Después de instalar, abre KPedal una vez para otorgar permisos y habilitar el Modo Segundo Plano para recolección automática de datos."
       },
       "q3": {
-        "q": "¿Necesito agregar campos de datos de KPedal a mi pantalla de paseo?",
-        "a": "<strong>No.</strong> Con el Modo Segundo Plano activado, KPedal recolecta métricas de TODOS los paseos automáticamente — incluso si nunca agregas un solo campo de datos. Los campos de datos son opcionales y solo para ver métricas en vivo durante el paseo. Tu historial completo de paseos se guarda de todos modos."
+        "q": "¿Necesito agregar campos de datos de KPedal a mi pantalla?",
+        "a": "<strong>No — los campos de datos son completamente opcionales.</strong> Una vez que habilitas el Modo Segundo Plano en configuración de KPedal, la app automáticamente recolecta métricas de pedaleo para cada salida que hagas. Esto ocurre silenciosamente en segundo plano sin importar qué campos de datos muestres.<br><br><strong>¿Por qué agregar campos entonces?</strong> Solo si quieres ver tus métricas en vivo durante la salida. Campos disponibles: Vista Rápida (estado + balance), Balance de Potencia (I/D con barra), Efectividad de Torque (valores I/D), Suavidad de Pedaleo, Vista Completa (todas las métricas), y Tendencia de Balance (suavizado en el tiempo).<br><br>Tu historial completo de salidas con snapshots por minuto se guarda uses campos de datos o no."
       },
       "q4": {
         "q": "¿Qué se considera un \"buen\" balance de potencia?",
-        "a": "<strong>48-52%</strong> (±2% de 50/50) es óptimo. La mayoría de ciclistas profesionales pedalean con 1-3% de asimetría natural. No te obsesiones con un 50/50 perfecto — es casi imposible y no es necesario. Enfócate en la <strong>consistencia dentro de tu rango</strong> en lugar de perseguir la perfección."
+        "a": "<strong>Rango óptimo: 48-52% (±2% del 50/50 perfecto).</strong> La investigación muestra que incluso ciclistas profesionales típicamente tienen 1-3% de asimetría natural — la simetría perfecta es rara y no necesaria para alto rendimiento.<br><br><strong>Perspectiva clave:</strong> La consistencia importa más que la perfección. Un ciclista consistentemente en 48/52 está mejor que uno que oscila entre 45/55 y 52/48. KPedal rastrea tu línea base personal para detectar desviaciones.<br><br><strong>Cuándo preocuparse:</strong> Asimetría superior al 5% sostenida en múltiples salidas puede indicar problema de ajuste de bici, desequilibrio muscular o lesión en desarrollo. Si notas cambios repentinos en tu patrón típico, investiga antes de que se convierta en problema."
       },
       "q5": {
-        "q": "¿Por qué es óptimo 70-80% de Efectividad de Torque y no más?",
-        "a": "Basado en <strong>investigación de Wattbike</strong>: por encima del 80% ET, probablemente estás tirando demasiado en el ascenso. Esto desperdicia energía y puede reducir la potencia total. El rango 70-80% indica que aplicas fuerza eficientemente a través de la pedalada sin luchar contra ti mismo en la fase de recuperación."
+        "q": "¿Por qué 70-80% de Efectividad de Torque es óptimo y no más alto?",
+        "a": "<strong>La ciencia:</strong> La Efectividad de Torque mide qué porcentaje de tu pedalada produce movimiento hacia adelante. ET = (torque positivo − torque negativo) ÷ torque positivo × 100.<br><br><strong>¿Por qué no apuntar al 100%?</strong> Investigación de Wattbike y laboratorios de ciencias del deporte muestra que por encima del 80% ET, los ciclistas típicamente tiran demasiado en el ascenso. Esto recluta flexores de cadera ineficientemente, aumenta el costo metabólico, y puede reducir la potencia sostenible.<br><br><strong>El punto dulce 70-80%</strong> indica aplicación eficiente de fuerza en la fase de potencia (12 en punto a 6 en punto) sin desperdiciar energía luchando contra la fase de recuperación. Ciclistas élite naturalmente caen en este rango durante esfuerzos sostenidos.<br><br><strong>ET más bajo (debajo de 65%)</strong> sugiere que estás \"pisoteando\" los pedales — todo bajada, sin seguimiento. Esto es común cuando estás fatigado o a potencias muy altas."
       },
       "q6": {
         "q": "¿Qué mide exactamente la Suavidad de Pedaleo?",
-        "a": "<strong>Fórmula:</strong> SP = (potencia promedio ÷ potencia pico) × 100.<br>Mayor SP significa aplicación de potencia más consistente a través de la pedalada. <strong>20%+ es bueno</strong> para la mayoría de ciclistas. Los sprinters típicamente tienen menor SP (potencia explosiva), mientras que los ciclistas de resistencia tienden a valores más altos."
+        "a": "<strong>Fórmula:</strong> SP = (potencia promedio durante la pedalada ÷ potencia pico) × 100.<br><br><strong>Qué significa:</strong> Un SP más alto indica entrega de potencia más uniforme a través de toda la rotación de 360°. SP más bajo significa que produces potencia en picos agudos (típicamente en posición de las 3).<br><br><strong>Valores típicos:</strong><br>• 15-20%: Normal para ciclistas recreativos<br>• 20-25%: Bueno, pedaleo eficiente<br>• 25%+: Excelente, entrega de potencia muy suave<br><br><strong>El contexto importa:</strong> Los sprinters naturalmente tienen SP más bajo (la entrega explosiva es el objetivo). Escaladores y contrarrelojistas se benefician de SP más alto. Durante intervalos, SP baja al aumentar potencia — esto es normal.<br><br><strong>Mejorar SP:</strong> Ejercicios de una pierna, spinning de alta cadencia (100+ RPM), y enfocarse en \"pedalear círculos\" en lugar de pisotear puede aumentar la suavidad con el tiempo."
       },
       "q7": {
-        "q": "¿Cómo se calcula la Puntuación del Paseo?",
-        "a": "<strong>Fórmula ponderada:</strong> Balance (40%) + ET (35%) + SP (25%).<br>Cada métrica se puntúa 0-100 basado en tiempo en zonas óptimas.<br><strong>85+</strong> = Técnica excelente<br><strong>70-84</strong> = Bueno, áreas menores a mejorar<br><strong>Menor a 70</strong> = Espacio significativo para mejorar"
+        "q": "¿Cómo se calcula la Puntuación de Salida?",
+        "a": "<strong>Fórmula ponderada:</strong> Balance contribuye 40%, Efectividad de Torque 35%, y Suavidad de Pedaleo 25%.<br><br><strong>Cómo se puntúa cada métrica (0-100):</strong><br>• Balance: Basado en porcentaje de tiempo de salida dentro de ±2.5% de 50/50<br>• ET: Basado en tiempo en rango 70-80%<br>• SP: Basado en tiempo sobre 20%<br><br><strong>Interpretación de puntuación:</strong><br>• <strong>90-100:</strong> Técnica élite, consistente durante la salida<br>• <strong>80-89:</strong> Excelente, espacio menor para optimización<br>• <strong>70-79:</strong> Buena base, áreas claras a mejorar<br>• <strong>60-69:</strong> Promedio, trabajo de técnica enfocado recomendado<br>• <strong>Debajo de 60:</strong> Potencial de mejora significativo<br><br><strong>Consejo pro:</strong> Compara puntuaciones entre tipos de salida similares. Tu puntuación de intervalos diferirá de tu salida de resistencia — ambas son líneas base válidas para sus respectivos esfuerzos."
       },
       "q8": {
         "q": "¿Cómo funcionan los Ejercicios guiados?",
-        "a": "Los ejercicios son actividades estructuradas con objetivos en tiempo real mostrados en pantalla. Ejemplo: \"Enfoque Pierna Izquierda\" te pide mantener 55-60% de balance en una pierna por 30 segundos. KPedal rastrea tu <strong>tiempo en objetivo</strong> y proporciona una puntuación al final. Perfecto para calentamientos, paseos de recuperación o sesiones de técnica dedicadas."
+        "a": "<strong>Los ejercicios son actividades estructuradas con retroalimentación visual en tiempo real.</strong> Cada ejercicio tiene múltiples fases con objetivos específicos mostrados en tu pantalla Karoo.<br><br><strong>Ejemplo — Ejercicio Enfoque Pierna Única:</strong><br>1. Fase de calentamiento: 30 segundos a balance natural<br>2. Enfoque izquierda: 45 segundos apuntando 55-60% pierna izquierda<br>3. Recuperación: 15 segundos<br>4. Enfoque derecha: 45 segundos apuntando 55-60% pierna derecha<br>5. Enfriamiento: 30 segundos a balance natural<br><br><strong>Puntuación:</strong> KPedal rastrea tu tiempo-en-objetivo para cada fase. Alcanza el rango objetivo por 80%+ de la duración de fase para \"pasar\" ese segmento. Tu puntuación final refleja la precisión general.<br><br><strong>Categorías de ejercicios:</strong><br>• <strong>Enfoque:</strong> Aislar una métrica (balance, ET, o SP)<br>• <strong>Desafío:</strong> Dificultad progresiva, múltiples métricas<br>• <strong>Entrenamiento:</strong> Sesiones más largas combinando técnica con esfuerzo"
       },
       "q9": {
         "q": "¿Puedo crear mis propios ejercicios personalizados?",
-        "a": "<strong>Sí.</strong> Los Ejercicios Personalizados te permiten definir tus propias fases, objetivos y duraciones. Crea ejercicios adaptados a tus debilidades específicas — quizás 45 segundos de enfoque en ET seguido de 30 segundos de trabajo de balance. Tus ejercicios personalizados se guardan localmente y sincronizan en la nube."
+        "a": "<strong>Sí — el constructor de Ejercicios Personalizados te permite diseñar exactamente lo que necesitas.</strong><br><br><strong>Puedes personalizar:</strong><br>• Número de fases (1-10)<br>• Duración por fase (10 segundos a 5 minutos)<br>• Métrica objetivo (Balance, ET, SP, o combinación)<br>• Rango objetivo (ej., 45-48% balance, 75-85% ET)<br>• Nombres e instrucciones de fase<br><br><strong>Ejemplo de ejercicio personalizado para debilidad de pierna izquierda:</strong><br>1. \"Calentamiento\" — 60s, sin objetivo<br>2. \"Activación izquierda\" — 45s, Balance 54-58% izquierda<br>3. \"Descanso\" — 20s, sin objetivo<br>4. \"Potencia izquierda\" — 45s, Balance 56-60% izquierda<br>5. \"Igualar\" — 30s, Balance 48-52%<br><br><strong>Sincronización:</strong> Ejercicios personalizados se guardan en tu dispositivo y sincronizan a la nube cuando está habilitado. Accede desde cualquier Karoo vinculado o ve historial en el panel web."
       },
       "q10": {
-        "q": "¿Qué activa las alertas durante el paseo?",
-        "a": "<strong>Umbrales configurables:</strong><br>• Balance: la asimetría excede tu límite establecido (por defecto 5%)<br>• ET: cae por debajo del mínimo (por defecto 60%)<br>• SP: cae por debajo del mínimo (por defecto 15%)<br>Las alertas usan <strong>vibración + pitido</strong>. El enfriamiento (15s-2min) previene spam. Puedes activar/desactivar cada métrica independientemente."
+        "q": "¿Qué activa las alertas durante la salida?",
+        "a": "<strong>Las alertas te notifican cuando las métricas salen de tus umbrales configurados.</strong><br><br><strong>Disparadores configurables:</strong><br>• <strong>Balance:</strong> Asimetría excede límite (por defecto: 5% — dispara en 45/55 o peor)<br>• <strong>Efectividad de Torque:</strong> Cae bajo mínimo (por defecto: 60%)<br>• <strong>Suavidad de Pedaleo:</strong> Cae bajo mínimo (por defecto: 15%)<br><br><strong>Métodos de alerta:</strong><br>• Vibración (patrón de zumbido corto)<br>• Pitido de audio (si el sonido del Karoo está habilitado)<br>• Destello de pantalla (pulso de color sutil)<br><br><strong>Enfriamiento inteligente:</strong> Después de disparar una alerta, hay un enfriamiento configurable (15 segundos a 2 minutos) antes de que pueda disparar de nuevo. Esto previene spam de alertas durante esfuerzos difíciles sostenidos.<br><br><strong>Control por métrica:</strong> Habilita o deshabilita alertas para cada métrica independientemente. Muchos ciclistas solo quieren alertas de balance y prefieren revisar ET/SP post-salida."
       },
       "q11": {
         "q": "¿Funciona KPedal sin conexión a internet?",
-        "a": "<strong>100% sí.</strong> Todas las funciones principales — recolección de datos, ejercicios, alertas, historial de paseos — funcionan completamente sin conexión. La sincronización en la nube es opcional y solo se activa cuando la habilitas. Tus datos siempre se almacenan localmente en el Karoo primero. La sincronización ocurre automáticamente cuando vuelves a estar en línea."
+        "a": "<strong>Sí — KPedal es completamente funcional sin conexión.</strong> Cada función principal funciona sin ninguna conexión a internet.<br><br><strong>Funciona sin conexión:</strong><br>• Recolección de datos en tiempo real durante salidas<br>• Los 5 tipos de campos de datos<br>• Biblioteca completa de ejercicios (integrados y personalizados)<br>• Sistema de alertas<br>• Historial y estadísticas de salidas<br>• Seguimiento de logros<br><br><strong>Requiere internet (opcional):</strong><br>• Inicio de sesión inicial con Google (una vez)<br>• Sincronización en la nube de datos de salida<br>• Acceso al panel web<br><br><strong>Cómo funciona la sincronización:</strong> Las salidas siempre se guardan localmente primero. Cuando vuelves a estar en línea y la sincronización está habilitada, los datos se suben automáticamente en segundo plano. Si nunca habilitas sincronización, tus datos permanecen exclusivamente en el Karoo — tu elección."
       },
       "q12": {
         "q": "¿KPedal drena la batería de mi Karoo?",
-        "a": "<strong>Impacto mínimo: ~1-2% extra por hora</strong> durante paseos activos. KPedal solo ejecuta recolección de datos mientras pedaleas. Entre paseos, solo un pequeño oyente espera el inicio del paseo — consumo de energía insignificante. Altamente optimizado para eficiencia."
+        "a": "<strong>Impacto: aproximadamente 1-2% de drenaje adicional de batería por hora durante salidas.</strong><br><br><strong>Por qué es mínimo:</strong><br>• KPedal solo procesa datos activamente mientras estás en una salida<br>• Entre salidas, un listener ligero espera el inicio de salida — consumo casi nulo<br>• Sin uso de GPS (Karoo maneja eso)<br>• Sin polling continuo en segundo plano<br>• Almacenamiento eficiente de datos (escrituras por lotes, no I/O constante)<br><br><strong>Ejemplo real:</strong> En una salida de 4 horas, espera aproximadamente 4-8% más uso de batería comparado con salir sin KPedal. Dada la batería de 12+ horas del Karoo 3, esto es insignificante para la mayoría de salidas.<br><br><strong>Consejo de optimización:</strong> Si haces un evento de ultra-resistencia y necesitas máxima batería, puedes deshabilitar campos de datos de KPedal (la recolección en segundo plano sigue funcionando) y apagar alertas."
       },
       "q13": {
         "q": "¿Puedo sincronizar datos entre múltiples dispositivos Karoo?",
-        "a": "<strong>Sí.</strong> Vincula múltiples Karoos a tu cuenta. La configuración se sincroniza automáticamente entre ellos. Todos los paseos de todos los dispositivos aparecen en un panel unificado. Perfecto si tienes un Karoo de respaldo, dispositivos de carrera y entrenamiento, o actualizas a una nueva unidad."
+        "a": "<strong>Sí — vincula múltiples Karoos a una cuenta para sincronización perfecta.</strong><br><br><strong>Cómo funciona:</strong><br>1. Instala KPedal en cada Karoo<br>2. Inicia sesión con la misma cuenta de Google en cada dispositivo<br>3. Habilita sincronización en la nube en cada dispositivo<br><br><strong>Qué se sincroniza:</strong><br>• Todos los datos de salida y snapshots por minuto<br>• Ejercicios personalizados que has creado<br>• Configuración de alertas y umbrales<br>• Progreso de logros<br><br><strong>Casos de uso:</strong><br>• Karoo de respaldo para día de carrera<br>• Diferentes Karoos en diferentes bicis<br>• Actualizar de Karoo 2 a Karoo 3<br>• Compartir datos de técnica con entrenador (necesitaría tu inicio de sesión)<br><br><strong>Resolución de conflictos:</strong> Si sales en dos dispositivos simultáneamente (inusual pero posible), ambas salidas se guardan con sus respectivas marcas de tiempo. La configuración sincroniza con \"última escritura gana\" — el cambio más reciente aplica."
       },
       "q14": {
         "q": "¿Cómo funciona el sistema de Logros?",
-        "a": "Los logros se desbloquean al alcanzar hitos: cantidad de paseos, horas totales, rachas de consistencia, mejoras de técnica. Ejemplos: \"Balance de Hierro\" (10 paseos con <2% asimetría), \"Club del Centenario\" (100 paseos rastreados). Los logros se sincronizan en la nube y se muestran en tu panel web."
+        "a": "<strong>Los logros recompensan consistencia e hitos de técnica.</strong><br><br><strong>Categorías de logros:</strong><br>• <strong>Volumen:</strong> Total de salidas rastreadas, horas pedaleadas, kilómetros cubiertos<br>• <strong>Consistencia:</strong> Rachas de salidas (días/semanas seguidas con salidas)<br>• <strong>Técnica:</strong> Puntuaciones de salida, tiempo en zonas óptimas, mejoras de métricas<br>• <strong>Ejercicios:</strong> Ejercicios completados, puntuaciones perfectas, variedad de tipos<br><br><strong>Ejemplos de logros:</strong><br>• \"Primera Vuelta\" — Completa tu primera salida rastreada<br>• \"Balance de Hierro\" — 10 salidas con asimetría promedio bajo 2%<br>• \"Club del Centenario\" — 100 salidas rastreadas<br>• \"Operador Suave\" — Mantén 25%+ SP durante una salida completa<br>• \"Sargento de Ejercicios\" — Completa 50 ejercicios<br><br><strong>Seguimiento de progreso:</strong> Ve tu progreso de logros en el panel web. Algunos logros tienen niveles bronce/plata/oro (ej., 10/50/100 salidas). Los logros sincronizan a la nube y persisten entre dispositivos."
       },
       "q15": {
-        "q": "¿Puedo usar KPedal con Garmin, Wahoo u otros computadores de bicicleta?",
-        "a": "<strong>No.</strong> KPedal está construido específicamente para Hammerhead Karoo usando su SDK oficial karoo-ext. Accede a datos ANT+ Cycling Dynamics, sistema de alertas nativo y monitoreo de estado de paseo — integraciones profundas no disponibles en otras plataformas."
+        "q": "¿Puedo usar KPedal con Garmin, Wahoo u otros computadores de bici?",
+        "a": "<strong>No — KPedal es exclusivo para Hammerhead Karoo.</strong><br><br><strong>Razón técnica:</strong> KPedal está construido usando el SDK oficial karoo-ext de Hammerhead, que proporciona integración profunda con:<br>• Streams de datos ANT+ Cycling Dynamics<br>• Detección nativa de estado de salida (inicio/pausa/detener)<br>• Infraestructura de alertas del sistema (vibración, sonido)<br>• Motor de renderizado de campos de datos<br>• Permisos de servicio en segundo plano<br><br>Estas integraciones no existen en Garmin, Wahoo, u otras plataformas. Cada una requeriría una app completamente diferente construida desde cero con sus respectivos SDKs (frecuentemente más limitados).<br><br><strong>Plataformas futuras:</strong> No hay planes actuales de portar KPedal a otros dispositivos. El proyecto se enfoca en hacer una cosa bien en lugar de dispersarse en múltiples plataformas."
       },
       "q16": {
         "q": "¿Son privados y seguros mis datos?",
-        "a": "<strong>Sí.</strong> Los datos permanecen en tu Karoo a menos que habilites la sincronización en la nube. La nube usa <strong>Inicio de Sesión con Google</strong> — nunca vemos ni almacenamos tu contraseña. Sin píxeles de rastreo, sin anuncios, sin venta de datos. Todo el proyecto es <strong>código abierto</strong> — audita el código tú mismo en GitHub."
+        "a": "<strong>Sí — la privacidad es un principio de diseño central.</strong><br><br><strong>Arquitectura local-primero:</strong><br>• Todos los datos se almacenan en tu Karoo primero<br>• La sincronización en la nube es opt-in, no por defecto<br>• Puedes usar KPedal indefinidamente sin crear cuenta<br><br><strong>Si habilitas sincronización en la nube:</strong><br>• Autenticación vía Google Sign-In — nunca vemos ni almacenamos tu contraseña<br>• Datos transmitidos sobre HTTPS (TLS 1.3)<br>• Almacenado en infraestructura global de Cloudflare<br>• Sin analíticas de terceros ni rastreo<br>• Sin anuncios, sin venta de datos, sin estadísticas \"anónimas\" de uso<br><br><strong>Transparencia de código abierto:</strong> Todo el código — app Android, API web, y panel web — es público en GitHub. Audita exactamente qué datos se recolectan y cómo se manejan. Si encuentras un problema de seguridad, repórtalo responsablemente."
       },
       "q17": {
         "q": "¿Por qué mi balance cambia a diferentes potencias?",
-        "a": "Esto es normal. A baja potencia, pequeñas variaciones de técnica se amplifican. A alta potencia, tiendes a reclutar músculos más uniformemente. Muchos ciclistas ven 2-3% más asimetría a ritmo de resistencia vs umbral. KPedal rastrea esto para que puedas identificar patrones y trabajar en puntos débiles."
+        "a": "<strong>Esto es completamente normal y bien documentado en ciencia del ciclismo.</strong><br><br><strong>El patrón:</strong> La mayoría de ciclistas muestran 2-4% más asimetría a potencia baja (Zona 1-2) comparado con potencia alta (Zona 4-5). Algunos ciclistas muestran el patrón opuesto.<br><br><strong>Por qué sucede:</strong><br>• <strong>Potencia baja:</strong> Fuerzas menores significan que pequeñas variaciones de técnica tienen impacto porcentual desproporcionado. Tu pierna dominante puede \"tomar control\" cuando el esfuerzo es fácil.<br>• <strong>Potencia alta:</strong> El reclutamiento máximo de ambas piernas tiende a igualar las cosas. Te concentras más y activas más grupos musculares bilateralmente.<br>• <strong>Fatiga:</strong> Conforme te cansas, tu pierna más débil se fatiga más rápido, aumentando asimetría. Esto es dato valioso para el ritmo.<br><br><strong>Usando esta perspectiva:</strong> Los snapshots por minuto de KPedal te permiten ver exactamente cómo tu balance cambia durante una salida. Correlaciona con zonas de potencia para entender tu patrón personal y dirigir ejercicios acordemente."
       },
       "q18": {
         "q": "¿Con qué frecuencia debo hacer ejercicios de técnica?",
-        "a": "<strong>2-3 veces por semana</strong> es un buen punto de partida. Inclúyelos en calentamientos (5-10 min) o dedica paseos de recuperación al trabajo de técnica. La consistencia importa más que el volumen — sesiones cortas regulares superan las largas ocasionales. Rastrea el progreso mediante puntuaciones de ejercicios con el tiempo."
+        "a": "<strong>Recomendado: 2-3 sesiones dedicadas por semana, más integración de ejercicios en calentamientos.</strong><br><br><strong>Enfoques efectivos:</strong><br>• <strong>Integración en calentamiento:</strong> 5-10 minutos de ejercicios al inicio de cada salida. Baja intensidad, alto enfoque. Excelente para activación muscular.<br>• <strong>Enfoque en salida de recuperación:</strong> Usa días fáciles para trabajo de técnica extendido (20-30 minutos). Potencia baja significa que puedes concentrarte en la forma.<br>• <strong>Sesiones dedicadas:</strong> Salida semanal de 30-45 minutos enfocada en técnica. Progresiones estructuradas de ejercicios con intervalos de descanso.<br><br><strong>Estrategia de progresión:</strong><br>1. Comienza con ejercicios de una métrica (solo balance, solo ET)<br>2. Progresa a desafíos multi-métrica<br>3. Aumenta duración y ajusta rangos objetivo con el tiempo<br>4. Rastrea puntuaciones de ejercicios semanalmente — apunta a mejora gradual, no perfección<br><br><strong>Perspectiva clave:</strong> La consistencia supera la intensidad. Tres sesiones de 10 minutos durante una semana mejorarán tu técnica más rápido que una sesión de 30 minutos. Las adaptaciones neurales requieren refuerzo regular."
       }
     },
     "cta": {
@@ -1957,6 +1964,85 @@
       "privacyPolicy": "Política de Privacidad",
       "signIn": "Iniciar Sesión",
       "madeWith": "Hecho con ❤️ para la comunidad Karoo"
+    }
+  },
+  "start": {
+    "title": "Configurar KPedal",
+    "subtitle": "5 minutos para análisis de pedaleo en tiempo real",
+    "progress": "{completed}/{total} completados",
+    "reset": "Reiniciar",
+    "optional": "Opcional",
+    "continue": "Continuar",
+    "done": "Hecho",
+    "skip": "Omitir",
+    "steps": {
+      "install": {
+        "title": "Instalar App",
+        "time": "2 min",
+        "intro": "Necesitas la app <strong>Hammerhead Companion</strong> en tu móvil para instalar KPedal en tu Karoo.",
+        "hasCompanion": "Tengo la app Companion instalada",
+        "downloadApk": "Descargar APK",
+        "opensGithub": "Abre GitHub Releases",
+        "step1": "En GitHub, toca el archivo <code>.apk</code> para descargar",
+        "step2": "Abre <strong>Descargas</strong>, mantén presionado el archivo → <strong>Compartir</strong>",
+        "step3": "Selecciona <strong>Hammerhead Companion</strong>",
+        "step4": "Toca <strong>Instalar</strong> cuando aparezca en Karoo",
+        "installed": "KPedal está instalado en mi Karoo"
+      },
+      "fields": {
+        "title": "Añadir al Perfil",
+        "time": "1 min",
+        "intro": "Añade campos de datos KPedal a tu perfil para ver métricas durante tus salidas.",
+        "step1": "En Karoo: <strong>Perfiles</strong> → selecciona tu perfil",
+        "step2": "Toca cualquier página de datos → <strong>Añadir Campo</strong>",
+        "step3": "Desplázate hasta la sección <strong>KPedal</strong>",
+        "step4": "Añade <strong>Quick Glance</strong> (recomendado para empezar)",
+        "allFields": "Todos los campos disponibles",
+        "fieldQuickGlance": "<strong>Quick Glance</strong> — balance + eficiencia en una vista",
+        "fieldPowerBalance": "<strong>Power Balance</strong> — I/D con barra visual",
+        "fieldEfficiency": "<strong>Efficiency</strong> — efectividad de torque + suavidad",
+        "fieldFullOverview": "<strong>Full Overview</strong> — todas las métricas combinadas",
+        "fieldBalanceTrend": "<strong>Balance Trend</strong> — gráfico de 5 min"
+      },
+      "configure": {
+        "title": "Ajustar Configuración",
+        "time": "1 min",
+        "intro": "La configuración predeterminada funciona bien para la mayoría. Ajusta si es necesario.",
+        "step1": "En Karoo: <strong>Ajustes</strong> → <strong>Apps</strong> → <strong>KPedal</strong>",
+        "whatYouCanAdjust": "Qué puedes ajustar",
+        "optionBalance": "<strong>Umbral de Balance</strong> — cuánto desequilibrio I/D es aceptable (predeterminado ±2.5%)",
+        "optionAlerts": "<strong>Alertas</strong> — vibración/sonido cuando las métricas se desvían",
+        "optionDrills": "<strong>Ejercicios</strong> — entrenamientos guiados para mejorar técnica"
+      },
+      "sync": {
+        "title": "Sincronización Cloud",
+        "time": "1 min",
+        "intro": "Opcional: sincroniza salidas al panel web para análisis detallado.",
+        "step1": "En Karoo: Abre KPedal → <strong>Vincular Cuenta</strong>",
+        "step2": "Verás un código de 8 caracteres",
+        "step3": "En el móvil: ve a",
+        "step4": "Introduce el código e inicia sesión con Google",
+        "note": "KPedal funciona completamente offline. La sincronización cloud solo añade el panel web."
+      }
+    },
+    "completion": {
+      "title": "¡Listo para pedalear!",
+      "subtitle": "Inicia una salida en tu Karoo para ver tus métricas de pedaleo.",
+      "optimal": "Óptimo",
+      "attention": "Atención",
+      "problem": "Problema",
+      "webDashboard": "Panel Web"
+    },
+    "footer": {
+      "home": "Inicio",
+      "privacy": "Privacidad",
+      "github": "GitHub",
+      "copyright": "© {year} KPedal",
+      "madeFor": "Hecho para ciclistas de Karoo"
+    },
+    "meta": {
+      "title": "Comenzar — KPedal",
+      "description": "Configura KPedal en tu Karoo en 5 minutos. Descarga, instala y empieza a analizar tu eficiencia de pedaleo."
     }
   },
   "aria": {

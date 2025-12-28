@@ -49,7 +49,7 @@ export function getDemoDashboard() {
     weeklyComparison: {
       thisWeek: { rides_count: 7, avg_score: 79.7, avg_balance_left: 49.6, avg_te: 75.6, avg_ps: 23.4, avg_zone_optimal: 74, total_duration_ms: 28500000, avg_power: 162.9, total_distance_km: 232.5, total_elevation: 2925, total_energy_kj: 4819 },
       lastWeek: { rides_count: 7, avg_score: 79.9, avg_balance_left: 49.5, avg_te: 75.3, avg_ps: 23.1, avg_zone_optimal: 73.4, total_duration_ms: 30000000, avg_power: 151.1, total_distance_km: 248.9, total_elevation: 2665, total_energy_kj: 4782 },
-      changes: { score: -0.2, zone_optimal: 0.6, rides_count: 0, power: 11.8, distance: -16.4, duration: -1500000, te: 0.3, ps: 0.3, balance: -0.1 }
+      changes: { score: -0.2, zone_optimal: 0.6, rides_count: 0, power: 11.8, distance: -16.4, duration: -1500000, te: 0.3, ps: 0.3, balance: -0.1, elevation: 260, energy: 37 }
     },
     trends: generateTrends(),
     lastRideSnapshots: [

@@ -37,7 +37,7 @@
   $: currentPath = $page.url.pathname;
 
   // Pages that NEVER show app UI (navbar, demo banner)
-  const noAppUIPages = ['/login', '/auth/success', '/link'];
+  const noAppUIPages = ['/login', '/auth/success', '/link', '/start'];
   $: isNoAppUIPage = noAppUIPages.includes(currentPath);
 
   // Landing page = kpedal.com domain + root path

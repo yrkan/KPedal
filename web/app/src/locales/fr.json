@@ -37,33 +37,40 @@
     "profile": "Profil",
     "logout": "Déconnexion"
   },
+  "footer": {
+    "start": "Commencer",
+    "login": "Connexion",
+    "linkDevice": "Associer appareil",
+    "privacy": "Confidentialité",
+    "support": "Assistance"
+  },
   "auth": {
     "signIn": "Connexion",
     "signOut": "Déconnexion",
     "continueWithGoogle": "Continuer avec Google",
-    "tryDemo": "Essayer la demo",
-    "loadingDemo": "Chargement de la demo...",
+    "tryDemo": "Essayer la démo",
+    "loadingDemo": "Chargement de la démo...",
     "createFreeAccount": "Créer un compte gratuit",
     "secureOAuth": "OAuth 2.0 sécurisé",
     "googleVerified": "Vérifié par Google",
     "privacyNote": "En vous connectant, vous acceptez notre",
     "privacyPolicy": "Politique de confidentialité",
-    "demoNote": "Explorez le tableau de bord avec des données d'exemple.",
+    "démoNote": "Explorez le tableau de bord avec des données d'exemple.",
     "noSignupRequired": "Aucune inscription requise.",
     "backToLanding": "retour à la page d'accueil",
     "signedInViaGoogle": "Connecté via Google",
     "sessionExpires": "Votre session expire dans 7 jours",
-    "authenticating": "Authentifiçation en cours...",
+    "authenticating": "Authentification en cours...",
     "signingIn": "Connexion en cours...",
     "redirectingToLogin": "Redirection vers la connexion...",
-    "missingTokens": "Jetons d'authentifiçation manquants"
+    "missingTokens": "Jetons d'authentification manquants"
   },
   "errors": {
-    "invalidState": "Verifiçation de sécurité échouée. Veuillez réessayer.",
-    "authFailed": "Authentifiçation échouée. Veuillez réessayer.",
+    "invalidState": "Vérification de sécurité échouée. Veuillez réessayer.",
+    "authFailed": "Authentification échouée. Veuillez réessayer.",
     "somethingWrong": "Une erreur s'est produite. Veuillez réessayer.",
-    "demoUnavailable": "Mode demo temporairement indisponible. Veuillez réessayer plus tard.",
-    "demoFailed": "Échec du démarrage du mode demo. Veuillez réessayer.",
+    "démoUnavailable": "Mode démo temporairement indisponible. Veuillez réessayer plus tard.",
+    "démoFailed": "Échec du démarrage du mode démo. Veuillez réessayer.",
     "failedToLoad": "Échec du chargement des données",
     "failedToConnect": "Échec de la connexion",
     "failedToLoadRides": "Échec du chargement des sorties",
@@ -73,7 +80,7 @@
     "failedToLoadSettings": "Échec du chargement des paramètres"
   },
   "demo": {
-    "mode": "Mode demo",
+    "mode": "Mode démo",
     "viewingSampleData": "Affichage des données d'exemple",
     "tour": "Visite guidee"
   },
@@ -87,7 +94,7 @@
     "power": "Puissance",
     "powerAvg": "Puissance moy.",
     "powerMax": "Puissance max.",
-    "normalizedPower": "Puissance normalisee",
+    "normalizedPower": "Puissance normalisée",
     "npShort": "PN",
     "cadence": "Cadence",
     "hr": "Fréquence cardiaque",
@@ -95,11 +102,11 @@
     "speed": "Vitesse",
     "distance": "Distance",
     "duration": "Durée",
-    "elevation": "Denivele",
-    "elevationGain": "Denivele positif",
+    "elevation": "Dénivelé",
+    "elevationGain": "Dénivelé positif",
     "energy": "Énergie",
     "score": "Score",
-    "asymmetry": "Asymetrie",
+    "asymmetry": "Asymétrie",
     "left": "G",
     "right": "D",
     "leftRight": "G/D",
@@ -115,9 +122,9 @@
     "timeInZone": "Temps dans la zone",
     "zoneStatus": "Statut de la zone",
     "description": {
-      "attention": "Technique à améliorér",
+      "attention": "Technique à améliorer",
       "optimal": "Excellente forme",
-      "problem": "Problèmes signifiçatifs"
+      "problem": "Problèmes significatifs"
     }
   },
   "dashboard": {
@@ -138,12 +145,12 @@
       "km": "{value} km",
       "avgScore": "Score moy."
     },
-    "powerAsymmetry": "Asymetrie de puissance",
+    "powerAsymmetry": "Asymétrie de puissance",
     "lrBalance": "Équilibre G/D",
     "weeklyActivity": "Activité hebdomadaire",
     "technique": "Technique",
     "trends": "Tendances",
-    "recentRides": "Sorties recentes",
+    "recentRides": "Sorties récentes",
     "thisWeek": "Cette semaine",
     "lastWeek": "Semaine dernière",
     "vsLastWeek": "vs semaine dernière",
@@ -171,7 +178,7 @@
       "rides": "Sorties",
       "hours": "Heures",
       "distance": "Distance",
-      "climb": "Denivele",
+      "climb": "Dénivelé",
       "balance": "Équilibre",
       "optimal": "Optimal"
     },
@@ -193,7 +200,7 @@
     "trendStats": {
       "current": "Actuel",
       "average": "Moyenne",
-      "spread": "Eçart",
+      "spread": "Écart",
       "latest": "Dernier",
       "best": "Meilleur"
     },
@@ -217,11 +224,11 @@
       "clickToView": "Cliquez pour voir"
     },
     "actions": {
-      "downloadApk": "Telecharger l'APK",
+      "downloadApk": "Télécharger l'APK",
       "linkDevice": "Associer un appareil"
     },
     "onboarding": {
-      "dashboardWillShow": "Votre tableau de bord affichera les analyses de pédalage en temps reel une fois que vous commencerez à rouler avec KPedal sur votre Karoo.",
+      "dashboardWillShow": "Votre tableau de bord affichera les analyses de pédalage en temps réel une fois que vous commencerez à rouler avec KPedal sur votre Karoo.",
       "whatYouWillSee": "Ce que vous verrez ici",
       "powerBalance": "Équilibre de puissance",
       "proTarget": "Pro : ±2,5%",
@@ -231,21 +238,21 @@
       "psOptimal": "Optimal : ≥20%",
       "getStarted": "Commencez en 3 étapes",
       "step1Title": "Installer sur Karoo",
-      "step1Desc": "Telechargez l'APK et installez via USB où le navigateur Karoo",
+      "step1Desc": "Téléchargez l'APK et installez via USB ou le navigateur Karoo",
       "step2Title": "Ajouter les champs de données",
       "step2Desc": "Modifiez votre profil de sortie et ajoutez les champs de données KPedal",
       "step3Title": "Associer votre appareil",
-      "step3Desc": "Connectéz Karoo pour synchronisér automatiquement les sorties",
+      "step3Desc": "Connectez Karoo pour synchroniser automatiquement les sorties",
       "exampleBalance": "50% G / 50% D",
       "exampleTe": "72% moy.",
       "examplePs": "22% moy.",
-      "alreadyInstalled": "Déjà installe ? Complétéz une sortie sur votre Karoo — les données apparaitront ici après la synchronisation."
+      "alreadyInstalled": "Déjà installé ? Complétez une sortie sur votre Karoo — les données apparaîtront ici après la synchronisation."
     },
     "fatigue": {
       "title": "Fatigue (dernière sortie)",
       "trend": "Tendance",
       "dropped": "En baisse",
-      "slight": "Légere",
+      "slight": "Légère",
       "stable": "Stable"
     },
     "units": {
@@ -262,8 +269,8 @@
       "rides": "sorties"
     },
     "insights": {
-      "fatigueAction": "Votre forme baisse en fin de sortie. Développéz l'endurance avec",
-      "fatigueLink": "Développément de l'efficacité",
+      "fatigueAction": "Votre forme baisse en fin de sortie. Développez l'endurance avec",
+      "fatigueLink": "Développement de l'efficacité",
       "balanceAction": "{asymmetry}% {dominant}-dominant. Renforcez la jambe {weak} avec",
       "balanceLink": "Focus jambe {side}",
       "leftLeg": "Gauche",
@@ -272,11 +279,11 @@
       "rightDominant": "droite",
       "lowTeAction": "EC {te}% — concentrez-vous sur la traction à 6 heures. Essayez",
       "lowTeLink": "Transfert de puissance",
-      "lowPsAction": "FP {ps}% signifie un coup de pedale sacçade. Amélioréz-le avec",
-      "lowPsLink": "Cerclés fluides",
-      "greatBalance": "{asymmetry}% d'asymetrie — c'est un équilibre de niveau pro !",
-      "teOptimal": "EC {te}% — zone ideale pour le transfert de puissance.",
-      "excellentScore": "Score {score}% — technique de niveau elite !",
+      "lowPsAction": "FP {ps}% signifie un coup de pédale saccadé. Améliorez-le avec",
+      "lowPsLink": "Cercles fluides",
+      "greatBalance": "{asymmetry}% d'asymétrie — c'est un équilibre de niveau pro !",
+      "teOptimal": "EC {te}% — zone idéale pour le transfert de puissance.",
+      "excellentScore": "Score {score}% — technique de niveau élite !",
       "goodConsistency": "{count} sorties — excellente semaine !",
       "improvement": "Score en hausse de {points} points par rapport à la période précédente.",
       "encourageRides": "Seulement {count} {rideWord} — essayez d'atteindre les {lastCount} de la semaine dernière.",
@@ -289,8 +296,8 @@
     "title": "Sorties",
     "allRides": "Toutes les sorties",
     "rideHistory": "Historique des sorties",
-    "noRides": "Aucune sortie enregistree",
-    "noRidesHint": "Votre historique de sorties apparaitra ici une fois que vous aurez complété des sorties avec KPedal sur votre Karoo.",
+    "noRides": "Aucune sortie enregistrée",
+    "noRidesHint": "Votre historique de sorties apparaîtra ici une fois que vous aurez complété des sorties avec KPedal sur votre Karoo.",
     "eachRideShows": "Chaque sortie affiche",
     "deleteRide": "Supprimer cette sortie ?",
     "viewTable": "Vue tableau",
@@ -302,9 +309,9 @@
     "timeline": "Chronologie",
     "minuteByMinute": "Minute par minute",
     "startToEnd": "Du début à la fin",
-    "degradation": "Degradation",
+    "degradation": "Dégradation",
     "strong": "Fort",
-    "moderate": "Modere",
+    "moderate": "Modéré",
     "weak": "Faible",
     "backToDashboard": "Retour au tableau de bord",
     "backToRides": "Retour aux sorties",
@@ -312,19 +319,19 @@
     "detail": {
       "score": "Score",
       "scoreTip": "Score technique global de 0 à 100. Combine équilibre, EC et FP.",
-      "asymmetry": "Asymetrie",
-      "asymmetryTip": "Eçart par rapport à l'équilibre 50/50. Moins de 2,5% est un niveau pro.",
+      "asymmetry": "Asymétrie",
+      "asymmetryTip": "Écart par rapport à l'équilibre 50/50. Moins de 2,5% est un niveau pro.",
       "balanced": "Équilibre",
       "leftDominant": "G dominant",
       "rightDominant": "D dominant",
       "timeInZone": "Temps dans la zone",
-      "timeInZoneTip": "Temps dans les zones optimale, attention et problème. Plus de vert est preferable.",
+      "timeInZoneTip": "Temps dans les zones optimale, attention et problème. Plus de vert est préférable.",
       "technique": "Technique",
-      "techniqueTip": "Métriques d'efficacité du pédalage. EC est le transfert de puissance, FP est la fluidité du coup de pedale.",
+      "techniqueTip": "Métriques d'efficacité du pédalage. EC est le transfert de puissance, FP est la fluidité du coup de pédale.",
       "te": "EC",
       "teTip": "Efficacité du couple. Quelle proportion de puissance va vers l'avant.",
       "ps": "FP",
-      "psTip": "Fluidité du pédalage. Régularité de la puissance appliquee tout au long du coup de pedale.",
+      "psTip": "Fluidité du pédalage. Régularité de la puissance appliquée tout au long du coup de pédale.",
       "teInZone": "EC en zone",
       "teInZoneTip": "Temps avec EC dans la plage optimale de 70-80%.",
       "psInZone": "FP en zone",
@@ -336,25 +343,25 @@
       "fatigue": "Analyse de la fatigue",
       "fatigueTip": "Compare le premier tiers au dernier tiers de la sortie.",
       "fatigueStrong": "Fort",
-      "fatigueModerate": "Modere",
+      "fatigueModerate": "Modéré",
       "fatigueFatigued": "Fatigue",
-      "fatigueAsymmetry": "Asymetrie",
-      "balanceDegradedInsight": "L'équilibre s'est degrade de {value}% — concentrez-vous sur une repartition egale de la puissance lorsque vous étés fatigue",
+      "fatigueAsymmetry": "Asymétrie",
+      "balanceDegradedInsight": "L'équilibre s'est dégradé de {value}% — concentrez-vous sur une répartition égale de la puissance lorsque vous êtes fatigué",
       "teDroppedInsight": "L'EC à chute de {value}% — entrainez-vous à maintenir la forme dans le dernier tiers",
       "psFellInsight": "La FP à baisse de {value}% — travaillez le pédalage fluide sous fatigue",
-      "excellentFatigueInsight": "Excellente resistance à la fatigue — la technique est restee constante tout au long de la sortie",
+      "excellentFatigueInsight": "Excellente résistance à la fatigue — la technique est restée constante tout au long de la sortie",
       "fatigueStartEnd": "Début de sortie → Fin de sortie",
       "byPowerZone": "Par zone de puissance",
-      "byPowerZoneTip": "Technique à différéntes intensités.",
+      "byPowerZoneTip": "Technique à différentes intensités.",
       "timelineTip": "Métriques au fil du temps. Recherchez les baisses indiquant la fatigue.",
       "min": "Min",
       "avg": "Moy",
       "max": "Max",
-      "spread": "Eçart",
-      "minuteByMinuteTip": "Decomposition détaillée par minute. Utile pour analyser des segments spécifiques.",
+      "spread": "Écart",
+      "minuteByMinuteTip": "Décomposition détaillée par minute. Utile pour analyser des segments spécifiques.",
       "points": "points",
       "balance": "Équilibre",
-      "balanceTip": "Repartition de la puissance gauche/droite pour cette minute.",
+      "balanceTip": "Répartition de la puissance gauche/droite pour cette minute.",
       "teTip2": "Efficacité du couple G/D pour cette minute.",
       "psTip2": "Fluidité du pédalage G/D pour cette minute.",
       "power": "Puissance",
@@ -377,14 +384,14 @@
     "perf": {
       "wattsTip": "Puissance moyenne en watts.",
       "maxWattsTip": "Puissance maximale atteinte pendant la sortie.",
-      "npTip": "La puissance normalisee ajuste la variabilite de l'effort.",
+      "npTip": "La puissance normalisée ajuste la variabilité de l'effort.",
       "bpmTip": "Fréquence cardiaque moyenne pendant la sortie.",
       "maxBpmTip": "Fréquence cardiaque maximale atteinte. Proche du max, la technique en patit souvent.",
       "rpmTip": "Cadence moyenne. L'optimal est de 80-95 tr/min pour la plupart des cyclistes.",
-      "speedTip": "Vitesse moyenne. Moins fiable que la puissance à çause du terrain.",
-      "kjTip": "Énergie totale produite. Correspond approximativement aux çalories brulees.",
-      "elevGainTip": "Denivele positif total de la sortie.",
-      "elevLossTip": "Denivele negatif total de la sortie.",
+      "speedTip": "Vitesse moyenne. Moins fiable que la puissance à cause du terrain.",
+      "kjTip": "Énergie totale produite. Correspond approximativement aux calories brûlées.",
+      "elevGainTip": "Dénivelé positif total de la sortie.",
+      "elevLossTip": "Dénivelé négatif total de la sortie.",
       "gradeTip": "Pente maximale. Au-dessus de 10%, c'est raide."
     },
     "zones": {
@@ -393,7 +400,7 @@
       "tempo": "Tempo",
       "threshold": "Seuil",
       "vo2max": "VO2max",
-      "anaerobic": "Anaerobie"
+      "anaerobic": "Anaérobie"
     },
     "list": {
       "ridesLabel": "sorties",
@@ -401,9 +408,9 @@
       "kmLabel": "km",
       "kmTip": "Distance totale parcourue sur toutes les sorties.",
       "elevLabel": "m ↑",
-      "elevTip": "Denivele positif total sur toutes les sorties.",
+      "elevTip": "Dénivelé positif total sur toutes les sorties.",
       "asymLabel": "asym",
-      "asymTip": "Asymetrie de puissance moyenne. Moins de 2,5% est un niveau pro.",
+      "asymTip": "Asymétrie de puissance moyenne. Moins de 2,5% est un niveau pro.",
       "teLabel": "EC",
       "teTip": "Efficacité du couple moyenne. La plage optimale est de 70-80%.",
       "psLabel": "FP",
@@ -413,21 +420,21 @@
       "wAvgLabel": "W moy.",
       "wAvgTip": "Puissance moyenne. Suivez au fil du temps pour les tendances de forme.",
       "npLabel": "PN",
-      "npTip": "Puissance normalisee moyenne. Tient compte de la variabilite de l'effort.",
+      "npTip": "Puissance normalisée moyenne. Tient compte de la variabilité de l'effort.",
       "kjLabel": "kJ",
-      "kjTip": "Énergie totale produite. Correspond approximativement aux çalories brulees.",
+      "kjTip": "Énergie totale produite. Correspond approximativement aux calories brûlées.",
       "dateCol": "Date",
       "durationCol": "Durée",
       "asymCol": "Asym",
-      "asymColTip": "Pourcentage d'asymetrie de puissance. Plus bas signifie plus équilibre.",
+      "asymColTip": "Pourcentage d'asymétrie de puissance. Plus bas signifie plus équilibre.",
       "lrCol": "G / D",
-      "lrColTip": "Repartition de la puissance gauche et droite.",
+      "lrColTip": "Répartition de la puissance gauche et droite.",
       "teCol": "EC",
       "teColTip": "Efficacité du couple par jambe. 70-80% est optimal.",
       "psCol": "FP",
       "psColTip": "Fluidité du pédalage par jambe. Au-dessus de 20%, c'est bien.",
       "zonesCol": "Zones",
-      "zonesColTip": "Repartition du temps entre les zones de performance.",
+      "zonesColTip": "Répartition du temps entre les zones de performance.",
       "powerCol": "Puissance",
       "powerColTip": "Puissance moyenne en watts.",
       "deleteAriaLabel": "Supprimer la sortie",
@@ -435,7 +442,7 @@
       "teLR": "EC G/D",
       "psLR": "FP G/D",
       "powerLabel": "Puissance",
-      "asymmetryLabel": "asymetrie",
+      "asymmetryLabel": "asymétrie",
       "domLabel": "dom",
       "optimalPercent": "{percent}% optimal",
       "pageInfo": "Page {page} sur {total}",
@@ -451,7 +458,7 @@
       "longest": "Plus longue",
       "oldest": "Plus ancienne",
       "highestScore": "Meilleur score",
-      "newest": "Plus recente"
+      "newest": "Plus récente"
     },
     "filters": {
       "all": "Tout",
@@ -459,24 +466,24 @@
       "thisMonth": "Ce mois",
       "last30Days": "30 derniers jours"
     },
-    "emptyDescription": "Synchroniséz les sorties depuis votre Karoo pour les voir ici",
+    "emptyDescription": "Synchronisez les sorties depuis votre Karoo pour les voir ici",
     "empty": "Aucune sortie"
   },
   "drills": {
     "title": "Exercices",
     "noDrills": "Aucun exercice complété",
-    "noDrillsHint": "KPedal inclut des exercices guides pour améliorér votre technique de pédalage. Complétéz-les sur votre Karoo pour suivre vos progres ici.",
+    "noDrillsHint": "KPedal inclut des exercices guidés pour améliorer votre technique de pédalage. Complétez-les sur votre Karoo pour suivre vos progrès ici.",
     "availableTypes": "Types d'exercices disponibles",
     "types": {
       "balanceFocus": "Focus équilibre",
       "powerTransfer": "Transfert de puissance",
-      "smoothCircles": "Cerclés fluides",
+      "smoothCircles": "Cercles fluides",
       "challenges": "Défis"
     },
     "timeInTarget": "Temps dans la cible",
     "completed": "Complété",
     "incomplete": "Incomplet",
-    "abandoned": "Abandonne",
+    "abandoned": "Abandonné",
     "sessions": "Sessions",
     "avgTarget": "Cible moy.",
     "best": "Meilleur",
@@ -490,13 +497,13 @@
     "prevPage": "Page précédente",
     "nextPage": "Page suivante",
     "tips": {
-      "avgTarget": "Temps moyen passe à atteindre les métriques cibles. Plus élevé est preferable.",
+      "avgTarget": "Temps moyen passé à atteindre les métriques cibles. Plus élevé est préférable.",
       "sessions": "Nombre total de sessions d'exercices complétées.",
       "best": "Meilleur pourcentage de temps dans la cible atteint.",
       "completed": "Pourcentage d'exercices terminés jusqu'à la fin.",
-      "types": "Nombre de types d'exercices différénts que vous avez essayes.",
-      "timeInTarget": "Pourcentage du temps d'exercice passe dans la zone cible.",
-      "status": "Si l'exercice à été complété où abandonne prematurement."
+      "types": "Nombre de types d'exercices différents que vous avez essayés.",
+      "timeInTarget": "Pourcentage du temps d'exercice passé dans la zone cible.",
+      "status": "Si l'exercice a été complété ou abandonné prématurément."
     },
     "detail": {
       "timeInTarget": "Temps dans la cible",
@@ -511,17 +518,17 @@
       "all": "Tout"
     },
     "empty": "Aucun historique d'exercices",
-    "emptyDescription": "Complétéz des exercices sur votre Karoo pour voir votre historique ici"
+    "emptyDescription": "Complétez des exercices sur votre Karoo pour voir votre historique ici"
   },
   "achievements": {
     "title": "Accomplissements",
     "notAchieved": "Non accompli",
     "noAchievements": "Aucun jalon",
-    "noAchievementsHint": "Complétéz des sorties et des exercices sur votre Karoo pour débloquer des accomplissements",
+    "noAchievementsHint": "Complétez des sorties et des exercices sur votre Karoo pour débloquer des accomplissements",
     "availableCategories": "Categories d'accomplissements",
     "categories": {
       "milestones": "Jalons de sorties",
-      "balance": "Maitrise de l'équilibre",
+      "balance": "Maîtrise de l'équilibre",
       "performance": "Scores de performance",
       "streaks": "Séries de régularité",
       "duration": "Objectifs de durée",
@@ -550,8 +557,8 @@
     },
     "milestones": {
       "first_ride": {
-        "name": "Première sortie enregistree",
-        "description": "Complétéz votre première sortie avec analyse du pédalage",
+        "name": "Première sortie enregistrée",
+        "description": "Complétez votre première sortie avec analyse du pédalage",
         "category": "Volume",
         "target": "1 sortie"
       },
@@ -569,7 +576,7 @@
       },
       "rides_100": {
         "name": "100 sorties analysees",
-        "description": "Historique d'entraînement complet etabli",
+        "description": "Historique d'entraînement complet établi",
         "category": "Volume",
         "target": "100 sorties"
       },
@@ -581,7 +588,7 @@
       },
       "perfect_balance": {
         "name": "Équilibre 50/50 atteint",
-        "description": "Repartition parfaite de la puissance gauche/droite",
+        "description": "Répartition parfaite de la puissance gauche/droite",
         "category": "Équilibre",
         "target": "50/50"
       },
@@ -611,25 +618,25 @@
       },
       "streak_3": {
         "name": "Bloc d'entraînement de 3 jours",
-        "description": "Trois jours consecutifs de sorties enregistrees",
+        "description": "Trois jours consécutifs de sorties enregistrées",
         "category": "Régularité",
         "target": "3 jours"
       },
       "streak_7": {
         "name": "Semaine d'entraînement de 7 jours",
-        "description": "Semaine complété d'entraînement régulier",
+        "description": "Semaine complète d'entraînement régulier",
         "category": "Régularité",
         "target": "7 jours"
       },
       "streak_30": {
         "name": "Mois d'entraînement de 30 jours",
-        "description": "Mois de travail technique dedie",
+        "description": "Mois de travail technique dédié",
         "category": "Régularité",
         "target": "30 jours"
       },
       "first_drill": {
         "name": "Premier exercice complété",
-        "description": "Commencez l'entraînement technique structure",
+        "description": "Commencez l'entraînement technique structuré",
         "category": "Entraînement",
         "target": "1 exercice"
       },
@@ -641,7 +648,7 @@
       },
       "drills_10": {
         "name": "10 exercices complétés",
-        "description": "Développément de la compéténce en exercices",
+        "description": "Développement de la compétence en exercices",
         "category": "Entraînement",
         "target": "10 exercices"
       },
@@ -689,34 +696,34 @@
     "connectedDevices": "Appareils connectés",
     "loadingDevices": "Chargement des appareils...",
     "noDevices": "Aucun appareil connecté",
-    "noDevicesHint": "Associez votre appareil Karoo pour synchronisér les données de sortie",
+    "noDevicesHint": "Associez votre appareil Karoo pour synchroniser les données de sortie",
     "linkDevice": "Associer un appareil",
     "linkAnotherDevice": "Associer un autre appareil",
     "removeDevice": "Retirer cet appareil ? Il devra etre reassocie.",
     "lastSync": "Dernière synchro",
     "neverSynced": "Jamais synchronisé",
     "requestSync": "Demander une synchro",
-    "syncRequested": "Synchronisation demandee - ouvrez l'appliçation pour synchronisér",
+    "syncRequested": "Synchronisation demandée - ouvrez l'application pour synchroniser",
     "deviceStatus": {
       "connected": "Connecté",
       "idle": "Inactif",
       "offline": "Hors ligne"
     },
     "pedalingMetrics": "Métriques de pédalage",
-    "syncBanner": "Les modifiçations se synchronisént avec votre Karoo lorsque vous appuyez sur <strong>Synchronisér</strong> dans l'appliçation où démarréz une sortie.",
+    "syncBanner": "Les modifications se synchronisent avec votre Karoo lorsque vous appuyez sur <strong>Synchroniser</strong> dans l'application ou démarrez une sortie.",
     "thresholds": "Seuils",
     "balanceThreshold": "Seuil d'équilibre",
-    "balanceThresholdHint": "Les alertes se declénchent lorsque le deséquilibre dépassé cette valeur",
+    "balanceThresholdHint": "Les alertes se déclenchent lorsque le déséquilibre dépasse cette valeur",
     "balanceThresholdTip": "Deséquilibre G/D maximum acceptable. Les cyclistes pros restent généralement dans les ±2,5%.",
     "teOptimalRange": "Plage optimale EC",
     "teOptimalRangeHint": "Zone verte pour l'efficacité du couple",
-    "teOptimalRangeTip": "Zone ideale d'efficacité du couple. La recherche montre que 70-80% est optimal — plus élevé n'est pas mieux.",
+    "teOptimalRangeTip": "Zone idéale d'efficacité du couple. La recherche montre que 70-80% est optimal — plus élevé n'est pas mieux.",
     "psMinimum": "FP minimum",
     "psMinimumHint": "Les valeurs en dessous sont marquees comme necessitant une attention",
-    "psMinimumTip": "Seuil de fluidité du pédalage pour la zone optimale. Les cyclistes d'elite atteignent 25%+.",
+    "psMinimumTip": "Seuil de fluidité du pédalage pour la zone optimale. Les cyclistes d'élite atteignent 25%+.",
     "inRideAlerts": "Alertes en sortie",
-    "inRideAlertsHint": "Notifiçations lorsque les métriques necessitent une attention",
-    "inRideAlertsTip": "Notifiçations en temps reel sur votre Karoo lorsque les métriques necessitent une attention.",
+    "inRideAlertsHint": "Notifications lorsque les métriques nécessitent une attention",
+    "inRideAlertsTip": "Notifications en temps réel sur votre Karoo lorsque les métriques nécessitent une attention.",
     "metricsToMonitor": "Métriques à surveiller",
     "torqueEff": "Eff. couple",
     "smoothness": "Fluidité",
@@ -734,12 +741,12 @@
     "cooldownBetweenAlerts": "Délai entre les alertes",
     "dataCollection": "Collecte de données",
     "dataCollectionHint": "Comment KPedal collecte et synchronisé vos données",
-    "backgroundMode": "Mode arriere-plan",
-    "backgroundModeHint": "Collecter les métriques même lorsque le champ de données est masque",
+    "backgroundMode": "Mode arrière-plan",
+    "backgroundModeHint": "Collecter les métriques même lorsque le champ de données est masqué",
     "backgroundModeTip": "Collectez les métriques même lorsque le champ de données KPedal n'est pas visible à l'écran.",
     "autoSync": "Synchro auto",
-    "autoSyncHint": "Synchronisér automatiquement les données de sortie après chaque sortie",
-    "autoSyncTip": "Telechargez automatiquement les données de sortie après chaque fin de sortie.",
+    "autoSyncHint": "Synchroniser automatiquement les données de sortie après chaque sortie",
+    "autoSyncTip": "Téléchargez automatiquement les données de sortie après chaque fin de sortie.",
     "appearance": "Apparence",
     "theme": "Thème",
     "themeHint": "Le mode auto bascule à 7h et 19h",
@@ -748,13 +755,13 @@
     "themeDark": "Sombre",
     "data": "Données",
     "rideData": "Données de sortie",
-    "rideDataHint": "Vos données sont stockees en toute sécurité et synchronisées depuis votre appareil Karoo",
+    "rideDataHint": "Vos données sont stockées en toute sécurité et synchronisées depuis votre appareil Karoo",
     "session": "Session",
     "privacy": "Confidentialité",
-    "privacyHint": "Decouvrez comment nous collectons, utilisons et protegeons vos données",
-    "about": "A propos",
+    "privacyHint": "Découvrez comment nous collectons, utilisons et protégeons vos données",
+    "about": "À propos",
     "saving": "Enregistrement...",
-    "saved": "Enregistre",
+    "saved": "Enregistré",
     "thresholds_section": {
       "teOptimal": "Plage optimale EC",
       "balance": "Seuil d'équilibre",
@@ -762,26 +769,26 @@
       "psMinimum": "FP minimum",
       "teOptimalDesc": "Plage cible pour l'efficacité du couple",
       "psMinimumDesc": "Alerte lorsque la fluidité tombe en dessous",
-      "balanceDesc": "Alerte lorsque l'asymetrie dépassé cette valeur"
+      "balanceDesc": "Alerte lorsque l'asymétrie dépasse cette valeur"
     },
     "sections": {
       "data": "Données",
       "session": "Session",
       "devices": "Appareils",
       "appearance": "Apparence",
-      "about": "A propos",
+      "about": "À propos",
       "metrics": "Métriques",
       "privacy": "Confidentialité",
       "account": "Compte"
     },
     "devices_section": {
       "remove": "Retirer",
-      "connectDescription": "Associez votre Karoo pour synchronisér les sorties",
-      "removeWarning": "Vous devrez vous reassocier pour synchronisér les sorties",
+      "connectDescription": "Associez votre Karoo pour synchroniser les sorties",
+      "removeWarning": "Vous devrez vous réassocier pour synchroniser les sorties",
       "noDevices": "Aucun appareil connecté",
       "title": "Appareils connectés",
       "lastSync": "Dernière synchro",
-      "connectDevice": "Connectér un appareil",
+      "connectDevice": "Connecter un appareil",
       "removeConfirm": "Retirer cet appareil ?"
     },
     "alerts_section": {
@@ -797,7 +804,7 @@
       "title": "Confidentialité"
     },
     "data_section": {
-      "exportDesc": "Telechargez vos données en JSON",
+      "exportDesc": "Téléchargez vos données en JSON",
       "deleteAllDesc": "Supprimez définitivement toutes vos sorties et paramètres",
       "deleteAllWarning": "Cette action ne peut pas etre annulee",
       "export": "Exporter les données",
@@ -832,32 +839,32 @@
   "link": {
     "title": "Associer un appareil",
     "pageTitle": "Associez votre Karoo",
-    "metaDescription": "Associez votre Hammerhead Karoo à KPedal. Entrez le code affiche sur votre Karoo pour synchronisér les sorties et les paramètres dans le cloud.",
+    "metaDescription": "Associez votre Hammerhead Karoo à KPedal. Entrez le code affiché sur votre Karoo pour synchroniser les sorties et les paramètres dans le cloud.",
     "secureConnection": "Connexion sécurisée",
     "linkKaroo": "Associez votre Karoo",
-    "enterCodeDescription": "Entrez le code à 8 çaracteres affiche sur votre appareil pour le connectér de maniere sécurisée à votre compte.",
-    "verifying": "Verifiçation...",
+    "enterCodeDescription": "Entrez le code à 8 caractères affiché sur votre appareil pour le connecter de manière sécurisée à votre compte.",
+    "verifying": "Vérification...",
     "continue": "Continuer",
     "encryption256": "Chiffrement 256 bits",
     "verifiedDomain": "Domaine vérifié",
-    "signInToContinue": "Connectéz-vous pour continuer",
+    "signInToContinue": "Connectez-vous pour continuer",
     "linkingDevice": "Association de {device} à votre compte.",
-    "signInWithGoogle": "Connectéz-vous avec Google pour autoriser cet appareil.",
-    "useDifferentCode": "Utiliser un code différént",
+    "signInWithGoogle": "Connectez-vous avec Google pour autoriser cet appareil.",
+    "useDifferentCode": "Utiliser un code différent",
     "authorizeDevice": "Autoriser l'appareil ?",
-    "deviceRequestingAccess": "{device} demande l'accès pour synchronisér les données de sortie avec votre compte.",
-    "permissionSync": "Synchronisér les métriques de pédalage des sorties",
+    "deviceRequestingAccess": "{device} demande l'accès pour synchroniser les données de sortie avec votre compte.",
+    "permissionSync": "Synchroniser les métriques de pédalage des sorties",
     "permissionView": "Voir les analyses sur app.kpedal.com",
     "authorize": "Autoriser",
     "deviceLinked": "Appareil associe !",
     "deviceConnected": "{device} est maintenant connecté à votre compte.",
-    "autoSync": "Vos données de sortie se synchroniséront automatiquement.",
-    "secureConnectionEstablished": "Connexion sécurisée etablie",
-    "dataEncrypted": "Les données sont chiffrees de bout en bout",
+    "autoSync": "Vos données de sortie se synchroniseront automatiquement.",
+    "secureConnectionEstablished": "Connexion sécurisée établie",
+    "dataEncrypted": "Les données sont chiffrées de bout en bout",
     "closePageHint": "Vous pouvez fermer cette page et retourner à votre Karoo.",
     "goToDashboard": "Aller au tableau de bord",
     "errors": {
-      "failedToVerify": "Échec de la verifiçation du code",
+      "failedToVerify": "Échec de la vérification du code",
       "failedToConnect": "Échec de la connexion",
       "enterCompleteCode": "Veuillez entrer le code complet",
       "invalidOrExpired": "Ce code est invalide où à expire. Veuillez obtenir un nouveau code depuis votre Karoo.",
@@ -868,12 +875,12 @@
     }
   },
   "infotips": {
-    "asymmetry": "Votre eçart par rapport à l'équilibre parfait 50/50 G/D. Moins de 2,5% est un niveau pro.",
-    "balance": "Comment votre puissance se repartit entre les jambes gauche et droite. 50/50 est parfait.",
+    "asymmetry": "Votre écart par rapport à l'équilibre parfait 50/50 G/D. Moins de 2,5% est un niveau pro.",
+    "balance": "Comment votre puissance se répartit entre les jambes gauche et droite. 50/50 est parfait.",
     "te": "Pourcentage de puissance allant vers l'avant. Visez 70-80% — plus élevé n'est pas toujours mieux.",
-    "ps": "Régularité de votre puissance tout au long du coup de pedale. Visez 20%+. Les cyclistes d'elite atteignent 25%+.",
-    "zones": "Temps passe dans les zones optimale (vert), attention (jaune) et problème (rouge).",
-    "timeInZone": "Temps passe dans chaque zone. Vert est optimal, jaune necessite attention, rouge est un problème.",
+    "ps": "Régularité de votre puissance tout au long du coup de pédale. Visez 20%+. Les cyclistes d'élite atteignent 25%+.",
+    "zones": "Temps passé dans les zones optimale (vert), attention (jaune) et problème (rouge).",
+    "timeInZone": "Temps passé dans chaque zone. Vert est optimal, jaune nécessite attention, rouge est un problème.",
     "score": "Note technique globale combinant équilibre, EC et FP. Plus élevé est mieux.",
     "achieved": "Nombre de jalons que vous avez débloqués.",
     "remaining": "Jalons encore disponibles à débloquer.",
@@ -883,46 +890,46 @@
     "milestone": "Nom et description de l'accomplissement.",
     "category": "Type de jalon (Volume, Équilibre, Technique, etc.).",
     "target": "Condition pour débloquer ce jalon.",
-    "weeklyActivity": "Nombre de sorties par jour. Visez 3-5 sorties par semaine pour une progression réguliere.",
+    "weeklyActivity": "Nombre de sorties par jour. Visez 3-5 sorties par semaine pour une progression régulière.",
     "compRides": "Nombre de sorties compare à la semaine dernière.",
     "compHours": "Temps total en selle. Plus d'heures signifie plus d'adaptation à l'entraînement.",
     "compDistance": "Kilometrès totaux parcourus. Utile pour suivre le volume en plus des heures.",
-    "compClimb": "Denivele positif total. Plus de 2000m par semaine développé la force en montee.",
-    "compBalance": "Asymetrie de puissance vs semaine dernière. Plus bas est mieux, negatif est une amélioration.",
+    "compClimb": "Dénivelé positif total. Plus de 2000m par semaine développe la force en montée.",
+    "compBalance": "Asymétrie de puissance vs semaine dernière. Plus bas est mieux, négatif est une amélioration.",
     "compOptimal": "Temps en zone optimale vs semaine dernière. Plus élevé signifie meilleure technique.",
     "perfScore": "Score technique global de 0 à 100. Plus élevé signifie meilleure forme.",
     "perfOptimal": "Temps avec toutes les métriques dans la zone verte. Plus élevé est mieux.",
     "perfPower": "Puissance moyenne en watts. Plus élevée à même FC signifie meilleure forme.",
-    "perfEnergy": "Énergie totale en kilojoules. Correspond approximativement aux çalories brulees.",
-    "technique": "Métriques d'efficacité du pédalage. EC est le transfert de puissance, FP est la fluidité du coup de pedale.",
-    "balanceFatigue": "Repartition de puissance gauche vs droite. Les changements indiquent fatigue où compensation.",
+    "perfEnergy": "Énergie totale en kilojoules. Correspond approximativement aux calories brûlées.",
+    "technique": "Métriques d'efficacité du pédalage. EC est le transfert de puissance, FP est la fluidité du coup de pédale.",
+    "balanceFatigue": "Répartition de puissance gauche vs droite. Les changements indiquent fatigue où compensation.",
     "fatigueTrend": "Tendance globale de fatigue. Stable est un bon rythme, en baisse est un surmenage.",
-    "balanceTrend": "Tendance de l'équilibre gauche/droite au fil du temps. Des valeurs constantes pres de 50% indiquent une bonne symetrie.",
-    "techniqueTrend": "Tendance des métriques techniques au fil du temps. Recherchez des patterns d'amélioration réguliere.",
+    "balanceTrend": "Tendance de l'équilibre gauche/droite au fil du temps. Des valeurs constantes près de 50% indiquent une bonne symétrie.",
+    "techniqueTrend": "Tendance des métriques techniques au fil du temps. Recherchez des patterns d'amélioration régulière.",
     "compTe": "Efficacité du couple vs semaine dernière. Un changement positif est une amélioration.",
     "compPs": "Fluidité du pédalage vs semaine dernière. S'amélioré lentement, les petits gains comptent.",
     "fatigue": "Technique au début vs fin de sortie. Des valeurs en baisse indiquent la fatigue.",
     "teFatigue": "Changement de l'EC pendant la sortie. Une baisse indique une fatigue musculaire.",
-    "psFatigue": "Changement de la FP pendant la sortie. Généralement la première métrique à baisser en ças de fatigue.",
+    "psFatigue": "Changement de la FP pendant la sortie. Généralement la première métrique à baisser en cas de fatigue.",
     "powerAvg": "Puissance moyenne en watts. Suivez au fil du temps pour mesurer les gains de forme.",
     "powerMax": "Puissance maximale atteinte. Utile pour les sprints et l'estimation de la FTP.",
-    "np": "La puissance normalisee ajuste les variations. Proche de la moyenne signifie un effort régulier.",
-    "cadence": "Révolutions de pedale par minute. L'optimal est 80-95 tr/min pour la plupart des cyclistes.",
+    "np": "La puissance normalisée ajuste les variations. Proche de la moyenne signifie un effort régulier.",
+    "cadence": "Révolutions de pédale par minute. L'optimal est 80-95 tr/min pour la plupart des cyclistes.",
     "hrAvg": "Fréquence cardiaque moyenne. Plus basse à même puissance signifie meilleure forme.",
     "hrMax": "Fréquence cardiaque maximale atteinte. Proche du max, la technique en patit souvent.",
-    "speed": "Vitesse moyenne. Moins fiable que la puissance à çause du terrain et du vent.",
-    "elevationGain": "Denivele positif total. Plus de 1000m est une séance de montee sérieuse.",
-    "elevationLoss": "Denivele negatif total. Devrait correspondre au gain sur les bouclés.",
+    "speed": "Vitesse moyenne. Moins fiable que la puissance à cause du terrain et du vent.",
+    "elevationGain": "Dénivelé positif total. Plus de 1000m est une séance de montée sérieuse.",
+    "elevationLoss": "Dénivelé négatif total. Devrait correspondre au gain sur les boucles.",
     "grade": "Pente maximale. Au-dessus de 10% c'est raide, au-dessus de 15% très raide.",
-    "energy": "Énergie totale produite. Planifiez la nutrition à 250-300 kçal par heure.",
-    "trendCurrent": "Valeur de votre sortie la plus recente sur cette période.",
+    "energy": "Énergie totale produite. Planifiez la nutrition à 250-300 kcal par heure.",
+    "trendCurrent": "Valeur de votre sortie la plus récente sur cette période.",
     "trendAverage": "Valeur moyenne sur toutes les sorties de la période sélectionnée.",
-    "trendSpread": "Différénce entre le meilleur et le pire. Un eçart plus faible signifie une forme plus constante.",
-    "trendLatest": "Valeur de votre sortie la plus recente pour cette métrique.",
-    "trendBest": "Meilleure valeur sur la période. Pour l'asymetrie, plus bas est mieux, pour EC/FP plus élevé est mieux.",
-    "recentRides": "Sorties recentes avec métriques techniques. Cliquez sur une ligne pour voir tous les détails.",
-    "tableAsym": "Pourcentage d'asymetrie de puissance. Plus bas signifie une puissance plus équilibree.",
-    "tableZones": "Repartition du temps entre les zones optimale, attention et problème."
+    "trendSpread": "Différence entre le meilleur et le pire. Un écart plus faible signifie une forme plus constante.",
+    "trendLatest": "Valeur de votre sortie la plus récente pour cette métrique.",
+    "trendBest": "Meilleure valeur sur la période. Pour l'asymétrie, plus bas est mieux, pour EC/FP plus élevé est mieux.",
+    "recentRides": "Sorties récentes avec métriques techniques. Cliquez sur une ligne pour voir tous les détails.",
+    "tableAsym": "Pourcentage d'asymétrie de puissance. Plus bas signifie une puissance plus équilibrée.",
+    "tableZones": "Répartition du temps entre les zones optimale, attention et problème."
   },
   "tour": {
     "buttons": {
@@ -935,45 +942,45 @@
     "dashboard": {
       "welcome": {
         "title": "Bienvenue sur KPedal !",
-        "desc": "Voici des <strong>données de demo d'un vrai cycliste</strong> montrant environ 4 semaines de sorties.",
+        "desc": "Voici des <strong>données de démo d'un vrai cycliste</strong> montrant environ 4 semaines de sorties.",
         "hint": "Visite rapide de ce que KPedal peut faire (~2 min)."
       },
       "period": {
-        "title": "Selecteur de période",
-        "desc": "Basculez entre <strong>7, 14, 30 où 60 jours</strong> pour analyser vos tendances sur différéntes périodes.",
-        "hint": "Les périodes courtes montrent la forme recente. Les périodes longues revelent les patterns d'entraînement."
+        "title": "Sélecteur de période",
+        "desc": "Basculez entre <strong>7, 14, 30 ou 60 jours</strong> pour analyser vos tendances sur différentes périodes.",
+        "hint": "Les périodes courtes montrent la forme récente. Les périodes longues révèlent les patterns d'entraînement."
       },
       "asymmetry": {
-        "title": "Asymetrie de puissance",
-        "desc": "Votre eçart par rapport à l'équilibre parfait 50/50 G/D.",
+        "title": "Asymétrie de puissance",
+        "desc": "Votre écart par rapport à l'équilibre parfait 50/50 G/D.",
         "under25": "Moins de 2,5%",
         "proLevel": "Niveau pro",
         "range25to5": "2,5-5%",
         "goodRoom": "Bien, marge d'amélioration",
         "over5": "Plus de 5%",
-        "needsAttention": "Necessite attention",
-        "hint": "Ce cycliste demo à une moyenne de 1-2% — excellente symetrie !"
+        "needsAttention": "Nécessite attention",
+        "hint": "Ce cycliste démo a une moyenne de 1-2% — excellente symétrie !"
       },
       "infoTip": {
         "title": "Infobulles partout",
-        "desc": "Vous voyez cette <strong>icone i</strong> ? Survolez où appuyez dessus à tout moment pour des expliçations détaillées.",
+        "desc": "Vous voyez cette <strong>icône i</strong> ? Survolez ou appuyez dessus à tout moment pour des explications détaillées.",
         "hint": "Chaque métrique dans KPedal à une infobulle expliquant ce que cela signifie et ce qu'il faut viser."
       },
       "balance": {
         "title": "Équilibre de puissance G/D",
-        "desc": "Decomposition visuelle de la repartition de puissance entre vos jambes gauche et droite.",
-        "greenZone": "<strong>Zone verte</strong> = équilibre. La barre montre exactement comment votre puissance se repartit entre les jambes.",
-        "hint": "La plupart des cyclistes sont légerement dominants d'un côté. Suivez cela pour améliorér la symetrie au fil du temps."
+        "desc": "Décomposition visuelle de la répartition de puissance entre vos jambes gauche et droite.",
+        "greenZone": "<strong>Zone verte</strong> = équilibre. La barre montre exactement comment votre puissance se répartit entre les jambes.",
+        "hint": "La plupart des cyclistes sont légèrement dominants d'un côté. Suivez cela pour améliorer la symétrie au fil du temps."
       },
       "zones": {
-        "title": "Repartition du temps par zone",
-        "desc": "Comment votre temps de sortie se decompose par qualité technique :",
+        "title": "Répartition du temps par zone",
+        "desc": "Comment votre temps de sortie se décompose par qualité technique :",
         "optimal": "Vert (Optimal)",
-        "optimalDesc": "Toutes les métriques dans la plage ideale",
+        "optimalDesc": "Toutes les métriques dans la plage idéale",
         "attention": "Jaune (Attention)",
         "attentionDesc": "Une où plusieurs métriques qui derivent",
         "problem": "Rouge (Problème)",
-        "problemDesc": "Détérioration signifiçative de la forme",
+        "problemDesc": "Détérioration significative de la forme",
         "hint": "Objectif : Maximiser le temps vert, surtout sur les longues sorties !"
       },
       "summary": {
@@ -994,33 +1001,33 @@
       },
       "technique": {
         "title": "Métriques techniques",
-        "desc": "Les deux métriques d'efficacité principales de votre çapteur de puissance :",
+        "desc": "Les deux métriques d'efficacité principales de votre capteur de puissance :",
         "teTitle": "Efficacité du couple (EC)",
         "teDesc": "Pourcentage de puissance allant vers l'avant. Visez <strong>70-80%</strong> — plus élevé n'est pas toujours mieux selon les recherches Wattbike.",
         "psTitle": "Fluidité du pédalage (FP)",
-        "psDesc": "Régularité de votre puissance tout au long du coup de pedale. Visez <strong>≥20%</strong>. Les cyclistes d'elite atteignent 25%+."
+        "psDesc": "Régularité de votre puissance tout au long du coup de pédale. Visez <strong>≥20%</strong>. Les cyclistes d'élite atteignent 25%+."
       },
       "trends": {
         "title": "Tendances au fil du temps",
         "desc": "Suivez vos améliorations d'équilibre et de technique sortie par sortie.",
         "left": "<strong>Graphique gauche :</strong> Tendance d'équilibre sur les sorties",
-        "right": "<strong>Graphique droit :</strong> Basculez entre EC, FP et asymetrie",
+        "right": "<strong>Graphique droit :</strong> Basculez entre EC, FP et asymétrie",
         "hint": "Cliquez sur n'importe quel point pour accéder à l'analyse détaillée de cette sortie."
       },
       "recentRides": {
-        "title": "Tableau des sorties recentes",
-        "desc": "Toutes vos sorties synchronisées avec les métriques clés en un coup d'oeil :",
+        "title": "Tableau des sorties récentes",
+        "desc": "Toutes vos sorties synchronisées avec les métriques clés en un coup d'œil :",
         "date": "Date, durée et score",
-        "asymmetry": "Pourcentage d'asymetrie",
-        "lrBreakdown": "Decomposition G/D pour EC et FP",
+        "asymmetry": "Pourcentage d'asymétrie",
+        "lrBreakdown": "Décomposition G/D pour EC et FP",
         "zoneBars": "Barres de distribution des zones",
         "hint": "Cliquez sur n'importe quelle ligne pour voir l'analyse minute par minute !"
       },
       "nav": {
         "title": "Navigation",
-        "desc": "Explorez d'autrès sections :",
-        "rides": "<strong>Sorties</strong> — Historique complet avec filtrès et recherche",
-        "drills": "<strong>Exercices</strong> — Exercices d'entraînement guides",
+        "desc": "Explorez d'autres sections :",
+        "rides": "<strong>Sorties</strong> — Historique complet avec filtres et recherche",
+        "drills": "<strong>Exercices</strong> — Exercices d'entraînement guidés",
         "achievements": "<strong>Accomplissements</strong> — Jalons et badges",
         "settings": "<strong>Paramètres</strong> — Appareils, seuils et alertes"
       },
@@ -1035,7 +1042,7 @@
       "welcome": {
         "title": "Historique des sorties",
         "desc": "Cette page montre votre <strong>historique complet de sorties</strong> avec filtrage et tri.",
-        "hint": "Laissez-moi vous montrer les fonctionnalites clés."
+        "hint": "Laissez-moi vous montrer les fonctionnalités clés."
       },
       "stats": {
         "title": "Statistiques de période",
@@ -1043,7 +1050,7 @@
         "ridesAndDuration": "Sorties totales et durée",
         "scores": "Scores moyen et meilleur",
         "powerDistance": "Totaux de puissance et distance",
-        "hint": "Celles-ci se mettent à jour en fonction de vos filtrès."
+        "hint": "Celles-ci se mettent à jour en fonction de vos filtres."
       },
       "viewToggle": {
         "title": "Bascule de vue",
@@ -1056,10 +1063,10 @@
         "title": "Cliquez sur n'importe quelle sortie",
         "desc": "Chaque sortie affiche :",
         "date": "Date, durée et score technique",
-        "asymmetry": "Asymetrie de puissance",
+        "asymmetry": "Asymétrie de puissance",
         "lrMetrics": "Métriques G/D pour EC et FP",
         "zones": "Distribution des zones",
-        "hint": "<strong>Cliquez sur n'importe quelle sortie</strong> pour voir la page de détail complété avec graphiques minute par minute !"
+        "hint": "<strong>Cliquez sur n'importe quelle sortie</strong> pour voir la page de détail complète avec graphiques minute par minute !"
       },
       "complete": {
         "title": "Page Sorties terminée !",
@@ -1071,39 +1078,39 @@
       "welcome": {
         "title": "Analyse détaillée de sortie",
         "desc": "C'est ici que se passe l'<strong>analyse approfondie</strong>.",
-        "hint": "Chaque sortie obtient une decomposition complété de votre technique de pédalage minute par minute."
+        "hint": "Chaque sortie obtient une décomposition complète de votre technique de pédalage minute par minute."
       },
       "heroStats": {
-        "title": "Métriques clés en un coup d'oeil",
+        "title": "Métriques clés en un coup d'œil",
         "desc": "La ligne supérieure montre vos métriques de sortie les plus importantes :",
         "score": "<strong>Score</strong> — Note technique globale (0-100)",
-        "asymmetry": "<strong>Asymetrie</strong> — Deséquilibre de puissance G/D",
-        "balance": "<strong>Barre d'équilibre</strong> — Repartition visuelle G/D",
+        "asymmetry": "<strong>Asymétrie</strong> — Déséquilibre de puissance G/D",
+        "balance": "<strong>Barre d'équilibre</strong> — Répartition visuelle G/D",
         "zones": "<strong>Temps dans la zone</strong> — Distribution de qualité"
       },
       "perfStrip": {
         "title": "Données de performance de sortie",
         "desc": "Métriques détaillées de la sortie :",
-        "power": "<strong>Puissance</strong> — Moy, max et normalisee",
+        "power": "<strong>Puissance</strong> — Moy, max et normalisée",
         "hr": "<strong>Fréquence cardiaque</strong> — Moy et max",
         "cadence": "<strong>Cadence</strong> — Vitesse de pédalage en tr/min",
-        "elevation": "<strong>Denivele</strong> — Montee et descente",
-        "hint": "Appuyez sur n'importe quelle icone info pour des expliçations détaillées !"
+        "elevation": "<strong>Dénivelé</strong> — Montée et descente",
+        "hint": "Appuyez sur n'importe quelle icône info pour des explications détaillées !"
       },
       "techniqueCard": {
-        "title": "Decomposition de la technique",
+        "title": "Décomposition de la technique",
         "desc": "Vos métriques d'efficacité de pédalage :",
         "te": "<strong>EC (Efficacité du couple)</strong> — Puissance allant vers l'avant. Visez 70-80%",
-        "ps": "<strong>FP (Fluidité du pédalage)</strong> — Régularité du coup de pedale. Visez ≥20%",
-        "lr": "<strong>Decomposition G/D</strong> — Voyez la contribution de chaque jambe",
-        "hint": "De grandes différénces G/D indiquent un deséquilibre musculaire où des problèmes de position."
+        "ps": "<strong>FP (Fluidité du pédalage)</strong> — Régularité du coup de pédale. Visez ≥20%",
+        "lr": "<strong>Décomposition G/D</strong> — Voyez la contribution de chaque jambe",
+        "hint": "De grandes différences G/D indiquent un déséquilibre musculaire ou des problèmes de position."
       },
       "fatigueCard": {
         "title": "Analyse de la fatigue",
-        "desc": "Comment votre technique à change du début à la fin :",
+        "desc": "Comment votre technique a changé du début à la fin :",
         "startEnd": "Valeurs <strong>Début → Fin</strong> pour chaque métrique",
-        "colors": "<strong>Vert</strong> = amélioré, <strong>Rouge</strong> = degrade",
-        "badge": "<strong>Badge</strong> — FORT (pas de baisse), MODERE où FAIBLE",
+        "colors": "<strong>Vert</strong> = amélioré, <strong>Rouge</strong> = dégradé",
+        "badge": "<strong>Badge</strong> — FORT (pas de baisse), MODÉRÉ ou FAIBLE",
         "hint": "Une technique constante sous fatigue est clé pour la performance sur longue sortie !"
       },
       "timeline": {
@@ -1117,14 +1124,14 @@
       "complete": {
         "title": "Détail de sortie terminé !",
         "desc": "Vous savez maintenant comment analyser les sorties individuelles en profondeur.",
-        "next": "Cliquez sur <strong>Suivant</strong> pour explorer la page <strong>Exercices</strong> — des exercices guides pour améliorér votre technique."
+        "next": "Cliquez sur <strong>Suivant</strong> pour explorer la page <strong>Exercices</strong> — des exercices guidés pour améliorer votre technique."
       }
     },
     "drills": {
       "welcome": {
         "title": "Exercices d'entraînement",
-        "desc": "Les <strong>exercices</strong> sont des exercices d'entraînement guides que vous faites sur votre Karoo pour améliorér des compéténces spécifiques.",
-        "hint": "Les résultats se synchronisént ici pour que vous puissiez suivre votre progression !"
+        "desc": "Les <strong>exercices</strong> sont des exercices d'entraînement guidés que vous faites sur votre Karoo pour améliorer des compétences spécifiques.",
+        "hint": "Les résultats se synchronisent ici pour que vous puissiez suivre votre progression !"
       },
       "stats": {
         "title": "Statistiques des exercices",
@@ -1132,7 +1139,7 @@
         "avgTarget": "<strong>Cible moy.</strong> — A quel point vous atteignez les zones cibles",
         "sessions": "<strong>Sessions</strong> — Exercices totaux complétés",
         "best": "<strong>Meilleur</strong> — Votre meilleur score de temps dans la cible",
-        "completion": "<strong>Taux d'achevement</strong> — % terminés vs abandonnes"
+        "completion": "<strong>Taux d'achèvement</strong> — % terminés vs abandonnés"
       },
       "drillRow": {
         "title": "Résultats des exercices",
@@ -1140,19 +1147,19 @@
         "name": "<strong>Nom de l'exercice</strong> — Quel type d'exercice",
         "timeInTarget": "<strong>Temps dans la cible</strong> — % du temps où vous avez atteint l'objectif",
         "duration": "<strong>Durée</strong> — Combien de temps vous avez pratique",
-        "status": "<strong>Statut</strong> — Complété où arrêté prematurement",
-        "hint": "Visez 80%+ de temps dans la cible au fur et à mesure que vous vous amélioréz !"
+        "status": "<strong>Statut</strong> — Complété où arrêté prématurément",
+        "hint": "Visez 80%+ de temps dans la cible au fur et à mesure que vous vous améliorez !"
       },
       "complete": {
         "title": "Page Exercices terminée !",
-        "desc": "Les exercices vous aident à pratiquer deliberement des compéténces spécifiques.",
+        "desc": "Les exercices vous aident à pratiquer délibérément des compétences spécifiques.",
         "next": "Cliquez sur <strong>Suivant</strong> pour voir les <strong>Accomplissements</strong> — des jalons que vous pouvez débloquer !"
       }
     },
     "achievements": {
       "welcome": {
         "title": "Accomplissements et jalons",
-        "desc": "Débloquéz des accomplissements au fur et à mesure que vous vous entrainez et vous amélioréz !",
+        "desc": "Débloquez des accomplissements au fur et à mesure que vous vous entraînez et vous améliorez !",
         "hint": "Ceux-ci suivent votre progression en volume, technique et régularité."
       },
       "stats": {
@@ -1161,13 +1168,13 @@
         "achieved": "<strong>Accomplis</strong> — Jalons débloqués",
         "remaining": "<strong>Restants</strong> — Encore à débloquer",
         "progress": "<strong>Progression %</strong> — Achevement global",
-        "last": "<strong>Dernier</strong> — Date du debloçage le plus recent"
+        "last": "<strong>Dernier</strong> — Date du déblocage le plus récent"
       },
       "categories": {
         "title": "Categories d'accomplissements",
-        "desc": "Les accomplissements couvrent plusieurs çategories :",
+        "desc": "Les accomplissements couvrent plusieurs catégories :",
         "volume": "<strong>Volume</strong> — Nombre de sorties (10, 50, 100+)",
-        "balance": "<strong>Équilibre</strong> — Objectifs de symetrie G/D",
+        "balance": "<strong>Équilibre</strong> — Objectifs de symétrie G/D",
         "technique": "<strong>Technique</strong> — Jalons de score (80+, 90+)",
         "consistency": "<strong>Régularité</strong> — Séries d'entraînement",
         "training": "<strong>Entraînement</strong> — Exercices complétés",
@@ -1183,7 +1190,7 @@
       "welcome": {
         "title": "Paramètres et préférénces",
         "desc": "Configurez KPedal pour qu'il fonctionne exactement comme vous le souhaitez.",
-        "hint": "Les paramètres se synchronisént entre le web et votre appareil Karoo !"
+        "hint": "Les paramètres se synchronisent entre le web et votre appareil Karoo !"
       },
       "devices": {
         "title": "Appareils connectés",
@@ -1197,17 +1204,17 @@
       "thresholds": {
         "title": "Seuils des métriques",
         "desc": "Personnalisez ce que signifie \"optimal\" pour vous :",
-        "balance": "<strong>Seuil d'équilibre</strong> — Quel deséquilibre G/D declénche le jaune/rouge",
+        "balance": "<strong>Seuil d'équilibre</strong> — Quel déséquilibre G/D déclenche le jaune/rouge",
         "teRange": "<strong>Plage optimale EC</strong> — Votre zone cible d'efficacité du couple",
         "psMin": "<strong>FP minimum</strong> — Seuil plancher de fluidité du pédalage",
-        "hint": "Les valeurs par défaut sont basees sur la recherche cycliste, mais vous pouvez ajuster à votre niveau."
+        "hint": "Les valeurs par défaut sont basées sur la recherche cycliste, mais vous pouvez ajuster à votre niveau."
       },
       "alerts": {
         "title": "Alertes en sortie",
-        "desc": "Soyez notifie pendant les sorties lorsque les métriques necessitent attention :",
+        "desc": "Soyez notifié pendant les sorties lorsque les métriques nécessitent attention :",
         "metrics": "Choisissez quelles métriques surveiller",
-        "sensitivity": "Définissez la sensibilite (critique uniquement où sensible)",
-        "type": "Choisissez le type de notifiçation (vibration, son, banniere)",
+        "sensitivity": "Définissez la sensibilité (critique uniquement ou sensible)",
+        "type": "Choisissez le type de notification (vibration, son, bannière)",
         "cooldown": "Définissez le délai entre les alertes",
         "hint": "Les alertes s'affichent directement sur votre Karoo pendant la sortie !"
       },
@@ -1219,14 +1226,14 @@
         "dark": "<strong>Sombre</strong> — Doux pour les yeux"
       },
       "complete": {
-        "title": "Vous étés prêt !",
-        "desc": "Vous avez terminé la visite complété de KPedal !",
+        "title": "Vous êtes prêt !",
+        "desc": "Vous avez terminé la visite complète de KPedal !",
         "toSeeData": "<strong>Pour voir vos propres données :</strong>",
-        "step1": "Telechargez KPedal sur votre Karoo",
+        "step1": "Téléchargez KPedal sur votre Karoo",
         "step2": "Ajoutez-le à votre écran de sortie",
         "step3": "Allez rouler !",
-        "step4": "Les données se synchronisént automatiquement",
-        "download": "Telecharger KPedal →"
+        "step4": "Les données se synchronisent automatiquement",
+        "download": "Télécharger KPedal →"
       }
     }
   },
@@ -1236,9 +1243,9 @@
     "backToKpedal": "Retour à KPedal",
     "summary": {
       "encrypted": "Chiffre et sécurisé",
-      "encryptedDesc": "Toutes les données chiffrees en transit et au repos",
+      "encryptedDesc": "Toutes les données chiffrées en transit et au repos",
       "noLocation": "Pas de suivi de localisation",
-      "noLocationDesc": "Nous ne collectons jamais de données GPS où d'itineraire",
+      "noLocationDesc": "Nous ne collectons jamais de données GPS ou d'itinéraire",
       "neverSold": "Jamais vendu",
       "neverSoldDesc": "Vos données ne sont jamais vendues à qui que ce soit",
       "yourControl": "Votre contrôle",
@@ -1262,13 +1269,13 @@
       "yourRights": "5. Vos droits",
       "thirdParties": "6. Services tiers",
       "contact": "7. Contact",
-      "policyChanges": "Modifiçations de la politique"
+      "policyChanges": "Modifications de la politique"
     },
     "rights": {
       "access": "Accès",
       "accessDesc": "Consultez toutes vos données à tout moment dans le tableau de bord web. Chaque métrique que nous stockons vous est visible.",
       "delete": "Suppression",
-      "deleteDesc": "Supprimez des sorties individuelles depuis la page Sorties. Pour la suppression complété du compte, contactez-nous par email.",
+      "deleteDesc": "Supprimez des sorties individuelles depuis la page Sorties. Pour la suppression complète du compte, contactez-nous par email.",
       "export": "Export",
       "exportDesc": "Demandez un export complet de vos données en nous contactant.",
       "optOut": "Refus",
@@ -1279,15 +1286,15 @@
       "email": "privacy@kpedal.com",
       "github": "GitHub Issues"
     },
-    "policyChanges": "Lorsque nous apportons des modifiçations importantes à cette politique, nous mettons à jour la date \"Dernière mise à jour\" ci-dessus. Nous vous encourageons à consulter cette page periodiquement.",
+    "policyChanges": "Lorsque nous apportons des modifications importantes à cette politique, nous mettons à jour la date \"Dernière mise à jour\" ci-dessus. Nous vous encourageons à consulter cette page périodiquement.",
     "footer": "Analyse de l'efficacité du pédalage pour Karoo",
     "content": {
       "accountData": {
         "title": "Données de compte",
-        "intro": "Lorsque vous vous connectéz avec Google, nous recevons et stockons :",
+        "intro": "Lorsque vous vous connectez avec Google, nous recevons et stockons :",
         "fields": {
           "email": "Email",
-          "emailPurpose": "Identifiçation du compte, connexion",
+          "emailPurpose": "Identification du compte, connexion",
           "name": "Nom",
           "namePurpose": "Affichage dans le tableau de bord",
           "profilePicture": "URL de la photo de profil",
@@ -1295,31 +1302,31 @@
           "googleId": "ID Google",
           "googleIdPurpose": "Lier le compte Google à KPedal"
         },
-        "note": "Nous n'avons pas accès à votre mot de passe Google. L'authentifiçation utilise OAuth 2.0."
+        "note": "Nous n'avons pas accès à votre mot de passe Google. L'authentification utilise OAuth 2.0."
       },
       "pedalingMetrics": {
         "title": "Métriques de pédalage",
         "intro": "Pour chaque sortie synchronisée depuis votre appareil Karoo :",
         "fields": {
           "timestamp": "Horodatage",
-          "timestampPurpose": "Quand la sortie à été enregistree",
+          "timestampPurpose": "Quand la sortie a été enregistrée",
           "duration": "Durée",
-          "durationPurpose": "Combien de temps la sortie à dure (millisecondes)",
+          "durationPurpose": "Combien de temps la sortie a duré (millisecondes)",
           "balance": "Équilibre gauche / droite",
-          "balancePurpose": "Repartition de la puissance entre les jambes (%)",
+          "balancePurpose": "Répartition de la puissance entre les jambes (%)",
           "te": "Efficacité du couple G/D",
-          "tePurpose": "Efficacité de l'appliçation de la puissance (%)",
+          "tePurpose": "Efficacité de l'application de la puissance (%)",
           "ps": "Fluidité du pédalage G/D",
-          "psPurpose": "Régularité du coup de pedale (%)",
+          "psPurpose": "Régularité du coup de pédale (%)",
           "zones": "Distribution des zones",
           "zonesPurpose": "Temps dans les zones Optimal/Attention/Problème (%)",
           "score": "Score d'efficacité",
-          "scorePurpose": "Score global calcule (0-100)"
+          "scorePurpose": "Score global calculé (0-100)"
         }
       },
       "performanceMetrics": {
         "title": "Métriques de performance",
-        "intro": "Données cyclistes supplementaires synchronisées pour une analyse complété de la sortie :",
+        "intro": "Données cyclistes supplémentaires synchronisées pour une analyse complète de la sortie :",
         "fields": {
           "power": "Puissance (moy/max)",
           "powerPurpose": "Puissance moyenne et maximale en watts",
@@ -1331,16 +1338,16 @@
           "speedPurpose": "Vitesse moyenne en km/h",
           "distance": "Distance",
           "distancePurpose": "Distance totale parcourue en km",
-          "elevation": "Denivele (gain/perte)",
+          "elevation": "Dénivelé (gain/perte)",
           "elevationPurpose": "Metrès totaux montes et descendus",
           "grade": "Pente (moy/max)",
           "gradePurpose": "Gradient moyen et maximum (%)",
-          "np": "Puissance normalisee",
+          "np": "Puissance normalisée",
           "npPurpose": "Puissance ponderee par l'intensité en watts",
           "energy": "Énergie",
           "energyPurpose": "Énergie totale produite en kilojoules"
         },
-        "note": "Ces métriques fournissent un contexte pour votre analyse d'efficacité de pédalage. Elles sont lues depuis les çapteurs connectés à votre Karoo (çapteur de puissance, moniteur de fréquence cardiaque, GPS)."
+        "note": "Ces métriques fournissent un contexte pour votre analyse d'efficacité de pédalage. Elles sont lues depuis les capteurs connectés à votre Karoo (capteur de puissance, moniteur de fréquence cardiaque, GPS)."
       },
       "snapshots": {
         "title": "Instantanes par minute",
@@ -1372,31 +1379,31 @@
       },
       "userSettings": {
         "title": "Paramètres utilisateur (synchronisés si connecté)",
-        "intro": "Lorsque vous étés connecté, vos paramètres d'appliçation sont synchronisés entre votre appareil Karoo et le tableau de bord web :",
+        "intro": "Lorsque vous êtes connecté, vos paramètres d'application sont synchronisés entre votre appareil Karoo et le tableau de bord web :",
         "fields": {
           "thresholds": "Paramètres de seuils",
           "thresholdsPurpose": "Seuil d'équilibre, plage optimale EC, FP minimum",
           "alertPrefs": "Préférénces d'alertes",
-          "alertPrefsPurpose": "Quelles métriques declénchent des alertes, options vibration/son/visuel",
+          "alertPrefsPurpose": "Quelles métriques déclenchent des alertes, options vibration/son/visuel",
           "cooldowns": "Délais d'alertes",
-          "cooldownsPurpose": "Temps entre les alertes repétées (secondes)",
+          "cooldownsPurpose": "Temps entre les alertes répétées (secondes)",
           "screenWake": "Réveil d'écran",
           "screenWakePurpose": "Si les alertes réveillent l'écran du Karoo",
-          "bgMode": "Mode arriere-plan",
-          "bgModePurpose": "Collecter les données même lorsque le champ de données est masque",
+          "bgMode": "Mode arrière-plan",
+          "bgModePurpose": "Collecter les données même lorsque le champ de données est masqué",
           "autoSync": "Synchro auto",
-          "autoSyncPurpose": "Synchronisér automatiquement les sorties après achevement"
+          "autoSyncPurpose": "Synchroniser automatiquement les sorties après achèvement"
         },
-        "note": "La synchronisation des paramètres vous permet de configurer les seuils sur le web et de les appliquer automatiquement sur votre Karoo. Si non connecté, les paramètres restent loçaux uniquement."
+        "note": "La synchronisation des paramètres vous permet de configurer les seuils sur le web et de les appliquer automatiquement sur votre Karoo. Si non connecté, les paramètres restent locaux uniquement."
       },
       "drillResults": {
         "title": "Résultats d'exercices (synchronisés si connecté)",
-        "intro": "Lorsque vous étés connecté, vos données d'entraînement aux exercices sont synchronisées :",
+        "intro": "Lorsque vous êtes connecté, vos données d'entraînement aux exercices sont synchronisées :",
         "fields": {
           "drillId": "ID et nom de l'exercice",
-          "drillIdPurpose": "Quel exercice à été complété",
+          "drillIdPurpose": "Quel exercice a été complété",
           "drillTimestamp": "Horodatage et durée",
-          "drillTimestampPurpose": "Quand l'exercice à été fait et combien de temps il à dure",
+          "drillTimestampPurpose": "Quand l'exercice a été fait et combien de temps il a duré",
           "drillScore": "Score",
           "drillScorePurpose": "Score de performance global (0-100)",
           "timeInTarget": "Temps dans la cible",
@@ -1407,83 +1414,83 @@
       },
       "achievements": {
         "title": "Accomplissements (synchronisés si connecté)",
-        "intro": "Lorsque vous étés connecté, vos accomplissements débloqués sont synchronisés :",
+        "intro": "Lorsque vous êtes connecté, vos accomplissements débloqués sont synchronisés :",
         "fields": {
           "achievementId": "ID d'accomplissement",
-          "achievementIdPurpose": "Quel accomplissement à été débloqué",
+          "achievementIdPurpose": "Quel accomplissement a été débloqué",
           "unlockedAt": "Débloqué le",
-          "unlockedAtPurpose": "Quand l'accomplissement à été obtenu"
+          "unlockedAtPurpose": "Quand l'accomplissement a été obtenu"
         }
       },
       "localOnly": {
-        "title": "Données stockees uniquement sur votre Karoo (jamais synchronisées)",
-        "intro": "Les données suivantes sont stockees localement sur votre appareil Karoo et ne sont jamais envoyees à nos serveurs :",
+        "title": "Données stockées uniquement sur votre Karoo (jamais synchronisées)",
+        "intro": "Les données suivantes sont stockées localement sur votre appareil Karoo et ne sont jamais envoyées à nos serveurs :",
         "fields": {
           "ratings": "Notes de sortie",
-          "ratingsPurpose": "Notes de 1 à 5 etoiles que vous attribuez aux sorties",
+          "ratingsPurpose": "Notes de 1 à 5 étoiles que vous attribuez aux sorties",
           "notes": "Notes de sortie",
           "notesPurpose": "Notes personnelles que vous ajoutez aux sorties",
-          "customDrills": "Exercices personnalises",
-          "customDrillsPurpose": "Exercices d'entraînement que vous crééz vous-même",
+          "customDrills": "Exercices personnalisés",
+          "customDrillsPurpose": "Exercices d'entraînement que vous créez vous-même",
           "onboarding": "Statut d'intégration",
-          "onboardingPurpose": "Si vous avez terminé le tutoriel de l'appliçation"
+          "onboardingPurpose": "Si vous avez terminé le tutoriel de l'application"
         },
-        "note": "Ces données restent sur votre appareil. Si vous desinstallez l'appliçation, ces données sont supprimees."
+        "note": "Ces données restent sur votre appareil. Si vous désinstallez l'application, ces données sont supprimées."
       },
       "dontCollect": {
-        "intro": "Bien que nous collections des métriques de performance pour l'analyse, nous evitons spécifiquement les données de localisation et de suivi :",
+        "intro": "Bien que nous collections des métriques de performance pour l'analyse, nous évitons spécifiquement les données de localisation et de suivi :",
         "items": {
-          "gps": "GPS / Loçalisation",
-          "route": "Itineraire / Données de carte",
-          "temperature": "Temperature",
-          "strava": "Strava / Autrès plateformes",
-          "rideTitles": "Titrès / Noms de sortie",
-          "photos": "Photos / Medias"
+          "gps": "GPS / Localisation",
+          "route": "Itinéraire / Données de carte",
+          "temperature": "Température",
+          "strava": "Strava / Autres plateformes",
+          "rideTitles": "Titres / Noms de sortie",
+          "photos": "Photos / Médias"
         },
-        "note": "Vos sorties ne peuvent pas etre retracees à des lieux spécifiques. Nous ne stockons que des métriques de performance agregees, pas où vous avez roule."
+        "note": "Vos sorties ne peuvent pas être retracées à des lieux spécifiques. Nous ne stockons que des métriques de performance agrégées, pas où vous avez roulé."
       },
       "usedNotStored": {
-        "title": "Données utilisees mais non stockees",
-        "intro": "Les données suivantes sont lues en temps reel à des fins d'affichage mais ne sont jamais sauvegardees sur l'appareil où le cloud :",
+        "title": "Données utilisées mais non stockées",
+        "intro": "Les données suivantes sont lues en temps réel à des fins d'affichage mais ne sont jamais sauvegardées sur l'appareil ou le cloud :",
         "fields": {
           "smoothed": "Équilibre lisse 3s/10s",
-          "smoothedPurpose": "Indiçateurs de tendance en temps reel pour l'affichage en direct",
-          "rawStream": "Flux brut du çapteur (~20Hz)",
-          "rawStreamPurpose": "Les points de données individuels sont traites et supprimes ; seules les moyennes par minute sont stockees"
+          "smoothedPurpose": "Indicateurs de tendance en temps réel pour l'affichage en direct",
+          "rawStream": "Flux brut du capteur (~20Hz)",
+          "rawStreamPurpose": "Les points de données individuels sont traités et supprimés ; seules les moyennes par minute sont stockées"
         }
       },
       "permissions": {
         "title": "Permissions Android",
-        "intro": "L'appliçation KPedal demande les permissions suivantes sur votre Karoo :",
+        "intro": "L'application KPedal demande les permissions suivantes sur votre Karoo :",
         "fields": {
           "foreground": "Service de premier plan",
-          "foregroundPurpose": "Fonctionner en arriere-plan pour collecter les données pendant les sorties",
-          "notifications": "Notifiçations",
-          "notificationsPurpose": "Afficher des alertes lorsque la technique de pédalage necessite attention",
+          "foregroundPurpose": "Fonctionner en arrière-plan pour collecter les données pendant les sorties",
+          "notifications": "Notifications",
+          "notificationsPurpose": "Afficher des alertes lorsque la technique de pédalage nécessite attention",
           "boot": "Démarrage terminé",
-          "bootPurpose": "Démarrér automatiquement lorsque le Karoo s'allume"
+          "bootPurpose": "Démarrer automatiquement lorsque le Karoo s'allume"
         },
-        "note": "Aucune permission internet, localisation, çamera, microphone où stockage n'est demandee."
+        "note": "Aucune permission internet, localisation, caméra, microphone ou stockage n'est demandée."
       },
       "dataFlow": {
         "step1": {
-          "title": "Pedales avec çapteur de puissance",
-          "desc": "Vos pedales transmettent l'équilibre, l'EC et la FP via le protocole ANT+ Cycling Dynamics à votre Karoo."
+          "title": "Pédales avec capteur de puissance",
+          "desc": "Vos pédales transmettent l'équilibre, l'EC et la FP via le protocole ANT+ Cycling Dynamics à votre Karoo."
         },
         "step2": {
-          "title": "Appliçation KPedal sur Karoo",
-          "desc": "L'appliçation traite les données en temps reel localement à ~20Hz, calcule les moyennes et stocke les résumés de sortie dans la base de données locale. Jusqu'à 100 sorties sont conservees sur l'appareil ; les sorties plus anciennes sont automatiquement supprimees."
+          "title": "Application KPedal sur Karoo",
+          "desc": "L'application traite les données en temps réel localement à ~20Hz, calcule les moyennes et stocke les résumés de sortie dans la base de données locale. Jusqu'à 100 sorties sont conservées sur l'appareil ; les sorties plus anciennes sont automatiquement supprimées."
         },
         "step3": {
           "title": "Synchronisation cloud (optionnelle)",
-          "desc": "Si connecté, les résumés de sortie et les paramètres sont synchronisés avec le cloud KPedal via HTTPS. Seules les données agregees sont envoyees — pas de flux de çapteurs bruts. Les modifiçations de paramètres sur le web sont automatiquement appliquees à votre Karoo."
+          "desc": "Si connecté, les résumés de sortie et les paramètres sont synchronisés avec le cloud KPedal via HTTPS. Seules les données agrégées sont envoyées — pas de flux de capteurs bruts. Les modifications de paramètres sur le web sont automatiquement appliquées à votre Karoo."
         },
         "step4": {
           "title": "Tableau de bord web",
-          "desc": "Consultez votre historique de sorties, tendances et analyses sur app.kpedal.com. Les données sont récupérées uniquement pour votre compte authentifie."
+          "desc": "Consultez votre historique de sorties, tendances et analyses sur app.kpedal.com. Les données sont récupérées uniquement pour votre compte authentifié."
         },
         "offlineTitle": "Mode hors ligne",
-        "offlineDesc": "L'appliçation KPedal fonctionne entièrement hors ligne. Vous pouvez utiliser toutes les fonctionnalites sans vous connectér ni synchronisér. Les données restent sur votre appareil."
+        "offlineDesc": "L'application KPedal fonctionne entièrement hors ligne. Vous pouvez utiliser toutes les fonctionnalités sans vous connecter ni synchroniser. Les données restent sur votre appareil."
       },
       "infrastructure": {
         "title": "Infrastructure",
@@ -1494,20 +1501,20 @@
         "kv": "Cloudflare KV",
         "kvUse": "Jetons de session (expiration automatique après 7 jours)",
         "pages": "Cloudflare Pages",
-        "pagesUse": "Hebergement du tableau de bord web statique"
+        "pagesUse": "Hébergement du tableau de bord web statique"
       },
       "security": {
         "title": "Mesures de sécurité",
         "https": "HTTPS partout",
         "httpsDesc": "Toutes les connexions utilisent le chiffrement TLS 1.3",
-        "jwt": "Authentifiçation JWT",
+        "jwt": "Authentification JWT",
         "jwtDesc": "Jetons signes avec expiration de 15 minutes pour l'accès, 7 jours pour le renouvellement",
         "rateLimit": "Limitation de debit",
         "rateLimitDesc": "Auth : 10 req/min, API : 100 req/min, Sync : 30 req/min. Utilise l'adresse IP pour le comptage, supprimee automatiquement après 60 secondes.",
         "validation": "Validation des entrées",
         "validationDesc": "Toutes les données validees et assainies avant stockage",
         "csrf": "Protection CSRF",
-        "csrfDesc": "La verifiçation de l'etat OAuth previent les attaques cross-site"
+        "csrfDesc": "La vérification de l'état OAuth prévient les attaques cross-site"
       },
       "retention": {
         "title": "Conservation des données",
@@ -1538,7 +1545,7 @@
           "drillResultsPeriod": "Jusqu'à desinstallation de l'app (egalement synchronisés dans le cloud si connecté)",
           "achievements": "Accomplissements",
           "achievementsPeriod": "Jusqu'à desinstallation de l'app (egalement synchronisés dans le cloud si connecté)",
-          "customDrills": "Exercices personnalises",
+          "customDrills": "Exercices personnalisés",
           "customDrillsPeriod": "Jusqu'à ce que vous les supprimiez (local uniquement)",
           "settings": "Paramètres",
           "settingsPeriod": "Jusqu'à desinstallation de l'app (synchronisés dans le cloud si connecté)"
@@ -1552,7 +1559,7 @@
         },
         "cloudflare": {
           "title": "Cloudflare",
-          "desc": "Notre fournisseur d'infrastructure. Gere l'API, la base de données et l'hebergement web.",
+          "desc": "Notre fournisseur d'infrastructure. Gère l'API, la base de données et l'hébergement web.",
           "link": "Politique de confidentialité Cloudflare →"
         },
         "notUsedTitle": "Ce que nous n'utilisons pas",
@@ -1574,7 +1581,7 @@
           "theme": "kpedal_theme",
           "themePurpose": "localStorage — Préférénce de thème (auto/clair/sombre)"
         },
-        "browserStorageNote": "Vous pouvez effacer ces données à tout moment en vous deconnectant où en effaçant le stockage du navigateur. Aucun cookie n'est utilise."
+        "browserStorageNote": "Vous pouvez effacer ces données à tout moment en vous déconnectant ou en effaçant le stockage du navigateur. Aucun cookie n'est utilisé."
       }
     }
   },
@@ -1583,10 +1590,10 @@
       "eyebrow": "Extension Karoo",
       "version": "v1.3.0",
       "titleLine1": "Voyez votre efficacité",
-      "titleLine2": "de pédalage en temps reel",
-      "subtitle": "Équilibre, Efficacité du couple, Fluidité du pédalage — affiches sur votre Karoo avec alertes en temps reel et exercices guides.",
-      "downloadFree": "Telecharger gratuitement",
-      "tryDemo": "Essayer la demo",
+      "titleLine2": "de pédalage en temps réel",
+      "subtitle": "Équilibre, Efficacité du couple, Fluidité du pédalage — affichés sur votre Karoo avec alertes en temps réel et exercices guidés.",
+      "downloadFree": "Télécharger gratuitement",
+      "tryDemo": "Essayer la démo",
       "free": "Gratuit",
       "openSource": "open source",
       "noAccountRequired": "Aucun compte requis"
@@ -1598,12 +1605,12 @@
         "quickGlance": "Aperçu rapide",
         "balance": "Équilibre",
         "efficiency": "Efficacité",
-        "fullView": "Vue complété",
+        "fullView": "Vue complète",
         "trend": "Tendance"
       },
       "quickGlance": {
         "name": "Aperçu rapide",
-        "desc": "Indiçateur de statut avec barre d'équilibre. Affiche une coche quand optimal où liste les métriques necessitant attention."
+        "desc": "Indicateur de statut avec barre d'équilibre. Affiche une coche quand optimal ou liste les métriques nécessitant attention."
       },
       "powerBalance": {
         "name": "Équilibre de puissance",
@@ -1611,15 +1618,15 @@
       },
       "efficiency": {
         "name": "Efficacité",
-        "desc": "Efficacité du couple et Fluidité du pédalage avec decomposition G/D et moyennes."
+        "desc": "Efficacité du couple et Fluidité du pédalage avec décomposition G/D et moyennes."
       },
       "fullOverview": {
-        "name": "Vue complété",
-        "desc": "Les trois métriques dans une vue compacte. Image complété du pédalage en un coup d'oeil."
+        "name": "Vue complète",
+        "desc": "Les trois métriques dans une vue compacte. Image complète du pédalage en un coup d'œil."
       },
       "balanceTrend": {
         "name": "Tendance d'équilibre",
-        "desc": "Équilibre actuel + lisse 3s + lisse 10s. Voyez les tendances au fur et à mesure qu'elles se développént."
+        "desc": "Équilibre actuel + lisse 3s + lisse 10s. Voyez les tendances au fur et à mesure qu'elles se développent."
       },
       "karoo": {
         "optimal": "Optimal",
@@ -1638,17 +1645,17 @@
     },
     "comparison": {
       "title": "La différénce",
-      "subtitle": "Arrêtéz de deviner. Commencez à progresser.",
+      "subtitle": "Arrêtez de deviner. Commencez à progresser.",
       "without": "Sans KPedal",
       "with": "Avec KPedal",
       "items": {
         "before1": "Chiffre de puissance, mais pas d'aperçu technique",
         "after1": "Équilibre, EC, FP visibles en direct",
-        "before2": "Decouvrir le deséquilibre suite à une blessure",
+        "before2": "Découvrir le déséquilibre suite à une blessure",
         "after2": "Alerte avant que cela devienne un problème",
-        "before3": "Pas de méthode structuree pour progresser",
-        "after3": "10 exercices guides avec notation",
-        "before4": "Données coincees sur un appareil",
+        "before3": "Pas de méthode structurée pour progresser",
+        "after3": "10 exercices guidés avec notation",
+        "before4": "Données coincées sur un appareil",
         "after4": "Synchronisation cloud avec tableau de bord web"
       }
     },
@@ -1658,17 +1665,17 @@
       "balance": {
         "title": "Équilibre de puissance",
         "range": "48-52% optimal",
-        "desc": "Repartition de la puissance gauche/droite. Les cyclistes pros maintiennent moins de 2%. Les deséquilibres supérieurs à 5% augmentent le risque de blessure par surmenage et gaspillent de l'énergie par des patterns de compensation."
+        "desc": "Répartition de la puissance gauche/droite. Les cyclistes pros maintiennent moins de 2%. Les déséquilibres supérieurs à 5% augmentent le risque de blessure par surmenage et gaspillent de l'énergie par des patterns de compensation."
       },
       "te": {
         "title": "Efficacité du couple",
-        "range": "70-80% zone ideale",
-        "desc": "Pourcentage de puissance appliquee pendant la partie effiçace du coup de pedale. Base sur les recherches Wattbike — <strong>plus élevé n'est PAS mieux</strong>. Au-dessus de 80%, cela peut en fait reduire la puissance totale."
+        "range": "70-80% zone idéale",
+        "desc": "Pourcentage de puissance appliquée pendant la partie efficace du coup de pédale. Basé sur les recherches Wattbike — <strong>plus élevé n'est PAS mieux</strong>. Au-dessus de 80%, cela peut en fait réduire la puissance totale."
       },
       "ps": {
         "title": "Fluidité du pédalage",
         "range": "≥20% cible",
-        "desc": "Régularité de la repartition de la puissance tout au long du coup de pedale. Elimine les \"points morts\". Les cyclistes d'elite atteignent 25-35% — c'est la métrique la plus difficile à améliorér."
+        "desc": "Régularité de la répartition de la puissance tout au long du coup de pédale. Élimine les \"points morts\". Les cyclistes d'élite atteignent 25-35% — c'est la métrique la plus difficile à améliorer."
       },
       "zones": {
         "optimal": "Optimal",
@@ -1677,7 +1684,7 @@
       }
     },
     "drills": {
-      "title": "10 exercices guides",
+      "title": "10 exercices guidés",
       "subtitle": "Des exercices de 30 secondes aux séances de 15 minutes. Chacun note de 0 à 100%.",
       "tabs": {
         "focus": "Focus",
@@ -1687,30 +1694,30 @@
       "target": "Cible",
       "levels": {
         "beginner": "Débutant",
-        "intermediate": "Intermediaire",
-        "advanced": "Avance"
+        "intermediate": "Intermédiaire",
+        "advanced": "Avancé"
       },
       "featured": "En vedette",
-      "featuredTitle": "Maitrise du pédalage",
-      "featuredDesc": "15 minutes, 10 phases. Couverture technique complété. Recommande 1-2x par semaine.",
+      "featuredTitle": "Maîtrise du pédalage",
+      "featuredDesc": "15 minutes, 10 phases. Couverture technique complète. Recommandé 1-2x par semaine.",
       "items": {
         "leftFocus": {
           "name": "Focus jambe gauche",
           "duration": "30s",
           "target": "Équilibre <48%",
-          "desc": "Développéz la conscience de la force sur une seule jambe en mettant l'accent sur votre jambe gauche."
+          "desc": "Développez la conscience de la force sur une seule jambe en mettant l'accent sur votre jambe gauche."
         },
         "rightFocus": {
           "name": "Focus jambe droite",
           "duration": "30s",
           "target": "Équilibre >52%",
-          "desc": "Identifiéz et renforcez votre jambe plus faible avec une pratique ciblee."
+          "desc": "Identifiez et renforcez votre jambe plus faible avec une pratique ciblée."
         },
         "smoothCircles": {
-          "name": "Cerclés fluides",
+          "name": "Cercles fluides",
           "duration": "45s",
           "target": "FP ≥22%",
-          "desc": "Eliminez les points morts dans votre coup de pedale grâce à une technique fluide."
+          "desc": "Éliminez les points morts dans votre coup de pédale grâce à une technique fluide."
         },
         "powerTransfer": {
           "name": "Transfert de puissance",
@@ -1722,13 +1729,13 @@
           "name": "Défi équilibre",
           "duration": "15s maintien",
           "target": "48-52%",
-          "desc": "Maintenez un équilibre parfait 50/50 pendant 15 secondes. Teste la symetrie et le contrôle."
+          "desc": "Maintenez un équilibre parfait 50/50 pendant 15 secondes. Teste la symétrie et le contrôle."
         },
         "smoothnessTarget": {
           "name": "Cible fluidité",
           "duration": "20s maintien",
           "target": "FP ≥25%",
-          "desc": "Fluidité de pédalage de niveau elite. Le défi technique le plus exigeant."
+          "desc": "Fluidité de pédalage de niveau élite. Le défi technique le plus exigeant."
         },
         "highCadenceSmooth": {
           "name": "Fluidité haute cadence",
@@ -1740,25 +1747,25 @@
           "name": "Récupération équilibre",
           "duration": "5 min",
           "target": "3 phases",
-          "desc": "Alternez focus gauche → centre → focus droit. Aide à corriger les deséquilibres au fil du temps."
+          "desc": "Alternez focus gauche → centre → focus droit. Aide à corriger les déséquilibres au fil du temps."
         },
         "efficiencyBuilder": {
-          "name": "Développément efficacité",
+          "name": "Développement efficacité",
           "duration": "10 min",
           "target": "6 phases",
-          "desc": "Blocs sequentiels : équilibre → fluidité → EC. Développéz une technique complété."
+          "desc": "Blocs séquentiels : équilibre → fluidité → EC. Développez une technique complète."
         },
         "pedalingMastery": {
-          "name": "Maitrise du pédalage",
+          "name": "Maîtrise du pédalage",
           "duration": "15 min",
           "target": "10 phases",
-          "desc": "Séance complété de 10 phases couvrant tous les aspects de la technique de pédalage."
+          "desc": "Séance complète de 10 phases couvrant tous les aspects de la technique de pédalage."
         }
       }
     },
     "alerts": {
-      "title": "Alertes en temps reel",
-      "subtitle": "Soyez corrige en cours de sortie lorsque la technique derive",
+      "title": "Alertes en temps réel",
+      "subtitle": "Soyez corrigé en cours de sortie lorsque la technique dérive",
       "demo": {
         "title": "Alerte équilibre",
         "detail": "Jambe droite dominante : 56%"
@@ -1766,11 +1773,11 @@
       "features": {
         "vibration": {
           "title": "Vibration et son",
-          "desc": "Retour haptique et bips audio. Activéz/désactivéz chacun."
+          "desc": "Retour haptique et bips audio. Activez/désactivez chacun."
         },
         "screenWake": {
           "title": "Réveil d'écran",
-          "desc": "Réveil automatique de l'écran Karoo lors du declénchement d'alerte."
+          "desc": "Réveil automatique de l'écran Karoo lors du déclenchement d'alerte."
         },
         "cooldown": {
           "title": "Délai intelligent",
@@ -1787,7 +1794,7 @@
       "subtitle": "Suivez l'amélioration au fil du temps. Voyez les tendances, pas seulement les chiffres.",
       "preview": {
         "greeting": "Bonjour, Yuri !",
-        "recentRides": "Sorties recentes",
+        "recentRides": "Sorties récentes",
         "technique": "Technique",
         "avgSuffix": "moy.",
         "morningRide": "Sortie matinale",
@@ -1797,7 +1804,7 @@
       },
       "features": {
         "periods": "Analyse sur 7, 14, 30, 60 jours",
-        "history": "Historique complet des sorties avec filtrès",
+        "history": "Historique complet des sorties avec filtres",
         "multiDevice": "Synchronisation multi-appareils",
         "openSource": "Open source sur GitHub"
       }
@@ -1820,29 +1827,29 @@
     },
     "works": {
       "title": "Fonctionne partout",
-      "subtitle": "Collecte en arriere-plan. Synchronisation automatique. Vos données sur tous les appareils.",
+      "subtitle": "Collecte en arrière-plan. Synchronisation automatique. Vos données sur tous les appareils.",
       "background": {
-        "title": "Mode arriere-plan",
-        "desc": "Collecte les données pour TOUTES les sorties, même sans champs de données visibles. Démarré automatiquement au boot. Sauvegarde à l'arrêt."
+        "title": "Mode arrière-plan",
+        "desc": "Collecte les données pour TOUTES les sorties, même sans champs de données visibles. Démarré automatiquement au boot. Sauvegardé à l'arrêt."
       },
       "sync": {
         "title": "Synchronisation cloud",
-        "desc": "Les sorties se synchronisént après achevement. Associez l'appareil sur link.kpedal.com avec un simple code — pas de mot de passe nécessaire sur Karoo."
+        "desc": "Les sorties se synchronisent après achèvement. Associez l'appareil sur link.kpedal.com avec un simple code — pas de mot de passe nécessaire sur Karoo."
       },
       "multiDevice": {
         "title": "Multi-appareils",
-        "desc": "Associez plusieurs Karoos. Toutes les sorties vont sur un compte. Les paramètres se synchronisént bidirectionnellement entre l'app et le web."
+        "desc": "Associez plusieurs Karoos. Toutes les sorties vont sur un compte. Les paramètres se synchronisent bidirectionnellement entre l'app et le web."
       }
     },
     "requirements": {
       "title": "Ce dont vous avez besoin",
-      "subtitle": "Karoo 2 où 3 + pedales de puissance bilaterales",
+      "subtitle": "Karoo 2 ou 3 + pédales de puissance bilatérales",
       "karoo": {
         "title": "Hammerhead Karoo",
-        "desc": "Karoo 2 où Karoo 3. KPedal utilise le SDK natif Karoo — non disponible sur d'autrès ordinateurs de velo."
+        "desc": "Karoo 2 ou Karoo 3. KPedal utilise le SDK natif Karoo — non disponible sur d'autres ordinateurs de vélo."
       },
       "pedals": {
-        "title": "Pedales de puissance bilaterales",
+        "title": "Pédales de puissance bilatérales",
         "desc": "Mesure de puissance gauche + droite avec ANT+ Cycling Dynamics pour Équilibre, EC et FP."
       },
       "fullSupport": {
@@ -1855,121 +1862,200 @@
       },
       "notCompatible": {
         "title": "Non compatible",
-        "desc": "Pas de données bilaterales"
+        "desc": "Pas de données bilatérales"
       },
       "pedalsList": {
-        "singleSided": "Capteur unilateral",
+        "singleSided": "Capteur unilatéral",
         "trainerPower": "Puissance home-trainer"
       }
     },
     "faq": {
-      "title": "Questions frequentes",
+      "title": "Questions fréquemment posées",
       "q1": {
-        "q": "Quelles pedales çapteurs de puissance sont compatibles ?",
-        "a": "<strong>Support complet (Équilibre + EC + FP) :</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Équilibre uniquement :</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Toute pedale transmettant ANT+ Cycling Dynamics fonctionnera."
+        "q": "Quelles pédales capteurs de puissance sont compatibles ?",
+        "a": "<strong>Support complet (Équilibre + EC + FP) :</strong> Garmin Rally RS/XC, Favero Assioma Duo/Duo-Shi, SRM X-Power, PowerTap P2, Wahoo SPEEDPLAY Powrlink Zero. Ces pédales transmettent les données ANT+ Cycling Dynamics complètes incluant l'équilibre gauche/droite, l'efficacité du couple et la fluidité du pédalage.<br><br><strong>Équilibre uniquement :</strong> Wahoo POWRLINK Zero (unilatéral), Stages LR, 4iiii Precision Dual, Rotor 2INpower, Power2Max NG/NGeco. Ces pédales fournissent des données d'équilibre précises mais ne transmettent pas les métriques EC/FP.<br><br><strong>Non compatible :</strong> Les capteurs de puissance unilatéraux qui estiment l'équilibre (Stages simple, 4iiii simple, Assioma Uno) — KPedal nécessite une mesure réelle des deux côtés."
       },
       "q2": {
         "q": "Comment installer KPedal sur mon Karoo ?",
-        "a": "<strong>Option 1 :</strong> Telechargez l'APK depuis GitHub Releases → transferez via USB → ouvrez le gestionnaire de fichiers sur Karoo → appuyez pour installer.<br><strong>Option 2 :</strong> Ouvrez le lien de release GitHub directement dans le navigateur du Karoo et telechargez.<br><strong>Option 3 :</strong> Utilisez ADB : <code>adb install kpedal.apk</code>"
+        "a": "<strong>Méthode 1 — Téléchargement direct (la plus simple) :</strong> Sur votre Karoo, ouvrez le navigateur et allez sur github.com/yrkan/kpedal/releases. Appuyez sur le fichier .apk pour télécharger, puis appuyez sur la notification pour installer.<br><br><strong>Méthode 2 — Transfert USB :</strong> Téléchargez l'APK sur ordinateur → connectez le Karoo via USB → copiez dans le dossier Downloads → sur le Karoo, ouvrez l'application Fichiers → appuyez sur l'APK → Installer.<br><br><strong>Méthode 3 — ADB (pour développeurs) :</strong> Activez le mode Développeur sur le Karoo, connectez via USB, exécutez : <code>adb install kpedal-x.x.x.apk</code><br><br>Après l'installation, ouvrez KPedal une fois pour accorder les permissions et activer le Mode arrière-plan pour la collecte automatique des données."
       },
       "q3": {
         "q": "Dois-je ajouter les champs de données KPedal à mon écran de sortie ?",
-        "a": "<strong>Non.</strong> Avec le mode arriere-plan activé, KPedal collecte les métriques pour TOUTES les sorties automatiquement — même si vous n'ajoutez jamais un seul champ de données. Les champs de données sont optionnels et servent uniquement à visualiser les métriques en direct pendant la sortie. Votre historique complet de sorties est sauvegarde quoi qu'il arrive."
+        "a": "<strong>Non — les champs de données sont complètement optionnels.</strong> Une fois que vous avez activé le Mode arrière-plan dans les paramètres KPedal, l'application collecte automatiquement les métriques de pédalage pour chaque sortie que vous faites. Cela se fait silencieusement en arrière-plan, quels que soient les champs de données que vous affichez.<br><br><strong>Pourquoi ajouter des champs de données alors ?</strong> Uniquement si vous voulez voir vos métriques en direct pendant la sortie. Champs disponibles : Aperçu rapide (statut + équilibre), Équilibre de puissance (G/D avec barre), Efficacité du couple (valeurs G/D), Fluidité du pédalage, Vue complète (toutes les métriques), et Tendance d'équilibre (lissée dans le temps).<br><br>Votre historique complet de sorties avec des instantanés par minute est sauvegardé que vous utilisiez les champs de données ou non."
       },
       "q4": {
-        "q": "Qu'est-ce qui est considere comme un \"bon\" équilibre de puissance ?",
-        "a": "<strong>48-52%</strong> (±2% de 50/50) est optimal. La plupart des cyclistes professionnels roulent avec 1-3% d'asymetrie naturelle. Ne vous obsedez pas sur un 50/50 parfait — c'est quasiment impossible et pas nécessaire. Concentrez-vous sur la <strong>régularité dans votre plage</strong> plutot que de chercher la perfection."
+        "q": "Qu'est-ce qui est considéré comme un « bon » équilibre de puissance ?",
+        "a": "<strong>Plage optimale : 48-52% (±2% du 50/50 parfait).</strong> Les recherches montrent que même les cyclistes professionnels ont généralement 1-3% d'asymétrie naturelle — une symétrie parfaite est rare et pas nécessaire pour une haute performance.<br><br><strong>Point clé :</strong> La régularité compte plus que la perfection. Un cycliste qui est constamment à 48/52 se porte mieux qu'un autre qui oscille entre 45/55 et 52/48. KPedal suit votre référence personnelle afin que vous puissiez repérer les écarts.<br><br><strong>Quand s'inquiéter :</strong> Une asymétrie supérieure à 5% maintenue sur plusieurs sorties peut indiquer un problème de positionnement, un déséquilibre musculaire ou une blessure en développement. Si vous remarquez des changements soudains dans votre schéma habituel, investiguez avant que cela ne devienne un problème."
       },
       "q5": {
         "q": "Pourquoi 70-80% d'Efficacité du couple est optimal et pas plus ?",
-        "a": "Base sur les <strong>recherches Wattbike</strong> : au-dessus de 80% d'EC, vous tirez probablement trop sur la phase de remontee. Cela gaspille de l'énergie et peut en fait reduire la puissance totale. La plage 70-80% indique que vous appliquez la force efficacement tout au long du coup de pedale sans lutter contre vous-même sur la phase de récupération."
+        "a": "<strong>La science :</strong> L'Efficacité du couple mesure quel pourcentage de votre coup de pédale produit un mouvement vers l'avant. EC = (couple positif − couple négatif) ÷ couple positif × 100.<br><br><strong>Pourquoi ne pas viser 100% ?</strong> Les recherches de Wattbike et des laboratoires de sciences du sport montrent qu'au-dessus de 80% d'EC, les cyclistes tirent généralement trop sur la phase de remontée. Cela recrute les fléchisseurs de hanche de manière inefficace, augmente le coût métabolique et peut en fait réduire la puissance soutenable.<br><br><strong>La zone idéale de 70-80%</strong> indique une application de force efficace pendant la phase de puissance (de 12h à 6h) sans gaspiller d'énergie à lutter contre la phase de récupération. Les cyclistes d'élite se situent naturellement dans cette plage lors des efforts soutenus.<br><br><strong>Une EC plus basse (sous 65%)</strong> suggère que vous « écrasez » les pédales — tout en phase descendante, sans suivi. C'est courant en cas de fatigue ou à très haute puissance."
       },
       "q6": {
         "q": "Que mesure exactement la Fluidité du pédalage ?",
-        "a": "<strong>Formule :</strong> FP = (puissance moyenne / puissance maximale) × 100.<br>Une FP plus élevée signifie une appliçation de puissance plus constante tout au long du coup de pedale. <strong>20%+ est bien</strong> pour la plupart des cyclistes. Les sprinters ont généralement une FP plus basse (puissance explosive, percutante), tandis que les cyclistes d'endurance tendent vers des valeurs plus élevées."
+        "a": "<strong>Formule :</strong> FP = (puissance moyenne tout au long du coup de pédale ÷ puissance de pointe) × 100.<br><br><strong>Ce que cela signifie :</strong> Une FP plus élevée indique une livraison de puissance plus régulière tout au long de la rotation complète de 360°. Une FP plus basse signifie que vous produisez de la puissance en pics aigus (typiquement à la position 3h).<br><br><strong>Valeurs typiques :</strong><br>• 15-20% : Normal pour les cyclistes récréatifs<br>• 20-25% : Bon, pédalage efficace<br>• 25%+ : Excellent, livraison de puissance très fluide<br><br><strong>Le contexte compte :</strong> Les sprinters ont naturellement une FP plus basse (la livraison explosive de puissance est l'objectif). Les grimpeurs et les rouleurs bénéficient d'une FP plus élevée. Pendant les intervalles, la FP baisse à mesure que la puissance augmente — c'est normal.<br><br><strong>Améliorer la FP :</strong> Les exercices sur une seule jambe, le pédalage à haute cadence (100+ RPM), et se concentrer sur « pédaler en cercles » plutôt qu'écraser peuvent augmenter la fluidité avec le temps."
       },
       "q7": {
-        "q": "Comment le Score de sortie est-il calcule ?",
-        "a": "<strong>Formule ponderee :</strong> Équilibre (40%) + EC (35%) + FP (25%).<br>Chaque métrique est notee de 0 à 100 en fonction du temps passe dans les zones optimales.<br><strong>85+</strong> = Excellente technique<br><strong>70-84</strong> = Bien, quelques points à améliorér<br><strong>Moins de 70</strong> = Marge d'amélioration signifiçative"
+        "q": "Comment le Score de sortie est-il calculé ?",
+        "a": "<strong>Formule pondérée :</strong> L'Équilibre contribue à 40%, l'Efficacité du couple à 35%, et la Fluidité du pédalage à 25%.<br><br><strong>Comment chaque métrique est notée (0-100) :</strong><br>• Équilibre : Basé sur le pourcentage de temps de sortie dans ±2,5% du 50/50<br>• EC : Basé sur le temps passé dans la plage 70-80%<br>• FP : Basé sur le temps passé au-dessus de 20%<br><br><strong>Interprétation du score :</strong><br>• <strong>90-100 :</strong> Technique d'élite, constante tout au long de la sortie<br>• <strong>80-89 :</strong> Excellent, marge d'optimisation mineure<br>• <strong>70-79 :</strong> Bonne base, domaines clairs à améliorer<br>• <strong>60-69 :</strong> Moyen, travail technique ciblé recommandé<br>• <strong>Moins de 60 :</strong> Potentiel d'amélioration significatif<br><br><strong>Conseil de pro :</strong> Comparez les scores entre types de sorties similaires. Votre score d'entraînement par intervalles différera de votre sortie d'endurance — les deux sont des références valides pour leurs efforts respectifs."
       },
       "q8": {
-        "q": "Comment fonctionnent les exercices guides ?",
-        "a": "Les exercices sont des entraînements structures avec des cibles en temps reel affichees à l'écran. Exemple : \"Focus jambe unique\" vous demande de maintenir 55-60% d'équilibre sur une jambe pendant 30 secondes. KPedal suit votre <strong>temps dans la cible</strong> et fournit un score à la fin. Parfait pour les echauffements, les sorties de récupération où les séances techniques dediees."
+        "q": "Comment fonctionnent les exercices guidés ?",
+        "a": "<strong>Les exercices sont des séances structurées avec un retour visuel en temps réel.</strong> Chaque exercice comporte plusieurs phases avec des cibles spécifiques affichées sur votre écran Karoo.<br><br><strong>Exemple — Exercice Focus sur une jambe :</strong><br>1. Phase d'échauffement : 30 secondes à l'équilibre naturel<br>2. Focus gauche : 45 secondes ciblant 55-60% jambe gauche<br>3. Récupération : 15 secondes<br>4. Focus droit : 45 secondes ciblant 55-60% jambe droite<br>5. Retour au calme : 30 secondes à l'équilibre naturel<br><br><strong>Notation :</strong> KPedal suit votre temps-dans-la-cible pour chaque phase. Atteignez la plage cible pendant 80%+ de la durée de la phase pour « réussir » ce segment. Votre score final d'exercice reflète la précision globale.<br><br><strong>Catégories d'exercices :</strong><br>• <strong>Focus :</strong> Isoler une métrique (équilibre, EC ou FP)<br>• <strong>Défi :</strong> Difficulté progressive, plusieurs métriques<br>• <strong>Séance :</strong> Sessions plus longues combinant technique et effort"
       },
       "q9": {
-        "q": "Puis-je créer mes propres exercices personnalises ?",
-        "a": "<strong>Oui.</strong> Les exercices personnalises vous permettent de définir vos propres phases, cibles et durées. Crééz des exercices adaptes à vos faiblesses spécifiques — peut-etre un focus EC de 45 secondes suivi d'un travail d'équilibre de 30 secondes. Vos exercices personnalises sont sauvegardes localement et synchronisés dans le cloud."
+        "q": "Puis-je créer mes propres exercices personnalisés ?",
+        "a": "<strong>Oui — le constructeur d'exercices personnalisés vous permet de concevoir exactement ce dont vous avez besoin.</strong><br><br><strong>Vous pouvez personnaliser :</strong><br>• Nombre de phases (1-10)<br>• Durée par phase (10 secondes à 5 minutes)<br>• Métrique cible (Équilibre, EC, FP ou combinaison)<br>• Plage cible (ex : 45-48% équilibre, 75-85% EC)<br>• Noms et instructions des phases<br><br><strong>Exemple d'exercice personnalisé pour faiblesse de la jambe gauche :</strong><br>1. « Échauffement » — 60s, pas de cible<br>2. « Activation gauche » — 45s, Équilibre 54-58% gauche<br>3. « Repos » — 20s, pas de cible<br>4. « Puissance gauche » — 45s, Équilibre 56-60% gauche<br>5. « Égaliser » — 30s, Équilibre 48-52%<br><br><strong>Synchronisation :</strong> Les exercices personnalisés sont enregistrés sur votre appareil et synchronisés dans le cloud lorsque activé. Accédez-y sur n'importe quel Karoo associé ou consultez l'historique des exercices sur le tableau de bord web."
       },
       "q10": {
-        "q": "Qu'est-ce qui declénche les alertes en sortie ?",
-        "a": "<strong>Seuils configurables :</strong><br>• Équilibre : l'asymetrie dépassé votre limite définie (par défaut 5%)<br>• EC : tombe en dessous du minimum (par défaut 60%)<br>• FP : tombe en dessous du minimum (par défaut 15%)<br>Les alertes utilisent <strong>vibration + bip</strong>. Le délai (15s-2min) empeche le spam. Vous pouvez activér/désactivér chaque métrique independamment."
+        "q": "Qu'est-ce qui déclenche les alertes en sortie ?",
+        "a": "<strong>Les alertes vous notifient lorsque les métriques dérivent en dehors de vos seuils configurés.</strong><br><br><strong>Déclencheurs configurables :</strong><br>• <strong>Équilibre :</strong> L'asymétrie dépasse la limite (par défaut : 5% — se déclenche à 45/55 ou pire)<br>• <strong>Efficacité du couple :</strong> Tombe en dessous du minimum (par défaut : 60%)<br>• <strong>Fluidité du pédalage :</strong> Tombe en dessous du minimum (par défaut : 15%)<br><br><strong>Méthodes d'alerte :</strong><br>• Vibration (motif de buzz court)<br>• Bip audio (si le son du Karoo est activé)<br>• Flash d'écran (pulsation de couleur subtile)<br><br><strong>Délai intelligent :</strong> Après le déclenchement d'une alerte, il y a un délai configurable (15 secondes à 2 minutes) avant qu'elle puisse se déclencher à nouveau. Cela empêche le spam d'alertes pendant les efforts difficiles soutenus.<br><br><strong>Contrôle par métrique :</strong> Activez ou désactivez les alertes pour chaque métrique indépendamment. Beaucoup de cyclistes ne veulent que les alertes d'équilibre, par exemple, et préfèrent vérifier EC/FP après la sortie."
       },
       "q11": {
         "q": "KPedal fonctionne-t-il sans connexion internet ?",
-        "a": "<strong>100% oui.</strong> Toutes les fonctionnalites principales — collecte de données, exercices, alertes, historique des sorties — fonctionnent complétément hors ligne. La synchronisation cloud est optionnelle et ne s'activé que lorsque vous l'activéz. Vos données sont toujours stockees localement sur le Karoo d'abord. La synchronisation se fait automatiquement lorsque vous étés de nouveau en ligne."
+        "a": "<strong>Oui — KPedal est entièrement fonctionnel hors ligne.</strong> Chaque fonctionnalité principale fonctionne sans aucune connexion internet.<br><br><strong>Fonctionne hors ligne :</strong><br>• Collecte de données en temps réel pendant les sorties<br>• Les 5 types de champs de données<br>• Bibliothèque complète d'exercices (intégrés et personnalisés)<br>• Système d'alertes<br>• Historique des sorties et statistiques<br>• Suivi des accomplissements<br><br><strong>Nécessite internet (optionnel) :</strong><br>• Connexion Google initiale (une seule fois)<br>• Synchronisation cloud des données de sortie<br>• Accès au tableau de bord web<br><br><strong>Comment fonctionne la synchronisation :</strong> Les sorties sont toujours enregistrées localement d'abord. Lorsque vous êtes de nouveau en ligne et que la synchronisation cloud est activée, les données se téléchargent automatiquement en arrière-plan. Si vous n'activez jamais la synchronisation cloud, vos données restent exclusivement sur le Karoo — c'est votre choix."
       },
       "q12": {
         "q": "KPedal va-t-il vider la batterie de mon Karoo ?",
-        "a": "<strong>Impact minimal : ~1-2% supplementaire par heure</strong> pendant les sorties activés. KPedal n'execute la collecte de données que pendant que vous roulez. Entre les sorties, seul un petit ecouteur attend le début de la sortie — consommation negligeable. Fortement optimise pour l'efficacité."
+        "a": "<strong>Impact : environ 1-2% de consommation de batterie supplémentaire par heure pendant les sorties.</strong><br><br><strong>Pourquoi c'est minimal :</strong><br>• KPedal ne traite activement les données que lorsque vous êtes en sortie<br>• Entre les sorties, un écouteur léger attend le début de sortie — consommation quasi nulle<br>• Pas d'utilisation GPS (le Karoo s'en charge)<br>• Pas d'interrogation continue en arrière-plan<br>• Stockage de données efficace (écritures groupées, pas d'E/S constantes)<br><br><strong>Exemple réel :</strong> Sur une sortie de 4 heures, attendez-vous à environ 4-8% d'utilisation de batterie supplémentaire par rapport à rouler sans KPedal. Étant donné l'autonomie de 12+ heures du Karoo 3, c'est négligeable pour la plupart des sorties.<br><br><strong>Conseil d'optimisation :</strong> Si vous faites un événement d'ultra-endurance et avez besoin d'une autonomie maximale, vous pouvez désactiver les champs de données KPedal (la collecte en arrière-plan fonctionne toujours) et désactiver les alertes."
       },
       "q13": {
-        "q": "Puis-je synchronisér les données sur plusieurs appareils Karoo ?",
-        "a": "<strong>Oui.</strong> Associez plusieurs Karoos à votre compte. Les paramètres se synchronisént automatiquement entre eux. Toutes les sorties de tous les appareils apparaissent dans un tableau de bord unifie. Parfait si vous avez un Karoo de secours, des appareils de course et d'entraînement, où si vous passez à un nouvel appareil."
+        "q": "Puis-je synchroniser les données sur plusieurs appareils Karoo ?",
+        "a": "<strong>Oui — associez plusieurs Karoos à un seul compte pour une synchronisation transparente.</strong><br><br><strong>Comment ça fonctionne :</strong><br>1. Installez KPedal sur chaque Karoo<br>2. Connectez-vous avec le même compte Google sur chaque appareil<br>3. Activez la synchronisation cloud sur chaque appareil<br><br><strong>Ce qui se synchronise :</strong><br>• Toutes les données de sortie et instantanés par minute<br>• Les exercices personnalisés que vous avez créés<br>• Les paramètres d'alerte et seuils<br>• La progression des accomplissements<br><br><strong>Cas d'utilisation :</strong><br>• Karoo de secours pour le jour de course<br>• Différents Karoos sur différents vélos<br>• Passage du Karoo 2 au Karoo 3<br>• Partage des données techniques avec un entraîneur (il lui faudrait vos identifiants)<br><br><strong>Résolution des conflits :</strong> Si vous roulez sur deux appareils simultanément (inhabituel mais possible), les deux sorties sont enregistrées avec leurs horodatages respectifs. La synchronisation des paramètres utilise « la dernière écriture gagne » — la modification la plus récente s'applique."
       },
       "q14": {
         "q": "Comment fonctionne le système d'accomplissements ?",
-        "a": "Les accomplissements se débloquént lorsque vous atteignez des jalons : nombre de sorties, heures totales, séries de régularité, améliorations techniques. Exemples : \"Équilibre de fer\" (10 sorties avec moins de 2% d'asymetrie), \"Club des cents\" (100 sorties enregistrees). Les accomplissements se synchronisént dans le cloud et s'affichent sur votre tableau de bord web."
+        "a": "<strong>Les accomplissements récompensent la régularité et les jalons techniques.</strong><br><br><strong>Catégories d'accomplissements :</strong><br>• <strong>Volume :</strong> Total de sorties suivies, heures pédalées, kilomètres parcourus<br>• <strong>Régularité :</strong> Séries de sorties (jours/semaines consécutifs avec des sorties)<br>• <strong>Technique :</strong> Scores de sortie, temps dans les zones optimales, améliorations des métriques<br>• <strong>Exercices :</strong> Exercices terminés, scores parfaits, variété de types d'exercices<br><br><strong>Exemples d'accomplissements :</strong><br>• « Premier tour de pédale » — Terminer votre première sortie suivie<br>• « Équilibre de fer » — 10 sorties avec une asymétrie moyenne inférieure à 2%<br>• « Club des cent » — 100 sorties suivies<br>• « Opérateur fluide » — Maintenir 25%+ de FP pendant une sortie entière<br>• « Sergent instructeur » — Terminer 50 exercices<br><br><strong>Suivi de progression :</strong> Consultez votre progression d'accomplissements sur le tableau de bord web. Certains accomplissements ont des niveaux bronze/argent/or (ex : 10/50/100 sorties). Les accomplissements se synchronisent dans le cloud et persistent entre les appareils."
       },
       "q15": {
-        "q": "Puis-je utiliser KPedal avec Garmin, Wahoo où d'autrès compteurs de velo ?",
-        "a": "<strong>Non.</strong> KPedal est construit spécifiquement pour Hammerhead Karoo en utilisant leur SDK officiel karoo-ext. Il accede aux données ANT+ Cycling Dynamics, au système d'alertes natif et à la surveillance de l'etat de sortie — des intégrations profondes non disponibles sur d'autrès plateformes."
+        "q": "Puis-je utiliser KPedal avec Garmin, Wahoo ou d'autres compteurs de vélo ?",
+        "a": "<strong>Non — KPedal est exclusivement pour Hammerhead Karoo.</strong><br><br><strong>Raison technique :</strong> KPedal est construit en utilisant le SDK officiel karoo-ext de Hammerhead, qui fournit une intégration profonde avec :<br>• Les flux de données ANT+ Cycling Dynamics<br>• La détection native de l'état de sortie (démarrage/pause/arrêt)<br>• L'infrastructure d'alertes système (vibration, son)<br>• Le moteur de rendu des champs de données<br>• Les permissions de service en arrière-plan<br><br>Ces intégrations n'existent pas sur Garmin, Wahoo ou d'autres plateformes. Chacune nécessiterait une application complètement différente construite à partir de zéro avec leurs SDK respectifs (souvent plus limités).<br><br><strong>Plateformes futures :</strong> Il n'y a actuellement aucun plan pour porter KPedal sur d'autres appareils. Le projet se concentre sur bien faire une chose plutôt que de se disperser sur plusieurs plateformes."
       },
       "q16": {
-        "q": "Mes données sont-elles privees et sécurisées ?",
-        "a": "<strong>Oui.</strong> Les données restent sur votre Karoo sauf si vous activéz la synchronisation cloud. Le cloud utilise <strong>Google Sign-In</strong> — nous ne voyons ni ne stockons jamais votre mot de passe. Pas de pixels de suivi, pas de pubs, pas de vente de données. L'ensemble du projet est <strong>open source</strong> — auditez le code vous-même sur GitHub."
+        "q": "Mes données sont-elles privées et sécurisées ?",
+        "a": "<strong>Oui — la confidentialité est un principe de conception fondamental.</strong><br><br><strong>Architecture locale d'abord :</strong><br>• Toutes les données sont stockées sur votre Karoo d'abord<br>• La synchronisation cloud est optionnelle, pas par défaut<br>• Vous pouvez utiliser KPedal indéfiniment sans jamais créer de compte<br><br><strong>Si vous activez la synchronisation cloud :</strong><br>• Authentification via Google Sign-In — nous ne voyons ni ne stockons jamais votre mot de passe<br>• Données transmises via HTTPS (TLS 1.3)<br>• Stockées dans l'infrastructure mondiale de Cloudflare<br>• Pas d'analyses tierces ni de suivi<br>• Pas de publicités, pas de vente de données, pas de statistiques d'utilisation « anonymes »<br><br><strong>Transparence open source :</strong> L'ensemble du code source — application Android, API web et tableau de bord web — est public sur GitHub. Auditez exactement quelles données sont collectées et comment elles sont traitées. Si vous trouvez un problème de sécurité, veuillez le signaler de manière responsable."
       },
       "q17": {
-        "q": "Pourquoi mon équilibre change-t-il à différéntes puissances ?",
-        "a": "C'est normal. A basse puissance, les légeres variations techniques sont amplifiees. A haute puissance, vous avez tendance à recruter les musclés plus uniformêment. De nombreux cyclistes voient 2-3% de plus d'asymetrie au rythme d'endurance vs au seuil. KPedal suit cela pour que vous puissiez identifiér les patterns et travailler sur les points faibles."
+        "q": "Pourquoi mon équilibre change-t-il à différentes puissances ?",
+        "a": "<strong>C'est tout à fait normal et bien documenté dans la science du cyclisme.</strong><br><br><strong>Le schéma :</strong> La plupart des cyclistes montrent 2-4% d'asymétrie en plus à basse puissance (Zone 1-2) par rapport à haute puissance (Zone 4-5). Certains cyclistes montrent le schéma inverse.<br><br><strong>Pourquoi cela se produit :</strong><br>• <strong>Basse puissance :</strong> Des forces plus faibles signifient que de petites variations techniques ont un impact en pourcentage disproportionné. Votre jambe dominante peut « prendre le dessus » quand l'effort est facile.<br>• <strong>Haute puissance :</strong> Le recrutement maximal des deux jambes tend à équilibrer les choses. Vous vous concentrez davantage et engagez plus de groupes musculaires bilatéralement.<br>• <strong>Fatigue :</strong> À mesure que vous vous fatiguez, votre jambe la plus faible fatigue plus vite, augmentant l'asymétrie. C'est une donnée précieuse pour la gestion de l'effort.<br><br><strong>Utiliser cette information :</strong> Les instantanés par minute de KPedal vous permettent de voir exactement comment votre équilibre change tout au long d'une sortie. Corrélez avec les zones de puissance pour comprendre votre schéma personnel et cibler les exercices en conséquence."
       },
       "q18": {
-        "q": "A quelle fréquence dois-je faire des exercices techniques ?",
-        "a": "<strong>2-3 fois par semaine</strong> est un bon point de depart. Incluez-les dans les echauffements (5-10 min) où consacrez des sorties de récupération au travail technique. La régularité compte plus que le volume — des sessions courtes régulieres battent des sessions longues occasionnelles. Suivez la progression via les scores d'exercices au fil du temps."
+        "q": "À quelle fréquence dois-je faire des exercices techniques ?",
+        "a": "<strong>Recommandé : 2-3 séances dédiées par semaine, plus intégration d'exercices dans les échauffements.</strong><br><br><strong>Approches efficaces :</strong><br>• <strong>Intégration à l'échauffement :</strong> 5-10 minutes d'exercices au début de chaque sortie. Faible intensité, grande concentration. Excellent pour l'activation musculaire.<br>• <strong>Focus sortie de récupération :</strong> Utilisez les jours faciles pour un travail technique prolongé (20-30 minutes). La faible puissance vous permet de vous concentrer sur la forme.<br>• <strong>Séances dédiées :</strong> Sortie hebdomadaire de 30-45 minutes axée sur la technique. Progressions d'exercices structurés avec intervalles de repos.<br><br><strong>Stratégie de progression :</strong><br>1. Commencez par des exercices sur une seule métrique (équilibre seul, EC seul)<br>2. Progressez vers des défis multi-métriques<br>3. Augmentez la durée et resserrez les plages cibles au fil du temps<br>4. Suivez les scores d'exercices chaque semaine — visez une amélioration graduelle, pas la perfection<br><br><strong>Point clé :</strong> La régularité bat l'intensité. Trois séances de 10 minutes réparties sur une semaine amélioreront votre technique plus rapidement qu'une seule séance de 30 minutes. Les adaptations neuronales nécessitent un renforcement régulier."
       }
     },
     "cta": {
-      "headline": "Commencez à améliorér votre pédalage aujourd'hui",
+      "headline": "Commencez à améliorer votre pédalage aujourd'hui",
       "subtext": "Gratuit. Open source. Synchronisé dans le cloud.",
-      "downloadForKaroo": "Telecharger pour Karoo",
-      "tryDemo": "Essayer la demo"
+      "downloadForKaroo": "Télécharger pour Karoo",
+      "tryDemo": "Essayer la démo"
     },
     "footer": {
       "tagline": "Efficacité du pédalage pour Karoo",
       "product": "Produit",
-      "features": "Fonctionnalites",
+      "features": "Fonctionnalités",
       "dataFields": "Champs de données",
       "drills": "Exercices",
       "resources": "Ressources",
       "github": "GitHub",
       "releases": "Versions",
       "reportIssue": "Signaler un problème",
-      "legal": "Legal",
+      "legal": "Légal",
       "privacyPolicy": "Politique de confidentialité",
       "signIn": "Connexion",
-      "madeWith": "Fait avec <3 pour la communaute Karoo"
+      "madeWith": "Fait avec <3 pour la communauté Karoo"
+    }
+  },
+  "start": {
+    "title": "Configurer KPedal",
+    "subtitle": "5 minutes pour l'analyse de pédalage en temps réel",
+    "progress": "{completed}/{total} terminé",
+    "reset": "Réinitialiser",
+    "optional": "Optionnel",
+    "continue": "Continuer",
+    "done": "Terminé",
+    "skip": "Passer",
+    "steps": {
+      "install": {
+        "title": "Installer l'app",
+        "time": "2 min",
+        "intro": "Vous avez besoin de l'app <strong>Hammerhead Companion</strong> sur votre téléphone pour installer KPedal sur votre Karoo.",
+        "hasCompanion": "J'ai l'app Companion installée",
+        "downloadApk": "Télécharger l'APK",
+        "opensGithub": "Ouvre GitHub Releases",
+        "step1": "Sur GitHub, appuyez sur le fichier <code>.apk</code> pour télécharger",
+        "step2": "Ouvrez <strong>Téléchargements</strong>, appuyez longuement sur le fichier → <strong>Partager</strong>",
+        "step3": "Sélectionnez <strong>Hammerhead Companion</strong>",
+        "step4": "Appuyez sur <strong>Installer</strong> quand demandé sur Karoo",
+        "installed": "KPedal est installé sur mon Karoo"
+      },
+      "fields": {
+        "title": "Ajouter au profil",
+        "time": "1 min",
+        "intro": "Ajoutez des champs de données KPedal à votre profil pour voir les métriques pendant vos sorties.",
+        "step1": "Sur Karoo: <strong>Profils</strong> → sélectionnez votre profil",
+        "step2": "Appuyez sur une page de données → <strong>Ajouter un champ</strong>",
+        "step3": "Faites défiler jusqu'à la section <strong>KPedal</strong>",
+        "step4": "Ajoutez <strong>Quick Glance</strong> (recommandé pour commencer)",
+        "allFields": "Tous les champs disponibles",
+        "fieldQuickGlance": "<strong>Quick Glance</strong> — équilibre + efficacité en une vue",
+        "fieldPowerBalance": "<strong>Power Balance</strong> — G/D avec barre visuelle",
+        "fieldEfficiency": "<strong>Efficiency</strong> — efficacité du couple + régularité",
+        "fieldFullOverview": "<strong>Full Overview</strong> — toutes les métriques combinées",
+        "fieldBalanceTrend": "<strong>Balance Trend</strong> — graphique 5 min"
+      },
+      "configure": {
+        "title": "Ajuster les paramètres",
+        "time": "1 min",
+        "intro": "Les paramètres par défaut conviennent à la plupart des cyclistes. Ajustez si nécessaire.",
+        "step1": "Sur Karoo: <strong>Paramètres</strong> → <strong>Apps</strong> → <strong>KPedal</strong>",
+        "whatYouCanAdjust": "Ce que vous pouvez ajuster",
+        "optionBalance": "<strong>Seuil d'équilibre</strong> — quel déséquilibre G/D est acceptable (défaut ±2,5%)",
+        "optionAlerts": "<strong>Alertes</strong> — vibration/son quand les métriques dérivent",
+        "optionDrills": "<strong>Exercices</strong> — exercices guidés pour améliorer la technique"
+      },
+      "sync": {
+        "title": "Sync Cloud",
+        "time": "1 min",
+        "intro": "Optionnel: synchronisez les sorties vers le tableau de bord web pour une analyse détaillée.",
+        "step1": "Sur Karoo: Ouvrez KPedal → <strong>Lier le compte</strong>",
+        "step2": "Vous verrez un code à 8 caractères",
+        "step3": "Sur téléphone: allez sur",
+        "step4": "Entrez le code et connectez-vous avec Google",
+        "note": "KPedal fonctionne entièrement hors ligne. La sync cloud ajoute juste le tableau de bord web."
+      }
+    },
+    "completion": {
+      "title": "Prêt à rouler!",
+      "subtitle": "Démarrez une sortie sur votre Karoo pour voir vos métriques de pédalage.",
+      "optimal": "Optimal",
+      "attention": "Attention",
+      "problem": "Problème",
+      "webDashboard": "Tableau de bord"
+    },
+    "footer": {
+      "home": "Accueil",
+      "privacy": "Confidentialité",
+      "github": "GitHub",
+      "copyright": "© {year} KPedal",
+      "madeFor": "Fait pour les cyclistes Karoo"
+    },
+    "meta": {
+      "title": "Démarrer — KPedal",
+      "description": "Configurez KPedal sur votre Karoo en 5 minutes. Téléchargez, installez et commencez à analyser votre efficacité de pédalage."
     }
   },
   "aria": {
     "home": "KPedal - Accueil",
-    "downloadOptions": "Options de telechargement",
-    "downloadKpedal": "Telecharger KPedal gratuitement depuis GitHub",
-    "tryDemo": "Essayer le compte demo",
+    "downloadOptions": "Options de téléchargement",
+    "downloadKpedal": "Télécharger KPedal gratuitement depuis GitHub",
+    "tryDemo": "Essayer le compte démo",
     "getStartedOptions": "Options pour commencer",
-    "downloadForKaroo": "Telecharger KPedal pour Karoo",
+    "downloadForKaroo": "Télécharger KPedal pour Karoo",
     "footerNav": "Navigation de pied de page",
     "viewOnGithub": "Voir KPedal sur GitHub",
     "balanceTrendChart": "Graphique de tendance d'équilibre",
     "techniqueTrendChart": "Graphique de tendance technique",
-    "languageSelector": "Selecteur de langue"
+    "languageSelector": "Sélecteur de langue"
   }
 }
