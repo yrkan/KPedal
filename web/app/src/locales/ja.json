@@ -1,0 +1,1975 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "loadError": "データの読み込みに失敗しました",
+    "retry": "再試行",
+    "back": "戻る",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "confirm": "確認",
+    "or": "または",
+    "today": "今日",
+    "yesterday": "昨日",
+    "daysAgo": "{days}日前",
+    "noData": "データなし",
+    "toggleTheme": "テーマ切替",
+    "tableView": "テーブル表示",
+    "cardView": "カード表示",
+    "backToDashboard": "ダッシュボードに戻る",
+    "remove": "削除"
+  },
+  "app": {
+    "name": "KPedal",
+    "tagline": "Karoo向けペダリング効率分析",
+    "version": "バージョン 1.3.0",
+    "webTitle": "KPedal Web"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "home": "ホーム",
+    "rides": "ライド",
+    "drills": "ドリル",
+    "achievements": "実績",
+    "goals": "目標",
+    "settings": "設定",
+    "profile": "プロフィール",
+    "logout": "サインアウト"
+  },
+  "auth": {
+    "signIn": "サインイン",
+    "signOut": "サインアウト",
+    "continueWithGoogle": "Googleで続ける",
+    "tryDemo": "デモを試す",
+    "loadingDemo": "デモを読み込み中...",
+    "createFreeAccount": "無料アカウントを作成",
+    "secureOAuth": "安全なOAuth 2.0",
+    "googleVerified": "Google認証済み",
+    "privacyNote": "サインインすることで、以下に同意したことになります：",
+    "privacyPolicy": "プライバシーポリシー",
+    "demoNote": "サンプルデータでダッシュボードを体験できます。",
+    "noSignupRequired": "登録不要。",
+    "backToLanding": "ランディングページに戻る",
+    "signedInViaGoogle": "Googleでサインイン済み",
+    "sessionExpires": "セッションは7日後に期限切れになります",
+    "authenticating": "認証中...",
+    "signingIn": "サインイン中...",
+    "redirectingToLogin": "ログインページにリダイレクト中...",
+    "missingTokens": "認証トークンがありません"
+  },
+  "errors": {
+    "invalidState": "セキュリティ検証に失敗しました。再試行してください。",
+    "authFailed": "認証に失敗しました。再試行してください。",
+    "somethingWrong": "問題が発生しました。再試行してください。",
+    "demoUnavailable": "デモモードは一時的に利用できません。後でもう一度お試しください。",
+    "demoFailed": "デモモードの開始に失敗しました。再試行してください。",
+    "failedToLoad": "データの読み込みに失敗しました",
+    "failedToConnect": "接続に失敗しました",
+    "failedToLoadRides": "ライドの読み込みに失敗しました",
+    "failedToLoadDrills": "ドリルの読み込みに失敗しました",
+    "failedToLoadMilestones": "マイルストーンの読み込みに失敗しました",
+    "failedToLoadDevices": "デバイスの読み込みに失敗しました",
+    "failedToLoadSettings": "設定の読み込みに失敗しました"
+  },
+  "demo": {
+    "mode": "デモモード",
+    "viewingSampleData": "サンプルデータを表示中",
+    "tour": "ツアー"
+  },
+  "metrics": {
+    "balance": "バランス",
+    "balanceShort": "Bal",
+    "te": "トルク効率",
+    "teShort": "TE",
+    "ps": "ペダルスムーズネス",
+    "psShort": "PS",
+    "power": "パワー",
+    "powerAvg": "平均パワー",
+    "powerMax": "最大パワー",
+    "normalizedPower": "標準化パワー",
+    "npShort": "NP",
+    "cadence": "ケイデンス",
+    "hr": "心拍数",
+    "hrShort": "HR",
+    "speed": "速度",
+    "distance": "距離",
+    "duration": "時間",
+    "elevation": "標高",
+    "elevationGain": "獲得標高",
+    "energy": "エネルギー",
+    "score": "スコア",
+    "asymmetry": "非対称性",
+    "left": "L",
+    "right": "R",
+    "leftRight": "L/R",
+    "avg": "平均",
+    "max": "最大",
+    "total": "合計"
+  },
+  "zones": {
+    "title": "ゾーン",
+    "optimal": "最適",
+    "attention": "注意",
+    "problem": "問題",
+    "timeInZone": "ゾーン滞在時間",
+    "zoneStatus": "ゾーン状態",
+    "description": {
+      "attention": "テクニックの改善が必要",
+      "optimal": "優れたフォーム",
+      "problem": "大きな問題あり"
+    }
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "period": {
+      "days7": "7日間",
+      "days14": "14日間",
+      "days30": "30日間",
+      "days60": "60日間",
+      "all": "全期間",
+      "week": "週",
+      "month": "月",
+      "year": "年"
+    },
+    "stats": {
+      "rides": "{count, plural, one {#回のライド} other {#回のライド}}",
+      "hours": "{count}時間",
+      "km": "{value} km",
+      "avgScore": "平均スコア"
+    },
+    "powerAsymmetry": "パワー非対称性",
+    "lrBalance": "左右バランス",
+    "weeklyActivity": "週間アクティビティ",
+    "technique": "テクニック",
+    "trends": "トレンド",
+    "recentRides": "最近のライド",
+    "thisWeek": "今週",
+    "lastWeek": "先週",
+    "vsLastWeek": "先週比",
+    "noRides": "この期間にライドがありません",
+    "viewAll": "すべて見る →",
+    "leftDominant": "左足優位",
+    "rightDominant": "右足優位",
+    "balanced": "バランス良好",
+    "hello": "こんにちは、{name}さん！",
+    "startRiding": "ライドを始めてデータを確認しましょう",
+    "welcome": "ようこそ、{name}さん！",
+    "weeklyChart": {
+      "rides": "ライド",
+      "title": "週間アクティビティ",
+      "hours": "時間"
+    },
+    "yourProgress": "あなたの進捗",
+    "allTime": "全期間",
+    "summary": {
+      "rides": "ライド",
+      "hours": "時間",
+      "km": "km"
+    },
+    "comparison": {
+      "rides": "ライド",
+      "hours": "時間",
+      "distance": "距離",
+      "climb": "獲得標高",
+      "balance": "バランス",
+      "optimal": "最適"
+    },
+    "sections": {
+      "performance": "パフォーマンス",
+      "insights": "インサイト"
+    },
+    "perfStats": {
+      "score": "スコア",
+      "optimal": "最適",
+      "power": "パワー",
+      "energy": "エネルギー"
+    },
+    "trendCards": {
+      "balanceTrend": "バランス推移",
+      "technique": "テクニック",
+      "asym": "非対称"
+    },
+    "trendStats": {
+      "current": "現在",
+      "average": "平均",
+      "spread": "幅",
+      "latest": "最新",
+      "best": "最高"
+    },
+    "emptyStates": {
+      "needMoreRides": "もっとライドが必要です",
+      "needMoreData": "もっとデータが必要です"
+    },
+    "progress": {
+      "title": "前{period}日間との比較",
+      "score": "スコア",
+      "optimalZone": "最適ゾーン",
+      "time": "時間",
+      "distance": "距離"
+    },
+    "table": {
+      "date": "日付",
+      "duration": "時間",
+      "asym": "非対称",
+      "zones": "ゾーン",
+      "power": "パワー",
+      "clickToView": "クリックで詳細表示"
+    },
+    "actions": {
+      "downloadApk": "APKをダウンロード",
+      "linkDevice": "デバイスを接続"
+    },
+    "onboarding": {
+      "dashboardWillShow": "KPedalをKarooで使用してライドを開始すると、リアルタイムのペダリング分析がダッシュボードに表示されます。",
+      "whatYouWillSee": "ここに表示される内容",
+      "powerBalance": "パワーバランス",
+      "proTarget": "プロ：±2.5%",
+      "torqueEffectiveness": "トルク効率",
+      "teOptimal": "最適：70-80%",
+      "pedalSmoothness": "ペダルスムーズネス",
+      "psOptimal": "最適：20%以上",
+      "getStarted": "3ステップで始める",
+      "step1Title": "Karooにインストール",
+      "step1Desc": "APKをダウンロードしてUSBまたはKarooブラウザ経由でインストール",
+      "step2Title": "データフィールドを追加",
+      "step2Desc": "ライドプロファイルを編集してKPedalデータフィールドを追加",
+      "step3Title": "デバイスを接続",
+      "step3Desc": "Karooを接続してライドを自動同期",
+      "exampleBalance": "50% L / 50% R",
+      "exampleTe": "72% 平均",
+      "examplePs": "22% 平均",
+      "alreadyInstalled": "すでにインストール済みですか？Karooでライドを完了すると、同期後にここにデータが表示されます。"
+    },
+    "fatigue": {
+      "title": "疲労度（直近ライド）",
+      "trend": "傾向",
+      "dropped": "低下",
+      "slight": "わずか",
+      "stable": "安定"
+    },
+    "units": {
+      "wAvg": "W 平均",
+      "wMax": "W 最大",
+      "rpm": "rpm",
+      "bpmAvg": "bpm 平均",
+      "bpmMax": "bpm 最大",
+      "kmh": "km/h",
+      "mUp": "m ↑",
+      "mDown": "m ↓",
+      "grade": "% 勾配",
+      "kJ": "kJ",
+      "rides": "ライド"
+    },
+    "insights": {
+      "fatigueAction": "ライド後半でフォームが崩れています。持久力を高めるには",
+      "fatigueLink": "エフィシェンシービルダー",
+      "balanceAction": "{asymmetry}% {dominant}優位。{weak}側を強化するには",
+      "balanceLink": "{side}脚フォーカス",
+      "leftLeg": "左",
+      "rightLeg": "右",
+      "leftDominant": "左",
+      "rightDominant": "右",
+      "lowTeAction": "TE {te}% — 6時位置での引き上げに集中。試してみてください：",
+      "lowTeLink": "パワートランスファー",
+      "lowPsAction": "PS {ps}% はぎこちないストロークを意味します。スムーズにするには",
+      "lowPsLink": "スムーズサークル",
+      "greatBalance": "{asymmetry}% の非対称性 — プロレベルのバランスです！",
+      "teOptimal": "TE {te}% — パワー伝達の最適ゾーンです。",
+      "excellentScore": "スコア {score}% — エリートレベルのテクニックです！",
+      "goodConsistency": "{count}回のライド — 素晴らしい週です！",
+      "improvement": "スコアが前期間より{points}ポイント向上しました。",
+      "encourageRides": "{count}{rideWord}のみ — 先週の{lastCount}に追いつきましょう。",
+      "ride": "ライド",
+      "ridesPl": "ライド",
+      "nearOptimalTe": "TE {te}% — 最適ゾーンまであと{diff}%です。"
+    }
+  },
+  "rides": {
+    "title": "ライド",
+    "allRides": "すべてのライド",
+    "rideHistory": "ライド履歴",
+    "noRides": "まだライドが記録されていません",
+    "noRidesHint": "KPedalをKarooで使用してライドを完了すると、ここに履歴が表示されます。",
+    "eachRideShows": "各ライドに表示される内容",
+    "deleteRide": "このライドを削除しますか？",
+    "viewTable": "テーブル表示",
+    "viewCards": "カード表示",
+    "rideDetail": "ライド詳細",
+    "performanceData": "パフォーマンスデータ",
+    "techniqueBreakdown": "テクニック内訳",
+    "fatigueAnalysis": "疲労分析",
+    "timeline": "タイムライン",
+    "minuteByMinute": "分単位",
+    "startToEnd": "開始から終了まで",
+    "degradation": "劣化",
+    "strong": "強い",
+    "moderate": "中程度",
+    "weak": "弱い",
+    "backToDashboard": "ダッシュボードに戻る",
+    "backToRides": "ライドに戻る",
+    "rideNotFound": "ライドが見つかりません",
+    "detail": {
+      "score": "スコア",
+      "scoreTip": "0から100の総合テクニックスコア。バランス、TE、PSを組み合わせて算出。",
+      "asymmetry": "非対称性",
+      "asymmetryTip": "50/50バランスからの偏差。2.5%未満はプロレベル。",
+      "balanced": "バランス良好",
+      "leftDominant": "左足優位",
+      "rightDominant": "右足優位",
+      "timeInZone": "ゾーン滞在時間",
+      "timeInZoneTip": "最適、注意、問題ゾーンでの滞在時間。緑が多いほど良い。",
+      "technique": "テクニック",
+      "techniqueTip": "ペダリング効率指標。TEはパワー伝達、PSはストロークのスムーズさ。",
+      "te": "TE",
+      "teTip": "トルク効率。前進運動にどれだけのパワーが使われているか。",
+      "ps": "PS",
+      "psTip": "ペダルスムーズネス。ストローク全体でどれだけ均等にパワーが適用されているか。",
+      "teInZone": "TE ゾーン内",
+      "teInZoneTip": "TEが最適範囲70-80%内にあった時間。",
+      "psInZone": "PS ゾーン内",
+      "psInZoneTip": "PSが20%の閾値を超えていた時間。",
+      "teStab": "TE 安定性",
+      "teStabTip": "TEの一貫性。高いほど安定したテクニック。",
+      "psStab": "PS 安定性",
+      "psStabTip": "PSの一貫性。高いほど安定したテクニック。",
+      "fatigue": "疲労分析",
+      "fatigueTip": "ライドの最初の1/3と最後の1/3を比較。",
+      "fatigueStrong": "強い",
+      "fatigueModerate": "中程度",
+      "fatigueFatigued": "疲労",
+      "fatigueAsymmetry": "非対称性",
+      "balanceDegradedInsight": "バランスが{value}%低下 — 疲れたときは均等なパワー配分に集中しましょう",
+      "teDroppedInsight": "TEが{value}%低下 — ライド後半でもフォームを維持する練習をしましょう",
+      "psFellInsight": "PSが{value}%低下 — 疲労時のスムーズなペダリングに取り組みましょう",
+      "excellentFatigueInsight": "優れた疲労耐性 — ライド全体を通じてテクニックが安定していました",
+      "fatigueStartEnd": "ライド開始時 → ライド終了時",
+      "byPowerZone": "パワーゾーン別",
+      "byPowerZoneTip": "異なる強度でのテクニック。",
+      "timelineTip": "時間経過に伴う指標。低下は疲労を示す。",
+      "min": "最小",
+      "avg": "平均",
+      "max": "最大",
+      "spread": "幅",
+      "minuteByMinuteTip": "分単位の詳細内訳。特定の区間の分析に有用。",
+      "points": "ポイント",
+      "balance": "バランス",
+      "balanceTip": "この分のL/Rパワー配分。",
+      "teTip2": "この分のトルク効率 L/R。",
+      "psTip2": "この分のペダルスムーズネス L/R。",
+      "power": "パワー",
+      "hr": "HR",
+      "zone": "ゾーン",
+      "zoneTip": "この分の総合ゾーン状態。",
+      "asym": "非対称",
+      "tooltipMin": "{minute}分",
+      "title": "ライド詳細",
+      "deleteWarning": "この操作は取り消せません",
+      "rating": "評価",
+      "performance": "パフォーマンス",
+      "confirmDelete": "削除を確認",
+      "comparison": "L/R 比較",
+      "fatigueDesc": "ライド中のテクニックの変化",
+      "notes": "メモ",
+      "timeline": "タイムライン",
+      "deleteRide": "ライドを削除"
+    },
+    "perf": {
+      "wattsTip": "平均パワー出力（ワット）。",
+      "maxWattsTip": "ライド中の最大パワー。",
+      "npTip": "標準化パワーは努力の変動を調整します。",
+      "bpmTip": "ライド中の平均心拍数。",
+      "maxBpmTip": "到達した最大心拍数。最大値に近いとテクニックが低下することが多い。",
+      "rpmTip": "平均ケイデンス。ほとんどのライダーにとって80-95 rpmが最適。",
+      "speedTip": "平均速度。地形の影響を受けるためパワーより信頼性が低い。",
+      "kjTip": "総エネルギー出力。消費カロリーとほぼ同等。",
+      "elevGainTip": "ライド中の獲得標高。",
+      "elevLossTip": "ライド中の下降標高。",
+      "gradeTip": "最大勾配。10%以上は急坂。"
+    },
+    "zones": {
+      "recovery": "リカバリー",
+      "endurance": "エンデュランス",
+      "tempo": "テンポ",
+      "threshold": "閾値",
+      "vo2max": "VO2max",
+      "anaerobic": "無酸素"
+    },
+    "list": {
+      "ridesLabel": "ライド",
+      "ridesTip": "この表示内の総ライド数。",
+      "kmLabel": "km",
+      "kmTip": "全ライドの総走行距離。",
+      "elevLabel": "m ↑",
+      "elevTip": "全ライドの獲得標高合計。",
+      "asymLabel": "非対称",
+      "asymTip": "平均パワー非対称性。2.5%未満はプロレベル。",
+      "teLabel": "TE",
+      "teTip": "平均トルク効率。最適範囲は70-80%。",
+      "psLabel": "PS",
+      "psTip": "平均ペダルスムーズネス。20%以上は良いテクニック。",
+      "optimalLabel": "最適",
+      "optimalTip": "最適ゾーンでの平均時間。高いほどフォームが良い。",
+      "wAvgLabel": "W 平均",
+      "wAvgTip": "平均パワー出力。時間経過で追跡してフィットネスの傾向を確認。",
+      "npLabel": "NP",
+      "npTip": "平均標準化パワー。努力の変動を考慮。",
+      "kjLabel": "kJ",
+      "kjTip": "総エネルギー出力。消費カロリーとほぼ同等。",
+      "dateCol": "日付",
+      "durationCol": "時間",
+      "asymCol": "非対称",
+      "asymColTip": "パワー非対称性。低いほどバランスが良い。",
+      "lrCol": "L / R",
+      "lrColTip": "左右のパワー配分。",
+      "teCol": "TE",
+      "teColTip": "各脚のトルク効率。70-80%が最適。",
+      "psCol": "PS",
+      "psColTip": "各脚のペダルスムーズネス。20%以上が良い。",
+      "zonesCol": "ゾーン",
+      "zonesColTip": "パフォーマンスゾーン別の時間配分。",
+      "powerCol": "パワー",
+      "powerColTip": "平均パワー（ワット）。",
+      "deleteAriaLabel": "ライドを削除",
+      "balanceLR": "バランス L/R",
+      "teLR": "TE L/R",
+      "psLR": "PS L/R",
+      "powerLabel": "パワー",
+      "asymmetryLabel": "非対称",
+      "domLabel": "優位",
+      "optimalPercent": "{percent}% 最適",
+      "pageInfo": "{page} / {total}ページ",
+      "prevPage": "前のページ",
+      "nextPage": "次のページ"
+    },
+    "stats": {
+      "totalRides": "総ライド数",
+      "avgDuration": "平均時間",
+      "totalTime": "合計時間"
+    },
+    "sort": {
+      "longest": "最長",
+      "oldest": "最古",
+      "highestScore": "最高スコア",
+      "newest": "最新"
+    },
+    "filters": {
+      "all": "すべて",
+      "thisWeek": "今週",
+      "thisMonth": "今月",
+      "last30Days": "過去30日"
+    },
+    "emptyDescription": "Karooからライドを同期して表示",
+    "empty": "ライドがありません"
+  },
+  "drills": {
+    "title": "ドリル",
+    "noDrills": "まだドリルが完了していません",
+    "noDrillsHint": "KPedalにはペダリングテクニックを向上させるガイド付きドリルが含まれています。Karooで完了すると進捗がここに記録されます。",
+    "availableTypes": "利用可能なドリルタイプ",
+    "types": {
+      "balanceFocus": "バランスフォーカス",
+      "powerTransfer": "パワートランスファー",
+      "smoothCircles": "スムーズサークル",
+      "challenges": "チャレンジ"
+    },
+    "timeInTarget": "ターゲット内時間",
+    "completed": "完了",
+    "incomplete": "未完了",
+    "abandoned": "中断",
+    "sessions": "セッション",
+    "avgTarget": "平均ターゲット",
+    "best": "最高",
+    "drillTypes": "ドリルタイプ",
+    "date": "日付",
+    "drill": "ドリル",
+    "duration": "時間",
+    "status": "状態",
+    "of": "/",
+    "pageInfo": "{page} / {total}ページ",
+    "prevPage": "前のページ",
+    "nextPage": "次のページ",
+    "tips": {
+      "avgTarget": "ターゲット指標を達成した平均時間。高いほど良い。",
+      "sessions": "完了したドリルセッションの総数。",
+      "best": "達成した最高のターゲット内時間の割合。",
+      "completed": "最後まで完了したドリルの割合。",
+      "types": "試したドリルタイプの数。",
+      "timeInTarget": "ターゲットゾーン内で過ごしたドリル時間の割合。",
+      "status": "ドリルが完了したか途中で中断されたか。"
+    },
+    "detail": {
+      "timeInTarget": "ターゲット内時間",
+      "score": "スコア",
+      "phases": "フェーズ",
+      "completed": "完了"
+    },
+    "categories": {
+      "balance": "バランス",
+      "technique": "テクニック",
+      "smoothness": "スムーズネス",
+      "all": "すべて"
+    },
+    "empty": "ドリル履歴がありません",
+    "emptyDescription": "Karooでドリルを完了して履歴を表示"
+  },
+  "achievements": {
+    "title": "実績",
+    "notAchieved": "未達成",
+    "noAchievements": "まだマイルストーンがありません",
+    "noAchievementsHint": "Karooでライドやドリルを完了して実績を解除",
+    "availableCategories": "実績カテゴリ",
+    "categories": {
+      "milestones": "ライドマイルストーン",
+      "balance": "バランスマスタリー",
+      "performance": "パフォーマンススコア",
+      "streaks": "継続ストリーク",
+      "duration": "時間目標",
+      "drills": "ドリルエキスパート"
+    },
+    "stats": {
+      "achieved": "達成済み",
+      "achievedTip": "解除したマイルストーンの数。",
+      "remaining": "残り",
+      "remainingTip": "まだ解除可能なマイルストーン。",
+      "total": "合計",
+      "totalTip": "システム内の総マイルストーン数。",
+      "progress": "進捗",
+      "progressTip": "全体の達成率。",
+      "last": "最新",
+      "lastTip": "最新の実績達成日。"
+    },
+    "table": {
+      "milestone": "マイルストーン",
+      "milestoneTip": "実績の名前と説明。",
+      "category": "カテゴリ",
+      "categoryTip": "マイルストーンの種類（ボリューム、バランス、テクニックなど）。",
+      "target": "目標",
+      "targetTip": "このマイルストーンを解除するための要件。",
+      "date": "日付"
+    },
+    "milestones": {
+      "first_ride": {
+        "name": "初回記録ライド",
+        "description": "ペダリング分析付きの初ライドを完了",
+        "category": "ボリューム",
+        "target": "1回のライド"
+      },
+      "rides_10": {
+        "name": "10回のライド分析",
+        "description": "トレンド分析のベースラインデータを構築",
+        "category": "ボリューム",
+        "target": "10回のライド"
+      },
+      "rides_50": {
+        "name": "50回のライド分析",
+        "description": "パターン認識のための十分なデータセット",
+        "category": "ボリューム",
+        "target": "50回のライド"
+      },
+      "rides_100": {
+        "name": "100回のライド分析",
+        "description": "包括的なトレーニング履歴を確立",
+        "category": "ボリューム",
+        "target": "100回のライド"
+      },
+      "rides_500": {
+        "name": "500回のライド分析",
+        "description": "長期的なペダリングデータアーカイブ",
+        "category": "ボリューム",
+        "target": "500回のライド"
+      },
+      "perfect_balance": {
+        "name": "50/50バランス達成",
+        "description": "完璧な左右パワー配分",
+        "category": "バランス",
+        "target": "50/50"
+      },
+      "balance_master": {
+        "name": "10回の最適バランスライド",
+        "description": "複数セッションで一貫したバランス",
+        "category": "バランス",
+        "target": "10回のライド"
+      },
+      "score_80": {
+        "name": "テクニックスコア80+",
+        "description": "ライドで良いペダリングテクニック",
+        "category": "テクニック",
+        "target": "80+"
+      },
+      "score_90": {
+        "name": "テクニックスコア90+",
+        "description": "全指標で優れたテクニック",
+        "category": "テクニック",
+        "target": "90+"
+      },
+      "score_95": {
+        "name": "テクニックスコア95+",
+        "description": "ほぼ最適なペダリング効率",
+        "category": "テクニック",
+        "target": "95+"
+      },
+      "streak_3": {
+        "name": "3日間トレーニングブロック",
+        "description": "3日連続の記録ライド",
+        "category": "継続性",
+        "target": "3日間"
+      },
+      "streak_7": {
+        "name": "7日間トレーニング週間",
+        "description": "一貫したトレーニングの1週間",
+        "category": "継続性",
+        "target": "7日間"
+      },
+      "streak_30": {
+        "name": "30日間トレーニング月間",
+        "description": "テクニック練習に捧げた1ヶ月",
+        "category": "継続性",
+        "target": "30日間"
+      },
+      "first_drill": {
+        "name": "初回ドリル完了",
+        "description": "構造化されたテクニックトレーニングを開始",
+        "category": "トレーニング",
+        "target": "1回のドリル"
+      },
+      "drill_perfect": {
+        "name": "ターゲット内時間100%",
+        "description": "任意のドリルで完璧な実行",
+        "category": "トレーニング",
+        "target": "100%"
+      },
+      "drills_10": {
+        "name": "10回のドリル完了",
+        "description": "ドリルの熟練度を構築",
+        "category": "トレーニング",
+        "target": "10回のドリル"
+      },
+      "zone_optimal_80": {
+        "name": "最適ゾーン80%",
+        "description": "ライド時間の80%以上を最適ゾーンで",
+        "category": "ゾーン",
+        "target": "80%"
+      },
+      "zone_optimal_90": {
+        "name": "最適ゾーン90%",
+        "description": "ライド時間の90%以上を最適ゾーンで",
+        "category": "ゾーン",
+        "target": "90%"
+      },
+      "te_optimal": {
+        "name": "フルライド最適TE",
+        "description": "ライド全体を通じて最適なTEを維持",
+        "category": "効率",
+        "target": "100%"
+      },
+      "duration_1h": {
+        "name": "1時間ライド",
+        "description": "1時間以上の持続的ペダリング分析",
+        "category": "エンデュランス",
+        "target": "1時間+"
+      },
+      "duration_2h": {
+        "name": "2時間ライド",
+        "description": "テクニックに焦点を当てた長時間セッション",
+        "category": "エンデュランス",
+        "target": "2時間+"
+      },
+      "duration_4h": {
+        "name": "4時間ライド",
+        "description": "長時間にわたるテクニック維持",
+        "category": "エンデュランス",
+        "target": "4時間+"
+      }
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "account": "アカウント",
+    "connectedDevices": "接続されたデバイス",
+    "loadingDevices": "デバイスを読み込み中...",
+    "noDevices": "接続されたデバイスがありません",
+    "noDevicesHint": "Karooデバイスを接続してライドデータを同期",
+    "linkDevice": "デバイスを接続",
+    "linkAnotherDevice": "別のデバイスを接続",
+    "removeDevice": "このデバイスを削除しますか？再接続が必要になります。",
+    "lastSync": "最終同期",
+    "neverSynced": "未同期",
+    "requestSync": "同期をリクエスト",
+    "syncRequested": "同期リクエスト済み - アプリを開いて同期",
+    "deviceStatus": {
+      "connected": "接続済み",
+      "idle": "アイドル",
+      "offline": "オフライン"
+    },
+    "pedalingMetrics": "ペダリング指標",
+    "syncBanner": "アプリで<strong>同期</strong>を押すか、ライドを開始すると変更がKarooに同期されます。",
+    "thresholds": "閾値",
+    "balanceThreshold": "バランス閾値",
+    "balanceThresholdHint": "不均衡がこの値を超えるとアラートが発動",
+    "balanceThresholdTip": "許容される最大L/R不均衡。プロサイクリストは通常±2.5%以内。",
+    "teOptimalRange": "TE最適範囲",
+    "teOptimalRangeHint": "トルク効率のグリーンゾーン",
+    "teOptimalRangeTip": "トルク効率のスイートスポット。研究によると70-80%が最適 — 高ければ良いわけではない。",
+    "psMinimum": "PS最小値",
+    "psMinimumHint": "この値未満は注意が必要として表示",
+    "psMinimumTip": "最適ゾーンのペダルスムーズネス閾値。エリートサイクリストは25%以上を達成。",
+    "inRideAlerts": "ライド中アラート",
+    "inRideAlertsHint": "指標が注意を必要とする時の通知",
+    "inRideAlertsTip": "指標が注意を必要とする時、Karooでリアルタイム通知。",
+    "metricsToMonitor": "監視する指標",
+    "torqueEff": "トルク効率",
+    "smoothness": "スムーズネス",
+    "sensitivity": "感度",
+    "critical": "クリティカル",
+    "problemZoneOnly": "問題ゾーンのみ",
+    "sensitive": "センシティブ",
+    "attentionAndProblem": "注意＆問題",
+    "notifyVia": "通知方法",
+    "vibrate": "バイブレーション",
+    "sound": "サウンド",
+    "banner": "バナー",
+    "options": "オプション",
+    "wakeScreenOnAlert": "アラート時に画面を起動",
+    "cooldownBetweenAlerts": "アラート間のクールダウン",
+    "dataCollection": "データ収集",
+    "dataCollectionHint": "KPedalがデータを収集・同期する方法",
+    "backgroundMode": "バックグラウンドモード",
+    "backgroundModeHint": "データフィールドが非表示でも指標を収集",
+    "backgroundModeTip": "KPedalデータフィールドが画面に表示されていなくても指標を収集。",
+    "autoSync": "自動同期",
+    "autoSyncHint": "各ライド後に自動でライドデータを同期",
+    "autoSyncTip": "各ライド終了後に自動でライドデータをアップロード。",
+    "appearance": "外観",
+    "theme": "テーマ",
+    "themeHint": "自動モードは午前7時と午後7時に切り替わります",
+    "themeAuto": "自動",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "data": "データ",
+    "rideData": "ライドデータ",
+    "rideDataHint": "あなたのデータは安全に保存され、Karooデバイスから同期されます",
+    "session": "セッション",
+    "privacy": "プライバシー",
+    "privacyHint": "データの収集、使用、保護方法について",
+    "about": "について",
+    "saving": "保存中...",
+    "saved": "保存済み",
+    "thresholds_section": {
+      "teOptimal": "TE最適範囲",
+      "balance": "バランス閾値",
+      "title": "指標閾値",
+      "psMinimum": "PS最小値",
+      "teOptimalDesc": "トルク効率の目標範囲",
+      "psMinimumDesc": "スムーズネスがこの値を下回るとアラート",
+      "balanceDesc": "非対称性がこの値を超えるとアラート"
+    },
+    "sections": {
+      "data": "データ",
+      "session": "セッション",
+      "devices": "デバイス",
+      "appearance": "外観",
+      "about": "について",
+      "metrics": "指標",
+      "privacy": "プライバシー",
+      "account": "アカウント"
+    },
+    "devices_section": {
+      "remove": "削除",
+      "connectDescription": "Karooを接続してライドを同期",
+      "removeWarning": "ライドを同期するには再接続が必要です",
+      "noDevices": "接続されたデバイスがありません",
+      "title": "接続されたデバイス",
+      "lastSync": "最終同期",
+      "connectDevice": "デバイスを接続",
+      "removeConfirm": "このデバイスを削除しますか？"
+    },
+    "alerts_section": {
+      "enabled": "有効",
+      "te": "トルク効率アラート",
+      "balance": "バランスアラート",
+      "title": "アラート設定",
+      "ps": "スムーズネスアラート",
+      "screenWake": "画面起動"
+    },
+    "privacy_section": {
+      "viewPolicy": "プライバシーポリシーを見る",
+      "title": "プライバシー"
+    },
+    "data_section": {
+      "exportDesc": "データをJSONでダウンロード",
+      "deleteAllDesc": "すべてのライドと設定を完全に削除",
+      "deleteAllWarning": "この操作は取り消せません",
+      "export": "データをエクスポート",
+      "title": "データ管理",
+      "deleteAll": "すべてのデータを削除",
+      "deleteAllConfirm": "DELETEと入力して確認"
+    },
+    "account_section": {
+      "signedInAs": "サインイン中：",
+      "memberSince": "メンバー登録日",
+      "email": "メール"
+    },
+    "appearance_section": {
+      "title": "外観",
+      "themeAuto": "自動",
+      "themeLight": "ライト",
+      "theme": "テーマ",
+      "themeDark": "ダーク"
+    },
+    "session_section": {
+      "title": "セッション",
+      "signOutDesc": "再度サインインが必要になります",
+      "signOut": "サインアウト",
+      "signOutConfirm": "アカウントからサインアウトしますか？"
+    },
+    "about_section": {
+      "github": "GitHub",
+      "support": "サポート",
+      "version": "バージョン"
+    }
+  },
+  "link": {
+    "title": "デバイスを接続",
+    "pageTitle": "Karooを接続",
+    "metaDescription": "Hammerhead KarooをKPedalに接続。Karooに表示されるコードを入力して、ライドと設定をクラウドに同期します。",
+    "secureConnection": "安全な接続",
+    "linkKaroo": "Karooを接続",
+    "enterCodeDescription": "デバイスに表示される8文字のコードを入力して、アカウントに安全に接続します。",
+    "verifying": "確認中...",
+    "continue": "続ける",
+    "encryption256": "256ビット暗号化",
+    "verifiedDomain": "認証済みドメイン",
+    "signInToContinue": "続けるにはサインインしてください",
+    "linkingDevice": "{device}をアカウントに接続中。",
+    "signInWithGoogle": "このデバイスを認証するにはGoogleでサインインしてください。",
+    "useDifferentCode": "別のコードを使用",
+    "authorizeDevice": "デバイスを認証しますか？",
+    "deviceRequestingAccess": "{device}がアカウントとのライドデータ同期へのアクセスを要求しています。",
+    "permissionSync": "ライドからペダリング指標を同期",
+    "permissionView": "app.kpedal.comで分析を表示",
+    "authorize": "認証",
+    "deviceLinked": "デバイス接続完了！",
+    "deviceConnected": "{device}がアカウントに接続されました。",
+    "autoSync": "ライドデータは自動的に同期されます。",
+    "secureConnectionEstablished": "安全な接続が確立されました",
+    "dataEncrypted": "データはエンドツーエンドで暗号化されています",
+    "closePageHint": "このページを閉じてKarooに戻れます。",
+    "goToDashboard": "ダッシュボードへ",
+    "errors": {
+      "failedToVerify": "コードの確認に失敗しました",
+      "failedToConnect": "接続に失敗しました",
+      "enterCompleteCode": "完全なコードを入力してください",
+      "invalidOrExpired": "このコードは無効または期限切れです。Karooから新しいコードを取得してください。",
+      "checkConnection": "接続に失敗しました。インターネット接続を確認してください。",
+      "signInFirst": "最初にサインインしてください",
+      "failedToAuthorize": "デバイスの認証に失敗しました",
+      "failedTryAgain": "接続に失敗しました。再試行してください。"
+    }
+  },
+  "infotips": {
+    "asymmetry": "完璧な50/50 L/Rバランスからの偏差。2.5%未満はプロレベル。",
+    "balance": "左右の脚間でパワーがどう分配されるか。50/50が完璧。",
+    "te": "前進に使われるパワーの割合。70-80%を目指す — 高ければ良いとは限らない。",
+    "ps": "ペダルストローク全体でパワーがどれだけ均等か。20%以上を目指す。エリートサイクリストは25%以上を達成。",
+    "zones": "最適（緑）、注意（黄）、問題（赤）ゾーンでの滞在時間。",
+    "timeInZone": "各ゾーンでの滞在時間。緑は最適、黄は注意が必要、赤は問題。",
+    "score": "バランス、TE、PSを組み合わせた総合テクニック評価。高いほど良い。",
+    "achieved": "解除したマイルストーンの数。",
+    "remaining": "まだ解除可能なマイルストーン。",
+    "total": "システム内の総マイルストーン数。",
+    "progress": "全体の達成率。",
+    "lastAchievement": "最新の実績達成日。",
+    "milestone": "実績の名前と説明。",
+    "category": "マイルストーンの種類（ボリューム、バランス、テクニックなど）。",
+    "target": "このマイルストーンを解除するための要件。",
+    "weeklyActivity": "日別のライド数。着実な進歩のために週3-5回を目指す。",
+    "compRides": "先週と比較したライド数。",
+    "compHours": "総サドル時間。時間が長いほどトレーニング適応が大きい。",
+    "compDistance": "走行総距離。時間と合わせてボリューム追跡に有用。",
+    "compClimb": "獲得標高合計。週2000m以上で登坂力向上。",
+    "compBalance": "先週比のパワー非対称性。低いほど良く、マイナスは改善。",
+    "compOptimal": "先週比の最適ゾーン滞在時間。高いほどテクニックが良い。",
+    "perfScore": "0から100の総合テクニックスコア。高いほどフォームが良い。",
+    "perfOptimal": "すべての指標がグリーンゾーンにあった時間。高いほど良い。",
+    "perfPower": "平均パワー出力（ワット）。同じ心拍数でパワーが高いほどフィットネスが良い。",
+    "perfEnergy": "キロジュール単位の総エネルギー。消費カロリーとほぼ同等。",
+    "technique": "ペダリング効率指標。TEはパワー伝達、PSはストロークのスムーズさ。",
+    "balanceFatigue": "左右のパワー配分。変化は疲労や代償を示す。",
+    "fatigueTrend": "全体的な疲労傾向。安定は良いペーシング、低下は過度の努力。",
+    "balanceTrend": "時間経過に伴うL/Rバランスの傾向。50%付近で一貫した値は良好な対称性を示す。",
+    "techniqueTrend": "時間経過に伴うテクニック指標の傾向。着実な改善パターンを探す。",
+    "compTe": "先週比のトルク効率。プラスの変化は改善。",
+    "compPs": "先週比のペダルスムーズネス。ゆっくり改善、小さな向上も重要。",
+    "fatigue": "ライド開始時と終了時のテクニック。値の低下は疲労を示す。",
+    "teFatigue": "ライド中のTE変化。低下は筋疲労を示す。",
+    "psFatigue": "ライド中のPS変化。通常、疲れると最初に低下する指標。",
+    "powerAvg": "平均パワー（ワット）。時間経過で追跡してフィットネス向上を測定。",
+    "powerMax": "達成した最大パワー。スプリントとFTP推定に有用。",
+    "np": "標準化パワーはサージを調整。平均に近いほど安定した努力。",
+    "cadence": "1分あたりのペダル回転数。ほとんどのライダーにとって80-95 rpmが最適。",
+    "hrAvg": "平均心拍数。同じパワーで低いほどフィットネスが良い。",
+    "hrMax": "到達した最大心拍数。最大値に近いとテクニックが低下することが多い。",
+    "speed": "平均速度。地形と風の影響でパワーより信頼性が低い。",
+    "elevationGain": "獲得標高合計。1000m以上は本格的なクライミングワークアウト。",
+    "elevationLoss": "下降標高合計。周回ライドでは獲得標高と一致するはず。",
+    "grade": "最大勾配。10%以上は急坂、15%以上は非常に急。",
+    "energy": "総エネルギー出力。1時間あたり250-300 kcalで栄養補給を計画。",
+    "trendCurrent": "この期間の直近ライドの値。",
+    "trendAverage": "選択期間内の全ライドの平均値。",
+    "trendSpread": "最高と最低の差。幅が狭いほどフォームが安定。",
+    "trendLatest": "この指標の直近ライドの値。",
+    "trendBest": "期間内の最高値。非対称性は低いほど良く、TE/PSは高いほど良い。",
+    "recentRides": "テクニック指標付きの最近のライド。任意の行をクリックで詳細表示。",
+    "tableAsym": "パワー非対称性。低いほどパワー出力のバランスが良い。",
+    "tableZones": "最適、注意、問題ゾーン別の時間配分。"
+  },
+  "tour": {
+    "buttons": {
+      "next": "次へ",
+      "prev": "戻る",
+      "done": "完了",
+      "continue": "続ける →",
+      "skip": "またはツアーをスキップ →"
+    },
+    "dashboard": {
+      "welcome": {
+        "title": "KPedalへようこそ！",
+        "desc": "これは約4週間のライドを示す<strong>実際のサイクリストのデモデータ</strong>です。",
+        "hint": "KPedalでできることの簡単なツアー（約2分）。"
+      },
+      "period": {
+        "title": "期間セレクター",
+        "desc": "<strong>7、14、30、または60日間</strong>を切り替えて、異なる期間のトレンドを分析できます。",
+        "hint": "短い期間は最近のフォームを表示。長い期間はトレーニングパターンを明らかに。"
+      },
+      "asymmetry": {
+        "title": "パワー非対称性",
+        "desc": "完璧な50/50 L/Rバランスからの偏差。",
+        "under25": "2.5%未満",
+        "proLevel": "プロレベル",
+        "range25to5": "2.5-5%",
+        "goodRoom": "良好、改善の余地あり",
+        "over5": "5%超",
+        "needsAttention": "注意が必要",
+        "hint": "このデモサイクリストは平均1-2% — 優れた対称性です！"
+      },
+      "infoTip": {
+        "title": "情報チップはどこにでも",
+        "desc": "この<strong>ⓘアイコン</strong>が見えますか？いつでもホバーまたはタップで詳細な説明が表示されます。",
+        "hint": "KPedalのすべての指標には、意味と目標を説明する情報チップがあります。"
+      },
+      "balance": {
+        "title": "L/Rパワーバランス",
+        "desc": "左右の脚のパワー配分の視覚的な内訳。",
+        "greenZone": "<strong>グリーンゾーン</strong> = バランス良好。バーは脚間でパワーがどう分かれるかを正確に表示。",
+        "hint": "ほとんどのサイクリストは片側がやや優位。時間をかけてこれを追跡し対称性を改善。"
+      },
+      "zones": {
+        "title": "ゾーン滞在時間の分布",
+        "desc": "テクニック品質別のライド時間内訳：",
+        "optimal": "緑（最適）",
+        "optimalDesc": "すべての指標が理想範囲内",
+        "attention": "黄（注意）",
+        "attentionDesc": "1つ以上の指標がずれている",
+        "problem": "赤（問題）",
+        "problemDesc": "フォームの大幅な崩れ",
+        "hint": "目標：特にロングライドで緑の時間を最大化！"
+      },
+      "summary": {
+        "title": "アクティビティサマリー",
+        "desc": "選択期間のトレーニングボリュームを一目で確認：",
+        "rides": "総ライド数",
+        "hours": "時間",
+        "km": "キロメートル"
+      },
+      "weekly": {
+        "title": "週間アクティビティチャート",
+        "desc": "曜日別のライド頻度を確認。",
+        "compareHint": "チャートの下で<strong>今週と先週を比較</strong>：",
+        "numRides": "ライド数",
+        "totalHours": "総時間",
+        "distanceClimb": "距離と獲得標高",
+        "hint": "継続性が鍵 — 散発的な大きな努力より定期的なトレーニングを目指す。"
+      },
+      "technique": {
+        "title": "テクニック指標",
+        "desc": "パワーメーターからの2つの主要効率指標：",
+        "teTitle": "トルク効率（TE）",
+        "teDesc": "前進に使われるパワーの割合。Wattbikeの研究に基づき<strong>70-80%</strong>を目指す — 高ければ良いとは限らない。",
+        "psTitle": "ペダルスムーズネス（PS）",
+        "psDesc": "ペダルストローク全体でパワーがどれだけ均等か。<strong>20%以上</strong>を目指す。エリートサイクリストは25%以上を達成。"
+      },
+      "trends": {
+        "title": "時間経過のトレンド",
+        "desc": "ライドごとのバランスとテクニックの改善を追跡。",
+        "left": "<strong>左のチャート：</strong>ライド全体のバランス傾向",
+        "right": "<strong>右のチャート：</strong>TE、PS、非対称性を切り替え",
+        "hint": "任意のポイントをクリックしてそのライドの詳細分析にジャンプ。"
+      },
+      "recentRides": {
+        "title": "最近のライドテーブル",
+        "desc": "主要指標付きのすべての同期ライドを一覧表示：",
+        "date": "日付、時間、スコア",
+        "asymmetry": "非対称性",
+        "lrBreakdown": "TEとPSのL/R内訳",
+        "zoneBars": "ゾーン分布バー",
+        "hint": "任意の行をクリックで分単位の詳細分析を表示！"
+      },
+      "nav": {
+        "title": "ナビゲーション",
+        "desc": "他のセクションを探索：",
+        "rides": "<strong>ライド</strong> — フィルターと検索付きの完全な履歴",
+        "drills": "<strong>ドリル</strong> — ガイド付きトレーニング演習",
+        "achievements": "<strong>実績</strong> — マイルストーンとバッジ",
+        "settings": "<strong>設定</strong> — デバイス、閾値、アラート"
+      },
+      "complete": {
+        "title": "ダッシュボード完了！",
+        "desc": "ダッシュボードの概要を見ました。もっと探索する準備はできましたか？",
+        "next": "<strong>次へ</strong>をクリックして<strong>ライド</strong>ページのツアーを続け、完全なライド履歴を確認。",
+        "done": "または完了をクリックしてここでツアーを終了。"
+      }
+    },
+    "rides": {
+      "welcome": {
+        "title": "ライド履歴",
+        "desc": "このページではフィルタリングとソート付きの<strong>完全なライド履歴</strong>を表示します。",
+        "hint": "主な機能を紹介します。"
+      },
+      "stats": {
+        "title": "期間統計",
+        "desc": "選択期間のクイック統計：",
+        "ridesAndDuration": "総ライド数と時間",
+        "scores": "平均と最高スコア",
+        "powerDistance": "パワーと距離の合計",
+        "hint": "フィルターに基づいて更新されます。"
+      },
+      "viewToggle": {
+        "title": "表示切り替え",
+        "desc": "2つの表示モードを切り替え：",
+        "table": "<strong>テーブル表示</strong> — すべての指標を含むコンパクトなリスト",
+        "card": "<strong>カード表示</strong> — ゾーンバー付きのビジュアルカード",
+        "hint": "あなたに合ったものを選んでください！"
+      },
+      "rideRow": {
+        "title": "任意のライドをクリック",
+        "desc": "各ライドには以下が表示されます：",
+        "date": "日付、時間、テクニックスコア",
+        "asymmetry": "パワー非対称性",
+        "lrMetrics": "TEとPSのL/R指標",
+        "zones": "ゾーン分布",
+        "hint": "<strong>任意のライドをクリック</strong>で分単位チャート付きの詳細ページを表示！"
+      },
+      "complete": {
+        "title": "ライドページ完了！",
+        "desc": "ここですべてのライドを閲覧できます。",
+        "next": "<strong>次へ</strong>をクリックして詳細分析付きの<strong>ライド詳細ページ</strong>を表示。"
+      }
+    },
+    "rideDetail": {
+      "welcome": {
+        "title": "ライド詳細分析",
+        "desc": "ここで<strong>詳細な分析</strong>が行われます。",
+        "hint": "すべてのライドで分単位のペダリングテクニックの完全な内訳が得られます。"
+      },
+      "heroStats": {
+        "title": "主要指標を一目で",
+        "desc": "上部の行に最も重要なライド指標が表示されます：",
+        "score": "<strong>スコア</strong> — 総合テクニック評価（0-100）",
+        "asymmetry": "<strong>非対称性</strong> — L/Rパワー不均衡",
+        "balance": "<strong>バランスバー</strong> — L/R分割の視覚表示",
+        "zones": "<strong>ゾーン滞在時間</strong> — 品質分布"
+      },
+      "perfStrip": {
+        "title": "ライドパフォーマンスデータ",
+        "desc": "詳細なライド指標：",
+        "power": "<strong>パワー</strong> — 平均、最大、標準化",
+        "hr": "<strong>心拍数</strong> — 平均と最大",
+        "cadence": "<strong>ケイデンス</strong> — RPMでのペダリング速度",
+        "elevation": "<strong>標高</strong> — 上昇と下降",
+        "hint": "任意の情報アイコンをタップで詳細説明！"
+      },
+      "techniqueCard": {
+        "title": "テクニック内訳",
+        "desc": "あなたのペダリング効率指標：",
+        "te": "<strong>TE（トルク効率）</strong> — 前進に使われるパワー。70-80%を目指す",
+        "ps": "<strong>PS（ペダルスムーズネス）</strong> — ストロークの均等さ。20%以上を目指す",
+        "lr": "<strong>L/R内訳</strong> — 各脚の貢献度を確認",
+        "hint": "L/Rの大きな差は筋肉のアンバランスやバイクフィットの問題を示す。"
+      },
+      "fatigueCard": {
+        "title": "疲労分析",
+        "desc": "開始から終了までのテクニックの変化：",
+        "startEnd": "各指標の<strong>開始 → 終了</strong>値",
+        "colors": "<strong>緑</strong> = 改善、<strong>赤</strong> = 低下",
+        "badge": "<strong>バッジ</strong> — STRONG（低下なし）、MODERATE、またはWEAK",
+        "hint": "疲労時の一貫したテクニックがロングライドパフォーマンスの鍵！"
+      },
+      "timeline": {
+        "title": "分単位タイムライン",
+        "desc": "ライド中の指標の変化を追跡：",
+        "tabs": "<strong>タブ</strong> — バランス、TE、PS、パワー、HRを切り替え",
+        "points": "<strong>ポイント</strong> — 各ドットは1分",
+        "hover": "<strong>ホバー</strong> — 任意のポイントで正確な値を表示",
+        "hint": "パターンを観察 — 30分後にテクニックが低下？それは疲労です！"
+      },
+      "complete": {
+        "title": "ライド詳細完了！",
+        "desc": "個別のライドを詳細に分析する方法がわかりました。",
+        "next": "<strong>次へ</strong>をクリックして<strong>ドリル</strong>ページを探索 — テクニックを改善するためのガイド付き演習。"
+      }
+    },
+    "drills": {
+      "welcome": {
+        "title": "トレーニングドリル",
+        "desc": "<strong>ドリル</strong>は特定のスキルを向上させるためにKarooで行うガイド付きトレーニング演習です。",
+        "hint": "結果はここに同期され、進捗を追跡できます！"
+      },
+      "stats": {
+        "title": "ドリル統計",
+        "desc": "全体的なドリルパフォーマンス：",
+        "avgTarget": "<strong>平均ターゲット</strong> — ターゲットゾーンをどれだけ達成したか",
+        "sessions": "<strong>セッション</strong> — 完了したドリルの総数",
+        "best": "<strong>最高</strong> — 最高のターゲット内時間スコア",
+        "completion": "<strong>完了率</strong> — 完了 vs 中断の割合"
+      },
+      "drillRow": {
+        "title": "ドリル結果",
+        "desc": "各ドリルセッションには以下が表示されます：",
+        "name": "<strong>ドリル名</strong> — どの種類の演習か",
+        "timeInTarget": "<strong>ターゲット内時間</strong> — 目標を達成した時間の割合",
+        "duration": "<strong>時間</strong> — 練習した時間",
+        "status": "<strong>状態</strong> — 完了または途中で停止",
+        "hint": "上達したら80%以上のターゲット内時間を目指しましょう！"
+      },
+      "complete": {
+        "title": "ドリルページ完了！",
+        "desc": "ドリルは特定のスキルを意図的に練習するのに役立ちます。",
+        "next": "<strong>次へ</strong>をクリックして<strong>実績</strong>を表示 — 解除できるマイルストーン！"
+      }
+    },
+    "achievements": {
+      "welcome": {
+        "title": "実績とマイルストーン",
+        "desc": "トレーニングと上達に伴って実績を解除！",
+        "hint": "ボリューム、テクニック、継続性全体の進捗を追跡します。"
+      },
+      "stats": {
+        "title": "進捗概要",
+        "desc": "あなたの実績進捗：",
+        "achieved": "<strong>達成済み</strong> — 解除したマイルストーン",
+        "remaining": "<strong>残り</strong> — まだ解除可能",
+        "progress": "<strong>進捗%</strong> — 全体の完了率",
+        "last": "<strong>最新</strong> — 最新の解除日"
+      },
+      "categories": {
+        "title": "実績カテゴリ",
+        "desc": "実績は複数のカテゴリにまたがります：",
+        "volume": "<strong>ボリューム</strong> — ライド数（10、50、100+）",
+        "balance": "<strong>バランス</strong> — L/R対称性目標",
+        "technique": "<strong>テクニック</strong> — スコアマイルストーン（80+、90+）",
+        "consistency": "<strong>継続性</strong> — トレーニングストリーク",
+        "training": "<strong>トレーニング</strong> — ドリル完了",
+        "hint": "達成したマイルストーンには緑のチェックマークが表示されます！"
+      },
+      "complete": {
+        "title": "実績完了！",
+        "desc": "ライドとトレーニングを続けてさらなるマイルストーンを解除！",
+        "next": "最後のステップ<strong>設定</strong>を見るには<strong>次へ</strong>をクリック。"
+      }
+    },
+    "settings": {
+      "welcome": {
+        "title": "設定と環境設定",
+        "desc": "KPedalをあなたの望み通りに設定します。",
+        "hint": "設定はWebとKarooデバイス間で同期されます！"
+      },
+      "devices": {
+        "title": "接続されたデバイス",
+        "desc": "接続されたすべてのKarooデバイスを確認：",
+        "name": "デバイス名と状態",
+        "lastSync": "最終同期時刻",
+        "requestSync": "<strong>同期をリクエスト</strong>でデバイスからデータを取得",
+        "remove": "<strong>削除</strong>でデバイスを解除",
+        "hint": "複数のKarooを1つのアカウントに接続できます。"
+      },
+      "thresholds": {
+        "title": "指標閾値",
+        "desc": "あなたにとっての「最適」をカスタマイズ：",
+        "balance": "<strong>バランス閾値</strong> — どれくらいのL/R不均衡で黄/赤を発動するか",
+        "teRange": "<strong>TE最適範囲</strong> — 目標トルク効率ゾーン",
+        "psMin": "<strong>PS最小値</strong> — ペダルスムーズネスの下限",
+        "hint": "デフォルトはサイクリング研究に基づいていますが、レベルに合わせて調整できます。"
+      },
+      "alerts": {
+        "title": "ライド中アラート",
+        "desc": "ライド中に指標が注意を必要とする時に通知を受け取る：",
+        "metrics": "監視する指標を選択",
+        "sensitivity": "感度を設定（クリティカルのみまたはセンシティブ）",
+        "type": "通知タイプを選択（バイブレーション、サウンド、バナー）",
+        "cooldown": "アラート間のクールダウンを設定",
+        "hint": "アラートはライド中にKarooに直接表示されます！"
+      },
+      "theme": {
+        "title": "外観",
+        "desc": "好みの配色を選択：",
+        "auto": "<strong>自動</strong> — 午前7時/午後7時に切り替え",
+        "light": "<strong>ライト</strong> — クリーンな白背景",
+        "dark": "<strong>ダーク</strong> — 目に優しい"
+      },
+      "complete": {
+        "title": "準備完了！",
+        "desc": "KPedalの完全なツアーを完了しました！",
+        "toSeeData": "<strong>自分のデータを見るには：</strong>",
+        "step1": "KarooにKPedalをダウンロード",
+        "step2": "ライド画面に追加",
+        "step3": "ライドへ出発！",
+        "step4": "データは自動的に同期",
+        "download": "KPedalをダウンロード →"
+      }
+    }
+  },
+  "privacy": {
+    "title": "プライバシーポリシー",
+    "lastUpdated": "最終更新日：{date}",
+    "backToKpedal": "KPedalに戻る",
+    "summary": {
+      "encrypted": "暗号化＆安全",
+      "encryptedDesc": "すべてのデータは転送時と保存時に暗号化",
+      "noLocation": "位置情報追跡なし",
+      "noLocationDesc": "GPSやルートデータを収集しません",
+      "neverSold": "売却なし",
+      "neverSoldDesc": "あなたのデータは誰にも売却されません",
+      "yourControl": "あなたの管理下",
+      "yourControlDesc": "いつでもデータを削除可能"
+    },
+    "toc": {
+      "title": "目次",
+      "whatWeCollect": "収集するデータ",
+      "whatWeDontCollect": "収集しないデータ",
+      "howDataFlows": "データの流れ",
+      "storageSecurity": "保存とセキュリティ",
+      "yourRights": "あなたの権利",
+      "thirdParties": "サードパーティサービス",
+      "contact": "お問い合わせ"
+    },
+    "sections": {
+      "whatWeCollect": "1. 収集するデータ",
+      "whatWeDontCollect": "2. 収集しないデータ",
+      "howDataFlows": "3. データの流れ",
+      "storageSecurity": "4. 保存とセキュリティ",
+      "yourRights": "5. あなたの権利",
+      "thirdParties": "6. サードパーティサービス",
+      "contact": "7. お問い合わせ",
+      "policyChanges": "ポリシーの変更"
+    },
+    "rights": {
+      "access": "アクセス",
+      "accessDesc": "Webダッシュボードでいつでもすべてのデータを表示。保存されているすべての指標が表示されます。",
+      "delete": "削除",
+      "deleteDesc": "ライドページから個別のライドを削除。完全なアカウント削除はメールでお問い合わせください。",
+      "export": "エクスポート",
+      "exportDesc": "データの完全なエクスポートをお問い合わせでリクエスト。",
+      "optOut": "オプトアウト",
+      "optOutDesc": "サインインせずにKPedalをオフラインで使用。データはデバイスから離れません。"
+    },
+    "contact": {
+      "text": "プライバシーに関する質問、データリクエスト、アカウント削除について：",
+      "email": "privacy@kpedal.com",
+      "github": "GitHub Issues"
+    },
+    "policyChanges": "このポリシーに重要な変更を加える際は、上記の「最終更新日」を更新します。このページを定期的に確認することをお勧めします。",
+    "footer": "Karoo向けペダリング効率分析",
+    "content": {
+      "accountData": {
+        "title": "アカウントデータ",
+        "intro": "Googleでサインインすると、以下を受け取り保存します：",
+        "fields": {
+          "email": "メール",
+          "emailPurpose": "アカウント識別、ログイン",
+          "name": "名前",
+          "namePurpose": "ダッシュボードに表示",
+          "profilePicture": "プロフィール画像URL",
+          "profilePicturePurpose": "アバターとして表示",
+          "googleId": "Google ID",
+          "googleIdPurpose": "GoogleアカウントをKPedalにリンク"
+        },
+        "note": "Googleパスワードへのアクセスはありません。認証はOAuth 2.0を使用。"
+      },
+      "pedalingMetrics": {
+        "title": "ペダリング指標",
+        "intro": "Karooデバイスから同期される各ライドについて：",
+        "fields": {
+          "timestamp": "タイムスタンプ",
+          "timestampPurpose": "ライドの記録日時",
+          "duration": "時間",
+          "durationPurpose": "ライドの長さ（ミリ秒）",
+          "balance": "バランス L/R",
+          "balancePurpose": "脚間のパワー配分（%）",
+          "te": "トルク効率 L/R",
+          "tePurpose": "パワー効率の程度（%）",
+          "ps": "ペダルスムーズネス L/R",
+          "psPurpose": "ペダルストロークのスムーズさ（%）",
+          "zones": "ゾーン分布",
+          "zonesPurpose": "最適/注意/問題ゾーンでの時間（%）",
+          "score": "効率スコア",
+          "scorePurpose": "計算された総合スコア（0-100）"
+        }
+      },
+      "performanceMetrics": {
+        "title": "パフォーマンス指標",
+        "intro": "包括的なライド分析のために同期される追加のサイクリングデータ：",
+        "fields": {
+          "power": "パワー（平均/最大）",
+          "powerPurpose": "平均および最大パワー出力（ワット）",
+          "cadence": "ケイデンス（平均）",
+          "cadencePurpose": "平均ペダリングケイデンス（RPM）",
+          "hr": "心拍数（平均/最大）",
+          "hrPurpose": "平均および最大心拍数（BPM）",
+          "speed": "速度（平均）",
+          "speedPurpose": "平均速度（km/h）",
+          "distance": "距離",
+          "distancePurpose": "走行総距離（km）",
+          "elevation": "標高（上昇/下降）",
+          "elevationPurpose": "上昇・下降の総メートル数",
+          "grade": "勾配（平均/最大）",
+          "gradePurpose": "平均および最大勾配（%）",
+          "np": "標準化パワー",
+          "npPurpose": "強度加重パワー（ワット）",
+          "energy": "エネルギー",
+          "energyPurpose": "総エネルギー出力（キロジュール）"
+        },
+        "note": "これらの指標はペダリング効率分析のコンテキストを提供します。Karooに接続されたセンサー（パワーメーター、心拍計、GPS）から読み取られます。"
+      },
+      "snapshots": {
+        "title": "分単位スナップショット",
+        "intro": "詳細なタイムラインチャート用に、各ライド中の分単位平均を保存します：",
+        "fields": {
+          "minuteIndex": "分インデックス",
+          "minuteIndexPurpose": "ライドの何分目か（0、1、2...）",
+          "metricsAvg": "バランス L/R、TE L/R、PS L/R",
+          "metricsAvgPurpose": "その分のペダリング指標平均",
+          "perfAvg": "パワー、ケイデンス、心拍数",
+          "perfAvgPurpose": "その分のパフォーマンス指標平均",
+          "zoneStatus": "ゾーン状態",
+          "zoneStatusPurpose": "その分の支配的ゾーン（最適/注意/問題）"
+        },
+        "note": "スナップショットによりライド詳細のタイムラインチャートが可能になり、ライド中のテクニックの変化を表示します。"
+      },
+      "deviceData": {
+        "title": "デバイスデータ",
+        "fields": {
+          "deviceId": "デバイスID",
+          "deviceIdPurpose": "Karooの一意識別子",
+          "deviceName": "デバイス名",
+          "deviceNamePurpose": "例：「Karoo 3」",
+          "deviceType": "デバイスタイプ",
+          "deviceTypePurpose": "例：「karoo」",
+          "lastSync": "最終同期時刻",
+          "lastSyncPurpose": "データが最後に同期された日時"
+        }
+      },
+      "userSettings": {
+        "title": "ユーザー設定（サインイン時に同期）",
+        "intro": "サインインすると、アプリ設定がKarooデバイスとWebダッシュボード間で同期されます：",
+        "fields": {
+          "thresholds": "閾値設定",
+          "thresholdsPurpose": "バランス閾値、TE最適範囲、PS最小値",
+          "alertPrefs": "アラート設定",
+          "alertPrefsPurpose": "アラートを発動する指標、バイブレーション/サウンド/視覚オプション",
+          "cooldowns": "アラートクールダウン",
+          "cooldownsPurpose": "アラート間の時間（秒）",
+          "screenWake": "画面起動",
+          "screenWakePurpose": "アラートでKaroo画面を起動するかどうか",
+          "bgMode": "バックグラウンドモード",
+          "bgModePurpose": "データフィールドが非表示でもデータを収集",
+          "autoSync": "自動同期",
+          "autoSyncPurpose": "完了後に自動でライドを同期"
+        },
+        "note": "設定同期により、Webで閾値を設定するとKarooに自動的に適用されます。サインインしていない場合、設定はローカルのみに保存されます。"
+      },
+      "drillResults": {
+        "title": "ドリル結果（サインイン時に同期）",
+        "intro": "サインインすると、ドリルトレーニングデータが同期されます：",
+        "fields": {
+          "drillId": "ドリルID＆名前",
+          "drillIdPurpose": "完了したドリル",
+          "drillTimestamp": "タイムスタンプ＆時間",
+          "drillTimestampPurpose": "ドリルの実施日時と所要時間",
+          "drillScore": "スコア",
+          "drillScorePurpose": "全体的なパフォーマンススコア（0-100）",
+          "timeInTarget": "ターゲット内時間",
+          "timeInTargetPurpose": "ターゲット指標を維持した時間",
+          "phaseScores": "フェーズスコア",
+          "phaseScoresPurpose": "各ドリルフェーズのパフォーマンス"
+        }
+      },
+      "achievements": {
+        "title": "実績（サインイン時に同期）",
+        "intro": "サインインすると、解除した実績が同期されます：",
+        "fields": {
+          "achievementId": "実績ID",
+          "achievementIdPurpose": "解除した実績",
+          "unlockedAt": "解除日時",
+          "unlockedAtPurpose": "実績を獲得した日時"
+        }
+      },
+      "localOnly": {
+        "title": "Karooにのみ保存されるデータ（同期されない）",
+        "intro": "以下のデータはKarooデバイスにローカルに保存され、サーバーには送信されません：",
+        "fields": {
+          "ratings": "ライド評価",
+          "ratingsPurpose": "ライドに付けた1-5星評価",
+          "notes": "ライドメモ",
+          "notesPurpose": "ライドに追加した個人的なメモ",
+          "customDrills": "カスタムドリル",
+          "customDrillsPurpose": "自分で作成したトレーニングドリル",
+          "onboarding": "オンボーディング状態",
+          "onboardingPurpose": "アプリチュートリアルを完了したかどうか"
+        },
+        "note": "このデータはデバイスに残ります。アプリをアンインストールすると、このデータは削除されます。"
+      },
+      "dontCollect": {
+        "intro": "分析用のパフォーマンス指標を収集しますが、位置情報と追跡データは特に避けています：",
+        "items": {
+          "gps": "GPS / 位置情報",
+          "route": "ルート / マップデータ",
+          "temperature": "温度",
+          "strava": "Strava / 他のプラットフォーム",
+          "rideTitles": "ライドタイトル / 名前",
+          "photos": "写真 / メディア"
+        },
+        "note": "あなたのライドは特定の場所に追跡できません。集約されたパフォーマンス指標のみを保存し、どこを走ったかは保存しません。"
+      },
+      "usedNotStored": {
+        "title": "使用されるが保存されないデータ",
+        "intro": "以下のデータは表示目的でリアルタイムに読み取られますが、デバイスやクラウドには保存されません：",
+        "fields": {
+          "smoothed": "3秒/10秒平滑化バランス",
+          "smoothedPurpose": "ライブ表示用のリアルタイムトレンドインジケーター",
+          "rawStream": "生センサーストリーム（〜20Hz）",
+          "rawStreamPurpose": "個別のデータポイントは処理後に破棄され、分単位平均のみ保存"
+        }
+      },
+      "permissions": {
+        "title": "Androidパーミッション",
+        "intro": "KPedalアプリはKarooで以下のパーミッションを要求します：",
+        "fields": {
+          "foreground": "フォアグラウンドサービス",
+          "foregroundPurpose": "ライド中にデータを収集するためバックグラウンドで実行",
+          "notifications": "通知",
+          "notificationsPurpose": "ペダリングテクニックが注意を必要とする時にアラートを表示",
+          "boot": "起動完了",
+          "bootPurpose": "Karoo電源オン時に自動起動"
+        },
+        "note": "インターネット、位置情報、カメラ、マイク、ストレージのパーミッションは要求しません。"
+      },
+      "dataFlow": {
+        "step1": {
+          "title": "パワーメーターペダル",
+          "desc": "ペダルがANT+ Cycling Dynamicsプロトコル経由でバランス、TE、PSをKarooに送信します。"
+        },
+        "step2": {
+          "title": "Karoo上のKPedalアプリ",
+          "desc": "アプリはリアルタイムデータを〜20Hzでローカル処理し、平均を計算し、ライドサマリーをローカルデータベースに保存します。最大100回のライドがデバイスに保持され、古いライドは自動削除されます。"
+        },
+        "step3": {
+          "title": "クラウド同期（オプション）",
+          "desc": "サインインすると、ライドサマリーと設定がHTTPS経由でKPedalクラウドに同期されます。集約データのみが送信され、生のセンサーストリームは送信されません。Webでの設定変更はKarooに自動適用されます。"
+        },
+        "step4": {
+          "title": "Webダッシュボード",
+          "desc": "app.kpedal.comでライド履歴、トレンド、分析を表示。データは認証されたアカウントに対してのみ取得されます。"
+        },
+        "offlineTitle": "オフラインモード",
+        "offlineDesc": "KPedalアプリは完全にオフラインで動作します。サインインや同期なしですべての機能を使用できます。データはデバイスに残ります。"
+      },
+      "infrastructure": {
+        "title": "インフラストラクチャ",
+        "workers": "Cloudflare Workers",
+        "workersUse": "API処理（サーバーレス）。リクエストログは〜7日間保存。",
+        "d1": "Cloudflare D1",
+        "d1Use": "ユーザーとライド用のSQLiteデータベース",
+        "kv": "Cloudflare KV",
+        "kvUse": "セッショントークン（7日後に自動期限切れ）",
+        "pages": "Cloudflare Pages",
+        "pagesUse": "静的Webダッシュボードホスティング"
+      },
+      "security": {
+        "title": "セキュリティ対策",
+        "https": "HTTPSエブリウェア",
+        "httpsDesc": "すべての接続でTLS 1.3暗号化を使用",
+        "jwt": "JWT認証",
+        "jwtDesc": "15分期限のアクセストークン、7日期限のリフレッシュトークンで署名",
+        "rateLimit": "レート制限",
+        "rateLimitDesc": "認証：10リクエスト/分、API：100リクエスト/分、同期：30リクエスト/分。カウントにIPアドレスを使用、60秒後に自動削除。",
+        "validation": "入力検証",
+        "validationDesc": "すべてのデータは保存前に検証・サニタイズ",
+        "csrf": "CSRF保護",
+        "csrfDesc": "OAuthステート検証によりクロスサイト攻撃を防止"
+      },
+      "retention": {
+        "title": "データ保持",
+        "cloudTitle": "クラウドストレージ（app.kpedal.com）",
+        "localTitle": "ローカルストレージ（Karooデバイス）",
+        "cloud": {
+          "rideData": "ライドデータ",
+          "rideDataPeriod": "削除するまで",
+          "drillResults": "ドリル結果",
+          "drillResultsPeriod": "削除するまで",
+          "achievements": "実績",
+          "achievementsPeriod": "アカウント削除まで",
+          "userSettings": "ユーザー設定",
+          "userSettingsPeriod": "アカウント削除まで",
+          "accountData": "アカウントデータ",
+          "accountDataPeriod": "アカウント削除まで",
+          "accessTokens": "アクセストークン",
+          "accessTokensPeriod": "15分",
+          "refreshTokens": "リフレッシュトークン",
+          "refreshTokensPeriod": "7日間",
+          "oauthState": "OAuthステート",
+          "oauthStatePeriod": "10分"
+        },
+        "local": {
+          "rideHistory": "ライド履歴",
+          "rideHistoryPeriod": "最大100回（古いものは自動削除）",
+          "drillResults": "ドリル結果",
+          "drillResultsPeriod": "アプリアンインストールまで（サインイン時はクラウドにも同期）",
+          "achievements": "実績",
+          "achievementsPeriod": "アプリアンインストールまで（サインイン時はクラウドにも同期）",
+          "customDrills": "カスタムドリル",
+          "customDrillsPeriod": "削除するまで（ローカルのみ）",
+          "settings": "設定",
+          "settingsPeriod": "アプリアンインストールまで（サインイン時はクラウドに同期）"
+        }
+      },
+      "thirdParties": {
+        "google": {
+          "title": "Google OAuth",
+          "desc": "サインインのみに使用。最小限のスコープを要求：openid、email、profile。",
+          "link": "Googleプライバシーポリシー →"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "desc": "インフラストラクチャプロバイダー。API、データベース、Webホスティングを担当。",
+          "link": "Cloudflareプライバシーポリシー →"
+        },
+        "notUsedTitle": "使用していないもの",
+        "notUsedIntro": "KPedalは以下を使用しません：",
+        "notUsed": [
+          "Google Analyticsやその他の分析サービス",
+          "Facebook Pixelやその他の広告トラッカー",
+          "Cookie（代わりにlocalStorageを使用）",
+          "クラッシュレポートサービス（Firebase Crashlytics、Sentryなど）",
+          "サードパーティのデータブローカー"
+        ],
+        "browserStorageTitle": "ブラウザストレージ",
+        "browserStorageIntro": "KPedal Webダッシュボードはブラウザのローカル/セッションストレージに以下を保存します：",
+        "browserStorage": {
+          "access": "kpedal_auth_access",
+          "accessPurpose": "sessionStorage — JWTアクセストークン（タブを閉じるとクリア）",
+          "refresh": "kpedal_auth_refresh",
+          "refreshPurpose": "localStorage — JWTリフレッシュトークン（最大7日間保持）",
+          "theme": "kpedal_theme",
+          "themePurpose": "localStorage — テーマ設定（auto/light/dark）"
+        },
+        "browserStorageNote": "サインアウトまたはブラウザストレージのクリアでいつでもこのデータを削除できます。Cookieは使用しません。"
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "Karoo拡張機能",
+      "version": "v1.3.0",
+      "titleLine1": "ペダリング効率を",
+      "titleLine2": "リアルタイムで確認",
+      "subtitle": "バランス、トルク効率、ペダルスムーズネス — リアルタイムアラートとガイド付きドリルでKarooに表示。",
+      "downloadFree": "無料ダウンロード",
+      "tryDemo": "デモを試す",
+      "free": "無料",
+      "openSource": "オープンソース",
+      "noAccountRequired": "アカウント不要"
+    },
+    "dataFields": {
+      "title": "Karooで確認",
+      "subtitle": "5種類のデータフィールドレイアウト。トレーニングに合った表示を選択。",
+      "tabs": {
+        "quickGlance": "クイックグランス",
+        "balance": "バランス",
+        "efficiency": "効率",
+        "fullView": "フルビュー",
+        "trend": "トレンド"
+      },
+      "quickGlance": {
+        "name": "クイックグランス",
+        "desc": "バランスバー付きのステータスインジケーター。最適時はチェックマーク、注意が必要な指標をリスト表示。"
+      },
+      "powerBalance": {
+        "name": "パワーバランス",
+        "desc": "視覚的なプログレスバー付きの大きなL/Rバランス数値。バランス重視のトレーニングに最適。"
+      },
+      "efficiency": {
+        "name": "効率",
+        "desc": "L/R分割と平均値を含むトルク効率とペダルスムーズネス。"
+      },
+      "fullOverview": {
+        "name": "フルオーバービュー",
+        "desc": "3つの指標をコンパクトな1画面に。一目でペダリングの全体像を把握。"
+      },
+      "balanceTrend": {
+        "name": "バランストレンド",
+        "desc": "現在 + 3秒平滑化 + 10秒平滑化バランス。トレンドの発生をリアルタイムで確認。"
+      },
+      "karoo": {
+        "optimal": "最適",
+        "balance": "バランス",
+        "left": "左",
+        "right": "右",
+        "torqueEff": "トルク効率",
+        "smoothness": "スムーズネス",
+        "te": "TE",
+        "ps": "PS",
+        "ok": "OK",
+        "now": "現在",
+        "avg3s": "3秒平均",
+        "avg10s": "10秒平均"
+      }
+    },
+    "comparison": {
+      "title": "違い",
+      "subtitle": "推測をやめて改善を始めよう。",
+      "without": "KPedalなし",
+      "with": "KPedalあり",
+      "items": {
+        "before1": "パワー数値のみ、テクニック洞察なし",
+        "after1": "バランス、TE、PSをライブ表示",
+        "before2": "怪我から不均衡を発見",
+        "after2": "問題になる前にアラート",
+        "before3": "改善のための構造的な方法なし",
+        "after3": "スコア付きの10種類のガイド付きドリル",
+        "before4": "データが1つのデバイスに固定",
+        "after4": "Webダッシュボードへのクラウド同期"
+      }
+    },
+    "metrics": {
+      "title": "測定内容",
+      "subtitle": "3つの指標。研究に基づいた閾値。",
+      "balance": {
+        "title": "パワーバランス",
+        "range": "48-52%が最適",
+        "desc": "左右のパワー配分。プロサイクリストは2%以内を維持。5%以上の不均衡は過労傷害のリスクを高め、補償パターンによりエネルギーを浪費。"
+      },
+      "te": {
+        "title": "トルク効率",
+        "range": "70-80%がスイートスポット",
+        "desc": "ストロークの効果的な部分で適用されるパワーの割合。Wattbikeの研究に基づく — <strong>高ければ良いわけではない</strong>。80%以上は実際に総パワー出力を低下させる可能性がある。"
+      },
+      "ps": {
+        "title": "ペダルスムーズネス",
+        "range": "20%以上が目標",
+        "desc": "ペダルストローク全体でパワーがどれだけ均等に分配されるか。「デッドスポット」を排除。エリートサイクリストは25-35%を達成 — これは最も改善が難しい指標。"
+      },
+      "zones": {
+        "optimal": "最適",
+        "attention": "注意",
+        "problem": "問題"
+      }
+    },
+    "drills": {
+      "title": "10種類のガイド付きドリル",
+      "subtitle": "30秒のエクササイズから15分のワークアウトまで。各ドリル0-100%でスコア化。",
+      "tabs": {
+        "focus": "フォーカス",
+        "challenge": "チャレンジ",
+        "workout": "ワークアウト"
+      },
+      "target": "ターゲット",
+      "levels": {
+        "beginner": "初級",
+        "intermediate": "中級",
+        "advanced": "上級"
+      },
+      "featured": "おすすめ",
+      "featuredTitle": "ペダリングマスタリー",
+      "featuredDesc": "15分、10フェーズ。完全なテクニックカバー。週1-2回推奨。",
+      "items": {
+        "leftFocus": {
+          "name": "左脚フォーカス",
+          "duration": "30秒",
+          "target": "バランス <48%",
+          "desc": "左脚を強調して片脚の強さの意識を構築。"
+        },
+        "rightFocus": {
+          "name": "右脚フォーカス",
+          "duration": "30秒",
+          "target": "バランス >52%",
+          "desc": "集中練習で弱い脚を特定・強化。"
+        },
+        "smoothCircles": {
+          "name": "スムーズサークル",
+          "duration": "45秒",
+          "target": "PS ≥22%",
+          "desc": "スムーズなテクニックでペダルストロークのデッドスポットを排除。"
+        },
+        "powerTransfer": {
+          "name": "パワートランスファー",
+          "duration": "60秒",
+          "target": "TE 70-80%",
+          "desc": "効率を犠牲にせずにパワー出力を最大化。"
+        },
+        "balanceChallenge": {
+          "name": "バランスチャレンジ",
+          "duration": "15秒ホールド",
+          "target": "48-52%",
+          "desc": "15秒間完璧な50/50バランスを維持。対称性とコントロールをテスト。"
+        },
+        "smoothnessTarget": {
+          "name": "スムーズネスターゲット",
+          "duration": "20秒ホールド",
+          "target": "PS ≥25%",
+          "desc": "エリートレベルのペダルスムーズネス。最も要求の厳しいテクニックチャレンジ。"
+        },
+        "highCadenceSmooth": {
+          "name": "高ケイデンススムーズ",
+          "duration": "30秒",
+          "target": "PS ≥20% @ 100+ rpm",
+          "desc": "高ケイデンスでスムーズなフォームを維持。究極のコーディネーションテスト。"
+        },
+        "balanceRecovery": {
+          "name": "バランスリカバリー",
+          "duration": "5分",
+          "target": "3フェーズ",
+          "desc": "左フォーカス → センター → 右フォーカスを交互に。時間をかけて不均衡を修正するのに役立つ。"
+        },
+        "efficiencyBuilder": {
+          "name": "エフィシェンシービルダー",
+          "duration": "10分",
+          "target": "6フェーズ",
+          "desc": "連続ブロック：バランス → スムーズネス → TE。完全なテクニックを構築。"
+        },
+        "pedalingMastery": {
+          "name": "ペダリングマスタリー",
+          "duration": "15分",
+          "target": "10フェーズ",
+          "desc": "ペダリングテクニックのすべての側面をカバーする包括的な10フェーズワークアウト。"
+        }
+      }
+    },
+    "alerts": {
+      "title": "リアルタイムアラート",
+      "subtitle": "テクニックがずれたらライド中に修正",
+      "demo": {
+        "title": "バランスアラート",
+        "detail": "右脚優位：56%"
+      },
+      "features": {
+        "vibration": {
+          "title": "バイブレーション＆サウンド",
+          "desc": "触覚フィードバックとオーディオビープ。各々オン/オフ切り替え可能。"
+        },
+        "screenWake": {
+          "title": "画面起動",
+          "desc": "アラート発動時にKarooディスプレイを自動起動。"
+        },
+        "cooldown": {
+          "title": "スマートクールダウン",
+          "desc": "アラート間15秒〜2分。うるさくなく有用。"
+        },
+        "thresholds": {
+          "title": "指標別閾値",
+          "desc": "バランス、TE、PS別の個別設定。"
+        }
+      }
+    },
+    "analytics": {
+      "title": "分析＆Webダッシュボード",
+      "subtitle": "時間経過での改善を追跡。数字だけでなくトレンドを確認。",
+      "preview": {
+        "greeting": "こんにちは、Yuriさん！",
+        "recentRides": "最近のライド",
+        "technique": "テクニック",
+        "avgSuffix": "平均",
+        "morningRide": "朝ライド",
+        "eveningSpin": "夕方ライド",
+        "longRide": "ロングライド",
+        "daysAgo": "日前"
+      },
+      "features": {
+        "periods": "7日、14日、30日、60日分析",
+        "history": "フィルター付きの完全なライド履歴",
+        "multiDevice": "マルチデバイス同期",
+        "openSource": "GitHubでオープンソース"
+      }
+    },
+    "motivation": {
+      "title": "モチベーション維持",
+      "subtitle": "実績と週間チャレンジで進捗を追跡",
+      "achievements": "解除できる実績",
+      "challenges": "週間チャレンジ",
+      "achievementsLabel": "実績",
+      "challengesLabel": "チャレンジ",
+      "examples": {
+        "firstRide": "初ライド",
+        "hundredRides": "100ライド",
+        "perfectBalance": "パーフェクトバランス10分",
+        "thirtyDayStreak": "30日ストリーク",
+        "balancedRider": "バランスドライダー：3ライドで48-52%",
+        "zoneMaster": "ゾーンマスター：60%以上が最適ゾーン"
+      }
+    },
+    "works": {
+      "title": "どこでも動作",
+      "subtitle": "バックグラウンド収集。自動同期。すべてのデバイスでデータにアクセス。",
+      "background": {
+        "title": "バックグラウンドモード",
+        "desc": "データフィールドが表示されていなくてもすべてのライドでデータを収集。起動時に自動開始。停止時に保存。"
+      },
+      "sync": {
+        "title": "クラウド同期",
+        "desc": "完了後にライドを同期。link.kpedal.comで簡単なコードでデバイスを接続 — Karooでパスワード不要。"
+      },
+      "multiDevice": {
+        "title": "マルチデバイス",
+        "desc": "複数のKarooを接続。すべてのライドが1つのアカウントに集約。設定はアプリとWeb間で双方向同期。"
+      }
+    },
+    "requirements": {
+      "title": "必要なもの",
+      "subtitle": "Karoo 2または3 + デュアルサイドパワーペダル",
+      "karoo": {
+        "title": "Hammerhead Karoo",
+        "desc": "Karoo 2またはKaroo 3。KPedalはネイティブKaroo SDKを使用 — 他のコンピューターでは利用不可。"
+      },
+      "pedals": {
+        "title": "デュアルパワーペダル",
+        "desc": "バランス、TE、PS用のANT+ Cycling Dynamics対応の左右パワー計測。"
+      },
+      "fullSupport": {
+        "title": "フルサポート",
+        "desc": "バランス + TE + PS"
+      },
+      "balanceOnly": {
+        "title": "バランスのみ",
+        "desc": "L/Rパワーあり、TE/PSなし"
+      },
+      "notCompatible": {
+        "title": "非対応",
+        "desc": "デュアルサイドデータなし"
+      },
+      "pedalsList": {
+        "singleSided": "片側PM",
+        "trainerPower": "トレーナーパワー"
+      }
+    },
+    "faq": {
+      "title": "よくある質問",
+      "q1": {
+        "q": "どのパワーメーターペダルが互換性がありますか？",
+        "a": "<strong>フルサポート（バランス + TE + PS）：</strong>Garmin Rally、Favero Assioma、SRM X-Power、PowerTap P2。<br><strong>バランスのみ：</strong>Wahoo POWRLINK、Stages LR、4iiii Precision、Rotor INpower。<br>ANT+ Cycling Dynamicsを送信する任意のペダルが動作します。"
+      },
+      "q2": {
+        "q": "KPedalをKarooにインストールする方法は？",
+        "a": "<strong>オプション1：</strong>GitHub ReleasesからAPKをダウンロード → USBで転送 → Karooでファイルマネージャーを開く → タップしてインストール。<br><strong>オプション2：</strong>KarooのブラウザでGitHubリリースリンクを直接開いてダウンロード。<br><strong>オプション3：</strong>ADBを使用：<code>adb install kpedal.apk</code>"
+      },
+      "q3": {
+        "q": "ライド画面にKPedalデータフィールドを追加する必要がありますか？",
+        "a": "<strong>いいえ。</strong>バックグラウンドモードが有効なら、KPedalは自動的にすべてのライドの指標を収集します — データフィールドを1つも追加しなくても。データフィールドはオプションで、ライド中にリアルタイムで指標を表示するためだけのものです。完全なライド履歴は関係なく保存されます。"
+      },
+      "q4": {
+        "q": "「良い」パワーバランスとは？",
+        "a": "<strong>48-52%</strong>（50/50から±2%）が最適。ほとんどのプロサイクリストは1-3%の自然な非対称性でライドします。完璧な50/50を追い求めすぎないで — ほぼ不可能で必要もありません。完璧を追うより<strong>自分の範囲内での一貫性</strong>に集中しましょう。"
+      },
+      "q5": {
+        "q": "なぜトルク効率は70-80%が最適で、それ以上ではないのですか？",
+        "a": "<strong>Wattbikeの研究</strong>に基づく：80%を超えるTEでは、アップストロークで引きすぎている可能性があります。これはエネルギーを浪費し、実際に総パワー出力を低下させる可能性があります。70-80%の範囲は、リカバリーフェーズで自分と戦わずにペダルストロークを通じて効率的に力を適用していることを示します。"
+      },
+      "q6": {
+        "q": "ペダルスムーズネスは正確に何を測定しますか？",
+        "a": "<strong>計算式：</strong>PS =（平均パワー ÷ ピークパワー）× 100。<br>高いPSはペダルストロークを通じてより一貫したパワー適用を意味します。<strong>20%以上</strong>はほとんどのサイクリストにとって良好。スプリンターは通常低いPS（爆発的でパンチのあるパワー）を持ち、エンデュランスライダーは高い値になる傾向があります。"
+      },
+      "q7": {
+        "q": "ライドスコアはどのように計算されますか？",
+        "a": "<strong>加重計算式：</strong>バランス（40%）+ TE（35%）+ PS（25%）。<br>各指標は最適ゾーンでの滞在時間に基づいて0-100でスコア化されます。<br><strong>85+</strong> = 優れたテクニック<br><strong>70-84</strong> = 良好、改善点あり<br><strong>70未満</strong> = 改善の余地が大きい"
+      },
+      "q8": {
+        "q": "ガイド付きドリルはどのように機能しますか？",
+        "a": "ドリルは画面にリアルタイムターゲットが表示される構造化された演習です。例：「シングルレッグフォーカス」は30秒間片脚で55-60%のバランスを維持するよう求めます。KPedalは<strong>ターゲット内時間</strong>を追跡し、終了時にスコアを提供します。ウォームアップ、リカバリーライド、または専用のテクニックセッションに最適。"
+      },
+      "q9": {
+        "q": "自分のカスタムドリルを作成できますか？",
+        "a": "<strong>はい。</strong>カスタムドリルでは独自のフェーズ、ターゲット、時間を定義できます。特定の弱点に合わせたドリルを作成 — 例えば45秒の高TEフォーカスの後に30秒のバランスワーク。カスタムドリルはローカルに保存され、クラウドに同期されます。"
+      },
+      "q10": {
+        "q": "ライド中アラートをトリガーするものは何ですか？",
+        "a": "<strong>設定可能な閾値：</strong><br>• バランス：非対称性が設定した限界を超える（デフォルト5%）<br>• TE：最小値を下回る（デフォルト60%）<br>• PS：最小値を下回る（デフォルト15%）<br>アラートは<strong>バイブレーション + ビープ</strong>を使用。クールダウン（15秒〜2分）でスパムを防止。各指標を個別に有効/無効にできます。"
+      },
+      "q11": {
+        "q": "KPedalはインターネット接続なしで動作しますか？",
+        "a": "<strong>100%はい。</strong>すべてのコア機能 — データ収集、ドリル、アラート、ライド履歴 — は完全にオフラインで動作します。クラウド同期はオプションで、有効にした時のみ作動します。データは常に最初にKarooにローカル保存されます。オンラインに戻ると自動的に同期されます。"
+      },
+      "q12": {
+        "q": "KPedalはKarooのバッテリーを消耗しますか？",
+        "a": "<strong>影響は最小限：アクティブライド中1時間あたり約1-2%増</strong>。KPedalはライド中のみデータ収集を実行します。ライド間は、ライド開始を待つ小さなリスナーのみ — 電力消費はごくわずか。効率のために最適化されています。"
+      },
+      "q13": {
+        "q": "複数のKarooデバイス間でデータを同期できますか？",
+        "a": "<strong>はい。</strong>複数のKarooをアカウントに接続できます。設定は自動的に同期されます。すべてのデバイスのすべてのライドが1つの統合ダッシュボードに表示されます。バックアップKaroo、レースとトレーニングデバイス、または新しいユニットへのアップグレードに最適。"
+      },
+      "q14": {
+        "q": "実績システムはどのように機能しますか？",
+        "a": "マイルストーンに達すると実績が解除されます：ライド数、総時間、継続ストリーク、テクニック改善。例：「アイアンバランス」（2%未満の非対称性で10ライド）、「センチュリークラブ」（100ライド追跡）。実績はクラウドに同期され、Webダッシュボードに表示されます。"
+      },
+      "q15": {
+        "q": "KPedalをGarmin、Wahoo、その他のバイクコンピューターで使用できますか？",
+        "a": "<strong>いいえ。</strong>KPedalは公式karoo-ext SDKを使用してHammerhead Karoo専用に構築されています。ANT+ Cycling Dynamicsデータ、ネイティブアラートシステム、ライド状態監視にアクセスします — 他のプラットフォームでは利用できない深い統合です。"
+      },
+      "q16": {
+        "q": "私のデータはプライベートで安全ですか？",
+        "a": "<strong>はい。</strong>クラウド同期を有効にしない限りデータはKarooに残ります。クラウドは<strong>Googleサインイン</strong>を使用 — パスワードは見たり保存したりしません。トラッキングピクセルなし、広告なし、データ販売なし。プロジェクト全体が<strong>オープンソース</strong> — GitHubで自分でコードを監査できます。"
+      },
+      "q17": {
+        "q": "なぜパワー出力が異なるとバランスが変わるのですか？",
+        "a": "これは正常です。低パワーでは、わずかなテクニックのばらつきが増幅されます。高パワーでは、より均等に筋肉を動員する傾向があります。多くのサイクリストは閾値ペースより持久ペースで2-3%多くの非対称性を見ます。KPedalはこれを追跡するので、パターンを特定して弱点に取り組むことができます。"
+      },
+      "q18": {
+        "q": "テクニックドリルはどのくらいの頻度で行うべきですか？",
+        "a": "<strong>週2-3回</strong>が良い出発点です。ウォームアップ（5-10分）に含めるか、リカバリーライドをテクニック練習に充てましょう。一貫性がボリュームより重要 — 定期的な短いセッションは時々の長いセッションに勝ります。時間経過でドリルスコアを通じて進捗を追跡しましょう。"
+      }
+    },
+    "cta": {
+      "headline": "今日からペダリングを改善しよう",
+      "subtext": "無料。オープンソース。クラウドに同期。",
+      "downloadForKaroo": "Karoo用ダウンロード",
+      "tryDemo": "デモを試す"
+    },
+    "footer": {
+      "tagline": "Karoo向けペダリング効率",
+      "product": "製品",
+      "features": "機能",
+      "dataFields": "データフィールド",
+      "drills": "ドリル",
+      "resources": "リソース",
+      "github": "GitHub",
+      "releases": "リリース",
+      "reportIssue": "問題を報告",
+      "legal": "法的情報",
+      "privacyPolicy": "プライバシーポリシー",
+      "signIn": "サインイン",
+      "madeWith": "Karooコミュニティのために作成"
+    }
+  },
+  "aria": {
+    "home": "KPedal - ホーム",
+    "downloadOptions": "ダウンロードオプション",
+    "downloadKpedal": "GitHubからKPedalを無料ダウンロード",
+    "tryDemo": "デモアカウントを試す",
+    "getStartedOptions": "開始オプション",
+    "downloadForKaroo": "Karoo用KPedalをダウンロード",
+    "footerNav": "フッターナビゲーション",
+    "viewOnGithub": "GitHubでKPedalを見る",
+    "balanceTrendChart": "バランストレンドチャート",
+    "techniqueTrendChart": "テクニックトレンドチャート",
+    "languageSelector": "言語を選択"
+  }
+}

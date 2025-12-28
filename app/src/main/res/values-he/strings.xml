@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">מבט מהיר</string>
+    <string name="datatype_quick_glance_desc">מחוון סטטוס עם פס איזון</string>
+
+    <string name="datatype_power_balance">הספק + איזון</string>
+    <string name="datatype_power_balance_desc">הספק עם איזון ש/י</string>
+
+    <string name="datatype_efficiency">יעילות</string>
+    <string name="datatype_efficiency_desc">יעילות מומנט וחלקות דיווש</string>
+
+    <string name="datatype_full_overview">סקירה מלאה</string>
+    <string name="datatype_full_overview_desc">כל מדדי הדיווש בתצוגה אחת</string>
+
+    <string name="datatype_balance_trend">מגמת איזון</string>
+    <string name="datatype_balance_trend_desc">איזון נוכחי, 3 שניות ו-10 שניות</string>
+
+    <string name="datatype_single_balance">איזון</string>
+    <string name="datatype_single_balance_desc">איזון הספק ש/י במסך מלא</string>
+
+    <string name="datatype_live">חי</string>
+    <string name="datatype_live_desc">כל המדדים עם סטטיסטיקת זמן באזור</string>
+
+    <!-- Labels -->
+    <string name="balance">איזון</string>
+    <string name="balance_lower">איזון</string>
+    <string name="balance_3s">ממוצע 3 שנ׳</string>
+    <string name="balance_10s">ממוצע 10 שנ׳</string>
+    <string name="power">הספק</string>
+    <string name="power_lower">הספק</string>
+    <string name="te">יע״מ</string>
+    <string name="te_full">יעילות מומנט</string>
+    <string name="ps">ח״ד</string>
+    <string name="ps_full">חלקות דיווש</string>
+    <string name="left">ש</string>
+    <string name="right">י</string>
+    <string name="lr">ש/י</string>
+    <string name="lr_balance_format">ש%1$d/י%2$d</string>
+    <string name="all_good">הכל תקין</string>
+    <string name="watt_symbol">W</string>
+    <string name="issue_count">בעיה %1$d</string>
+    <string name="issues_count">%1$d בעיות</string>
+    <string name="no_data">אין נתונים</string>
+    <string name="no_data_lower">אין נתונים</string>
+    <string name="avg">ממוצע</string>
+
+    <!-- Settings -->
+    <string name="settings">הגדרות</string>
+    <string name="preferences">העדפות</string>
+    <string name="thresholds">סף</string>
+    <string name="balance_threshold">התראת איזון</string>
+    <string name="te_optimal">טווח יע״מ אופטימלי</string>
+    <string name="ps_minimum">ח״ד מינימלי</string>
+    <string name="alerts">התראות</string>
+    <string name="vibration">רטט</string>
+    <string name="sound">צליל</string>
+    <string name="alert_settings">הגדרות התראות</string>
+    <string name="background_mode">מצב רקע</string>
+    <string name="background_mode_desc">איסוף נתונים לכל הרכיבות</string>
+    <string name="cloud_sync">סנכרון ענן</string>
+    <string name="cloud_sync_desc">סנכרון ל-app.kpedal.com</string>
+    <string name="language">שפה</string>
+    <string name="settings_sync">סנכרון</string>
+    <string name="settings_auto_sync">סנכרון אוטומטי</string>
+    <string name="settings_auto_sync_desc">סנכרון לאחר כל רכיבה</string>
+    <string name="settings_data_collection">איסוף נתונים</string>
+    <string name="settings_balance_threshold">סף איזון</string>
+    <string name="settings_balance_threshold_desc">סטייה מ-50/50 להפעלת התראה</string>
+    <string name="settings_te">יעילות מומנט</string>
+    <string name="settings_te_desc">יע״מ מינימלי להיחשב אופטימלי</string>
+    <string name="settings_ps">חלקות דיווש</string>
+    <string name="settings_ps_desc">ח״ד מינימלי להיחשב אופטימלי</string>
+    <string name="settings_configure_alerts">הגדר התראות</string>
+    <string name="settings_configure_alerts_desc">מתי ואיך להתריע</string>
+    <string name="settings_about">אודות</string>
+    <string name="settings_version">גרסה</string>
+    <string name="settings_privacy">מדיניות פרטיות</string>
+    <string name="settings_contact">יצירת קשר</string>
+    <string name="settings_linked_account">חשבון מקושר</string>
+    <string name="settings_sync_desc">סנכרון רכיבות ל-app.kpedal.com</string>
+    <string name="settings_enter_code">הזן קוד זה ב-</string>
+    <string name="settings_code_expired">הקוד פג תוקף</string>
+    <string name="settings_code_expired_desc">בקש קוד חדש</string>
+    <string name="settings_get_new_code">קבל קוד חדש</string>
+    <string name="settings_access_denied">הגישה נדחתה</string>
+    <string name="settings_access_denied_desc">האימות בוטל</string>
+    <string name="settings_try_again">נסה שוב</string>
+    <string name="settings_connection_failed">החיבור נכשל</string>
+    <string name="settings_connection_failed_desc">נסה שוב</string>
+    <string name="settings_last_sync">סנכרון אחרון: %1$s</string>
+    <string name="settings_never_synced">לא סונכרן מעולם</string>
+    <string name="settings_pending">%1$d ממתינים</string>
+    <string name="settings_up_to_date">מעודכן</string>
+    <string name="settings_sync_now">סנכרן עכשיו</string>
+    <string name="settings_device_revoked_desc">מכשיר זה נותק מהחשבון שלך. תצטרך להתחבר מחדש כדי לסנכרן את הרכיבות.</string>
+    <string name="ok">אישור</string>
+
+    <!-- Account -->
+    <string name="account">חשבון</string>
+    <string name="link_account">קשר חשבון</string>
+    <string name="link_account_desc">סנכרון רכיבות בין מכשירים</string>
+    <string name="why_how_sync">למה ואיך לסנכרן לענן?</string>
+    <string name="account_linked">החשבון קושר!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">סנכרון ענן</string>
+    <string name="cloud_sync_why_title">למה לסנכרן?</string>
+    <string name="cloud_sync_why_1">צפה בהיסטוריית רכיבות ואנליטיקה בכל מכשיר</string>
+    <string name="cloud_sync_why_2">גרפים מפורטים ותמונות מצב דקתיות</string>
+    <string name="cloud_sync_why_3">עקוב אחר התקדמות עם הישגים</string>
+    <string name="cloud_sync_why_4">לעולם לא תאבד נתונים אם המכשיר מתאפס</string>
+    <string name="cloud_sync_how_title">איך לקשר?</string>
+    <string name="cloud_sync_how_1">הקש על ״קשר חשבון״ למעלה</string>
+    <string name="cloud_sync_how_2">רשום את הקוד בן 8 התווים</string>
+    <string name="cloud_sync_how_3">בקר ב-link.kpedal.com בכל מכשיר</string>
+    <string name="cloud_sync_how_3_prefix">בקר ב-</string>
+    <string name="cloud_sync_how_4">הזן את הקוד והתחבר עם Google</string>
+    <string name="cloud_sync_how_5">סיימת! הרכיבות מסתנכרנות אוטומטית</string>
+    <string name="cloud_sync_what_syncs">מה מסתנכרן?</string>
+    <string name="cloud_sync_syncs_rides">סיכומי רכיבות עם תמונות מצב דקתיות</string>
+    <string name="cloud_sync_syncs_metrics">הספק, דופק, קדנס, מרחק, עלייה</string>
+    <string name="cloud_sync_syncs_drills">תוצאות תרגילים והישגים</string>
+    <string name="cloud_sync_syncs_settings">הגדרות התראות וסף</string>
+    <string name="cloud_sync_not_syncs">GPS/מסלולים לא נאספים</string>
+    <string name="cloud_sync_free">חינם וללא פרסומות. הנתונים שלך נשארים שלך.</string>
+    <string name="sign_out">התנתק</string>
+    <string name="sync">סנכרון</string>
+    <string name="syncing">מסנכרן…</string>
+    <string name="synced">מסונכרן</string>
+    <string name="sync_failed">הסנכרון נכשל</string>
+    <string name="offline">לא מקוון</string>
+    <string name="getting_code">מקבל קוד…</string>
+    <string name="waiting_auth">ממתין לאימות…</string>
+    <string name="device_disconnected">המכשיר נותק</string>
+    <string name="device_disconnected_desc">מכשיר זה נותק מהחשבון שלך. קשר מחדש כדי להמשיך לסנכרן.</string>
+    <string name="relink">קשר חשבון מחדש</string>
+
+    <!-- Live -->
+    <string name="live">חי</string>
+    <string name="current_ride">רכיבה נוכחית</string>
+    <string name="time_in_zone">זמן באזור</string>
+    <string name="waiting_pedal_data">ממתין לנתוני דוושות…</string>
+    <string name="start_riding">התחל לרכב או בדוק חיבור דוושות</string>
+    <string name="save">שמור</string>
+    <string name="saved">נשמר</string>
+    <string name="opt">אופט׳</string>
+    <string name="att">תשומת לב</string>
+    <string name="prob">בעיה</string>
+
+    <!-- Home Screen -->
+    <string name="drills">תרגילים</string>
+    <string name="practice">תרגול</string>
+    <string name="rides">רכיבות</string>
+    <string name="avg_bal">ממוצע איזון</string>
+    <string name="streak">רצף</string>
+    <string name="streak_days">%1$d ימים</string>
+    <string name="section_data">נתונים</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">עוד</string>
+    <string name="history">היסטוריה</string>
+    <string name="saved_rides">רכיבות שמורות</string>
+    <string name="analytics">אנליטיקה</string>
+    <string name="trends">מגמות</string>
+    <string name="achievements">הישגים</string>
+    <string name="challenges">אתגרים</string>
+    <string name="weekly_goal">יעד שבועי</string>
+    <string name="data_fields">שדות נתונים</string>
+    <string name="layouts_count">6 תצוגות</string>
+    <string name="pedal_status">מצב דוושות</string>
+    <string name="connection">חיבור</string>
+    <string name="quick_guide">מדריך מהיר</string>
+    <string name="last_ride">רכיבה אחרונה</string>
+    <string name="optimal">אופטימלי</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">מנטר מדדי דיווש</string>
+    <string name="notification_channel_name">KPedal רקע</string>
+    <string name="notification_channel_description">מנטר מדדי דיווש במהלך כל הרכיבות</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">הפעל התראות</string>
+    <string name="metrics_to_monitor">מדדים לניטור</string>
+    <string name="sensitivity">רגישות</string>
+    <string name="critical">קריטי</string>
+    <string name="critical_desc">רק בעיות חמורות</string>
+    <string name="sensitive">רגיש</string>
+    <string name="sensitive_desc">התראות תכופות יותר</string>
+    <string name="notify_via">התראה דרך</string>
+    <string name="vibrate">רטט</string>
+    <string name="banner">באנר</string>
+    <string name="options">אפשרויות</string>
+    <string name="wake_screen">הער מסך</string>
+    <string name="cooldown">זמן המתנה</string>
+    <string name="cooldown_15s">15 שנ׳</string>
+    <string name="cooldown_30s">30 שנ׳</string>
+    <string name="cooldown_1m">דקה</string>
+    <string name="cooldown_2m">2 דק׳</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">תצוגות שדות נתונים</string>
+    <string name="tap_to_preview">הקש לתצוגה מקדימה ב-Karoo</string>
+    <string name="layout_quick_glance_short">סטטוס + פס איזון</string>
+    <string name="layout_power_balance_short">מיקוד ש/י גדול</string>
+    <string name="layout_efficiency_short">מדדי יע״מ וח״ד</string>
+    <string name="layout_full_overview_short">כל המדדים קומפקטי</string>
+    <string name="layout_balance_trend_short">מוחלק 3 שנ׳/10 שנ׳</string>
+    <string name="layout_single_balance_short">איזון בלבד</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">מחובר</string>
+    <string name="disconnected">מנותק</string>
+    <string name="live_data">נתונים חיים</string>
+    <string name="data_flowing">הנתונים זורמים כראוי</string>
+    <string name="signal_details">פרטי אות</string>
+    <string name="troubleshooting">פתרון בעיות</string>
+    <string name="quality">איכות</string>
+    <string name="excellent">מעולה</string>
+    <string name="fair">סביר</string>
+    <string name="poor">חלש</string>
+    <string name="unknown">לא ידוע</string>
+    <string name="update_rate">קצב עדכון</string>
+    <string name="last_update">עדכון אחרון</string>
+    <string name="pedal_tip_start_riding">התחל לרכב לזיהוי דוושות</string>
+    <string name="pedal_tip_ensure_paired">ודא שהדוושות מותאמות ל-Karoo</string>
+    <string name="pedal_tip_check_battery">בדוק סוללת דוושות</string>
+    <string name="pedal_tip_low_rate">קצב נמוך עלול להצביע על הפרעות</string>
+    <string name="pedal_tip_move_away">התרחק ממכשירי ANT+ אחרים</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">היסטוריית רכיבות</string>
+    <string name="rides_count">%1$d רכיבות</string>
+    <string name="no_rides">אין רכיבות</string>
+    <string name="no_rides_saved">אין רכיבות שמורות</string>
+    <string name="no_matching_rides">אין רכיבות תואמות</string>
+    <string name="try_adjusting_filter">נסה לשנות את הסינון</string>
+    <string name="rides_saved_auto">רכיבות נשמרות אוטומטית</string>
+    <string name="manual">ידני</string>
+    <string name="percent_optimal">%1$d%% אופטימלי</string>
+    <string name="load_more">טען עוד</string>
+    <string name="delete_ride">למחוק רכיבה?</string>
+    <string name="cancel">ביטול</string>
+    <string name="delete">מחק</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">דירוג</string>
+    <string name="suggested_stars">מוצע: %1$d כוכבים</string>
+    <string name="overall">כללי</string>
+    <string name="efficiency">יעילות</string>
+    <string name="consistency">עקביות</string>
+    <string name="analysis">ניתוח</string>
+    <string name="strengths">חוזקות</string>
+    <string name="areas_to_improve">תחומים לשיפור</string>
+    <string name="attention">תשומת לב</string>
+    <string name="problem">בעיה</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">אין נתוני רכיבה</string>
+    <string name="complete_rides_to_see">השלם כמה רכיבות לצפייה במגמות</string>
+    <string name="period_averages">ממוצעי תקופה</string>
+    <string name="progress_label">התקדמות</string>
+    <string name="stable">יציב</string>
+    <string name="avg_balance_label">ממוצע איזון</string>
+    <string name="balance_trend_title">מגמת איזון</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">רכיבות</string>
+    <string name="section_balance">איזון</string>
+    <string name="section_efficiency">יעילות</string>
+    <string name="section_streaks">רצפים</string>
+    <string name="section_drills">תרגילים</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">היסטוריה</string>
+    <string name="my_drills">התרגילים שלי</string>
+    <string name="built_in_drills">תרגילים מובנים</string>
+    <string name="create_custom_drill">צור תרגיל מותאם</string>
+    <string name="custom">מותאם</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">הכי טוב %1$d%%</string>
+    <string name="start">התחל</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">הבא</string>
+    <string name="stop">עצור</string>
+    <string name="pause">השהה</string>
+    <string name="paused">מושהה</string>
+    <string name="resume">המשך</string>
+    <string name="rpm">סל״ד</string>
+    <string name="in_zone">באזור</string>
+    <string name="spin_easy">סיבוב קל</string>
+    <string name="complete">הושלם</string>
+    <string name="stopped">נעצר</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">שיא חדש!</string>
+    <string name="done">סיום</string>
+    <string name="retry">נסה שוב</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">נקה</string>
+    <string name="no_history">אין היסטוריה</string>
+    <string name="clear_all_question">לנקות הכל?</string>
+    <string name="delete_question">למחוק?</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">תרגיל חדש</string>
+    <string name="edit_drill">ערוך תרגיל</string>
+    <string name="name_your_drill">תן שם לתרגיל</string>
+    <string name="drill_name_placeholder">לדוגמה: מיקוד איזון, יע״מ גבוה</string>
+    <string name="what_to_focus">על מה להתמקד?</string>
+    <string name="balance_option">איזון</string>
+    <string name="lr_power_distribution">חלוקת הספק ש/י</string>
+    <string name="torque_effectiveness_option">יעילות מומנט</string>
+    <string name="power_transfer_efficiency">יעילות העברת הספק</string>
+    <string name="pedal_smoothness_option">חלקות דיווש</string>
+    <string name="circular_pedal_stroke">סיבוב דיווש מעגלי</string>
+    <string name="how_long">כמה זמן?</string>
+    <string name="quick_select">בחירה מהירה</string>
+    <string name="or_set_custom">או הגדר מותאם</string>
+    <string name="minutes">דקות</string>
+    <string name="seconds">שניות</string>
+    <string name="total_duration">סה״כ: %1$s</string>
+    <string name="min_10_seconds">מינימום 10 שניות</string>
+    <string name="set_your_target">הגדר יעד</string>
+    <string name="above">מעל</string>
+    <string name="above_value">≥ ערך</string>
+    <string name="below">מתחת</string>
+    <string name="below_value">≤ ערך</string>
+    <string name="range">טווח</string>
+    <string name="min_max">מינימום-מקסימום</string>
+    <string name="minimum">מינימום</string>
+    <string name="maximum">מקסימום</string>
+    <string name="preview">תצוגה מקדימה</string>
+    <string name="metric">מדד</string>
+    <string name="duration">משך</string>
+    <string name="target">יעד</string>
+    <string name="custom_drill_desc">תרגיל %1$s מותאם</string>
+    <string name="torque_eff_short">יעילות מומנט</string>
+    <string name="smoothness_short">חלקות</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">אתגר שבועי</string>
+    <string name="active">פעיל</string>
+    <string name="days_left_this_week">נותרו %1$d ימים השבוע</string>
+    <string name="completed_upper">הושלם</string>
+    <string name="this_week">השבוע</string>
+    <string name="all_challenges">כל האתגרים</string>
+    <string name="next_week">שבוע הבא</string>
+
+    <!-- Onboarding -->
+    <string name="skip">דלג</string>
+    <string name="get_started">בואו נתחיל</string>
+    <string name="onboarding_welcome_title">ברוכים הבאים ל-KPedal</string>
+    <string name="onboarding_welcome_desc">מדדי דיווש בזמן אמת מדוושות מד ההספק שלך. עקוב אחר איזון, יעילות וחלקות לשיפור הטכניקה.</string>
+    <string name="onboarding_data_fields_title">שדות נתונים</string>
+    <string name="onboarding_data_fields_desc">הוסף שדות נתונים של KPedal למסכי ה-Karoo שלך לצפייה במדדים במהלך הרכיבה. בחר מתוך 6 תצוגות שונות.</string>
+    <string name="onboarding_drills_title">תרגילים</string>
+    <string name="onboarding_drills_desc">תרגל עם תרגילים מודרכים לשיפור טכניקת הדיווש. כל תרגיל מתמקד בהיבטים ספציפיים של התנועה.</string>
+    <string name="onboarding_alerts_title">התראות</string>
+    <string name="onboarding_alerts_desc">קבל התראה כשהמדדים יוצאים מהטווח האופטימלי. הגדר התראות בהגדרות.</string>
+    <string name="onboarding_background_title">נתוני רקע</string>
+    <string name="onboarding_background_desc">KPedal אוסף מדדי דיווש לכל הרכיבות שלך אוטומטית. אפשר לבטל זאת בהגדרות.</string>
+    <string name="onboarding_cloud_title">סנכרון ענן</string>
+    <string name="onboarding_cloud_desc">התחבר עם Google לסנכרון נתוני הרכיבה וצפייה באנליטיקה ב-app.kpedal.com. זה אופציונלי - הנתונים נשארים במכשיר עד לסנכרון.</string>
+
+    <!-- Help Screen -->
+    <string name="help">עזרה</string>
+    <string name="section_metrics">מדדים</string>
+    <string name="section_colors">צבעים</string>
+    <string name="section_setup">התקנה</string>
+    <string name="section_tips">טיפים</string>
+    <string name="section_faq">שאלות נפוצות</string>
+    <string name="section_troubleshooting">פתרון בעיות</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">חלוקת הספק ש/י</string>
+    <string name="help_balance_note">אסימטריה של 2-5%% היא נורמלית</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">יעילות מומנט</string>
+    <string name="help_te_note">גבוה יותר לא עדיף! מגביל הספק</string>
+    <string name="help_ps_range">≥20%%</string>
+    <string name="help_ps_desc">חלקות דיווש</string>
+    <string name="help_ps_note">מקצועי: 25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">איזון הספק</string>
+    <string name="metric_balance_short">חלוקת הספק ש/י</string>
+    <string name="metric_balance_explanation">איזון הספק מראה עד כמה אתה מחלק הספק בצורה שווה בין הרגל השמאלית לימנית. איזון מושלם הוא 50/50, אבל אסימטריה קלה (48-52%%) היא נורמלית ולא מדאיגה.</string>
+    <string name="metric_balance_optimal">48-52%% (אופטימלי), 45-55%% (מקובל)</string>
+    <string name="metric_balance_tip1">התמקד בלחץ אחיד לאורך כל סיבוב הדוושה</string>
+    <string name="metric_balance_tip2">נסה תרגילי רגל אחת לחיזוק הצד החלש</string>
+    <string name="metric_balance_tip3">בדוק את התאמת האופניים - גובה האוכף משפיע על האיזון</string>
+    <string name="metric_balance_tip4">חוסר איזון קל הוא נורמלי ולעתים מתקן את עצמו</string>
+    <string name="metric_balance_tip5">אל תתייחס לתנודות קטנות במהלך הרכיבה</string>
+    <string name="metric_balance_research">מחקרים מראים שלרוב הרוכבים יש חוסר איזון טבעי של 1-5%%. רוכבים מקצועיים מגיעים בממוצע ל-48-52%%.</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">יעילות מומנט</string>
+    <string name="metric_te_short">יעילות סיבוב דוושה</string>
+    <string name="metric_te_explanation">יעילות מומנט (יע״מ) מודדת כמה מתנועת הדיווש תורמת להנעה קדימה. ציון של 100%% היה אומר שכל חלק בסיבוב מוסיף הספק, אבל זה לא ריאלי ולא אופטימלי.</string>
+    <string name="metric_te_optimal">70-80%% (אופטימלי, לא גבוה יותר)</string>
+    <string name="metric_te_tip1">התמקד במשיכה דרך תחתית הסיבוב</string>
+    <string name="metric_te_tip2">דמיין שאתה מגרד בוץ מהנעל בתחתית</string>
+    <string name="metric_te_tip3">יע״מ גבוה (מעל 80%%) לעתים מפחית את תפוקת ההספק הכללית</string>
+    <string name="metric_te_tip4">דיווש חלק ומעגלי יעיל יותר מאילוץ יע״מ גבוה</string>
+    <string name="metric_te_tip5">יע״מ משתנה באופן טבעי עם קדנס והספק</string>
+    <string name="metric_te_research">מחקר של Wattbike מראה שיע״מ מעל 80%% למעשה מפחית תפוקת הספק. רוכבים מקצועיים מכוונים ל-70-80%%.</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">חלקות דיווש</string>
+    <string name="metric_ps_short">עקביות מתן הספק</string>
+    <string name="metric_ps_explanation">חלקות דיווש (ח״ד) מראה עד כמה ההספק מופעל באופן אחיד לאורך סיבוב הדוושה. ערכים גבוהים יותר מציינים מתן הספק עקבי יותר עם פחות שיאים ושפלים.</string>
+    <string name="metric_ps_optimal">20%%+ (טוב), 25-35%% (מקצועי)</string>
+    <string name="metric_ps_tip1">תרגל תרגילי סיבוב בקדנס גבוה</string>
+    <string name="metric_ps_tip2">התמקד בחיסול נקודות מתות בסיבוב</string>
+    <string name="metric_ps_tip3">שמור על לחץ עקבי לאורך כל הסיבוב</string>
+    <string name="metric_ps_tip4">הילוכים קלים וקדנס גבוה לעתים משפרים חלקות</string>
+    <string name="metric_ps_tip5">ח״ד יורד באופן טבעי בתפוקות הספק גבוהות מאוד</string>
+    <string name="metric_ps_research">רוכבים מקצועיים מגיעים בדרך כלל לחלקות דיווש של 25-35%%.</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">לבן</string>
+    <string name="color_green">ירוק</string>
+    <string name="color_yellow">צהוב</string>
+    <string name="color_red">אדום</string>
+    <string name="color_white_meaning">רגיל / אין נתונים</string>
+    <string name="color_green_meaning">טווח אופטימלי</string>
+    <string name="color_yellow_meaning">דורש תשומת לב</string>
+    <string name="color_red_meaning">בעיה</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo ← פרופילים ← שדות נתונים</string>
+    <string name="setup_step2">הקש על משבצת ← עוד נתונים ← kpedal</string>
+    <string name="setup_step3">בחר תצוגה</string>
+    <string name="setup_step4">התאם דוושות (ANT+)</string>
+    <string name="setup_step5">התחל לרכב</string>
+    <string name="setup_requires">דרוש: Garmin Rally, Favero Assioma, SRM, Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">תרגילי רגל אחת לצד החלש</string>
+    <string name="tips_balance_2">בדוק מיקום קליטים</string>
+    <string name="tips_balance_3">עייפות מגבירה אסימטריה</string>
+    <string name="tips_te_1">אל תכוון ל-100%%</string>
+    <string name="tips_te_2">גרד בוץ בתחתית הסיבוב</string>
+    <string name="tips_te_3">הקל משקל, אל תמשוך למעלה</string>
+    <string name="tips_ps_1">קדנס גבוה עוזר</string>
+    <string name="tips_ps_2">חסל נקודות מתות</string>
+    <string name="tips_ps_3">תרגל על רולרים</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">ש: %1$s</string>
+    <string name="faq_te85_q">יע״מ 85%%+ רע?</string>
+    <string name="faq_te85_a">כן. 70-80%% אופטימלי. גבוה יותר מגביל הספק בדיווש למטה.</string>
+    <string name="faq_balance_q">איזון 45/55 בסדר?</string>
+    <string name="faq_balance_a">כן. ±5%% נורמלי. רק מעל 10%% מדאיג.</string>
+    <string name="faq_jump_q">ערכים קופצים?</string>
+    <string name="faq_jump_a">התמקד בממוצעים, לא בערכים רגעיים.</string>
+    <string name="faq_compare_q">להשוות לאחרים?</string>
+    <string name="faq_compare_a">לא. עקוב אחר המגמות שלך במקום.</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">אין נתונים</string>
+    <string name="trouble_nodata_fix">בדוק שהדוושות מותאמות בהגדרות Karoo. התחל לדוושש.</string>
+    <string name="trouble_balance_only">רק איזון, בלי יע״מ/ח״ד</string>
+    <string name="trouble_balance_only_fix">הדוושות אולי לא תומכות ביע״מ/ח״ד (לדוגמה Wahoo POWRLINK).</string>
+    <string name="trouble_stuck">ערכים תקועים</string>
+    <string name="trouble_stuck_fix">התחל רכיבה מחדש. בדוק סוללה. התאם דוושות מחדש.</string>
+    <string name="trouble_crash">האפליקציה קורסת</string>
+    <string name="trouble_crash_fix">הפעל מחדש את האפליקציה. הפעל מחדש את Karoo. התקן מחדש.</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">מיקוד רגל שמאל</string>
+    <string name="drill_right_leg_focus">מיקוד רגל ימין</string>
+    <string name="drill_smooth_circles">עיגולים חלקים</string>
+    <string name="drill_power_transfer">העברת הספק</string>
+    <string name="drill_balance_challenge">אתגר איזון</string>
+    <string name="drill_smoothness_target">יעד חלקות</string>
+    <string name="drill_high_cadence_smooth">חלקות בקדנס גבוה</string>
+    <string name="drill_balance_recovery">שחזור איזון</string>
+    <string name="drill_efficiency_builder">בניית יעילות</string>
+    <string name="drill_pedaling_mastery">שליטה בדיווש</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">חזק את תפוקת ההספק של הרגל השמאלית</string>
+    <string name="drill_right_leg_focus_desc">חזק את תפוקת ההספק של הרגל הימנית</string>
+    <string name="drill_smooth_circles_desc">שפר את חלקות סיבוב הדוושה</string>
+    <string name="drill_power_transfer_desc">מקסם העברת הספק לתנועה קדימה</string>
+    <string name="drill_balance_challenge_desc">שמור על איזון ש/י מושלם</string>
+    <string name="drill_smoothness_target_desc">הגע ליעדי חלקות באופן עקבי</string>
+    <string name="drill_high_cadence_smooth_desc">שמור על חלקות בסיבובים גבוהים</string>
+    <string name="drill_balance_recovery_desc">חזור לאיזון לאחר מאמץ</string>
+    <string name="drill_efficiency_builder_desc">שלב יע״מ וח״ד ליעילות</string>
+    <string name="drill_pedaling_mastery_desc">שלוט בכל מדדי הדיווש</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">חימום</string>
+    <string name="phase_focus">מיקוד</string>
+    <string name="phase_maintain">שמור</string>
+    <string name="phase_recover">התאושש</string>
+    <string name="phase_build">בנה</string>
+    <string name="phase_push">דחוף</string>
+    <string name="phase_hold">החזק</string>
+    <string name="phase_rest">מנוחה</string>
+    <string name="phase_prepare">הכן</string>
+    <string name="phase_cooldown">צינון</string>
+    <string name="phase_left_focus">מיקוד שמאל</string>
+    <string name="phase_right_focus">מיקוד ימין</string>
+    <string name="phase_smooth_circles">עיגולים חלקים</string>
+    <string name="phase_max_transfer">העברה מקסימלית</string>
+    <string name="phase_find_center">מצא מרכז</string>
+    <string name="phase_hold_balance">החזק איזון</string>
+    <string name="phase_relax">הרפה</string>
+    <string name="phase_target_zone">אזור יעד</string>
+    <string name="phase_normal_cadence">קדנס רגיל</string>
+    <string name="phase_build_cadence">בנה קדנס</string>
+    <string name="phase_hold_smooth">החזק חלק</string>
+    <string name="phase_wind_down">האט</string>
+    <string name="phase_baseline">בסיס</string>
+    <string name="phase_left_emphasis">דגש שמאל</string>
+    <string name="phase_center">מרכז</string>
+    <string name="phase_right_emphasis">דגש ימין</string>
+    <string name="phase_center_again">מרכז שוב</string>
+    <string name="phase_natural_finish">סיום טבעי</string>
+    <string name="phase_balance_focus">מיקוד איזון</string>
+    <string name="phase_smoothness_block">בלוק חלקות</string>
+    <string name="phase_recovery">התאוששות</string>
+    <string name="phase_te_focus">מיקוד יע״מ</string>
+    <string name="phase_combined">משולב</string>
+    <string name="phase_activation">הפעלה</string>
+    <string name="phase_left_isolation">בידוד רגל שמאל</string>
+    <string name="phase_right_isolation">בידוד רגל ימין</string>
+    <string name="phase_perfect_balance">איזון מושלם</string>
+    <string name="phase_smoothness_focus">מיקוד חלקות</string>
+    <string name="phase_te_optimization">אופטימיזציית יע״מ</string>
+    <string name="phase_high_cadence_test">מבחן קדנס גבוה</string>
+    <string name="phase_integration">אינטגרציה</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">סיבוב קל</string>
+    <string name="phase_desc_emphasize_left">הדגש רגל שמאל</string>
+    <string name="phase_desc_return_normal">חזור לרגיל</string>
+    <string name="phase_desc_emphasize_right">הדגש רגל ימין</string>
+    <string name="phase_desc_find_rhythm">מצא את הקצב שלך</string>
+    <string name="phase_desc_max_smoothness">מקסם חלקות</string>
+    <string name="phase_desc_increase_focus">הגבר מיקוד בהדרגה</string>
+    <string name="phase_desc_optimize_te">אופטימיזציה של יע״מ</string>
+    <string name="phase_desc_easy_spin">סיבוב קל</string>
+    <string name="phase_desc_center_power">מרכז את ההספק</string>
+    <string name="phase_desc_hold_5050">החזק 50/50</string>
+    <string name="phase_desc_release_focus">שחרר מיקוד</string>
+    <string name="phase_desc_loosen_up">הרפה</string>
+    <string name="phase_desc_hold_ps_25">החזק ח״ד ≥25%%</string>
+    <string name="phase_desc_recover">התאושש</string>
+    <string name="phase_desc_establish_baseline">קבע בסיס</string>
+    <string name="phase_desc_increase_100rpm">הגבר ל-100+ סל״ד</string>
+    <string name="phase_desc_smooth_high_cadence">חלק בקדנס גבוה</string>
+    <string name="phase_desc_return_to_normal">חזור לרגיל</string>
+    <string name="phase_desc_find_natural_balance">מצא איזון טבעי</string>
+    <string name="phase_desc_focus_left">התמקד בשמאל</string>
+    <string name="phase_desc_find_5050">מצא 50/50</string>
+    <string name="phase_desc_focus_right">התמקד בימין</string>
+    <string name="phase_desc_spin_naturally">סובב באופן טבעי</string>
+    <string name="phase_desc_smooth_circles">עיגולים חלקים</string>
+    <string name="phase_desc_power_transfer">העברת הספק</string>
+    <string name="phase_desc_all_metrics">כל המדדים</string>
+    <string name="phase_desc_wind_down">האט</string>
+    <string name="phase_desc_wake_legs">העיר את הרגליים</string>
+    <string name="phase_desc_left_focus">מיקוד שמאל</string>
+    <string name="phase_desc_right_focus">מיקוד ימין</string>
+    <string name="phase_desc_5050_hold">החזקת 50/50</string>
+    <string name="phase_desc_circular_motion">תנועה מעגלית</string>
+    <string name="phase_desc_speed_form">מהירות + טכניקה</string>
+    <string name="phase_desc_everything_together">הכל ביחד</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">סובב בקלות, התכונן להתמקד</string>
+    <string name="instr_focus_left_leg">התמקד בדחיפה עם הרגל השמאלית</string>
+    <string name="instr_relax_spin_normally">הרפה וסובב בצורה רגילה</string>
+    <string name="instr_focus_right_leg">התמקד בדחיפה עם הרגל הימנית</string>
+    <string name="instr_settle_cadence">התייצב בקדנס נוח</string>
+    <string name="instr_smooth_circles">דמיין ציור עיגולים חלקים. גרד בוץ מהנעל בתחתית.</string>
+    <string name="instr_maintain_feeling">הרפה ושמור על התחושה</string>
+    <string name="instr_feel_power_transfer">התחל בקלות, התמקד בתחושת העברת ההספק</string>
+    <string name="instr_apply_power">הפעל הספק לאורך כל הסיבוב. הימנע מדחיפות חזקות.</string>
+    <string name="instr_spin_easy_recover">סובב בקלות, תן לרגליים להתאושש</string>
+    <string name="instr_find_balance_point">מצא את נקודת האיזון הטבעית שלך</string>
+    <string name="instr_hold_5050">החזק איזון 50/50. רק התאמות קטנות!</string>
+    <string name="instr_good_work_relax">עבודה טובה! הרפה וסובב בקלות</string>
+    <string name="instr_easy_spin_form">סיבוב קל, התמקד בטכניקה</string>
+    <string name="instr_keep_ps_25">שמור על חלקות מעל 25%%. עיגולים מלאים!</string>
+    <string name="instr_great_effort">מאמץ מעולה! סובב בקלות</string>
+    <string name="instr_start_normal_cadence">התחל בקדנס הרגיל שלך</string>
+    <string name="instr_increase_cadence_100">הגבר בהדרגה ל-100+ סל״ד</string>
+    <string name="instr_keep_ps_high_cadence">שמור על חלקות מעל 20%% בקדנס גבוה!</string>
+    <string name="instr_reduce_cadence_smooth">הפחת קדנס בהדרגה, שמור על חלקות</string>
+    <string name="instr_observe_balance">סובב באופן טבעי, צפה באיזון שלך</string>
+    <string name="instr_emphasize_left">הדגש את הרגל השמאלית</string>
+    <string name="instr_return_center">חזור למרכז, איזון 50/50</string>
+    <string name="instr_emphasize_right">הדגש את הרגל הימנית</string>
+    <string name="instr_feel_symmetry">חזור למרכז, הרגש את הסימטריה</string>
+    <string name="instr_notice_improvement">סובב באופן טבעי, שים לב לשיפור</string>
+    <string name="instr_warmup_easy">חימום עם סיבוב קל</string>
+    <string name="instr_focus_even_balance">התמקד באיזון שווה, הספק 50/50</string>
+    <string name="instr_smooth_circular">התמקד בסיבוב דוושה חלק ומעגלי</string>
+    <string name="instr_shake_out">סיבוב קל, נער את הרגליים</string>
+    <string name="instr_optimize_te">אופטימיזציה של יעילות מומנט 70-80%%</string>
+    <string name="instr_combine_all">עכשיו שלב: איזון + חלקות + יעילות</string>
+    <string name="instr_appreciate_effort">סיבוב קל, הערך את המאמץ שלך</string>
+    <string name="instr_prepare_mentally">סיבוב קליל, התכונן מנטלית</string>
+    <string name="instr_strong_left">דגש חזק על רגל שמאל</string>
+    <string name="instr_strong_right">דגש חזק על רגל ימין</string>
+    <string name="instr_perfect_5050">איזון מושלם, 50/50</string>
+    <string name="instr_max_smoothness">חלקות מקסימלית, חסל נקודות מתות</string>
+    <string name="instr_easy_recover">סיבוב קל, התאושש</string>
+    <string name="instr_dial_te">כוונן יע״מ לאזור 72-78%%</string>
+    <string name="instr_increase_cadence_form">הגבר קדנס, שמור על טכניקה</string>
+    <string name="instr_combine_skills">שלב את כל הכישורים: איזון + חלקות + יעילות</string>
+    <string name="instr_appreciate_mastery">סיבוב קל, הערך את עבודת השליטה שלך</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">דמיין הספק מגיע מהרגל השמאלית</string>
+    <string name="tip_dont_neglect_right">אל תזניח לגמרי את הרגל הימנית</string>
+    <string name="tip_maintain_cadence">שמור על קדנס חלק לאורך כל הדרך</string>
+    <string name="tip_visualize_right">דמיין הספק מגיע מהרגל הימנית</string>
+    <string name="tip_dont_neglect_left">אל תזניח לגמרי את הרגל השמאלית</string>
+    <string name="tip_think_360">חשוב על כל 360° של סיבוב הדוושה</string>
+    <string name="tip_engage_hamstrings">הפעל את השריר האחורי בתחתית</string>
+    <string name="tip_pull_up">משוך מעט כלפי מעלה בסיבוב האחורי</string>
+    <string name="tip_core_stability">שמור על ליבה מופעלת ליציבות</string>
+    <string name="tip_te_above_80">יע״מ מעל 80%% יכול להפחית הספק כולל</string>
+    <string name="tip_focus_70_80">התמקד באזור האופטימלי 70-80%%</string>
+    <string name="tip_dont_sacrifice">אל תוותר על שלב ההספק העיקרי לטובת שלב ההתאוששות</string>
+    <string name="tip_equal_pressure">התמקד בלחץ שווה משתי הרגליים</string>
+    <string name="tip_minor_imbalance">חוסר איזון קל הוא נורמלי, כוון לאזור</string>
+    <string name="tip_steady_cadence">שמור על קדנס יציב - אל תרדוף אחרי המספרים</string>
+    <string name="tip_elite_smoothness">רוכבים מקצועיים שומרים על חלקות 25-35%%</string>
+    <string name="tip_engage_all_muscles">הפעל את כל קבוצות השרירים לאורך הסיבוב</string>
+    <string name="tip_moderate_cadence">שמור על קדנס מתון (85-95 סל״ד עובד טוב)</string>
+    <string name="tip_smoothness_drops">חלקות יורדת באופן טבעי בקדנס גבוה מאוד</string>
+    <string name="tip_relax_hips">התמקד בהרפיית הירכיים</string>
+    <string name="tip_dont_bounce">אל תקפוץ על האוכף</string>
+    <string name="tip_core_crucial">יציבות הליבה היא קריטית</string>
+    <string name="tip_identify_weaker">אימון זה עוזר לזהות את הרגל החלשה</string>
+    <string name="tip_neural_pathways">תרגול קבוע משפר מסלולים עצביים</string>
+    <string name="tip_dont_force">אל תאלץ חוסר איזון קיצוני</string>
+    <string name="tip_no_perfection">אל תצפה לשלמות בכל המדדים בו זמנית</string>
+    <string name="tip_one_at_time">התמקד בהיבט אחד בכל פעם בהתחלה</string>
+    <string name="tip_regular_practice">התקדמות מגיעה עם תרגול קבוע</string>
+    <string name="tip_notice_hardest">שים לב איזה מדד הכי קשה לך</string>
+    <string name="tip_demanding_session">זו אימון תובעני - הגע נחים</string>
+    <string name="tip_phases_build">כל שלב בונה על הכישורים הקודמים</string>
+    <string name="tip_quality_over_perfection">התמקד באיכות ולא בשלמות</string>
+    <string name="tip_track_progress">עקוב אחר ההתקדמות לאורך מספר אימונים</string>
+    <string name="tip_once_twice_week">שקול לעשות זאת 1-2 פעמים בשבוע</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">רכיבה ראשונה</string>
+    <string name="achievement_getting_started">מתחילים</string>
+    <string name="achievement_dedicated">מסור</string>
+    <string name="achievement_century">מאה</string>
+    <string name="achievement_balanced">מאוזן</string>
+    <string name="achievement_well_balanced">מאוזן היטב</string>
+    <string name="achievement_master_of_balance">אמן האיזון</string>
+    <string name="achievement_efficient_rider">רוכב יעיל</string>
+    <string name="achievement_smooth_operator">מפעיל חלק</string>
+    <string name="achievement_getting_consistent">נהיה עקבי</string>
+    <string name="achievement_weekly_warrior">לוחם שבועי</string>
+    <string name="achievement_two_week_hero">גיבור שבועיים</string>
+    <string name="achievement_monthly_master">אמן חודשי</string>
+    <string name="achievement_practice_perfect">תרגול עושה מושלם</string>
+    <string name="achievement_drill_enthusiast">חובב תרגילים</string>
+    <string name="achievement_perfect_form">טכניקה מושלמת</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">השלם את הרכיבה המנוטרת הראשונה</string>
+    <string name="achievement_getting_started_desc">השלם 10 רכיבות מנוטרות</string>
+    <string name="achievement_dedicated_desc">השלם 50 רכיבות מנוטרות</string>
+    <string name="achievement_century_desc">השלם 100 רכיבות מנוטרות</string>
+    <string name="achievement_balanced_desc">סיים רכיבה עם סטיית איזון מתחת ל-5%%</string>
+    <string name="achievement_well_balanced_desc">סיים 5 רכיבות עם סטיית איזון מתחת ל-3%%</string>
+    <string name="achievement_master_of_balance_desc">סיים 20 רכיבות עם סטיית איזון מתחת ל-2.5%%</string>
+    <string name="achievement_efficient_rider_desc">שמור על ממוצע יע״מ 70-80%% ברכיבה</string>
+    <string name="achievement_smooth_operator_desc">הגע לממוצע ח״ד 25%%+ ברכיבה</string>
+    <string name="achievement_getting_consistent_desc">רכב 3 ימים ברצף</string>
+    <string name="achievement_weekly_warrior_desc">רכב 7 ימים ברצף</string>
+    <string name="achievement_two_week_hero_desc">רכב 14 ימים ברצף</string>
+    <string name="achievement_monthly_master_desc">רכב 30 ימים ברצף</string>
+    <string name="achievement_practice_perfect_desc">השלם את התרגיל הראשון</string>
+    <string name="achievement_drill_enthusiast_desc">השלם 10 תרגילים</string>
+    <string name="achievement_perfect_form_desc">הגע לציון 90%%+ בתרגיל כלשהו</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">רכיבות</string>
+    <string name="category_balance">איזון</string>
+    <string name="category_efficiency">יעילות</string>
+    <string name="category_streaks">רצפים</string>
+    <string name="category_drills">תרגילים</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_system">מערכת</string>
+</resources>

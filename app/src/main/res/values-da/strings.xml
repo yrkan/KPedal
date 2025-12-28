@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">Hurtig oversigt</string>
+    <string name="datatype_quick_glance_desc">Statusindikator med balancelinje</string>
+
+    <string name="datatype_power_balance">Kraft + Balance</string>
+    <string name="datatype_power_balance_desc">Kraft med V/H balance</string>
+
+    <string name="datatype_efficiency">Effektivitet</string>
+    <string name="datatype_efficiency_desc">Drejningsmoment-effektivitet og Pedaljævnhed</string>
+
+    <string name="datatype_full_overview">Fuld oversigt</string>
+    <string name="datatype_full_overview_desc">Alle pedalmetrikker i én visning</string>
+
+    <string name="datatype_balance_trend">Balance-tendens</string>
+    <string name="datatype_balance_trend_desc">Aktuel, 3s og 10s balance</string>
+
+    <string name="datatype_single_balance">Balance</string>
+    <string name="datatype_single_balance_desc">V/H kraftbalance på fuld skærm</string>
+
+    <string name="datatype_live">Live</string>
+    <string name="datatype_live_desc">Alle metrikker med Tid i Zone-statistik</string>
+
+    <!-- Labels -->
+    <string name="balance">BALANCE</string>
+    <string name="balance_lower">Balance</string>
+    <string name="balance_3s">3s GNS</string>
+    <string name="balance_10s">10s GNS</string>
+    <string name="power">KRAFT</string>
+    <string name="power_lower">Kraft</string>
+    <string name="te">TE</string>
+    <string name="te_full">Drejningsmoment-effektivitet</string>
+    <string name="ps">PJ</string>
+    <string name="ps_full">Pedaljævnhed</string>
+    <string name="left">V</string>
+    <string name="right">H</string>
+    <string name="lr">V/H</string>
+    <string name="lr_balance_format">V%1$d/H%2$d</string>
+    <string name="all_good">ALT GODT</string>
+    <string name="watt_symbol">W</string>
+    <string name="issue_count">%1$d PROBLEM</string>
+    <string name="issues_count">%1$d PROBLEMER</string>
+    <string name="no_data">INGEN DATA</string>
+    <string name="no_data_lower">Ingen data</string>
+    <string name="avg">gns</string>
+
+    <!-- Settings -->
+    <string name="settings">Indstillinger</string>
+    <string name="preferences">Præferencer</string>
+    <string name="thresholds">TÆRSKLER</string>
+    <string name="balance_threshold">Balance-advarsel</string>
+    <string name="te_optimal">TE optimalt interval</string>
+    <string name="ps_minimum">PJ minimum</string>
+    <string name="alerts">ADVARSLER</string>
+    <string name="vibration">Vibration</string>
+    <string name="sound">Lyd</string>
+    <string name="alert_settings">Advarselsindstillinger</string>
+    <string name="background_mode">Baggrundstilstand</string>
+    <string name="background_mode_desc">Indsaml data for alle ture</string>
+    <string name="cloud_sync">Cloud-synkronisering</string>
+    <string name="cloud_sync_desc">Synkroniser til app.kpedal.com</string>
+    <string name="language">Sprog</string>
+    <string name="settings_sync">SYNKRONISERING</string>
+    <string name="settings_auto_sync">Auto-synkroniser ture</string>
+    <string name="settings_auto_sync_desc">Synkroniser efter hver tur</string>
+    <string name="settings_data_collection">DATAINDSAMLING</string>
+    <string name="settings_balance_threshold">BALANCE-TÆRSKEL</string>
+    <string name="settings_balance_threshold_desc">Afvigelse fra 50/50 for at udløse advarsel</string>
+    <string name="settings_te">DREJNINGSMOMENT-EFFEKTIVITET</string>
+    <string name="settings_te_desc">Minimum TE%% for at blive betragtet som optimal</string>
+    <string name="settings_ps">PEDALJÆVNHED</string>
+    <string name="settings_ps_desc">Minimum PJ%% for at blive betragtet som optimal</string>
+    <string name="settings_configure_alerts">Konfigurer advarsler</string>
+    <string name="settings_configure_alerts_desc">Hvornår og hvordan der skal gives besked</string>
+    <string name="settings_about">OM</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_privacy">Privatlivspolitik</string>
+    <string name="settings_contact">Kontakt</string>
+    <string name="settings_linked_account">Tilknyttet konto</string>
+    <string name="settings_sync_desc">Synkroniser ture til app.kpedal.com</string>
+    <string name="settings_enter_code">Indtast denne kode på</string>
+    <string name="settings_code_expired">Kode udløbet</string>
+    <string name="settings_code_expired_desc">Anmod om en ny kode</string>
+    <string name="settings_get_new_code">Få ny kode</string>
+    <string name="settings_access_denied">Adgang nægtet</string>
+    <string name="settings_access_denied_desc">Autorisation blev annulleret</string>
+    <string name="settings_try_again">Prøv igen</string>
+    <string name="settings_connection_failed">Forbindelse mislykkedes</string>
+    <string name="settings_connection_failed_desc">Prøv venligst igen</string>
+    <string name="settings_last_sync">Sidste synk: %1$s</string>
+    <string name="settings_never_synced">Aldrig synkroniseret</string>
+    <string name="settings_pending">%1$d afventer</string>
+    <string name="settings_up_to_date">Opdateret</string>
+    <string name="settings_sync_now">Synkroniser nu</string>
+    <string name="settings_device_revoked_desc">Denne enhed blev afbrudt fra din konto. Du skal logge ind igen for at synkronisere dine ture.</string>
+    <string name="ok">OK</string>
+
+    <!-- Account -->
+    <string name="account">KONTO</string>
+    <string name="link_account">Tilknyt konto</string>
+    <string name="link_account_desc">Synkroniser ture på tværs af enheder</string>
+    <string name="why_how_sync">Hvorfor og hvordan synkroniserer man til cloud?</string>
+    <string name="account_linked">Konto tilknyttet!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">Cloud-synkronisering</string>
+    <string name="cloud_sync_why_title">Hvorfor synkronisere?</string>
+    <string name="cloud_sync_why_1">Se turhistorik og analyser på enhver enhed</string>
+    <string name="cloud_sync_why_2">Detaljerede grafer og øjebliksbilleder pr. minut</string>
+    <string name="cloud_sync_why_3">Følg fremskridt med præstationer</string>
+    <string name="cloud_sync_why_4">Mist aldrig dine data hvis enheden nulstilles</string>
+    <string name="cloud_sync_how_title">Hvordan tilknyttes?</string>
+    <string name="cloud_sync_how_1">Tryk på "Tilknyt konto" ovenfor</string>
+    <string name="cloud_sync_how_2">Notér den viste 8-tegns kode</string>
+    <string name="cloud_sync_how_3">Besøg link.kpedal.com på en hvilken som helst enhed</string>
+    <string name="cloud_sync_how_3_prefix">Besøg</string>
+    <string name="cloud_sync_how_4">Indtast koden og log ind med Google</string>
+    <string name="cloud_sync_how_5">Færdig! Ture synkroniseres automatisk</string>
+    <string name="cloud_sync_what_syncs">Hvad synkroniseres?</string>
+    <string name="cloud_sync_syncs_rides">Turoversigter med øjebliksbilleder pr. minut</string>
+    <string name="cloud_sync_syncs_metrics">Kraft, puls, kadence, distance, stigning</string>
+    <string name="cloud_sync_syncs_drills">Øvelsesresultater og præstationer</string>
+    <string name="cloud_sync_syncs_settings">Advarsels- og tærskelindstillinger</string>
+    <string name="cloud_sync_not_syncs">GPS/ruter indsamles IKKE</string>
+    <string name="cloud_sync_free">Gratis og uden reklamer. Dine data forbliver dine.</string>
+    <string name="sign_out">Log ud</string>
+    <string name="sync">Synk</string>
+    <string name="syncing">Synkroniserer…</string>
+    <string name="synced">Synkroniseret</string>
+    <string name="sync_failed">Synkronisering mislykkedes</string>
+    <string name="offline">Offline</string>
+    <string name="getting_code">Henter kode…</string>
+    <string name="waiting_auth">Venter på autorisation…</string>
+    <string name="device_disconnected">Enhed afbrudt</string>
+    <string name="device_disconnected_desc">Denne enhed blev afbrudt fra din konto. Gentilknyt venligst for at fortsætte synkronisering.</string>
+    <string name="relink">Gentilknyt konto</string>
+
+    <!-- Live -->
+    <string name="live">Live</string>
+    <string name="current_ride">Aktuel tur</string>
+    <string name="time_in_zone">TID I ZONE</string>
+    <string name="waiting_pedal_data">Venter på pedaldata…</string>
+    <string name="start_riding">Start med at cykle eller tjek pedalforbindelse</string>
+    <string name="save">Gem</string>
+    <string name="saved">Gemt ✓</string>
+    <string name="opt">Opt</string>
+    <string name="att">Opm</string>
+    <string name="prob">Prob</string>
+
+    <!-- Home Screen -->
+    <string name="drills">Øvelser</string>
+    <string name="practice">Træning</string>
+    <string name="rides">ture</string>
+    <string name="avg_bal">gns bal</string>
+    <string name="streak">serie</string>
+    <string name="streak_days">%1$dd</string>
+    <string name="section_data">DATA</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">MERE</string>
+    <string name="history">Historik</string>
+    <string name="saved_rides">Gemte ture</string>
+    <string name="analytics">Analyser</string>
+    <string name="trends">Tendenser</string>
+    <string name="achievements">Præstationer</string>
+    <string name="challenges">Udfordringer</string>
+    <string name="weekly_goal">Ugemål</string>
+    <string name="data_fields">Datafelter</string>
+    <string name="layouts_count">6 layouts</string>
+    <string name="pedal_status">Pedalstatus</string>
+    <string name="connection">Forbindelse</string>
+    <string name="quick_guide">Hurtigguide</string>
+    <string name="last_ride">Sidste tur</string>
+    <string name="optimal">optimal</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">Overvåger pedalmetrikker</string>
+    <string name="notification_channel_name">KPedal Baggrund</string>
+    <string name="notification_channel_description">Overvåger pedalmetrikker under alle ture</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">Aktivér advarsler</string>
+    <string name="metrics_to_monitor">METRIKKER AT OVERVÅGE</string>
+    <string name="sensitivity">FØLSOMHED</string>
+    <string name="critical">Kritisk</string>
+    <string name="critical_desc">Kun større problemer</string>
+    <string name="sensitive">Følsom</string>
+    <string name="sensitive_desc">Hyppigere advarsler</string>
+    <string name="notify_via">GIV BESKED VIA</string>
+    <string name="vibrate">Vibrer</string>
+    <string name="banner">Banner</string>
+    <string name="options">INDSTILLINGER</string>
+    <string name="wake_screen">Tænd skærm</string>
+    <string name="cooldown">Afkøling</string>
+    <string name="cooldown_15s">15s</string>
+    <string name="cooldown_30s">30s</string>
+    <string name="cooldown_1m">1m</string>
+    <string name="cooldown_2m">2m</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">Datafelt-layouts</string>
+    <string name="tap_to_preview">Tryk for at forhåndsvise layout på Karoo</string>
+    <string name="layout_quick_glance_short">Status + balancelinje</string>
+    <string name="layout_power_balance_short">Stort V/H fokus</string>
+    <string name="layout_efficiency_short">TE og PJ metrikker</string>
+    <string name="layout_full_overview_short">Alle metrikker kompakt</string>
+    <string name="layout_balance_trend_short">3s/10s udjævnet</string>
+    <string name="layout_single_balance_short">Kun balance</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">Tilsluttet</string>
+    <string name="disconnected">Afbrudt</string>
+    <string name="live_data">LIVE DATA</string>
+    <string name="data_flowing">Data flyder korrekt</string>
+    <string name="signal_details">SIGNALDETALJER</string>
+    <string name="troubleshooting">FEJLFINDING</string>
+    <string name="quality">Kvalitet</string>
+    <string name="excellent">Fremragende</string>
+    <string name="fair">Rimelig</string>
+    <string name="poor">Dårlig</string>
+    <string name="unknown">Ukendt</string>
+    <string name="update_rate">Opdateringshastighed</string>
+    <string name="last_update">Sidste opdatering</string>
+    <string name="pedal_tip_start_riding">Start med at cykle for at registrere pedaler</string>
+    <string name="pedal_tip_ensure_paired">Sørg for at pedaler er parret med Karoo</string>
+    <string name="pedal_tip_check_battery">Tjek pedalbatteri</string>
+    <string name="pedal_tip_low_rate">Lav hastighed kan indikere interferens</string>
+    <string name="pedal_tip_move_away">Flyt væk fra andre ANT+ enheder</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">Turhistorik</string>
+    <string name="rides_count">%1$d ture</string>
+    <string name="no_rides">Ingen ture</string>
+    <string name="no_rides_saved">Ingen ture gemt</string>
+    <string name="no_matching_rides">Ingen matchende ture</string>
+    <string name="try_adjusting_filter">Prøv at justere filteret</string>
+    <string name="rides_saved_auto">Ture gemmes automatisk</string>
+    <string name="manual">manuel</string>
+    <string name="percent_optimal">%1$d%% optimal</string>
+    <string name="load_more">Indlæs flere</string>
+    <string name="delete_ride">Slet tur?</string>
+    <string name="cancel">Annuller</string>
+    <string name="delete">Slet</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">VURDERING</string>
+    <string name="suggested_stars">Foreslået: %1$d stjerner</string>
+    <string name="overall">Samlet</string>
+    <string name="efficiency">Effektivitet</string>
+    <string name="consistency">Konsistens</string>
+    <string name="analysis">ANALYSE</string>
+    <string name="strengths">Styrker</string>
+    <string name="areas_to_improve">Områder at forbedre</string>
+    <string name="attention">opmærksomhed</string>
+    <string name="problem">problem</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">Ingen turdata</string>
+    <string name="complete_rides_to_see">Gennemfør nogle ture for at se tendenser</string>
+    <string name="period_averages">Periodegennemsnit</string>
+    <string name="progress_label">Fremskridt</string>
+    <string name="stable">Stabil</string>
+    <string name="avg_balance_label">Gns Balance</string>
+    <string name="balance_trend_title">Balance-tendens</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">TURE</string>
+    <string name="section_balance">BALANCE</string>
+    <string name="section_efficiency">EFFEKTIVITET</string>
+    <string name="section_streaks">SERIER</string>
+    <string name="section_drills">ØVELSER</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">Historik</string>
+    <string name="my_drills">MINE ØVELSER</string>
+    <string name="built_in_drills">INDBYGGEDE ØVELSER</string>
+    <string name="create_custom_drill">Opret tilpasset øvelse</string>
+    <string name="custom">Tilpasset</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">Bedst %1$d%%</string>
+    <string name="start">Start</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">Næste</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pause</string>
+    <string name="paused">Pauset</string>
+    <string name="resume">Genoptag</string>
+    <string name="rpm">o/min</string>
+    <string name="in_zone">i zone</string>
+    <string name="spin_easy">Træd let</string>
+    <string name="complete">Fuldført</string>
+    <string name="stopped">Stoppet</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">Ny rekord!</string>
+    <string name="done">Færdig</string>
+    <string name="retry">Prøv igen</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">Ryd</string>
+    <string name="no_history">Ingen historik</string>
+    <string name="clear_all_question">Ryd alt?</string>
+    <string name="delete_question">Slet?</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">Ny øvelse</string>
+    <string name="edit_drill">Rediger øvelse</string>
+    <string name="name_your_drill">Navngiv din øvelse</string>
+    <string name="drill_name_placeholder">f.eks. Balance fokus, Høj TE</string>
+    <string name="what_to_focus">Hvad skal fokuseres på?</string>
+    <string name="balance_option">Balance</string>
+    <string name="lr_power_distribution">V/H kraftfordeling</string>
+    <string name="torque_effectiveness_option">Drejningsmoment-effektivitet</string>
+    <string name="power_transfer_efficiency">Kraftoverførselseffektivitet</string>
+    <string name="pedal_smoothness_option">Pedaljævnhed</string>
+    <string name="circular_pedal_stroke">Cirkulær pedalbevægelse</string>
+    <string name="how_long">Hvor længe?</string>
+    <string name="quick_select">Hurtigvalg</string>
+    <string name="or_set_custom">Eller indstil tilpasset</string>
+    <string name="minutes">Minutter</string>
+    <string name="seconds">Sekunder</string>
+    <string name="total_duration">Total: %1$s</string>
+    <string name="min_10_seconds">Minimum 10 sekunder</string>
+    <string name="set_your_target">Indstil dit mål</string>
+    <string name="above">Over</string>
+    <string name="above_value">≥ værdi</string>
+    <string name="below">Under</string>
+    <string name="below_value">≤ værdi</string>
+    <string name="range">Interval</string>
+    <string name="min_max">min-maks</string>
+    <string name="minimum">Minimum</string>
+    <string name="maximum">Maksimum</string>
+    <string name="preview">FORHÅNDSVISNING</string>
+    <string name="metric">Metrik</string>
+    <string name="duration">Varighed</string>
+    <string name="target">Mål</string>
+    <string name="custom_drill_desc">Tilpasset %1$s øvelse</string>
+    <string name="torque_eff_short">Drejningsm.eff.</string>
+    <string name="smoothness_short">Jævnhed</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">Ugentlig udfordring</string>
+    <string name="active">Aktiv</string>
+    <string name="days_left_this_week">%1$d dage tilbage denne uge</string>
+    <string name="completed_upper">FULDFØRT</string>
+    <string name="this_week">DENNE UGE</string>
+    <string name="all_challenges">ALLE UDFORDRINGER</string>
+    <string name="next_week">NÆSTE UGE</string>
+
+    <!-- Onboarding -->
+    <string name="skip">Spring over</string>
+    <string name="get_started">Kom i gang</string>
+    <string name="onboarding_welcome_title">Velkommen til KPedal</string>
+    <string name="onboarding_welcome_desc">Realtids pedalmetrikker fra dine wattmåler-pedaler. Følg balance, effektivitet og jævnhed for at forbedre din teknik.</string>
+    <string name="onboarding_data_fields_title">Datafelter</string>
+    <string name="onboarding_data_fields_desc">Tilføj KPedal datafelter til dine Karoo-skærme for at se metrikker under din tur. Vælg mellem 6 forskellige layouts.</string>
+    <string name="onboarding_drills_title">Øvelser</string>
+    <string name="onboarding_drills_desc">Træn med guidede øvelser for at forbedre din pedalteknik. Hver øvelse fokuserer på specifikke aspekter af din bevægelse.</string>
+    <string name="onboarding_alerts_title">Advarsler</string>
+    <string name="onboarding_alerts_desc">Få besked når dine metrikker går uden for optimale intervaller. Konfigurer advarsler i Indstillinger.</string>
+    <string name="onboarding_background_title">Baggrundsdata</string>
+    <string name="onboarding_background_desc">KPedal indsamler pedalmetrikker for alle dine ture automatisk. Du kan deaktivere dette i Indstillinger hvis du foretrækker.</string>
+    <string name="onboarding_cloud_title">Cloud-synkronisering</string>
+    <string name="onboarding_cloud_desc">Log ind med Google for at synkronisere dine turdata og se analyser på app.kpedal.com. Dette er valgfrit - dine data forbliver på enheden indtil du synkroniserer.</string>
+
+    <!-- Help Screen -->
+    <string name="help">Hjælp</string>
+    <string name="section_metrics">Metrikker</string>
+    <string name="section_colors">Farver</string>
+    <string name="section_setup">Opsætning</string>
+    <string name="section_tips">Tips</string>
+    <string name="section_faq">FAQ</string>
+    <string name="section_troubleshooting">Fejlfinding</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">V/H kraftfordeling</string>
+    <string name="help_balance_note">2-5%% asymmetri er normalt</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">Drejningsmoment-effektivitet</string>
+    <string name="help_te_note">Højere er IKKE bedre! Begrænser kraft</string>
+    <string name="help_ps_range">≥20%%</string>
+    <string name="help_ps_desc">Pedaljævnhed</string>
+    <string name="help_ps_note">Elite: 25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">Kraftbalance</string>
+    <string name="metric_balance_short">V/H kraftfordeling</string>
+    <string name="metric_balance_explanation">Kraftbalance viser hvor jævnt du fordeler kraft mellem venstre og højre ben. En perfekt balance ville være 50/50, men mindre asymmetri (48-52%%) er normalt og ikke bekymrende.</string>
+    <string name="metric_balance_optimal">48-52%% (optimal), 45-55%% (acceptabel)</string>
+    <string name="metric_balance_tip1">Fokuser på jævnt tryk gennem hele pedalbevægelsen</string>
+    <string name="metric_balance_tip2">Prøv enkeltbens-øvelser for at styrke dit svagere ben</string>
+    <string name="metric_balance_tip3">Tjek din cykelopsætning - sadelhøjde kan påvirke balance</string>
+    <string name="metric_balance_tip4">Mindre ubalancer er normale og retter ofte sig selv</string>
+    <string name="metric_balance_tip5">Bliv ikke besat af små udsving under en tur</string>
+    <string name="metric_balance_research">Studier viser at de fleste cyklister har 1-5%% naturlig ubalance. Professionelle cyklister ligger i gennemsnit på 48-52%%.</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">Drejningsmoment-effektivitet</string>
+    <string name="metric_te_short">Pedalbevægelsens effektivitet</string>
+    <string name="metric_te_explanation">Drejningsmoment-effektivitet (TE) måler hvor meget af din pedalbevægelse bidrager til fremdrift. En score på 100%% ville betyde at hver del af din bevægelse tilføjer kraft, men dette er hverken realistisk eller optimalt.</string>
+    <string name="metric_te_optimal">70-80%% (optimal, IKKE højere)</string>
+    <string name="metric_te_tip1">Fokuser på at trække gennem bunden af bevægelsen</string>
+    <string name="metric_te_tip2">Tænk på at \'skrabe mudder\' af din sko i bunden</string>
+    <string name="metric_te_tip3">Højere TE (>80%%) REDUCERER ofte hovedkraftoutput</string>
+    <string name="metric_te_tip4">Jævn, cirkulær pedalering er mere effektiv end at tvinge høj TE</string>
+    <string name="metric_te_tip5">TE varierer naturligt med kadence og kraft</string>
+    <string name="metric_te_research">Wattbike forskning viser at TE over 80%% faktisk reducerer kraftoutput. Elitecyklister sigter efter 70-80%%.</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">Pedaljævnhed</string>
+    <string name="metric_ps_short">Konsistens i kraftlevering</string>
+    <string name="metric_ps_explanation">Pedaljævnhed (PJ) viser hvor jævnt kraft anvendes gennem pedalbevægelsen. Højere værdier betyder mere konsistent kraftlevering med færre spidser og fald.</string>
+    <string name="metric_ps_optimal">20%%+ (god), 25-35%% (elite)</string>
+    <string name="metric_ps_tip1">Træn høj-kadence spinningsøvelser</string>
+    <string name="metric_ps_tip2">Fokuser på at eliminere døde punkter i din bevægelse</string>
+    <string name="metric_ps_tip3">Hold konsistent tryk gennem hele rotationen</string>
+    <string name="metric_ps_tip4">Lavere gear og højere kadence forbedrer ofte jævnhed</string>
+    <string name="metric_ps_tip5">PJ falder naturligt ved meget høje kraftoutputs</string>
+    <string name="metric_ps_research">Professionelle cyklister opnår typisk 25-35%% pedaljævnhed.</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">Hvid</string>
+    <string name="color_green">Grøn</string>
+    <string name="color_yellow">Gul</string>
+    <string name="color_red">Rød</string>
+    <string name="color_white_meaning">Normal / ingen data</string>
+    <string name="color_green_meaning">Optimalt interval</string>
+    <string name="color_yellow_meaning">Kræver opmærksomhed</string>
+    <string name="color_red_meaning">Problem</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo → Profiler → Datafelter</string>
+    <string name="setup_step2">Tryk på felt → Mere Data → kpedal</string>
+    <string name="setup_step3">Vælg layout</string>
+    <string name="setup_step4">Par pedaler (ANT+)</string>
+    <string name="setup_step5">Start med at cykle</string>
+    <string name="setup_requires">Kræver: Garmin Rally, Favero Assioma, SRM, Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">Enkeltbens-øvelser for svag side</string>
+    <string name="tips_balance_2">Tjek klampeposition</string>
+    <string name="tips_balance_3">Træthed øger asymmetri</string>
+    <string name="tips_te_1">Sigt ikke efter 100%%</string>
+    <string name="tips_te_2">Skrab mudder af i bunden af bevægelsen</string>
+    <string name="tips_te_3">Aflast, træk ikke op</string>
+    <string name="tips_ps_1">Højere kadence hjælper</string>
+    <string name="tips_ps_2">Eliminer døde punkter</string>
+    <string name="tips_ps_3">Træn på ruller</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">Sp: %1$s</string>
+    <string name="faq_te85_q">TE 85%%+ dårligt?</string>
+    <string name="faq_te85_a">Ja. 70-80%% er optimalt. Højere begrænser nedtrækskraft.</string>
+    <string name="faq_balance_q">Balance 45/55 ok?</string>
+    <string name="faq_balance_a">Ja. ±5%% er normalt. Kun >10%% er bekymrende.</string>
+    <string name="faq_jump_q">Værdier hopper rundt?</string>
+    <string name="faq_jump_a">Fokuser på gennemsnit, ikke øjeblikkelige værdier.</string>
+    <string name="faq_compare_q">Sammenligne med andre?</string>
+    <string name="faq_compare_a">Nej. Følg dine egne tendenser i stedet.</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">Ingen data</string>
+    <string name="trouble_nodata_fix">Tjek at pedaler er parret i Karoo indstillinger. Start med at træde.</string>
+    <string name="trouble_balance_only">Kun Balance, ingen TE/PJ</string>
+    <string name="trouble_balance_only_fix">Pedaler understøtter muligvis ikke TE/PJ (f.eks. Wahoo POWRLINK).</string>
+    <string name="trouble_stuck">Værdier sidder fast</string>
+    <string name="trouble_stuck_fix">Genstart tur. Tjek batteri. Par pedaler igen.</string>
+    <string name="trouble_crash">App nedbrud</string>
+    <string name="trouble_crash_fix">Genstart app. Genstart Karoo. Geninstaller.</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">Venstre ben fokus</string>
+    <string name="drill_right_leg_focus">Højre ben fokus</string>
+    <string name="drill_smooth_circles">Jævne cirkler</string>
+    <string name="drill_power_transfer">Kraftoverførsel</string>
+    <string name="drill_balance_challenge">Balance-udfordring</string>
+    <string name="drill_smoothness_target">Jævnhedsmål</string>
+    <string name="drill_high_cadence_smooth">Høj kadence jævnhed</string>
+    <string name="drill_balance_recovery">Balance-genopretning</string>
+    <string name="drill_efficiency_builder">Effektivitetsopbygning</string>
+    <string name="drill_pedaling_mastery">Pedalmæstring</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">Styrk venstre bens kraftoutput</string>
+    <string name="drill_right_leg_focus_desc">Styrk højre bens kraftoutput</string>
+    <string name="drill_smooth_circles_desc">Forbedre pedalbevægelsens jævnhed</string>
+    <string name="drill_power_transfer_desc">Maksimer kraft til fremdrift</string>
+    <string name="drill_balance_challenge_desc">Oprethold perfekt V/H balance</string>
+    <string name="drill_smoothness_target_desc">Ram jævnhedsmål konsistent</string>
+    <string name="drill_high_cadence_smooth_desc">Forbliv jævn ved høj kadence</string>
+    <string name="drill_balance_recovery_desc">Vend tilbage til balance efter anstrengelse</string>
+    <string name="drill_efficiency_builder_desc">Kombiner TE og PJ for effektivitet</string>
+    <string name="drill_pedaling_mastery_desc">Mestre alle pedalmetrikker</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">Opvarmning</string>
+    <string name="phase_focus">Fokus</string>
+    <string name="phase_maintain">Vedligehold</string>
+    <string name="phase_recover">Genoptræn</string>
+    <string name="phase_build">Opbyg</string>
+    <string name="phase_push">Pres</string>
+    <string name="phase_hold">Hold</string>
+    <string name="phase_rest">Hvile</string>
+    <string name="phase_prepare">Forbered</string>
+    <string name="phase_cooldown">Nedkøling</string>
+    <string name="phase_left_focus">Venstre fokus</string>
+    <string name="phase_right_focus">Højre fokus</string>
+    <string name="phase_smooth_circles">Jævne cirkler</string>
+    <string name="phase_max_transfer">Maks overførsel</string>
+    <string name="phase_find_center">Find centrum</string>
+    <string name="phase_hold_balance">Hold balance</string>
+    <string name="phase_relax">Slap af</string>
+    <string name="phase_target_zone">Målzone</string>
+    <string name="phase_normal_cadence">Normal kadence</string>
+    <string name="phase_build_cadence">Opbyg kadence</string>
+    <string name="phase_hold_smooth">Hold jævn</string>
+    <string name="phase_wind_down">Afrunding</string>
+    <string name="phase_baseline">Baseline</string>
+    <string name="phase_left_emphasis">Venstre betoning</string>
+    <string name="phase_center">Center</string>
+    <string name="phase_right_emphasis">Højre betoning</string>
+    <string name="phase_center_again">Center igen</string>
+    <string name="phase_natural_finish">Naturlig afslutning</string>
+    <string name="phase_balance_focus">Balancefokus</string>
+    <string name="phase_smoothness_block">Jævnhedsblok</string>
+    <string name="phase_recovery">Genopretning</string>
+    <string name="phase_te_focus">TE fokus</string>
+    <string name="phase_combined">Kombineret</string>
+    <string name="phase_activation">Aktivering</string>
+    <string name="phase_left_isolation">Venstre ben isolation</string>
+    <string name="phase_right_isolation">Højre ben isolation</string>
+    <string name="phase_perfect_balance">Perfekt balance</string>
+    <string name="phase_smoothness_focus">Jævnhedsfokus</string>
+    <string name="phase_te_optimization">TE optimering</string>
+    <string name="phase_high_cadence_test">Høj kadence test</string>
+    <string name="phase_integration">Integration</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">Let træden</string>
+    <string name="phase_desc_emphasize_left">Betone venstre ben</string>
+    <string name="phase_desc_return_normal">Vend tilbage til normalt</string>
+    <string name="phase_desc_emphasize_right">Betone højre ben</string>
+    <string name="phase_desc_find_rhythm">Find din rytme</string>
+    <string name="phase_desc_max_smoothness">Maksimer jævnhed</string>
+    <string name="phase_desc_increase_focus">Øg gradvist fokus</string>
+    <string name="phase_desc_optimize_te">Optimer TE</string>
+    <string name="phase_desc_easy_spin">Let træden</string>
+    <string name="phase_desc_center_power">Centrer din kraft</string>
+    <string name="phase_desc_hold_5050">Hold 50/50</string>
+    <string name="phase_desc_release_focus">Slip fokus</string>
+    <string name="phase_desc_loosen_up">Løsn op</string>
+    <string name="phase_desc_hold_ps_25">Hold PJ ≥25%%</string>
+    <string name="phase_desc_recover">Genoptræn</string>
+    <string name="phase_desc_establish_baseline">Etabler baseline</string>
+    <string name="phase_desc_increase_100rpm">Øg til 100+ o/min</string>
+    <string name="phase_desc_smooth_high_cadence">Jævn ved høj kadence</string>
+    <string name="phase_desc_return_to_normal">Vend tilbage til normalt</string>
+    <string name="phase_desc_find_natural_balance">Find naturlig balance</string>
+    <string name="phase_desc_focus_left">Fokus venstre</string>
+    <string name="phase_desc_find_5050">Find 50/50</string>
+    <string name="phase_desc_focus_right">Fokus højre</string>
+    <string name="phase_desc_spin_naturally">Træd naturligt</string>
+    <string name="phase_desc_smooth_circles">Jævne cirkler</string>
+    <string name="phase_desc_power_transfer">Kraftoverførsel</string>
+    <string name="phase_desc_all_metrics">Alle metrikker</string>
+    <string name="phase_desc_wind_down">Afslut roligt</string>
+    <string name="phase_desc_wake_legs">Væk benene</string>
+    <string name="phase_desc_left_focus">Venstre fokus</string>
+    <string name="phase_desc_right_focus">Højre fokus</string>
+    <string name="phase_desc_5050_hold">50/50 hold</string>
+    <string name="phase_desc_circular_motion">Cirkulær bevægelse</string>
+    <string name="phase_desc_speed_form">Hastighed + form</string>
+    <string name="phase_desc_everything_together">Alt sammen</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">Træd let, forbered dig på at fokusere</string>
+    <string name="instr_focus_left_leg">Fokuser på at skubbe igennem med dit VENSTRE ben</string>
+    <string name="instr_relax_spin_normally">Slap af og træd normalt</string>
+    <string name="instr_focus_right_leg">Fokuser på at skubbe igennem med dit HØJRE ben</string>
+    <string name="instr_settle_cadence">Find en behagelig kadence</string>
+    <string name="instr_smooth_circles">Forestil dig at tegne jævne cirkler. Skrab mudder af din sko i bunden.</string>
+    <string name="instr_maintain_feeling">Slap af og bevar følelsen</string>
+    <string name="instr_feel_power_transfer">Start let, fokuser på at mærke kraftoverførslen</string>
+    <string name="instr_apply_power">Anvend kraft gennem hele bevægelsen. Undgå at mase.</string>
+    <string name="instr_spin_easy_recover">Træd let, lad benene hvile</string>
+    <string name="instr_find_balance_point">Find dit naturlige balancepunkt</string>
+    <string name="instr_hold_5050">Hold 50/50 balance. Kun små justeringer!</string>
+    <string name="instr_good_work_relax">Godt arbejde! Slap af og træd let</string>
+    <string name="instr_easy_spin_form">Let træden, fokuser på form</string>
+    <string name="instr_keep_ps_25">Hold jævnhed over 25%%. Fulde cirkler!</string>
+    <string name="instr_great_effort">Flot indsats! Træd let</string>
+    <string name="instr_start_normal_cadence">Start med din normale kadence</string>
+    <string name="instr_increase_cadence_100">Øg gradvist kadence til 100+ o/min</string>
+    <string name="instr_keep_ps_high_cadence">Hold jævnhed over 20%% ved høj kadence!</string>
+    <string name="instr_reduce_cadence_smooth">Reducer gradvist kadence, forbliv jævn</string>
+    <string name="instr_observe_balance">Træd naturligt, observer din balance</string>
+    <string name="instr_emphasize_left">Beton dit VENSTRE ben</string>
+    <string name="instr_return_center">Vend tilbage til center, 50/50 balance</string>
+    <string name="instr_emphasize_right">Beton dit HØJRE ben</string>
+    <string name="instr_feel_symmetry">Vend tilbage til center, mærk symmetrien</string>
+    <string name="instr_notice_improvement">Træd naturligt, bemærk eventuel forbedring</string>
+    <string name="instr_warmup_easy">Varm op med let træden</string>
+    <string name="instr_focus_even_balance">Fokuser på jævn balance, 50/50 kraft</string>
+    <string name="instr_smooth_circular">Fokuser på jævn, cirkulær pedalbevægelse</string>
+    <string name="instr_shake_out">Let træden, ryst benene</string>
+    <string name="instr_optimize_te">Optimer drejningsmoment-effektivitet 70-80%%</string>
+    <string name="instr_combine_all">Kombiner nu: Balance + Jævn + Effektiv</string>
+    <string name="instr_appreciate_effort">Let træden, værdsæt din indsats</string>
+    <string name="instr_prepare_mentally">Let træden, forbered dig mentalt</string>
+    <string name="instr_strong_left">Stærk venstre ben betoning</string>
+    <string name="instr_strong_right">Stærk højre ben betoning</string>
+    <string name="instr_perfect_5050">Perfekt balance, 50/50</string>
+    <string name="instr_max_smoothness">Maksimal jævnhed, eliminer døde punkter</string>
+    <string name="instr_easy_recover">Let træden, genoptræn</string>
+    <string name="instr_dial_te">Juster TE til 72-78%% zonen</string>
+    <string name="instr_increase_cadence_form">Øg kadence, bevar form</string>
+    <string name="instr_combine_skills">Kombiner alle færdigheder: Balance + Jævn + Effektiv</string>
+    <string name="instr_appreciate_mastery">Let træden, værdsæt dit mæstringsarbejde</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">Visualiser kraft fra dit venstre ben</string>
+    <string name="tip_dont_neglect_right">Forsøm ikke højre ben helt</string>
+    <string name="tip_maintain_cadence">Bevar jævn kadence hele vejen igennem</string>
+    <string name="tip_visualize_right">Visualiser kraft fra dit højre ben</string>
+    <string name="tip_dont_neglect_left">Forsøm ikke venstre ben helt</string>
+    <string name="tip_think_360">Tænk på hele 360° af pedalbevægelsen</string>
+    <string name="tip_engage_hamstrings">Aktiver baglårene i bunden</string>
+    <string name="tip_pull_up">Træk lidt op gennem bagbevægelsen</string>
+    <string name="tip_core_stability">Hold core aktiveret for stabilitet</string>
+    <string name="tip_te_above_80">TE over 80%% kan faktisk reducere total kraft</string>
+    <string name="tip_focus_70_80">Fokuser på den optimale 70-80%% zone</string>
+    <string name="tip_dont_sacrifice">Ofre ikke hovedkraftfasen for genopretningsfasen</string>
+    <string name="tip_equal_pressure">Fokuser på lige tryk fra begge ben</string>
+    <string name="tip_minor_imbalance">Mindre ubalance er normalt, sigt efter zonen</string>
+    <string name="tip_steady_cadence">Hold kadencen stabil - jag ikke tallene</string>
+    <string name="tip_elite_smoothness">Elitecyklister opretholder 25-35%% jævnhed</string>
+    <string name="tip_engage_all_muscles">Aktiver alle muskelgrupper gennem bevægelsen</string>
+    <string name="tip_moderate_cadence">Oprethold moderat kadence (85-95 o/min fungerer godt)</string>
+    <string name="tip_smoothness_drops">Jævnhed falder naturligt ved meget høj kadence</string>
+    <string name="tip_relax_hips">Fokuser på at slappe af i hofterne</string>
+    <string name="tip_dont_bounce">Hop ikke i sadlen</string>
+    <string name="tip_core_crucial">Core stabilitet er afgørende</string>
+    <string name="tip_identify_weaker">Denne træning hjælper med at identificere dit svagere ben</string>
+    <string name="tip_neural_pathways">Regelmæssig træning forbedrer neurale baner</string>
+    <string name="tip_dont_force">Tving ikke ekstrem ubalance</string>
+    <string name="tip_no_perfection">Forvent ikke perfektion på alle metrikker på én gang</string>
+    <string name="tip_one_at_time">Fokuser på ét aspekt ad gangen til at starte med</string>
+    <string name="tip_regular_practice">Fremskridt kommer med regelmæssig træning</string>
+    <string name="tip_notice_hardest">Bemærk hvilken metrik der er sværest for dig</string>
+    <string name="tip_demanding_session">Dette er en krævende session - vær udhvilet</string>
+    <string name="tip_phases_build">Hver fase bygger på tidligere færdigheder</string>
+    <string name="tip_quality_over_perfection">Fokuser på kvalitet frem for perfektion</string>
+    <string name="tip_track_progress">Følg dine fremskridt over flere sessioner</string>
+    <string name="tip_once_twice_week">Overvej at gøre dette 1-2x om ugen</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">Første tur</string>
+    <string name="achievement_getting_started">Kom i gang</string>
+    <string name="achievement_dedicated">Dedikeret</string>
+    <string name="achievement_century">Hundrede</string>
+    <string name="achievement_balanced">Balanceret</string>
+    <string name="achievement_well_balanced">Velbalanceret</string>
+    <string name="achievement_master_of_balance">Balancemester</string>
+    <string name="achievement_efficient_rider">Effektiv rytter</string>
+    <string name="achievement_smooth_operator">Jævn operatør</string>
+    <string name="achievement_getting_consistent">Bliver konsistent</string>
+    <string name="achievement_weekly_warrior">Ugekriger</string>
+    <string name="achievement_two_week_hero">To-ugers helt</string>
+    <string name="achievement_monthly_master">Månedsmester</string>
+    <string name="achievement_practice_perfect">Øvelse gør mester</string>
+    <string name="achievement_drill_enthusiast">Øvelsesentusiast</string>
+    <string name="achievement_perfect_form">Perfekt form</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">Gennemfør din første trackede tur</string>
+    <string name="achievement_getting_started_desc">Gennemfør 10 trackede ture</string>
+    <string name="achievement_dedicated_desc">Gennemfør 50 trackede ture</string>
+    <string name="achievement_century_desc">Gennemfør 100 trackede ture</string>
+    <string name="achievement_balanced_desc">Afslut en tur med under 5%% balanceafvigelse</string>
+    <string name="achievement_well_balanced_desc">Afslut 5 ture med under 3%% balanceafvigelse</string>
+    <string name="achievement_master_of_balance_desc">Afslut 20 ture med under 2,5%% balanceafvigelse</string>
+    <string name="achievement_efficient_rider_desc">Oprethold 70-80%% TE gennemsnit i en tur</string>
+    <string name="achievement_smooth_operator_desc">Opnå 25%%+ PJ gennemsnit i en tur</string>
+    <string name="achievement_getting_consistent_desc">Cykl 3 dage i træk</string>
+    <string name="achievement_weekly_warrior_desc">Cykl 7 dage i træk</string>
+    <string name="achievement_two_week_hero_desc">Cykl 14 dage i træk</string>
+    <string name="achievement_monthly_master_desc">Cykl 30 dage i træk</string>
+    <string name="achievement_practice_perfect_desc">Gennemfør din første øvelse</string>
+    <string name="achievement_drill_enthusiast_desc">Gennemfør 10 øvelser</string>
+    <string name="achievement_perfect_form_desc">Scor 90%%+ på en hvilken som helst øvelse</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">TURE</string>
+    <string name="category_balance">BALANCE</string>
+    <string name="category_efficiency">EFFEKTIVITET</string>
+    <string name="category_streaks">SERIER</string>
+    <string name="category_drills">ØVELSER</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_system">System</string>
+</resources>

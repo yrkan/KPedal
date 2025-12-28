@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">Snabböversikt</string>
+    <string name="datatype_quick_glance_desc">Statusindikator med balansstapel</string>
+
+    <string name="datatype_power_balance">Effekt + Balans</string>
+    <string name="datatype_power_balance_desc">Effekt med V/H balans</string>
+
+    <string name="datatype_efficiency">Effektivitet</string>
+    <string name="datatype_efficiency_desc">Vridmomentseffektivitet och Trampjämnhet</string>
+
+    <string name="datatype_full_overview">Full översikt</string>
+    <string name="datatype_full_overview_desc">Alla trampmått i en vy</string>
+
+    <string name="datatype_balance_trend">Balanstrend</string>
+    <string name="datatype_balance_trend_desc">Aktuell, 3s och 10s balans</string>
+
+    <string name="datatype_single_balance">Balans</string>
+    <string name="datatype_single_balance_desc">V/H effektbalans i helskärm</string>
+
+    <string name="datatype_live">Live</string>
+    <string name="datatype_live_desc">Alla mått med Tid i Zon-statistik</string>
+
+    <!-- Labels -->
+    <string name="balance">BALANS</string>
+    <string name="balance_lower">Balans</string>
+    <string name="balance_3s">3s SNITT</string>
+    <string name="balance_10s">10s SNITT</string>
+    <string name="power">EFFEKT</string>
+    <string name="power_lower">Effekt</string>
+    <string name="te">VE</string>
+    <string name="te_full">Vridmomentseffektivitet</string>
+    <string name="ps">TJ</string>
+    <string name="ps_full">Trampjämnhet</string>
+    <string name="left">V</string>
+    <string name="right">H</string>
+    <string name="lr">V/H</string>
+    <string name="lr_balance_format">V%1$d/H%2$d</string>
+    <string name="all_good">ALLT BRA</string>
+    <string name="watt_symbol">W</string>
+    <string name="issue_count">%1$d PROBLEM</string>
+    <string name="issues_count">%1$d PROBLEM</string>
+    <string name="no_data">INGEN DATA</string>
+    <string name="no_data_lower">Ingen data</string>
+    <string name="avg">snitt</string>
+
+    <!-- Settings -->
+    <string name="settings">Inställningar</string>
+    <string name="preferences">Preferenser</string>
+    <string name="thresholds">TRÖSKELVÄRDEN</string>
+    <string name="balance_threshold">Balansvarning</string>
+    <string name="te_optimal">VE optimalt intervall</string>
+    <string name="ps_minimum">TJ minimum</string>
+    <string name="alerts">VARNINGAR</string>
+    <string name="vibration">Vibration</string>
+    <string name="sound">Ljud</string>
+    <string name="alert_settings">Varningsinställningar</string>
+    <string name="background_mode">Bakgrundsläge</string>
+    <string name="background_mode_desc">Samla data för alla turer</string>
+    <string name="cloud_sync">Molnsynkronisering</string>
+    <string name="cloud_sync_desc">Synkronisera till app.kpedal.com</string>
+    <string name="language">Språk</string>
+    <string name="settings_sync">SYNK</string>
+    <string name="settings_auto_sync">Auto-synka turer</string>
+    <string name="settings_auto_sync_desc">Synka efter varje tur</string>
+    <string name="settings_data_collection">DATAINSAMLING</string>
+    <string name="settings_balance_threshold">BALANSTRÖSKELVÄRDE</string>
+    <string name="settings_balance_threshold_desc">Avvikelse från 50/50 för att utlösa varning</string>
+    <string name="settings_te">VRIDMOMENTSEFFEKTIVITET</string>
+    <string name="settings_te_desc">Minimum VE%% för att anses optimal</string>
+    <string name="settings_ps">TRAMPJÄMNHET</string>
+    <string name="settings_ps_desc">Minimum TJ%% för att anses optimal</string>
+    <string name="settings_configure_alerts">Konfigurera varningar</string>
+    <string name="settings_configure_alerts_desc">När och hur du ska meddelas</string>
+    <string name="settings_about">OM</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_privacy">Integritetspolicy</string>
+    <string name="settings_contact">Kontakt</string>
+    <string name="settings_linked_account">Länkat konto</string>
+    <string name="settings_sync_desc">Synkronisera turer till app.kpedal.com</string>
+    <string name="settings_enter_code">Ange denna kod på</string>
+    <string name="settings_code_expired">Koden har gått ut</string>
+    <string name="settings_code_expired_desc">Begär en ny kod</string>
+    <string name="settings_get_new_code">Hämta ny kod</string>
+    <string name="settings_access_denied">Åtkomst nekad</string>
+    <string name="settings_access_denied_desc">Auktoriseringen avbröts</string>
+    <string name="settings_try_again">Försök igen</string>
+    <string name="settings_connection_failed">Anslutningen misslyckades</string>
+    <string name="settings_connection_failed_desc">Vänligen försök igen</string>
+    <string name="settings_last_sync">Senaste synk: %1$s</string>
+    <string name="settings_never_synced">Aldrig synkad</string>
+    <string name="settings_pending">%1$d väntande</string>
+    <string name="settings_up_to_date">Uppdaterad</string>
+    <string name="settings_sync_now">Synka nu</string>
+    <string name="settings_device_revoked_desc">Denna enhet kopplades bort från ditt konto. Du måste logga in igen för att synkronisera dina turer.</string>
+    <string name="ok">OK</string>
+
+    <!-- Account -->
+    <string name="account">KONTO</string>
+    <string name="link_account">Länka konto</string>
+    <string name="link_account_desc">Synkronisera turer mellan enheter</string>
+    <string name="why_how_sync">Varför och hur synkar man till molnet?</string>
+    <string name="account_linked">Konto länkat!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">Molnsynkronisering</string>
+    <string name="cloud_sync_why_title">Varför synka?</string>
+    <string name="cloud_sync_why_1">Visa turhistorik och analys på alla enheter</string>
+    <string name="cloud_sync_why_2">Detaljerade diagram och ögonblicksbilder per minut</string>
+    <string name="cloud_sync_why_3">Följ framsteg med prestationer</string>
+    <string name="cloud_sync_why_4">Förlora aldrig din data om enheten återställs</string>
+    <string name="cloud_sync_how_title">Hur länka?</string>
+    <string name="cloud_sync_how_1">Tryck på "Länka konto" ovan</string>
+    <string name="cloud_sync_how_2">Notera den 8-tecken långa koden som visas</string>
+    <string name="cloud_sync_how_3">Besök link.kpedal.com på valfri enhet</string>
+    <string name="cloud_sync_how_3_prefix">Besök</string>
+    <string name="cloud_sync_how_4">Ange koden och logga in med Google</string>
+    <string name="cloud_sync_how_5">Klart! Turer synkas automatiskt</string>
+    <string name="cloud_sync_what_syncs">Vad synkas?</string>
+    <string name="cloud_sync_syncs_rides">Tursammanfattningar med ögonblicksbilder per minut</string>
+    <string name="cloud_sync_syncs_metrics">Effekt, puls, kadens, distans, höjd</string>
+    <string name="cloud_sync_syncs_drills">Övningsresultat och prestationer</string>
+    <string name="cloud_sync_syncs_settings">Varnings- och tröskelvärdesinställningar</string>
+    <string name="cloud_sync_not_syncs">GPS/rutter samlas INTE in</string>
+    <string name="cloud_sync_free">Gratis och utan reklam. Din data förblir din.</string>
+    <string name="sign_out">Logga ut</string>
+    <string name="sync">Synka</string>
+    <string name="syncing">Synkar…</string>
+    <string name="synced">Synkad</string>
+    <string name="sync_failed">Synk misslyckades</string>
+    <string name="offline">Offline</string>
+    <string name="getting_code">Hämtar kod…</string>
+    <string name="waiting_auth">Väntar på auktorisering…</string>
+    <string name="device_disconnected">Enhet frånkopplad</string>
+    <string name="device_disconnected_desc">Denna enhet kopplades bort från ditt konto. Vänligen länka om för att fortsätta synkronisera.</string>
+    <string name="relink">Länka om konto</string>
+
+    <!-- Live -->
+    <string name="live">Live</string>
+    <string name="current_ride">Aktuell tur</string>
+    <string name="time_in_zone">TID I ZON</string>
+    <string name="waiting_pedal_data">Väntar på pedaldata…</string>
+    <string name="start_riding">Börja cykla eller kontrollera pedalanslutning</string>
+    <string name="save">Spara</string>
+    <string name="saved">Sparad</string>
+    <string name="opt">Opt</string>
+    <string name="att">Uppm</string>
+    <string name="prob">Prob</string>
+
+    <!-- Home Screen -->
+    <string name="drills">Övningar</string>
+    <string name="practice">Träna</string>
+    <string name="rides">turer</string>
+    <string name="avg_bal">snittbal</string>
+    <string name="streak">svit</string>
+    <string name="streak_days">%1$dd</string>
+    <string name="section_data">DATA</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">MER</string>
+    <string name="history">Historik</string>
+    <string name="saved_rides">Sparade turer</string>
+    <string name="analytics">Analys</string>
+    <string name="trends">Trender</string>
+    <string name="achievements">Prestationer</string>
+    <string name="challenges">Utmaningar</string>
+    <string name="weekly_goal">Veckomål</string>
+    <string name="data_fields">Datafält</string>
+    <string name="layouts_count">6 layouter</string>
+    <string name="pedal_status">Pedalstatus</string>
+    <string name="connection">Anslutning</string>
+    <string name="quick_guide">Snabbguide</string>
+    <string name="last_ride">Senaste tur</string>
+    <string name="optimal">optimal</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">Övervakar trampmått</string>
+    <string name="notification_channel_name">KPedal Bakgrund</string>
+    <string name="notification_channel_description">Övervakar trampmått under alla turer</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">Aktivera varningar</string>
+    <string name="metrics_to_monitor">MÅTT ATT ÖVERVAKA</string>
+    <string name="sensitivity">KÄNSLIGHET</string>
+    <string name="critical">Kritisk</string>
+    <string name="critical_desc">Endast allvarliga problem</string>
+    <string name="sensitive">Känslig</string>
+    <string name="sensitive_desc">Mer frekventa varningar</string>
+    <string name="notify_via">MEDDELA VIA</string>
+    <string name="vibrate">Vibrera</string>
+    <string name="banner">Banner</string>
+    <string name="options">ALTERNATIV</string>
+    <string name="wake_screen">Väck skärm</string>
+    <string name="cooldown">Viloperiod</string>
+    <string name="cooldown_15s">15s</string>
+    <string name="cooldown_30s">30s</string>
+    <string name="cooldown_1m">1m</string>
+    <string name="cooldown_2m">2m</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">Datafältslayouter</string>
+    <string name="tap_to_preview">Tryck för att förhandsgranska layout på Karoo</string>
+    <string name="layout_quick_glance_short">Status + balansstapel</string>
+    <string name="layout_power_balance_short">Stor V/H-fokus</string>
+    <string name="layout_efficiency_short">VE och TJ mått</string>
+    <string name="layout_full_overview_short">Alla mått kompakt</string>
+    <string name="layout_balance_trend_short">3s/10s utjämnad</string>
+    <string name="layout_single_balance_short">Endast balans</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">Ansluten</string>
+    <string name="disconnected">Frånkopplad</string>
+    <string name="live_data">LIVEDATA</string>
+    <string name="data_flowing">Data flödar korrekt</string>
+    <string name="signal_details">SIGNALDETALJER</string>
+    <string name="troubleshooting">FELSÖKNING</string>
+    <string name="quality">Kvalitet</string>
+    <string name="excellent">Utmärkt</string>
+    <string name="fair">Godtagbar</string>
+    <string name="poor">Dålig</string>
+    <string name="unknown">Okänd</string>
+    <string name="update_rate">Uppdateringsfrekvens</string>
+    <string name="last_update">Senaste uppdatering</string>
+    <string name="pedal_tip_start_riding">Börja cykla för att upptäcka pedaler</string>
+    <string name="pedal_tip_ensure_paired">Se till att pedalerna är parkopplade med Karoo</string>
+    <string name="pedal_tip_check_battery">Kontrollera pedalbatteri</string>
+    <string name="pedal_tip_low_rate">Låg frekvens kan indikera störning</string>
+    <string name="pedal_tip_move_away">Flytta bort från andra ANT+-enheter</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">Turhistorik</string>
+    <string name="rides_count">%1$d turer</string>
+    <string name="no_rides">Inga turer</string>
+    <string name="no_rides_saved">Inga turer sparade</string>
+    <string name="no_matching_rides">Inga matchande turer</string>
+    <string name="try_adjusting_filter">Försök justera filtret</string>
+    <string name="rides_saved_auto">Turer sparas automatiskt</string>
+    <string name="manual">manuell</string>
+    <string name="percent_optimal">%1$d%% optimal</string>
+    <string name="load_more">Ladda fler</string>
+    <string name="delete_ride">Radera tur?</string>
+    <string name="cancel">Avbryt</string>
+    <string name="delete">Radera</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">BETYG</string>
+    <string name="suggested_stars">Föreslaget: %1$d stjärnor</string>
+    <string name="overall">Övergripande</string>
+    <string name="efficiency">Effektivitet</string>
+    <string name="consistency">Konsistens</string>
+    <string name="analysis">ANALYS</string>
+    <string name="strengths">Styrkor</string>
+    <string name="areas_to_improve">Förbättringsområden</string>
+    <string name="attention">uppmärksamhet</string>
+    <string name="problem">problem</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">Ingen turdata</string>
+    <string name="complete_rides_to_see">Genomför några turer för att se trender</string>
+    <string name="period_averages">Periodsnitt</string>
+    <string name="progress_label">Framsteg</string>
+    <string name="stable">Stabil</string>
+    <string name="avg_balance_label">Snittbalans</string>
+    <string name="balance_trend_title">Balanstrend</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">TURER</string>
+    <string name="section_balance">BALANS</string>
+    <string name="section_efficiency">EFFEKTIVITET</string>
+    <string name="section_streaks">SVITER</string>
+    <string name="section_drills">ÖVNINGAR</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">Historik</string>
+    <string name="my_drills">MINA ÖVNINGAR</string>
+    <string name="built_in_drills">INBYGGDA ÖVNINGAR</string>
+    <string name="create_custom_drill">Skapa egen övning</string>
+    <string name="custom">Egen</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">Bäst %1$d%%</string>
+    <string name="start">Starta</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">Nästa</string>
+    <string name="stop">Stoppa</string>
+    <string name="pause">Pausa</string>
+    <string name="paused">Pausad</string>
+    <string name="resume">Återuppta</string>
+    <string name="rpm">varv/min</string>
+    <string name="in_zone">i zon</string>
+    <string name="spin_easy">Trampa lätt</string>
+    <string name="complete">Slutförd</string>
+    <string name="stopped">Stoppad</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">Nytt rekord!</string>
+    <string name="done">Klar</string>
+    <string name="retry">Försök igen</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">Rensa</string>
+    <string name="no_history">Ingen historik</string>
+    <string name="clear_all_question">Rensa allt?</string>
+    <string name="delete_question">Radera?</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">Ny övning</string>
+    <string name="edit_drill">Redigera övning</string>
+    <string name="name_your_drill">Namnge din övning</string>
+    <string name="drill_name_placeholder">t.ex. Balansfokus, Hög VE</string>
+    <string name="what_to_focus">Vad ska du fokusera på?</string>
+    <string name="balance_option">Balans</string>
+    <string name="lr_power_distribution">V/H effektfördelning</string>
+    <string name="torque_effectiveness_option">Vridmomentseffektivitet</string>
+    <string name="power_transfer_efficiency">Effektivitet för kraftöverföring</string>
+    <string name="pedal_smoothness_option">Trampjämnhet</string>
+    <string name="circular_pedal_stroke">Cirkulärt pedalslag</string>
+    <string name="how_long">Hur länge?</string>
+    <string name="quick_select">Snabbval</string>
+    <string name="or_set_custom">Eller ställ in egen</string>
+    <string name="minutes">Minuter</string>
+    <string name="seconds">Sekunder</string>
+    <string name="total_duration">Totalt: %1$s</string>
+    <string name="min_10_seconds">Minst 10 sekunder</string>
+    <string name="set_your_target">Ställ in ditt mål</string>
+    <string name="above">Över</string>
+    <string name="above_value">≥ värde</string>
+    <string name="below">Under</string>
+    <string name="below_value">≤ värde</string>
+    <string name="range">Intervall</string>
+    <string name="min_max">min-max</string>
+    <string name="minimum">Minimum</string>
+    <string name="maximum">Maximum</string>
+    <string name="preview">FÖRHANDSGRANSKNING</string>
+    <string name="metric">Mått</string>
+    <string name="duration">Varaktighet</string>
+    <string name="target">Mål</string>
+    <string name="custom_drill_desc">Egen %1$s övning</string>
+    <string name="torque_eff_short">Vridmom.eff.</string>
+    <string name="smoothness_short">Jämnhet</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">Veckoutmaning</string>
+    <string name="active">Aktiv</string>
+    <string name="days_left_this_week">%1$d dagar kvar denna vecka</string>
+    <string name="completed_upper">SLUTFÖRD</string>
+    <string name="this_week">DENNA VECKA</string>
+    <string name="all_challenges">ALLA UTMANINGAR</string>
+    <string name="next_week">NÄSTA VECKA</string>
+
+    <!-- Onboarding -->
+    <string name="skip">Hoppa över</string>
+    <string name="get_started">Kom igång</string>
+    <string name="onboarding_welcome_title">Välkommen till KPedal</string>
+    <string name="onboarding_welcome_desc">Trampmått i realtid från dina effektmätarpedaler. Följ balans, effektivitet och jämnhet för att förbättra din teknik.</string>
+    <string name="onboarding_data_fields_title">Datafält</string>
+    <string name="onboarding_data_fields_desc">Lägg till KPedal datafält på dina Karoo-skärmar för att se mått under din tur. Välj mellan 6 olika layouter.</string>
+    <string name="onboarding_drills_title">Övningar</string>
+    <string name="onboarding_drills_desc">Träna med guidade övningar för att förbättra din trampteknik. Varje övning fokuserar på specifika aspekter av ditt pedalslag.</string>
+    <string name="onboarding_alerts_title">Varningar</string>
+    <string name="onboarding_alerts_desc">Få meddelanden när dina mått går utanför optimala intervall. Konfigurera varningar i Inställningar.</string>
+    <string name="onboarding_background_title">Bakgrundsdata</string>
+    <string name="onboarding_background_desc">KPedal samlar trampmått för alla dina turer automatiskt. Du kan inaktivera detta i Inställningar om du föredrar det.</string>
+    <string name="onboarding_cloud_title">Molnsynkronisering</string>
+    <string name="onboarding_cloud_desc">Logga in med Google för att synkronisera din turdata och visa analys på app.kpedal.com. Detta är valfritt - din data stannar på enheten tills du synkar.</string>
+
+    <!-- Help Screen -->
+    <string name="help">Hjälp</string>
+    <string name="section_metrics">Mått</string>
+    <string name="section_colors">Färger</string>
+    <string name="section_setup">Installation</string>
+    <string name="section_tips">Tips</string>
+    <string name="section_faq">Vanliga frågor</string>
+    <string name="section_troubleshooting">Felsökning</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">V/H effektfördelning</string>
+    <string name="help_balance_note">2-5%% asymmetri är normalt</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">Vridmomentseffektivitet</string>
+    <string name="help_te_note">Högre är INTE bättre! Begränsar effekt</string>
+    <string name="help_ps_range">≥20%%</string>
+    <string name="help_ps_desc">Trampjämnhet</string>
+    <string name="help_ps_note">Elit: 25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">Effektbalans</string>
+    <string name="metric_balance_short">V/H effektfördelning</string>
+    <string name="metric_balance_explanation">Effektbalans visar hur jämnt du fördelar effekten mellan vänster och höger ben. En perfekt balans skulle vara 50/50, men mindre asymmetri (48-52%%) är normalt och inget att oroa sig för.</string>
+    <string name="metric_balance_optimal">48-52%% (optimal), 45-55%% (acceptabel)</string>
+    <string name="metric_balance_tip1">Fokusera på jämnt tryck genom hela pedalslaget</string>
+    <string name="metric_balance_tip2">Prova enbensövningar för att stärka din svagare sida</string>
+    <string name="metric_balance_tip3">Kontrollera din cykelpassform - sadelhöjd kan påverka balansen</string>
+    <string name="metric_balance_tip4">Mindre obalanser är normala och korrigerar sig ofta själva</string>
+    <string name="metric_balance_tip5">Var inte besatt av små fluktuationer under en tur</string>
+    <string name="metric_balance_research">Studier visar att de flesta cyklister har 1-5%% naturlig obalans. Professionella cyklister har i snitt 48-52%%.</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">Vridmomentseffektivitet</string>
+    <string name="metric_te_short">Pedalslagseffektivitet</string>
+    <string name="metric_te_explanation">Vridmomentseffektivitet (VE) mäter hur mycket av din tramprörelse som bidrar till framdrivning. En poäng på 100%% skulle betyda att varje del av ditt slag adderar kraft, men detta är varken realistiskt eller optimalt.</string>
+    <string name="metric_te_optimal">70-80%% (optimal, INTE högre)</string>
+    <string name="metric_te_tip1">Fokusera på att dra igenom botten av slaget</string>
+    <string name="metric_te_tip2">Tänk dig att du skrapar lera från din sko längst ner</string>
+    <string name="metric_te_tip3">Högre VE (>80%%) REDUCERAR ofta huvudeffekten</string>
+    <string name="metric_te_tip4">Jämn, cirkulär trampning är effektivare än att tvinga hög VE</string>
+    <string name="metric_te_tip5">VE varierar naturligt med kadens och effekt</string>
+    <string name="metric_te_research">Wattbike-forskning visar att VE över 80%% faktiskt minskar effektproduktionen. Elitcyklister siktar på 70-80%%.</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">Trampjämnhet</string>
+    <string name="metric_ps_short">Konsistens i kraftleverans</string>
+    <string name="metric_ps_explanation">Trampjämnhet (TJ) visar hur jämnt kraft appliceras genom pedalslaget. Högre värden betyder mer konsistent kraftleverans med färre toppar och dalar.</string>
+    <string name="metric_ps_optimal">20%%+ (bra), 25-35%% (elit)</string>
+    <string name="metric_ps_tip1">Träna snurrövningar med hög kadens</string>
+    <string name="metric_ps_tip2">Fokusera på att eliminera döda punkter i ditt slag</string>
+    <string name="metric_ps_tip3">Håll konsekvent tryck genom hela rotationen</string>
+    <string name="metric_ps_tip4">Lägre växlar och högre kadens förbättrar ofta jämnheten</string>
+    <string name="metric_ps_tip5">TJ minskar naturligt vid mycket hög effekt</string>
+    <string name="metric_ps_research">Professionella cyklister uppnår typiskt 25-35%% trampjämnhet.</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">Vit</string>
+    <string name="color_green">Grön</string>
+    <string name="color_yellow">Gul</string>
+    <string name="color_red">Röd</string>
+    <string name="color_white_meaning">Normal / ingen data</string>
+    <string name="color_green_meaning">Optimalt intervall</string>
+    <string name="color_yellow_meaning">Behöver uppmärksamhet</string>
+    <string name="color_red_meaning">Problem</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo → Profiler → Datafält</string>
+    <string name="setup_step2">Tryck på plats → Mer data → kpedal</string>
+    <string name="setup_step3">Välj layout</string>
+    <string name="setup_step4">Parkoppla pedaler (ANT+)</string>
+    <string name="setup_step5">Börja cykla</string>
+    <string name="setup_requires">Kräver: Garmin Rally, Favero Assioma, SRM, Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">Enbensövningar för svag sida</string>
+    <string name="tips_balance_2">Kontrollera klossposition</string>
+    <string name="tips_balance_3">Trötthet ökar asymmetri</string>
+    <string name="tips_te_1">Sikta inte på 100%%</string>
+    <string name="tips_te_2">Skrapa lera längst ner i slaget</string>
+    <string name="tips_te_3">Avlasta, dra inte upp</string>
+    <string name="tips_ps_1">Högre kadens hjälper</string>
+    <string name="tips_ps_2">Eliminera döda punkter</string>
+    <string name="tips_ps_3">Träna på rullar</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">F: %1$s</string>
+    <string name="faq_te85_q">VE 85%%+ dåligt?</string>
+    <string name="faq_te85_a">Ja. 70-80%% är optimalt. Högre begränsar nedtryckseffekten.</string>
+    <string name="faq_balance_q">Balans 45/55 ok?</string>
+    <string name="faq_balance_a">Ja. ±5%% är normalt. Endast >10%% är oroande.</string>
+    <string name="faq_jump_q">Värdena hoppar runt?</string>
+    <string name="faq_jump_a">Fokusera på snitt, inte momentana värden.</string>
+    <string name="faq_compare_q">Jämföra med andra?</string>
+    <string name="faq_compare_a">Nej. Följ dina egna trender istället.</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">Ingen data</string>
+    <string name="trouble_nodata_fix">Kontrollera att pedalerna är parkopplade i Karoo-inställningar. Börja trampa.</string>
+    <string name="trouble_balance_only">Endast balans, ingen VE/TJ</string>
+    <string name="trouble_balance_only_fix">Pedalerna kanske inte stöder VE/TJ (t.ex. Wahoo POWRLINK).</string>
+    <string name="trouble_stuck">Värden fastnar</string>
+    <string name="trouble_stuck_fix">Starta om turen. Kontrollera batteri. Parkoppla pedalerna igen.</string>
+    <string name="trouble_crash">Appkrasch</string>
+    <string name="trouble_crash_fix">Starta om appen. Starta om Karoo. Installera om.</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">Vänster ben fokus</string>
+    <string name="drill_right_leg_focus">Höger ben fokus</string>
+    <string name="drill_smooth_circles">Jämna cirklar</string>
+    <string name="drill_power_transfer">Kraftöverföring</string>
+    <string name="drill_balance_challenge">Balansutmaning</string>
+    <string name="drill_smoothness_target">Jämnhetsmål</string>
+    <string name="drill_high_cadence_smooth">Högkadensig jämnhet</string>
+    <string name="drill_balance_recovery">Balansåterhämtning</string>
+    <string name="drill_efficiency_builder">Effektivitetsbyggare</string>
+    <string name="drill_pedaling_mastery">Trampmästerskap</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">Stärk vänster bens kraftutveckling</string>
+    <string name="drill_right_leg_focus_desc">Stärk höger bens kraftutveckling</string>
+    <string name="drill_smooth_circles_desc">Förbättra pedalslagets jämnhet</string>
+    <string name="drill_power_transfer_desc">Maximera kraft till framåtrörelse</string>
+    <string name="drill_balance_challenge_desc">Behåll perfekt V/H balans</string>
+    <string name="drill_smoothness_target_desc">Träffa jämnhetsmål konsekvent</string>
+    <string name="drill_high_cadence_smooth_desc">Förbli jämn vid högt varvtal</string>
+    <string name="drill_balance_recovery_desc">Återgå till balans efter ansträngning</string>
+    <string name="drill_efficiency_builder_desc">Kombinera VE och TJ för effektivitet</string>
+    <string name="drill_pedaling_mastery_desc">Bemästra alla trampmått</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">Uppvärmning</string>
+    <string name="phase_focus">Fokus</string>
+    <string name="phase_maintain">Behåll</string>
+    <string name="phase_recover">Återhämta</string>
+    <string name="phase_build">Bygg</string>
+    <string name="phase_push">Pusha</string>
+    <string name="phase_hold">Håll</string>
+    <string name="phase_rest">Vila</string>
+    <string name="phase_prepare">Förbered</string>
+    <string name="phase_cooldown">Nedvarvning</string>
+    <string name="phase_left_focus">Vänsterfokus</string>
+    <string name="phase_right_focus">Högerfokus</string>
+    <string name="phase_smooth_circles">Jämna cirklar</string>
+    <string name="phase_max_transfer">Max överföring</string>
+    <string name="phase_find_center">Hitta mitten</string>
+    <string name="phase_hold_balance">Håll balans</string>
+    <string name="phase_relax">Slappna av</string>
+    <string name="phase_target_zone">Målzon</string>
+    <string name="phase_normal_cadence">Normal kadens</string>
+    <string name="phase_build_cadence">Bygg kadens</string>
+    <string name="phase_hold_smooth">Håll jämnt</string>
+    <string name="phase_wind_down">Varva ner</string>
+    <string name="phase_baseline">Baslinje</string>
+    <string name="phase_left_emphasis">Vänster betoning</string>
+    <string name="phase_center">Centrum</string>
+    <string name="phase_right_emphasis">Höger betoning</string>
+    <string name="phase_center_again">Centrum igen</string>
+    <string name="phase_natural_finish">Naturlig avslutning</string>
+    <string name="phase_balance_focus">Balansfokus</string>
+    <string name="phase_smoothness_block">Jämnhetsblock</string>
+    <string name="phase_recovery">Återhämtning</string>
+    <string name="phase_te_focus">VE-fokus</string>
+    <string name="phase_combined">Kombinerat</string>
+    <string name="phase_activation">Aktivering</string>
+    <string name="phase_left_isolation">Vänster ben isolering</string>
+    <string name="phase_right_isolation">Höger ben isolering</string>
+    <string name="phase_perfect_balance">Perfekt balans</string>
+    <string name="phase_smoothness_focus">Jämnhetsfokus</string>
+    <string name="phase_te_optimization">VE-optimering</string>
+    <string name="phase_high_cadence_test">Högkadenstest</string>
+    <string name="phase_integration">Integration</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">Lätt snurrande</string>
+    <string name="phase_desc_emphasize_left">Betona vänster ben</string>
+    <string name="phase_desc_return_normal">Återgå till normalt</string>
+    <string name="phase_desc_emphasize_right">Betona höger ben</string>
+    <string name="phase_desc_find_rhythm">Hitta din rytm</string>
+    <string name="phase_desc_max_smoothness">Maximera jämnhet</string>
+    <string name="phase_desc_increase_focus">Öka fokus gradvis</string>
+    <string name="phase_desc_optimize_te">Optimera VE</string>
+    <string name="phase_desc_easy_spin">Lätt snurrande</string>
+    <string name="phase_desc_center_power">Centrera din kraft</string>
+    <string name="phase_desc_hold_5050">Håll 50/50</string>
+    <string name="phase_desc_release_focus">Släpp fokus</string>
+    <string name="phase_desc_loosen_up">Lossa upp</string>
+    <string name="phase_desc_hold_ps_25">Håll TJ ≥25%%</string>
+    <string name="phase_desc_recover">Återhämta</string>
+    <string name="phase_desc_establish_baseline">Etablera baslinje</string>
+    <string name="phase_desc_increase_100rpm">Öka till 100+ varv/min</string>
+    <string name="phase_desc_smooth_high_cadence">Jämnt vid hög kadens</string>
+    <string name="phase_desc_return_to_normal">Återgå till normalt</string>
+    <string name="phase_desc_find_natural_balance">Hitta naturlig balans</string>
+    <string name="phase_desc_focus_left">Fokusera vänster</string>
+    <string name="phase_desc_find_5050">Hitta 50/50</string>
+    <string name="phase_desc_focus_right">Fokusera höger</string>
+    <string name="phase_desc_spin_naturally">Snurra naturligt</string>
+    <string name="phase_desc_smooth_circles">Jämna cirklar</string>
+    <string name="phase_desc_power_transfer">Kraftöverföring</string>
+    <string name="phase_desc_all_metrics">Alla mått</string>
+    <string name="phase_desc_wind_down">Varva ner</string>
+    <string name="phase_desc_wake_legs">Väck benen</string>
+    <string name="phase_desc_left_focus">Vänsterfokus</string>
+    <string name="phase_desc_right_focus">Högerfokus</string>
+    <string name="phase_desc_5050_hold">50/50 håll</string>
+    <string name="phase_desc_circular_motion">Cirkulär rörelse</string>
+    <string name="phase_desc_speed_form">Fart + form</string>
+    <string name="phase_desc_everything_together">Allt tillsammans</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">Snurra lätt, förbered dig för att fokusera</string>
+    <string name="instr_focus_left_leg">Fokusera på att trycka igenom med ditt VÄNSTRA ben</string>
+    <string name="instr_relax_spin_normally">Slappna av och snurra normalt</string>
+    <string name="instr_focus_right_leg">Fokusera på att trycka igenom med ditt HÖGRA ben</string>
+    <string name="instr_settle_cadence">Finna en bekväm kadens</string>
+    <string name="instr_smooth_circles">Tänk dig att du ritar jämna cirklar. Skrapa lera från din sko längst ner.</string>
+    <string name="instr_maintain_feeling">Slappna av och behåll känslan</string>
+    <string name="instr_feel_power_transfer">Börja lätt, fokusera på att känna kraftöverföringen</string>
+    <string name="instr_apply_power">Applicera kraft genom hela slaget. Undvik att mosa.</string>
+    <string name="instr_spin_easy_recover">Snurra lätt, låt benen återhämta sig</string>
+    <string name="instr_find_balance_point">Hitta din naturliga balanspunkt</string>
+    <string name="instr_hold_5050">Håll 50/50 balans. Endast små justeringar!</string>
+    <string name="instr_good_work_relax">Bra jobbat! Slappna av och snurra lätt</string>
+    <string name="instr_easy_spin_form">Lätt snurrande, fokusera på form</string>
+    <string name="instr_keep_ps_25">Håll jämnheten över 25%%. Fulla cirklar!</string>
+    <string name="instr_great_effort">Fantastisk insats! Snurra lätt</string>
+    <string name="instr_start_normal_cadence">Börja med din normala kadens</string>
+    <string name="instr_increase_cadence_100">Öka gradvis kadensen till 100+ varv/min</string>
+    <string name="instr_keep_ps_high_cadence">Håll jämnheten över 20%% vid hög kadens!</string>
+    <string name="instr_reduce_cadence_smooth">Minska gradvis kadensen, förbli jämn</string>
+    <string name="instr_observe_balance">Snurra naturligt, observera din balans</string>
+    <string name="instr_emphasize_left">Betona ditt VÄNSTRA ben</string>
+    <string name="instr_return_center">Återgå till centrum, 50/50 balans</string>
+    <string name="instr_emphasize_right">Betona ditt HÖGRA ben</string>
+    <string name="instr_feel_symmetry">Återgå till centrum, känn symmetrin</string>
+    <string name="instr_notice_improvement">Snurra naturligt, notera eventuell förbättring</string>
+    <string name="instr_warmup_easy">Värm upp med lätt snurrande</string>
+    <string name="instr_focus_even_balance">Fokusera på jämn balans, 50/50 effekt</string>
+    <string name="instr_smooth_circular">Fokusera på jämnt, cirkulärt pedalslag</string>
+    <string name="instr_shake_out">Lätt snurrande, skaka ut benen</string>
+    <string name="instr_optimize_te">Optimera vridmomentseffektivitet 70-80%%</string>
+    <string name="instr_combine_all">Kombinera nu: Balans + Jämnhet + Effektivt</string>
+    <string name="instr_appreciate_effort">Lätt snurrande, uppskatta din insats</string>
+    <string name="instr_prepare_mentally">Lätt snurrande, förbered dig mentalt</string>
+    <string name="instr_strong_left">Stark betoning på vänster ben</string>
+    <string name="instr_strong_right">Stark betoning på höger ben</string>
+    <string name="instr_perfect_5050">Perfekt balans, 50/50</string>
+    <string name="instr_max_smoothness">Maximal jämnhet, eliminera döda punkter</string>
+    <string name="instr_easy_recover">Lätt snurrande, återhämta</string>
+    <string name="instr_dial_te">Ställ in VE till 72-78%% zonen</string>
+    <string name="instr_increase_cadence_form">Öka kadens, behåll form</string>
+    <string name="instr_combine_skills">Kombinera alla färdigheter: Balans + Jämnhet + Effektivt</string>
+    <string name="instr_appreciate_mastery">Lätt snurrande, uppskatta ditt mästerarbete</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">Visualisera kraft som kommer från ditt vänstra ben</string>
+    <string name="tip_dont_neglect_right">Försumma inte höger ben helt</string>
+    <string name="tip_maintain_cadence">Behåll jämn kadens genomgående</string>
+    <string name="tip_visualize_right">Visualisera kraft som kommer från ditt högra ben</string>
+    <string name="tip_dont_neglect_left">Försumma inte vänster ben helt</string>
+    <string name="tip_think_360">Tänk på hela 360° av pedalslaget</string>
+    <string name="tip_engage_hamstrings">Aktivera lårmuskler längst ner</string>
+    <string name="tip_pull_up">Dra upp lätt genom bakslaget</string>
+    <string name="tip_core_stability">Håll core aktiverad för stabilitet</string>
+    <string name="tip_te_above_80">VE över 80%% kan faktiskt reducera total effekt</string>
+    <string name="tip_focus_70_80">Fokusera på den optimala 70-80%% zonen</string>
+    <string name="tip_dont_sacrifice">Offra inte huvudkraftfasen för återhämtningsfasen</string>
+    <string name="tip_equal_pressure">Fokusera på lika tryck från båda benen</string>
+    <string name="tip_minor_imbalance">Mindre obalans är normalt, sikta på zonen</string>
+    <string name="tip_steady_cadence">Håll kadensen stabil - jaga inte siffrorna</string>
+    <string name="tip_elite_smoothness">Elitcyklister upprätthåller 25-35%% jämnhet</string>
+    <string name="tip_engage_all_muscles">Aktivera alla muskelgrupper genom slaget</string>
+    <string name="tip_moderate_cadence">Behåll måttlig kadens (85-95 varv/min fungerar bra)</string>
+    <string name="tip_smoothness_drops">Jämnhet sjunker naturligt vid mycket hög kadens</string>
+    <string name="tip_relax_hips">Fokusera på att slappna av höfterna</string>
+    <string name="tip_dont_bounce">Studsa inte i sadeln</string>
+    <string name="tip_core_crucial">Core-stabilitet är avgörande</string>
+    <string name="tip_identify_weaker">Detta pass hjälper till att identifiera ditt svagare ben</string>
+    <string name="tip_neural_pathways">Regelbunden träning förbättrar nervbanor</string>
+    <string name="tip_dont_force">Tvinga inte extrem obalans</string>
+    <string name="tip_no_perfection">Förvänta inte perfektion på alla mått samtidigt</string>
+    <string name="tip_one_at_time">Fokusera på en aspekt i taget till att börja med</string>
+    <string name="tip_regular_practice">Framsteg kommer med regelbunden träning</string>
+    <string name="tip_notice_hardest">Notera vilket mått som är svårast för dig</string>
+    <string name="tip_demanding_session">Detta är ett krävande pass - var utvilad</string>
+    <string name="tip_phases_build">Varje fas bygger på tidigare färdigheter</string>
+    <string name="tip_quality_over_perfection">Fokusera på kvalitet framför perfektion</string>
+    <string name="tip_track_progress">Följ dina framsteg över flera pass</string>
+    <string name="tip_once_twice_week">Överväg att göra detta 1-2x per vecka</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">Första turen</string>
+    <string name="achievement_getting_started">Kom igång</string>
+    <string name="achievement_dedicated">Hängiven</string>
+    <string name="achievement_century">Century</string>
+    <string name="achievement_balanced">Balanserad</string>
+    <string name="achievement_well_balanced">Välbalanserad</string>
+    <string name="achievement_master_of_balance">Balansmästare</string>
+    <string name="achievement_efficient_rider">Effektiv cyklist</string>
+    <string name="achievement_smooth_operator">Jämn operatör</string>
+    <string name="achievement_getting_consistent">Blir konsekvent</string>
+    <string name="achievement_weekly_warrior">Veckokrigare</string>
+    <string name="achievement_two_week_hero">Tvåveckorshjälte</string>
+    <string name="achievement_monthly_master">Månadsmästare</string>
+    <string name="achievement_practice_perfect">Övning ger färdighet</string>
+    <string name="achievement_drill_enthusiast">Övningsentusiast</string>
+    <string name="achievement_perfect_form">Perfekt form</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">Slutför din första spårade tur</string>
+    <string name="achievement_getting_started_desc">Slutför 10 spårade turer</string>
+    <string name="achievement_dedicated_desc">Slutför 50 spårade turer</string>
+    <string name="achievement_century_desc">Slutför 100 spårade turer</string>
+    <string name="achievement_balanced_desc">Avsluta en tur med under 5%% balansavvikelse</string>
+    <string name="achievement_well_balanced_desc">Avsluta 5 turer med under 3%% balansavvikelse</string>
+    <string name="achievement_master_of_balance_desc">Avsluta 20 turer med under 2.5%% balansavvikelse</string>
+    <string name="achievement_efficient_rider_desc">Upprätthåll 70-80%% VE-snitt på en tur</string>
+    <string name="achievement_smooth_operator_desc">Uppnå 25%%+ TJ-snitt på en tur</string>
+    <string name="achievement_getting_consistent_desc">Cykla 3 dagar i rad</string>
+    <string name="achievement_weekly_warrior_desc">Cykla 7 dagar i rad</string>
+    <string name="achievement_two_week_hero_desc">Cykla 14 dagar i rad</string>
+    <string name="achievement_monthly_master_desc">Cykla 30 dagar i rad</string>
+    <string name="achievement_practice_perfect_desc">Slutför din första övning</string>
+    <string name="achievement_drill_enthusiast_desc">Slutför 10 övningar</string>
+    <string name="achievement_perfect_form_desc">Få 90%%+ på någon övning</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">TURER</string>
+    <string name="category_balance">BALANS</string>
+    <string name="category_efficiency">EFFEKTIVITET</string>
+    <string name="category_streaks">SVITER</string>
+    <string name="category_drills">ÖVNINGAR</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_system">System</string>
+</resources>

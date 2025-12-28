@@ -1,0 +1,1975 @@
+{
+  "common": {
+    "loading": "Laddar...",
+    "error": "Ett fel uppstod",
+    "loadError": "Kunde inte ladda data",
+    "retry": "Försök igen",
+    "back": "Tillbaka",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "delete": "Ta bort",
+    "confirm": "Bekräfta",
+    "or": "eller",
+    "today": "Idag",
+    "yesterday": "Igår",
+    "daysAgo": "{days} dagar sedan",
+    "noData": "Ingen data",
+    "toggleTheme": "Växla tema",
+    "tableView": "Tabellvy",
+    "cardView": "Kortvy",
+    "backToDashboard": "Tillbaka till instrumentpanelen",
+    "remove": "Ta bort"
+  },
+  "app": {
+    "name": "KPedal",
+    "tagline": "Trampeffektivitetsanalys för Karoo",
+    "version": "Version 1.3.0",
+    "webTitle": "KPedal Web"
+  },
+  "nav": {
+    "dashboard": "Instrumentpanel",
+    "home": "Hem",
+    "rides": "Turer",
+    "drills": "Övningar",
+    "achievements": "Prestationer",
+    "goals": "Mål",
+    "settings": "Inställningar",
+    "profile": "Profil",
+    "logout": "Logga ut"
+  },
+  "auth": {
+    "signIn": "Logga in",
+    "signOut": "Logga ut",
+    "continueWithGoogle": "Fortsätt med Google",
+    "tryDemo": "Prova demo",
+    "loadingDemo": "Laddar demo...",
+    "createFreeAccount": "Skapa gratiskonto",
+    "secureOAuth": "Säker OAuth 2.0",
+    "googleVerified": "Google-verifierad",
+    "privacyNote": "Genom att logga in godkänner du vår",
+    "privacyPolicy": "Integritetspolicy",
+    "demoNote": "Utforska instrumentpanelen med exempeldata.",
+    "noSignupRequired": "Ingen registrering krävs.",
+    "backToLanding": "tillbaka till startsidan",
+    "signedInViaGoogle": "Inloggad via Google",
+    "sessionExpires": "Din session går ut om 7 dagar",
+    "authenticating": "Autentiserar...",
+    "signingIn": "Loggar in dig...",
+    "redirectingToLogin": "Omdirigerar till inloggning...",
+    "missingTokens": "Autentiseringstoken saknas"
+  },
+  "errors": {
+    "invalidState": "Säkerhetsverifiering misslyckades. Försök igen.",
+    "authFailed": "Autentisering misslyckades. Försök igen.",
+    "somethingWrong": "Något gick fel. Försök igen.",
+    "demoUnavailable": "Demoläge tillfälligt otillgängligt. Försök igen senare.",
+    "demoFailed": "Kunde inte starta demoläge. Försök igen.",
+    "failedToLoad": "Kunde inte ladda data",
+    "failedToConnect": "Kunde inte ansluta",
+    "failedToLoadRides": "Kunde inte ladda turer",
+    "failedToLoadDrills": "Kunde inte ladda övningar",
+    "failedToLoadMilestones": "Kunde inte ladda milstolpar",
+    "failedToLoadDevices": "Kunde inte ladda enheter",
+    "failedToLoadSettings": "Kunde inte ladda inställningar"
+  },
+  "demo": {
+    "mode": "Demoläge",
+    "viewingSampleData": "Visar exempeldata",
+    "tour": "Rundtur"
+  },
+  "metrics": {
+    "balance": "Balans",
+    "balanceShort": "Bal",
+    "te": "Vridmomentseffektivitet",
+    "teShort": "VE",
+    "ps": "Trampjämnhet",
+    "psShort": "TJ",
+    "power": "Effekt",
+    "powerAvg": "Snitteffekt",
+    "powerMax": "Maxeffekt",
+    "normalizedPower": "Normaliserad effekt",
+    "npShort": "NP",
+    "cadence": "Kadens",
+    "hr": "Puls",
+    "hrShort": "Puls",
+    "speed": "Hastighet",
+    "distance": "Distans",
+    "duration": "Längd",
+    "elevation": "Höjd",
+    "elevationGain": "Höjdvinst",
+    "energy": "Energi",
+    "score": "Poäng",
+    "asymmetry": "Asymmetri",
+    "left": "V",
+    "right": "H",
+    "leftRight": "V/H",
+    "avg": "Snitt",
+    "max": "Max",
+    "total": "Totalt"
+  },
+  "zones": {
+    "title": "Zoner",
+    "optimal": "Optimal",
+    "attention": "Uppmärksamhet",
+    "problem": "Problem",
+    "timeInZone": "Tid i zon",
+    "zoneStatus": "Zonstatus",
+    "description": {
+      "attention": "Tekniken behöver arbete",
+      "optimal": "Utmärkt form",
+      "problem": "Betydande problem"
+    }
+  },
+  "dashboard": {
+    "title": "Instrumentpanel",
+    "period": {
+      "days7": "7 dagar",
+      "days14": "14 dagar",
+      "days30": "30 dagar",
+      "days60": "60 dagar",
+      "all": "All tid",
+      "week": "Vecka",
+      "month": "Månad",
+      "year": "År"
+    },
+    "stats": {
+      "rides": "{count, plural, one {# tur} other {# turer}}",
+      "hours": "{count}h",
+      "km": "{value} km",
+      "avgScore": "Snittpoäng"
+    },
+    "powerAsymmetry": "Effektasymmetri",
+    "lrBalance": "V/H-balans",
+    "weeklyActivity": "Veckoaktivitet",
+    "technique": "Teknik",
+    "trends": "Trender",
+    "recentRides": "Senaste turer",
+    "thisWeek": "Denna vecka",
+    "lastWeek": "Förra veckan",
+    "vsLastWeek": "jämfört med förra veckan",
+    "noRides": "Inga turer under denna period",
+    "viewAll": "Visa alla →",
+    "leftDominant": "V-dominant",
+    "rightDominant": "H-dominant",
+    "balanced": "Balanserad",
+    "hello": "Hej, {name}!",
+    "startRiding": "Börja cykla för att se din data",
+    "welcome": "Välkommen, {name}!",
+    "weeklyChart": {
+      "rides": "turer",
+      "title": "Veckoaktivitet",
+      "hours": "timmar"
+    },
+    "yourProgress": "Dina framsteg",
+    "allTime": "All tid",
+    "summary": {
+      "rides": "turer",
+      "hours": "timmar",
+      "km": "km"
+    },
+    "comparison": {
+      "rides": "Turer",
+      "hours": "Timmar",
+      "distance": "Distans",
+      "climb": "Stigning",
+      "balance": "Balans",
+      "optimal": "Optimal"
+    },
+    "sections": {
+      "performance": "Prestanda",
+      "insights": "Insikter"
+    },
+    "perfStats": {
+      "score": "Poäng",
+      "optimal": "Optimal",
+      "power": "Effekt",
+      "energy": "Energi"
+    },
+    "trendCards": {
+      "balanceTrend": "Balanstrend",
+      "technique": "Teknik",
+      "asym": "Asym"
+    },
+    "trendStats": {
+      "current": "Nuvarande",
+      "average": "Snitt",
+      "spread": "Spridning",
+      "latest": "Senaste",
+      "best": "Bästa"
+    },
+    "emptyStates": {
+      "needMoreRides": "Fler turer behövs",
+      "needMoreData": "Mer data behövs"
+    },
+    "progress": {
+      "title": "Framsteg jämfört med föregående {period} dagar",
+      "score": "Poäng",
+      "optimalZone": "Optimal zon",
+      "time": "Tid",
+      "distance": "Distans"
+    },
+    "table": {
+      "date": "Datum",
+      "duration": "Längd",
+      "asym": "Asym",
+      "zones": "Zoner",
+      "power": "Effekt",
+      "clickToView": "Klicka för att visa"
+    },
+    "actions": {
+      "downloadApk": "Ladda ner APK",
+      "linkDevice": "Länka enhet"
+    },
+    "onboarding": {
+      "dashboardWillShow": "Din instrumentpanel visar trampanalys i realtid när du börjar cykla med KPedal på din Karoo.",
+      "whatYouWillSee": "Vad du kommer att se här",
+      "powerBalance": "Effektbalans",
+      "proTarget": "Proffs: ±2,5%",
+      "torqueEffectiveness": "Vridmomentseffektivitet",
+      "teOptimal": "Optimal: 70-80%",
+      "pedalSmoothness": "Trampjämnhet",
+      "psOptimal": "Optimal: ≥20%",
+      "getStarted": "Kom igång i 3 steg",
+      "step1Title": "Installera på Karoo",
+      "step1Desc": "Ladda ner APK och installera via USB eller Karoo-webbläsaren",
+      "step2Title": "Lägg till datafält",
+      "step2Desc": "Redigera din cykelprofil och lägg till KPedal-datafält",
+      "step3Title": "Länka din enhet",
+      "step3Desc": "Anslut Karoo för att synkronisera turer automatiskt",
+      "exampleBalance": "50% V / 50% H",
+      "exampleTe": "72% snitt",
+      "examplePs": "22% snitt",
+      "alreadyInstalled": "Redan installerad? Genomför en tur på din Karoo — data visas här efter synkronisering."
+    },
+    "fatigue": {
+      "title": "Trötthet (senaste tur)",
+      "trend": "Trend",
+      "dropped": "Sjönk",
+      "slight": "Lätt",
+      "stable": "Stabil"
+    },
+    "units": {
+      "wAvg": "W snitt",
+      "wMax": "W max",
+      "rpm": "rpm",
+      "bpmAvg": "bpm snitt",
+      "bpmMax": "bpm max",
+      "kmh": "km/h",
+      "mUp": "m ↑",
+      "mDown": "m ↓",
+      "grade": "% lutning",
+      "kJ": "kJ",
+      "rides": "turer"
+    },
+    "insights": {
+      "fatigueAction": "Din form sjunker sent under turerna. Bygg uthållighet med",
+      "fatigueLink": "Effektivitetsbyggare",
+      "balanceAction": "{asymmetry}% {dominant}-dominant. Stärk {weak} ben med",
+      "balanceLink": "{side} benfokus",
+      "leftLeg": "Vänster",
+      "rightLeg": "Höger",
+      "leftDominant": "vänster",
+      "rightDominant": "höger",
+      "lowTeAction": "VE {te}% — fokusera på att dra upp vid kl. 6. Prova",
+      "lowTeLink": "Kraftöverföring",
+      "lowPsAction": "TJ {ps}% betyder hackig trampteknik. Jämna ut den med",
+      "lowPsLink": "Mjuka cirklar",
+      "greatBalance": "{asymmetry}% asymmetri — det är proffsbalans!",
+      "teOptimal": "VE {te}% — idealzon för kraftöverföring.",
+      "excellentScore": "Poäng {score}% — elitteknik!",
+      "goodConsistency": "{count} turer — bra vecka!",
+      "improvement": "Poängen upp {points} poäng från förra perioden.",
+      "encourageRides": "Bara {count} {rideWord} — försök matcha förra veckans {lastCount}.",
+      "ride": "tur",
+      "ridesPl": "turer",
+      "nearOptimalTe": "VE {te}% — bara {diff}% från optimal zon."
+    }
+  },
+  "rides": {
+    "title": "Turer",
+    "allRides": "Alla turer",
+    "rideHistory": "Turhistorik",
+    "noRides": "Inga turer registrerade ännu",
+    "noRidesHint": "Din turhistorik visas här när du genomför turer med KPedal på din Karoo.",
+    "eachRideShows": "Varje tur visar",
+    "deleteRide": "Ta bort denna tur?",
+    "viewTable": "Tabellvy",
+    "viewCards": "Kortvy",
+    "rideDetail": "Turdetaljer",
+    "performanceData": "Prestandadata",
+    "techniqueBreakdown": "Teknikuppdelning",
+    "fatigueAnalysis": "Trötthetsanalys",
+    "timeline": "Tidslinje",
+    "minuteByMinute": "Minut för minut",
+    "startToEnd": "Start till slut",
+    "degradation": "Försämring",
+    "strong": "Stark",
+    "moderate": "Måttlig",
+    "weak": "Svag",
+    "backToDashboard": "Tillbaka till instrumentpanelen",
+    "backToRides": "Tillbaka till turer",
+    "rideNotFound": "Tur hittades inte",
+    "detail": {
+      "score": "Poäng",
+      "scoreTip": "Övergripande teknikpoäng från 0 till 100. Kombinerar balans, VE och TJ.",
+      "asymmetry": "Asymmetri",
+      "asymmetryTip": "Avvikelse från 50/50-balans. Under 2,5% är proffsnivå.",
+      "balanced": "Balanserad",
+      "leftDominant": "V-dominant",
+      "rightDominant": "H-dominant",
+      "timeInZone": "Tid i zon",
+      "timeInZoneTip": "Tid i optimal-, uppmärksamhets- och problemzoner. Mer grönt är bättre.",
+      "technique": "Teknik",
+      "techniqueTip": "Trampeffektivitetsmått. VE är kraftöverföring, TJ är trampjämnhet.",
+      "te": "VE",
+      "teTip": "Vridmomentseffektivitet. Hur mycket kraft som går till framåtrörelse.",
+      "ps": "TJ",
+      "psTip": "Trampjämnhet. Hur jämnt kraften appliceras genom tramptaget.",
+      "teInZone": "VE i zon",
+      "teInZoneTip": "Tid med VE i optimala 70-80%-intervallet.",
+      "psInZone": "TJ i zon",
+      "psInZoneTip": "Tid med TJ över 20%-tröskeln.",
+      "teStab": "VE stab",
+      "teStabTip": "Hur konsekvent VE var. Högre betyder jämnare teknik.",
+      "psStab": "TJ stab",
+      "psStabTip": "Hur konsekvent TJ var. Högre betyder jämnare teknik.",
+      "fatigue": "Trötthetsanalys",
+      "fatigueTip": "Jämför första ⅓ mot sista ⅓ av turen.",
+      "fatigueStrong": "Stark",
+      "fatigueModerate": "Måttlig",
+      "fatigueFatigued": "Trött",
+      "fatigueAsymmetry": "Asymmetri",
+      "balanceDegradedInsight": "Balansen försämrades med {value}% — fokusera på jämn kraftfördelning när du är trött",
+      "teDroppedInsight": "VE sjönk {value}% — öva på att behålla formen i sista tredjedelen",
+      "psFellInsight": "TJ föll {value}% — arbeta på mjuk trampteknik under trötthet",
+      "excellentFatigueInsight": "Utmärkt trötthetsmotstånd — tekniken förblev konsekvent genom hela turen",
+      "fatigueStartEnd": "Start av tur → Slut av tur",
+      "byPowerZone": "Per effektzon",
+      "byPowerZoneTip": "Teknik vid olika intensiteter.",
+      "timelineTip": "Mätvärden över tid. Leta efter sänkningar som indikerar trötthet.",
+      "min": "Min",
+      "avg": "Snitt",
+      "max": "Max",
+      "spread": "Spridning",
+      "minuteByMinuteTip": "Detaljerad uppdelning per minut. Användbart för att analysera specifika segment.",
+      "points": "poäng",
+      "balance": "Balans",
+      "balanceTip": "Vänster/höger kraftfördelning för denna minut.",
+      "teTip2": "Vridmomentseffektivitet V/H för denna minut.",
+      "psTip2": "Trampjämnhet V/H för denna minut.",
+      "power": "Effekt",
+      "hr": "Puls",
+      "zone": "Zon",
+      "zoneTip": "Övergripande zonstatus för denna minut.",
+      "asym": "Asym",
+      "tooltipMin": "Min {minute}",
+      "title": "Turdetalj",
+      "deleteWarning": "Denna åtgärd kan inte ångras",
+      "rating": "Betyg",
+      "performance": "Prestanda",
+      "confirmDelete": "Bekräfta borttagning",
+      "comparison": "V/H-jämförelse",
+      "fatigueDesc": "Hur din teknik förändrades under turen",
+      "notes": "Anteckningar",
+      "timeline": "Tidslinje",
+      "deleteRide": "Ta bort tur"
+    },
+    "perf": {
+      "wattsTip": "Genomsnittlig effektutmatning i watt.",
+      "maxWattsTip": "Toppeffekt uppnådd under turen.",
+      "npTip": "Normaliserad effekt justerar för variabilitet i ansträngning.",
+      "bpmTip": "Genomsnittlig puls under turen.",
+      "maxBpmTip": "Högsta puls uppnådd. Nära max skadar ofta tekniken.",
+      "rpmTip": "Genomsnittlig kadens. Optimalt är 80-95 rpm för de flesta cyklister.",
+      "speedTip": "Genomsnittlig hastighet. Mindre tillförlitlig än effekt på grund av terräng.",
+      "kjTip": "Total energiutmatning. Motsvarar ungefär förbrända kalorier.",
+      "elevGainTip": "Total höjdvinst under turen.",
+      "elevLossTip": "Total höjdförlust under turen.",
+      "gradeTip": "Maximal lutning. Över 10% är brant."
+    },
+    "zones": {
+      "recovery": "Återhämtning",
+      "endurance": "Uthållighet",
+      "tempo": "Tempo",
+      "threshold": "Tröskel",
+      "vo2max": "VO2max",
+      "anaerobic": "Anaerob"
+    },
+    "list": {
+      "ridesLabel": "turer",
+      "ridesTip": "Totalt antal turer i denna vy.",
+      "kmLabel": "km",
+      "kmTip": "Total distans över alla turer.",
+      "elevLabel": "m ↑",
+      "elevTip": "Total höjdvinst över alla turer.",
+      "asymLabel": "asym",
+      "asymTip": "Genomsnittlig effektasymmetri. Under 2,5% är proffsnivå.",
+      "teLabel": "VE",
+      "teTip": "Genomsnittlig vridmomentseffektivitet. Optimalt intervall är 70-80%.",
+      "psLabel": "TJ",
+      "psTip": "Genomsnittlig trampjämnhet. Över 20% är bra teknik.",
+      "optimalLabel": "optimal",
+      "optimalTip": "Genomsnittlig tid i optimal zon. Högre betyder bättre form.",
+      "wAvgLabel": "W snitt",
+      "wAvgTip": "Genomsnittlig effektutmatning. Följ över tid för konditionstrender.",
+      "npLabel": "NP",
+      "npTip": "Genomsnittlig normaliserad effekt. Justerar för variabilitet i ansträngning.",
+      "kjLabel": "kJ",
+      "kjTip": "Total energiutmatning. Motsvarar ungefär förbrända kalorier.",
+      "dateCol": "Datum",
+      "durationCol": "Längd",
+      "asymCol": "Asym",
+      "asymColTip": "Procentuell effektasymmetri. Lägre betyder mer balanserad.",
+      "lrCol": "V / H",
+      "lrColTip": "Vänster och höger kraftfördelning.",
+      "teCol": "VE",
+      "teColTip": "Vridmomentseffektivitet per ben. 70-80% är optimalt.",
+      "psCol": "TJ",
+      "psColTip": "Trampjämnhet per ben. Över 20% är bra.",
+      "zonesCol": "Zoner",
+      "zonesColTip": "Tidsfördelning över prestationszoner.",
+      "powerCol": "Effekt",
+      "powerColTip": "Genomsnittlig effekt i watt.",
+      "deleteAriaLabel": "Ta bort tur",
+      "balanceLR": "Balans V/H",
+      "teLR": "VE V/H",
+      "psLR": "TJ V/H",
+      "powerLabel": "Effekt",
+      "asymmetryLabel": "asymmetri",
+      "domLabel": "dom",
+      "optimalPercent": "{percent}% optimal",
+      "pageInfo": "Sida {page} av {total}",
+      "prevPage": "Föregående sida",
+      "nextPage": "Nästa sida"
+    },
+    "stats": {
+      "totalRides": "Totalt antal turer",
+      "avgDuration": "Snittlängd",
+      "totalTime": "Total tid"
+    },
+    "sort": {
+      "longest": "Längsta",
+      "oldest": "Äldsta",
+      "highestScore": "Högsta poäng",
+      "newest": "Nyaste"
+    },
+    "filters": {
+      "all": "Alla",
+      "thisWeek": "Denna vecka",
+      "thisMonth": "Denna månad",
+      "last30Days": "Senaste 30 dagarna"
+    },
+    "emptyDescription": "Synkronisera turer från din Karoo för att se dem här",
+    "empty": "Inga turer ännu"
+  },
+  "drills": {
+    "title": "Övningar",
+    "noDrills": "Inga övningar genomförda ännu",
+    "noDrillsHint": "KPedal inkluderar guidade övningar för att förbättra din trampteknik. Genomför dem på din Karoo för att följa framsteg här.",
+    "availableTypes": "Tillgängliga övningstyper",
+    "types": {
+      "balanceFocus": "Balansfokus",
+      "powerTransfer": "Kraftöverföring",
+      "smoothCircles": "Mjuka cirklar",
+      "challenges": "Utmaningar"
+    },
+    "timeInTarget": "Tid i mål",
+    "completed": "Slutförd",
+    "incomplete": "Ej slutförd",
+    "abandoned": "Avbruten",
+    "sessions": "Sessioner",
+    "avgTarget": "Snittmål",
+    "best": "Bästa",
+    "drillTypes": "Övningstyper",
+    "date": "Datum",
+    "drill": "Övning",
+    "duration": "Längd",
+    "status": "Status",
+    "of": "av",
+    "pageInfo": "Sida {page} av {total}",
+    "prevPage": "Föregående sida",
+    "nextPage": "Nästa sida",
+    "tips": {
+      "avgTarget": "Genomsnittlig tid som träffade målmätvärden. Högre är bättre.",
+      "sessions": "Totalt antal genomförda övningssessioner.",
+      "best": "Bästa tid-i-mål-procent uppnådd.",
+      "completed": "Procent av övningar som slutfördes.",
+      "types": "Antal olika övningstyper du har provat.",
+      "timeInTarget": "Procent av övningstiden som spenderades i målzonen.",
+      "status": "Om övningen slutfördes eller avbröts tidigt."
+    },
+    "detail": {
+      "timeInTarget": "Tid i mål",
+      "score": "Poäng",
+      "phases": "Faser",
+      "completed": "Slutförd"
+    },
+    "categories": {
+      "balance": "Balans",
+      "technique": "Teknik",
+      "smoothness": "Jämnhet",
+      "all": "Alla"
+    },
+    "empty": "Ingen övningshistorik",
+    "emptyDescription": "Genomför övningar på din Karoo för att se din historik här"
+  },
+  "achievements": {
+    "title": "Prestationer",
+    "notAchieved": "Ej uppnådd",
+    "noAchievements": "Inga milstolpar ännu",
+    "noAchievementsHint": "Genomför turer och övningar på din Karoo för att låsa upp prestationer",
+    "availableCategories": "Prestationskategorier",
+    "categories": {
+      "milestones": "Turmilstolpar",
+      "balance": "Balansmästerskap",
+      "performance": "Prestationspoäng",
+      "streaks": "Konsekvenssvanor",
+      "duration": "Längdmål",
+      "drills": "Övningsexpertis"
+    },
+    "stats": {
+      "achieved": "uppnådda",
+      "achievedTip": "Antal milstolpar du har låst upp.",
+      "remaining": "kvarvarande",
+      "remainingTip": "Milstolpar som fortfarande kan låsas upp.",
+      "total": "totalt",
+      "totalTip": "Totalt antal milstolpar i systemet.",
+      "progress": "framsteg",
+      "progressTip": "Övergripande slutförandeprocent.",
+      "last": "senaste",
+      "lastTip": "Datum för din senaste prestation."
+    },
+    "table": {
+      "milestone": "Milstolpe",
+      "milestoneTip": "Namn och beskrivning av prestationen.",
+      "category": "Kategori",
+      "categoryTip": "Typ av milstolpe (Volym, Balans, Teknik, etc.).",
+      "target": "Mål",
+      "targetTip": "Krav för att låsa upp denna milstolpe.",
+      "date": "Datum"
+    },
+    "milestones": {
+      "first_ride": {
+        "name": "Första spårade tur",
+        "description": "Genomför första turen med trampanalys",
+        "category": "Volym",
+        "target": "1 tur"
+      },
+      "rides_10": {
+        "name": "10 analyserade turer",
+        "description": "Bygg baslinjedata för trendanalys",
+        "category": "Volym",
+        "target": "10 turer"
+      },
+      "rides_50": {
+        "name": "50 analyserade turer",
+        "description": "Betydande dataset för mönsterigenkänning",
+        "category": "Volym",
+        "target": "50 turer"
+      },
+      "rides_100": {
+        "name": "100 analyserade turer",
+        "description": "Omfattande träningshistorik etablerad",
+        "category": "Volym",
+        "target": "100 turer"
+      },
+      "rides_500": {
+        "name": "500 analyserade turer",
+        "description": "Långsiktigt arkiv av trampdata",
+        "category": "Volym",
+        "target": "500 turer"
+      },
+      "perfect_balance": {
+        "name": "50/50-balans uppnådd",
+        "description": "Perfekt vänster/höger kraftfördelning",
+        "category": "Balans",
+        "target": "50/50"
+      },
+      "balance_master": {
+        "name": "10 optimala balansturer",
+        "description": "Konsekvent balans över flera sessioner",
+        "category": "Balans",
+        "target": "10 turer"
+      },
+      "score_80": {
+        "name": "80+ teknikpoäng",
+        "description": "Bra trampteknik på en tur",
+        "category": "Teknik",
+        "target": "80+"
+      },
+      "score_90": {
+        "name": "90+ teknikpoäng",
+        "description": "Utmärkt teknik över alla mätvärden",
+        "category": "Teknik",
+        "target": "90+"
+      },
+      "score_95": {
+        "name": "95+ teknikpoäng",
+        "description": "Nästan optimal trampeffektivitet",
+        "category": "Teknik",
+        "target": "95+"
+      },
+      "streak_3": {
+        "name": "3-dagars träningsblock",
+        "description": "Tre dagar i rad med spårade turer",
+        "category": "Konsekvens",
+        "target": "3 dagar"
+      },
+      "streak_7": {
+        "name": "7-dagars träningsvecka",
+        "description": "Hel vecka med konsekvent träning",
+        "category": "Konsekvens",
+        "target": "7 dagar"
+      },
+      "streak_30": {
+        "name": "30-dagars träningsmånad",
+        "description": "Månad av dedikerat teknikarbete",
+        "category": "Konsekvens",
+        "target": "30 dagar"
+      },
+      "first_drill": {
+        "name": "Första övningen slutförd",
+        "description": "Börja strukturerad teknikträning",
+        "category": "Träning",
+        "target": "1 övning"
+      },
+      "drill_perfect": {
+        "name": "100% tid i mål",
+        "description": "Perfekt utförande på någon övning",
+        "category": "Träning",
+        "target": "100%"
+      },
+      "drills_10": {
+        "name": "10 övningar slutförda",
+        "description": "Bygger övningsskicklighet",
+        "category": "Träning",
+        "target": "10 övningar"
+      },
+      "zone_optimal_80": {
+        "name": "80% optimal zon",
+        "description": "80%+ av turtiden i optimal zon",
+        "category": "Zoner",
+        "target": "80%"
+      },
+      "zone_optimal_90": {
+        "name": "90% optimal zon",
+        "description": "90%+ av turtiden i optimal zon",
+        "category": "Zoner",
+        "target": "90%"
+      },
+      "te_optimal": {
+        "name": "Hel tur optimal VE",
+        "description": "Behåll optimal VE genom hela turen",
+        "category": "Effektivitet",
+        "target": "100%"
+      },
+      "duration_1h": {
+        "name": "1-timmestur",
+        "description": "Hållbar trampanalys i 1+ timme",
+        "category": "Uthållighet",
+        "target": "1h+"
+      },
+      "duration_2h": {
+        "name": "2-timmarstur",
+        "description": "Utökad session med teknikfokus",
+        "category": "Uthållighet",
+        "target": "2h+"
+      },
+      "duration_4h": {
+        "name": "4-timmarstur",
+        "description": "Långvarig teknikbevarande",
+        "category": "Uthållighet",
+        "target": "4h+"
+      }
+    }
+  },
+  "settings": {
+    "title": "Inställningar",
+    "account": "Konto",
+    "connectedDevices": "Anslutna enheter",
+    "loadingDevices": "Laddar enheter...",
+    "noDevices": "Inga enheter anslutna",
+    "noDevicesHint": "Länka din Karoo-enhet för att synkronisera turdata",
+    "linkDevice": "Länka enhet",
+    "linkAnotherDevice": "Länka en till enhet",
+    "removeDevice": "Ta bort denna enhet? Den behöver länkas om.",
+    "lastSync": "Senaste synk",
+    "neverSynced": "Aldrig synkroniserad",
+    "requestSync": "Begär synk",
+    "syncRequested": "Synk begärd - öppna appen för att synka",
+    "deviceStatus": {
+      "connected": "Ansluten",
+      "idle": "Vilande",
+      "offline": "Offline"
+    },
+    "pedalingMetrics": "Trampmätvärden",
+    "syncBanner": "Ändringar synkas till din Karoo när du trycker <strong>Synka</strong> i appen eller startar en tur.",
+    "thresholds": "Trösklar",
+    "balanceThreshold": "Balanströskel",
+    "balanceThresholdHint": "Varningar utlöses när obalansen överskrider detta värde",
+    "balanceThresholdTip": "Maximal acceptabel V/H-obalans. Proffscyklister håller sig vanligtvis inom ±2,5%.",
+    "teOptimalRange": "VE optimalt intervall",
+    "teOptimalRangeHint": "Grön zon för vridmomentseffektivitet",
+    "teOptimalRangeTip": "Idealzon för vridmomentseffektivitet. Forskning visar att 70-80% är optimalt — högre är inte bättre.",
+    "psMinimum": "TJ minimum",
+    "psMinimumHint": "Värden under detta markeras som kräver uppmärksamhet",
+    "psMinimumTip": "Tröskel för trampjämnhet för optimal zon. Elitcyklister uppnår 25%+.",
+    "inRideAlerts": "Varningar under tur",
+    "inRideAlertsHint": "Notifieringar när mätvärden kräver uppmärksamhet",
+    "inRideAlertsTip": "Realtidsnotifieringar på din Karoo när mätvärden kräver uppmärksamhet.",
+    "metricsToMonitor": "Mätvärden att övervaka",
+    "torqueEff": "Vridmom.eff.",
+    "smoothness": "Jämnhet",
+    "sensitivity": "Känslighet",
+    "critical": "Kritisk",
+    "problemZoneOnly": "Endast problemzon",
+    "sensitive": "Känslig",
+    "attentionAndProblem": "Uppmärksamhet & Problem",
+    "notifyVia": "Meddela via",
+    "vibrate": "Vibration",
+    "sound": "Ljud",
+    "banner": "Banner",
+    "options": "Alternativ",
+    "wakeScreenOnAlert": "Väck skärm vid varning",
+    "cooldownBetweenAlerts": "Nedkylning mellan varningar",
+    "dataCollection": "Datainsamling",
+    "dataCollectionHint": "Hur KPedal samlar in och synkar din data",
+    "backgroundMode": "Bakgrundsläge",
+    "backgroundModeHint": "Samla mätvärden även när datafält är dolt",
+    "backgroundModeTip": "Samla mätvärden även när KPedal-datafältet inte syns på skärmen.",
+    "autoSync": "Autosynk",
+    "autoSyncHint": "Synka turdata automatiskt efter varje tur",
+    "autoSyncTip": "Ladda upp turdata automatiskt efter varje avslutad tur.",
+    "appearance": "Utseende",
+    "theme": "Tema",
+    "themeHint": "Autoläge växlar kl. 07:00 och 19:00",
+    "themeAuto": "Auto",
+    "themeLight": "Ljust",
+    "themeDark": "Mörkt",
+    "data": "Data",
+    "rideData": "Turdata",
+    "rideDataHint": "Din data lagras säkert och synkas från din Karoo-enhet",
+    "session": "Session",
+    "privacy": "Integritet",
+    "privacyHint": "Läs om hur vi samlar in, använder och skyddar din data",
+    "about": "Om",
+    "saving": "Sparar...",
+    "saved": "Sparat",
+    "thresholds_section": {
+      "teOptimal": "VE optimalt intervall",
+      "balance": "Balanströskel",
+      "title": "Mätvärdeströsklar",
+      "psMinimum": "TJ minimum",
+      "teOptimalDesc": "Målintervall för vridmomentseffektivitet",
+      "psMinimumDesc": "Varna när jämnhet sjunker under detta",
+      "balanceDesc": "Varna när asymmetri överskrider detta värde"
+    },
+    "sections": {
+      "data": "Data",
+      "session": "Session",
+      "devices": "Enheter",
+      "appearance": "Utseende",
+      "about": "Om",
+      "metrics": "Mätvärden",
+      "privacy": "Integritet",
+      "account": "Konto"
+    },
+    "devices_section": {
+      "remove": "Ta bort",
+      "connectDescription": "Länka din Karoo för att synka turer",
+      "removeWarning": "Du behöver länka om för att synka turer",
+      "noDevices": "Inga enheter anslutna",
+      "title": "Anslutna enheter",
+      "lastSync": "Senaste synk",
+      "connectDevice": "Anslut enhet",
+      "removeConfirm": "Ta bort denna enhet?"
+    },
+    "alerts_section": {
+      "enabled": "Aktiverad",
+      "te": "Vridmomentseffektivitetsvarningar",
+      "balance": "Balansvarningar",
+      "title": "Varningsinställningar",
+      "ps": "Jämnhetsvarningar",
+      "screenWake": "Väck skärm"
+    },
+    "privacy_section": {
+      "viewPolicy": "Visa integritetspolicy",
+      "title": "Integritet"
+    },
+    "data_section": {
+      "exportDesc": "Ladda ner din data som JSON",
+      "deleteAllDesc": "Ta bort alla dina turer och inställningar permanent",
+      "deleteAllWarning": "Detta kan inte ångras",
+      "export": "Exportera data",
+      "title": "Datahantering",
+      "deleteAll": "Ta bort all data",
+      "deleteAllConfirm": "Skriv DELETE för att bekräfta"
+    },
+    "account_section": {
+      "signedInAs": "Inloggad som",
+      "memberSince": "Medlem sedan",
+      "email": "E-post"
+    },
+    "appearance_section": {
+      "title": "Utseende",
+      "themeAuto": "Auto",
+      "themeLight": "Ljust",
+      "theme": "Tema",
+      "themeDark": "Mörkt"
+    },
+    "session_section": {
+      "title": "Session",
+      "signOutDesc": "Du behöver logga in igen",
+      "signOut": "Logga ut",
+      "signOutConfirm": "Logga ut från ditt konto?"
+    },
+    "about_section": {
+      "github": "GitHub",
+      "support": "Support",
+      "version": "Version"
+    }
+  },
+  "link": {
+    "title": "Länka enhet",
+    "pageTitle": "Länka din Karoo",
+    "metaDescription": "Länka din Hammerhead Karoo till KPedal. Ange koden som visas på din Karoo för att synka turer och inställningar till molnet.",
+    "secureConnection": "Säker anslutning",
+    "linkKaroo": "Länka din Karoo",
+    "enterCodeDescription": "Ange den 8-teckens kod som visas på din enhet för att säkert ansluta den till ditt konto.",
+    "verifying": "Verifierar...",
+    "continue": "Fortsätt",
+    "encryption256": "256-bitars kryptering",
+    "verifiedDomain": "Verifierad domän",
+    "signInToContinue": "Logga in för att fortsätta",
+    "linkingDevice": "Länkar {device} till ditt konto.",
+    "signInWithGoogle": "Logga in med Google för att auktorisera denna enhet.",
+    "useDifferentCode": "Använd en annan kod",
+    "authorizeDevice": "Auktorisera enhet?",
+    "deviceRequestingAccess": "{device} begär åtkomst för att synka turdata med ditt konto.",
+    "permissionSync": "Synka trampmätvärden från turer",
+    "permissionView": "Visa analys på app.kpedal.com",
+    "authorize": "Auktorisera",
+    "deviceLinked": "Enhet länkad!",
+    "deviceConnected": "{device} är nu ansluten till ditt konto.",
+    "autoSync": "Din turdata synkas automatiskt.",
+    "secureConnectionEstablished": "Säker anslutning etablerad",
+    "dataEncrypted": "Data är krypterad hela vägen",
+    "closePageHint": "Du kan stänga denna sida och återgå till din Karoo.",
+    "goToDashboard": "Gå till instrumentpanelen",
+    "errors": {
+      "failedToVerify": "Kunde inte verifiera kod",
+      "failedToConnect": "Kunde inte ansluta",
+      "enterCompleteCode": "Ange den fullständiga koden",
+      "invalidOrExpired": "Denna kod är ogiltig eller har gått ut. Hämta en ny kod från din Karoo.",
+      "checkConnection": "Kunde inte ansluta. Kontrollera din internetanslutning.",
+      "signInFirst": "Logga in först",
+      "failedToAuthorize": "Kunde inte auktorisera enhet",
+      "failedTryAgain": "Kunde inte ansluta. Försök igen."
+    }
+  },
+  "infotips": {
+    "asymmetry": "Din avvikelse från perfekt 50/50 V/H-balans. Under 2,5% är proffsnivå.",
+    "balance": "Hur din kraft fördelas mellan vänster och höger ben. 50/50 är perfekt.",
+    "te": "Procent av kraft som går framåt. Sikta på 70-80% — högre är inte alltid bättre.",
+    "ps": "Hur jämn din kraft är genom tramptaget. Sikta på 20%+. Elitcyklister når 25%+.",
+    "zones": "Tid i optimal (grön), uppmärksamhet (gul) och problem (röd) zoner.",
+    "timeInZone": "Tid i varje zon. Grönt är optimalt, gult kräver uppmärksamhet, rött är problem.",
+    "score": "Övergripande teknikbetyg som kombinerar balans, VE och TJ. Högre är bättre.",
+    "achieved": "Antal milstolpar du har låst upp.",
+    "remaining": "Milstolpar som fortfarande kan låsas upp.",
+    "total": "Totalt antal milstolpar i systemet.",
+    "progress": "Övergripande slutförandeprocent.",
+    "lastAchievement": "Datum för din senaste prestation.",
+    "milestone": "Namn och beskrivning av prestationen.",
+    "category": "Typ av milstolpe (Volym, Balans, Teknik, etc.).",
+    "target": "Krav för att låsa upp denna milstolpe.",
+    "weeklyActivity": "Antal turer per dag. Sikta på 3-5 turer per vecka för stadiga framsteg.",
+    "compRides": "Antal turer jämfört med förra veckan.",
+    "compHours": "Total sadeltid. Fler timmar innebär mer träningsanpassning.",
+    "compDistance": "Totalt cyklade kilometer. Användbart för att följa volym tillsammans med timmar.",
+    "compClimb": "Total höjdvinst. Över 2000m per vecka bygger klätterstyrka.",
+    "compBalance": "Effektasymmetri jämfört med förra veckan. Lägre är bättre, negativt är förbättring.",
+    "compOptimal": "Tid i optimal zon jämfört med förra veckan. Högre är bättre teknik.",
+    "perfScore": "Övergripande teknikpoäng från 0 till 100. Högre betyder bättre form.",
+    "perfOptimal": "Tid med alla mätvärden i grön zon. Högre är bättre.",
+    "perfPower": "Genomsnittlig effektutmatning i watt. Högre vid samma puls betyder bättre kondition.",
+    "perfEnergy": "Total energi i kilojoule. Motsvarar ungefär förbrända kalorier.",
+    "technique": "Trampeffektivitetsmått. VE är kraftöverföring, TJ är trampjämnhet.",
+    "balanceFatigue": "Vänster vs höger kraftfördelning. Förändringar indikerar trötthet eller kompensation.",
+    "fatigueTrend": "Övergripande trötthetstrend. Stabil är bra tempo, sjunkande är överansträngning.",
+    "balanceTrend": "Vänster/höger balanstrend över tid. Konsekventa värden nära 50% indikerar bra symmetri.",
+    "techniqueTrend": "Teknikmätvärdenas trend över tid. Leta efter stadiga förbättringsmönster.",
+    "compTe": "Vridmomentseffektivitet jämfört med förra veckan. Positiv förändring är förbättring.",
+    "compPs": "Trampjämnhet jämfört med förra veckan. Förbättras långsamt, små vinster spelar roll.",
+    "fatigue": "Teknik vid turstart jämfört med slut. Sjunkande värden indikerar trötthet.",
+    "teFatigue": "VE-förändring under turen. Sjunkning indikerar muskulär trötthet.",
+    "psFatigue": "TJ-förändring under turen. Vanligtvis första mätvärdet som sjunker när man är trött.",
+    "powerAvg": "Genomsnittlig effekt i watt. Följ över tid för att mäta konditionsvinster.",
+    "powerMax": "Toppeffekt uppnådd. Användbar för spurter och FTP-uppskattning.",
+    "np": "Normaliserad effekt justerar för variationer. Nära genomsnittet betyder jämn ansträngning.",
+    "cadence": "Pedalvarv per minut. Optimalt är 80-95 rpm för de flesta cyklister.",
+    "hrAvg": "Genomsnittlig puls. Lägre vid samma effekt betyder bättre kondition.",
+    "hrMax": "Högsta puls uppnådd. Nära max skadar ofta tekniken.",
+    "speed": "Genomsnittlig hastighet. Mindre tillförlitlig än effekt på grund av terräng och vind.",
+    "elevationGain": "Total höjdvinst. Över 1000m är ett seriöst klätterpass.",
+    "elevationLoss": "Total höjdförlust. Bör matcha vinst på rundturer.",
+    "grade": "Maximal lutning. Över 10% är brant, över 15% är mycket brant.",
+    "energy": "Total energiutmatning. Planera näring med 250-300 kcal per timme.",
+    "trendCurrent": "Värde från din senaste tur i denna period.",
+    "trendAverage": "Genomsnittsvärde över alla turer i vald period.",
+    "trendSpread": "Skillnad mellan bästa och sämsta. Lägre spridning betyder mer konsekvent form.",
+    "trendLatest": "Värde från din senaste tur för detta mätvärde.",
+    "trendBest": "Bästa värdet i perioden. För asymmetri är lägre bättre, för VE/TJ är högre bättre.",
+    "recentRides": "Senaste turer med teknikmätvärden. Klicka på valfri rad för fullständiga detaljer.",
+    "tableAsym": "Procentuell effektasymmetri. Lägre betyder mer balanserad effektutmatning.",
+    "tableZones": "Tidsfördelning över optimal-, uppmärksamhets- och problemzoner."
+  },
+  "tour": {
+    "buttons": {
+      "next": "Nästa",
+      "prev": "Tillbaka",
+      "done": "Klar",
+      "continue": "Fortsätt →",
+      "skip": "eller hoppa över rundturen →"
+    },
+    "dashboard": {
+      "welcome": {
+        "title": "Välkommen till KPedal!",
+        "desc": "Detta är <strong>demodata från en riktig cyklist</strong> som visar ~4 veckors turer.",
+        "hint": "Snabb rundtur av vad KPedal kan göra (~2 min)."
+      },
+      "period": {
+        "title": "Tidsperiodväljare",
+        "desc": "Växla mellan <strong>7, 14, 30 eller 60 dagar</strong> för att analysera dina trender över olika tidsramar.",
+        "hint": "Kortare perioder visar senaste form. Längre perioder avslöjar träningsmönster."
+      },
+      "asymmetry": {
+        "title": "Effektasymmetri",
+        "desc": "Din avvikelse från perfekt 50/50 V/H-balans.",
+        "under25": "Under 2,5%",
+        "proLevel": "Proffsnivå",
+        "range25to5": "2,5-5%",
+        "goodRoom": "Bra, utrymme att förbättra",
+        "over5": "Över 5%",
+        "needsAttention": "Kräver uppmärksamhet",
+        "hint": "Denna democyklist har i snitt 1-2% — utmärkt symmetri!"
+      },
+      "infoTip": {
+        "title": "Infotips överallt",
+        "desc": "Ser du denna <strong>ⓘ ikon</strong>? Håll muspekaren över eller tryck på den när som helst för detaljerade förklaringar.",
+        "hint": "Varje mätvärde i KPedal har ett infotips som förklarar vad det betyder och vad du ska sikta på."
+      },
+      "balance": {
+        "title": "V/H-effektbalans",
+        "desc": "Visuell uppdelning av din vänster vs höger bens kraftfördelning.",
+        "greenZone": "<strong>Grön zon</strong> = balanserad. Stapeln visar exakt hur din kraft fördelas mellan benen.",
+        "hint": "De flesta cyklister är lite dominerande på en sida. Följ detta för att förbättra symmetrin över tid."
+      },
+      "zones": {
+        "title": "Tid i zonfördelning",
+        "desc": "Hur din turtid fördelas efter teknikkvalitet:",
+        "optimal": "Grön (Optimal)",
+        "optimalDesc": "Alla mätvärden i idealintervall",
+        "attention": "Gul (Uppmärksamhet)",
+        "attentionDesc": "Ett eller flera mätvärden driver iväg",
+        "problem": "Röd (Problem)",
+        "problemDesc": "Betydande formkollaps",
+        "hint": "Mål: Maximera grön tid, särskilt på långa turer!"
+      },
+      "summary": {
+        "title": "Aktivitetssammanfattning",
+        "desc": "Snabb överblick av din träningsvolym för vald period:",
+        "rides": "Totalt antal turer",
+        "hours": "Timmar",
+        "km": "Kilometer"
+      },
+      "weekly": {
+        "title": "Veckoaktivitetsdiagram",
+        "desc": "Se din turfrekvens per dag i veckan.",
+        "compareHint": "Under diagrammet, jämför <strong>denna vecka mot förra veckan</strong>:",
+        "numRides": "Antal turer",
+        "totalHours": "Totala timmar",
+        "distanceClimb": "Distans och klättring",
+        "hint": "Konsekvens är nyckeln — sikta på regelbunden träning, inte sporadiska stora ansträngningar."
+      },
+      "technique": {
+        "title": "Teknikmätvärden",
+        "desc": "De två kärneffektivitetsmätvärdena från din effektmätare:",
+        "teTitle": "Vridmomentseffektivitet (VE)",
+        "teDesc": "Procent av kraft som går framåt. Sikta på <strong>70-80%</strong> — högre är inte alltid bättre enligt Wattbike-forskning.",
+        "psTitle": "Trampjämnhet (TJ)",
+        "psDesc": "Hur jämn din kraft är genom tramptaget. Sikta på <strong>≥20%</strong>. Elitcyklister når 25%+."
+      },
+      "trends": {
+        "title": "Trender över tid",
+        "desc": "Följ dina balans- och teknikförbättringar tur för tur.",
+        "left": "<strong>Vänster diagram:</strong> Balanstrend över turer",
+        "right": "<strong>Höger diagram:</strong> Växla mellan VE, TJ och asymmetri",
+        "hint": "Klicka på valfri punkt för att hoppa till den turens detaljerade analys."
+      },
+      "recentRides": {
+        "title": "Tabell över senaste turer",
+        "desc": "Alla dina synkade turer med nyckelmätvärden i överblick:",
+        "date": "Datum, längd och poäng",
+        "asymmetry": "Asymmetriprocent",
+        "lrBreakdown": "V/H-uppdelning för VE och TJ",
+        "zoneBars": "Zonfördelningsstaplar",
+        "hint": "Klicka på valfri rad för att se detaljerad minut-för-minut-analys!"
+      },
+      "nav": {
+        "title": "Navigation",
+        "desc": "Utforska andra sektioner:",
+        "rides": "<strong>Turer</strong> — Fullständig historik med filter och sökning",
+        "drills": "<strong>Övningar</strong> — Guidade träningsövningar",
+        "achievements": "<strong>Prestationer</strong> — Milstolpar och märken",
+        "settings": "<strong>Inställningar</strong> — Enheter, trösklar och varningar"
+      },
+      "complete": {
+        "title": "Instrumentpanelen klar!",
+        "desc": "Du har sett instrumentpanelens översikt. Redo att utforska mer?",
+        "next": "Klicka på <strong>Nästa</strong> för att fortsätta rundturen på <strong>Turer</strong>-sidan, där du ser din fullständiga turhistorik.",
+        "done": "Eller klicka på Klar för att avsluta rundturen här."
+      }
+    },
+    "rides": {
+      "welcome": {
+        "title": "Turhistorik",
+        "desc": "Denna sida visar din <strong>fullständiga turhistorik</strong> med filtrering och sortering.",
+        "hint": "Låt mig visa dig nyckelfunktionerna."
+      },
+      "stats": {
+        "title": "Periodstatistik",
+        "desc": "Snabbstatistik för vald period:",
+        "ridesAndDuration": "Totalt antal turer och längd",
+        "scores": "Genomsnittliga och bästa poäng",
+        "powerDistance": "Effekt- och distanssummor",
+        "hint": "Dessa uppdateras baserat på dina filter."
+      },
+      "viewToggle": {
+        "title": "Vyväxlare",
+        "desc": "Växla mellan två vylägen:",
+        "table": "<strong>Tabellvy</strong> — Kompakt lista med alla mätvärden",
+        "card": "<strong>Kortvy</strong> — Visuella kort med zonstaplar",
+        "hint": "Välj vad som fungerar bäst för dig!"
+      },
+      "rideRow": {
+        "title": "Klicka på valfri tur",
+        "desc": "Varje tur visar:",
+        "date": "Datum, längd och teknikpoäng",
+        "asymmetry": "Effektasymmetri",
+        "lrMetrics": "V/H-mätvärden för VE och TJ",
+        "zones": "Zonfördelning",
+        "hint": "<strong>Klicka på valfri tur</strong> för att se fullständig detaljsida med minut-för-minut-diagram!"
+      },
+      "complete": {
+        "title": "Tursidan klar!",
+        "desc": "Du kan bläddra bland alla dina turer här.",
+        "next": "Klicka på <strong>Nästa</strong> för att se en <strong>turdetaljsida</strong> med djupgående analys."
+      }
+    },
+    "rideDetail": {
+      "welcome": {
+        "title": "Turdetaljanalys",
+        "desc": "Här sker den <strong>djupa analysen</strong>.",
+        "hint": "Varje tur får en komplett uppdelning av din trampteknik minut för minut."
+      },
+      "heroStats": {
+        "title": "Nyckelmätvärden i överblick",
+        "desc": "Översta raden visar dina viktigaste turmätvärden:",
+        "score": "<strong>Poäng</strong> — Övergripande teknikbetyg (0-100)",
+        "asymmetry": "<strong>Asymmetri</strong> — V/H-effektobalans",
+        "balance": "<strong>Balansstapel</strong> — Visuell V/H-fördelning",
+        "zones": "<strong>Tid i zon</strong> — Kvalitetsfördelning"
+      },
+      "perfStrip": {
+        "title": "Turprestandadata",
+        "desc": "Detaljerade turmätvärden:",
+        "power": "<strong>Effekt</strong> — Snitt, max och normaliserad",
+        "hr": "<strong>Puls</strong> — Snitt och max",
+        "cadence": "<strong>Kadens</strong> — Tramphastighet i RPM",
+        "elevation": "<strong>Höjd</strong> — Klättring och nedåt",
+        "hint": "Tryck på valfri infoikon för detaljerade förklaringar!"
+      },
+      "techniqueCard": {
+        "title": "Teknikuppdelning",
+        "desc": "Dina trampeffektivitetsmätvärden:",
+        "te": "<strong>VE (Vridmomentseffektivitet)</strong> — Kraft som går framåt. Sikta på 70-80%",
+        "ps": "<strong>TJ (Trampjämnhet)</strong> — Tramptags jämnhet. Sikta på ≥20%",
+        "lr": "<strong>V/H-uppdelning</strong> — Se varje bens bidrag",
+        "hint": "Stora V/H-skillnader indikerar muskelobalans eller cykelpassningsproblem."
+      },
+      "fatigueCard": {
+        "title": "Trötthetsanalys",
+        "desc": "Hur din teknik förändrades från start till slut:",
+        "startEnd": "<strong>Start → Slut</strong>-värden för varje mätvärde",
+        "colors": "<strong>Grön</strong> = förbättrad, <strong>Röd</strong> = försämrad",
+        "badge": "<strong>Märke</strong> — STARK (inga sänkningar), MÅTTLIG eller SVAG",
+        "hint": "Konsekvent teknik under trötthet är nyckeln till långtursprestanda!"
+      },
+      "timeline": {
+        "title": "Minut-för-minut-tidslinje",
+        "desc": "Följ hur mätvärden förändrades genom din tur:",
+        "tabs": "<strong>Flikar</strong> — Växla mellan Balans, VE, TJ, Effekt, Puls",
+        "points": "<strong>Punkter</strong> — Varje prick är en minut",
+        "hover": "<strong>Håll muspekaren över</strong> — Se exakta värden vid valfri punkt",
+        "hint": "Titta efter mönster — sjunker tekniken efter 30 min? Det är trötthet!"
+      },
+      "complete": {
+        "title": "Turdetalj klar!",
+        "desc": "Du vet nu hur du analyserar enskilda turer på djupet.",
+        "next": "Klicka på <strong>Nästa</strong> för att utforska <strong>Övningar</strong>-sidan — guidade övningar för att förbättra din teknik."
+      }
+    },
+    "drills": {
+      "welcome": {
+        "title": "Träningsövningar",
+        "desc": "<strong>Övningar</strong> är guidade träningsövningar du gör på din Karoo för att förbättra specifika färdigheter.",
+        "hint": "Resultat synkas hit så du kan följa dina framsteg!"
+      },
+      "stats": {
+        "title": "Övningsstatistik",
+        "desc": "Din övergripande övningsprestanda:",
+        "avgTarget": "<strong>Snittmål</strong> — Hur bra du träffade målzoner",
+        "sessions": "<strong>Sessioner</strong> — Totalt antal genomförda övningar",
+        "best": "<strong>Bästa</strong> — Din högsta tid-i-mål-poäng",
+        "completion": "<strong>Slutförandegrad</strong> — % avslutade vs avbrutna"
+      },
+      "drillRow": {
+        "title": "Övningsresultat",
+        "desc": "Varje övningssession visar:",
+        "name": "<strong>Övningsnamn</strong> — Vilken typ av övning",
+        "timeInTarget": "<strong>Tid i mål</strong> — % av tiden du träffade målet",
+        "duration": "<strong>Längd</strong> — Hur länge du övade",
+        "status": "<strong>Status</strong> — Slutförd eller avbruten tidigt",
+        "hint": "Sikta på 80%+ tid i mål när du förbättras!"
+      },
+      "complete": {
+        "title": "Övningssidan klar!",
+        "desc": "Övningar hjälper dig att medvetet öva specifika färdigheter.",
+        "next": "Klicka på <strong>Nästa</strong> för att se <strong>Prestationer</strong> — milstolpar du kan låsa upp!"
+      }
+    },
+    "achievements": {
+      "welcome": {
+        "title": "Prestationer & Milstolpar",
+        "desc": "Lås upp prestationer när du tränar och förbättras!",
+        "hint": "Dessa följer dina framsteg inom volym, teknik och konsekvens."
+      },
+      "stats": {
+        "title": "Framstegsöversikt",
+        "desc": "Dina prestationsframsteg:",
+        "achieved": "<strong>Uppnådda</strong> — Upplåsta milstolpar",
+        "remaining": "<strong>Kvarvarande</strong> — Kvar att låsa upp",
+        "progress": "<strong>Framsteg %</strong> — Övergripande slutförande",
+        "last": "<strong>Senaste</strong> — Senaste upplåsningsdatum"
+      },
+      "categories": {
+        "title": "Prestationskategorier",
+        "desc": "Prestationer sträcker sig över flera kategorier:",
+        "volume": "<strong>Volym</strong> — Turantal (10, 50, 100+)",
+        "balance": "<strong>Balans</strong> — V/H-symmetrimål",
+        "technique": "<strong>Teknik</strong> — Poängmilstolpar (80+, 90+)",
+        "consistency": "<strong>Konsekvens</strong> — Träningssvanor",
+        "training": "<strong>Träning</strong> — Genomförda övningar",
+        "hint": "Uppnådda milstolpar visas med en grön bock!"
+      },
+      "complete": {
+        "title": "Prestationer klar!",
+        "desc": "Fortsätt cykla och träna för att låsa upp fler milstolpar!",
+        "next": "Klicka på <strong>Nästa</strong> för sista stoppet: <strong>Inställningar</strong>."
+      }
+    },
+    "settings": {
+      "welcome": {
+        "title": "Inställningar & Preferenser",
+        "desc": "Konfigurera KPedal så det fungerar precis som du vill.",
+        "hint": "Inställningar synkas mellan webben och din Karoo-enhet!"
+      },
+      "devices": {
+        "title": "Anslutna enheter",
+        "desc": "Se alla dina länkade Karoo-enheter:",
+        "name": "Enhetsnamn och status",
+        "lastSync": "Senaste synktid",
+        "requestSync": "<strong>Begär synk</strong> för att hämta data från enhet",
+        "remove": "<strong>Ta bort</strong> för att avlänka en enhet",
+        "hint": "Du kan länka flera Karoos till ett konto."
+      },
+      "thresholds": {
+        "title": "Mätvärdeströsklar",
+        "desc": "Anpassa vad \"optimal\" betyder för dig:",
+        "balance": "<strong>Balanströskel</strong> — Hur mycket V/H-obalans utlöser gul/röd",
+        "teRange": "<strong>VE optimalt intervall</strong> — Ditt mål för vridmomentseffektivitetszon",
+        "psMin": "<strong>TJ minimum</strong> — Trampjämnhetsgolv",
+        "hint": "Standardvärden baseras på cykelforskning, men du kan justera efter din nivå."
+      },
+      "alerts": {
+        "title": "Varningar under tur",
+        "desc": "Få meddelanden under turer när mätvärden kräver uppmärksamhet:",
+        "metrics": "Välj vilka mätvärden som ska övervakas",
+        "sensitivity": "Ställ in känslighet (endast kritiskt eller känsligt)",
+        "type": "Välj notifieringstyp (vibration, ljud, banner)",
+        "cooldown": "Ställ in nedkylning mellan varningar",
+        "hint": "Varningar visas direkt på din Karoo under turen!"
+      },
+      "theme": {
+        "title": "Utseende",
+        "desc": "Välj ditt föredragna färgschema:",
+        "auto": "<strong>Auto</strong> — Växlar kl. 07:00 / 19:00",
+        "light": "<strong>Ljust</strong> — Ren vit bakgrund",
+        "dark": "<strong>Mörkt</strong> — Lätt för ögonen"
+      },
+      "complete": {
+        "title": "Du är redo!",
+        "desc": "Du har slutfört hela KPedal-rundturen!",
+        "toSeeData": "<strong>För att se din egen data:</strong>",
+        "step1": "Ladda ner KPedal till din Karoo",
+        "step2": "Lägg till den på din turskärm",
+        "step3": "Ge dig ut på en tur!",
+        "step4": "Data synkas automatiskt",
+        "download": "Ladda ner KPedal →"
+      }
+    }
+  },
+  "privacy": {
+    "title": "Integritetspolicy",
+    "lastUpdated": "Senast uppdaterad: {date}",
+    "backToKpedal": "Tillbaka till KPedal",
+    "summary": {
+      "encrypted": "Krypterad & Säker",
+      "encryptedDesc": "All data krypterad under överföring och i vila",
+      "noLocation": "Ingen platsspårning",
+      "noLocationDesc": "Vi samlar aldrig GPS- eller ruttdata",
+      "neverSold": "Säljs aldrig",
+      "neverSoldDesc": "Din data säljs aldrig till någon",
+      "yourControl": "Din kontroll",
+      "yourControlDesc": "Ta bort din data när som helst"
+    },
+    "toc": {
+      "title": "Innehåll",
+      "whatWeCollect": "Vad vi samlar in",
+      "whatWeDontCollect": "Vad vi inte samlar in",
+      "howDataFlows": "Hur data flödar",
+      "storageSecurity": "Lagring & Säkerhet",
+      "yourRights": "Dina rättigheter",
+      "thirdParties": "Tredjepartstjänster",
+      "contact": "Kontakt"
+    },
+    "sections": {
+      "whatWeCollect": "1. Vad vi samlar in",
+      "whatWeDontCollect": "2. Vad vi inte samlar in",
+      "howDataFlows": "3. Hur data flödar",
+      "storageSecurity": "4. Lagring & Säkerhet",
+      "yourRights": "5. Dina rättigheter",
+      "thirdParties": "6. Tredjepartstjänster",
+      "contact": "7. Kontakt",
+      "policyChanges": "Policyändringar"
+    },
+    "rights": {
+      "access": "Åtkomst",
+      "accessDesc": "Se all din data när som helst i webbinstrumentpanelen. Varje mätvärde vi lagrar är synligt för dig.",
+      "delete": "Ta bort",
+      "deleteDesc": "Ta bort enskilda turer från Turer-sidan. För fullständig kontoborttagning, maila oss.",
+      "export": "Exportera",
+      "exportDesc": "Begär en fullständig export av din data genom att kontakta oss.",
+      "optOut": "Avregistrera",
+      "optOutDesc": "Använd KPedal offline utan att logga in. Ingen data lämnar din enhet."
+    },
+    "contact": {
+      "text": "För integritetsfrågor, dataförfrågningar eller kontoborttagning:",
+      "email": "privacy@kpedal.com",
+      "github": "GitHub Issues"
+    },
+    "policyChanges": "När vi gör betydande ändringar i denna policy uppdaterar vi datumet \"Senast uppdaterad\" ovan. Vi uppmuntrar dig att granska denna sida regelbundet.",
+    "footer": "Trampeffektivitetsanalys för Karoo",
+    "content": {
+      "accountData": {
+        "title": "Kontodata",
+        "intro": "När du loggar in med Google tar vi emot och lagrar:",
+        "fields": {
+          "email": "E-post",
+          "emailPurpose": "Kontoidentifiering, inloggning",
+          "name": "Namn",
+          "namePurpose": "Visas i instrumentpanelen",
+          "profilePicture": "Profilbildens URL",
+          "profilePicturePurpose": "Visas som avatar",
+          "googleId": "Google-ID",
+          "googleIdPurpose": "Länka Google-konto till KPedal"
+        },
+        "note": "Vi har inte tillgång till ditt Google-lösenord. Autentisering använder OAuth 2.0."
+      },
+      "pedalingMetrics": {
+        "title": "Trampmätvärden",
+        "intro": "För varje tur som synkas från din Karoo-enhet:",
+        "fields": {
+          "timestamp": "Tidsstämpel",
+          "timestampPurpose": "När turen registrerades",
+          "duration": "Längd",
+          "durationPurpose": "Hur länge turen varade (millisekunder)",
+          "balance": "Balans vänster / höger",
+          "balancePurpose": "Kraftfördelning mellan benen (%)",
+          "te": "Vridmomentseffektivitet V/H",
+          "tePurpose": "Hur effektivt du applicerar kraft (%)",
+          "ps": "Trampjämnhet V/H",
+          "psPurpose": "Hur jämnt ditt tramptag är (%)",
+          "zones": "Zonfördelning",
+          "zonesPurpose": "Tid i Optimal/Uppmärksamhet/Problem-zoner (%)",
+          "score": "Effektivitetspoäng",
+          "scorePurpose": "Beräknad övergripande poäng (0-100)"
+        }
+      },
+      "performanceMetrics": {
+        "title": "Prestandamätvärden",
+        "intro": "Ytterligare cykeldata som synkas för omfattande turanalys:",
+        "fields": {
+          "power": "Effekt (snitt/max)",
+          "powerPurpose": "Genomsnittlig och maximal effektutmatning i watt",
+          "cadence": "Kadens (snitt)",
+          "cadencePurpose": "Genomsnittlig trampkadens i RPM",
+          "hr": "Puls (snitt/max)",
+          "hrPurpose": "Genomsnittlig och maximal puls i BPM",
+          "speed": "Hastighet (snitt)",
+          "speedPurpose": "Genomsnittlig hastighet i km/h",
+          "distance": "Distans",
+          "distancePurpose": "Total tillryggalagd distans i km",
+          "elevation": "Höjd (vinst/förlust)",
+          "elevationPurpose": "Totalt antal meter upp och ner",
+          "grade": "Lutning (snitt/max)",
+          "gradePurpose": "Genomsnittlig och maximal lutning (%)",
+          "np": "Normaliserad effekt",
+          "npPurpose": "Intensitetsviktad effekt i watt",
+          "energy": "Energi",
+          "energyPurpose": "Total energiutmatning i kilojoule"
+        },
+        "note": "Dessa mätvärden ger sammanhang för din trampeffektivitetsanalys. De läses från din Karoos anslutna sensorer (effektmätare, pulsmätare, GPS)."
+      },
+      "snapshots": {
+        "title": "Per-minut-ögonblicksbilder",
+        "intro": "För detaljerade tidslinjediagram lagrar vi per-minut-genomsnitt under varje tur:",
+        "fields": {
+          "minuteIndex": "Minutindex",
+          "minuteIndexPurpose": "Vilken minut av turen (0, 1, 2...)",
+          "metricsAvg": "Balans V/H, VE V/H, TJ V/H",
+          "metricsAvgPurpose": "Genomsnittliga trampmätvärden för den minuten",
+          "perfAvg": "Effekt, Kadens, Puls",
+          "perfAvgPurpose": "Genomsnittliga prestandamätvärden för den minuten",
+          "zoneStatus": "Zonstatus",
+          "zoneStatusPurpose": "Dominerande zon för den minuten (Optimal/Uppmärksamhet/Problem)"
+        },
+        "note": "Ögonblicksbilder möjliggör tidslinjediagrammet i turdetaljer, som visar hur din teknik utvecklades genom turen."
+      },
+      "deviceData": {
+        "title": "Enhetsdata",
+        "fields": {
+          "deviceId": "Enhets-ID",
+          "deviceIdPurpose": "Unik identifierare för din Karoo",
+          "deviceName": "Enhetsnamn",
+          "deviceNamePurpose": "t.ex. \"Karoo 3\"",
+          "deviceType": "Enhetstyp",
+          "deviceTypePurpose": "t.ex. \"karoo\"",
+          "lastSync": "Senaste synktid",
+          "lastSyncPurpose": "När data senast synkades"
+        }
+      },
+      "userSettings": {
+        "title": "Användarinställningar (synkas vid inloggning)",
+        "intro": "När du är inloggad synkas dina appinställningar mellan din Karoo-enhet och webbinstrumentpanelen:",
+        "fields": {
+          "thresholds": "Tröskelinställningar",
+          "thresholdsPurpose": "Balanströskel, VE optimalt intervall, TJ minimum",
+          "alertPrefs": "Varningspreferenser",
+          "alertPrefsPurpose": "Vilka mätvärden som utlöser varningar, vibrations-/ljud-/visuella alternativ",
+          "cooldowns": "Varningsnedkylningar",
+          "cooldownsPurpose": "Tid mellan upprepade varningar (sekunder)",
+          "screenWake": "Väck skärm",
+          "screenWakePurpose": "Om varningar väcker Karoo-skärmen",
+          "bgMode": "Bakgrundsläge",
+          "bgModePurpose": "Samla data även när datafält är dolt",
+          "autoSync": "Autosynk",
+          "autoSyncPurpose": "Synka turer automatiskt efter slutförande"
+        },
+        "note": "Inställningssynk låter dig konfigurera trösklar på webben och få dem tillämpade på din Karoo automatiskt. Om du inte är inloggad förblir inställningarna endast lokala."
+      },
+      "drillResults": {
+        "title": "Övningsresultat (synkas vid inloggning)",
+        "intro": "När du är inloggad synkas din övningsträningsdata:",
+        "fields": {
+          "drillId": "Övnings-ID & Namn",
+          "drillIdPurpose": "Vilken övning som slutfördes",
+          "drillTimestamp": "Tidsstämpel & Längd",
+          "drillTimestampPurpose": "När övningen gjordes och hur lång tid den tog",
+          "drillScore": "Poäng",
+          "drillScorePurpose": "Övergripande prestationspoäng (0-100)",
+          "timeInTarget": "Tid i mål",
+          "timeInTargetPurpose": "Hur länge du höll målmätvärdena",
+          "phaseScores": "Faspoäng",
+          "phaseScoresPurpose": "Prestanda för varje övningsfas"
+        }
+      },
+      "achievements": {
+        "title": "Prestationer (synkas vid inloggning)",
+        "intro": "När du är inloggad synkas dina upplåsta prestationer:",
+        "fields": {
+          "achievementId": "Prestations-ID",
+          "achievementIdPurpose": "Vilken prestation som låstes upp",
+          "unlockedAt": "Upplåst vid",
+          "unlockedAtPurpose": "När prestationen uppnåddes"
+        }
+      },
+      "localOnly": {
+        "title": "Data som endast lagras på din Karoo (synkas aldrig)",
+        "intro": "Följande data lagras lokalt på din Karoo-enhet och skickas aldrig till våra servrar:",
+        "fields": {
+          "ratings": "Turbetyg",
+          "ratingsPurpose": "1-5 stjärnbetyg du ger turer",
+          "notes": "Turanteckningar",
+          "notesPurpose": "Personliga anteckningar du lägger till turer",
+          "customDrills": "Anpassade övningar",
+          "customDrillsPurpose": "Träningsövningar du skapar själv",
+          "onboarding": "Introduktionsstatus",
+          "onboardingPurpose": "Om du har slutfört apphandledningen"
+        },
+        "note": "Denna data förblir på din enhet. Om du avinstallerar appen raderas denna data."
+      },
+      "dontCollect": {
+        "intro": "Medan vi samlar prestandamätvärden för analys undviker vi specifikt plats- och spårningsdata:",
+        "items": {
+          "gps": "GPS / Plats",
+          "route": "Rutt / Kartdata",
+          "temperature": "Temperatur",
+          "strava": "Strava / Andra plattformar",
+          "rideTitles": "Turtitlar / Namn",
+          "photos": "Foton / Media"
+        },
+        "note": "Dina turer kan inte spåras till specifika platser. Vi lagrar endast aggregerade prestandamätvärden, inte var du cyklade."
+      },
+      "usedNotStored": {
+        "title": "Data som används men inte lagras",
+        "intro": "Följande data läses i realtid för visningsändamål men sparas aldrig på enhet eller i molnet:",
+        "fields": {
+          "smoothed": "3s/10s utjämnad balans",
+          "smoothedPurpose": "Realtidstrendindikatorer för livevisning",
+          "rawStream": "Rå sensorström (~20Hz)",
+          "rawStreamPurpose": "Individuella datapunkter bearbetas och kasseras; endast per-minut-genomsnitt lagras"
+        }
+      },
+      "permissions": {
+        "title": "Android-behörigheter",
+        "intro": "KPedal-appen begär följande behörigheter på din Karoo:",
+        "fields": {
+          "foreground": "Förgrundstjänst",
+          "foregroundPurpose": "Körs i bakgrunden för att samla data under turer",
+          "notifications": "Notifieringar",
+          "notificationsPurpose": "Visa varningar när trampteknik kräver uppmärksamhet",
+          "boot": "Startad",
+          "bootPurpose": "Starta automatiskt när Karoo slås på"
+        },
+        "note": "Inga internet-, plats-, kamera-, mikrofon- eller lagringsbehörigheter begärs."
+      },
+      "dataFlow": {
+        "step1": {
+          "title": "Effektmätarpedaler",
+          "desc": "Dina pedaler överför balans, VE och TJ via ANT+ Cycling Dynamics-protokoll till din Karoo."
+        },
+        "step2": {
+          "title": "KPedal-app på Karoo",
+          "desc": "Appen bearbetar realtidsdata lokalt vid ~20Hz, beräknar genomsnitt och lagrar tursammanfattningar i lokal databas. Upp till 100 turer sparas på enheten; äldre turer raderas automatiskt."
+        },
+        "step3": {
+          "title": "Molnsynk (valfritt)",
+          "desc": "Om du är inloggad synkas tursammanfattningar och inställningar till KPedal-molnet via HTTPS. Endast aggregerad data skickas — inga råa sensorströmmar. Inställningsändringar på webben tillämpas automatiskt på din Karoo."
+        },
+        "step4": {
+          "title": "Webbinstrumentpanel",
+          "desc": "Se din turhistorik, trender och analys på app.kpedal.com. Data hämtas endast för ditt autentiserade konto."
+        },
+        "offlineTitle": "Offlineläge",
+        "offlineDesc": "KPedal-appen fungerar helt offline. Du kan använda alla funktioner utan att logga in eller synka. Data stannar på din enhet."
+      },
+      "infrastructure": {
+        "title": "Infrastruktur",
+        "workers": "Cloudflare Workers",
+        "workersUse": "API-bearbetning (serverlös). Förfrågningsloggar lagras ~7 dagar.",
+        "d1": "Cloudflare D1",
+        "d1Use": "SQLite-databas för användare och turer",
+        "kv": "Cloudflare KV",
+        "kvUse": "Sessionstoken (förfaller automatiskt efter 7 dagar)",
+        "pages": "Cloudflare Pages",
+        "pagesUse": "Statisk webbinstrumentpanelhosting"
+      },
+      "security": {
+        "title": "Säkerhetsåtgärder",
+        "https": "HTTPS överallt",
+        "httpsDesc": "Alla anslutningar använder TLS 1.3-kryptering",
+        "jwt": "JWT-autentisering",
+        "jwtDesc": "Signerade token med 15 minuters utgång för åtkomst, 7 dagar för uppdatering",
+        "rateLimit": "Hastighetsbegränsning",
+        "rateLimitDesc": "Auth: 10 förfr/min, API: 100 förfr/min, Synk: 30 förfr/min. Använder IP-adress för räkning, raderas automatiskt efter 60 sekunder.",
+        "validation": "Indatavalidering",
+        "validationDesc": "All data valideras och saneras innan lagring",
+        "csrf": "CSRF-skydd",
+        "csrfDesc": "OAuth-tillståndsverifiering förhindrar cross-site-attacker"
+      },
+      "retention": {
+        "title": "Datalagring",
+        "cloudTitle": "Molnlagring (app.kpedal.com)",
+        "localTitle": "Lokal lagring (Karoo-enhet)",
+        "cloud": {
+          "rideData": "Turdata",
+          "rideDataPeriod": "Tills du tar bort den",
+          "drillResults": "Övningsresultat",
+          "drillResultsPeriod": "Tills du tar bort den",
+          "achievements": "Prestationer",
+          "achievementsPeriod": "Tills kontoborttagning",
+          "userSettings": "Användarinställningar",
+          "userSettingsPeriod": "Tills kontoborttagning",
+          "accountData": "Kontodata",
+          "accountDataPeriod": "Tills kontoborttagning",
+          "accessTokens": "Åtkomsttoken",
+          "accessTokensPeriod": "15 minuter",
+          "refreshTokens": "Uppdateringstoken",
+          "refreshTokensPeriod": "7 dagar",
+          "oauthState": "OAuth-tillstånd",
+          "oauthStatePeriod": "10 minuter"
+        },
+        "local": {
+          "rideHistory": "Turhistorik",
+          "rideHistoryPeriod": "Upp till 100 turer (äldsta raderas automatiskt)",
+          "drillResults": "Övningsresultat",
+          "drillResultsPeriod": "Tills appavinstallation (synkas också till molnet om inloggad)",
+          "achievements": "Prestationer",
+          "achievementsPeriod": "Tills appavinstallation (synkas också till molnet om inloggad)",
+          "customDrills": "Anpassade övningar",
+          "customDrillsPeriod": "Tills du tar bort dem (endast lokalt)",
+          "settings": "Inställningar",
+          "settingsPeriod": "Tills appavinstallation (synkas till molnet om inloggad)"
+        }
+      },
+      "thirdParties": {
+        "google": {
+          "title": "Google OAuth",
+          "desc": "Används endast för inloggning. Vi begär minimala behörigheter: openid, email, profile.",
+          "link": "Googles integritetspolicy →"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "desc": "Vår infrastrukturleverantör. Hanterar API, databas och webbhosting.",
+          "link": "Cloudflares integritetspolicy →"
+        },
+        "notUsedTitle": "Vad vi inte använder",
+        "notUsedIntro": "KPedal använder inte:",
+        "notUsed": [
+          "Google Analytics eller någon analystjänst",
+          "Facebook Pixel eller någon annonsspårare",
+          "Cookies (vi använder localStorage istället)",
+          "Kraschrapporteringstjänster (ingen Firebase Crashlytics, Sentry, etc.)",
+          "Några tredjepartsdatamäklare"
+        ],
+        "browserStorageTitle": "Webbläsarlagring",
+        "browserStorageIntro": "KPedal-webbinstrumentpanelen lagrar följande i din webbläsares lokala/sessionslagring:",
+        "browserStorage": {
+          "access": "kpedal_auth_access",
+          "accessPurpose": "sessionStorage — JWT-åtkomsttoken (rensas när fliken stängs)",
+          "refresh": "kpedal_auth_refresh",
+          "refreshPurpose": "localStorage — JWT-uppdateringstoken (bevaras upp till 7 dagar)",
+          "theme": "kpedal_theme",
+          "themePurpose": "localStorage — Temapreferens (auto/ljust/mörkt)"
+        },
+        "browserStorageNote": "Du kan rensa denna data när som helst genom att logga ut eller rensa webbläsarlagringen. Inga cookies används."
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "Karoo-tillägg",
+      "version": "v1.3.0",
+      "titleLine1": "Se din tramp-",
+      "titleLine2": "effektivitet i realtid",
+      "subtitle": "Balans, vridmomentseffektivitet, trampjämnhet — visas på din Karoo med realtidsvarningar och guidade övningar.",
+      "downloadFree": "Ladda ner gratis",
+      "tryDemo": "Prova demo",
+      "free": "Gratis",
+      "openSource": "öppen källkod",
+      "noAccountRequired": "Inget konto krävs"
+    },
+    "dataFields": {
+      "title": "Se det på din Karoo",
+      "subtitle": "5 datafältlayouter. Välj vyn som passar din träning.",
+      "tabs": {
+        "quickGlance": "Snabbvy",
+        "balance": "Balans",
+        "efficiency": "Effektivitet",
+        "fullView": "Fullständig vy",
+        "trend": "Trend"
+      },
+      "quickGlance": {
+        "name": "Snabbvy",
+        "desc": "Statusindikator med balansstapel. Visar bock när optimal eller listar mätvärden som kräver uppmärksamhet."
+      },
+      "powerBalance": {
+        "name": "Effektbalans",
+        "desc": "Stora V/H-balanssiffror med visuell förloppsindikator. Perfekt för balansfokuserad träning."
+      },
+      "efficiency": {
+        "name": "Effektivitet",
+        "desc": "Vridmomentseffektivitet och trampjämnhet med V/H-uppdelning och genomsnitt."
+      },
+      "fullOverview": {
+        "name": "Fullständig översikt",
+        "desc": "Alla tre mätvärden i en kompakt vy. Komplett trampbild i överblick."
+      },
+      "balanceTrend": {
+        "name": "Balanstrend",
+        "desc": "Nuvarande + 3s utjämnad + 10s utjämnad balans. Se trender när de utvecklas."
+      },
+      "karoo": {
+        "optimal": "Optimal",
+        "balance": "Balans",
+        "left": "Vänster",
+        "right": "Höger",
+        "torqueEff": "Vridmom.eff.",
+        "smoothness": "Jämnhet",
+        "te": "VE",
+        "ps": "TJ",
+        "ok": "OK",
+        "now": "Nu",
+        "avg3s": "3s snitt",
+        "avg10s": "10s snitt"
+      }
+    },
+    "comparison": {
+      "title": "Skillnaden",
+      "subtitle": "Sluta gissa. Börja förbättra.",
+      "without": "Utan KPedal",
+      "with": "Med KPedal",
+      "items": {
+        "before1": "Effektsiffra, men ingen teknikinsikt",
+        "after1": "Balans, VE, TJ synliga live",
+        "before2": "Upptäck obalans från skada",
+        "after2": "Varna innan det blir ett problem",
+        "before3": "Inget strukturerat sätt att förbättra",
+        "after3": "10 guidade övningar med poängsättning",
+        "before4": "Data fast på en enhet",
+        "after4": "Molnsynk med webbinstrumentpanel"
+      }
+    },
+    "metrics": {
+      "title": "Vad vi mäter",
+      "subtitle": "Tre mätvärden. Forskningsbaserade trösklar.",
+      "balance": {
+        "title": "Effektbalans",
+        "range": "48-52% optimalt",
+        "desc": "Vänster/höger kraftfördelning. Proffscyklister håller sig inom 2%. Obalanser över 5% ökar risken för överbelastningsskador och slösar energi genom kompensationsmönster."
+      },
+      "te": {
+        "title": "Vridmomentseffektivitet",
+        "range": "70-80% idealzon",
+        "desc": "Procent av kraft som appliceras under den effektiva delen av tramptaget. Baserat på Wattbike-forskning — <strong>högre är INTE bättre</strong>. Över 80% kan faktiskt minska den totala effektutmatningen."
+      },
+      "ps": {
+        "title": "Trampjämnhet",
+        "range": "≥20% mål",
+        "desc": "Hur jämnt kraft fördelas genom hela tramptaget. Eliminerar \"döda punkter\". Elitcyklister uppnår 25-35% — detta är det svåraste mätvärdet att förbättra."
+      },
+      "zones": {
+        "optimal": "Optimal",
+        "attention": "Uppmärksamhet",
+        "problem": "Problem"
+      }
+    },
+    "drills": {
+      "title": "10 guidade övningar",
+      "subtitle": "Från 30-sekundersövningar till 15-minuterspass. Varje poängsatt 0-100%.",
+      "tabs": {
+        "focus": "Fokus",
+        "challenge": "Utmaning",
+        "workout": "Träning"
+      },
+      "target": "Mål",
+      "levels": {
+        "beginner": "Nybörjare",
+        "intermediate": "Medel",
+        "advanced": "Avancerad"
+      },
+      "featured": "Utvald",
+      "featuredTitle": "Trampmästerskap",
+      "featuredDesc": "15 minuter, 10 faser. Fullständig tekniktäckning. Rekommenderas 1-2× per vecka.",
+      "items": {
+        "leftFocus": {
+          "name": "Vänster benfokus",
+          "duration": "30s",
+          "target": "Balans <48%",
+          "desc": "Bygg enbensmedvetenhet genom att betona ditt vänstra ben."
+        },
+        "rightFocus": {
+          "name": "Höger benfokus",
+          "duration": "30s",
+          "target": "Balans >52%",
+          "desc": "Identifiera och stärk ditt svagare ben med fokuserad övning."
+        },
+        "smoothCircles": {
+          "name": "Mjuka cirklar",
+          "duration": "45s",
+          "target": "TJ ≥22%",
+          "desc": "Eliminera döda punkter i ditt tramptag genom mjuk teknik."
+        },
+        "powerTransfer": {
+          "name": "Kraftöverföring",
+          "duration": "60s",
+          "target": "VE 70-80%",
+          "desc": "Maximera effektutmatning utan att offra effektivitet."
+        },
+        "balanceChallenge": {
+          "name": "Balansutmaning",
+          "duration": "15s håll",
+          "target": "48-52%",
+          "desc": "Håll perfekt 50/50-balans i 15 sekunder. Testar symmetri och kontroll."
+        },
+        "smoothnessTarget": {
+          "name": "Jämnhetsmål",
+          "duration": "20s håll",
+          "target": "TJ ≥25%",
+          "desc": "Elitnivå trampjämnhet. Den mest krävande teknikutmaningen."
+        },
+        "highCadenceSmooth": {
+          "name": "Hög kadens mjukt",
+          "duration": "30s",
+          "target": "TJ ≥20% @ 100+ rpm",
+          "desc": "Behåll mjuk form vid hög kadens. Ultimat koordinationstest."
+        },
+        "balanceRecovery": {
+          "name": "Balansåterhämtning",
+          "duration": "5 min",
+          "target": "3 faser",
+          "desc": "Alternera vänsterfokus → center → högerfokus. Hjälper att korrigera obalanser över tid."
+        },
+        "efficiencyBuilder": {
+          "name": "Effektivitetsbyggare",
+          "duration": "10 min",
+          "target": "6 faser",
+          "desc": "Sekventiella block: balans → jämnhet → VE. Bygg komplett teknik."
+        },
+        "pedalingMastery": {
+          "name": "Trampmästerskap",
+          "duration": "15 min",
+          "target": "10 faser",
+          "desc": "Omfattande 10-faspass som täcker alla aspekter av trampteknik."
+        }
+      }
+    },
+    "alerts": {
+      "title": "Realtidsvarningar",
+      "subtitle": "Få korrigering mitt under turen när tekniken driver iväg",
+      "demo": {
+        "title": "Balansvarning",
+        "detail": "Höger ben dominant: 56%"
+      },
+      "features": {
+        "vibration": {
+          "title": "Vibration & Ljud",
+          "desc": "Haptisk feedback och ljudpip. Växla var och en av/på."
+        },
+        "screenWake": {
+          "title": "Väck skärm",
+          "desc": "Väck Karoo-skärmen automatiskt när varning utlöses."
+        },
+        "cooldown": {
+          "title": "Smart nedkylning",
+          "desc": "15s till 2min mellan varningar. Användbar, inte irriterande."
+        },
+        "thresholds": {
+          "title": "Trösklar per mätvärde",
+          "desc": "Separata inställningar för Balans, VE och TJ."
+        }
+      }
+    },
+    "analytics": {
+      "title": "Analys & Webbinstrumentpanel",
+      "subtitle": "Följ förbättring över tid. Se trender, inte bara siffror.",
+      "preview": {
+        "greeting": "Hej, Yuri!",
+        "recentRides": "Senaste turer",
+        "technique": "Teknik",
+        "avgSuffix": "snitt",
+        "morningRide": "Morgontur",
+        "eveningSpin": "Kvällstur",
+        "longRide": "Långtur",
+        "daysAgo": "dagar sedan"
+      },
+      "features": {
+        "periods": "7-dagars, 14-dagars, 30-dagars, 60-dagars analys",
+        "history": "Fullständig turhistorik med filter",
+        "multiDevice": "Multienhetsynk",
+        "openSource": "Öppen källkod på GitHub"
+      }
+    },
+    "motivation": {
+      "title": "Håll motivationen uppe",
+      "subtitle": "Följ framsteg med prestationer och veckoutmaningar",
+      "achievements": "Prestationer att låsa upp",
+      "challenges": "Veckoutmaningar",
+      "achievementsLabel": "Prestationer",
+      "challengesLabel": "Utmaningar",
+      "examples": {
+        "firstRide": "Första tur",
+        "hundredRides": "100 turer",
+        "perfectBalance": "Perfekt balans 10 min",
+        "thirtyDayStreak": "30-dagarssvit",
+        "balancedRider": "Balanserad cyklist: 48-52% över 3 turer",
+        "zoneMaster": "Zonmästare: 60%+ i optimal zon"
+      }
+    },
+    "works": {
+      "title": "Fungerar överallt",
+      "subtitle": "Bakgrundsinsamling. Automatisk synk. Din data på alla enheter.",
+      "background": {
+        "title": "Bakgrundsläge",
+        "desc": "Samlar data för ALLA turer, även utan synliga datafält. Startar automatiskt vid start. Sparar när du slutar."
+      },
+      "sync": {
+        "title": "Molnsynk",
+        "desc": "Turer synkas efter slutförande. Länka enhet på link.kpedal.com med en enkel kod — inget lösenord behövs på Karoo."
+      },
+      "multiDevice": {
+        "title": "Multienhet",
+        "desc": "Länka flera Karoos. Alla turer går till ett konto. Inställningar synkas dubbelriktat mellan app och webb."
+      }
+    },
+    "requirements": {
+      "title": "Vad du behöver",
+      "subtitle": "Karoo 2 eller 3 + dubbelsidiga effektpedaler",
+      "karoo": {
+        "title": "Hammerhead Karoo",
+        "desc": "Karoo 2 eller Karoo 3. KPedal använder den inbyggda Karoo SDK — inte tillgänglig på andra datorer."
+      },
+      "pedals": {
+        "title": "Dubbla effektpedaler",
+        "desc": "Vänster + höger effektmätning med ANT+ Cycling Dynamics för Balans, VE och TJ."
+      },
+      "fullSupport": {
+        "title": "Fullt stöd",
+        "desc": "Balans + VE + TJ"
+      },
+      "balanceOnly": {
+        "title": "Endast balans",
+        "desc": "V/H-effekt men ingen VE/TJ"
+      },
+      "notCompatible": {
+        "title": "Inte kompatibel",
+        "desc": "Ingen dubbelsidig data"
+      },
+      "pedalsList": {
+        "singleSided": "Enkelsidig EM",
+        "trainerPower": "Trainereffekt"
+      }
+    },
+    "faq": {
+      "title": "Vanliga frågor",
+      "q1": {
+        "q": "Vilka effektmätarpedaler är kompatibla?",
+        "a": "<strong>Fullt stöd (Balans + VE + TJ):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Endast balans:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Alla pedaler som överför ANT+ Cycling Dynamics fungerar."
+      },
+      "q2": {
+        "q": "Hur installerar jag KPedal på min Karoo?",
+        "a": "<strong>Alternativ 1:</strong> Ladda ner APK från GitHub Releases → överför via USB → öppna filhanteraren på Karoo → tryck för att installera.<br><strong>Alternativ 2:</strong> Öppna GitHub release-länken direkt i Karoos webbläsare och ladda ner.<br><strong>Alternativ 3:</strong> Använd ADB: <code>adb install kpedal.apk</code>"
+      },
+      "q3": {
+        "q": "Måste jag lägga till KPedal-datafält på min turskärm?",
+        "a": "<strong>Nej.</strong> Med Bakgrundsläge aktiverat samlar KPedal mätvärden för ALLA turer automatiskt — även om du aldrig lägger till ett enda datafält. Datafält är valfria och endast för att se mätvärden live under turen. Din kompletta turhistorik sparas oavsett."
+      },
+      "q4": {
+        "q": "Vad anses vara en \"bra\" effektbalans?",
+        "a": "<strong>48-52%</strong> (±2% från 50/50) är optimalt. De flesta professionella cyklister cyklar med 1-3% naturlig asymmetri. Var inte besatt av perfekt 50/50 — det är nästan omöjligt och inte nödvändigt. Fokusera på <strong>konsekvens inom ditt intervall</strong> snarare än att jaga perfektion."
+      },
+      "q5": {
+        "q": "Varför är 70-80% vridmomentseffektivitet optimalt och inte högre?",
+        "a": "Baserat på <strong>Wattbike-forskning</strong>: över 80% VE drar du troligen för hårt i uppåtfasen. Detta slösar energi och kan faktiskt minska den totala effektutmatningen. Intervallet 70-80% indikerar att du applicerar kraft effektivt genom tramptaget utan att motarbeta dig själv i återhämtningsfasen."
+      },
+      "q6": {
+        "q": "Vad mäter trampjämnhet exakt?",
+        "a": "<strong>Formel:</strong> TJ = (genomsnittlig effekt ÷ toppeffekt) × 100.<br>Högre TJ betyder mer konsekvent kraftapplicering genom tramptaget. <strong>20%+ är bra</strong> för de flesta cyklister. Sprinters har vanligtvis lägre TJ (explosiv, punchy kraft), medan uthållighetscyklister tenderar mot högre värden."
+      },
+      "q7": {
+        "q": "Hur beräknas turpoängen?",
+        "a": "<strong>Viktad formel:</strong> Balans (40%) + VE (35%) + TJ (25%).<br>Varje mätvärde poängsätts 0-100 baserat på tid i optimala zoner.<br><strong>85+</strong> = Utmärkt teknik<br><strong>70-84</strong> = Bra, mindre områden att förbättra<br><strong>Under 70</strong> = Betydande utrymme för förbättring"
+      },
+      "q8": {
+        "q": "Hur fungerar de guidade övningarna?",
+        "a": "Övningar är strukturerade träningar med realtidsmål som visas på skärmen. Exempel: \"Enbenfokus\" ber dig behålla 55-60% balans på ett ben i 30 sekunder. KPedal spårar din <strong>tid-i-mål</strong> och ger en poäng i slutet. Perfekt för uppvärmningar, återhämtningsturer eller dedikerade tekniksessioner."
+      },
+      "q9": {
+        "q": "Kan jag skapa mina egna anpassade övningar?",
+        "a": "<strong>Ja.</strong> Anpassade övningar låter dig definiera dina egna faser, mål och längder. Skapa övningar anpassade efter dina specifika svagheter — kanske ett 45-sekunders hög-VE-fokus följt av 30 sekunders balansarbete. Dina anpassade övningar sparas lokalt och synkas till molnet."
+      },
+      "q10": {
+        "q": "Vad utlöser varningarna under turen?",
+        "a": "<strong>Konfigurerbara trösklar:</strong><br>• Balans: asymmetri överstiger din inställda gräns (standard 5%)<br>• VE: sjunker under minimum (standard 60%)<br>• TJ: sjunker under minimum (standard 15%)<br>Varningar använder <strong>vibration + pip</strong>. Nedkylning (15s-2min) förhindrar spam. Du kan aktivera/inaktivera varje mätvärde oberoende."
+      },
+      "q11": {
+        "q": "Fungerar KPedal utan internetanslutning?",
+        "a": "<strong>100% ja.</strong> Alla kärnfunktioner — datainsamling, övningar, varningar, turhistorik — fungerar helt offline. Molnsynk är valfritt och aktiveras endast när du aktiverar det. Din data lagras alltid lokalt på Karoo först. Synk sker automatiskt när du är online igen."
+      },
+      "q12": {
+        "q": "Kommer KPedal att tömma min Karoos batteri?",
+        "a": "<strong>Minimal påverkan: ~1-2% extra per timme</strong> under aktiva turer. KPedal kör endast datainsamling medan du cyklar. Mellan turer väntar bara en liten lyssnare på turstart — försumbar strömförbrukning. Kraftigt optimerad för effektivitet."
+      },
+      "q13": {
+        "q": "Kan jag synka data mellan flera Karoo-enheter?",
+        "a": "<strong>Ja.</strong> Länka flera Karoos till ditt konto. Inställningar synkas mellan dem automatiskt. Alla turer från alla enheter visas i en samlad instrumentpanel. Perfekt om du har en reserv-Karoo, tävlings- och träningsenheter, eller uppgraderar till en ny enhet."
+      },
+      "q14": {
+        "q": "Hur fungerar prestationssystemet?",
+        "a": "Prestationer låses upp när du når milstolpar: turantal, totala timmar, konsekvensvanor, teknikförbättringar. Exempel: \"Järnbalans\" (10 turer med <2% asymmetri), \"Hundraklubben\" (100 spårade turer). Prestationer synkas till molnet och visas på din webbinstrumentpanel."
+      },
+      "q15": {
+        "q": "Kan jag använda KPedal med Garmin, Wahoo eller andra cykeldatorer?",
+        "a": "<strong>Nej.</strong> KPedal är byggt specifikt för Hammerhead Karoo med deras officiella karoo-ext SDK. Den får åtkomst till ANT+ Cycling Dynamics-data, inbyggt varningssystem och turstatusövervakning — djupa integrationer som inte finns på andra plattformar."
+      },
+      "q16": {
+        "q": "Är min data privat och säker?",
+        "a": "<strong>Ja.</strong> Data stannar på din Karoo om du inte aktiverar molnsynk. Molnet använder <strong>Google-inloggning</strong> — vi ser eller lagrar aldrig ditt lösenord. Inga spårningspixlar, inga annonser, ingen dataförsäljning. Hela projektet är <strong>öppen källkod</strong> — granska koden själv på GitHub."
+      },
+      "q17": {
+        "q": "Varför ändras min balans vid olika effektnivåer?",
+        "a": "Detta är normalt. Vid låg effekt förstärks små teknikvariationer. Vid hög effekt tenderar du att rekrytera muskler mer jämnt. Många cyklister ser 2-3% mer asymmetri vid uthållighetstempo vs tröskel. KPedal spårar detta så du kan identifiera mönster och arbeta på svaga punkter."
+      },
+      "q18": {
+        "q": "Hur ofta bör jag göra teknikövningar?",
+        "a": "<strong>2-3 gånger per vecka</strong> är en bra utgångspunkt. Inkludera dem i uppvärmningar (5-10 min) eller dedikera återhämtningsturer till teknikarbete. Konsekvens spelar större roll än volym — regelbundna korta sessioner slår sporadiska långa. Följ framsteg via övningspoäng över tid."
+      }
+    },
+    "cta": {
+      "headline": "Börja förbättra din trampteknik idag",
+      "subtext": "Gratis. Öppen källkod. Synkas till molnet.",
+      "downloadForKaroo": "Ladda ner för Karoo",
+      "tryDemo": "Prova demo"
+    },
+    "footer": {
+      "tagline": "Trampeffektivitet för Karoo",
+      "product": "Produkt",
+      "features": "Funktioner",
+      "dataFields": "Datafält",
+      "drills": "Övningar",
+      "resources": "Resurser",
+      "github": "GitHub",
+      "releases": "Releaser",
+      "reportIssue": "Rapportera problem",
+      "legal": "Juridiskt",
+      "privacyPolicy": "Integritetspolicy",
+      "signIn": "Logga in",
+      "madeWith": "Gjort med kärlek för Karoo-communityn"
+    }
+  },
+  "aria": {
+    "home": "KPedal - Hem",
+    "downloadOptions": "Nedladdningsalternativ",
+    "downloadKpedal": "Ladda ner KPedal gratis från GitHub",
+    "tryDemo": "Prova demokonto",
+    "getStartedOptions": "Kom igång-alternativ",
+    "downloadForKaroo": "Ladda ner KPedal för Karoo",
+    "footerNav": "Sidfotnavigation",
+    "viewOnGithub": "Visa KPedal på GitHub",
+    "balanceTrendChart": "Balanstrenddiagram",
+    "techniqueTrendChart": "Tekniktrenddiagram",
+    "languageSelector": "Välj språk"
+  }
+}

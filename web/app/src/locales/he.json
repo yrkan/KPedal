@@ -1,0 +1,1975 @@
+{
+  "common": {
+    "loading": "טוען...",
+    "error": "אירעה שגיאה",
+    "loadError": "נכשל בטעינת נתונים",
+    "retry": "נסה שוב",
+    "back": "חזרה",
+    "save": "שמור",
+    "cancel": "ביטול",
+    "delete": "מחק",
+    "confirm": "אישור",
+    "or": "או",
+    "today": "היום",
+    "yesterday": "אתמול",
+    "daysAgo": "לפני {days} ימים",
+    "noData": "אין נתונים",
+    "toggleTheme": "החלף ערכת נושא",
+    "tableView": "תצוגת טבלה",
+    "cardView": "תצוגת כרטיסים",
+    "backToDashboard": "חזרה ללוח הבקרה",
+    "remove": "הסר"
+  },
+  "app": {
+    "name": "KPedal",
+    "tagline": "ניתוח יעילות דיווש ל-Karoo",
+    "version": "גרסה 1.3.0",
+    "webTitle": "KPedal Web"
+  },
+  "nav": {
+    "dashboard": "לוח בקרה",
+    "home": "בית",
+    "rides": "רכיבות",
+    "drills": "תרגילים",
+    "achievements": "הישגים",
+    "goals": "יעדים",
+    "settings": "הגדרות",
+    "profile": "פרופיל",
+    "logout": "התנתק"
+  },
+  "auth": {
+    "signIn": "התחבר",
+    "signOut": "התנתק",
+    "continueWithGoogle": "המשך עם Google",
+    "tryDemo": "נסה דמו",
+    "loadingDemo": "טוען דמו...",
+    "createFreeAccount": "צור חשבון חינם",
+    "secureOAuth": "OAuth 2.0 מאובטח",
+    "googleVerified": "מאומת על ידי Google",
+    "privacyNote": "בהתחברות, אתה מסכים ל",
+    "privacyPolicy": "מדיניות פרטיות",
+    "demoNote": "חקור את לוח הבקרה עם נתוני דוגמה.",
+    "noSignupRequired": "ללא צורך בהרשמה.",
+    "backToLanding": "חזרה לדף הבית",
+    "signedInViaGoogle": "מחובר דרך Google",
+    "sessionExpires": "הסשן שלך יפוג בעוד 7 ימים",
+    "authenticating": "מאמת...",
+    "signingIn": "מחבר אותך...",
+    "redirectingToLogin": "מעביר להתחברות...",
+    "missingTokens": "חסרים אסימוני אימות"
+  },
+  "errors": {
+    "invalidState": "אימות אבטחה נכשל. אנא נסה שוב.",
+    "authFailed": "האימות נכשל. אנא נסה שוב.",
+    "somethingWrong": "משהו השתבש. אנא נסה שוב.",
+    "demoUnavailable": "מצב דמו אינו זמין כרגע. אנא נסה שוב מאוחר יותר.",
+    "demoFailed": "נכשל בהפעלת מצב דמו. אנא נסה שוב.",
+    "failedToLoad": "נכשל בטעינת נתונים",
+    "failedToConnect": "נכשל בהתחברות",
+    "failedToLoadRides": "נכשל בטעינת רכיבות",
+    "failedToLoadDrills": "נכשל בטעינת תרגילים",
+    "failedToLoadMilestones": "נכשל בטעינת אבני דרך",
+    "failedToLoadDevices": "נכשל בטעינת מכשירים",
+    "failedToLoadSettings": "נכשל בטעינת הגדרות"
+  },
+  "demo": {
+    "mode": "מצב דמו",
+    "viewingSampleData": "צפייה בנתוני דוגמה",
+    "tour": "סיור"
+  },
+  "metrics": {
+    "balance": "איזון",
+    "balanceShort": "איז",
+    "te": "יעילות מומנט",
+    "teShort": "TE",
+    "ps": "חלקות דיווש",
+    "psShort": "PS",
+    "power": "הספק",
+    "powerAvg": "הספק ממוצע",
+    "powerMax": "הספק מקסימלי",
+    "normalizedPower": "הספק מנורמל",
+    "npShort": "NP",
+    "cadence": "קדנס",
+    "hr": "דופק",
+    "hrShort": "דופק",
+    "speed": "מהירות",
+    "distance": "מרחק",
+    "duration": "משך",
+    "elevation": "גובה",
+    "elevationGain": "עלייה בגובה",
+    "energy": "אנרגיה",
+    "score": "ציון",
+    "asymmetry": "אסימטריה",
+    "left": "ש",
+    "right": "י",
+    "leftRight": "ש/י",
+    "avg": "ממוצע",
+    "max": "מקסימום",
+    "total": "סה\"כ"
+  },
+  "zones": {
+    "title": "אזורים",
+    "optimal": "אופטימלי",
+    "attention": "דורש תשומת לב",
+    "problem": "בעייתי",
+    "timeInZone": "זמן באזור",
+    "zoneStatus": "מצב אזור",
+    "description": {
+      "attention": "הטכניקה דורשת עבודה",
+      "optimal": "ביצוע מעולה",
+      "problem": "בעיות משמעותיות"
+    }
+  },
+  "dashboard": {
+    "title": "לוח בקרה",
+    "period": {
+      "days7": "7 ימים",
+      "days14": "14 ימים",
+      "days30": "30 ימים",
+      "days60": "60 ימים",
+      "all": "כל הזמן",
+      "week": "שבוע",
+      "month": "חודש",
+      "year": "שנה"
+    },
+    "stats": {
+      "rides": "{count, plural, one {רכיבה #} other {# רכיבות}}",
+      "hours": "{count} ש'",
+      "km": "{value} ק\"מ",
+      "avgScore": "ציון ממוצע"
+    },
+    "powerAsymmetry": "אסימטריית הספק",
+    "lrBalance": "איזון ש/י",
+    "weeklyActivity": "פעילות שבועית",
+    "technique": "טכניקה",
+    "trends": "מגמות",
+    "recentRides": "רכיבות אחרונות",
+    "thisWeek": "השבוע",
+    "lastWeek": "שבוע שעבר",
+    "vsLastWeek": "מול שבוע שעבר",
+    "noRides": "אין רכיבות בתקופה זו",
+    "viewAll": "הצג הכל ←",
+    "leftDominant": "ש דומיננטי",
+    "rightDominant": "י דומיננטי",
+    "balanced": "מאוזן",
+    "hello": "שלום, {name}!",
+    "startRiding": "התחל לרכוב כדי לראות את הנתונים שלך",
+    "welcome": "ברוך הבא, {name}!",
+    "weeklyChart": {
+      "rides": "רכיבות",
+      "title": "פעילות שבועית",
+      "hours": "שעות"
+    },
+    "yourProgress": "ההתקדמות שלך",
+    "allTime": "כל הזמן",
+    "summary": {
+      "rides": "רכיבות",
+      "hours": "שעות",
+      "km": "ק\"מ"
+    },
+    "comparison": {
+      "rides": "רכיבות",
+      "hours": "שעות",
+      "distance": "מרחק",
+      "climb": "טיפוס",
+      "balance": "איזון",
+      "optimal": "אופטימלי"
+    },
+    "sections": {
+      "performance": "ביצועים",
+      "insights": "תובנות"
+    },
+    "perfStats": {
+      "score": "ציון",
+      "optimal": "אופטימלי",
+      "power": "הספק",
+      "energy": "אנרגיה"
+    },
+    "trendCards": {
+      "balanceTrend": "מגמת איזון",
+      "technique": "טכניקה",
+      "asym": "אסימ"
+    },
+    "trendStats": {
+      "current": "נוכחי",
+      "average": "ממוצע",
+      "spread": "טווח",
+      "latest": "אחרון",
+      "best": "הטוב ביותר"
+    },
+    "emptyStates": {
+      "needMoreRides": "נדרשות עוד רכיבות",
+      "needMoreData": "נדרשים עוד נתונים"
+    },
+    "progress": {
+      "title": "התקדמות מול {period} ימים קודמים",
+      "score": "ציון",
+      "optimalZone": "אזור אופטימלי",
+      "time": "זמן",
+      "distance": "מרחק"
+    },
+    "table": {
+      "date": "תאריך",
+      "duration": "משך",
+      "asym": "אסימ",
+      "zones": "אזורים",
+      "power": "הספק",
+      "clickToView": "לחץ להצגה"
+    },
+    "actions": {
+      "downloadApk": "הורד APK",
+      "linkDevice": "קשר מכשיר"
+    },
+    "onboarding": {
+      "dashboardWillShow": "לוח הבקרה שלך יציג ניתוח דיווש בזמן אמת ברגע שתתחיל לרכוב עם KPedal ב-Karoo שלך.",
+      "whatYouWillSee": "מה תראה כאן",
+      "powerBalance": "איזון הספק",
+      "proTarget": "מקצוענים: ±2.5%",
+      "torqueEffectiveness": "יעילות מומנט",
+      "teOptimal": "אופטימלי: 70-80%",
+      "pedalSmoothness": "חלקות דיווש",
+      "psOptimal": "אופטימלי: ≥20%",
+      "getStarted": "התחל ב-3 צעדים",
+      "step1Title": "התקן ב-Karoo",
+      "step1Desc": "הורד APK והתקן דרך USB או דפדפן ה-Karoo",
+      "step2Title": "הוסף שדות נתונים",
+      "step2Desc": "ערוך את פרופיל הרכיבה שלך והוסף שדות נתונים של KPedal",
+      "step3Title": "קשר את המכשיר שלך",
+      "step3Desc": "חבר את ה-Karoo לסנכרון אוטומטי של רכיבות",
+      "exampleBalance": "50% ש / 50% י",
+      "exampleTe": "72% ממוצע",
+      "examplePs": "22% ממוצע",
+      "alreadyInstalled": "כבר מותקן? השלם רכיבה ב-Karoo שלך - הנתונים יופיעו כאן לאחר סנכרון."
+    },
+    "fatigue": {
+      "title": "עייפות (רכיבה אחרונה)",
+      "trend": "מגמה",
+      "dropped": "ירד",
+      "slight": "קל",
+      "stable": "יציב"
+    },
+    "units": {
+      "wAvg": "W ממוצע",
+      "wMax": "W מקס",
+      "rpm": "סל\"ד",
+      "bpmAvg": "פ/ד ממוצע",
+      "bpmMax": "פ/ד מקס",
+      "kmh": "קמ\"ש",
+      "mUp": "מ' ↑",
+      "mDown": "מ' ↓",
+      "grade": "% שיפוע",
+      "kJ": "קילו-ג'ול",
+      "rides": "רכיבות"
+    },
+    "insights": {
+      "fatigueAction": "הביצועים שלך יורדים בסוף הרכיבות. בנה סיבולת עם",
+      "fatigueLink": "בונה יעילות",
+      "balanceAction": "{asymmetry}% דומיננטיות {dominant}. חזק את הרגל {weak} עם",
+      "balanceLink": "מיקוד ברגל {side}",
+      "leftLeg": "שמאל",
+      "rightLeg": "ימין",
+      "leftDominant": "שמאל",
+      "rightDominant": "ימין",
+      "lowTeAction": "TE {te}% - התמקד במשיכה למעלה בשעה 6. נסה",
+      "lowTeLink": "העברת הספק",
+      "lowPsAction": "PS {ps}% פירושו תנועה לא חלקה. החלק אותה עם",
+      "lowPsLink": "עיגולים חלקים",
+      "greatBalance": "{asymmetry}% אסימטריה - זה איזון ברמת מקצוענים!",
+      "teOptimal": "TE {te}% - נקודה מתוקה להעברת הספק.",
+      "excellentScore": "ציון {score}% - טכניקה ברמת עלית!",
+      "goodConsistency": "{count} רכיבות - שבוע מעולה!",
+      "improvement": "הציון עלה ב-{points} נקודות מהתקופה הקודמת.",
+      "encourageRides": "רק {count} {rideWord} - נסה להשתוות ל-{lastCount} של שבוע שעבר.",
+      "ride": "רכיבה",
+      "ridesPl": "רכיבות",
+      "nearOptimalTe": "TE {te}% - רק {diff}% מהאזור האופטימלי."
+    }
+  },
+  "rides": {
+    "title": "רכיבות",
+    "allRides": "כל הרכיבות",
+    "rideHistory": "היסטוריית רכיבות",
+    "noRides": "טרם נרשמו רכיבות",
+    "noRidesHint": "היסטוריית הרכיבות שלך תופיע כאן לאחר שתשלים רכיבות עם KPedal ב-Karoo שלך.",
+    "eachRideShows": "כל רכיבה תציג",
+    "deleteRide": "למחוק רכיבה זו?",
+    "viewTable": "תצוגת טבלה",
+    "viewCards": "תצוגת כרטיסים",
+    "rideDetail": "פרטי רכיבה",
+    "performanceData": "נתוני ביצועים",
+    "techniqueBreakdown": "פירוט טכניקה",
+    "fatigueAnalysis": "ניתוח עייפות",
+    "timeline": "ציר זמן",
+    "minuteByMinute": "דקה אחר דקה",
+    "startToEnd": "מתחילה עד סוף",
+    "degradation": "ירידה",
+    "strong": "חזק",
+    "moderate": "בינוני",
+    "weak": "חלש",
+    "backToDashboard": "חזרה ללוח הבקרה",
+    "backToRides": "חזרה לרכיבות",
+    "rideNotFound": "הרכיבה לא נמצאה",
+    "detail": {
+      "score": "ציון",
+      "scoreTip": "ציון טכניקה כולל מ-0 עד 100. משלב איזון, TE ו-PS.",
+      "asymmetry": "אסימטריה",
+      "asymmetryTip": "סטייה מאיזון 50/50. מתחת ל-2.5% זה רמת מקצוענים.",
+      "balanced": "מאוזן",
+      "leftDominant": "ש דומיננטי",
+      "rightDominant": "י דומיננטי",
+      "timeInZone": "זמן באזור",
+      "timeInZoneTip": "זמן באזורים אופטימלי, תשומת לב ובעייתי. יותר ירוק עדיף.",
+      "technique": "טכניקה",
+      "techniqueTip": "מדדי יעילות דיווש. TE זו העברת הספק, PS זו חלקות התנועה.",
+      "te": "TE",
+      "teTip": "יעילות מומנט. כמה הספק הולך לתנועה קדימה.",
+      "ps": "PS",
+      "psTip": "חלקות דיווש. כמה הספק מופעל באופן שווה לאורך התנועה.",
+      "teInZone": "TE באזור",
+      "teInZoneTip": "זמן עם TE בטווח האופטימלי 70-80%.",
+      "psInZone": "PS באזור",
+      "psInZoneTip": "זמן עם PS מעל סף 20%.",
+      "teStab": "יציבות TE",
+      "teStabTip": "כמה עקבי היה ה-TE. גבוה יותר פירושו טכניקה יציבה יותר.",
+      "psStab": "יציבות PS",
+      "psStabTip": "כמה עקבי היה ה-PS. גבוה יותר פירושו טכניקה יציבה יותר.",
+      "fatigue": "ניתוח עייפות",
+      "fatigueTip": "משווה שליש ראשון מול שליש אחרון של הרכיבה.",
+      "fatigueStrong": "חזק",
+      "fatigueModerate": "בינוני",
+      "fatigueFatigued": "עייף",
+      "fatigueAsymmetry": "אסימטריה",
+      "balanceDegradedInsight": "האיזון ירד ב-{value}% - התמקד בהפצת הספק שווה כשאתה עייף",
+      "teDroppedInsight": "TE ירד ב-{value}% - תרגל שמירה על הפורם בשליש האחרון",
+      "psFellInsight": "PS ירד ב-{value}% - עבוד על דיווש חלק תחת עייפות",
+      "excellentFatigueInsight": "עמידות עייפות מעולה - הטכניקה נשארה עקבית לאורך הרכיבה",
+      "fatigueStartEnd": "תחילת רכיבה ← סוף רכיבה",
+      "byPowerZone": "לפי אזור הספק",
+      "byPowerZoneTip": "טכניקה בעוצמות שונות.",
+      "timelineTip": "מדדים לאורך זמן. חפש ירידות המעידות על עייפות.",
+      "min": "מינימום",
+      "avg": "ממוצע",
+      "max": "מקסימום",
+      "spread": "טווח",
+      "minuteByMinuteTip": "פירוט מפורט לפי דקה. שימושי לניתוח קטעים ספציפיים.",
+      "points": "נקודות",
+      "balance": "איזון",
+      "balanceTip": "חלוקת הספק שמאל/ימין לדקה זו.",
+      "teTip2": "יעילות מומנט ש/י לדקה זו.",
+      "psTip2": "חלקות דיווש ש/י לדקה זו.",
+      "power": "הספק",
+      "hr": "דופק",
+      "zone": "אזור",
+      "zoneTip": "מצב אזור כולל לדקה זו.",
+      "asym": "אסימ",
+      "tooltipMin": "דקה {minute}",
+      "title": "פרטי רכיבה",
+      "deleteWarning": "פעולה זו אינה ניתנת לביטול",
+      "rating": "דירוג",
+      "performance": "ביצועים",
+      "confirmDelete": "אישור מחיקה",
+      "comparison": "השוואה ש/י",
+      "fatigueDesc": "כיצד הטכניקה שלך השתנתה במהלך הרכיבה",
+      "notes": "הערות",
+      "timeline": "ציר זמן",
+      "deleteRide": "מחק רכיבה"
+    },
+    "perf": {
+      "wattsTip": "תפוקת הספק ממוצעת בוואט.",
+      "maxWattsTip": "הספק שיא שהושג במהלך הרכיבה.",
+      "npTip": "הספק מנורמל מתאים למאמץ משתנה.",
+      "bpmTip": "דופק ממוצע במהלך הרכיבה.",
+      "maxBpmTip": "דופק שיא שהושג. קרוב למקסימום לעתים פוגע בטכניקה.",
+      "rpmTip": "קדנס ממוצע. אופטימלי הוא 80-95 סל\"ד לרוב הרוכבים.",
+      "speedTip": "מהירות ממוצעת. פחות אמינה מהספק בגלל השטח.",
+      "kjTip": "תפוקת אנרגיה כוללת. בערך שווה לקלוריות שנשרפו.",
+      "elevGainTip": "עלייה בגובה כוללת במהלך הרכיבה.",
+      "elevLossTip": "ירידה בגובה כוללת במהלך הרכיבה.",
+      "gradeTip": "שיפוע מקסימלי. מעל 10% זה תלול."
+    },
+    "zones": {
+      "recovery": "התאוששות",
+      "endurance": "סיבולת",
+      "tempo": "טמפו",
+      "threshold": "סף",
+      "vo2max": "VO2max",
+      "anaerobic": "אנאירובי"
+    },
+    "list": {
+      "ridesLabel": "רכיבות",
+      "ridesTip": "מספר רכיבות כולל בתצוגה זו.",
+      "kmLabel": "ק\"מ",
+      "kmTip": "מרחק כולל שנעבר בכל הרכיבות.",
+      "elevLabel": "מ' ↑",
+      "elevTip": "עלייה בגובה כוללת בכל הרכיבות.",
+      "asymLabel": "אסימ",
+      "asymTip": "אסימטריית הספק ממוצעת. מתחת ל-2.5% זה רמת מקצוענים.",
+      "teLabel": "TE",
+      "teTip": "יעילות מומנט ממוצעת. טווח אופטימלי הוא 70-80%.",
+      "psLabel": "PS",
+      "psTip": "חלקות דיווש ממוצעת. מעל 20% זו טכניקה טובה.",
+      "optimalLabel": "אופטימלי",
+      "optimalTip": "זמן ממוצע באזור אופטימלי. גבוה יותר פירושו ביצוע טוב יותר.",
+      "wAvgLabel": "W ממוצע",
+      "wAvgTip": "תפוקת הספק ממוצעת. עקוב לאורך זמן למגמות כושר.",
+      "npLabel": "NP",
+      "npTip": "הספק מנורמל ממוצע. מתחשב בשונות במאמץ.",
+      "kjLabel": "קילו-ג'ול",
+      "kjTip": "תפוקת אנרגיה כוללת. בערך שווה לקלוריות שנשרפו.",
+      "dateCol": "תאריך",
+      "durationCol": "משך",
+      "asymCol": "אסימ",
+      "asymColTip": "אחוז אסימטריית הספק. נמוך יותר פירושו מאוזן יותר.",
+      "lrCol": "ש / י",
+      "lrColTip": "חלוקת הספק שמאל וימין.",
+      "teCol": "TE",
+      "teColTip": "יעילות מומנט לכל רגל. 70-80% אופטימלי.",
+      "psCol": "PS",
+      "psColTip": "חלקות דיווש לכל רגל. מעל 20% זה טוב.",
+      "zonesCol": "אזורים",
+      "zonesColTip": "חלוקת זמן בין אזורי ביצועים.",
+      "powerCol": "הספק",
+      "powerColTip": "הספק ממוצע בוואט.",
+      "deleteAriaLabel": "מחק רכיבה",
+      "balanceLR": "איזון ש/י",
+      "teLR": "TE ש/י",
+      "psLR": "PS ש/י",
+      "powerLabel": "הספק",
+      "asymmetryLabel": "אסימטריה",
+      "domLabel": "דומ",
+      "optimalPercent": "{percent}% אופטימלי",
+      "pageInfo": "עמוד {page} מתוך {total}",
+      "prevPage": "עמוד קודם",
+      "nextPage": "עמוד הבא"
+    },
+    "stats": {
+      "totalRides": "סה\"כ רכיבות",
+      "avgDuration": "משך ממוצע",
+      "totalTime": "זמן כולל"
+    },
+    "sort": {
+      "longest": "הארוכות",
+      "oldest": "הישנות",
+      "highestScore": "ציון גבוה",
+      "newest": "החדשות"
+    },
+    "filters": {
+      "all": "הכל",
+      "thisWeek": "השבוע",
+      "thisMonth": "החודש",
+      "last30Days": "30 ימים אחרונים"
+    },
+    "emptyDescription": "סנכרן רכיבות מה-Karoo שלך כדי לראות אותן כאן",
+    "empty": "אין עדיין רכיבות"
+  },
+  "drills": {
+    "title": "תרגילים",
+    "noDrills": "טרם הושלמו תרגילים",
+    "noDrillsHint": "KPedal כולל תרגילים מודרכים לשיפור טכניקת הדיווש שלך. השלם אותם ב-Karoo שלך כדי לעקוב אחר התקדמות כאן.",
+    "availableTypes": "סוגי תרגילים זמינים",
+    "types": {
+      "balanceFocus": "מיקוד באיזון",
+      "powerTransfer": "העברת הספק",
+      "smoothCircles": "עיגולים חלקים",
+      "challenges": "אתגרים"
+    },
+    "timeInTarget": "זמן ביעד",
+    "completed": "הושלם",
+    "incomplete": "לא הושלם",
+    "abandoned": "ננטש",
+    "sessions": "סשנים",
+    "avgTarget": "יעד ממוצע",
+    "best": "הטוב ביותר",
+    "drillTypes": "סוגי תרגילים",
+    "date": "תאריך",
+    "drill": "תרגיל",
+    "duration": "משך",
+    "status": "סטטוס",
+    "of": "מתוך",
+    "pageInfo": "עמוד {page} מתוך {total}",
+    "prevPage": "עמוד קודם",
+    "nextPage": "עמוד הבא",
+    "tips": {
+      "avgTarget": "זמן ממוצע בפגיעה במדדי יעד. גבוה יותר עדיף.",
+      "sessions": "מספר כולל של סשני תרגילים שהושלמו.",
+      "best": "אחוז הזמן-ביעד הטוב ביותר שהושג.",
+      "completed": "אחוז התרגילים שהושלמו עד הסוף.",
+      "types": "מספר סוגי תרגילים שונים שניסית.",
+      "timeInTarget": "אחוז זמן התרגיל שבילית באזור היעד.",
+      "status": "האם התרגיל הושלם או ננטש מוקדם."
+    },
+    "detail": {
+      "timeInTarget": "זמן ביעד",
+      "score": "ציון",
+      "phases": "שלבים",
+      "completed": "הושלם"
+    },
+    "categories": {
+      "balance": "איזון",
+      "technique": "טכניקה",
+      "smoothness": "חלקות",
+      "all": "הכל"
+    },
+    "empty": "אין היסטוריית תרגילים",
+    "emptyDescription": "השלם תרגילים ב-Karoo שלך כדי לראות את ההיסטוריה שלך כאן"
+  },
+  "achievements": {
+    "title": "הישגים",
+    "notAchieved": "לא הושג",
+    "noAchievements": "אין עדיין אבני דרך",
+    "noAchievementsHint": "השלם רכיבות ותרגילים ב-Karoo שלך כדי לפתוח הישגים",
+    "availableCategories": "קטגוריות הישגים",
+    "categories": {
+      "milestones": "אבני דרך רכיבה",
+      "balance": "שליטה באיזון",
+      "performance": "ציוני ביצועים",
+      "streaks": "רצפי עקביות",
+      "duration": "יעדי משך",
+      "drills": "מומחיות תרגילים"
+    },
+    "stats": {
+      "achieved": "הושג",
+      "achievedTip": "מספר אבני הדרך שפתחת.",
+      "remaining": "נותר",
+      "remainingTip": "אבני דרך שעדיין זמינות לפתיחה.",
+      "total": "סה\"כ",
+      "totalTip": "סה\"כ אבני דרך במערכת.",
+      "progress": "התקדמות",
+      "progressTip": "אחוז השלמה כולל.",
+      "last": "אחרון",
+      "lastTip": "תאריך ההישג האחרון שלך."
+    },
+    "table": {
+      "milestone": "אבן דרך",
+      "milestoneTip": "שם ותיאור ההישג.",
+      "category": "קטגוריה",
+      "categoryTip": "סוג אבן הדרך (נפח, איזון, טכניקה וכו').",
+      "target": "יעד",
+      "targetTip": "דרישה לפתיחת אבן דרך זו.",
+      "date": "תאריך"
+    },
+    "milestones": {
+      "first_ride": {
+        "name": "רכיבה ראשונה עם מעקב",
+        "description": "השלם רכיבה ראשונה עם ניתוח דיווש",
+        "category": "נפח",
+        "target": "רכיבה 1"
+      },
+      "rides_10": {
+        "name": "10 רכיבות נותחו",
+        "description": "בנה נתוני בסיס לניתוח מגמות",
+        "category": "נפח",
+        "target": "10 רכיבות"
+      },
+      "rides_50": {
+        "name": "50 רכיבות נותחו",
+        "description": "מערך נתונים משמעותי לזיהוי דפוסים",
+        "category": "נפח",
+        "target": "50 רכיבות"
+      },
+      "rides_100": {
+        "name": "100 רכיבות נותחו",
+        "description": "הוקמה היסטוריית אימונים מקיפה",
+        "category": "נפח",
+        "target": "100 רכיבות"
+      },
+      "rides_500": {
+        "name": "500 רכיבות נותחו",
+        "description": "ארכיון נתוני דיווש לטווח ארוך",
+        "category": "נפח",
+        "target": "500 רכיבות"
+      },
+      "perfect_balance": {
+        "name": "הושג איזון 50/50",
+        "description": "חלוקת הספק שמאל/ימין מושלמת",
+        "category": "איזון",
+        "target": "50/50"
+      },
+      "balance_master": {
+        "name": "10 רכיבות עם איזון אופטימלי",
+        "description": "איזון עקבי על פני מספר סשנים",
+        "category": "איזון",
+        "target": "10 רכיבות"
+      },
+      "score_80": {
+        "name": "ציון טכניקה 80+",
+        "description": "טכניקת דיווש טובה ברכיבה",
+        "category": "טכניקה",
+        "target": "80+"
+      },
+      "score_90": {
+        "name": "ציון טכניקה 90+",
+        "description": "טכניקה מעולה בכל המדדים",
+        "category": "טכניקה",
+        "target": "90+"
+      },
+      "score_95": {
+        "name": "ציון טכניקה 95+",
+        "description": "יעילות דיווש כמעט אופטימלית",
+        "category": "טכניקה",
+        "target": "95+"
+      },
+      "streak_3": {
+        "name": "בלוק אימונים של 3 ימים",
+        "description": "שלושה ימים רצופים של רכיבות עם מעקב",
+        "category": "עקביות",
+        "target": "3 ימים"
+      },
+      "streak_7": {
+        "name": "שבוע אימונים של 7 ימים",
+        "description": "שבוע שלם של אימונים עקביים",
+        "category": "עקביות",
+        "target": "7 ימים"
+      },
+      "streak_30": {
+        "name": "חודש אימונים של 30 ימים",
+        "description": "חודש של עבודת טכניקה מסורה",
+        "category": "עקביות",
+        "target": "30 ימים"
+      },
+      "first_drill": {
+        "name": "תרגיל ראשון הושלם",
+        "description": "התחל אימון טכניקה מובנה",
+        "category": "אימון",
+        "target": "תרגיל 1"
+      },
+      "drill_perfect": {
+        "name": "100% זמן ביעד",
+        "description": "ביצוע מושלם בכל תרגיל",
+        "category": "אימון",
+        "target": "100%"
+      },
+      "drills_10": {
+        "name": "10 תרגילים הושלמו",
+        "description": "בניית מיומנות בתרגילים",
+        "category": "אימון",
+        "target": "10 תרגילים"
+      },
+      "zone_optimal_80": {
+        "name": "80% אזור אופטימלי",
+        "description": "80%+ מזמן הרכיבה באזור אופטימלי",
+        "category": "אזורים",
+        "target": "80%"
+      },
+      "zone_optimal_90": {
+        "name": "90% אזור אופטימלי",
+        "description": "90%+ מזמן הרכיבה באזור אופטימלי",
+        "category": "אזורים",
+        "target": "90%"
+      },
+      "te_optimal": {
+        "name": "TE אופטימלי לכל הרכיבה",
+        "description": "שמור על TE אופטימלי לאורך כל הרכיבה",
+        "category": "יעילות",
+        "target": "100%"
+      },
+      "duration_1h": {
+        "name": "רכיבה של שעה",
+        "description": "ניתוח דיווש מתמשך לשעה+",
+        "category": "סיבולת",
+        "target": "1 ש'+"
+      },
+      "duration_2h": {
+        "name": "רכיבה של שעתיים",
+        "description": "סשן מורחב עם מיקוד בטכניקה",
+        "category": "סיבולת",
+        "target": "2 ש'+"
+      },
+      "duration_4h": {
+        "name": "רכיבה של 4 שעות",
+        "description": "שמירת טכניקה לאורך זמן ארוך",
+        "category": "סיבולת",
+        "target": "4 ש'+"
+      }
+    }
+  },
+  "settings": {
+    "title": "הגדרות",
+    "account": "חשבון",
+    "connectedDevices": "מכשירים מחוברים",
+    "loadingDevices": "טוען מכשירים...",
+    "noDevices": "אין מכשירים מחוברים",
+    "noDevicesHint": "קשר את מכשיר ה-Karoo שלך לסנכרון נתוני רכיבה",
+    "linkDevice": "קשר מכשיר",
+    "linkAnotherDevice": "קשר מכשיר נוסף",
+    "removeDevice": "להסיר מכשיר זה? יהיה צורך לקשר אותו מחדש.",
+    "lastSync": "סנכרון אחרון",
+    "neverSynced": "לא סונכרן אף פעם",
+    "requestSync": "בקש סנכרון",
+    "syncRequested": "סנכרון התבקש - פתח את האפליקציה לסנכרון",
+    "deviceStatus": {
+      "connected": "מחובר",
+      "idle": "לא פעיל",
+      "offline": "לא מקוון"
+    },
+    "pedalingMetrics": "מדדי דיווש",
+    "syncBanner": "שינויים מסתנכרנים ל-Karoo שלך כשתלחץ <strong>סנכרן</strong> באפליקציה או תתחיל רכיבה.",
+    "thresholds": "ספים",
+    "balanceThreshold": "סף איזון",
+    "balanceThresholdHint": "התראות מופעלות כשחוסר האיזון עולה על ערך זה",
+    "balanceThresholdTip": "חוסר איזון ש/י מקסימלי מקובל. רוכבים מקצועיים בדרך כלל נשארים בטווח של ±2.5%.",
+    "teOptimalRange": "טווח TE אופטימלי",
+    "teOptimalRangeHint": "אזור ירוק ליעילות מומנט",
+    "teOptimalRangeTip": "נקודה מתוקה של יעילות מומנט. מחקרים מראים ש-70-80% אופטימלי - גבוה יותר לא עדיף.",
+    "psMinimum": "מינימום PS",
+    "psMinimumHint": "ערכים מתחת לזה מסומנים כדורשים תשומת לב",
+    "psMinimumTip": "סף חלקות דיווש לאזור אופטימלי. רוכבי עלית משיגים 25%+.",
+    "inRideAlerts": "התראות בזמן רכיבה",
+    "inRideAlertsHint": "הודעות כשמדדים דורשים תשומת לב",
+    "inRideAlertsTip": "הודעות בזמן אמת ב-Karoo שלך כשמדדים דורשים תשומת לב.",
+    "metricsToMonitor": "מדדים לניטור",
+    "torqueEff": "יעילות מומנט",
+    "smoothness": "חלקות",
+    "sensitivity": "רגישות",
+    "critical": "קריטי",
+    "problemZoneOnly": "אזור בעייתי בלבד",
+    "sensitive": "רגיש",
+    "attentionAndProblem": "תשומת לב ובעיה",
+    "notifyVia": "הודע באמצעות",
+    "vibrate": "רטט",
+    "sound": "צליל",
+    "banner": "באנר",
+    "options": "אפשרויות",
+    "wakeScreenOnAlert": "הער מסך בהתראה",
+    "cooldownBetweenAlerts": "השהייה בין התראות",
+    "dataCollection": "איסוף נתונים",
+    "dataCollectionHint": "כיצד KPedal אוסף ומסנכרן את הנתונים שלך",
+    "backgroundMode": "מצב רקע",
+    "backgroundModeHint": "אסוף מדדים גם כששדה הנתונים מוסתר",
+    "backgroundModeTip": "אסוף מדדים גם כששדה נתוני KPedal אינו נראה על המסך.",
+    "autoSync": "סנכרון אוטומטי",
+    "autoSyncHint": "סנכרן נתוני רכיבה אוטומטית לאחר כל רכיבה",
+    "autoSyncTip": "העלה אוטומטית נתוני רכיבה לאחר סיום כל רכיבה.",
+    "appearance": "מראה",
+    "theme": "ערכת נושא",
+    "themeHint": "מצב אוטומטי מחליף ב-7 בבוקר ו-7 בערב",
+    "themeAuto": "אוטומטי",
+    "themeLight": "בהיר",
+    "themeDark": "כהה",
+    "data": "נתונים",
+    "rideData": "נתוני רכיבה",
+    "rideDataHint": "הנתונים שלך מאוחסנים באופן מאובטח ומסונכרנים ממכשיר ה-Karoo שלך",
+    "session": "סשן",
+    "privacy": "פרטיות",
+    "privacyHint": "למד כיצד אנו אוספים, משתמשים ומגנים על הנתונים שלך",
+    "about": "אודות",
+    "saving": "שומר...",
+    "saved": "נשמר",
+    "thresholds_section": {
+      "teOptimal": "טווח TE אופטימלי",
+      "balance": "סף איזון",
+      "title": "ספי מדדים",
+      "psMinimum": "מינימום PS",
+      "teOptimalDesc": "טווח יעד ליעילות מומנט",
+      "psMinimumDesc": "התראה כשחלקות יורדת מתחת לזה",
+      "balanceDesc": "התראה כשאסימטריה עולה על ערך זה"
+    },
+    "sections": {
+      "data": "נתונים",
+      "session": "סשן",
+      "devices": "מכשירים",
+      "appearance": "מראה",
+      "about": "אודות",
+      "metrics": "מדדים",
+      "privacy": "פרטיות",
+      "account": "חשבון"
+    },
+    "devices_section": {
+      "remove": "הסר",
+      "connectDescription": "קשר את ה-Karoo שלך לסנכרון רכיבות",
+      "removeWarning": "יהיה צורך לקשר מחדש כדי לסנכרן רכיבות",
+      "noDevices": "אין מכשירים מחוברים",
+      "title": "מכשירים מחוברים",
+      "lastSync": "סנכרון אחרון",
+      "connectDevice": "חבר מכשיר",
+      "removeConfirm": "להסיר מכשיר זה?"
+    },
+    "alerts_section": {
+      "enabled": "מופעל",
+      "te": "התראות יעילות מומנט",
+      "balance": "התראות איזון",
+      "title": "הגדרות התראות",
+      "ps": "התראות חלקות",
+      "screenWake": "הער מסך"
+    },
+    "privacy_section": {
+      "viewPolicy": "הצג מדיניות פרטיות",
+      "title": "פרטיות"
+    },
+    "data_section": {
+      "exportDesc": "הורד את הנתונים שלך כ-JSON",
+      "deleteAllDesc": "מחק לצמיתות את כל הרכיבות וההגדרות שלך",
+      "deleteAllWarning": "לא ניתן לבטל זאת",
+      "export": "ייצא נתונים",
+      "title": "ניהול נתונים",
+      "deleteAll": "מחק את כל הנתונים",
+      "deleteAllConfirm": "הקלד DELETE לאישור"
+    },
+    "account_section": {
+      "signedInAs": "מחובר כ-",
+      "memberSince": "חבר מאז",
+      "email": "אימייל"
+    },
+    "appearance_section": {
+      "title": "מראה",
+      "themeAuto": "אוטומטי",
+      "themeLight": "בהיר",
+      "theme": "ערכת נושא",
+      "themeDark": "כהה"
+    },
+    "session_section": {
+      "title": "סשן",
+      "signOutDesc": "יהיה עליך להתחבר שוב",
+      "signOut": "התנתק",
+      "signOutConfirm": "להתנתק מהחשבון שלך?"
+    },
+    "about_section": {
+      "github": "GitHub",
+      "support": "תמיכה",
+      "version": "גרסה"
+    }
+  },
+  "link": {
+    "title": "קשר מכשיר",
+    "pageTitle": "קשר את ה-Karoo שלך",
+    "metaDescription": "קשר את ה-Hammerhead Karoo שלך ל-KPedal. הזן את הקוד המוצג ב-Karoo שלך לסנכרון רכיבות והגדרות לענן.",
+    "secureConnection": "חיבור מאובטח",
+    "linkKaroo": "קשר את ה-Karoo שלך",
+    "enterCodeDescription": "הזן את הקוד בן 8 התווים המוצג במכשיר שלך כדי לחבר אותו באופן מאובטח לחשבון שלך.",
+    "verifying": "מאמת...",
+    "continue": "המשך",
+    "encryption256": "הצפנת 256 סיביות",
+    "verifiedDomain": "דומיין מאומת",
+    "signInToContinue": "התחבר כדי להמשיך",
+    "linkingDevice": "מקשר {device} לחשבון שלך.",
+    "signInWithGoogle": "התחבר עם Google כדי לאשר מכשיר זה.",
+    "useDifferentCode": "השתמש בקוד אחר",
+    "authorizeDevice": "לאשר מכשיר?",
+    "deviceRequestingAccess": "{device} מבקש גישה לסנכרון נתוני רכיבה עם חשבונך.",
+    "permissionSync": "סנכרן מדדי דיווש מרכיבות",
+    "permissionView": "הצג אנליטיקה ב-app.kpedal.com",
+    "authorize": "אשר",
+    "deviceLinked": "המכשיר קושר!",
+    "deviceConnected": "{device} מחובר כעת לחשבון שלך.",
+    "autoSync": "נתוני הרכיבה שלך יסתנכרנו אוטומטית.",
+    "secureConnectionEstablished": "חיבור מאובטח נוצר",
+    "dataEncrypted": "הנתונים מוצפנים מקצה לקצה",
+    "closePageHint": "אתה יכול לסגור דף זה ולחזור ל-Karoo שלך.",
+    "goToDashboard": "עבור ללוח הבקרה",
+    "errors": {
+      "failedToVerify": "נכשל באימות קוד",
+      "failedToConnect": "נכשל בהתחברות",
+      "enterCompleteCode": "אנא הזן את הקוד המלא",
+      "invalidOrExpired": "קוד זה אינו תקף או פג תוקפו. אנא קבל קוד חדש מה-Karoo שלך.",
+      "checkConnection": "נכשל בהתחברות. אנא בדוק את חיבור האינטרנט שלך.",
+      "signInFirst": "אנא התחבר קודם",
+      "failedToAuthorize": "נכשל באישור מכשיר",
+      "failedTryAgain": "נכשל בהתחברות. אנא נסה שוב."
+    }
+  },
+  "infotips": {
+    "asymmetry": "הסטייה שלך מאיזון ש/י מושלם של 50/50. מתחת ל-2.5% זה רמת מקצוענים.",
+    "balance": "כיצד ההספק שלך מתחלק בין רגל שמאל וימין. 50/50 מושלם.",
+    "te": "אחוז ההספק שהולך קדימה. שאף ל-70-80% - גבוה יותר לא תמיד עדיף.",
+    "ps": "כמה שווה ההספק שלך לאורך תנועת הדוושה. שאף ל-20%+. רוכבי עלית מגיעים ל-25%+.",
+    "zones": "זמן שבילית באזורים אופטימלי (ירוק), תשומת לב (צהוב) ובעייתי (אדום).",
+    "timeInZone": "זמן שבילית בכל אזור. ירוק אופטימלי, צהוב דורש תשומת לב, אדום בעייתי.",
+    "score": "דירוג טכניקה כולל המשלב איזון, TE ו-PS. גבוה יותר עדיף.",
+    "achieved": "מספר אבני הדרך שפתחת.",
+    "remaining": "אבני דרך שעדיין זמינות לפתיחה.",
+    "total": "סה\"כ אבני דרך במערכת.",
+    "progress": "אחוז השלמה כולל.",
+    "lastAchievement": "תאריך ההישג האחרון שלך.",
+    "milestone": "שם ותיאור ההישג.",
+    "category": "סוג אבן הדרך (נפח, איזון, טכניקה וכו').",
+    "target": "דרישה לפתיחת אבן דרך זו.",
+    "weeklyActivity": "מספר רכיבות ליום. שאף ל-3-5 רכיבות בשבוע להתקדמות יציבה.",
+    "compRides": "מספר רכיבות בהשוואה לשבוע שעבר.",
+    "compHours": "זמן כולל באוכף. יותר שעות שווה יותר הסתגלות לאימון.",
+    "compDistance": "סה\"כ קילומטרים שרכבת. שימושי למעקב נפח לצד שעות.",
+    "compClimb": "סה\"כ עלייה בגובה. מעל 2000 מ' בשבוע בונה כוח טיפוס.",
+    "compBalance": "אסימטריית הספק מול שבוע שעבר. נמוך יותר עדיף, שלילי זה שיפור.",
+    "compOptimal": "זמן באזור אופטימלי מול שבוע שעבר. גבוה יותר זה טכניקה טובה יותר.",
+    "perfScore": "ציון טכניקה כולל מ-0 עד 100. גבוה יותר פירושו ביצוע טוב יותר.",
+    "perfOptimal": "זמן שבו כל המדדים באזור הירוק. גבוה יותר עדיף.",
+    "perfPower": "תפוקת הספק ממוצעת בוואט. גבוה יותר באותו דופק פירושו כושר טוב יותר.",
+    "perfEnergy": "אנרגיה כוללת בקילו-ג'ול. בערך שווה לקלוריות שנשרפו.",
+    "technique": "מדדי יעילות דיווש. TE זו העברת הספק, PS זו חלקות התנועה.",
+    "balanceFatigue": "חלוקת הספק שמאל מול ימין. שינויים מעידים על עייפות או פיצוי.",
+    "fatigueTrend": "מגמת עייפות כללית. יציב זה קצב טוב, ירידה זו מאמץ יתר.",
+    "balanceTrend": "מגמת איזון שמאל/ימין לאורך זמן. ערכים עקביים קרובים ל-50% מעידים על סימטריה טובה.",
+    "techniqueTrend": "מגמת מדדי טכניקה לאורך זמן. חפש דפוסי שיפור יציבים.",
+    "compTe": "יעילות מומנט מול שבוע שעבר. שינוי חיובי הוא שיפור.",
+    "compPs": "חלקות דיווש מול שבוע שעבר. משתפר לאט, רווחים קטנים חשובים.",
+    "fatigue": "טכניקה בתחילת הרכיבה מול הסוף. ערכים יורדים מעידים על עייפות.",
+    "teFatigue": "שינוי TE במהלך הרכיבה. ירידה מעידה על עייפות שרירים.",
+    "psFatigue": "שינוי PS במהלך הרכיבה. בדרך כלל המדד הראשון שיורד כשעייפים.",
+    "powerAvg": "הספק ממוצע בוואט. עקוב לאורך זמן למדידת רווחי כושר.",
+    "powerMax": "הספק שיא שהושג. שימושי לספרינטים והערכת FTP.",
+    "np": "הספק מנורמל מתאים לקפיצות. קרוב לממוצע פירושו מאמץ יציב.",
+    "cadence": "סיבובי דוושות לדקה. אופטימלי הוא 80-95 סל\"ד לרוב הרוכבים.",
+    "hrAvg": "דופק ממוצע. נמוך יותר באותו הספק פירושו כושר טוב יותר.",
+    "hrMax": "דופק שיא שהושג. קרוב למקסימום לעתים פוגע בטכניקה.",
+    "speed": "מהירות ממוצעת. פחות אמינה מהספק בגלל שטח ורוח.",
+    "elevationGain": "סה\"כ עלייה בגובה. מעל 1000 מ' זה אימון טיפוס רציני.",
+    "elevationLoss": "סה\"כ ירידה בגובה. צריך להתאים לעלייה ברכיבות מעגליות.",
+    "grade": "שיפוע מקסימלי. מעל 10% תלול, מעל 15% תלול מאוד.",
+    "energy": "תפוקת אנרגיה כוללת. תכנן תזונה ב-250-300 קלוריות לשעה.",
+    "trendCurrent": "ערך מהרכיבה האחרונה שלך בתקופה זו.",
+    "trendAverage": "ערך ממוצע על פני כל הרכיבות בתקופה שנבחרה.",
+    "trendSpread": "הפרש בין הטוב ביותר לגרוע ביותר. טווח נמוך יותר פירושו ביצוע עקבי יותר.",
+    "trendLatest": "ערך מהרכיבה האחרונה שלך למדד זה.",
+    "trendBest": "ערך הטוב ביותר בתקופה. לאסימטריה נמוך יותר עדיף, ל-TE/PS גבוה יותר עדיף.",
+    "recentRides": "רכיבות אחרונות עם מדדי טכניקה. לחץ על כל שורה לפרטים מלאים.",
+    "tableAsym": "אחוז אסימטריית הספק. נמוך יותר פירושו תפוקת הספק מאוזנת יותר.",
+    "tableZones": "חלוקת זמן בין אזורים אופטימלי, תשומת לב ובעייתי."
+  },
+  "tour": {
+    "buttons": {
+      "next": "הבא",
+      "prev": "הקודם",
+      "done": "סיום",
+      "continue": "המשך ←",
+      "skip": "או דלג על הסיור ←"
+    },
+    "dashboard": {
+      "welcome": {
+        "title": "ברוכים הבאים ל-KPedal!",
+        "desc": "אלה <strong>נתוני דמו מרוכב אמיתי</strong> המציגים כ-4 שבועות של רכיבות.",
+        "hint": "סיור מהיר במה ש-KPedal יכול לעשות (~2 דק')."
+      },
+      "period": {
+        "title": "בורר תקופת זמן",
+        "desc": "עבור בין <strong>7, 14, 30 או 60 ימים</strong> לניתוח מגמות על פני מסגרות זמן שונות.",
+        "hint": "תקופות קצרות מציגות מצב עדכני. תקופות ארוכות יותר חושפות דפוסי אימון."
+      },
+      "asymmetry": {
+        "title": "אסימטריית הספק",
+        "desc": "הסטייה שלך מאיזון ש/י מושלם של 50/50.",
+        "under25": "מתחת ל-2.5%",
+        "proLevel": "רמת מקצוענים",
+        "range25to5": "2.5-5%",
+        "goodRoom": "טוב, יש מקום לשיפור",
+        "over5": "מעל 5%",
+        "needsAttention": "דורש תשומת לב",
+        "hint": "רוכב הדמו הזה ממוצע ב-1-2% - סימטריה מעולה!"
+      },
+      "infoTip": {
+        "title": "טיפי מידע בכל מקום",
+        "desc": "רואה את <strong>סמל ⓘ</strong>? רחף או הקש עליו בכל עת להסברים מפורטים.",
+        "hint": "לכל מדד ב-KPedal יש טיפ מידע שמסביר מה הוא אומר ומה לשאוף אליו."
+      },
+      "balance": {
+        "title": "איזון הספק ש/י",
+        "desc": "פירוט ויזואלי של חלוקת ההספק בין רגל שמאל לימין.",
+        "greenZone": "<strong>אזור ירוק</strong> = מאוזן. הפס מראה בדיוק כיצד ההספק שלך מתחלק בין הרגליים.",
+        "hint": "רוב הרוכבים דומיננטיים קצת בצד אחד. עקוב אחר זה כדי לשפר סימטריה לאורך זמן."
+      },
+      "zones": {
+        "title": "חלוקת זמן באזורים",
+        "desc": "כיצד זמן הרכיבה שלך מתחלק לפי איכות הטכניקה:",
+        "optimal": "ירוק (אופטימלי)",
+        "optimalDesc": "כל המדדים בטווח אידיאלי",
+        "attention": "צהוב (תשומת לב)",
+        "attentionDesc": "מדד אחד או יותר נוטה",
+        "problem": "אדום (בעייתי)",
+        "problemDesc": "התמוטטות משמעותית בביצוע",
+        "hint": "מטרה: מקסם זמן ירוק, במיוחד ברכיבות ארוכות!"
+      },
+      "summary": {
+        "title": "סיכום פעילות",
+        "desc": "מבט מהיר על נפח האימונים שלך לתקופה שנבחרה:",
+        "rides": "סה\"כ רכיבות",
+        "hours": "שעות",
+        "km": "קילומטרים"
+      },
+      "weekly": {
+        "title": "תרשים פעילות שבועית",
+        "desc": "צפה בתדירות הרכיבות שלך לפי יום בשבוע.",
+        "compareHint": "מתחת לתרשים, השווה <strong>שבוע זה מול שבוע שעבר</strong>:",
+        "numRides": "מספר רכיבות",
+        "totalHours": "סה\"כ שעות",
+        "distanceClimb": "מרחק וטיפוס",
+        "hint": "עקביות היא המפתח - שאף לאימון סדיר, לא מאמצים גדולים ספורדיים."
+      },
+      "technique": {
+        "title": "מדדי טכניקה",
+        "desc": "שני מדדי היעילות המרכזיים ממד ההספק שלך:",
+        "teTitle": "יעילות מומנט (TE)",
+        "teDesc": "אחוז ההספק שהולך קדימה. שאף ל-<strong>70-80%</strong> - גבוה יותר לא תמיד עדיף לפי מחקר Wattbike.",
+        "psTitle": "חלקות דיווש (PS)",
+        "psDesc": "כמה שווה ההספק שלך לאורך תנועת הדוושה. שאף ל-<strong>≥20%</strong>. רוכבי עלית מגיעים ל-25%+."
+      },
+      "trends": {
+        "title": "מגמות לאורך זמן",
+        "desc": "עקוב אחר שיפורי האיזון והטכניקה שלך מרכיבה לרכיבה.",
+        "left": "<strong>תרשים שמאל:</strong> מגמת איזון על פני רכיבות",
+        "right": "<strong>תרשים ימין:</strong> עבור בין TE, PS ואסימטריה",
+        "hint": "לחץ על כל נקודה לקפיצה לניתוח המפורט של אותה רכיבה."
+      },
+      "recentRides": {
+        "title": "טבלת רכיבות אחרונות",
+        "desc": "כל הרכיבות המסונכרנות שלך עם מדדים מרכזיים במבט:",
+        "date": "תאריך, משך וציון",
+        "asymmetry": "אחוז אסימטריה",
+        "lrBreakdown": "פירוט ש/י ל-TE ו-PS",
+        "zoneBars": "פסי חלוקת אזורים",
+        "hint": "<strong>לחץ על כל שורה</strong> לצפייה בניתוח דקה-אחר-דקה מפורט!"
+      },
+      "nav": {
+        "title": "ניווט",
+        "desc": "חקור חלקים אחרים:",
+        "rides": "<strong>רכיבות</strong> — היסטוריה מלאה עם פילטרים וחיפוש",
+        "drills": "<strong>תרגילים</strong> — תרגילי אימון מודרכים",
+        "achievements": "<strong>הישגים</strong> — אבני דרך ותגים",
+        "settings": "<strong>הגדרות</strong> — מכשירים, ספים והתראות"
+      },
+      "complete": {
+        "title": "לוח הבקרה הושלם!",
+        "desc": "ראית את סקירת לוח הבקרה. מוכן לחקור עוד?",
+        "next": "לחץ <strong>הבא</strong> להמשך הסיור בדף <strong>רכיבות</strong>, שם תראה את היסטוריית הרכיבות המלאה שלך.",
+        "done": "או לחץ סיום לסיום הסיור כאן."
+      }
+    },
+    "rides": {
+      "welcome": {
+        "title": "היסטוריית רכיבות",
+        "desc": "דף זה מציג את <strong>היסטוריית הרכיבות המלאה</strong> שלך עם סינון ומיון.",
+        "hint": "הרשה לי להראות לך את התכונות המרכזיות."
+      },
+      "stats": {
+        "title": "סטטיסטיקות תקופה",
+        "desc": "סטטיסטיקות מהירות לתקופה שנבחרה:",
+        "ridesAndDuration": "סה\"כ רכיבות ומשך",
+        "scores": "ציונים ממוצעים וטובים ביותר",
+        "powerDistance": "סיכומי הספק ומרחק",
+        "hint": "אלה מתעדכנים בהתאם לפילטרים שלך."
+      },
+      "viewToggle": {
+        "title": "מעבר תצוגה",
+        "desc": "עבור בין שני מצבי תצוגה:",
+        "table": "<strong>תצוגת טבלה</strong> — רשימה קומפקטית עם כל המדדים",
+        "card": "<strong>תצוגת כרטיסים</strong> — כרטיסים ויזואליים עם פסי אזורים",
+        "hint": "בחר מה שמתאים לך!"
+      },
+      "rideRow": {
+        "title": "לחץ על כל רכיבה",
+        "desc": "כל רכיבה מציגה:",
+        "date": "תאריך, משך וציון טכניקה",
+        "asymmetry": "אסימטריית הספק",
+        "lrMetrics": "מדדי ש/י ל-TE ו-PS",
+        "zones": "חלוקת אזורים",
+        "hint": "<strong>לחץ על כל רכיבה</strong> לצפייה בדף הפרטים המלא עם תרשימים דקה-אחר-דקה!"
+      },
+      "complete": {
+        "title": "דף הרכיבות הושלם!",
+        "desc": "אתה יכול לעיין בכל הרכיבות שלך כאן.",
+        "next": "לחץ <strong>הבא</strong> לצפייה ב<strong>דף פרטי רכיבה</strong> עם ניתוח מעמיק."
+      }
+    },
+    "rideDetail": {
+      "welcome": {
+        "title": "ניתוח פרטי רכיבה",
+        "desc": "כאן קורה <strong>הניתוח המעמיק</strong>.",
+        "hint": "כל רכיבה מקבלת פירוט מלא של טכניקת הדיווש שלך דקה אחר דקה."
+      },
+      "heroStats": {
+        "title": "מדדים מרכזיים במבט",
+        "desc": "השורה העליונה מציגה את מדדי הרכיבה החשובים ביותר שלך:",
+        "score": "<strong>ציון</strong> — דירוג טכניקה כולל (0-100)",
+        "asymmetry": "<strong>אסימטריה</strong> — חוסר איזון הספק ש/י",
+        "balance": "<strong>פס איזון</strong> — חלוקה ויזואלית ש/י",
+        "zones": "<strong>זמן באזור</strong> — חלוקת איכות"
+      },
+      "perfStrip": {
+        "title": "נתוני ביצועי רכיבה",
+        "desc": "מדדי רכיבה מפורטים:",
+        "power": "<strong>הספק</strong> — ממוצע, מקס ומנורמל",
+        "hr": "<strong>דופק</strong> — ממוצע ומקס",
+        "cadence": "<strong>קדנס</strong> — מהירות דיווש בסל\"ד",
+        "elevation": "<strong>גובה</strong> — טיפוס וירידה",
+        "hint": "הקש על כל סמל מידע להסברים מפורטים!"
+      },
+      "techniqueCard": {
+        "title": "פירוט טכניקה",
+        "desc": "מדדי יעילות הדיווש שלך:",
+        "te": "<strong>TE (יעילות מומנט)</strong> — הספק שהולך קדימה. שאף ל-70-80%",
+        "ps": "<strong>PS (חלקות דיווש)</strong> — אחידות התנועה. שאף ל-≥20%",
+        "lr": "<strong>פירוט ש/י</strong> — ראה את התרומה של כל רגל",
+        "hint": "הבדלים גדולים בין ש/י מעידים על חוסר איזון שרירים או בעיות התאמת אופניים."
+      },
+      "fatigueCard": {
+        "title": "ניתוח עייפות",
+        "desc": "כיצד הטכניקה שלך השתנתה מתחילה לסוף:",
+        "startEnd": "ערכי <strong>התחלה ← סוף</strong> לכל מדד",
+        "colors": "<strong>ירוק</strong> = השתפר, <strong>אדום</strong> = ירד",
+        "badge": "<strong>תג</strong> — חזק (ללא ירידות), בינוני או חלש",
+        "hint": "טכניקה עקבית תחת עייפות היא מפתח לביצועים ברכיבות ארוכות!"
+      },
+      "timeline": {
+        "title": "ציר זמן דקה-אחר-דקה",
+        "desc": "עקוב אחר שינוי המדדים לאורך הרכיבה שלך:",
+        "tabs": "<strong>לשוניות</strong> — עבור בין איזון, TE, PS, הספק, דופק",
+        "points": "<strong>נקודות</strong> — כל נקודה היא דקה אחת",
+        "hover": "<strong>רחף</strong> — ראה ערכים מדויקים בכל נקודה",
+        "hint": "חפש דפוסים — האם הטכניקה יורדת אחרי 30 דק'? זו עייפות!"
+      },
+      "complete": {
+        "title": "פרטי הרכיבה הושלמו!",
+        "desc": "עכשיו אתה יודע לנתח רכיבות בודדות לעומק.",
+        "next": "לחץ <strong>הבא</strong> לחקור את דף <strong>התרגילים</strong> — תרגילים מודרכים לשיפור הטכניקה שלך."
+      }
+    },
+    "drills": {
+      "welcome": {
+        "title": "תרגילי אימון",
+        "desc": "<strong>תרגילים</strong> הם תרגילי אימון מודרכים שעושים ב-Karoo לשיפור מיומנויות ספציפיות.",
+        "hint": "תוצאות מסתנכרנות לכאן כדי שתוכל לעקוב אחר התקדמותך!"
+      },
+      "stats": {
+        "title": "סטטיסטיקות תרגילים",
+        "desc": "ביצועי התרגילים הכוללים שלך:",
+        "avgTarget": "<strong>יעד ממוצע</strong> — כמה טוב פגעת באזורי יעד",
+        "sessions": "<strong>סשנים</strong> — סה\"כ תרגילים שהושלמו",
+        "best": "<strong>הטוב ביותר</strong> — ציון הזמן-ביעד הגבוה ביותר שלך",
+        "completion": "<strong>שיעור השלמה</strong> — % שהסתיימו מול ננטשו"
+      },
+      "drillRow": {
+        "title": "תוצאות תרגילים",
+        "desc": "כל סשן תרגיל מציג:",
+        "name": "<strong>שם תרגיל</strong> — איזה סוג תרגיל",
+        "timeInTarget": "<strong>זמן ביעד</strong> — % מהזמן שפגעת ביעד",
+        "duration": "<strong>משך</strong> — כמה זמן תרגלת",
+        "status": "<strong>סטטוס</strong> — הושלם או הופסק מוקדם",
+        "hint": "שאף ל-80%+ זמן ביעד ככל שאתה משתפר!"
+      },
+      "complete": {
+        "title": "דף התרגילים הושלם!",
+        "desc": "תרגילים עוזרים לך לתרגל במכוון מיומנויות ספציפיות.",
+        "next": "לחץ <strong>הבא</strong> לצפייה ב<strong>הישגים</strong> — אבני דרך שאתה יכול לפתוח!"
+      }
+    },
+    "achievements": {
+      "welcome": {
+        "title": "הישגים ואבני דרך",
+        "desc": "פתח הישגים ככל שאתה מתאמן ומשתפר!",
+        "hint": "אלה עוקבים אחר התקדמותך בנפח, טכניקה ועקביות."
+      },
+      "stats": {
+        "title": "סקירת התקדמות",
+        "desc": "התקדמות ההישגים שלך:",
+        "achieved": "<strong>הושגו</strong> — אבני דרך שנפתחו",
+        "remaining": "<strong>נותרו</strong> — עדיין לפתיחה",
+        "progress": "<strong>% התקדמות</strong> — השלמה כוללת",
+        "last": "<strong>אחרון</strong> — תאריך פתיחה אחרון"
+      },
+      "categories": {
+        "title": "קטגוריות הישגים",
+        "desc": "הישגים מתפרסים על מספר קטגוריות:",
+        "volume": "<strong>נפח</strong> — ספירת רכיבות (10, 50, 100+)",
+        "balance": "<strong>איזון</strong> — יעדי סימטריה ש/י",
+        "technique": "<strong>טכניקה</strong> — אבני דרך ציון (80+, 90+)",
+        "consistency": "<strong>עקביות</strong> — רצפי אימון",
+        "training": "<strong>אימון</strong> — השלמות תרגילים",
+        "hint": "אבני דרך שהושגו מוצגות עם סימן וי ירוק!"
+      },
+      "complete": {
+        "title": "ההישגים הושלמו!",
+        "desc": "המשך לרכוב ולהתאמן כדי לפתוח עוד אבני דרך!",
+        "next": "לחץ <strong>הבא</strong> לתחנה האחרונה: <strong>הגדרות</strong>."
+      }
+    },
+    "settings": {
+      "welcome": {
+        "title": "הגדרות והעדפות",
+        "desc": "הגדר את KPedal לעבוד בדיוק כמו שאתה רוצה.",
+        "hint": "הגדרות מסתנכרנות בין האינטרנט למכשיר ה-Karoo שלך!"
+      },
+      "devices": {
+        "title": "מכשירים מחוברים",
+        "desc": "ראה את כל מכשירי ה-Karoo המקושרים שלך:",
+        "name": "שם מכשיר וסטטוס",
+        "lastSync": "זמן סנכרון אחרון",
+        "requestSync": "<strong>בקש סנכרון</strong> לשליפת נתונים מהמכשיר",
+        "remove": "<strong>הסר</strong> לניתוק מכשיר",
+        "hint": "אתה יכול לקשר מספר Karoo לחשבון אחד."
+      },
+      "thresholds": {
+        "title": "ספי מדדים",
+        "desc": "התאם אישית מה \"אופטימלי\" אומר עבורך:",
+        "balance": "<strong>סף איזון</strong> — כמה חוסר איזון ש/י מפעיל צהוב/אדום",
+        "teRange": "<strong>טווח TE אופטימלי</strong> — אזור יעילות מומנט יעד שלך",
+        "psMin": "<strong>מינימום PS</strong> — רצפת חלקות דיווש",
+        "hint": "ברירות המחדל מבוססות על מחקר רכיבה, אבל אתה יכול להתאים לרמה שלך."
+      },
+      "alerts": {
+        "title": "התראות בזמן רכיבה",
+        "desc": "קבל הודעות במהלך רכיבות כשמדדים דורשים תשומת לב:",
+        "metrics": "בחר אילו מדדים לנטר",
+        "sensitivity": "הגדר רגישות (קריטי בלבד או רגיש)",
+        "type": "בחר סוג הודעה (רטט, צליל, באנר)",
+        "cooldown": "הגדר השהייה בין התראות",
+        "hint": "התראות מוצגות ישירות ב-Karoo שלך במהלך הרכיבה!"
+      },
+      "theme": {
+        "title": "מראה",
+        "desc": "בחר את ערכת הצבעים המועדפת עליך:",
+        "auto": "<strong>אוטומטי</strong> — מחליף ב-7 בבוקר / 7 בערב",
+        "light": "<strong>בהיר</strong> — רקע לבן נקי",
+        "dark": "<strong>כהה</strong> — קל לעיניים"
+      },
+      "complete": {
+        "title": "הכל מוכן!",
+        "desc": "סיימת את סיור KPedal המלא!",
+        "toSeeData": "<strong>כדי לראות את הנתונים שלך:</strong>",
+        "step1": "הורד את KPedal ל-Karoo שלך",
+        "step2": "הוסף אותו למסך הרכיבה שלך",
+        "step3": "צא לרכיבה!",
+        "step4": "הנתונים מסתנכרנים אוטומטית",
+        "download": "הורד KPedal ←"
+      }
+    }
+  },
+  "privacy": {
+    "title": "מדיניות פרטיות",
+    "lastUpdated": "עודכן לאחרונה: {date}",
+    "backToKpedal": "חזרה ל-KPedal",
+    "summary": {
+      "encrypted": "מוצפן ומאובטח",
+      "encryptedDesc": "כל הנתונים מוצפנים בהעברה ובמנוחה",
+      "noLocation": "ללא מעקב מיקום",
+      "noLocationDesc": "אנחנו אף פעם לא אוספים GPS או נתוני מסלול",
+      "neverSold": "אף פעם לא נמכר",
+      "neverSoldDesc": "הנתונים שלך אף פעם לא נמכרים לאף אחד",
+      "yourControl": "השליטה שלך",
+      "yourControlDesc": "מחק את הנתונים שלך בכל עת"
+    },
+    "toc": {
+      "title": "תוכן עניינים",
+      "whatWeCollect": "מה אנחנו אוספים",
+      "whatWeDontCollect": "מה אנחנו לא אוספים",
+      "howDataFlows": "כיצד זורמים הנתונים",
+      "storageSecurity": "אחסון ואבטחה",
+      "yourRights": "הזכויות שלך",
+      "thirdParties": "שירותי צד שלישי",
+      "contact": "יצירת קשר"
+    },
+    "sections": {
+      "whatWeCollect": "1. מה אנחנו אוספים",
+      "whatWeDontCollect": "2. מה אנחנו לא אוספים",
+      "howDataFlows": "3. כיצד זורמים הנתונים",
+      "storageSecurity": "4. אחסון ואבטחה",
+      "yourRights": "5. הזכויות שלך",
+      "thirdParties": "6. שירותי צד שלישי",
+      "contact": "7. יצירת קשר",
+      "policyChanges": "שינויים במדיניות"
+    },
+    "rights": {
+      "access": "גישה",
+      "accessDesc": "צפה בכל הנתונים שלך בכל עת בלוח הבקרה באינטרנט. כל מדד שאנחנו מאחסנים גלוי לך.",
+      "delete": "מחיקה",
+      "deleteDesc": "מחק רכיבות בודדות מדף הרכיבות. למחיקת חשבון מלאה, שלח לנו אימייל.",
+      "export": "ייצוא",
+      "exportDesc": "בקש ייצוא מלא של הנתונים שלך על ידי יצירת קשר איתנו.",
+      "optOut": "ביטול הסכמה",
+      "optOutDesc": "השתמש ב-KPedal במצב לא מקוון ללא התחברות. שום נתון לא עוזב את המכשיר שלך."
+    },
+    "contact": {
+      "text": "לשאלות פרטיות, בקשות נתונים או מחיקת חשבון:",
+      "email": "privacy@kpedal.com",
+      "github": "GitHub Issues"
+    },
+    "policyChanges": "כאשר אנחנו עושים שינויים משמעותיים במדיניות זו, אנחנו מעדכנים את תאריך \"עודכן לאחרונה\" למעלה. אנחנו מעודדים אותך לסקור דף זה מעת לעת.",
+    "footer": "ניתוח יעילות דיווש ל-Karoo",
+    "content": {
+      "accountData": {
+        "title": "נתוני חשבון",
+        "intro": "כשאתה מתחבר עם Google, אנחנו מקבלים ומאחסנים:",
+        "fields": {
+          "email": "אימייל",
+          "emailPurpose": "זיהוי חשבון, התחברות",
+          "name": "שם",
+          "namePurpose": "תצוגה בלוח הבקרה",
+          "profilePicture": "כתובת תמונת פרופיל",
+          "profilePicturePurpose": "תצוגה כאווטאר",
+          "googleId": "מזהה Google",
+          "googleIdPurpose": "קישור חשבון Google ל-KPedal"
+        },
+        "note": "אין לנו גישה לסיסמת ה-Google שלך. האימות משתמש ב-OAuth 2.0."
+      },
+      "pedalingMetrics": {
+        "title": "מדדי דיווש",
+        "intro": "לכל רכיבה שמסונכרנת ממכשיר ה-Karoo שלך:",
+        "fields": {
+          "timestamp": "חותמת זמן",
+          "timestampPurpose": "מתי הרכיבה הוקלטה",
+          "duration": "משך",
+          "durationPurpose": "כמה זמן נמשכה הרכיבה (מילישניות)",
+          "balance": "איזון שמאל / ימין",
+          "balancePurpose": "חלוקת הספק בין הרגליים (%)",
+          "te": "יעילות מומנט ש/י",
+          "tePurpose": "כמה ביעילות אתה מפעיל הספק (%)",
+          "ps": "חלקות דיווש ש/י",
+          "psPurpose": "כמה חלקה תנועת הדוושה שלך (%)",
+          "zones": "חלוקת אזורים",
+          "zonesPurpose": "זמן באזורי אופטימלי/תשומת לב/בעייתי (%)",
+          "score": "ציון יעילות",
+          "scorePurpose": "ציון כולל מחושב (0-100)"
+        }
+      },
+      "performanceMetrics": {
+        "title": "מדדי ביצועים",
+        "intro": "נתוני רכיבה נוספים שמסונכרנים לניתוח רכיבה מקיף:",
+        "fields": {
+          "power": "הספק (ממוצע/מקס)",
+          "powerPurpose": "תפוקת הספק ממוצעת ומקסימלית בוואט",
+          "cadence": "קדנס (ממוצע)",
+          "cadencePurpose": "קדנס דיווש ממוצע בסל\"ד",
+          "hr": "דופק (ממוצע/מקס)",
+          "hrPurpose": "דופק ממוצע ומקסימלי בפעימות לדקה",
+          "speed": "מהירות (ממוצע)",
+          "speedPurpose": "מהירות ממוצעת בקמ\"ש",
+          "distance": "מרחק",
+          "distancePurpose": "מרחק כולל שנעבר בק\"מ",
+          "elevation": "גובה (עלייה/ירידה)",
+          "elevationPurpose": "סה\"כ מטרים שעלו וירדו",
+          "grade": "שיפוע (ממוצע/מקס)",
+          "gradePurpose": "שיפוע ממוצע ומקסימלי (%)",
+          "np": "הספק מנורמל",
+          "npPurpose": "הספק משוקלל עוצמה בוואט",
+          "energy": "אנרגיה",
+          "energyPurpose": "תפוקת אנרגיה כוללת בקילו-ג'ול"
+        },
+        "note": "מדדים אלה מספקים הקשר לניתוח יעילות הדיווש שלך. הם נקראים מהחיישנים המחוברים ל-Karoo שלך (מד הספק, מד דופק, GPS)."
+      },
+      "snapshots": {
+        "title": "תמונות מצב לדקה",
+        "intro": "לתרשימי ציר זמן מפורטים, אנחנו מאחסנים ממוצעים לדקה במהלך כל רכיבה:",
+        "fields": {
+          "minuteIndex": "אינדקס דקה",
+          "minuteIndexPurpose": "איזו דקה ברכיבה (0, 1, 2...)",
+          "metricsAvg": "איזון ש/י, TE ש/י, PS ש/י",
+          "metricsAvgPurpose": "מדדי דיווש ממוצעים לאותה דקה",
+          "perfAvg": "הספק, קדנס, דופק",
+          "perfAvgPurpose": "מדדי ביצועים ממוצעים לאותה דקה",
+          "zoneStatus": "מצב אזור",
+          "zoneStatusPurpose": "אזור דומיננטי לאותה דקה (אופטימלי/תשומת לב/בעייתי)"
+        },
+        "note": "תמונות המצב מאפשרות את תרשים ציר הזמן בפרטי הרכיבה, המראה כיצד הטכניקה שלך התפתחה לאורך הרכיבה."
+      },
+      "deviceData": {
+        "title": "נתוני מכשיר",
+        "fields": {
+          "deviceId": "מזהה מכשיר",
+          "deviceIdPurpose": "מזהה ייחודי ל-Karoo שלך",
+          "deviceName": "שם מכשיר",
+          "deviceNamePurpose": "למשל \"Karoo 3\"",
+          "deviceType": "סוג מכשיר",
+          "deviceTypePurpose": "למשל \"karoo\"",
+          "lastSync": "זמן סנכרון אחרון",
+          "lastSyncPurpose": "מתי הנתונים סונכרנו לאחרונה"
+        }
+      },
+      "userSettings": {
+        "title": "הגדרות משתמש (מסונכרנות אם מחובר)",
+        "intro": "כשאתה מחובר, הגדרות האפליקציה שלך מסונכרנות בין מכשיר ה-Karoo ולוח הבקרה באינטרנט:",
+        "fields": {
+          "thresholds": "הגדרות ספים",
+          "thresholdsPurpose": "סף איזון, טווח TE אופטימלי, מינימום PS",
+          "alertPrefs": "העדפות התראות",
+          "alertPrefsPurpose": "אילו מדדים מפעילים התראות, אפשרויות רטט/צליל/ויזואלי",
+          "cooldowns": "השהיות התראות",
+          "cooldownsPurpose": "זמן בין התראות חוזרות (שניות)",
+          "screenWake": "הערת מסך",
+          "screenWakePurpose": "האם התראות מעירות את מסך ה-Karoo",
+          "bgMode": "מצב רקע",
+          "bgModePurpose": "אסוף נתונים גם כששדה הנתונים מוסתר",
+          "autoSync": "סנכרון אוטומטי",
+          "autoSyncPurpose": "סנכרן רכיבות אוטומטית לאחר סיום"
+        },
+        "note": "סנכרון הגדרות מאפשר לך להגדיר ספים באינטרנט ולהחיל אותם ב-Karoo שלך אוטומטית. אם אינך מחובר, ההגדרות נשארות מקומיות בלבד."
+      },
+      "drillResults": {
+        "title": "תוצאות תרגילים (מסונכרנות אם מחובר)",
+        "intro": "כשאתה מחובר, נתוני אימוני התרגילים שלך מסונכרנים:",
+        "fields": {
+          "drillId": "מזהה ושם תרגיל",
+          "drillIdPurpose": "איזה תרגיל הושלם",
+          "drillTimestamp": "חותמת זמן ומשך",
+          "drillTimestampPurpose": "מתי התרגיל בוצע וכמה זמן לקח",
+          "drillScore": "ציון",
+          "drillScorePurpose": "ציון ביצועים כולל (0-100)",
+          "timeInTarget": "זמן ביעד",
+          "timeInTargetPurpose": "כמה זמן שמרת על מדדי יעד",
+          "phaseScores": "ציוני שלבים",
+          "phaseScoresPurpose": "ביצועים לכל שלב בתרגיל"
+        }
+      },
+      "achievements": {
+        "title": "הישגים (מסונכרנים אם מחובר)",
+        "intro": "כשאתה מחובר, ההישגים שפתחת מסונכרנים:",
+        "fields": {
+          "achievementId": "מזהה הישג",
+          "achievementIdPurpose": "איזה הישג נפתח",
+          "unlockedAt": "נפתח ב-",
+          "unlockedAtPurpose": "מתי ההישג הושג"
+        }
+      },
+      "localOnly": {
+        "title": "נתונים מאוחסנים רק ב-Karoo שלך (אף פעם לא מסונכרנים)",
+        "intro": "הנתונים הבאים מאוחסנים מקומית במכשיר ה-Karoo שלך ואף פעם לא נשלחים לשרתים שלנו:",
+        "fields": {
+          "ratings": "דירוגי רכיבות",
+          "ratingsPurpose": "דירוגי 1-5 כוכבים שאתה מקצה לרכיבות",
+          "notes": "הערות רכיבה",
+          "notesPurpose": "הערות אישיות שאתה מוסיף לרכיבות",
+          "customDrills": "תרגילים מותאמים אישית",
+          "customDrillsPurpose": "תרגילי אימון שאתה יוצר בעצמך",
+          "onboarding": "מצב הדרכה",
+          "onboardingPurpose": "האם השלמת את המדריך של האפליקציה"
+        },
+        "note": "נתונים אלה נשארים במכשיר שלך. אם תסיר את האפליקציה, נתונים אלה יימחקו."
+      },
+      "dontCollect": {
+        "intro": "בעוד שאנחנו אוספים מדדי ביצועים לניתוח, אנחנו במיוחד נמנעים מנתוני מיקום ומעקב:",
+        "items": {
+          "gps": "GPS / מיקום",
+          "route": "נתוני מסלול / מפה",
+          "temperature": "טמפרטורה",
+          "strava": "Strava / פלטפורמות אחרות",
+          "rideTitles": "כותרות / שמות רכיבות",
+          "photos": "תמונות / מדיה"
+        },
+        "note": "לא ניתן לעקוב אחר הרכיבות שלך למיקומים ספציפיים. אנחנו מאחסנים רק מדדי ביצועים מצטברים, לא היכן רכבת."
+      },
+      "usedNotStored": {
+        "title": "נתונים בשימוש אך לא מאוחסנים",
+        "intro": "הנתונים הבאים נקראים בזמן אמת לצורך תצוגה אך אף פעם לא נשמרים במכשיר או בענן:",
+        "fields": {
+          "smoothed": "איזון מוחלק 3 שניות/10 שניות",
+          "smoothedPurpose": "אינדיקטורי מגמה בזמן אמת לתצוגה חיה",
+          "rawStream": "זרם חיישנים גולמי (~20Hz)",
+          "rawStreamPurpose": "נקודות נתונים בודדות מעובדות ונמחקות; רק ממוצעים לדקה נשמרים"
+        }
+      },
+      "permissions": {
+        "title": "הרשאות Android",
+        "intro": "אפליקציית KPedal מבקשת את ההרשאות הבאות ב-Karoo שלך:",
+        "fields": {
+          "foreground": "שירות קדמי",
+          "foregroundPurpose": "הרצה ברקע לאיסוף נתונים במהלך רכיבות",
+          "notifications": "הודעות",
+          "notificationsPurpose": "הצגת התראות כשטכניקת הדיווש דורשת תשומת לב",
+          "boot": "הפעלה לאחר אתחול",
+          "bootPurpose": "הפעלה אוטומטית כש-Karoo נדלק"
+        },
+        "note": "לא מתבקשות הרשאות אינטרנט, מיקום, מצלמה, מיקרופון או אחסון."
+      },
+      "dataFlow": {
+        "step1": {
+          "title": "דוושות מד הספק",
+          "desc": "הדוושות שלך משדרות איזון, TE ו-PS דרך פרוטוקול ANT+ Cycling Dynamics ל-Karoo שלך."
+        },
+        "step2": {
+          "title": "אפליקציית KPedal ב-Karoo",
+          "desc": "האפליקציה מעבדת נתונים בזמן אמת מקומית ב-~20Hz, מחשבת ממוצעים ומאחסנת סיכומי רכיבות במסד נתונים מקומי. עד 100 רכיבות נשמרות במכשיר; רכיבות ישנות יותר נמחקות אוטומטית."
+        },
+        "step3": {
+          "title": "סנכרון ענן (אופציונלי)",
+          "desc": "אם אתה מחובר, סיכומי רכיבות והגדרות מסונכרנים לענן KPedal דרך HTTPS. רק נתונים מצטברים נשלחים - לא זרמי חיישנים גולמיים. שינויי הגדרות באינטרנט מוחלים אוטומטית ב-Karoo שלך."
+        },
+        "step4": {
+          "title": "לוח בקרה באינטרנט",
+          "desc": "צפה בהיסטוריית הרכיבות, מגמות ואנליטיקה שלך ב-app.kpedal.com. נתונים מאוחזרים רק עבור החשבון המאומת שלך."
+        },
+        "offlineTitle": "מצב לא מקוון",
+        "offlineDesc": "אפליקציית KPedal עובדת באופן מלא ללא חיבור. אתה יכול להשתמש בכל התכונות ללא התחברות או סנכרון. הנתונים נשארים במכשיר שלך."
+      },
+      "infrastructure": {
+        "title": "תשתית",
+        "workers": "Cloudflare Workers",
+        "workersUse": "עיבוד API (serverless). יומני בקשות נשמרים ~7 ימים.",
+        "d1": "Cloudflare D1",
+        "d1Use": "מסד נתונים SQLite למשתמשים ורכיבות",
+        "kv": "Cloudflare KV",
+        "kvUse": "אסימוני סשן (פג תוקף אוטומטית לאחר 7 ימים)",
+        "pages": "Cloudflare Pages",
+        "pagesUse": "אירוח לוח בקרה סטטי"
+      },
+      "security": {
+        "title": "אמצעי אבטחה",
+        "https": "HTTPS בכל מקום",
+        "httpsDesc": "כל החיבורים משתמשים בהצפנת TLS 1.3",
+        "jwt": "אימות JWT",
+        "jwtDesc": "אסימונים חתומים עם תפוגה של 15 דקות לגישה, 7 ימים לרענון",
+        "rateLimit": "הגבלת קצב",
+        "rateLimitDesc": "אימות: 10 בקשות/דקה, API: 100 בקשות/דקה, סנכרון: 30 בקשות/דקה. משתמש בכתובת IP לספירה, נמחק אוטומטית לאחר 60 שניות.",
+        "validation": "אימות קלט",
+        "validationDesc": "כל הנתונים מאומתים ומסוננים לפני אחסון",
+        "csrf": "הגנת CSRF",
+        "csrfDesc": "אימות מצב OAuth מונע התקפות צולבות אתרים"
+      },
+      "retention": {
+        "title": "שמירת נתונים",
+        "cloudTitle": "אחסון ענן (app.kpedal.com)",
+        "localTitle": "אחסון מקומי (מכשיר Karoo)",
+        "cloud": {
+          "rideData": "נתוני רכיבה",
+          "rideDataPeriod": "עד שתמחק אותם",
+          "drillResults": "תוצאות תרגילים",
+          "drillResultsPeriod": "עד שתמחק אותם",
+          "achievements": "הישגים",
+          "achievementsPeriod": "עד מחיקת חשבון",
+          "userSettings": "הגדרות משתמש",
+          "userSettingsPeriod": "עד מחיקת חשבון",
+          "accountData": "נתוני חשבון",
+          "accountDataPeriod": "עד מחיקת חשבון",
+          "accessTokens": "אסימוני גישה",
+          "accessTokensPeriod": "15 דקות",
+          "refreshTokens": "אסימוני רענון",
+          "refreshTokensPeriod": "7 ימים",
+          "oauthState": "מצב OAuth",
+          "oauthStatePeriod": "10 דקות"
+        },
+        "local": {
+          "rideHistory": "היסטוריית רכיבות",
+          "rideHistoryPeriod": "עד 100 רכיבות (הישנות נמחקות אוטומטית)",
+          "drillResults": "תוצאות תרגילים",
+          "drillResultsPeriod": "עד הסרת האפליקציה (גם מסונכרן לענן אם מחובר)",
+          "achievements": "הישגים",
+          "achievementsPeriod": "עד הסרת האפליקציה (גם מסונכרן לענן אם מחובר)",
+          "customDrills": "תרגילים מותאמים אישית",
+          "customDrillsPeriod": "עד שתמחק אותם (מקומי בלבד)",
+          "settings": "הגדרות",
+          "settingsPeriod": "עד הסרת האפליקציה (מסונכרן לענן אם מחובר)"
+        }
+      },
+      "thirdParties": {
+        "google": {
+          "title": "Google OAuth",
+          "desc": "משמש להתחברות בלבד. אנחנו מבקשים היקפים מינימליים: openid, email, profile.",
+          "link": "מדיניות הפרטיות של Google ←"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "desc": "ספק התשתית שלנו. מטפל ב-API, מסד נתונים ואירוח אינטרנט.",
+          "link": "מדיניות הפרטיות של Cloudflare ←"
+        },
+        "notUsedTitle": "מה אנחנו לא משתמשים",
+        "notUsedIntro": "KPedal לא משתמש ב:",
+        "notUsed": [
+          "Google Analytics או כל שירות אנליטיקה",
+          "Facebook Pixel או כל עוקב פרסום",
+          "עוגיות (אנחנו משתמשים ב-localStorage במקום)",
+          "שירותי דיווח קריסות (ללא Firebase Crashlytics, Sentry וכו')",
+          "כל סוחרי נתונים צד שלישי"
+        ],
+        "browserStorageTitle": "אחסון דפדפן",
+        "browserStorageIntro": "לוח הבקרה של KPedal מאחסן את הבאים באחסון המקומי/סשן של הדפדפן שלך:",
+        "browserStorage": {
+          "access": "kpedal_auth_access",
+          "accessPurpose": "sessionStorage — אסימון גישה JWT (נמחק כשהלשונית נסגרת)",
+          "refresh": "kpedal_auth_refresh",
+          "refreshPurpose": "localStorage — אסימון רענון JWT (נשמר עד 7 ימים)",
+          "theme": "kpedal_theme",
+          "themePurpose": "localStorage — העדפת ערכת נושא (אוטומטי/בהיר/כהה)"
+        },
+        "browserStorageNote": "אתה יכול לנקות נתונים אלה בכל עת על ידי התנתקות או ניקוי אחסון הדפדפן. לא נעשה שימוש בעוגיות."
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "הרחבת Karoo",
+      "version": "v1.3.0",
+      "titleLine1": "ראה את יעילות",
+      "titleLine2": "הדיווש שלך בזמן אמת",
+      "subtitle": "איזון, יעילות מומנט, חלקות דיווש — מוצגים ב-Karoo שלך עם התראות בזמן אמת ותרגילים מודרכים.",
+      "downloadFree": "הורד בחינם",
+      "tryDemo": "נסה דמו",
+      "free": "חינם",
+      "openSource": "קוד פתוח",
+      "noAccountRequired": "ללא צורך בחשבון"
+    },
+    "dataFields": {
+      "title": "ראה את זה ב-Karoo שלך",
+      "subtitle": "5 פריסות שדות נתונים. בחר את התצוגה שמתאימה לאימון שלך.",
+      "tabs": {
+        "quickGlance": "מבט מהיר",
+        "balance": "איזון",
+        "efficiency": "יעילות",
+        "fullView": "תצוגה מלאה",
+        "trend": "מגמה"
+      },
+      "quickGlance": {
+        "name": "מבט מהיר",
+        "desc": "אינדיקטור סטטוס עם פס איזון. מציג סימן וי כשאופטימלי או מפרט מדדים שדורשים תשומת לב."
+      },
+      "powerBalance": {
+        "name": "איזון הספק",
+        "desc": "מספרי איזון ש/י גדולים עם פס התקדמות ויזואלי. מושלם לאימון ממוקד איזון."
+      },
+      "efficiency": {
+        "name": "יעילות",
+        "desc": "יעילות מומנט וחלקות דיווש עם חלוקות ש/י וממוצעים."
+      },
+      "fullOverview": {
+        "name": "סקירה מלאה",
+        "desc": "כל שלושת המדדים בתצוגה קומפקטית אחת. תמונת דיווש מלאה במבט."
+      },
+      "balanceTrend": {
+        "name": "מגמת איזון",
+        "desc": "איזון נוכחי + ממוצע 3 שניות + ממוצע 10 שניות. ראה מגמות מתפתחות."
+      },
+      "karoo": {
+        "optimal": "אופטימלי",
+        "balance": "איזון",
+        "left": "שמאל",
+        "right": "ימין",
+        "torqueEff": "יעילות מומנט",
+        "smoothness": "חלקות",
+        "te": "TE",
+        "ps": "PS",
+        "ok": "תקין",
+        "now": "עכשיו",
+        "avg3s": "ממוצע 3 ש'",
+        "avg10s": "ממוצע 10 ש'"
+      }
+    },
+    "comparison": {
+      "title": "ההבדל",
+      "subtitle": "הפסק לנחש. התחל להשתפר.",
+      "without": "ללא KPedal",
+      "with": "עם KPedal",
+      "items": {
+        "before1": "מספר הספק, אבל ללא תובנת טכניקה",
+        "after1": "איזון, TE, PS נראים בזמן אמת",
+        "before2": "גלה חוסר איזון מפציעה",
+        "after2": "התראה לפני שזה הופך לבעיה",
+        "before3": "אין דרך מובנית להשתפר",
+        "after3": "10 תרגילים מודרכים עם ציון",
+        "before4": "נתונים תקועים במכשיר אחד",
+        "after4": "סנכרון ענן עם לוח בקרה אינטרנטי"
+      }
+    },
+    "metrics": {
+      "title": "מה אנחנו מודדים",
+      "subtitle": "שלושה מדדים. ספים מבוססי מחקר.",
+      "balance": {
+        "title": "איזון הספק",
+        "range": "48-52% אופטימלי",
+        "desc": "חלוקת הספק שמאל/ימין. רוכבים מקצועיים שומרים על 2%. חוסר איזון מעל 5% מגביר סיכון לפציעת עומס יתר ומבזבז אנרגיה דרך דפוסי פיצוי."
+      },
+      "te": {
+        "title": "יעילות מומנט",
+        "range": "70-80% נקודה מתוקה",
+        "desc": "אחוז ההספק המופעל בחלק האפקטיבי של התנועה. מבוסס על מחקר Wattbike — <strong>גבוה יותר לא עדיף</strong>. מעל 80% יכול למעשה להפחית תפוקת הספק כוללת."
+      },
+      "ps": {
+        "title": "חלקות דיווש",
+        "range": "≥20% יעד",
+        "desc": "כמה ההספק מתחלק באופן שווה לאורך כל תנועת הדוושה. מבטל \"נקודות מתות\". רוכבי עלית משיגים 25-35% — זה המדד הקשה ביותר לשיפור."
+      },
+      "zones": {
+        "optimal": "אופטימלי",
+        "attention": "תשומת לב",
+        "problem": "בעייתי"
+      }
+    },
+    "drills": {
+      "title": "10 תרגילים מודרכים",
+      "subtitle": "מתרגילים של 30 שניות ועד אימונים של 15 דקות. כל אחד מדורג 0-100%.",
+      "tabs": {
+        "focus": "מיקוד",
+        "challenge": "אתגר",
+        "workout": "אימון"
+      },
+      "target": "יעד",
+      "levels": {
+        "beginner": "מתחיל",
+        "intermediate": "בינוני",
+        "advanced": "מתקדם"
+      },
+      "featured": "מומלץ",
+      "featuredTitle": "שליטה בדיווש",
+      "featuredDesc": "15 דקות, 10 שלבים. כיסוי טכניקה מלא. מומלץ 1-2 פעמים בשבוע.",
+      "items": {
+        "leftFocus": {
+          "name": "מיקוד רגל שמאל",
+          "duration": "30 ש'",
+          "target": "איזון <48%",
+          "desc": "בנה מודעות לכוח רגל בודדת על ידי הדגשת רגל שמאל."
+        },
+        "rightFocus": {
+          "name": "מיקוד רגל ימין",
+          "duration": "30 ש'",
+          "target": "איזון >52%",
+          "desc": "זהה וחזק את הרגל החלשה שלך עם תרגול ממוקד."
+        },
+        "smoothCircles": {
+          "name": "עיגולים חלקים",
+          "duration": "45 ש'",
+          "target": "PS ≥22%",
+          "desc": "בטל נקודות מתות בתנועת הדוושה שלך דרך טכניקה חלקה."
+        },
+        "powerTransfer": {
+          "name": "העברת הספק",
+          "duration": "60 ש'",
+          "target": "TE 70-80%",
+          "desc": "מקסם תפוקת הספק מבלי להקריב יעילות."
+        },
+        "balanceChallenge": {
+          "name": "אתגר איזון",
+          "duration": "15 ש' החזקה",
+          "target": "48-52%",
+          "desc": "החזק איזון מושלם 50/50 למשך 15 שניות. בודק סימטריה ושליטה."
+        },
+        "smoothnessTarget": {
+          "name": "יעד חלקות",
+          "duration": "20 ש' החזקה",
+          "target": "PS ≥25%",
+          "desc": "חלקות דיווש ברמת עלית. אתגר הטכניקה התובעני ביותר."
+        },
+        "highCadenceSmooth": {
+          "name": "קדנס גבוה חלק",
+          "duration": "30 ש'",
+          "target": "PS ≥20% @ 100+ סל\"ד",
+          "desc": "שמור על ביצוע חלק בקדנס גבוה. מבחן קואורדינציה אולטימטיבי."
+        },
+        "balanceRecovery": {
+          "name": "התאוששות איזון",
+          "duration": "5 דק'",
+          "target": "3 שלבים",
+          "desc": "החלף מיקוד שמאל ← מרכז ← מיקוד ימין. עוזר לתקן חוסר איזון לאורך זמן."
+        },
+        "efficiencyBuilder": {
+          "name": "בונה יעילות",
+          "duration": "10 דק'",
+          "target": "6 שלבים",
+          "desc": "בלוקים רציפים: איזון ← חלקות ← TE. בנה טכניקה מלאה."
+        },
+        "pedalingMastery": {
+          "name": "שליטה בדיווש",
+          "duration": "15 דק'",
+          "target": "10 שלבים",
+          "desc": "אימון מקיף בן 10 שלבים המכסה את כל ההיבטים של טכניקת דיווש."
+        }
+      }
+    },
+    "alerts": {
+      "title": "התראות בזמן אמת",
+      "subtitle": "קבל תיקון באמצע הרכיבה כשהטכניקה נוטה",
+      "demo": {
+        "title": "התראת איזון",
+        "detail": "רגל ימין דומיננטית: 56%"
+      },
+      "features": {
+        "vibration": {
+          "title": "רטט וצליל",
+          "desc": "משוב הפטי וביפים. הפעל/כבה כל אחד."
+        },
+        "screenWake": {
+          "title": "הערת מסך",
+          "desc": "הער אוטומטית את מסך ה-Karoo כשהתראה מופעלת."
+        },
+        "cooldown": {
+          "title": "השהייה חכמה",
+          "desc": "15 שניות עד 2 דקות בין התראות. שימושי, לא מעצבן."
+        },
+        "thresholds": {
+          "title": "ספים לכל מדד",
+          "desc": "הגדרות נפרדות לאיזון, TE ו-PS."
+        }
+      }
+    },
+    "analytics": {
+      "title": "אנליטיקה ולוח בקרה אינטרנטי",
+      "subtitle": "עקוב אחר שיפור לאורך זמן. ראה מגמות, לא רק מספרים.",
+      "preview": {
+        "greeting": "שלום, יורי!",
+        "recentRides": "רכיבות אחרונות",
+        "technique": "טכניקה",
+        "avgSuffix": "ממוצע",
+        "morningRide": "רכיבת בוקר",
+        "eveningSpin": "רכיבת ערב",
+        "longRide": "רכיבה ארוכה",
+        "daysAgo": "ימים קודם"
+      },
+      "features": {
+        "periods": "ניתוח 7 ימים, 14 ימים, 30 ימים, 60 ימים",
+        "history": "היסטוריית רכיבות מלאה עם פילטרים",
+        "multiDevice": "סנכרון רב-מכשירי",
+        "openSource": "קוד פתוח ב-GitHub"
+      }
+    },
+    "motivation": {
+      "title": "הישאר מוטיבציה",
+      "subtitle": "עקוב אחר התקדמות עם הישגים ואתגרים שבועיים",
+      "achievements": "הישגים לפתיחה",
+      "challenges": "אתגרים שבועיים",
+      "achievementsLabel": "הישגים",
+      "challengesLabel": "אתגרים",
+      "examples": {
+        "firstRide": "רכיבה ראשונה",
+        "hundredRides": "100 רכיבות",
+        "perfectBalance": "איזון מושלם 10 דק'",
+        "thirtyDayStreak": "רצף 30 ימים",
+        "balancedRider": "רוכב מאוזן: 48-52% על פני 3 רכיבות",
+        "zoneMaster": "מאסטר אזורים: 60%+ באזור אופטימלי"
+      }
+    },
+    "works": {
+      "title": "עובד בכל מקום",
+      "subtitle": "איסוף ברקע. סנכרון אוטומטי. הנתונים שלך בכל המכשירים.",
+      "background": {
+        "title": "מצב רקע",
+        "desc": "אוסף נתונים לכל הרכיבות, גם ללא שדות נתונים גלויים. מתחיל אוטומטית באתחול. שומר כשאתה עוצר."
+      },
+      "sync": {
+        "title": "סנכרון ענן",
+        "desc": "רכיבות מסתנכרנות לאחר סיום. קשר מכשיר ב-link.kpedal.com עם קוד פשוט — אין צורך בסיסמה ב-Karoo."
+      },
+      "multiDevice": {
+        "title": "רב-מכשירי",
+        "desc": "קשר מספר Karoo. כל הרכיבות הולכות לחשבון אחד. הגדרות מסונכרנות דו-כיוונית בין האפליקציה והאינטרנט."
+      }
+    },
+    "requirements": {
+      "title": "מה אתה צריך",
+      "subtitle": "Karoo 2 או 3 + דוושות הספק דו-צדדיות",
+      "karoo": {
+        "title": "Hammerhead Karoo",
+        "desc": "Karoo 2 או Karoo 3. KPedal משתמש ב-SDK המקורי של Karoo — לא זמין במחשבי רכיבה אחרים."
+      },
+      "pedals": {
+        "title": "דוושות הספק כפולות",
+        "desc": "מדידת הספק שמאל + ימין עם ANT+ Cycling Dynamics לאיזון, TE ו-PS."
+      },
+      "fullSupport": {
+        "title": "תמיכה מלאה",
+        "desc": "איזון + TE + PS"
+      },
+      "balanceOnly": {
+        "title": "איזון בלבד",
+        "desc": "הספק ש/י אבל ללא TE/PS"
+      },
+      "notCompatible": {
+        "title": "לא תואם",
+        "desc": "ללא נתונים דו-צדדיים"
+      },
+      "pedalsList": {
+        "singleSided": "מד הספק חד-צדדי",
+        "trainerPower": "הספק מאמן"
+      }
+    },
+    "faq": {
+      "title": "שאלות נפוצות",
+      "q1": {
+        "q": "אילו דוושות מד הספק תואמות?",
+        "a": "<strong>תמיכה מלאה (איזון + TE + PS):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>איזון בלבד:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>כל דוושה שמשדרת ANT+ Cycling Dynamics תעבוד."
+      },
+      "q2": {
+        "q": "איך אני מתקין KPedal ב-Karoo שלי?",
+        "a": "<strong>אפשרות 1:</strong> הורד APK מ-GitHub Releases ← העבר דרך USB ← פתח את מנהל הקבצים ב-Karoo ← הקש להתקנה.<br><strong>אפשרות 2:</strong> פתח את קישור ה-GitHub release ישירות בדפדפן ה-Karoo והורד.<br><strong>אפשרות 3:</strong> השתמש ב-ADB: <code>adb install kpedal.apk</code>"
+      },
+      "q3": {
+        "q": "האם אני צריך להוסיף שדות נתוני KPedal למסך הרכיבה שלי?",
+        "a": "<strong>לא.</strong> עם מצב רקע מופעל, KPedal אוסף מדדים לכל הרכיבות אוטומטית — גם אם לעולם לא תוסיף שדה נתונים בודד. שדות נתונים הם אופציונליים ורק לצפייה במדדים בזמן אמת במהלך הרכיבה. היסטוריית הרכיבות המלאה שלך נשמרת בכל מקרה."
+      },
+      "q4": {
+        "q": "מה נחשב לאיזון הספק \"טוב\"?",
+        "a": "<strong>48-52%</strong> (±2% מ-50/50) אופטימלי. רוב הרוכבים המקצועיים רוכבים עם אסימטריה טבעית של 1-3%. אל תתאבל על 50/50 מושלם — זה כמעט בלתי אפשרי ולא הכרחי. התמקד ב<strong>עקביות בטווח שלך</strong> במקום לרדוף אחרי שלמות."
+      },
+      "q5": {
+        "q": "למה 70-80% יעילות מומנט אופטימלי ולא גבוה יותר?",
+        "a": "מבוסס על <strong>מחקר Wattbike</strong>: מעל 80% TE, סביר שאתה מושך יותר מדי בעלייה. זה מבזבז אנרגיה ויכול למעשה להפחית תפוקת הספק כוללת. טווח 70-80% מצביע על כך שאתה מפעיל כוח ביעילות לאורך תנועת הדוושה מבלי להילחם בעצמך בשלב ההתאוששות."
+      },
+      "q6": {
+        "q": "מה בדיוק מודדת חלקות דיווש?",
+        "a": "<strong>נוסחה:</strong> PS = (הספק ממוצע ÷ הספק שיא) × 100.<br>PS גבוה יותר פירושו יישום הספק עקבי יותר לאורך תנועת הדוושה. <strong>20%+ טוב</strong> לרוב הרוכבים. ספרינטרים בדרך כלל יש להם PS נמוך יותר (הספק נפיץ, חד), בעוד רוכבי סיבולת נוטים לערכים גבוהים יותר."
+      },
+      "q7": {
+        "q": "איך מחושב ציון הרכיבה?",
+        "a": "<strong>נוסחה משוקללת:</strong> איזון (40%) + TE (35%) + PS (25%).<br>כל מדד מדורג 0-100 בהתבסס על זמן באזורים אופטימליים.<br><strong>85+</strong> = טכניקה מעולה<br><strong>70-84</strong> = טוב, תחומים קטנים לשיפור<br><strong>מתחת ל-70</strong> = מקום משמעותי לשיפור"
+      },
+      "q8": {
+        "q": "איך התרגילים המודרכים עובדים?",
+        "a": "תרגילים הם תרגילים מובנים עם יעדים בזמן אמת המוצגים על המסך. דוגמה: \"מיקוד רגל בודדת\" מבקש ממך לשמור על איזון 55-60% על רגל אחת למשך 30 שניות. KPedal עוקב אחר <strong>הזמן-ביעד</strong> שלך ומספק ציון בסוף. מושלם לחימום, רכיבות התאוששות או סשני טכניקה ייעודיים."
+      },
+      "q9": {
+        "q": "האם אני יכול ליצור תרגילים מותאמים אישית משלי?",
+        "a": "<strong>כן.</strong> תרגילים מותאמים אישית מאפשרים לך להגדיר שלבים, יעדים ומשכים משלך. צור תרגילים מותאמים לחולשות הספציפיות שלך — אולי 45 שניות של מיקוד TE גבוה ואחריו 30 שניות עבודת איזון. התרגילים המותאמים אישית שלך נשמרים מקומית ומסונכרנים לענן."
+      },
+      "q10": {
+        "q": "מה מפעיל את התראות בזמן הרכיבה?",
+        "a": "<strong>ספים הניתנים להגדרה:</strong><br>• איזון: אסימטריה עולה על הגבול שהגדרת (ברירת מחדל 5%)<br>• TE: יורד מתחת למינימום (ברירת מחדל 60%)<br>• PS: יורד מתחת למינימום (ברירת מחדל 15%)<br>התראות משתמשות ב<strong>רטט + ביפ</strong>. השהייה (15 ש'-2 דק') מונעת ספאם. אתה יכול להפעיל/להשבית כל מדד באופן עצמאי."
+      },
+      "q11": {
+        "q": "האם KPedal עובד ללא חיבור אינטרנט?",
+        "a": "<strong>100% כן.</strong> כל תכונות הליבה — איסוף נתונים, תרגילים, התראות, היסטוריית רכיבות — עובדות לחלוטין במצב לא מקוון. סנכרון ענן אופציונלי ומופעל רק כשאתה מאפשר אותו. הנתונים שלך תמיד מאוחסנים מקומית ב-Karoo קודם. סנכרון קורה אוטומטית כשאתה חזרה מקוון."
+      },
+      "q12": {
+        "q": "האם KPedal ירוקן את סוללת ה-Karoo שלי?",
+        "a": "<strong>השפעה מינימלית: ~1-2% נוספים לשעה</strong> במהלך רכיבות פעילות. KPedal מפעיל איסוף נתונים רק בזמן שאתה רוכב. בין רכיבות, רק מאזין זעיר ממתין להתחלת רכיבה — צריכת חשמל זניחה. מותאם בכבדות ליעילות."
+      },
+      "q13": {
+        "q": "האם אני יכול לסנכרן נתונים על פני מספר מכשירי Karoo?",
+        "a": "<strong>כן.</strong> קשר מספר Karoo לחשבון שלך. הגדרות מסונכרנות ביניהם אוטומטית. כל הרכיבות מכל המכשירים מופיעות בלוח בקרה מאוחד אחד. מושלם אם יש לך Karoo גיבוי, מכשירי מירוץ ואימון, או משדרג ליחידה חדשה."
+      },
+      "q14": {
+        "q": "איך מערכת ההישגים עובדת?",
+        "a": "הישגים נפתחים כשאתה מגיע לאבני דרך: ספירת רכיבות, סה\"כ שעות, רצפי עקביות, שיפורי טכניקה. דוגמאות: \"איזון ברזל\" (10 רכיבות עם פחות מ-2% אסימטריה), \"מועדון המאה\" (100 רכיבות עם מעקב). הישגים מסתנכרנים לענן ומוצגים בלוח הבקרה האינטרנטי שלך."
+      },
+      "q15": {
+        "q": "האם אני יכול להשתמש ב-KPedal עם Garmin, Wahoo או מחשבי רכיבה אחרים?",
+        "a": "<strong>לא.</strong> KPedal נבנה במיוחד עבור Hammerhead Karoo באמצעות ה-SDK הרשמי שלהם karoo-ext. הוא ניגש לנתוני ANT+ Cycling Dynamics, מערכת התראות מקורית וניטור מצב רכיבה — אינטגרציות עמוקות שאינן זמינות בפלטפורמות אחרות."
+      },
+      "q16": {
+        "q": "האם הנתונים שלי פרטיים ומאובטחים?",
+        "a": "<strong>כן.</strong> הנתונים נשארים ב-Karoo שלך אלא אם תאפשר סנכרון ענן. הענן משתמש ב<strong>כניסת Google</strong> — אנחנו אף פעם לא רואים או מאחסנים את הסיסמה שלך. ללא פיקסלי מעקב, ללא פרסומות, ללא מכירת נתונים. הפרויקט כולו הוא <strong>קוד פתוח</strong> — בדוק את הקוד בעצמך ב-GitHub."
+      },
+      "q17": {
+        "q": "למה האיזון שלי משתנה בתפוקות הספק שונות?",
+        "a": "זה נורמלי. בהספק נמוך, וריאציות טכניקה קלות מוגברות. בהספק גבוה, אתה נוטה לגייס שרירים באופן שווה יותר. הרבה רוכבים רואים 2-3% יותר אסימטריה בקצב סיבולת לעומת סף. KPedal עוקב אחר זה כדי שתוכל לזהות דפוסים ולעבוד על נקודות חולשה."
+      },
+      "q18": {
+        "q": "כמה פעמים צריך לעשות תרגילי טכניקה?",
+        "a": "<strong>2-3 פעמים בשבוע</strong> זו נקודת התחלה טובה. כלול אותם בחימום (5-10 דק') או הקדש רכיבות התאוששות לעבודת טכניקה. עקביות חשובה יותר מנפח — סשנים קצרים קבועים מנצחים סשנים ארוכים ספורדיים. עקוב אחר התקדמות דרך ציוני תרגילים לאורך זמן."
+      }
+    },
+    "cta": {
+      "headline": "התחל לשפר את הדיווש שלך היום",
+      "subtext": "חינם. קוד פתוח. מסתנכרן לענן.",
+      "downloadForKaroo": "הורד ל-Karoo",
+      "tryDemo": "נסה דמו"
+    },
+    "footer": {
+      "tagline": "יעילות דיווש ל-Karoo",
+      "product": "מוצר",
+      "features": "תכונות",
+      "dataFields": "שדות נתונים",
+      "drills": "תרגילים",
+      "resources": "משאבים",
+      "github": "GitHub",
+      "releases": "גרסאות",
+      "reportIssue": "דווח על בעיה",
+      "legal": "משפטי",
+      "privacyPolicy": "מדיניות פרטיות",
+      "signIn": "התחבר",
+      "madeWith": "נעשה באהבה לקהילת ה-Karoo"
+    }
+  },
+  "aria": {
+    "home": "KPedal - בית",
+    "downloadOptions": "אפשרויות הורדה",
+    "downloadKpedal": "הורד KPedal בחינם מ-GitHub",
+    "tryDemo": "נסה חשבון דמו",
+    "getStartedOptions": "אפשרויות להתחלה",
+    "downloadForKaroo": "הורד KPedal ל-Karoo",
+    "footerNav": "ניווט תחתית",
+    "viewOnGithub": "צפה ב-KPedal ב-GitHub",
+    "balanceTrendChart": "תרשים מגמת איזון",
+    "techniqueTrendChart": "תרשים מגמת טכניקה",
+    "languageSelector": "בחר שפה"
+  }
+}

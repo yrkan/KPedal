@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">Швидкий огляд</string>
+    <string name="datatype_quick_glance_desc">Індикатор статусу з смугою балансу</string>
+
+    <string name="datatype_power_balance">Потужність + Баланс</string>
+    <string name="datatype_power_balance_desc">Потужність з балансом Л/П</string>
+
+    <string name="datatype_efficiency">Ефективність</string>
+    <string name="datatype_efficiency_desc">Ефективність крутного моменту та плавність педалювання</string>
+
+    <string name="datatype_full_overview">Повний огляд</string>
+    <string name="datatype_full_overview_desc">Усі метрики педалювання в одному вигляді</string>
+
+    <string name="datatype_balance_trend">Тренд балансу</string>
+    <string name="datatype_balance_trend_desc">Поточний, 3с та 10с баланс</string>
+
+    <string name="datatype_single_balance">Баланс</string>
+    <string name="datatype_single_balance_desc">Баланс потужності Л/П на весь екран</string>
+
+    <string name="datatype_live">У реальному часі</string>
+    <string name="datatype_live_desc">Усі метрики зі статистикою часу в зоні</string>
+
+    <!-- Labels -->
+    <string name="balance">БАЛАНС</string>
+    <string name="balance_lower">Баланс</string>
+    <string name="balance_3s">3с СЕЕРД</string>
+    <string name="balance_10s">10с СЕРД</string>
+    <string name="power">ПОТУЖНІСТЬ</string>
+    <string name="power_lower">Потужність</string>
+    <string name="te">ЕКМ</string>
+    <string name="te_full">Ефективність крутного моменту</string>
+    <string name="ps">ПП</string>
+    <string name="ps_full">Плавність педалювання</string>
+    <string name="left">Л</string>
+    <string name="right">П</string>
+    <string name="lr">Л/П</string>
+    <string name="lr_balance_format">Л%1$d/П%2$d</string>
+    <string name="all_good">ВСЕ ГАРАЗД</string>
+    <string name="watt_symbol">Вт</string>
+    <string name="issue_count">%1$d ПРОБЛЕМА</string>
+    <string name="issues_count">%1$d ПРОБЛЕМ</string>
+    <string name="no_data">НЕМАЄ ДАНИХ</string>
+    <string name="no_data_lower">Немає даних</string>
+    <string name="avg">серед</string>
+
+    <!-- Settings -->
+    <string name="settings">Налаштування</string>
+    <string name="preferences">Параметри</string>
+    <string name="thresholds">ПОРОГОВІ ЗНАЧЕННЯ</string>
+    <string name="balance_threshold">Поріг балансу</string>
+    <string name="te_optimal">Оптимальний діапазон ЕКМ</string>
+    <string name="ps_minimum">Мінімум ПП</string>
+    <string name="alerts">СПОВІЩЕННЯ</string>
+    <string name="vibration">Вібрація</string>
+    <string name="sound">Звук</string>
+    <string name="alert_settings">Налаштування сповіщень</string>
+    <string name="background_mode">Фоновий режим</string>
+    <string name="background_mode_desc">Збір даних для всіх поїздок</string>
+    <string name="cloud_sync">Хмарна синхронізація</string>
+    <string name="cloud_sync_desc">Синхронізація з app.kpedal.com</string>
+    <string name="language">Мова</string>
+    <string name="settings_sync">СИНХРОНІЗАЦІЯ</string>
+    <string name="settings_auto_sync">Автосинхронізація поїздок</string>
+    <string name="settings_auto_sync_desc">Синхронізувати після кожної поїздки</string>
+    <string name="settings_data_collection">ЗБІР ДАНИХ</string>
+    <string name="settings_balance_threshold">ПОРІГ БАЛАНСУ</string>
+    <string name="settings_balance_threshold_desc">Відхилення від 50/50 для спрацювання сповіщення</string>
+    <string name="settings_te">ЕФЕКТИВНІСТЬ КРУТНОГО МОМЕНТУ</string>
+    <string name="settings_te_desc">Мінімальний ЕКМ%% для оптимального значення</string>
+    <string name="settings_ps">ПЛАВНІСТЬ ПЕДАЛЮВАННЯ</string>
+    <string name="settings_ps_desc">Мінімальний ПП%% для оптимального значення</string>
+    <string name="settings_configure_alerts">Налаштувати сповіщення</string>
+    <string name="settings_configure_alerts_desc">Коли і як сповіщати</string>
+    <string name="settings_about">ПРО ЗАСТОСУНОК</string>
+    <string name="settings_version">Версія</string>
+    <string name="settings_privacy">Політика конфіденційності</string>
+    <string name="settings_contact">Зв\'язатися</string>
+    <string name="settings_linked_account">Прив\'язаний обліковий запис</string>
+    <string name="settings_sync_desc">Синхронізувати поїздки з app.kpedal.com</string>
+    <string name="settings_enter_code">Введіть цей код на</string>
+    <string name="settings_code_expired">Код закінчився</string>
+    <string name="settings_code_expired_desc">Запросіть новий код</string>
+    <string name="settings_get_new_code">Отримати новий код</string>
+    <string name="settings_access_denied">Доступ заборонено</string>
+    <string name="settings_access_denied_desc">Авторизацію було скасовано</string>
+    <string name="settings_try_again">Спробувати знову</string>
+    <string name="settings_connection_failed">Помилка підключення</string>
+    <string name="settings_connection_failed_desc">Будь ласка, спробуйте знову</string>
+    <string name="settings_last_sync">Остання синхронізація: %1$s</string>
+    <string name="settings_never_synced">Ніколи не синхронізовано</string>
+    <string name="settings_pending">%1$d очікує</string>
+    <string name="settings_up_to_date">Актуально</string>
+    <string name="settings_sync_now">Синхронізувати</string>
+    <string name="settings_device_revoked_desc">Цей пристрій було від\'єднано від вашого облікового запису. Вам потрібно увійти знову, щоб синхронізувати поїздки.</string>
+    <string name="ok">OK</string>
+
+    <!-- Account -->
+    <string name="account">ОБЛІКОВИЙ ЗАПИС</string>
+    <string name="link_account">Прив\'язати обліковий запис</string>
+    <string name="link_account_desc">Синхронізуйте поїздки між пристроями</string>
+    <string name="why_how_sync">Навіщо і як синхронізувати в хмару?</string>
+    <string name="account_linked">Обліковий запис прив\'язано!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">Хмарна синхронізація</string>
+    <string name="cloud_sync_why_title">Навіщо синхронізувати?</string>
+    <string name="cloud_sync_why_1">Переглядайте історію поїздок та аналітику на будь-якому пристрої</string>
+    <string name="cloud_sync_why_2">Детальні графіки та похвилинні знімки</string>
+    <string name="cloud_sync_why_3">Відстежуйте прогрес з досягненнями</string>
+    <string name="cloud_sync_why_4">Ніколи не втрачайте дані при скиданні пристрою</string>
+    <string name="cloud_sync_how_title">Як прив\'язати?</string>
+    <string name="cloud_sync_how_1">Натисніть «Прив\'язати обліковий запис» вище</string>
+    <string name="cloud_sync_how_2">Запишіть показаний 8-символьний код</string>
+    <string name="cloud_sync_how_3">Перейдіть на link.kpedal.com з будь-якого пристрою</string>
+    <string name="cloud_sync_how_3_prefix">Перейдіть на</string>
+    <string name="cloud_sync_how_4">Введіть код та увійдіть через Google</string>
+    <string name="cloud_sync_how_5">Готово! Поїздки синхронізуються автоматично</string>
+    <string name="cloud_sync_what_syncs">Що синхронізується?</string>
+    <string name="cloud_sync_syncs_rides">Підсумки поїздок з похвилинними знімками</string>
+    <string name="cloud_sync_syncs_metrics">Потужність, ЧСС, каденс, дистанція, набір висоти</string>
+    <string name="cloud_sync_syncs_drills">Результати тренувань та досягнення</string>
+    <string name="cloud_sync_syncs_settings">Налаштування сповіщень та порогових значень</string>
+    <string name="cloud_sync_not_syncs">GPS/маршрути НЕ збираються</string>
+    <string name="cloud_sync_free">Безкоштовно та без реклами. Ваші дані залишаються вашими.</string>
+    <string name="sign_out">Вийти</string>
+    <string name="sync">Синхронізувати</string>
+    <string name="syncing">Синхронізація…</string>
+    <string name="synced">Синхронізовано</string>
+    <string name="sync_failed">Помилка синхронізації</string>
+    <string name="offline">Офлайн</string>
+    <string name="getting_code">Отримання коду…</string>
+    <string name="waiting_auth">Очікування авторизації…</string>
+    <string name="device_disconnected">Пристрій від\'єднано</string>
+    <string name="device_disconnected_desc">Цей пристрій було від\'єднано від вашого облікового запису. Будь ласка, прив\'яжіть його знову для продовження синхронізації.</string>
+    <string name="relink">Прив\'язати знову</string>
+
+    <!-- Live -->
+    <string name="live">У реальному часі</string>
+    <string name="current_ride">Поточна поїздка</string>
+    <string name="time_in_zone">ЧАС У ЗОНІ</string>
+    <string name="waiting_pedal_data">Очікування даних з педалей…</string>
+    <string name="start_riding">Почніть крутити педалі або перевірте підключення</string>
+    <string name="save">Зберегти</string>
+    <string name="saved">Збережено ✓</string>
+    <string name="opt">Опт</string>
+    <string name="att">Увага</string>
+    <string name="prob">Пробл</string>
+
+    <!-- Home Screen -->
+    <string name="drills">Тренування</string>
+    <string name="practice">Практика</string>
+    <string name="rides">поїздки</string>
+    <string name="avg_bal">серед бал</string>
+    <string name="streak">серія</string>
+    <string name="streak_days">%1$dд</string>
+    <string name="section_data">ДАНІ</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">ЩЕ</string>
+    <string name="history">Історія</string>
+    <string name="saved_rides">Збережені поїздки</string>
+    <string name="analytics">Аналітика</string>
+    <string name="trends">Тренди</string>
+    <string name="achievements">Досягнення</string>
+    <string name="challenges">Випробування</string>
+    <string name="weekly_goal">Тижнева ціль</string>
+    <string name="data_fields">Поля даних</string>
+    <string name="layouts_count">6 макетів</string>
+    <string name="pedal_status">Статус педалей</string>
+    <string name="connection">Підключення</string>
+    <string name="quick_guide">Короткий посібник</string>
+    <string name="last_ride">Остання поїздка</string>
+    <string name="optimal">оптимально</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">Моніторинг метрик педалювання</string>
+    <string name="notification_channel_name">KPedal Фон</string>
+    <string name="notification_channel_description">Моніторинг метрик педалювання під час усіх поїздок</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">Увімкнути сповіщення</string>
+    <string name="metrics_to_monitor">МЕТРИКИ ДЛЯ МОНІТОРИНГУ</string>
+    <string name="sensitivity">ЧУТЛИВІСТЬ</string>
+    <string name="critical">Критичний</string>
+    <string name="critical_desc">Тільки серйозні проблеми</string>
+    <string name="sensitive">Чутливий</string>
+    <string name="sensitive_desc">Частіші сповіщення</string>
+    <string name="notify_via">СПОСІБ СПОВІЩЕННЯ</string>
+    <string name="vibrate">Вібрація</string>
+    <string name="banner">Банер</string>
+    <string name="options">ОПЦІЇ</string>
+    <string name="wake_screen">Пробуджувати екран</string>
+    <string name="cooldown">Інтервал</string>
+    <string name="cooldown_15s">15с</string>
+    <string name="cooldown_30s">30с</string>
+    <string name="cooldown_1m">1хв</string>
+    <string name="cooldown_2m">2хв</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">Макети полів даних</string>
+    <string name="tap_to_preview">Натисніть для попереднього перегляду макета на Karoo</string>
+    <string name="layout_quick_glance_short">Статус + смуга балансу</string>
+    <string name="layout_power_balance_short">Великий фокус Л/П</string>
+    <string name="layout_efficiency_short">Метрики ЕКМ та ПП</string>
+    <string name="layout_full_overview_short">Усі метрики компактно</string>
+    <string name="layout_balance_trend_short">Згладжений 3с/10с</string>
+    <string name="layout_single_balance_short">Тільки баланс</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">Підключено</string>
+    <string name="disconnected">Відключено</string>
+    <string name="live_data">ДАНІ В РЕАЛЬНОМУ ЧАСІ</string>
+    <string name="data_flowing">Дані надходять коректно</string>
+    <string name="signal_details">ДЕТАЛІ СИГНАЛУ</string>
+    <string name="troubleshooting">УСУНЕННЯ НЕПОЛАДОК</string>
+    <string name="quality">Якість</string>
+    <string name="excellent">Відмінна</string>
+    <string name="fair">Задовільна</string>
+    <string name="poor">Погана</string>
+    <string name="unknown">Невідомо</string>
+    <string name="update_rate">Частота оновлення</string>
+    <string name="last_update">Останнє оновлення</string>
+    <string name="pedal_tip_start_riding">Почніть крутити педалі для виявлення</string>
+    <string name="pedal_tip_ensure_paired">Переконайтеся, що педалі спарені з Karoo</string>
+    <string name="pedal_tip_check_battery">Перевірте заряд батареї педалей</string>
+    <string name="pedal_tip_low_rate">Низька частота може вказувати на перешкоди</string>
+    <string name="pedal_tip_move_away">Відійдіть від інших ANT+ пристроїв</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">Історія поїздок</string>
+    <string name="rides_count">%1$d поїздок</string>
+    <string name="no_rides">Немає поїздок</string>
+    <string name="no_rides_saved">Немає збережених поїздок</string>
+    <string name="no_matching_rides">Немає відповідних поїздок</string>
+    <string name="try_adjusting_filter">Спробуйте змінити фільтр</string>
+    <string name="rides_saved_auto">Поїздки зберігаються автоматично</string>
+    <string name="manual">вручну</string>
+    <string name="percent_optimal">%1$d%% оптимально</string>
+    <string name="load_more">Завантажити ще</string>
+    <string name="delete_ride">Видалити поїздку?</string>
+    <string name="cancel">Скасувати</string>
+    <string name="delete">Видалити</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">ОЦІНКА</string>
+    <string name="suggested_stars">Рекомендовано: %1$d зірок</string>
+    <string name="overall">Загальна</string>
+    <string name="efficiency">Ефективність</string>
+    <string name="consistency">Стабільність</string>
+    <string name="analysis">АНАЛІЗ</string>
+    <string name="strengths">Сильні сторони</string>
+    <string name="areas_to_improve">Області для покращення</string>
+    <string name="attention">увага</string>
+    <string name="problem">проблема</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">Немає даних про поїздки</string>
+    <string name="complete_rides_to_see">Здійсніть декілька поїздок, щоб побачити тренди</string>
+    <string name="period_averages">Середні за період</string>
+    <string name="progress_label">Прогрес</string>
+    <string name="stable">Стабільно</string>
+    <string name="avg_balance_label">Середній баланс</string>
+    <string name="balance_trend_title">Тренд балансу</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">ПОЇЗДКИ</string>
+    <string name="section_balance">БАЛАНС</string>
+    <string name="section_efficiency">ЕФЕКТИВНІСТЬ</string>
+    <string name="section_streaks">СЕРІЇ</string>
+    <string name="section_drills">ТРЕНУВАННЯ</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">Історія</string>
+    <string name="my_drills">МОЇ ТРЕНУВАННЯ</string>
+    <string name="built_in_drills">ВБУДОВАНІ ТРЕНУВАННЯ</string>
+    <string name="create_custom_drill">Створити своє тренування</string>
+    <string name="custom">Своє</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">Найкращий %1$d%%</string>
+    <string name="start">Почати</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">Далі</string>
+    <string name="stop">Стоп</string>
+    <string name="pause">Пауза</string>
+    <string name="paused">Пауза</string>
+    <string name="resume">Продовжити</string>
+    <string name="rpm">об/хв</string>
+    <string name="in_zone">в зоні</string>
+    <string name="spin_easy">Крутіть легко</string>
+    <string name="complete">Завершено</string>
+    <string name="stopped">Зупинено</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">Новий рекорд!</string>
+    <string name="done">Готово</string>
+    <string name="retry">Повторити</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">Очистити</string>
+    <string name="no_history">Немає історії</string>
+    <string name="clear_all_question">Очистити все?</string>
+    <string name="delete_question">Видалити?</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">Нове тренування</string>
+    <string name="edit_drill">Редагувати тренування</string>
+    <string name="name_your_drill">Назвіть ваше тренування</string>
+    <string name="drill_name_placeholder">напр. Фокус на балансі, Високий ЕКМ</string>
+    <string name="what_to_focus">На чому сфокусуватися?</string>
+    <string name="balance_option">Баланс</string>
+    <string name="lr_power_distribution">Розподіл потужності Л/П</string>
+    <string name="torque_effectiveness_option">Ефективність крутного моменту</string>
+    <string name="power_transfer_efficiency">Ефективність передачі потужності</string>
+    <string name="pedal_smoothness_option">Плавність педалювання</string>
+    <string name="circular_pedal_stroke">Круговий хід педалі</string>
+    <string name="how_long">Яка тривалість?</string>
+    <string name="quick_select">Швидкий вибір</string>
+    <string name="or_set_custom">Або встановити своє</string>
+    <string name="minutes">Хвилини</string>
+    <string name="seconds">Секунди</string>
+    <string name="total_duration">Всього: %1$s</string>
+    <string name="min_10_seconds">Мінімум 10 секунд</string>
+    <string name="set_your_target">Встановіть ціль</string>
+    <string name="above">Вище</string>
+    <string name="above_value">≥ значення</string>
+    <string name="below">Нижче</string>
+    <string name="below_value">≤ значення</string>
+    <string name="range">Діапазон</string>
+    <string name="min_max">мін-макс</string>
+    <string name="minimum">Мінімум</string>
+    <string name="maximum">Максимум</string>
+    <string name="preview">ПОПЕРЕДНІЙ ПЕРЕГЛЯД</string>
+    <string name="metric">Метрика</string>
+    <string name="duration">Тривалість</string>
+    <string name="target">Ціль</string>
+    <string name="custom_drill_desc">Своє тренування %1$s</string>
+    <string name="torque_eff_short">Еф. крут. мом.</string>
+    <string name="smoothness_short">Плавність</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">Тижневе випробування</string>
+    <string name="active">Активно</string>
+    <string name="days_left_this_week">%1$d днів залишилось цього тижня</string>
+    <string name="completed_upper">ВИКОНАНО</string>
+    <string name="this_week">ЦЕЙ ТИЖДЕНЬ</string>
+    <string name="all_challenges">УСІ ВИПРОБУВАННЯ</string>
+    <string name="next_week">НАСТУПНИЙ ТИЖДЕНЬ</string>
+
+    <!-- Onboarding -->
+    <string name="skip">Пропустити</string>
+    <string name="get_started">Почати</string>
+    <string name="onboarding_welcome_title">Ласкаво просимо до KPedal</string>
+    <string name="onboarding_welcome_desc">Метрики педалювання в реальному часі з ваших педалей-вимірювачів потужності. Відстежуйте баланс, ефективність та плавність для покращення техніки.</string>
+    <string name="onboarding_data_fields_title">Поля даних</string>
+    <string name="onboarding_data_fields_desc">Додайте поля даних KPedal на екрани Karoo, щоб бачити метрики під час поїздки. Обирайте з 6 різних макетів.</string>
+    <string name="onboarding_drills_title">Тренування</string>
+    <string name="onboarding_drills_desc">Практикуйтеся з направленими тренуваннями для покращення техніки педалювання. Кожне тренування націлене на певні аспекти ходу педалі.</string>
+    <string name="onboarding_alerts_title">Сповіщення</string>
+    <string name="onboarding_alerts_desc">Отримуйте сповіщення, коли ваші метрики виходять за межі оптимальних діапазонів. Налаштуйте сповіщення в Налаштуваннях.</string>
+    <string name="onboarding_background_title">Фоновий збір даних</string>
+    <string name="onboarding_background_desc">KPedal автоматично збирає метрики педалювання для всіх ваших поїздок. Ви можете вимкнути це в Налаштуваннях за бажанням.</string>
+    <string name="onboarding_cloud_title">Хмарна синхронізація</string>
+    <string name="onboarding_cloud_desc">Увійдіть через Google, щоб синхронізувати дані поїздок та переглядати аналітику на app.kpedal.com. Це необов\'язково — ваші дані залишаються на пристрої, поки ви не синхронізуєте.</string>
+
+    <!-- Help Screen -->
+    <string name="help">Допомога</string>
+    <string name="section_metrics">Метрики</string>
+    <string name="section_colors">Кольори</string>
+    <string name="section_setup">Налаштування</string>
+    <string name="section_tips">Поради</string>
+    <string name="section_faq">ЧЗП</string>
+    <string name="section_troubleshooting">Усунення неполадок</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">Розподіл потужності Л/П</string>
+    <string name="help_balance_note">Асиметрія 2-5%% — це нормально</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">Ефективність крутного моменту</string>
+    <string name="help_te_note">Вище — НЕ краще! Обмежує потужність</string>
+    <string name="help_ps_range">≥20%%</string>
+    <string name="help_ps_desc">Плавність педалювання</string>
+    <string name="help_ps_note">Еліта: 25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">Баланс потужності</string>
+    <string name="metric_balance_short">Розподіл потужності Л/П</string>
+    <string name="metric_balance_explanation">Баланс потужності показує, наскільки рівномірно ви розподіляєте потужність між лівою та правою ногою. Ідеальний баланс — 50/50, але невелика асиметрія (48-52%%) нормальна і не викликає занепокоєння.</string>
+    <string name="metric_balance_optimal">48-52%% (оптимально), 45-55%% (прийнятно)</string>
+    <string name="metric_balance_tip1">Сфокусуйтеся на рівномірному тиску через весь хід педалі</string>
+    <string name="metric_balance_tip2">Спробуйте вправи на одній нозі для зміцнення слабкої сторони</string>
+    <string name="metric_balance_tip3">Перевірте посадку — висота сідла може впливати на баланс</string>
+    <string name="metric_balance_tip4">Невеликий дисбаланс нормальний і часто коригується сам</string>
+    <string name="metric_balance_tip5">Не зациклюйтеся на дрібних коливаннях під час поїздки</string>
+    <string name="metric_balance_research">Дослідження показують, що більшість велосипедистів мають природний дисбаланс 1-5%%. Професіонали в середньому мають 48-52%%.</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">Ефективність крутного моменту</string>
+    <string name="metric_te_short">Ефективність ходу педалі</string>
+    <string name="metric_te_explanation">Ефективність крутного моменту (ЕКМ) вимірює, яка частина вашого педалювання сприяє руху вперед. Показник 100%% означав би, що кожна частина ходу додає потужність, але це нереалістично та неоптимально.</string>
+    <string name="metric_te_optimal">70-80%% (оптимально, НЕ вище)</string>
+    <string name="metric_te_tip1">Сфокусуйтеся на протягуванні через нижню частину ходу</string>
+    <string name="metric_te_tip2">Уявіть, що «зішкрібаєте бруд» з черевика в нижній точці</string>
+    <string name="metric_te_tip3">Високий ЕКМ (>80%%) часто ЗНИЖУЄ основну потужність</string>
+    <string name="metric_te_tip4">Плавне кругове педалювання ефективніше, ніж форсування високого ЕКМ</string>
+    <string name="metric_te_tip5">ЕКМ природно варіюється залежно від каденсу та потужності</string>
+    <string name="metric_te_research">Дослідження Wattbike показують, що ЕКМ вище 80%% фактично знижує вихідну потужність. Елітні велосипедисти прагнуть до 70-80%%.</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">Плавність педалювання</string>
+    <string name="metric_ps_short">Стабільність передачі потужності</string>
+    <string name="metric_ps_explanation">Плавність педалювання (ПП) показує, наскільки рівномірно потужність прикладається протягом ходу педалі. Вищі значення означають стабільнішу передачу потужності з меншими піками та провалами.</string>
+    <string name="metric_ps_optimal">20%%+ (добре), 25-35%% (еліта)</string>
+    <string name="metric_ps_tip1">Практикуйте вправи на високому каденсі</string>
+    <string name="metric_ps_tip2">Сфокусуйтеся на усуненні мертвих зон у ході</string>
+    <string name="metric_ps_tip3">Підтримуйте постійний тиск протягом усього оберту</string>
+    <string name="metric_ps_tip4">Менші передачі та високий каденс часто покращують плавність</string>
+    <string name="metric_ps_tip5">ПП природно знижується при дуже високій потужності</string>
+    <string name="metric_ps_research">Професійні велосипедисти зазвичай досягають плавності педалювання 25-35%%.</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">Білий</string>
+    <string name="color_green">Зелений</string>
+    <string name="color_yellow">Жовтий</string>
+    <string name="color_red">Червоний</string>
+    <string name="color_white_meaning">Норма / немає даних</string>
+    <string name="color_green_meaning">Оптимальний діапазон</string>
+    <string name="color_yellow_meaning">Потребує уваги</string>
+    <string name="color_red_meaning">Проблема</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo → Профілі → Поля даних</string>
+    <string name="setup_step2">Натисніть слот → Більше даних → kpedal</string>
+    <string name="setup_step3">Оберіть макет</string>
+    <string name="setup_step4">Спаруйте педалі (ANT+)</string>
+    <string name="setup_step5">Почніть поїздку</string>
+    <string name="setup_requires">Потрібно: Garmin Rally, Favero Assioma, SRM, Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">Вправи на одній нозі для слабкої сторони</string>
+    <string name="tips_balance_2">Перевірте положення шипів</string>
+    <string name="tips_balance_3">Втома збільшує асиметрію</string>
+    <string name="tips_te_1">Не прагніть до 100%%</string>
+    <string name="tips_te_2">Зішкрібайте бруд у нижній точці ходу</string>
+    <string name="tips_te_3">Розвантажуйте, а не тягніть вгору</string>
+    <string name="tips_ps_1">Високий каденс допомагає</string>
+    <string name="tips_ps_2">Усуньте мертві зони</string>
+    <string name="tips_ps_3">Практикуйтеся на роллерах</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">П: %1$s</string>
+    <string name="faq_te85_q">ЕКМ 85%%+ погано?</string>
+    <string name="faq_te85_a">Так. 70-80%% оптимально. Вище обмежує потужність натискання.</string>
+    <string name="faq_balance_q">Баланс 45/55 нормально?</string>
+    <string name="faq_balance_a">Так. ±5%% нормально. Тільки >10%% викликає занепокоєння.</string>
+    <string name="faq_jump_q">Значення стрибають?</string>
+    <string name="faq_jump_a">Орієнтуйтеся на середні, а не миттєві значення.</string>
+    <string name="faq_compare_q">Порівнювати з іншими?</string>
+    <string name="faq_compare_a">Ні. Відстежуйте власні тренди.</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">Немає даних</string>
+    <string name="trouble_nodata_fix">Перевірте спарювання педалей у налаштуваннях Karoo. Почніть крутити педалі.</string>
+    <string name="trouble_balance_only">Тільки баланс, немає ЕКМ/ПП</string>
+    <string name="trouble_balance_only_fix">Педалі можуть не підтримувати ЕКМ/ПП (напр. Wahoo POWRLINK).</string>
+    <string name="trouble_stuck">Значення застрягли</string>
+    <string name="trouble_stuck_fix">Перезапустіть поїздку. Перевірте батарею. Перепаруйте педалі.</string>
+    <string name="trouble_crash">Застосунок вилітає</string>
+    <string name="trouble_crash_fix">Перезапустіть застосунок. Перезавантажте Karoo. Перевстановіть.</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">Фокус на лівій нозі</string>
+    <string name="drill_right_leg_focus">Фокус на правій нозі</string>
+    <string name="drill_smooth_circles">Плавні кола</string>
+    <string name="drill_power_transfer">Передача потужності</string>
+    <string name="drill_balance_challenge">Випробування балансу</string>
+    <string name="drill_smoothness_target">Цільова плавність</string>
+    <string name="drill_high_cadence_smooth">Плавність на високому каденсі</string>
+    <string name="drill_balance_recovery">Відновлення балансу</string>
+    <string name="drill_efficiency_builder">Побудова ефективності</string>
+    <string name="drill_pedaling_mastery">Майстерність педалювання</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">Зміцнення потужності лівої ноги</string>
+    <string name="drill_right_leg_focus_desc">Зміцнення потужності правої ноги</string>
+    <string name="drill_smooth_circles_desc">Покращення плавності ходу педалі</string>
+    <string name="drill_power_transfer_desc">Максимізація потужності для руху вперед</string>
+    <string name="drill_balance_challenge_desc">Підтримання ідеального балансу Л/П</string>
+    <string name="drill_smoothness_target_desc">Стабільне досягнення цілей плавності</string>
+    <string name="drill_high_cadence_smooth_desc">Збереження плавності на високих обертах</string>
+    <string name="drill_balance_recovery_desc">Повернення до балансу після навантаження</string>
+    <string name="drill_efficiency_builder_desc">Поєднання ЕКМ та ПП для ефективності</string>
+    <string name="drill_pedaling_mastery_desc">Освоєння всіх метрик педалювання</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">Розминка</string>
+    <string name="phase_focus">Фокус</string>
+    <string name="phase_maintain">Підтримання</string>
+    <string name="phase_recover">Відновлення</string>
+    <string name="phase_build">Наростання</string>
+    <string name="phase_push">Зусилля</string>
+    <string name="phase_hold">Утримання</string>
+    <string name="phase_rest">Відпочинок</string>
+    <string name="phase_prepare">Підготовка</string>
+    <string name="phase_cooldown">Заминка</string>
+    <string name="phase_left_focus">Фокус на лівій</string>
+    <string name="phase_right_focus">Фокус на правій</string>
+    <string name="phase_smooth_circles">Плавні кола</string>
+    <string name="phase_max_transfer">Макс. передача</string>
+    <string name="phase_find_center">Знайти центр</string>
+    <string name="phase_hold_balance">Утримання балансу</string>
+    <string name="phase_relax">Розслаблення</string>
+    <string name="phase_target_zone">Цільова зона</string>
+    <string name="phase_normal_cadence">Звичайний каденс</string>
+    <string name="phase_build_cadence">Наростання каденсу</string>
+    <string name="phase_hold_smooth">Утримання плавності</string>
+    <string name="phase_wind_down">Зниження</string>
+    <string name="phase_baseline">Базовий рівень</string>
+    <string name="phase_left_emphasis">Акцент на лівій</string>
+    <string name="phase_center">Центр</string>
+    <string name="phase_right_emphasis">Акцент на правій</string>
+    <string name="phase_center_again">Знову центр</string>
+    <string name="phase_natural_finish">Природне завершення</string>
+    <string name="phase_balance_focus">Фокус на балансі</string>
+    <string name="phase_smoothness_block">Блок плавності</string>
+    <string name="phase_recovery">Відновлення</string>
+    <string name="phase_te_focus">Фокус на ЕКМ</string>
+    <string name="phase_combined">Комбінований</string>
+    <string name="phase_activation">Активація</string>
+    <string name="phase_left_isolation">Ізоляція лівої ноги</string>
+    <string name="phase_right_isolation">Ізоляція правої ноги</string>
+    <string name="phase_perfect_balance">Ідеальний баланс</string>
+    <string name="phase_smoothness_focus">Фокус на плавності</string>
+    <string name="phase_te_optimization">Оптимізація ЕКМ</string>
+    <string name="phase_high_cadence_test">Тест високого каденсу</string>
+    <string name="phase_integration">Інтеграція</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">Легке обертання</string>
+    <string name="phase_desc_emphasize_left">Акцент на лівій нозі</string>
+    <string name="phase_desc_return_normal">Повернення до норми</string>
+    <string name="phase_desc_emphasize_right">Акцент на правій нозі</string>
+    <string name="phase_desc_find_rhythm">Знайдіть свій ритм</string>
+    <string name="phase_desc_max_smoothness">Максимізуйте плавність</string>
+    <string name="phase_desc_increase_focus">Поступово посилюйте фокус</string>
+    <string name="phase_desc_optimize_te">Оптимізуйте ЕКМ</string>
+    <string name="phase_desc_easy_spin">Легке обертання</string>
+    <string name="phase_desc_center_power">Центруйте потужність</string>
+    <string name="phase_desc_hold_5050">Утримуйте 50/50</string>
+    <string name="phase_desc_release_focus">Зніміть фокус</string>
+    <string name="phase_desc_loosen_up">Розслабтеся</string>
+    <string name="phase_desc_hold_ps_25">Утримуйте ПП ≥25%%</string>
+    <string name="phase_desc_recover">Відновіться</string>
+    <string name="phase_desc_establish_baseline">Встановіть базовий рівень</string>
+    <string name="phase_desc_increase_100rpm">Збільште до 100+ об/хв</string>
+    <string name="phase_desc_smooth_high_cadence">Плавність на високому каденсі</string>
+    <string name="phase_desc_return_to_normal">Повернення до норми</string>
+    <string name="phase_desc_find_natural_balance">Знайдіть природний баланс</string>
+    <string name="phase_desc_focus_left">Фокус на лівій</string>
+    <string name="phase_desc_find_5050">Знайдіть 50/50</string>
+    <string name="phase_desc_focus_right">Фокус на правій</string>
+    <string name="phase_desc_spin_naturally">Обертайте природно</string>
+    <string name="phase_desc_smooth_circles">Плавні кола</string>
+    <string name="phase_desc_power_transfer">Передача потужності</string>
+    <string name="phase_desc_all_metrics">Усі метрики</string>
+    <string name="phase_desc_wind_down">Зниження</string>
+    <string name="phase_desc_wake_legs">Розбудіть ноги</string>
+    <string name="phase_desc_left_focus">Фокус на лівій</string>
+    <string name="phase_desc_right_focus">Фокус на правій</string>
+    <string name="phase_desc_5050_hold">Утримання 50/50</string>
+    <string name="phase_desc_circular_motion">Кругових рух</string>
+    <string name="phase_desc_speed_form">Швидкість + форма</string>
+    <string name="phase_desc_everything_together">Усе разом</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">Крутіть легко, готуйтеся сфокусуватися</string>
+    <string name="instr_focus_left_leg">Сфокусуйтеся на продавлюванні ЛІВОЮ ногою</string>
+    <string name="instr_relax_spin_normally">Розслабтеся і крутіть нормально</string>
+    <string name="instr_focus_right_leg">Сфокусуйтеся на продавлюванні ПРАВОЮ ногою</string>
+    <string name="instr_settle_cadence">Знайдіть комфортний каденс</string>
+    <string name="instr_smooth_circles">Уявіть плавні кола. Зішкрібайте бруд з черевика в нижній точці.</string>
+    <string name="instr_maintain_feeling">Розслабтеся і зберігайте відчуття</string>
+    <string name="instr_feel_power_transfer">Почніть легко, сфокусуйтеся на відчутті передачі потужності</string>
+    <string name="instr_apply_power">Прикладайте потужність через весь хід. Уникайте «давлення».</string>
+    <string name="instr_spin_easy_recover">Крутіть легко, дайте ногам відновитися</string>
+    <string name="instr_find_balance_point">Знайдіть свою природну точку балансу</string>
+    <string name="instr_hold_5050">Утримуйте баланс 50/50. Тільки дрібні корективи!</string>
+    <string name="instr_good_work_relax">Чудова робота! Розслабтеся і крутіть легко</string>
+    <string name="instr_easy_spin_form">Легке обертання, фокус на формі</string>
+    <string name="instr_keep_ps_25">Тримайте плавність вище 25%%. Повні кола!</string>
+    <string name="instr_great_effort">Чудова робота! Крутіть легко</string>
+    <string name="instr_start_normal_cadence">Почніть зі звичайного каденсу</string>
+    <string name="instr_increase_cadence_100">Поступово збільшуйте каденс до 100+ об/хв</string>
+    <string name="instr_keep_ps_high_cadence">Тримайте плавність вище 20%% на високому каденсі!</string>
+    <string name="instr_reduce_cadence_smooth">Поступово знижуйте каденс, залишайтеся плавними</string>
+    <string name="instr_observe_balance">Крутіть природно, спостерігайте за балансом</string>
+    <string name="instr_emphasize_left">Зробіть акцент на ЛІВІЙ нозі</string>
+    <string name="instr_return_center">Поверніться до центру, баланс 50/50</string>
+    <string name="instr_emphasize_right">Зробіть акцент на ПРАВІЙ нозі</string>
+    <string name="instr_feel_symmetry">Поверніться до центру, відчуйте симетрію</string>
+    <string name="instr_notice_improvement">Крутіть природно, помічайте покращення</string>
+    <string name="instr_warmup_easy">Розімніться легким обертанням</string>
+    <string name="instr_focus_even_balance">Сфокусуйтеся на рівномірному балансі, потужність 50/50</string>
+    <string name="instr_smooth_circular">Сфокусуйтеся на плавному круговому ході педалі</string>
+    <string name="instr_shake_out">Легке обертання, розслабте ноги</string>
+    <string name="instr_optimize_te">Оптимізуйте ефективність крутного моменту 70-80%%</string>
+    <string name="instr_combine_all">Тепер поєднуйте: Баланс + Плавність + Ефективність</string>
+    <string name="instr_appreciate_effort">Легке обертання, оцініть свої зусилля</string>
+    <string name="instr_prepare_mentally">Легке обертання, підготуйтеся подумки</string>
+    <string name="instr_strong_left">Сильний акцент на лівій нозі</string>
+    <string name="instr_strong_right">Сильний акцент на правій нозі</string>
+    <string name="instr_perfect_5050">Ідеальний баланс, 50/50</string>
+    <string name="instr_max_smoothness">Максимальна плавність, усуньте мертві зони</string>
+    <string name="instr_easy_recover">Легке обертання, відновіться</string>
+    <string name="instr_dial_te">Налаштуйте ЕКМ в зону 72-78%%</string>
+    <string name="instr_increase_cadence_form">Збільште каденс, зберігайте форму</string>
+    <string name="instr_combine_skills">Поєднуйте всі навички: Баланс + Плавність + Ефективність</string>
+    <string name="instr_appreciate_mastery">Легке обертання, оцініть роботу над майстерністю</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">Візуалізуйте потужність, що йде від лівої ноги</string>
+    <string name="tip_dont_neglect_right">Не забувайте повністю про праву ногу</string>
+    <string name="tip_maintain_cadence">Підтримуйте плавний каденс протягом усієї вправи</string>
+    <string name="tip_visualize_right">Візуалізуйте потужність, що йде від правої ноги</string>
+    <string name="tip_dont_neglect_left">Не забувайте повністю про ліву ногу</string>
+    <string name="tip_think_360">Думайте про повні 360° ходу педалі</string>
+    <string name="tip_engage_hamstrings">Задіюйте біцепс стегна в нижній точці</string>
+    <string name="tip_pull_up">Злегка тягніть вгору через задню частину ходу</string>
+    <string name="tip_core_stability">Тримайте корпус напруженим для стабільності</string>
+    <string name="tip_te_above_80">ЕКМ вище 80%% може фактично знизити загальну потужність</string>
+    <string name="tip_focus_70_80">Сфокусуйтеся на оптимальній зоні 70-80%%</string>
+    <string name="tip_dont_sacrifice">Не жертвуйте основною фазою потужності заради фази відновлення</string>
+    <string name="tip_equal_pressure">Сфокусуйтеся на рівному тиску від обох ніг</string>
+    <string name="tip_minor_imbalance">Невеликий дисбаланс нормальний, прагніть до зони</string>
+    <string name="tip_steady_cadence">Тримайте каденс стабільним — не женіться за числами</string>
+    <string name="tip_elite_smoothness">Елітні велосипедисти підтримують плавність 25-35%%</string>
+    <string name="tip_engage_all_muscles">Задіюйте всі групи м\'язів через весь хід</string>
+    <string name="tip_moderate_cadence">Підтримуйте помірний каденс (85-95 об/хв добре працює)</string>
+    <string name="tip_smoothness_drops">Плавність природно падає на дуже високому каденсі</string>
+    <string name="tip_relax_hips">Сфокусуйтеся на розслабленні стегон</string>
+    <string name="tip_dont_bounce">Не стрибайте в сідлі</string>
+    <string name="tip_core_crucial">Стабільність корпусу критично важлива</string>
+    <string name="tip_identify_weaker">Це тренування допомагає виявити слабку ногу</string>
+    <string name="tip_neural_pathways">Регулярна практика покращує нейронні зв\'язки</string>
+    <string name="tip_dont_force">Не форсуйте екстремальний дисбаланс</string>
+    <string name="tip_no_perfection">Не очікуйте досконалості за всіма метриками одразу</string>
+    <string name="tip_one_at_time">Спочатку фокусуйтеся на одному аспекті</string>
+    <string name="tip_regular_practice">Прогрес приходить з регулярною практикою</string>
+    <string name="tip_notice_hardest">Помітьте, яка метрика для вас найскладніша</string>
+    <string name="tip_demanding_session">Це вимоглива сесія — будьте добре відпочившими</string>
+    <string name="tip_phases_build">Кожна фаза будується на попередніх навичках</string>
+    <string name="tip_quality_over_perfection">Сфокусуйтеся на якості, а не на досконалості</string>
+    <string name="tip_track_progress">Відстежуйте прогрес протягом декількох сесій</string>
+    <string name="tip_once_twice_week">Рекомендується виконувати 1-2 рази на тиждень</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">Перша поїздка</string>
+    <string name="achievement_getting_started">Початок покладено</string>
+    <string name="achievement_dedicated">Відданий справі</string>
+    <string name="achievement_century">Сотня</string>
+    <string name="achievement_balanced">Збалансований</string>
+    <string name="achievement_well_balanced">Добре збалансований</string>
+    <string name="achievement_master_of_balance">Майстер балансу</string>
+    <string name="achievement_efficient_rider">Ефективний велосипедист</string>
+    <string name="achievement_smooth_operator">Плавний оператор</string>
+    <string name="achievement_getting_consistent">Стає стабільним</string>
+    <string name="achievement_weekly_warrior">Тижневий воїн</string>
+    <string name="achievement_two_week_hero">Двотижневий герой</string>
+    <string name="achievement_monthly_master">Місячний майстер</string>
+    <string name="achievement_practice_perfect">Практика веде до досконалості</string>
+    <string name="achievement_drill_enthusiast">Ентузіаст тренувань</string>
+    <string name="achievement_perfect_form">Ідеальна форма</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">Завершіть свою першу відстежувану поїздку</string>
+    <string name="achievement_getting_started_desc">Завершіть 10 відстежуваних поїздок</string>
+    <string name="achievement_dedicated_desc">Завершіть 50 відстежуваних поїздок</string>
+    <string name="achievement_century_desc">Завершіть 100 відстежуваних поїздок</string>
+    <string name="achievement_balanced_desc">Завершіть поїздку з відхиленням балансу менше 5%%</string>
+    <string name="achievement_well_balanced_desc">Завершіть 5 поїздок з відхиленням балансу менше 3%%</string>
+    <string name="achievement_master_of_balance_desc">Завершіть 20 поїздок з відхиленням балансу менше 2.5%%</string>
+    <string name="achievement_efficient_rider_desc">Підтримуйте середній ЕКМ 70-80%% у поїздці</string>
+    <string name="achievement_smooth_operator_desc">Досягніть середнього ПП 25%%+ у поїздці</string>
+    <string name="achievement_getting_consistent_desc">Катайтеся 3 дні поспіль</string>
+    <string name="achievement_weekly_warrior_desc">Катайтеся 7 днів поспіль</string>
+    <string name="achievement_two_week_hero_desc">Катайтеся 14 днів поспіль</string>
+    <string name="achievement_monthly_master_desc">Катайтеся 30 днів поспіль</string>
+    <string name="achievement_practice_perfect_desc">Завершіть своє перше тренування</string>
+    <string name="achievement_drill_enthusiast_desc">Завершіть 10 тренувань</string>
+    <string name="achievement_perfect_form_desc">Наберіть 90%%+ у будь-якому тренуванні</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">ПОЇЗДКИ</string>
+    <string name="category_balance">БАЛАНС</string>
+    <string name="category_efficiency">ЕФЕКТИВНІСТЬ</string>
+    <string name="category_streaks">СЕРІЇ</string>
+    <string name="category_drills">ТРЕНУВАННЯ</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_ukrainian">Українська</string>
+    <string name="language_system">Системна</string>
+</resources>

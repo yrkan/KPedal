@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">クイックビュー</string>
+    <string name="datatype_quick_glance_desc">バランスバー付きステータス表示</string>
+
+    <string name="datatype_power_balance">パワー + バランス</string>
+    <string name="datatype_power_balance_desc">左右バランス付きパワー表示</string>
+
+    <string name="datatype_efficiency">効率性</string>
+    <string name="datatype_efficiency_desc">トルク効率とペダルスムーズネス</string>
+
+    <string name="datatype_full_overview">フル概要</string>
+    <string name="datatype_full_overview_desc">全ペダリング指標を一画面で</string>
+
+    <string name="datatype_balance_trend">バランストレンド</string>
+    <string name="datatype_balance_trend_desc">現在、3秒、10秒バランス</string>
+
+    <string name="datatype_single_balance">バランス</string>
+    <string name="datatype_single_balance_desc">左右パワーバランス全画面表示</string>
+
+    <string name="datatype_live">ライブ</string>
+    <string name="datatype_live_desc">全指標とゾーン内時間統計</string>
+
+    <!-- Labels -->
+    <string name="balance">バランス</string>
+    <string name="balance_lower">バランス</string>
+    <string name="balance_3s">3秒平均</string>
+    <string name="balance_10s">10秒平均</string>
+    <string name="power">パワー</string>
+    <string name="power_lower">パワー</string>
+    <string name="te">TE</string>
+    <string name="te_full">トルク効率</string>
+    <string name="ps">PS</string>
+    <string name="ps_full">ペダルスムーズネス</string>
+    <string name="left">左</string>
+    <string name="right">右</string>
+    <string name="lr">左/右</string>
+    <string name="lr_balance_format">左%1$d/右%2$d</string>
+    <string name="all_good">良好</string>
+    <string name="watt_symbol">W</string>
+    <string name="issue_count">%1$d件の問題</string>
+    <string name="issues_count">%1$d件の問題</string>
+    <string name="no_data">データなし</string>
+    <string name="no_data_lower">データなし</string>
+    <string name="avg">平均</string>
+
+    <!-- Settings -->
+    <string name="settings">設定</string>
+    <string name="preferences">設定</string>
+    <string name="thresholds">しきい値</string>
+    <string name="balance_threshold">バランスアラート</string>
+    <string name="te_optimal">TE最適範囲</string>
+    <string name="ps_minimum">PS最低値</string>
+    <string name="alerts">アラート</string>
+    <string name="vibration">バイブレーション</string>
+    <string name="sound">サウンド</string>
+    <string name="alert_settings">アラート設定</string>
+    <string name="background_mode">バックグラウンドモード</string>
+    <string name="background_mode_desc">全てのライドでデータを収集します</string>
+    <string name="cloud_sync">クラウド同期</string>
+    <string name="cloud_sync_desc">app.kpedal.comに同期</string>
+    <string name="language">言語</string>
+    <string name="settings_sync">同期</string>
+    <string name="settings_auto_sync">ライドを自動同期</string>
+    <string name="settings_auto_sync_desc">各ライド後に同期します</string>
+    <string name="settings_data_collection">データ収集</string>
+    <string name="settings_balance_threshold">バランスしきい値</string>
+    <string name="settings_balance_threshold_desc">アラートを発動する50/50からの偏差</string>
+    <string name="settings_te">トルク効率</string>
+    <string name="settings_te_desc">最適と見なされる最低TE%%</string>
+    <string name="settings_ps">ペダルスムーズネス</string>
+    <string name="settings_ps_desc">最適と見なされる最低PS%%</string>
+    <string name="settings_configure_alerts">アラートを設定</string>
+    <string name="settings_configure_alerts_desc">通知のタイミングと方法</string>
+    <string name="settings_about">アプリについて</string>
+    <string name="settings_version">バージョン</string>
+    <string name="settings_privacy">プライバシーポリシー</string>
+    <string name="settings_contact">お問い合わせ</string>
+    <string name="settings_linked_account">連携済みアカウント</string>
+    <string name="settings_sync_desc">app.kpedal.comにライドを同期</string>
+    <string name="settings_enter_code">以下でこのコードを入力してください</string>
+    <string name="settings_code_expired">コードの有効期限切れ</string>
+    <string name="settings_code_expired_desc">新しいコードをリクエストしてください</string>
+    <string name="settings_get_new_code">新しいコードを取得</string>
+    <string name="settings_access_denied">アクセスが拒否されました</string>
+    <string name="settings_access_denied_desc">認証がキャンセルされました</string>
+    <string name="settings_try_again">再試行</string>
+    <string name="settings_connection_failed">接続に失敗しました</string>
+    <string name="settings_connection_failed_desc">もう一度お試しください</string>
+    <string name="settings_last_sync">最終同期: %1$s</string>
+    <string name="settings_never_synced">未同期</string>
+    <string name="settings_pending">%1$d件保留中</string>
+    <string name="settings_up_to_date">最新の状態です</string>
+    <string name="settings_sync_now">今すぐ同期</string>
+    <string name="settings_device_revoked_desc">このデバイスはアカウントから切断されました。ライドを同期するには再度サインインする必要があります。</string>
+    <string name="ok">OK</string>
+
+    <!-- Account -->
+    <string name="account">アカウント</string>
+    <string name="link_account">アカウントを連携</string>
+    <string name="link_account_desc">デバイス間でライドを同期</string>
+    <string name="why_how_sync">クラウド同期の理由と方法</string>
+    <string name="account_linked">アカウント連携完了！</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">クラウド同期</string>
+    <string name="cloud_sync_why_title">なぜ同期するのですか？</string>
+    <string name="cloud_sync_why_1">どのデバイスでもライド履歴と分析を表示できます</string>
+    <string name="cloud_sync_why_2">詳細なチャートと1分ごとのスナップショット</string>
+    <string name="cloud_sync_why_3">アチーブメントで進捗を追跡できます</string>
+    <string name="cloud_sync_why_4">デバイスがリセットされてもデータを失いません</string>
+    <string name="cloud_sync_how_title">連携方法は？</string>
+    <string name="cloud_sync_how_1">上の「アカウントを連携」をタップします</string>
+    <string name="cloud_sync_how_2">表示される8文字のコードをメモします</string>
+    <string name="cloud_sync_how_3">任意のデバイスでlink.kpedal.comにアクセスします</string>
+    <string name="cloud_sync_how_3_prefix">アクセス先</string>
+    <string name="cloud_sync_how_4">コードを入力してGoogleでサインインします</string>
+    <string name="cloud_sync_how_5">完了！ライドは自動的に同期されます</string>
+    <string name="cloud_sync_what_syncs">何が同期されますか？</string>
+    <string name="cloud_sync_syncs_rides">1分ごとのスナップショット付きライドサマリー</string>
+    <string name="cloud_sync_syncs_metrics">パワー、心拍数、ケイデンス、距離、獲得標高</string>
+    <string name="cloud_sync_syncs_drills">ドリル結果とアチーブメント</string>
+    <string name="cloud_sync_syncs_settings">アラートとしきい値の設定</string>
+    <string name="cloud_sync_not_syncs">GPS/ルートは収集されません</string>
+    <string name="cloud_sync_free">無料で広告なし。あなたのデータはあなたのものです。</string>
+    <string name="sign_out">サインアウト</string>
+    <string name="sync">同期</string>
+    <string name="syncing">同期中…</string>
+    <string name="synced">同期完了</string>
+    <string name="sync_failed">同期に失敗しました</string>
+    <string name="offline">オフライン</string>
+    <string name="getting_code">コードを取得中…</string>
+    <string name="waiting_auth">認証を待機中…</string>
+    <string name="device_disconnected">デバイスが切断されました</string>
+    <string name="device_disconnected_desc">このデバイスはアカウントから切断されました。同期を続けるには再連携してください。</string>
+    <string name="relink">アカウントを再連携</string>
+
+    <!-- Live -->
+    <string name="live">ライブ</string>
+    <string name="current_ride">現在のライド</string>
+    <string name="time_in_zone">ゾーン内時間</string>
+    <string name="waiting_pedal_data">ペダルデータを待機中…</string>
+    <string name="start_riding">ライドを開始するか、ペダル接続を確認してください</string>
+    <string name="save">保存</string>
+    <string name="saved">保存済み</string>
+    <string name="opt">最適</string>
+    <string name="att">注意</string>
+    <string name="prob">問題</string>
+
+    <!-- Home Screen -->
+    <string name="drills">ドリル</string>
+    <string name="practice">練習</string>
+    <string name="rides">ライド</string>
+    <string name="avg_bal">平均バランス</string>
+    <string name="streak">連続日数</string>
+    <string name="streak_days">%1$d日</string>
+    <string name="section_data">データ</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">その他</string>
+    <string name="history">履歴</string>
+    <string name="saved_rides">保存されたライド</string>
+    <string name="analytics">分析</string>
+    <string name="trends">トレンド</string>
+    <string name="achievements">アチーブメント</string>
+    <string name="challenges">チャレンジ</string>
+    <string name="weekly_goal">週間目標</string>
+    <string name="data_fields">データフィールド</string>
+    <string name="layouts_count">6種類のレイアウト</string>
+    <string name="pedal_status">ペダルステータス</string>
+    <string name="connection">接続</string>
+    <string name="quick_guide">クイックガイド</string>
+    <string name="last_ride">前回のライド</string>
+    <string name="optimal">最適</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">ペダリング指標を監視中</string>
+    <string name="notification_channel_name">KPedalバックグラウンド</string>
+    <string name="notification_channel_description">全てのライド中にペダリング指標を監視します</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">アラートを有効にする</string>
+    <string name="metrics_to_monitor">監視する指標</string>
+    <string name="sensitivity">感度</string>
+    <string name="critical">重要</string>
+    <string name="critical_desc">大きな問題のみ</string>
+    <string name="sensitive">敏感</string>
+    <string name="sensitive_desc">より頻繁にアラート</string>
+    <string name="notify_via">通知方法</string>
+    <string name="vibrate">バイブレーション</string>
+    <string name="banner">バナー</string>
+    <string name="options">オプション</string>
+    <string name="wake_screen">画面をウェイク</string>
+    <string name="cooldown">クールダウン</string>
+    <string name="cooldown_15s">15秒</string>
+    <string name="cooldown_30s">30秒</string>
+    <string name="cooldown_1m">1分</string>
+    <string name="cooldown_2m">2分</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">データフィールドレイアウト</string>
+    <string name="tap_to_preview">タップしてKarooでレイアウトをプレビュー</string>
+    <string name="layout_quick_glance_short">ステータス + バランスバー</string>
+    <string name="layout_power_balance_short">左右を大きく表示</string>
+    <string name="layout_efficiency_short">TEとPS指標</string>
+    <string name="layout_full_overview_short">全指標をコンパクトに</string>
+    <string name="layout_balance_trend_short">3秒/10秒スムージング</string>
+    <string name="layout_single_balance_short">バランスのみ</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">接続済み</string>
+    <string name="disconnected">切断</string>
+    <string name="live_data">ライブデータ</string>
+    <string name="data_flowing">データが正常に流れています</string>
+    <string name="signal_details">信号詳細</string>
+    <string name="troubleshooting">トラブルシューティング</string>
+    <string name="quality">品質</string>
+    <string name="excellent">優秀</string>
+    <string name="fair">良好</string>
+    <string name="poor">不良</string>
+    <string name="unknown">不明</string>
+    <string name="update_rate">更新レート</string>
+    <string name="last_update">最終更新</string>
+    <string name="pedal_tip_start_riding">ライドを開始してペダルを検出します</string>
+    <string name="pedal_tip_ensure_paired">ペダルがKarooとペアリングされていることを確認してください</string>
+    <string name="pedal_tip_check_battery">ペダルのバッテリーを確認してください</string>
+    <string name="pedal_tip_low_rate">低いレートは干渉を示している可能性があります</string>
+    <string name="pedal_tip_move_away">他のANT+デバイスから離れてください</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">ライド履歴</string>
+    <string name="rides_count">%1$d件のライド</string>
+    <string name="no_rides">ライドなし</string>
+    <string name="no_rides_saved">保存されたライドはありません</string>
+    <string name="no_matching_rides">一致するライドはありません</string>
+    <string name="try_adjusting_filter">フィルターを調整してみてください</string>
+    <string name="rides_saved_auto">ライドは自動的に保存されます</string>
+    <string name="manual">手動</string>
+    <string name="percent_optimal">%1$d%%が最適</string>
+    <string name="load_more">もっと読み込む</string>
+    <string name="delete_ride">ライドを削除しますか？</string>
+    <string name="cancel">キャンセル</string>
+    <string name="delete">削除</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">評価</string>
+    <string name="suggested_stars">推奨: %1$dつ星</string>
+    <string name="overall">総合</string>
+    <string name="efficiency">効率性</string>
+    <string name="consistency">一貫性</string>
+    <string name="analysis">分析</string>
+    <string name="strengths">強み</string>
+    <string name="areas_to_improve">改善点</string>
+    <string name="attention">注意</string>
+    <string name="problem">問題</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">ライドデータがありません</string>
+    <string name="complete_rides_to_see">いくつかのライドを完了するとトレンドが表示されます</string>
+    <string name="period_averages">期間平均</string>
+    <string name="progress_label">進捗</string>
+    <string name="stable">安定</string>
+    <string name="avg_balance_label">平均バランス</string>
+    <string name="balance_trend_title">バランストレンド</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">ライド</string>
+    <string name="section_balance">バランス</string>
+    <string name="section_efficiency">効率性</string>
+    <string name="section_streaks">連続記録</string>
+    <string name="section_drills">ドリル</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">履歴</string>
+    <string name="my_drills">マイドリル</string>
+    <string name="built_in_drills">組み込みドリル</string>
+    <string name="create_custom_drill">カスタムドリルを作成</string>
+    <string name="custom">カスタム</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">ベスト %1$d%%</string>
+    <string name="start">スタート</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">次へ</string>
+    <string name="stop">停止</string>
+    <string name="pause">一時停止</string>
+    <string name="paused">一時停止中</string>
+    <string name="resume">再開</string>
+    <string name="rpm">rpm</string>
+    <string name="in_zone">ゾーン内</string>
+    <string name="spin_easy">軽く回す</string>
+    <string name="complete">完了</string>
+    <string name="stopped">停止しました</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">新記録！</string>
+    <string name="done">完了</string>
+    <string name="retry">再挑戦</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">クリア</string>
+    <string name="no_history">履歴なし</string>
+    <string name="clear_all_question">全てクリアしますか？</string>
+    <string name="delete_question">削除しますか？</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">新規ドリル</string>
+    <string name="edit_drill">ドリルを編集</string>
+    <string name="name_your_drill">ドリルに名前を付ける</string>
+    <string name="drill_name_placeholder">例: バランス重視、高TE</string>
+    <string name="what_to_focus">何に集中しますか？</string>
+    <string name="balance_option">バランス</string>
+    <string name="lr_power_distribution">左右パワー配分</string>
+    <string name="torque_effectiveness_option">トルク効率</string>
+    <string name="power_transfer_efficiency">パワー伝達効率</string>
+    <string name="pedal_smoothness_option">ペダルスムーズネス</string>
+    <string name="circular_pedal_stroke">円滑なペダルストローク</string>
+    <string name="how_long">時間は？</string>
+    <string name="quick_select">クイック選択</string>
+    <string name="or_set_custom">またはカスタム設定</string>
+    <string name="minutes">分</string>
+    <string name="seconds">秒</string>
+    <string name="total_duration">合計: %1$s</string>
+    <string name="min_10_seconds">最低10秒</string>
+    <string name="set_your_target">目標を設定</string>
+    <string name="above">以上</string>
+    <string name="above_value">値以上</string>
+    <string name="below">以下</string>
+    <string name="below_value">値以下</string>
+    <string name="range">範囲</string>
+    <string name="min_max">最小-最大</string>
+    <string name="minimum">最小</string>
+    <string name="maximum">最大</string>
+    <string name="preview">プレビュー</string>
+    <string name="metric">指標</string>
+    <string name="duration">時間</string>
+    <string name="target">目標</string>
+    <string name="custom_drill_desc">カスタム%1$sドリル</string>
+    <string name="torque_eff_short">トルク効率</string>
+    <string name="smoothness_short">スムーズネス</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">週間チャレンジ</string>
+    <string name="active">アクティブ</string>
+    <string name="days_left_this_week">今週残り%1$d日</string>
+    <string name="completed_upper">完了</string>
+    <string name="this_week">今週</string>
+    <string name="all_challenges">全てのチャレンジ</string>
+    <string name="next_week">来週</string>
+
+    <!-- Onboarding -->
+    <string name="skip">スキップ</string>
+    <string name="get_started">始める</string>
+    <string name="onboarding_welcome_title">KPedalへようこそ</string>
+    <string name="onboarding_welcome_desc">パワーメーターペダルからリアルタイムのペダリング指標を取得します。バランス、効率性、スムーズネスを追跡してテクニックを向上させましょう。</string>
+    <string name="onboarding_data_fields_title">データフィールド</string>
+    <string name="onboarding_data_fields_desc">Karoo画面にKPedalデータフィールドを追加して、ライド中に指標を確認できます。6種類のレイアウトから選択できます。</string>
+    <string name="onboarding_drills_title">ドリル</string>
+    <string name="onboarding_drills_desc">ガイド付きドリルで練習してペダリングテクニックを向上させましょう。各ドリルはストロークの特定の側面をターゲットにしています。</string>
+    <string name="onboarding_alerts_title">アラート</string>
+    <string name="onboarding_alerts_desc">指標が最適範囲外になったときに通知を受け取ります。設定でアラートを構成できます。</string>
+    <string name="onboarding_background_title">バックグラウンドデータ</string>
+    <string name="onboarding_background_desc">KPedalは全てのライドのペダリング指標を自動的に収集します。お好みで設定から無効にできます。</string>
+    <string name="onboarding_cloud_title">クラウド同期</string>
+    <string name="onboarding_cloud_desc">Googleでサインインしてライドデータを同期し、app.kpedal.comで分析を表示できます。これはオプションです - 同期するまでデータはデバイスに保存されます。</string>
+
+    <!-- Help Screen -->
+    <string name="help">ヘルプ</string>
+    <string name="section_metrics">指標</string>
+    <string name="section_colors">色</string>
+    <string name="section_setup">セットアップ</string>
+    <string name="section_tips">ヒント</string>
+    <string name="section_faq">よくある質問</string>
+    <string name="section_troubleshooting">トラブルシューティング</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">左右パワー配分</string>
+    <string name="help_balance_note">2-5%%の非対称は正常です</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">トルク効率</string>
+    <string name="help_te_note">高いほど良いわけではありません！パワーを制限します</string>
+    <string name="help_ps_range">20%%以上</string>
+    <string name="help_ps_desc">ペダルスムーズネス</string>
+    <string name="help_ps_note">エリート: 25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">パワーバランス</string>
+    <string name="metric_balance_short">左右パワー配分</string>
+    <string name="metric_balance_explanation">パワーバランスは、左右の脚にどれだけ均等にパワーを配分しているかを示します。完璧なバランスは50/50ですが、わずかな非対称（48-52%%）は正常であり、問題ありません。</string>
+    <string name="metric_balance_optimal">48-52%%（最適）、45-55%%（許容範囲）</string>
+    <string name="metric_balance_tip1">ペダルストローク全体を通して均等な圧力に集中してください</string>
+    <string name="metric_balance_tip2">弱い方の脚を強化するためにシングルレッグドリルを試してください</string>
+    <string name="metric_balance_tip3">バイクフィットを確認してください - サドルの高さはバランスに影響します</string>
+    <string name="metric_balance_tip4">わずかなアンバランスは正常で、しばしば自然に修正されます</string>
+    <string name="metric_balance_tip5">ライド中の小さな変動に固執しないでください</string>
+    <string name="metric_balance_research">研究によると、ほとんどのサイクリストは1-5%%の自然なアンバランスがあります。プロサイクリストの平均は48-52%%です。</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">トルク効率</string>
+    <string name="metric_te_short">ペダルストローク効率</string>
+    <string name="metric_te_explanation">トルク効率（TE）は、ペダリング動作のどれだけが前進推進力に貢献しているかを測定します。100%%のスコアはストロークの全ての部分がパワーを追加することを意味しますが、これは現実的でも最適でもありません。</string>
+    <string name="metric_te_optimal">70-80%%（最適、これ以上ではありません）</string>
+    <string name="metric_te_tip1">ストロークの下部を引き抜くことに集中してください</string>
+    <string name="metric_te_tip2">下部で靴から泥をこすり落とすイメージを持ってください</string>
+    <string name="metric_te_tip3">高いTE（80%%以上）は実際にメインパワー出力を減少させることが多いです</string>
+    <string name="metric_te_tip4">滑らかで円形のペダリングは、高いTEを強制するより効率的です</string>
+    <string name="metric_te_tip5">TEはケイデンスとパワーによって自然に変動します</string>
+    <string name="metric_te_research">Wattbikeの研究では、80%%以上のTEは実際にパワー出力を減少させることが示されています。エリートサイクリストは70-80%%を目指しています。</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">ペダルスムーズネス</string>
+    <string name="metric_ps_short">パワー供給の一貫性</string>
+    <string name="metric_ps_explanation">ペダルスムーズネス（PS）は、ペダルストローク全体を通してパワーがどれだけ均等に適用されているかを示します。値が高いほど、スパイクや落ち込みが少なく、より一貫したパワー供給を意味します。</string>
+    <string name="metric_ps_optimal">20%%以上（良好）、25-35%%（エリート）</string>
+    <string name="metric_ps_tip1">高ケイデンススピニングドリルを練習してください</string>
+    <string name="metric_ps_tip2">ストロークのデッドスポットを排除することに集中してください</string>
+    <string name="metric_ps_tip3">回転全体を通して一貫した圧力を維持してください</string>
+    <string name="metric_ps_tip4">軽いギアと高いケイデンスはしばしばスムーズネスを向上させます</string>
+    <string name="metric_ps_tip5">PSは非常に高いパワー出力時には自然に低下します</string>
+    <string name="metric_ps_research">プロサイクリストは通常25-35%%のペダルスムーズネスを達成します。</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">白</string>
+    <string name="color_green">緑</string>
+    <string name="color_yellow">黄色</string>
+    <string name="color_red">赤</string>
+    <string name="color_white_meaning">通常 / データなし</string>
+    <string name="color_green_meaning">最適範囲</string>
+    <string name="color_yellow_meaning">注意が必要</string>
+    <string name="color_red_meaning">問題</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo → プロファイル → データフィールド</string>
+    <string name="setup_step2">スロットをタップ → その他のデータ → kpedal</string>
+    <string name="setup_step3">レイアウトを選択</string>
+    <string name="setup_step4">ペダルをペアリング（ANT+）</string>
+    <string name="setup_step5">ライドを開始</string>
+    <string name="setup_requires">対応: Garmin Rally、Favero Assioma、SRM、Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">弱い方の脚にシングルレッグドリル</string>
+    <string name="tips_balance_2">クリート位置を確認</string>
+    <string name="tips_balance_3">疲労は非対称を増加させます</string>
+    <string name="tips_te_1">100%%を目指さないでください</string>
+    <string name="tips_te_2">ストロークの下部で泥をこする</string>
+    <string name="tips_te_3">引き上げるのではなく、荷重を抜く</string>
+    <string name="tips_ps_1">高いケイデンスが役立ちます</string>
+    <string name="tips_ps_2">デッドスポットを排除</string>
+    <string name="tips_ps_3">ローラーで練習</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">Q: %1$s</string>
+    <string name="faq_te85_q">TE 85%%以上は悪い？</string>
+    <string name="faq_te85_a">はい。70-80%%が最適です。高すぎるとダウンストロークパワーが制限されます。</string>
+    <string name="faq_balance_q">バランス45/55は大丈夫？</string>
+    <string name="faq_balance_a">はい。±5%%は正常です。10%%以上のみが懸念されます。</string>
+    <string name="faq_jump_q">値が跳ね回る？</string>
+    <string name="faq_jump_a">瞬間値ではなく平均に注目してください。</string>
+    <string name="faq_compare_q">他の人と比較する？</string>
+    <string name="faq_compare_a">いいえ。代わりに自分自身のトレンドを追跡してください。</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">データなし</string>
+    <string name="trouble_nodata_fix">Karoo設定でペダルがペアリングされているか確認してください。ペダリングを開始してください。</string>
+    <string name="trouble_balance_only">バランスのみでTE/PSなし</string>
+    <string name="trouble_balance_only_fix">ペダルがTE/PSをサポートしていない可能性があります（例: Wahoo POWRLINK）。</string>
+    <string name="trouble_stuck">値が動かない</string>
+    <string name="trouble_stuck_fix">ライドを再開してください。バッテリーを確認してください。ペダルを再ペアリングしてください。</string>
+    <string name="trouble_crash">アプリがクラッシュ</string>
+    <string name="trouble_crash_fix">アプリを再起動してください。Karooを再起動してください。再インストールしてください。</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">左脚フォーカス</string>
+    <string name="drill_right_leg_focus">右脚フォーカス</string>
+    <string name="drill_smooth_circles">スムーズサークル</string>
+    <string name="drill_power_transfer">パワートランスファー</string>
+    <string name="drill_balance_challenge">バランスチャレンジ</string>
+    <string name="drill_smoothness_target">スムーズネスターゲット</string>
+    <string name="drill_high_cadence_smooth">高ケイデンススムーズネス</string>
+    <string name="drill_balance_recovery">バランスリカバリー</string>
+    <string name="drill_efficiency_builder">効率性ビルダー</string>
+    <string name="drill_pedaling_mastery">ペダリングマスタリー</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">左脚のパワー出力を強化します</string>
+    <string name="drill_right_leg_focus_desc">右脚のパワー出力を強化します</string>
+    <string name="drill_smooth_circles_desc">ペダルストロークのスムーズさを向上させます</string>
+    <string name="drill_power_transfer_desc">前進運動へのパワーを最大化します</string>
+    <string name="drill_balance_challenge_desc">完璧な左右バランスを維持します</string>
+    <string name="drill_smoothness_target_desc">一貫してスムーズネス目標を達成します</string>
+    <string name="drill_high_cadence_smooth_desc">高RPMでスムーズを維持します</string>
+    <string name="drill_balance_recovery_desc">努力後にバランスに戻ります</string>
+    <string name="drill_efficiency_builder_desc">TEとPSを組み合わせて効率性を高めます</string>
+    <string name="drill_pedaling_mastery_desc">全てのペダリング指標をマスターします</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">ウォームアップ</string>
+    <string name="phase_focus">フォーカス</string>
+    <string name="phase_maintain">維持</string>
+    <string name="phase_recover">リカバリー</string>
+    <string name="phase_build">ビルド</string>
+    <string name="phase_push">プッシュ</string>
+    <string name="phase_hold">ホールド</string>
+    <string name="phase_rest">レスト</string>
+    <string name="phase_prepare">準備</string>
+    <string name="phase_cooldown">クールダウン</string>
+    <string name="phase_left_focus">左フォーカス</string>
+    <string name="phase_right_focus">右フォーカス</string>
+    <string name="phase_smooth_circles">スムーズサークル</string>
+    <string name="phase_max_transfer">最大トランスファー</string>
+    <string name="phase_find_center">センターを見つける</string>
+    <string name="phase_hold_balance">バランスを維持</string>
+    <string name="phase_relax">リラックス</string>
+    <string name="phase_target_zone">ターゲットゾーン</string>
+    <string name="phase_normal_cadence">通常ケイデンス</string>
+    <string name="phase_build_cadence">ケイデンスビルド</string>
+    <string name="phase_hold_smooth">スムーズを維持</string>
+    <string name="phase_wind_down">ワインドダウン</string>
+    <string name="phase_baseline">ベースライン</string>
+    <string name="phase_left_emphasis">左強調</string>
+    <string name="phase_center">センター</string>
+    <string name="phase_right_emphasis">右強調</string>
+    <string name="phase_center_again">再びセンター</string>
+    <string name="phase_natural_finish">ナチュラルフィニッシュ</string>
+    <string name="phase_balance_focus">バランスフォーカス</string>
+    <string name="phase_smoothness_block">スムーズネスブロック</string>
+    <string name="phase_recovery">リカバリー</string>
+    <string name="phase_te_focus">TEフォーカス</string>
+    <string name="phase_combined">コンバインド</string>
+    <string name="phase_activation">アクティベーション</string>
+    <string name="phase_left_isolation">左脚アイソレーション</string>
+    <string name="phase_right_isolation">右脚アイソレーション</string>
+    <string name="phase_perfect_balance">パーフェクトバランス</string>
+    <string name="phase_smoothness_focus">スムーズネスフォーカス</string>
+    <string name="phase_te_optimization">TE最適化</string>
+    <string name="phase_high_cadence_test">高ケイデンステスト</string>
+    <string name="phase_integration">インテグレーション</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">軽くスピニング</string>
+    <string name="phase_desc_emphasize_left">左脚を強調</string>
+    <string name="phase_desc_return_normal">通常に戻る</string>
+    <string name="phase_desc_emphasize_right">右脚を強調</string>
+    <string name="phase_desc_find_rhythm">リズムを見つける</string>
+    <string name="phase_desc_max_smoothness">スムーズネスを最大化</string>
+    <string name="phase_desc_increase_focus">徐々にフォーカスを増加</string>
+    <string name="phase_desc_optimize_te">TEを最適化</string>
+    <string name="phase_desc_easy_spin">軽くスピン</string>
+    <string name="phase_desc_center_power">パワーを中央に</string>
+    <string name="phase_desc_hold_5050">50/50を維持</string>
+    <string name="phase_desc_release_focus">フォーカスを解放</string>
+    <string name="phase_desc_loosen_up">リラックス</string>
+    <string name="phase_desc_hold_ps_25">PS 25%%以上を維持</string>
+    <string name="phase_desc_recover">リカバー</string>
+    <string name="phase_desc_establish_baseline">ベースラインを確立</string>
+    <string name="phase_desc_increase_100rpm">100+ rpmまで増加</string>
+    <string name="phase_desc_smooth_high_cadence">高ケイデンスでスムーズに</string>
+    <string name="phase_desc_return_to_normal">通常に戻る</string>
+    <string name="phase_desc_find_natural_balance">自然なバランスを見つける</string>
+    <string name="phase_desc_focus_left">左に集中</string>
+    <string name="phase_desc_find_5050">50/50を見つける</string>
+    <string name="phase_desc_focus_right">右に集中</string>
+    <string name="phase_desc_spin_naturally">自然にスピン</string>
+    <string name="phase_desc_smooth_circles">スムーズな円</string>
+    <string name="phase_desc_power_transfer">パワートランスファー</string>
+    <string name="phase_desc_all_metrics">全ての指標</string>
+    <string name="phase_desc_wind_down">ワインドダウン</string>
+    <string name="phase_desc_wake_legs">脚を起こす</string>
+    <string name="phase_desc_left_focus">左に集中</string>
+    <string name="phase_desc_right_focus">右に集中</string>
+    <string name="phase_desc_5050_hold">50/50維持</string>
+    <string name="phase_desc_circular_motion">円運動</string>
+    <string name="phase_desc_speed_form">スピード + フォーム</string>
+    <string name="phase_desc_everything_together">全てを統合</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">軽くスピンして、集中の準備をします</string>
+    <string name="instr_focus_left_leg">左脚で押し込むことに集中してください</string>
+    <string name="instr_relax_spin_normally">リラックスして通常通りスピンします</string>
+    <string name="instr_focus_right_leg">右脚で押し込むことに集中してください</string>
+    <string name="instr_settle_cadence">快適なケイデンスに落ち着きます</string>
+    <string name="instr_smooth_circles">滑らかな円を描くイメージで。下部で靴から泥をこすり落とすように。</string>
+    <string name="instr_maintain_feeling">リラックスしてその感覚を維持します</string>
+    <string name="instr_feel_power_transfer">軽く始めて、パワー伝達を感じることに集中します</string>
+    <string name="instr_apply_power">ストローク全体を通してパワーを適用します。踏みつけを避けてください。</string>
+    <string name="instr_spin_easy_recover">軽くスピンして、脚を回復させます</string>
+    <string name="instr_find_balance_point">自然なバランスポイントを見つけます</string>
+    <string name="instr_hold_5050">50/50バランスを維持します。微調整のみ！</string>
+    <string name="instr_good_work_relax">よくできました！リラックスして軽くスピンします</string>
+    <string name="instr_easy_spin_form">軽くスピニング、フォームに集中</string>
+    <string name="instr_keep_ps_25">スムーズネスを25%%以上に維持。完全な円で！</string>
+    <string name="instr_great_effort">素晴らしい努力！軽くスピンします</string>
+    <string name="instr_start_normal_cadence">通常のケイデンスで始めます</string>
+    <string name="instr_increase_cadence_100">ケイデンスを100+ rpmまで徐々に上げます</string>
+    <string name="instr_keep_ps_high_cadence">高ケイデンスでスムーズネスを20%%以上に維持！</string>
+    <string name="instr_reduce_cadence_smooth">ケイデンスを徐々に下げ、スムーズを維持します</string>
+    <string name="instr_observe_balance">自然にスピンし、バランスを観察します</string>
+    <string name="instr_emphasize_left">左脚を強調します</string>
+    <string name="instr_return_center">センターに戻り、50/50バランス</string>
+    <string name="instr_emphasize_right">右脚を強調します</string>
+    <string name="instr_feel_symmetry">センターに戻り、対称性を感じます</string>
+    <string name="instr_notice_improvement">自然にスピンし、改善に気づきます</string>
+    <string name="instr_warmup_easy">軽くスピニングでウォームアップ</string>
+    <string name="instr_focus_even_balance">均等なバランス、50/50パワーに集中</string>
+    <string name="instr_smooth_circular">滑らかで円形のペダルストロークに集中</string>
+    <string name="instr_shake_out">軽くスピニング、脚を振ってほぐす</string>
+    <string name="instr_optimize_te">トルク効率を70-80%%に最適化</string>
+    <string name="instr_combine_all">さあ組み合わせて: バランス + スムーズ + 効率的</string>
+    <string name="instr_appreciate_effort">軽くスピニング、努力に感謝</string>
+    <string name="instr_prepare_mentally">軽くスピニング、精神的に準備</string>
+    <string name="instr_strong_left">左脚を強く強調</string>
+    <string name="instr_strong_right">右脚を強く強調</string>
+    <string name="instr_perfect_5050">完璧なバランス、50/50</string>
+    <string name="instr_max_smoothness">最大スムーズネス、デッドスポットを排除</string>
+    <string name="instr_easy_recover">軽くスピニング、リカバー</string>
+    <string name="instr_dial_te">TEを72-78%%ゾーンに調整</string>
+    <string name="instr_increase_cadence_form">ケイデンスを上げ、フォームを維持</string>
+    <string name="instr_combine_skills">全てのスキルを組み合わせ: バランス + スムーズ + 効率的</string>
+    <string name="instr_appreciate_mastery">軽くスピニング、マスタリーワークに感謝</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">パワーが左脚から来ているとイメージしてください</string>
+    <string name="tip_dont_neglect_right">右脚を完全に無視しないでください</string>
+    <string name="tip_maintain_cadence">全体を通してスムーズなケイデンスを維持してください</string>
+    <string name="tip_visualize_right">パワーが右脚から来ているとイメージしてください</string>
+    <string name="tip_dont_neglect_left">左脚を完全に無視しないでください</string>
+    <string name="tip_think_360">ペダルストローク全体の360°について考えてください</string>
+    <string name="tip_engage_hamstrings">下部でハムストリングスを使ってください</string>
+    <string name="tip_pull_up">バックストロークで軽く引き上げてください</string>
+    <string name="tip_core_stability">安定性のために体幹を使ってください</string>
+    <string name="tip_te_above_80">80%%以上のTEは実際に総パワーを減少させることがあります</string>
+    <string name="tip_focus_70_80">70-80%%の最適ゾーンに集中してください</string>
+    <string name="tip_dont_sacrifice">リカバリーフェーズのためにメインパワーフェーズを犠牲にしないでください</string>
+    <string name="tip_equal_pressure">両脚からの均等な圧力に集中してください</string>
+    <string name="tip_minor_imbalance">わずかなアンバランスは正常です、ゾーンを目指してください</string>
+    <string name="tip_steady_cadence">ケイデンスを安定させ、数字を追いかけないでください</string>
+    <string name="tip_elite_smoothness">エリートサイクリストは25-35%%のスムーズネスを維持しています</string>
+    <string name="tip_engage_all_muscles">ストローク全体を通して全ての筋肉群を使ってください</string>
+    <string name="tip_moderate_cadence">適度なケイデンスを維持（85-95 rpmが効果的）</string>
+    <string name="tip_smoothness_drops">スムーズネスは非常に高いケイデンスでは自然に低下します</string>
+    <string name="tip_relax_hips">腰をリラックスさせることに集中してください</string>
+    <string name="tip_dont_bounce">サドルで跳ねないでください</string>
+    <string name="tip_core_crucial">体幹の安定性が重要です</string>
+    <string name="tip_identify_weaker">このワークアウトは弱い方の脚を特定するのに役立ちます</string>
+    <string name="tip_neural_pathways">定期的な練習は神経経路を改善します</string>
+    <string name="tip_dont_force">極端なアンバランスを強制しないでください</string>
+    <string name="tip_no_perfection">全ての指標で一度に完璧を期待しないでください</string>
+    <string name="tip_one_at_time">最初は一度に1つの側面に集中してください</string>
+    <string name="tip_regular_practice">定期的な練習で進歩します</string>
+    <string name="tip_notice_hardest">どの指標が最も難しいかに注目してください</string>
+    <string name="tip_demanding_session">これは厳しいセッションです - 十分に休息してから行ってください</string>
+    <string name="tip_phases_build">各フェーズは前のスキルの上に構築されます</string>
+    <string name="tip_quality_over_perfection">完璧よりも質に集中してください</string>
+    <string name="tip_track_progress">複数のセッションで進捗を追跡してください</string>
+    <string name="tip_once_twice_week">これを週1-2回行うことを検討してください</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">初ライド</string>
+    <string name="achievement_getting_started">スタート</string>
+    <string name="achievement_dedicated">献身的</string>
+    <string name="achievement_century">センチュリー</string>
+    <string name="achievement_balanced">バランスの取れた</string>
+    <string name="achievement_well_balanced">よくバランスの取れた</string>
+    <string name="achievement_master_of_balance">バランスマスター</string>
+    <string name="achievement_efficient_rider">効率的なライダー</string>
+    <string name="achievement_smooth_operator">スムーズオペレーター</string>
+    <string name="achievement_getting_consistent">一貫性を身につける</string>
+    <string name="achievement_weekly_warrior">ウィークリーウォリアー</string>
+    <string name="achievement_two_week_hero">2週間ヒーロー</string>
+    <string name="achievement_monthly_master">マンスリーマスター</string>
+    <string name="achievement_practice_perfect">練習は完璧を作る</string>
+    <string name="achievement_drill_enthusiast">ドリル愛好家</string>
+    <string name="achievement_perfect_form">パーフェクトフォーム</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">初めての記録されたライドを完了しました</string>
+    <string name="achievement_getting_started_desc">記録されたライドを10回完了しました</string>
+    <string name="achievement_dedicated_desc">記録されたライドを50回完了しました</string>
+    <string name="achievement_century_desc">記録されたライドを100回完了しました</string>
+    <string name="achievement_balanced_desc">5%%未満のバランス偏差でライドを終了しました</string>
+    <string name="achievement_well_balanced_desc">3%%未満のバランス偏差で5回ライドを終了しました</string>
+    <string name="achievement_master_of_balance_desc">2.5%%未満のバランス偏差で20回ライドを終了しました</string>
+    <string name="achievement_efficient_rider_desc">ライドで70-80%%のTE平均を維持しました</string>
+    <string name="achievement_smooth_operator_desc">ライドで25%%以上のPS平均を達成しました</string>
+    <string name="achievement_getting_consistent_desc">3日連続でライドしました</string>
+    <string name="achievement_weekly_warrior_desc">7日連続でライドしました</string>
+    <string name="achievement_two_week_hero_desc">14日連続でライドしました</string>
+    <string name="achievement_monthly_master_desc">30日連続でライドしました</string>
+    <string name="achievement_practice_perfect_desc">初めてのドリルを完了しました</string>
+    <string name="achievement_drill_enthusiast_desc">ドリルを10回完了しました</string>
+    <string name="achievement_perfect_form_desc">いずれかのドリルで90%%以上のスコアを獲得しました</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">ライド</string>
+    <string name="category_balance">バランス</string>
+    <string name="category_efficiency">効率性</string>
+    <string name="category_streaks">連続記録</string>
+    <string name="category_drills">ドリル</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_system">システム</string>
+</resources>

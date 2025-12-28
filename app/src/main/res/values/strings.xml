@@ -706,5 +706,20 @@
     <!-- Languages -->
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_french">Français</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_ukrainian">Українська</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_hebrew">עברית</string>
+    <string name="language_arabic">العربية</string>
+    <string name="language_polish">Polski</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_danish">Dansk</string>
+    <string name="language_swedish">Svenska</string>
     <string name="language_system">System</string>
 </resources>

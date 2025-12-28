@@ -1018,7 +1018,7 @@
     "description": "Real-time pedaling efficiency analytics for Hammerhead Karoo bike computers. Displays power balance, torque effectiveness, and pedal smoothness with research-backed thresholds and guided training drills.",
     "url": "https://kpedal.com",
     "downloadUrl": "https://github.com/yrkan/kpedal/releases",
-    "softwareVersion": "1.0.0",
+    "softwareVersion": "1.3.0",
     "featureList": [
       "Real-time power balance monitoring",
       "Torque effectiveness analysis",

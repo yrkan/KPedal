@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">快速概览</string>
+    <string name="datatype_quick_glance_desc">带平衡条的状态指示器</string>
+
+    <string name="datatype_power_balance">功率 + 平衡</string>
+    <string name="datatype_power_balance_desc">功率与左/右平衡</string>
+
+    <string name="datatype_efficiency">效率</string>
+    <string name="datatype_efficiency_desc">扭矩效率和踏板平顺度</string>
+
+    <string name="datatype_full_overview">完整概览</string>
+    <string name="datatype_full_overview_desc">所有踏频指标一览</string>
+
+    <string name="datatype_balance_trend">平衡趋势</string>
+    <string name="datatype_balance_trend_desc">当前、3秒和10秒平衡</string>
+
+    <string name="datatype_single_balance">平衡</string>
+    <string name="datatype_single_balance_desc">左/右功率平衡全屏显示</string>
+
+    <string name="datatype_live">实时</string>
+    <string name="datatype_live_desc">所有指标及区间时间统计</string>
+
+    <!-- Labels -->
+    <string name="balance">平衡</string>
+    <string name="balance_lower">平衡</string>
+    <string name="balance_3s">3秒均值</string>
+    <string name="balance_10s">10秒均值</string>
+    <string name="power">功率</string>
+    <string name="power_lower">功率</string>
+    <string name="te">TE</string>
+    <string name="te_full">扭矩效率</string>
+    <string name="ps">PS</string>
+    <string name="ps_full">踏板平顺度</string>
+    <string name="left">左</string>
+    <string name="right">右</string>
+    <string name="lr">左/右</string>
+    <string name="lr_balance_format">左%1$d/右%2$d</string>
+    <string name="all_good">一切正常</string>
+    <string name="watt_symbol">W</string>
+    <string name="issue_count">%1$d 个问题</string>
+    <string name="issues_count">%1$d 个问题</string>
+    <string name="no_data">无数据</string>
+    <string name="no_data_lower">无数据</string>
+    <string name="avg">均值</string>
+
+    <!-- Settings -->
+    <string name="settings">设置</string>
+    <string name="preferences">偏好设置</string>
+    <string name="thresholds">阈值</string>
+    <string name="balance_threshold">平衡警报</string>
+    <string name="te_optimal">TE 最佳范围</string>
+    <string name="ps_minimum">PS 最小值</string>
+    <string name="alerts">警报</string>
+    <string name="vibration">振动</string>
+    <string name="sound">声音</string>
+    <string name="alert_settings">警报设置</string>
+    <string name="background_mode">后台模式</string>
+    <string name="background_mode_desc">为所有骑行收集数据</string>
+    <string name="cloud_sync">云同步</string>
+    <string name="cloud_sync_desc">同步到 app.kpedal.com</string>
+    <string name="language">语言</string>
+    <string name="settings_sync">同步</string>
+    <string name="settings_auto_sync">自动同步骑行</string>
+    <string name="settings_auto_sync_desc">每次骑行后同步</string>
+    <string name="settings_data_collection">数据采集</string>
+    <string name="settings_balance_threshold">平衡阈值</string>
+    <string name="settings_balance_threshold_desc">偏离50/50时触发警报的程度</string>
+    <string name="settings_te">扭矩效率</string>
+    <string name="settings_te_desc">被视为最佳的最低TE%%</string>
+    <string name="settings_ps">踏板平顺度</string>
+    <string name="settings_ps_desc">被视为最佳的最低PS%%</string>
+    <string name="settings_configure_alerts">配置警报</string>
+    <string name="settings_configure_alerts_desc">何时以及如何通知</string>
+    <string name="settings_about">关于</string>
+    <string name="settings_version">版本</string>
+    <string name="settings_privacy">隐私政策</string>
+    <string name="settings_contact">联系我们</string>
+    <string name="settings_linked_account">已关联账户</string>
+    <string name="settings_sync_desc">将骑行同步到 app.kpedal.com</string>
+    <string name="settings_enter_code">在以下网址输入此代码</string>
+    <string name="settings_code_expired">代码已过期</string>
+    <string name="settings_code_expired_desc">请求新代码</string>
+    <string name="settings_get_new_code">获取新代码</string>
+    <string name="settings_access_denied">访问被拒绝</string>
+    <string name="settings_access_denied_desc">授权已取消</string>
+    <string name="settings_try_again">重试</string>
+    <string name="settings_connection_failed">连接失败</string>
+    <string name="settings_connection_failed_desc">请重试</string>
+    <string name="settings_last_sync">上次同步：%1$s</string>
+    <string name="settings_never_synced">从未同步</string>
+    <string name="settings_pending">%1$d 待同步</string>
+    <string name="settings_up_to_date">已是最新</string>
+    <string name="settings_sync_now">立即同步</string>
+    <string name="settings_device_revoked_desc">此设备已从您的账户断开连接。您需要重新登录才能同步骑行数据。</string>
+    <string name="ok">确定</string>
+
+    <!-- Account -->
+    <string name="account">账户</string>
+    <string name="link_account">关联账户</string>
+    <string name="link_account_desc">跨设备同步骑行</string>
+    <string name="why_how_sync">为什么以及如何同步到云端？</string>
+    <string name="account_linked">账户已关联！</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">云同步</string>
+    <string name="cloud_sync_why_title">为什么要同步？</string>
+    <string name="cloud_sync_why_1">在任何设备上查看骑行历史和分析</string>
+    <string name="cloud_sync_why_2">详细图表和每分钟快照</string>
+    <string name="cloud_sync_why_3">通过成就追踪进步</string>
+    <string name="cloud_sync_why_4">设备重置时不会丢失数据</string>
+    <string name="cloud_sync_how_title">如何关联？</string>
+    <string name="cloud_sync_how_1">点击上方的"关联账户"</string>
+    <string name="cloud_sync_how_2">记下显示的8位代码</string>
+    <string name="cloud_sync_how_3">在任何设备上访问 link.kpedal.com</string>
+    <string name="cloud_sync_how_3_prefix">访问</string>
+    <string name="cloud_sync_how_4">输入代码并使用 Google 登录</string>
+    <string name="cloud_sync_how_5">完成！骑行将自动同步</string>
+    <string name="cloud_sync_what_syncs">同步哪些内容？</string>
+    <string name="cloud_sync_syncs_rides">骑行摘要及每分钟快照</string>
+    <string name="cloud_sync_syncs_metrics">功率、心率、踏频、距离、海拔</string>
+    <string name="cloud_sync_syncs_drills">训练结果和成就</string>
+    <string name="cloud_sync_syncs_settings">警报和阈值设置</string>
+    <string name="cloud_sync_not_syncs">不收集 GPS/路线数据</string>
+    <string name="cloud_sync_free">免费且无广告。您的数据属于您。</string>
+    <string name="sign_out">退出登录</string>
+    <string name="sync">同步</string>
+    <string name="syncing">同步中…</string>
+    <string name="synced">已同步</string>
+    <string name="sync_failed">同步失败</string>
+    <string name="offline">离线</string>
+    <string name="getting_code">正在获取代码…</string>
+    <string name="waiting_auth">等待授权…</string>
+    <string name="device_disconnected">设备已断开</string>
+    <string name="device_disconnected_desc">此设备已从您的账户断开连接。请重新关联以继续同步。</string>
+    <string name="relink">重新关联账户</string>
+
+    <!-- Live -->
+    <string name="live">实时</string>
+    <string name="current_ride">当前骑行</string>
+    <string name="time_in_zone">区间时间</string>
+    <string name="waiting_pedal_data">等待踏板数据…</string>
+    <string name="start_riding">开始骑行或检查踏板连接</string>
+    <string name="save">保存</string>
+    <string name="saved">已保存 ✓</string>
+    <string name="opt">最佳</string>
+    <string name="att">注意</string>
+    <string name="prob">问题</string>
+
+    <!-- Home Screen -->
+    <string name="drills">训练</string>
+    <string name="practice">练习</string>
+    <string name="rides">骑行</string>
+    <string name="avg_bal">均值平衡</string>
+    <string name="streak">连续</string>
+    <string name="streak_days">%1$d天</string>
+    <string name="section_data">数据</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">更多</string>
+    <string name="history">历史</string>
+    <string name="saved_rides">已保存骑行</string>
+    <string name="analytics">分析</string>
+    <string name="trends">趋势</string>
+    <string name="achievements">成就</string>
+    <string name="challenges">挑战</string>
+    <string name="weekly_goal">每周目标</string>
+    <string name="data_fields">数据字段</string>
+    <string name="layouts_count">6 种布局</string>
+    <string name="pedal_status">踏板状态</string>
+    <string name="connection">连接</string>
+    <string name="quick_guide">快速指南</string>
+    <string name="last_ride">上次骑行</string>
+    <string name="optimal">最佳</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">正在监控踏频指标</string>
+    <string name="notification_channel_name">KPedal 后台</string>
+    <string name="notification_channel_description">在所有骑行期间监控踏频指标</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">启用警报</string>
+    <string name="metrics_to_monitor">监控指标</string>
+    <string name="sensitivity">灵敏度</string>
+    <string name="critical">关键</string>
+    <string name="critical_desc">仅重大问题</string>
+    <string name="sensitive">敏感</string>
+    <string name="sensitive_desc">更频繁的警报</string>
+    <string name="notify_via">通知方式</string>
+    <string name="vibrate">振动</string>
+    <string name="banner">横幅</string>
+    <string name="options">选项</string>
+    <string name="wake_screen">唤醒屏幕</string>
+    <string name="cooldown">冷却时间</string>
+    <string name="cooldown_15s">15秒</string>
+    <string name="cooldown_30s">30秒</string>
+    <string name="cooldown_1m">1分钟</string>
+    <string name="cooldown_2m">2分钟</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">数据字段布局</string>
+    <string name="tap_to_preview">点击在 Karoo 上预览布局</string>
+    <string name="layout_quick_glance_short">状态 + 平衡条</string>
+    <string name="layout_power_balance_short">大号左/右显示</string>
+    <string name="layout_efficiency_short">TE 和 PS 指标</string>
+    <string name="layout_full_overview_short">所有指标紧凑显示</string>
+    <string name="layout_balance_trend_short">3秒/10秒平滑</string>
+    <string name="layout_single_balance_short">仅平衡</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">已连接</string>
+    <string name="disconnected">已断开</string>
+    <string name="live_data">实时数据</string>
+    <string name="data_flowing">数据传输正常</string>
+    <string name="signal_details">信号详情</string>
+    <string name="troubleshooting">故障排除</string>
+    <string name="quality">质量</string>
+    <string name="excellent">优秀</string>
+    <string name="fair">一般</string>
+    <string name="poor">较差</string>
+    <string name="unknown">未知</string>
+    <string name="update_rate">更新频率</string>
+    <string name="last_update">上次更新</string>
+    <string name="pedal_tip_start_riding">开始骑行以检测踏板</string>
+    <string name="pedal_tip_ensure_paired">确保踏板已与 Karoo 配对</string>
+    <string name="pedal_tip_check_battery">检查踏板电池</string>
+    <string name="pedal_tip_low_rate">低更新率可能表示有干扰</string>
+    <string name="pedal_tip_move_away">远离其他 ANT+ 设备</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">骑行历史</string>
+    <string name="rides_count">%1$d 次骑行</string>
+    <string name="no_rides">无骑行</string>
+    <string name="no_rides_saved">未保存骑行</string>
+    <string name="no_matching_rides">没有匹配的骑行</string>
+    <string name="try_adjusting_filter">尝试调整筛选条件</string>
+    <string name="rides_saved_auto">骑行将自动保存</string>
+    <string name="manual">手动</string>
+    <string name="percent_optimal">%1$d%% 最佳</string>
+    <string name="load_more">加载更多</string>
+    <string name="delete_ride">删除骑行？</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">评分</string>
+    <string name="suggested_stars">建议：%1$d 星</string>
+    <string name="overall">总体</string>
+    <string name="efficiency">效率</string>
+    <string name="consistency">一致性</string>
+    <string name="analysis">分析</string>
+    <string name="strengths">优势</string>
+    <string name="areas_to_improve">待改进</string>
+    <string name="attention">注意</string>
+    <string name="problem">问题</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">无骑行数据</string>
+    <string name="complete_rides_to_see">完成一些骑行以查看趋势</string>
+    <string name="period_averages">周期平均值</string>
+    <string name="progress_label">进展</string>
+    <string name="stable">稳定</string>
+    <string name="avg_balance_label">平均平衡</string>
+    <string name="balance_trend_title">平衡趋势</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">骑行</string>
+    <string name="section_balance">平衡</string>
+    <string name="section_efficiency">效率</string>
+    <string name="section_streaks">连续</string>
+    <string name="section_drills">训练</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">历史</string>
+    <string name="my_drills">我的训练</string>
+    <string name="built_in_drills">内置训练</string>
+    <string name="create_custom_drill">创建自定义训练</string>
+    <string name="custom">自定义</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">最佳 %1$d%%</string>
+    <string name="start">开始</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">下一个</string>
+    <string name="stop">停止</string>
+    <string name="pause">暂停</string>
+    <string name="paused">已暂停</string>
+    <string name="resume">继续</string>
+    <string name="rpm">转/分</string>
+    <string name="in_zone">在区间内</string>
+    <string name="spin_easy">轻松转动</string>
+    <string name="complete">完成</string>
+    <string name="stopped">已停止</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">新纪录！</string>
+    <string name="done">完成</string>
+    <string name="retry">重试</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">清除</string>
+    <string name="no_history">无历史</string>
+    <string name="clear_all_question">清除全部？</string>
+    <string name="delete_question">删除？</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">新训练</string>
+    <string name="edit_drill">编辑训练</string>
+    <string name="name_your_drill">命名您的训练</string>
+    <string name="drill_name_placeholder">例如：平衡专注、高 TE</string>
+    <string name="what_to_focus">专注于什么？</string>
+    <string name="balance_option">平衡</string>
+    <string name="lr_power_distribution">左/右功率分配</string>
+    <string name="torque_effectiveness_option">扭矩效率</string>
+    <string name="power_transfer_efficiency">功率传递效率</string>
+    <string name="pedal_smoothness_option">踏板平顺度</string>
+    <string name="circular_pedal_stroke">圆滑踏板行程</string>
+    <string name="how_long">时长？</string>
+    <string name="quick_select">快速选择</string>
+    <string name="or_set_custom">或自定义设置</string>
+    <string name="minutes">分钟</string>
+    <string name="seconds">秒</string>
+    <string name="total_duration">总计：%1$s</string>
+    <string name="min_10_seconds">最少10秒</string>
+    <string name="set_your_target">设置目标</string>
+    <string name="above">高于</string>
+    <string name="above_value">≥ 值</string>
+    <string name="below">低于</string>
+    <string name="below_value">≤ 值</string>
+    <string name="range">范围</string>
+    <string name="min_max">最小-最大</string>
+    <string name="minimum">最小值</string>
+    <string name="maximum">最大值</string>
+    <string name="preview">预览</string>
+    <string name="metric">指标</string>
+    <string name="duration">时长</string>
+    <string name="target">目标</string>
+    <string name="custom_drill_desc">自定义 %1$s 训练</string>
+    <string name="torque_eff_short">扭矩效率</string>
+    <string name="smoothness_short">平顺度</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">每周挑战</string>
+    <string name="active">进行中</string>
+    <string name="days_left_this_week">本周剩余 %1$d 天</string>
+    <string name="completed_upper">已完成</string>
+    <string name="this_week">本周</string>
+    <string name="all_challenges">所有挑战</string>
+    <string name="next_week">下周</string>
+
+    <!-- Onboarding -->
+    <string name="skip">跳过</string>
+    <string name="get_started">开始使用</string>
+    <string name="onboarding_welcome_title">欢迎使用 KPedal</string>
+    <string name="onboarding_welcome_desc">来自功率踏板的实时踏频指标。追踪平衡、效率和平顺度以改善您的技术。</string>
+    <string name="onboarding_data_fields_title">数据字段</string>
+    <string name="onboarding_data_fields_desc">将 KPedal 数据字段添加到您的 Karoo 屏幕以在骑行期间查看指标。可从6种不同布局中选择。</string>
+    <string name="onboarding_drills_title">训练</string>
+    <string name="onboarding_drills_desc">通过引导式训练来改善您的踏频技术。每个训练针对踏板行程的特定方面。</string>
+    <string name="onboarding_alerts_title">警报</string>
+    <string name="onboarding_alerts_desc">当指标超出最佳范围时获得通知。在设置中配置警报。</string>
+    <string name="onboarding_background_title">后台数据</string>
+    <string name="onboarding_background_desc">KPedal 会自动为您的所有骑行收集踏频指标。如果您愿意，可以在设置中禁用此功能。</string>
+    <string name="onboarding_cloud_title">云同步</string>
+    <string name="onboarding_cloud_desc">使用 Google 登录以同步骑行数据并在 app.kpedal.com 查看分析。这是可选的 - 在您同步之前，数据将保留在设备上。</string>
+
+    <!-- Help Screen -->
+    <string name="help">帮助</string>
+    <string name="section_metrics">指标</string>
+    <string name="section_colors">颜色</string>
+    <string name="section_setup">设置</string>
+    <string name="section_tips">技巧</string>
+    <string name="section_faq">常见问题</string>
+    <string name="section_troubleshooting">故障排除</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">左/右功率分配</string>
+    <string name="help_balance_note">2-5%% 不对称是正常的</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">扭矩效率</string>
+    <string name="help_te_note">越高不一定越好！会限制功率</string>
+    <string name="help_ps_range">≥20%%</string>
+    <string name="help_ps_desc">踏板平顺度</string>
+    <string name="help_ps_note">精英水平：25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">功率平衡</string>
+    <string name="metric_balance_short">左/右功率分配</string>
+    <string name="metric_balance_explanation">功率平衡显示您左右腿之间功率分配的均匀程度。完美的平衡是50/50，但轻微的不对称（48-52%%）是正常的，不必担心。</string>
+    <string name="metric_balance_optimal">48-52%%（最佳），45-55%%（可接受）</string>
+    <string name="metric_balance_tip1">专注于整个踏板行程中的均匀压力</string>
+    <string name="metric_balance_tip2">尝试单腿训练来加强较弱的一侧</string>
+    <string name="metric_balance_tip3">检查您的车架设置 - 座垫高度会影响平衡</string>
+    <string name="metric_balance_tip4">轻微的不平衡是正常的，通常会自行纠正</string>
+    <string name="metric_balance_tip5">不要过于纠结骑行期间的小波动</string>
+    <string name="metric_balance_research">研究表明大多数骑行者有1-5%%的自然不平衡。职业骑行者平均为48-52%%。</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">扭矩效率</string>
+    <string name="metric_te_short">踏板行程效率</string>
+    <string name="metric_te_explanation">扭矩效率（TE）衡量踏板运动中有多少有助于向前推进。100%%的分数意味着行程的每个部分都在增加功率，但这既不现实也不是最佳状态。</string>
+    <string name="metric_te_optimal">70-80%%（最佳，不是更高）</string>
+    <string name="metric_te_tip1">专注于在行程底部拉动</string>
+    <string name="metric_te_tip2">想象在底部刮掉鞋上的泥</string>
+    <string name="metric_te_tip3">更高的 TE（>80%%）通常会降低主要功率输出</string>
+    <string name="metric_te_tip4">平稳、圆滑的踏频比强迫高 TE 更有效</string>
+    <string name="metric_te_tip5">TE 会随踏频和功率自然变化</string>
+    <string name="metric_te_research">Wattbike 研究表明 TE 超过80%%实际上会降低功率输出。精英骑行者目标是70-80%%。</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">踏板平顺度</string>
+    <string name="metric_ps_short">功率输出一致性</string>
+    <string name="metric_ps_explanation">踏板平顺度（PS）显示整个踏板行程中功率施加的均匀程度。更高的值意味着更一致的功率输出，峰值和低谷更少。</string>
+    <string name="metric_ps_optimal">20%%+（良好），25-35%%（精英）</string>
+    <string name="metric_ps_tip1">练习高踏频转动训练</string>
+    <string name="metric_ps_tip2">专注于消除行程中的死点</string>
+    <string name="metric_ps_tip3">在整个旋转过程中保持一致的压力</string>
+    <string name="metric_ps_tip4">较低的档位和较高的踏频通常会改善平顺度</string>
+    <string name="metric_ps_tip5">PS 在非常高的功率输出时自然会降低</string>
+    <string name="metric_ps_research">职业骑行者通常达到25-35%%的踏板平顺度。</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">白色</string>
+    <string name="color_green">绿色</string>
+    <string name="color_yellow">黄色</string>
+    <string name="color_red">红色</string>
+    <string name="color_white_meaning">正常 / 无数据</string>
+    <string name="color_green_meaning">最佳范围</string>
+    <string name="color_yellow_meaning">需要注意</string>
+    <string name="color_red_meaning">问题</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo → 配置文件 → 数据字段</string>
+    <string name="setup_step2">点击位置 → 更多数据 → kpedal</string>
+    <string name="setup_step3">选择布局</string>
+    <string name="setup_step4">配对踏板（ANT+）</string>
+    <string name="setup_step5">开始骑行</string>
+    <string name="setup_requires">需要：Garmin Rally、Favero Assioma、SRM、Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">针对弱侧的单腿训练</string>
+    <string name="tips_balance_2">检查锁片位置</string>
+    <string name="tips_balance_3">疲劳会增加不对称</string>
+    <string name="tips_te_1">不要追求100%%</string>
+    <string name="tips_te_2">在行程底部刮泥</string>
+    <string name="tips_te_3">减重，不要上拉</string>
+    <string name="tips_ps_1">较高踏频有帮助</string>
+    <string name="tips_ps_2">消除死点</string>
+    <string name="tips_ps_3">在滚筒上练习</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">问：%1$s</string>
+    <string name="faq_te85_q">TE 85%%+ 不好吗？</string>
+    <string name="faq_te85_a">是的。70-80%%是最佳的。更高会限制下压功率。</string>
+    <string name="faq_balance_q">平衡 45/55 可以吗？</string>
+    <string name="faq_balance_a">可以。±5%%是正常的。只有>10%%才需要关注。</string>
+    <string name="faq_jump_q">数值跳动？</string>
+    <string name="faq_jump_a">关注平均值，而不是即时值。</string>
+    <string name="faq_compare_q">与他人比较？</string>
+    <string name="faq_compare_a">不要。追踪自己的趋势。</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">无数据</string>
+    <string name="trouble_nodata_fix">检查踏板是否在 Karoo 设置中配对。开始踩踏。</string>
+    <string name="trouble_balance_only">只有平衡，没有 TE/PS</string>
+    <string name="trouble_balance_only_fix">踏板可能不支持 TE/PS（例如 Wahoo POWRLINK）。</string>
+    <string name="trouble_stuck">数值卡住</string>
+    <string name="trouble_stuck_fix">重新开始骑行。检查电池。重新配对踏板。</string>
+    <string name="trouble_crash">应用崩溃</string>
+    <string name="trouble_crash_fix">重启应用。重启 Karoo。重新安装。</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">左腿专注</string>
+    <string name="drill_right_leg_focus">右腿专注</string>
+    <string name="drill_smooth_circles">平滑圆圈</string>
+    <string name="drill_power_transfer">功率传递</string>
+    <string name="drill_balance_challenge">平衡挑战</string>
+    <string name="drill_smoothness_target">平顺度目标</string>
+    <string name="drill_high_cadence_smooth">高踏频平顺</string>
+    <string name="drill_balance_recovery">平衡恢复</string>
+    <string name="drill_efficiency_builder">效率构建</string>
+    <string name="drill_pedaling_mastery">踏频精通</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">增强左腿功率输出</string>
+    <string name="drill_right_leg_focus_desc">增强右腿功率输出</string>
+    <string name="drill_smooth_circles_desc">改善踏板行程平顺度</string>
+    <string name="drill_power_transfer_desc">最大化功率向前运动转换</string>
+    <string name="drill_balance_challenge_desc">保持完美的左/右平衡</string>
+    <string name="drill_smoothness_target_desc">持续达到平顺度目标</string>
+    <string name="drill_high_cadence_smooth_desc">在高转速下保持平顺</string>
+    <string name="drill_balance_recovery_desc">发力后恢复平衡</string>
+    <string name="drill_efficiency_builder_desc">结合 TE 和 PS 提高效率</string>
+    <string name="drill_pedaling_mastery_desc">精通所有踏频指标</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">热身</string>
+    <string name="phase_focus">专注</string>
+    <string name="phase_maintain">保持</string>
+    <string name="phase_recover">恢复</string>
+    <string name="phase_build">构建</string>
+    <string name="phase_push">推进</string>
+    <string name="phase_hold">维持</string>
+    <string name="phase_rest">休息</string>
+    <string name="phase_prepare">准备</string>
+    <string name="phase_cooldown">放松</string>
+    <string name="phase_left_focus">左侧专注</string>
+    <string name="phase_right_focus">右侧专注</string>
+    <string name="phase_smooth_circles">平滑圆圈</string>
+    <string name="phase_max_transfer">最大传递</string>
+    <string name="phase_find_center">找到中心</string>
+    <string name="phase_hold_balance">保持平衡</string>
+    <string name="phase_relax">放松</string>
+    <string name="phase_target_zone">目标区间</string>
+    <string name="phase_normal_cadence">正常踏频</string>
+    <string name="phase_build_cadence">提高踏频</string>
+    <string name="phase_hold_smooth">保持平顺</string>
+    <string name="phase_wind_down">逐渐放松</string>
+    <string name="phase_baseline">基准</string>
+    <string name="phase_left_emphasis">左侧强调</string>
+    <string name="phase_center">中心</string>
+    <string name="phase_right_emphasis">右侧强调</string>
+    <string name="phase_center_again">再次居中</string>
+    <string name="phase_natural_finish">自然结束</string>
+    <string name="phase_balance_focus">平衡专注</string>
+    <string name="phase_smoothness_block">平顺度训练块</string>
+    <string name="phase_recovery">恢复期</string>
+    <string name="phase_te_focus">TE 专注</string>
+    <string name="phase_combined">综合</string>
+    <string name="phase_activation">激活</string>
+    <string name="phase_left_isolation">左腿单独</string>
+    <string name="phase_right_isolation">右腿单独</string>
+    <string name="phase_perfect_balance">完美平衡</string>
+    <string name="phase_smoothness_focus">平顺度专注</string>
+    <string name="phase_te_optimization">TE 优化</string>
+    <string name="phase_high_cadence_test">高踏频测试</string>
+    <string name="phase_integration">整合</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">轻松转动</string>
+    <string name="phase_desc_emphasize_left">强调左腿</string>
+    <string name="phase_desc_return_normal">恢复正常</string>
+    <string name="phase_desc_emphasize_right">强调右腿</string>
+    <string name="phase_desc_find_rhythm">找到节奏</string>
+    <string name="phase_desc_max_smoothness">最大化平顺度</string>
+    <string name="phase_desc_increase_focus">逐渐增加专注</string>
+    <string name="phase_desc_optimize_te">优化 TE</string>
+    <string name="phase_desc_easy_spin">轻松转动</string>
+    <string name="phase_desc_center_power">居中功率</string>
+    <string name="phase_desc_hold_5050">保持 50/50</string>
+    <string name="phase_desc_release_focus">释放专注</string>
+    <string name="phase_desc_loosen_up">放松</string>
+    <string name="phase_desc_hold_ps_25">保持 PS ≥25%%</string>
+    <string name="phase_desc_recover">恢复</string>
+    <string name="phase_desc_establish_baseline">建立基准</string>
+    <string name="phase_desc_increase_100rpm">增加到 100+ 转/分</string>
+    <string name="phase_desc_smooth_high_cadence">高踏频下保持平顺</string>
+    <string name="phase_desc_return_to_normal">恢复正常</string>
+    <string name="phase_desc_find_natural_balance">找到自然平衡</string>
+    <string name="phase_desc_focus_left">专注左侧</string>
+    <string name="phase_desc_find_5050">找到 50/50</string>
+    <string name="phase_desc_focus_right">专注右侧</string>
+    <string name="phase_desc_spin_naturally">自然转动</string>
+    <string name="phase_desc_smooth_circles">平滑圆圈</string>
+    <string name="phase_desc_power_transfer">功率传递</string>
+    <string name="phase_desc_all_metrics">所有指标</string>
+    <string name="phase_desc_wind_down">逐渐放松</string>
+    <string name="phase_desc_wake_legs">唤醒双腿</string>
+    <string name="phase_desc_left_focus">左侧专注</string>
+    <string name="phase_desc_right_focus">右侧专注</string>
+    <string name="phase_desc_5050_hold">50/50 保持</string>
+    <string name="phase_desc_circular_motion">圆周运动</string>
+    <string name="phase_desc_speed_form">速度 + 姿势</string>
+    <string name="phase_desc_everything_together">综合所有</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">轻松转动，准备专注</string>
+    <string name="instr_focus_left_leg">专注用左腿推动</string>
+    <string name="instr_relax_spin_normally">放松，正常转动</string>
+    <string name="instr_focus_right_leg">专注用右腿推动</string>
+    <string name="instr_settle_cadence">找到舒适的踏频</string>
+    <string name="instr_smooth_circles">想象画平滑的圆圈。在底部刮掉鞋上的泥。</string>
+    <string name="instr_maintain_feeling">放松，保持这种感觉</string>
+    <string name="instr_feel_power_transfer">轻松开始，专注感受功率传递</string>
+    <string name="instr_apply_power">在整个行程中施加功率。避免猛踩。</string>
+    <string name="instr_spin_easy_recover">轻松转动，让双腿恢复</string>
+    <string name="instr_find_balance_point">找到你的自然平衡点</string>
+    <string name="instr_hold_5050">保持 50/50 平衡。只做小调整！</string>
+    <string name="instr_good_work_relax">干得好！放松，轻松转动</string>
+    <string name="instr_easy_spin_form">轻松转动，专注姿势</string>
+    <string name="instr_keep_ps_25">保持平顺度在25%%以上。完整的圆圈！</string>
+    <string name="instr_great_effort">非常努力！轻松转动</string>
+    <string name="instr_start_normal_cadence">从你的正常踏频开始</string>
+    <string name="instr_increase_cadence_100">逐渐将踏频增加到 100+ 转/分</string>
+    <string name="instr_keep_ps_high_cadence">在高踏频下保持平顺度在20%%以上！</string>
+    <string name="instr_reduce_cadence_smooth">逐渐降低踏频，保持平顺</string>
+    <string name="instr_observe_balance">自然转动，观察你的平衡</string>
+    <string name="instr_emphasize_left">强调你的左腿</string>
+    <string name="instr_return_center">回到中心，50/50 平衡</string>
+    <string name="instr_emphasize_right">强调你的右腿</string>
+    <string name="instr_feel_symmetry">回到中心，感受对称</string>
+    <string name="instr_notice_improvement">自然转动，注意任何改善</string>
+    <string name="instr_warmup_easy">轻松转动热身</string>
+    <string name="instr_focus_even_balance">专注均匀平衡，50/50 功率</string>
+    <string name="instr_smooth_circular">专注平滑、圆滑的踏板行程</string>
+    <string name="instr_shake_out">轻松转动，抖动双腿</string>
+    <string name="instr_optimize_te">优化扭矩效率 70-80%%</string>
+    <string name="instr_combine_all">现在结合：平衡 + 平顺 + 高效</string>
+    <string name="instr_appreciate_effort">轻松转动，欣赏你的努力</string>
+    <string name="instr_prepare_mentally">轻度转动，心理准备</string>
+    <string name="instr_strong_left">强烈的左腿强调</string>
+    <string name="instr_strong_right">强烈的右腿强调</string>
+    <string name="instr_perfect_5050">完美平衡，50/50</string>
+    <string name="instr_max_smoothness">最大化平顺度，消除死点</string>
+    <string name="instr_easy_recover">轻松转动，恢复</string>
+    <string name="instr_dial_te">将 TE 调整到 72-78%% 区间</string>
+    <string name="instr_increase_cadence_form">增加踏频，保持姿势</string>
+    <string name="instr_combine_skills">结合所有技能：平衡 + 平顺 + 高效</string>
+    <string name="instr_appreciate_mastery">轻松转动，欣赏你的精通训练</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">想象功率来自你的左腿</string>
+    <string name="tip_dont_neglect_right">不要完全忽视右腿</string>
+    <string name="tip_maintain_cadence">全程保持平稳踏频</string>
+    <string name="tip_visualize_right">想象功率来自你的右腿</string>
+    <string name="tip_dont_neglect_left">不要完全忽视左腿</string>
+    <string name="tip_think_360">考虑踏板行程的整个360°</string>
+    <string name="tip_engage_hamstrings">在底部激活腘绳肌</string>
+    <string name="tip_pull_up">在回程中轻微向上拉</string>
+    <string name="tip_core_stability">保持核心稳定</string>
+    <string name="tip_te_above_80">TE 超过80%%实际上可能降低总功率</string>
+    <string name="tip_focus_70_80">专注于 70-80%% 的最佳区间</string>
+    <string name="tip_dont_sacrifice">不要为了恢复阶段而牺牲主要功率阶段</string>
+    <string name="tip_equal_pressure">专注于双腿均匀施压</string>
+    <string name="tip_minor_imbalance">轻微不平衡是正常的，瞄准目标区间</string>
+    <string name="tip_steady_cadence">保持踏频稳定 - 不要追数字</string>
+    <string name="tip_elite_smoothness">精英骑行者保持 25-35%% 的平顺度</string>
+    <string name="tip_engage_all_muscles">在整个行程中激活所有肌肉群</string>
+    <string name="tip_moderate_cadence">保持适中踏频（85-95 转/分效果较好）</string>
+    <string name="tip_smoothness_drops">在非常高的踏频下平顺度自然会下降</string>
+    <string name="tip_relax_hips">专注于放松髋部</string>
+    <string name="tip_dont_bounce">不要在座垫上弹跳</string>
+    <string name="tip_core_crucial">核心稳定性至关重要</string>
+    <string name="tip_identify_weaker">这个训练有助于识别你较弱的腿</string>
+    <string name="tip_neural_pathways">定期练习可改善神经通路</string>
+    <string name="tip_dont_force">不要强迫极端的不平衡</string>
+    <string name="tip_no_perfection">不要期望所有指标同时完美</string>
+    <string name="tip_one_at_time">最初一次专注于一个方面</string>
+    <string name="tip_regular_practice">进步来自于定期练习</string>
+    <string name="tip_notice_hardest">注意哪个指标对你来说最难</string>
+    <string name="tip_demanding_session">这是一个要求很高的训练 - 确保休息充分</string>
+    <string name="tip_phases_build">每个阶段都建立在之前的技能之上</string>
+    <string name="tip_quality_over_perfection">专注于质量而不是完美</string>
+    <string name="tip_track_progress">跟踪多次训练的进展</string>
+    <string name="tip_once_twice_week">考虑每周做1-2次</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">首次骑行</string>
+    <string name="achievement_getting_started">开始上手</string>
+    <string name="achievement_dedicated">专注投入</string>
+    <string name="achievement_century">百次骑行</string>
+    <string name="achievement_balanced">平衡达人</string>
+    <string name="achievement_well_balanced">良好平衡</string>
+    <string name="achievement_master_of_balance">平衡大师</string>
+    <string name="achievement_efficient_rider">高效骑手</string>
+    <string name="achievement_smooth_operator">平顺专家</string>
+    <string name="achievement_getting_consistent">保持一致</string>
+    <string name="achievement_weekly_warrior">每周战士</string>
+    <string name="achievement_two_week_hero">两周英雄</string>
+    <string name="achievement_monthly_master">月度大师</string>
+    <string name="achievement_practice_perfect">熟能生巧</string>
+    <string name="achievement_drill_enthusiast">训练爱好者</string>
+    <string name="achievement_perfect_form">完美姿态</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">完成你的第一次记录骑行</string>
+    <string name="achievement_getting_started_desc">完成10次记录骑行</string>
+    <string name="achievement_dedicated_desc">完成50次记录骑行</string>
+    <string name="achievement_century_desc">完成100次记录骑行</string>
+    <string name="achievement_balanced_desc">以低于5%%的平衡偏差完成一次骑行</string>
+    <string name="achievement_well_balanced_desc">以低于3%%的平衡偏差完成5次骑行</string>
+    <string name="achievement_master_of_balance_desc">以低于2.5%%的平衡偏差完成20次骑行</string>
+    <string name="achievement_efficient_rider_desc">在一次骑行中保持70-80%% TE 平均值</string>
+    <string name="achievement_smooth_operator_desc">在一次骑行中达到25%%+ PS 平均值</string>
+    <string name="achievement_getting_consistent_desc">连续骑行3天</string>
+    <string name="achievement_weekly_warrior_desc">连续骑行7天</string>
+    <string name="achievement_two_week_hero_desc">连续骑行14天</string>
+    <string name="achievement_monthly_master_desc">连续骑行30天</string>
+    <string name="achievement_practice_perfect_desc">完成你的第一个训练</string>
+    <string name="achievement_drill_enthusiast_desc">完成10个训练</string>
+    <string name="achievement_perfect_form_desc">在任何训练中获得90%%+的分数</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">骑行</string>
+    <string name="category_balance">平衡</string>
+    <string name="category_efficiency">效率</string>
+    <string name="category_streaks">连续</string>
+    <string name="category_drills">训练</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_system">系统</string>
+</resources>

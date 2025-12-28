@@ -1,0 +1,1975 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "发生错误",
+    "loadError": "加载数据失败",
+    "retry": "重试",
+    "back": "返回",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "confirm": "确认",
+    "or": "或",
+    "today": "今天",
+    "yesterday": "昨天",
+    "daysAgo": "{days} 天前",
+    "noData": "暂无数据",
+    "toggleTheme": "切换主题",
+    "tableView": "表格视图",
+    "cardView": "卡片视图",
+    "backToDashboard": "返回仪表盘",
+    "remove": "移除"
+  },
+  "app": {
+    "name": "KPedal",
+    "tagline": "Karoo 踏频效率分析工具",
+    "version": "版本 1.3.0",
+    "webTitle": "KPedal 网页版"
+  },
+  "nav": {
+    "dashboard": "仪表盘",
+    "home": "首页",
+    "rides": "骑行",
+    "drills": "训练",
+    "achievements": "成就",
+    "goals": "目标",
+    "settings": "设置",
+    "profile": "个人资料",
+    "logout": "退出登录"
+  },
+  "auth": {
+    "signIn": "登录",
+    "signOut": "退出登录",
+    "continueWithGoogle": "使用 Google 账号登录",
+    "tryDemo": "试用演示",
+    "loadingDemo": "加载演示中...",
+    "createFreeAccount": "创建免费账户",
+    "secureOAuth": "安全 OAuth 2.0",
+    "googleVerified": "Google 已验证",
+    "privacyNote": "登录即表示您同意我们的",
+    "privacyPolicy": "隐私政策",
+    "demoNote": "使用示例数据探索仪表盘。",
+    "noSignupRequired": "无需注册。",
+    "backToLanding": "返回首页",
+    "signedInViaGoogle": "已通过 Google 登录",
+    "sessionExpires": "您的会话将在 7 天后过期",
+    "authenticating": "验证中...",
+    "signingIn": "正在登录...",
+    "redirectingToLogin": "正在跳转到登录页面...",
+    "missingTokens": "缺少身份验证令牌"
+  },
+  "errors": {
+    "invalidState": "安全验证失败，请重试。",
+    "authFailed": "身份验证失败，请重试。",
+    "somethingWrong": "出错了，请重试。",
+    "demoUnavailable": "演示模式暂时不可用，请稍后重试。",
+    "demoFailed": "启动演示模式失败，请重试。",
+    "failedToLoad": "加载数据失败",
+    "failedToConnect": "连接失败",
+    "failedToLoadRides": "加载骑行记录失败",
+    "failedToLoadDrills": "加载训练记录失败",
+    "failedToLoadMilestones": "加载里程碑失败",
+    "failedToLoadDevices": "加载设备失败",
+    "failedToLoadSettings": "加载设置失败"
+  },
+  "demo": {
+    "mode": "演示模式",
+    "viewingSampleData": "正在查看示例数据",
+    "tour": "导览"
+  },
+  "metrics": {
+    "balance": "平衡",
+    "balanceShort": "平衡",
+    "te": "扭矩效率",
+    "teShort": "TE",
+    "ps": "踏频平滑度",
+    "psShort": "PS",
+    "power": "功率",
+    "powerAvg": "平均功率",
+    "powerMax": "最大功率",
+    "normalizedPower": "标准化功率",
+    "npShort": "NP",
+    "cadence": "踏频",
+    "hr": "心率",
+    "hrShort": "HR",
+    "speed": "速度",
+    "distance": "距离",
+    "duration": "时长",
+    "elevation": "海拔",
+    "elevationGain": "爬升高度",
+    "energy": "能量",
+    "score": "得分",
+    "asymmetry": "不对称性",
+    "left": "左",
+    "right": "右",
+    "leftRight": "左/右",
+    "avg": "平均",
+    "max": "最大",
+    "total": "总计"
+  },
+  "zones": {
+    "title": "区间",
+    "optimal": "最佳",
+    "attention": "注意",
+    "problem": "问题",
+    "timeInZone": "区间时间",
+    "zoneStatus": "区间状态",
+    "description": {
+      "attention": "技术需要改进",
+      "optimal": "表现出色",
+      "problem": "存在明显问题"
+    }
+  },
+  "dashboard": {
+    "title": "仪表盘",
+    "period": {
+      "days7": "7 天",
+      "days14": "14 天",
+      "days30": "30 天",
+      "days60": "60 天",
+      "all": "全部时间",
+      "week": "周",
+      "month": "月",
+      "year": "年"
+    },
+    "stats": {
+      "rides": "{count, plural, one {# 次骑行} other {# 次骑行}}",
+      "hours": "{count}小时",
+      "km": "{value} 公里",
+      "avgScore": "平均得分"
+    },
+    "powerAsymmetry": "功率不对称",
+    "lrBalance": "左/右平衡",
+    "weeklyActivity": "每周活动",
+    "technique": "技术",
+    "trends": "趋势",
+    "recentRides": "最近骑行",
+    "thisWeek": "本周",
+    "lastWeek": "上周",
+    "vsLastWeek": "与上周对比",
+    "noRides": "该时间段内无骑行记录",
+    "viewAll": "查看全部 →",
+    "leftDominant": "左腿主导",
+    "rightDominant": "右腿主导",
+    "balanced": "平衡",
+    "hello": "您好，{name}！",
+    "startRiding": "开始骑行以查看您的数据",
+    "welcome": "欢迎，{name}！",
+    "weeklyChart": {
+      "rides": "骑行",
+      "title": "每周活动",
+      "hours": "小时"
+    },
+    "yourProgress": "您的进展",
+    "allTime": "全部时间",
+    "summary": {
+      "rides": "骑行",
+      "hours": "小时",
+      "km": "公里"
+    },
+    "comparison": {
+      "rides": "骑行次数",
+      "hours": "小时数",
+      "distance": "距离",
+      "climb": "爬升",
+      "balance": "平衡",
+      "optimal": "最佳"
+    },
+    "sections": {
+      "performance": "表现",
+      "insights": "洞察"
+    },
+    "perfStats": {
+      "score": "得分",
+      "optimal": "最佳",
+      "power": "功率",
+      "energy": "能量"
+    },
+    "trendCards": {
+      "balanceTrend": "平衡趋势",
+      "technique": "技术",
+      "asym": "不对称"
+    },
+    "trendStats": {
+      "current": "当前",
+      "average": "平均",
+      "spread": "波动",
+      "latest": "最新",
+      "best": "最佳"
+    },
+    "emptyStates": {
+      "needMoreRides": "需要更多骑行数据",
+      "needMoreData": "需要更多数据"
+    },
+    "progress": {
+      "title": "与前 {period} 天对比",
+      "score": "得分",
+      "optimalZone": "最佳区间",
+      "time": "时间",
+      "distance": "距离"
+    },
+    "table": {
+      "date": "日期",
+      "duration": "时长",
+      "asym": "不对称",
+      "zones": "区间",
+      "power": "功率",
+      "clickToView": "点击查看"
+    },
+    "actions": {
+      "downloadApk": "下载 APK",
+      "linkDevice": "连接设备"
+    },
+    "onboarding": {
+      "dashboardWillShow": "当您使用 KPedal 在 Karoo 上开始骑行后，仪表盘将显示实时踏频分析数据。",
+      "whatYouWillSee": "您将看到的内容",
+      "powerBalance": "功率平衡",
+      "proTarget": "专业目标：±2.5%",
+      "torqueEffectiveness": "扭矩效率",
+      "teOptimal": "最佳范围：70-80%",
+      "pedalSmoothness": "踏频平滑度",
+      "psOptimal": "最佳范围：≥20%",
+      "getStarted": "三步开始使用",
+      "step1Title": "安装到 Karoo",
+      "step1Desc": "下载 APK 并通过 USB 或 Karoo 浏览器安装",
+      "step2Title": "添加数据字段",
+      "step2Desc": "编辑您的骑行配置并添加 KPedal 数据字段",
+      "step3Title": "连接您的设备",
+      "step3Desc": "连接 Karoo 以自动同步骑行数据",
+      "exampleBalance": "50% 左 / 50% 右",
+      "exampleTe": "平均 72%",
+      "examplePs": "平均 22%",
+      "alreadyInstalled": "已安装？在 Karoo 上完成一次骑行——数据将在同步后显示在这里。"
+    },
+    "fatigue": {
+      "title": "疲劳（最近骑行）",
+      "trend": "趋势",
+      "dropped": "下降",
+      "slight": "轻微",
+      "stable": "稳定"
+    },
+    "units": {
+      "wAvg": "平均瓦",
+      "wMax": "最大瓦",
+      "rpm": "rpm",
+      "bpmAvg": "平均心率",
+      "bpmMax": "最大心率",
+      "kmh": "km/h",
+      "mUp": "米 ↑",
+      "mDown": "米 ↓",
+      "grade": "% 坡度",
+      "kJ": "kJ",
+      "rides": "骑行"
+    },
+    "insights": {
+      "fatigueAction": "您在骑行后期表现下降。通过以下训练增强耐力：",
+      "fatigueLink": "效率训练",
+      "balanceAction": "{asymmetry}% {dominant}腿主导。通过以下训练加强 {weak} 腿：",
+      "balanceLink": "{side}腿专注训练",
+      "leftLeg": "左",
+      "rightLeg": "右",
+      "leftDominant": "左",
+      "rightDominant": "右",
+      "lowTeAction": "TE {te}% — 专注于 6 点钟位置的上拉。尝试：",
+      "lowTeLink": "功率传递训练",
+      "lowPsAction": "PS {ps}% 表示踩踏不平顺。通过以下训练改善：",
+      "lowPsLink": "平滑踩踏训练",
+      "greatBalance": "{asymmetry}% 不对称 — 这是专业级别的平衡！",
+      "teOptimal": "TE {te}% — 功率传递的最佳区间。",
+      "excellentScore": "得分 {score}% — 精英级别的技术！",
+      "goodConsistency": "{count} 次骑行 — 这周表现很棒！",
+      "improvement": "得分比上一周期提高了 {points} 分。",
+      "encourageRides": "仅 {count} 次{rideWord} — 争取达到上周的 {lastCount} 次。",
+      "ride": "骑行",
+      "ridesPl": "骑行",
+      "nearOptimalTe": "TE {te}% — 距离最佳区间仅差 {diff}%。"
+    }
+  },
+  "rides": {
+    "title": "骑行",
+    "allRides": "全部骑行",
+    "rideHistory": "骑行历史",
+    "noRides": "暂无骑行记录",
+    "noRidesHint": "在 Karoo 上使用 KPedal 完成骑行后，您的骑行历史将显示在这里。",
+    "eachRideShows": "每次骑行显示",
+    "deleteRide": "删除这次骑行？",
+    "viewTable": "表格视图",
+    "viewCards": "卡片视图",
+    "rideDetail": "骑行详情",
+    "performanceData": "表现数据",
+    "techniqueBreakdown": "技术分析",
+    "fatigueAnalysis": "疲劳分析",
+    "timeline": "时间线",
+    "minuteByMinute": "逐分钟",
+    "startToEnd": "从开始到结束",
+    "degradation": "衰退",
+    "strong": "强劲",
+    "moderate": "中等",
+    "weak": "较弱",
+    "backToDashboard": "返回仪表盘",
+    "backToRides": "返回骑行列表",
+    "rideNotFound": "未找到骑行记录",
+    "detail": {
+      "score": "得分",
+      "scoreTip": "综合技术得分 0-100。结合平衡、TE 和 PS。",
+      "asymmetry": "不对称性",
+      "asymmetryTip": "与 50/50 平衡的偏差。低于 2.5% 为专业水平。",
+      "balanced": "平衡",
+      "leftDominant": "左腿主导",
+      "rightDominant": "右腿主导",
+      "timeInZone": "区间时间",
+      "timeInZoneTip": "最佳、注意和问题区间的时间分布。绿色越多越好。",
+      "technique": "技术",
+      "techniqueTip": "踏频效率指标。TE 是功率传递，PS 是踩踏平滑度。",
+      "te": "TE",
+      "teTip": "扭矩效率。有多少功率用于向前运动。",
+      "ps": "PS",
+      "psTip": "踏频平滑度。整个踩踏过程中功率分布的均匀程度。",
+      "teInZone": "TE 最佳时间",
+      "teInZoneTip": "TE 在 70-80% 最佳范围内的时间。",
+      "psInZone": "PS 最佳时间",
+      "psInZoneTip": "PS 高于 20% 阈值的时间。",
+      "teStab": "TE 稳定性",
+      "teStabTip": "TE 的稳定程度。数值越高表示技术越稳定。",
+      "psStab": "PS 稳定性",
+      "psStabTip": "PS 的稳定程度。数值越高表示技术越稳定。",
+      "fatigue": "疲劳分析",
+      "fatigueTip": "比较骑行前 1/3 与后 1/3 的表现。",
+      "fatigueStrong": "强劲",
+      "fatigueModerate": "中等",
+      "fatigueFatigued": "疲劳",
+      "fatigueAsymmetry": "不对称性",
+      "balanceDegradedInsight": "平衡下降了 {value}% — 疲劳时需注意均匀分配功率",
+      "teDroppedInsight": "TE 下降了 {value}% — 练习在最后 1/3 保持良好姿势",
+      "psFellInsight": "PS 下降了 {value}% — 练习疲劳状态下的平滑踩踏",
+      "excellentFatigueInsight": "出色的抗疲劳能力 — 整个骑行过程技术保持稳定",
+      "fatigueStartEnd": "骑行开始 → 骑行结束",
+      "byPowerZone": "按功率区间",
+      "byPowerZoneTip": "不同强度下的技术表现。",
+      "timelineTip": "随时间变化的指标。观察下降以识别疲劳。",
+      "min": "最小",
+      "avg": "平均",
+      "max": "最大",
+      "spread": "波动",
+      "minuteByMinuteTip": "逐分钟详细分析。适用于分析特定区段。",
+      "points": "分",
+      "balance": "平衡",
+      "balanceTip": "本分钟的左/右功率分配。",
+      "teTip2": "本分钟的左/右扭矩效率。",
+      "psTip2": "本分钟的左/右踏频平滑度。",
+      "power": "功率",
+      "hr": "心率",
+      "zone": "区间",
+      "zoneTip": "本分钟的综合区间状态。",
+      "asym": "不对称",
+      "tooltipMin": "第 {minute} 分钟",
+      "title": "骑行详情",
+      "deleteWarning": "此操作无法撤销",
+      "rating": "评分",
+      "performance": "表现",
+      "confirmDelete": "确认删除",
+      "comparison": "左/右对比",
+      "fatigueDesc": "骑行过程中技术的变化情况",
+      "notes": "备注",
+      "timeline": "时间线",
+      "deleteRide": "删除骑行"
+    },
+    "perf": {
+      "wattsTip": "平均功率输出（瓦特）。",
+      "maxWattsTip": "骑行中达到的峰值功率。",
+      "npTip": "标准化功率，调整了功率输出的变化。",
+      "bpmTip": "骑行中的平均心率。",
+      "maxBpmTip": "达到的最高心率。接近最大值通常会影响技术。",
+      "rpmTip": "平均踏频。大多数骑行者的最佳范围是 80-95 rpm。",
+      "speedTip": "平均速度。由于地形原因，不如功率可靠。",
+      "kjTip": "总能量输出。大约等于消耗的卡路里。",
+      "elevGainTip": "骑行中的总爬升高度。",
+      "elevLossTip": "骑行中的总下降高度。",
+      "gradeTip": "最大坡度。超过 10% 为陡坡。"
+    },
+    "zones": {
+      "recovery": "恢复",
+      "endurance": "耐力",
+      "tempo": "节奏",
+      "threshold": "阈值",
+      "vo2max": "最大摄氧量",
+      "anaerobic": "无氧"
+    },
+    "list": {
+      "ridesLabel": "骑行",
+      "ridesTip": "此视图中的骑行总数。",
+      "kmLabel": "公里",
+      "kmTip": "所有骑行的总距离。",
+      "elevLabel": "米 ↑",
+      "elevTip": "所有骑行的总爬升高度。",
+      "asymLabel": "不对称",
+      "asymTip": "平均功率不对称。低于 2.5% 为专业水平。",
+      "teLabel": "TE",
+      "teTip": "平均扭矩效率。最佳范围为 70-80%。",
+      "psLabel": "PS",
+      "psTip": "平均踏频平滑度。高于 20% 为良好技术。",
+      "optimalLabel": "最佳",
+      "optimalTip": "最佳区间的平均时间。越高表示技术越好。",
+      "wAvgLabel": "平均瓦",
+      "wAvgTip": "平均功率输出。长期跟踪可观察体能趋势。",
+      "npLabel": "NP",
+      "npTip": "平均标准化功率。考虑了功率输出的变化。",
+      "kjLabel": "kJ",
+      "kjTip": "总能量输出。大约等于消耗的卡路里。",
+      "dateCol": "日期",
+      "durationCol": "时长",
+      "asymCol": "不对称",
+      "asymColTip": "功率不对称百分比。越低表示越平衡。",
+      "lrCol": "左 / 右",
+      "lrColTip": "左右功率分配。",
+      "teCol": "TE",
+      "teColTip": "各腿的扭矩效率。70-80% 为最佳。",
+      "psCol": "PS",
+      "psColTip": "各腿的踏频平滑度。高于 20% 为良好。",
+      "zonesCol": "区间",
+      "zonesColTip": "各表现区间的时间分布。",
+      "powerCol": "功率",
+      "powerColTip": "平均功率（瓦特）。",
+      "deleteAriaLabel": "删除骑行",
+      "balanceLR": "平衡 左/右",
+      "teLR": "TE 左/右",
+      "psLR": "PS 左/右",
+      "powerLabel": "功率",
+      "asymmetryLabel": "不对称",
+      "domLabel": "主导",
+      "optimalPercent": "{percent}% 最佳",
+      "pageInfo": "第 {page} 页，共 {total} 页",
+      "prevPage": "上一页",
+      "nextPage": "下一页"
+    },
+    "stats": {
+      "totalRides": "总骑行次数",
+      "avgDuration": "平均时长",
+      "totalTime": "总时间"
+    },
+    "sort": {
+      "longest": "最长",
+      "oldest": "最早",
+      "highestScore": "最高分",
+      "newest": "最新"
+    },
+    "filters": {
+      "all": "全部",
+      "thisWeek": "本周",
+      "thisMonth": "本月",
+      "last30Days": "最近 30 天"
+    },
+    "emptyDescription": "从 Karoo 同步骑行数据后将显示在这里",
+    "empty": "暂无骑行记录"
+  },
+  "drills": {
+    "title": "训练",
+    "noDrills": "暂无训练记录",
+    "noDrillsHint": "KPedal 包含引导式训练来改善您的踏频技术。在 Karoo 上完成训练后可在此跟踪进度。",
+    "availableTypes": "可用训练类型",
+    "types": {
+      "balanceFocus": "平衡专注",
+      "powerTransfer": "功率传递",
+      "smoothCircles": "平滑踩踏",
+      "challenges": "挑战"
+    },
+    "timeInTarget": "达标时间",
+    "completed": "已完成",
+    "incomplete": "未完成",
+    "abandoned": "已放弃",
+    "sessions": "训练次数",
+    "avgTarget": "平均达标",
+    "best": "最佳",
+    "drillTypes": "训练类型",
+    "date": "日期",
+    "drill": "训练",
+    "duration": "时长",
+    "status": "状态",
+    "of": "/",
+    "pageInfo": "第 {page} 页，共 {total} 页",
+    "prevPage": "上一页",
+    "nextPage": "下一页",
+    "tips": {
+      "avgTarget": "达到目标指标的平均时间。越高越好。",
+      "sessions": "已完成的训练次数。",
+      "best": "达到的最佳达标时间百分比。",
+      "completed": "完成训练的百分比。",
+      "types": "尝试过的不同训练类型数量。",
+      "timeInTarget": "在目标区间内的训练时间百分比。",
+      "status": "训练是否完成或提前放弃。"
+    },
+    "detail": {
+      "timeInTarget": "达标时间",
+      "score": "得分",
+      "phases": "阶段",
+      "completed": "已完成"
+    },
+    "categories": {
+      "balance": "平衡",
+      "technique": "技术",
+      "smoothness": "平滑度",
+      "all": "全部"
+    },
+    "empty": "暂无训练历史",
+    "emptyDescription": "在 Karoo 上完成训练后可在此查看历史记录"
+  },
+  "achievements": {
+    "title": "成就",
+    "notAchieved": "未达成",
+    "noAchievements": "暂无里程碑",
+    "noAchievementsHint": "在 Karoo 上完成骑行和训练以解锁成就",
+    "availableCategories": "成就类别",
+    "categories": {
+      "milestones": "骑行里程碑",
+      "balance": "平衡精通",
+      "performance": "表现得分",
+      "streaks": "连续坚持",
+      "duration": "时长目标",
+      "drills": "训练专精"
+    },
+    "stats": {
+      "achieved": "已达成",
+      "achievedTip": "您已解锁的里程碑数量。",
+      "remaining": "剩余",
+      "remainingTip": "仍可解锁的里程碑数量。",
+      "total": "总计",
+      "totalTip": "系统中的里程碑总数。",
+      "progress": "进度",
+      "progressTip": "总体完成百分比。",
+      "last": "最近",
+      "lastTip": "最近一次成就的日期。"
+    },
+    "table": {
+      "milestone": "里程碑",
+      "milestoneTip": "成就的名称和描述。",
+      "category": "类别",
+      "categoryTip": "里程碑类型（数量、平衡、技术等）。",
+      "target": "目标",
+      "targetTip": "解锁此里程碑的要求。",
+      "date": "日期"
+    },
+    "milestones": {
+      "first_ride": {
+        "name": "首次追踪骑行",
+        "description": "完成首次带踏频分析的骑行",
+        "category": "数量",
+        "target": "1 次骑行"
+      },
+      "rides_10": {
+        "name": "10 次骑行分析",
+        "description": "建立趋势分析的基础数据",
+        "category": "数量",
+        "target": "10 次骑行"
+      },
+      "rides_50": {
+        "name": "50 次骑行分析",
+        "description": "用于模式识别的大量数据集",
+        "category": "数量",
+        "target": "50 次骑行"
+      },
+      "rides_100": {
+        "name": "100 次骑行分析",
+        "description": "建立全面的训练历史",
+        "category": "数量",
+        "target": "100 次骑行"
+      },
+      "rides_500": {
+        "name": "500 次骑行分析",
+        "description": "长期踏频数据档案",
+        "category": "数量",
+        "target": "500 次骑行"
+      },
+      "perfect_balance": {
+        "name": "达成 50/50 平衡",
+        "description": "完美的左/右功率分配",
+        "category": "平衡",
+        "target": "50/50"
+      },
+      "balance_master": {
+        "name": "10 次最佳平衡骑行",
+        "description": "多次训练中保持稳定平衡",
+        "category": "平衡",
+        "target": "10 次骑行"
+      },
+      "score_80": {
+        "name": "80+ 技术得分",
+        "description": "单次骑行的良好踏频技术",
+        "category": "技术",
+        "target": "80+"
+      },
+      "score_90": {
+        "name": "90+ 技术得分",
+        "description": "所有指标的出色技术",
+        "category": "技术",
+        "target": "90+"
+      },
+      "score_95": {
+        "name": "95+ 技术得分",
+        "description": "接近完美的踏频效率",
+        "category": "技术",
+        "target": "95+"
+      },
+      "streak_3": {
+        "name": "3 天训练计划",
+        "description": "连续三天的追踪骑行",
+        "category": "坚持",
+        "target": "3 天"
+      },
+      "streak_7": {
+        "name": "7 天训练周",
+        "description": "完整一周的持续训练",
+        "category": "坚持",
+        "target": "7 天"
+      },
+      "streak_30": {
+        "name": "30 天训练月",
+        "description": "一个月的专注技术训练",
+        "category": "坚持",
+        "target": "30 天"
+      },
+      "first_drill": {
+        "name": "完成首次训练",
+        "description": "开始结构化技术训练",
+        "category": "训练",
+        "target": "1 次训练"
+      },
+      "drill_perfect": {
+        "name": "100% 达标时间",
+        "description": "任意训练的完美执行",
+        "category": "训练",
+        "target": "100%"
+      },
+      "drills_10": {
+        "name": "完成 10 次训练",
+        "description": "建立训练熟练度",
+        "category": "训练",
+        "target": "10 次训练"
+      },
+      "zone_optimal_80": {
+        "name": "80% 最佳区间",
+        "description": "骑行 80%+ 时间在最佳区间",
+        "category": "区间",
+        "target": "80%"
+      },
+      "zone_optimal_90": {
+        "name": "90% 最佳区间",
+        "description": "骑行 90%+ 时间在最佳区间",
+        "category": "区间",
+        "target": "90%"
+      },
+      "te_optimal": {
+        "name": "全程最佳 TE",
+        "description": "整个骑行过程保持最佳 TE",
+        "category": "效率",
+        "target": "100%"
+      },
+      "duration_1h": {
+        "name": "1 小时骑行",
+        "description": "1 小时以上的持续踏频分析",
+        "category": "耐力",
+        "target": "1小时+"
+      },
+      "duration_2h": {
+        "name": "2 小时骑行",
+        "description": "专注技术的延长训练",
+        "category": "耐力",
+        "target": "2小时+"
+      },
+      "duration_4h": {
+        "name": "4 小时骑行",
+        "description": "长时间技术保持",
+        "category": "耐力",
+        "target": "4小时+"
+      }
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "account": "账户",
+    "connectedDevices": "已连接设备",
+    "loadingDevices": "加载设备中...",
+    "noDevices": "暂无连接设备",
+    "noDevicesHint": "连接您的 Karoo 设备以同步骑行数据",
+    "linkDevice": "连接设备",
+    "linkAnotherDevice": "连接另一台设备",
+    "removeDevice": "移除此设备？需要重新连接。",
+    "lastSync": "上次同步",
+    "neverSynced": "从未同步",
+    "requestSync": "请求同步",
+    "syncRequested": "同步请求已发送 - 打开应用进行同步",
+    "deviceStatus": {
+      "connected": "已连接",
+      "idle": "空闲",
+      "offline": "离线"
+    },
+    "pedalingMetrics": "踏频指标",
+    "syncBanner": "当您在应用中按下<strong>同步</strong>或开始骑行时，更改将同步到您的 Karoo。",
+    "thresholds": "阈值",
+    "balanceThreshold": "平衡阈值",
+    "balanceThresholdHint": "当不平衡超过此值时触发警报",
+    "balanceThresholdTip": "最大可接受的左/右不平衡。专业骑行者通常保持在 ±2.5% 以内。",
+    "teOptimalRange": "TE 最佳范围",
+    "teOptimalRangeHint": "扭矩效率的绿色区间",
+    "teOptimalRangeTip": "扭矩效率的最佳范围。研究表明 70-80% 是最佳的 — 更高并不更好。",
+    "psMinimum": "PS 最低值",
+    "psMinimumHint": "低于此值时标记为需要注意",
+    "psMinimumTip": "最佳区间的踏频平滑度阈值。精英骑行者可达 25%+。",
+    "inRideAlerts": "骑行中警报",
+    "inRideAlertsHint": "当指标需要注意时发出通知",
+    "inRideAlertsTip": "当指标需要注意时，Karoo 上的实时通知。",
+    "metricsToMonitor": "监控指标",
+    "torqueEff": "扭矩效率",
+    "smoothness": "平滑度",
+    "sensitivity": "灵敏度",
+    "critical": "严重",
+    "problemZoneOnly": "仅问题区间",
+    "sensitive": "敏感",
+    "attentionAndProblem": "注意和问题",
+    "notifyVia": "通知方式",
+    "vibrate": "振动",
+    "sound": "声音",
+    "banner": "横幅",
+    "options": "选项",
+    "wakeScreenOnAlert": "警报时唤醒屏幕",
+    "cooldownBetweenAlerts": "警报间隔冷却",
+    "dataCollection": "数据收集",
+    "dataCollectionHint": "KPedal 如何收集和同步您的数据",
+    "backgroundMode": "后台模式",
+    "backgroundModeHint": "即使数据字段隐藏时也收集指标",
+    "backgroundModeTip": "即使 KPedal 数据字段不在屏幕上显示，也收集指标。",
+    "autoSync": "自动同步",
+    "autoSyncHint": "每次骑行后自动同步骑行数据",
+    "autoSyncTip": "每次骑行结束后自动上传骑行数据。",
+    "appearance": "外观",
+    "theme": "主题",
+    "themeHint": "自动模式在早上 7 点和晚上 7 点切换",
+    "themeAuto": "自动",
+    "themeLight": "浅色",
+    "themeDark": "深色",
+    "data": "数据",
+    "rideData": "骑行数据",
+    "rideDataHint": "您的数据安全存储并从 Karoo 设备同步",
+    "session": "会话",
+    "privacy": "隐私",
+    "privacyHint": "了解我们如何收集、使用和保护您的数据",
+    "about": "关于",
+    "saving": "保存中...",
+    "saved": "已保存",
+    "thresholds_section": {
+      "teOptimal": "TE 最佳范围",
+      "balance": "平衡阈值",
+      "title": "指标阈值",
+      "psMinimum": "PS 最低值",
+      "teOptimalDesc": "扭矩效率的目标范围",
+      "psMinimumDesc": "平滑度低于此值时发出警报",
+      "balanceDesc": "不对称超过此值时发出警报"
+    },
+    "sections": {
+      "data": "数据",
+      "session": "会话",
+      "devices": "设备",
+      "appearance": "外观",
+      "about": "关于",
+      "metrics": "指标",
+      "privacy": "隐私",
+      "account": "账户"
+    },
+    "devices_section": {
+      "remove": "移除",
+      "connectDescription": "连接您的 Karoo 以同步骑行",
+      "removeWarning": "需要重新连接才能同步骑行",
+      "noDevices": "暂无连接设备",
+      "title": "已连接设备",
+      "lastSync": "上次同步",
+      "connectDevice": "连接设备",
+      "removeConfirm": "移除此设备？"
+    },
+    "alerts_section": {
+      "enabled": "已启用",
+      "te": "扭矩效率警报",
+      "balance": "平衡警报",
+      "title": "警报设置",
+      "ps": "平滑度警报",
+      "screenWake": "唤醒屏幕"
+    },
+    "privacy_section": {
+      "viewPolicy": "查看隐私政策",
+      "title": "隐私"
+    },
+    "data_section": {
+      "exportDesc": "将数据下载为 JSON 格式",
+      "deleteAllDesc": "永久删除所有骑行记录和设置",
+      "deleteAllWarning": "此操作无法撤销",
+      "export": "导出数据",
+      "title": "数据管理",
+      "deleteAll": "删除所有数据",
+      "deleteAllConfirm": "输入 DELETE 确认"
+    },
+    "account_section": {
+      "signedInAs": "已登录为",
+      "memberSince": "加入时间",
+      "email": "邮箱"
+    },
+    "appearance_section": {
+      "title": "外观",
+      "themeAuto": "自动",
+      "themeLight": "浅色",
+      "theme": "主题",
+      "themeDark": "深色"
+    },
+    "session_section": {
+      "title": "会话",
+      "signOutDesc": "您需要重新登录",
+      "signOut": "退出登录",
+      "signOutConfirm": "退出您的账户？"
+    },
+    "about_section": {
+      "github": "GitHub",
+      "support": "支持",
+      "version": "版本"
+    }
+  },
+  "link": {
+    "title": "连接设备",
+    "pageTitle": "连接您的 Karoo",
+    "metaDescription": "将您的 Hammerhead Karoo 连接到 KPedal。输入 Karoo 上显示的代码以将骑行数据和设置同步到云端。",
+    "secureConnection": "安全连接",
+    "linkKaroo": "连接您的 Karoo",
+    "enterCodeDescription": "输入设备上显示的 8 位代码以安全连接到您的账户。",
+    "verifying": "验证中...",
+    "continue": "继续",
+    "encryption256": "256 位加密",
+    "verifiedDomain": "已验证域名",
+    "signInToContinue": "登录以继续",
+    "linkingDevice": "正在将 {device} 连接到您的账户。",
+    "signInWithGoogle": "使用 Google 登录以授权此设备。",
+    "useDifferentCode": "使用其他代码",
+    "authorizeDevice": "授权设备？",
+    "deviceRequestingAccess": "{device} 正在请求访问以与您的账户同步骑行数据。",
+    "permissionSync": "同步骑行中的踏频指标",
+    "permissionView": "在 app.kpedal.com 上查看分析",
+    "authorize": "授权",
+    "deviceLinked": "设备已连接！",
+    "deviceConnected": "{device} 现已连接到您的账户。",
+    "autoSync": "您的骑行数据将自动同步。",
+    "secureConnectionEstablished": "已建立安全连接",
+    "dataEncrypted": "数据端到端加密",
+    "closePageHint": "您可以关闭此页面并返回您的 Karoo。",
+    "goToDashboard": "前往仪表盘",
+    "errors": {
+      "failedToVerify": "验证代码失败",
+      "failedToConnect": "连接失败",
+      "enterCompleteCode": "请输入完整代码",
+      "invalidOrExpired": "此代码无效或已过期。请从 Karoo 获取新代码。",
+      "checkConnection": "连接失败。请检查您的网络连接。",
+      "signInFirst": "请先登录",
+      "failedToAuthorize": "授权设备失败",
+      "failedTryAgain": "连接失败。请重试。"
+    }
+  },
+  "infotips": {
+    "asymmetry": "您与完美 50/50 左/右平衡的偏差。低于 2.5% 为专业水平。",
+    "balance": "功率在左右腿之间的分配。50/50 为完美。",
+    "te": "向前传递的功率百分比。目标 70-80% — 更高并不总是更好。",
+    "ps": "整个踩踏过程中功率的均匀程度。目标 20%+。精英骑行者达 25%+。",
+    "zones": "在最佳（绿色）、注意（黄色）和问题（红色）区间的时间分布。",
+    "timeInZone": "各区间的时间分布。绿色为最佳，黄色需注意，红色为问题。",
+    "score": "综合平衡、TE 和 PS 的整体技术评分。越高越好。",
+    "achieved": "您已解锁的里程碑数量。",
+    "remaining": "仍可解锁的里程碑数量。",
+    "total": "系统中的里程碑总数。",
+    "progress": "总体完成百分比。",
+    "lastAchievement": "最近一次成就的日期。",
+    "milestone": "成就的名称和描述。",
+    "category": "里程碑类型（数量、平衡、技术等）。",
+    "target": "解锁此里程碑的要求。",
+    "weeklyActivity": "每天的骑行次数。每周目标 3-5 次骑行以稳步进步。",
+    "compRides": "与上周相比的骑行次数。",
+    "compHours": "总骑行时间。更多时间意味着更多训练适应。",
+    "compDistance": "总骑行公里数。与小时数一起跟踪训练量。",
+    "compClimb": "总爬升高度。每周超过 2000 米可增强爬坡能力。",
+    "compBalance": "与上周相比的功率不对称。越低越好，负值表示改善。",
+    "compOptimal": "与上周相比的最佳区间时间。越高表示技术越好。",
+    "perfScore": "0-100 的整体技术得分。越高表示技术越好。",
+    "perfOptimal": "所有指标都在绿色区间的时间。越高越好。",
+    "perfPower": "平均功率输出（瓦特）。相同心率下功率更高表示体能更好。",
+    "perfEnergy": "总能量（千焦）。大约等于消耗的卡路里。",
+    "technique": "踏频效率指标。TE 是功率传递，PS 是踩踏平滑度。",
+    "balanceFatigue": "左右功率分配。变化表示疲劳或代偿。",
+    "fatigueTrend": "整体疲劳趋势。稳定表示配速良好，下降表示过度用力。",
+    "balanceTrend": "随时间变化的左/右平衡趋势。接近 50% 的稳定值表示良好对称性。",
+    "techniqueTrend": "随时间变化的技术指标趋势。寻找稳定改善的模式。",
+    "compTe": "与上周相比的扭矩效率。正值变化表示改善。",
+    "compPs": "与上周相比的踏频平滑度。改善缓慢，小进步很重要。",
+    "fatigue": "骑行开始与结束时的技术对比。数值下降表示疲劳。",
+    "teFatigue": "骑行中 TE 的变化。下降表示肌肉疲劳。",
+    "psFatigue": "骑行中 PS 的变化。通常是疲劳时最先下降的指标。",
+    "powerAvg": "平均功率（瓦特）。长期跟踪以衡量体能提升。",
+    "powerMax": "达到的峰值功率。对冲刺和 FTP 估算有用。",
+    "np": "标准化功率调整了功率波动。接近平均值表示稳定输出。",
+    "cadence": "每分钟踏板转数。大多数骑行者的最佳范围是 80-95 rpm。",
+    "hrAvg": "平均心率。相同功率下心率更低表示体能更好。",
+    "hrMax": "达到的最高心率。接近最大值通常会影响技术。",
+    "speed": "平均速度。由于地形和风的影响，不如功率可靠。",
+    "elevationGain": "总爬升高度。超过 1000 米是一次认真的爬坡训练。",
+    "elevationLoss": "总下降高度。环形骑行应与爬升相匹配。",
+    "grade": "最大坡度。超过 10% 为陡坡，超过 15% 为非常陡。",
+    "energy": "总能量输出。按每小时 250-300 卡路里计划营养补给。",
+    "trendCurrent": "该时间段内最近一次骑行的数值。",
+    "trendAverage": "所选时间段内所有骑行的平均值。",
+    "trendSpread": "最佳与最差之间的差异。波动越小表示技术越稳定。",
+    "trendLatest": "该指标最近一次骑行的数值。",
+    "trendBest": "该时间段内的最佳值。不对称性越低越好，TE/PS 越高越好。",
+    "recentRides": "带技术指标的最近骑行。点击任意行查看完整详情。",
+    "tableAsym": "功率不对称百分比。越低表示功率输出越平衡。",
+    "tableZones": "最佳、注意和问题区间的时间分布。"
+  },
+  "tour": {
+    "buttons": {
+      "next": "下一步",
+      "prev": "上一步",
+      "done": "完成",
+      "continue": "继续 →",
+      "skip": "或跳过导览 →"
+    },
+    "dashboard": {
+      "welcome": {
+        "title": "欢迎使用 KPedal！",
+        "desc": "这是<strong>来自真实骑行者的演示数据</strong>，展示约 4 周的骑行记录。",
+        "hint": "快速了解 KPedal 的功能（约 2 分钟）。"
+      },
+      "period": {
+        "title": "时间段选择器",
+        "desc": "在 <strong>7、14、30 或 60 天</strong>之间切换，分析不同时间范围的趋势。",
+        "hint": "较短的时间段显示近期状态。较长的时间段揭示训练模式。"
+      },
+      "asymmetry": {
+        "title": "功率不对称",
+        "desc": "您与完美 50/50 左/右平衡的偏差。",
+        "under25": "低于 2.5%",
+        "proLevel": "专业水平",
+        "range25to5": "2.5-5%",
+        "goodRoom": "良好，有改进空间",
+        "over5": "超过 5%",
+        "needsAttention": "需要注意",
+        "hint": "这位演示骑行者平均 1-2% — 出色的对称性！"
+      },
+      "infoTip": {
+        "title": "随处可见的信息提示",
+        "desc": "看到这个 <strong>ⓘ 图标</strong>了吗？随时悬停或点击获取详细解释。",
+        "hint": "KPedal 中的每个指标都有信息提示，解释其含义和目标。"
+      },
+      "balance": {
+        "title": "左/右功率平衡",
+        "desc": "左腿与右腿功率分配的可视化分析。",
+        "greenZone": "<strong>绿色区域</strong> = 平衡。条形图准确显示您的功率在两腿之间的分配。",
+        "hint": "大多数骑行者有一侧稍强。跟踪这一指标以逐步改善对称性。"
+      },
+      "zones": {
+        "title": "区间时间分布",
+        "desc": "您的骑行时间按技术质量的分布：",
+        "optimal": "绿色（最佳）",
+        "optimalDesc": "所有指标在理想范围内",
+        "attention": "黄色（注意）",
+        "attentionDesc": "一个或多个指标偏离",
+        "problem": "红色（问题）",
+        "problemDesc": "明显的技术问题",
+        "hint": "目标：最大化绿色时间，尤其是在长途骑行中！"
+      },
+      "summary": {
+        "title": "活动摘要",
+        "desc": "快速查看所选时间段的训练量：",
+        "rides": "总骑行次数",
+        "hours": "小时数",
+        "km": "公里数"
+      },
+      "weekly": {
+        "title": "每周活动图表",
+        "desc": "查看每周各天的骑行频率。",
+        "compareHint": "图表下方，<strong>本周与上周</strong>对比：",
+        "numRides": "骑行次数",
+        "totalHours": "总小时数",
+        "distanceClimb": "距离和爬升",
+        "hint": "坚持是关键 — 追求规律训练，而非偶尔的高强度。"
+      },
+      "technique": {
+        "title": "技术指标",
+        "desc": "来自功率计的两个核心效率指标：",
+        "teTitle": "扭矩效率 (TE)",
+        "teDesc": "向前传递的功率百分比。目标 <strong>70-80%</strong> — 根据 Wattbike 研究，更高并不总是更好。",
+        "psTitle": "踏频平滑度 (PS)",
+        "psDesc": "整个踩踏过程中功率的均匀程度。目标 <strong>≥20%</strong>。精英骑行者达 25%+。"
+      },
+      "trends": {
+        "title": "随时间变化的趋势",
+        "desc": "逐次骑行跟踪您的平衡和技术改进。",
+        "left": "<strong>左图：</strong>各次骑行的平衡趋势",
+        "right": "<strong>右图：</strong>在 TE、PS 和不对称性之间切换",
+        "hint": "点击任意数据点跳转到该次骑行的详细分析。"
+      },
+      "recentRides": {
+        "title": "最近骑行表格",
+        "desc": "所有已同步骑行及关键指标一览：",
+        "date": "日期、时长和得分",
+        "asymmetry": "不对称百分比",
+        "lrBreakdown": "TE 和 PS 的左/右分析",
+        "zoneBars": "区间分布条",
+        "hint": "点击任意行查看逐分钟的详细分析！"
+      },
+      "nav": {
+        "title": "导航",
+        "desc": "探索其他部分：",
+        "rides": "<strong>骑行</strong> — 带筛选和搜索的完整历史",
+        "drills": "<strong>训练</strong> — 引导式训练练习",
+        "achievements": "<strong>成就</strong> — 里程碑和徽章",
+        "settings": "<strong>设置</strong> — 设备、阈值和警报"
+      },
+      "complete": {
+        "title": "仪表盘导览完成！",
+        "desc": "您已了解仪表盘概览。准备探索更多内容？",
+        "next": "点击<strong>下一步</strong>继续导览<strong>骑行</strong>页面，您将看到完整的骑行历史。",
+        "done": "或点击完成结束导览。"
+      }
+    },
+    "rides": {
+      "welcome": {
+        "title": "骑行历史",
+        "desc": "此页面显示您的<strong>完整骑行历史</strong>，支持筛选和排序。",
+        "hint": "让我展示主要功能。"
+      },
+      "stats": {
+        "title": "时间段统计",
+        "desc": "所选时间段的快速统计：",
+        "ridesAndDuration": "总骑行次数和时长",
+        "scores": "平均和最佳得分",
+        "powerDistance": "功率和距离总计",
+        "hint": "这些会根据您的筛选条件更新。"
+      },
+      "viewToggle": {
+        "title": "视图切换",
+        "desc": "在两种视图模式之间切换：",
+        "table": "<strong>表格视图</strong> — 紧凑列表显示所有指标",
+        "card": "<strong>卡片视图</strong> — 带区间条的可视化卡片",
+        "hint": "选择最适合您的方式！"
+      },
+      "rideRow": {
+        "title": "点击任意骑行",
+        "desc": "每次骑行显示：",
+        "date": "日期、时长和技术得分",
+        "asymmetry": "功率不对称",
+        "lrMetrics": "TE 和 PS 的左/右指标",
+        "zones": "区间分布",
+        "hint": "<strong>点击任意骑行</strong>查看包含逐分钟图表的完整详情页面！"
+      },
+      "complete": {
+        "title": "骑行页面导览完成！",
+        "desc": "您可以在这里浏览所有骑行记录。",
+        "next": "点击<strong>下一步</strong>查看<strong>骑行详情页面</strong>的深入分析。"
+      }
+    },
+    "rideDetail": {
+      "welcome": {
+        "title": "骑行详情分析",
+        "desc": "这是进行<strong>深入分析</strong>的地方。",
+        "hint": "每次骑行都会获得逐分钟的完整踏频技术分析。"
+      },
+      "heroStats": {
+        "title": "关键指标一览",
+        "desc": "顶部行显示您最重要的骑行指标：",
+        "score": "<strong>得分</strong> — 整体技术评分 (0-100)",
+        "asymmetry": "<strong>不对称</strong> — 左/右功率不平衡",
+        "balance": "<strong>平衡条</strong> — 可视化左/右分配",
+        "zones": "<strong>区间时间</strong> — 质量分布"
+      },
+      "perfStrip": {
+        "title": "骑行表现数据",
+        "desc": "详细骑行指标：",
+        "power": "<strong>功率</strong> — 平均、最大和标准化功率",
+        "hr": "<strong>心率</strong> — 平均和最大心率",
+        "cadence": "<strong>踏频</strong> — 每分钟踏板转数",
+        "elevation": "<strong>海拔</strong> — 爬升和下降",
+        "hint": "点击任意信息图标获取详细解释！"
+      },
+      "techniqueCard": {
+        "title": "技术分析",
+        "desc": "您的踏频效率指标：",
+        "te": "<strong>TE（扭矩效率）</strong> — 向前传递的功率。目标 70-80%",
+        "ps": "<strong>PS（踏频平滑度）</strong> — 踩踏均匀度。目标 ≥20%",
+        "lr": "<strong>左/右分析</strong> — 查看各腿的贡献",
+        "hint": "左/右差异较大表示肌肉不平衡或自行车设定问题。"
+      },
+      "fatigueCard": {
+        "title": "疲劳分析",
+        "desc": "您的技术从开始到结束的变化：",
+        "startEnd": "各指标的<strong>开始 → 结束</strong>数值",
+        "colors": "<strong>绿色</strong> = 改善，<strong>红色</strong> = 下降",
+        "badge": "<strong>徽章</strong> — 强劲（无下降）、中等或较弱",
+        "hint": "疲劳状态下保持稳定技术是长途骑行表现的关键！"
+      },
+      "timeline": {
+        "title": "逐分钟时间线",
+        "desc": "跟踪整个骑行过程中指标的变化：",
+        "tabs": "<strong>标签页</strong> — 在平衡、TE、PS、功率、心率之间切换",
+        "points": "<strong>数据点</strong> — 每个点代表一分钟",
+        "hover": "<strong>悬停</strong> — 查看任意时刻的精确数值",
+        "hint": "寻找规律 — 30 分钟后技术下降？那是疲劳！"
+      },
+      "complete": {
+        "title": "骑行详情导览完成！",
+        "desc": "您现在知道如何深入分析单次骑行了。",
+        "next": "点击<strong>下一步</strong>探索<strong>训练</strong>页面 — 改善技术的引导式练习。"
+      }
+    },
+    "drills": {
+      "welcome": {
+        "title": "训练练习",
+        "desc": "<strong>训练</strong>是您在 Karoo 上进行的引导式练习，用于改善特定技能。",
+        "hint": "结果会同步到这里，以便您跟踪进度！"
+      },
+      "stats": {
+        "title": "训练统计",
+        "desc": "您的整体训练表现：",
+        "avgTarget": "<strong>平均达标</strong> — 达到目标区间的程度",
+        "sessions": "<strong>训练次数</strong> — 完成的训练总数",
+        "best": "<strong>最佳</strong> — 最高达标时间得分",
+        "completion": "<strong>完成率</strong> — 完成与放弃的百分比"
+      },
+      "drillRow": {
+        "title": "训练结果",
+        "desc": "每次训练显示：",
+        "name": "<strong>训练名称</strong> — 练习类型",
+        "timeInTarget": "<strong>达标时间</strong> — 达成目标的时间百分比",
+        "duration": "<strong>时长</strong> — 练习时长",
+        "status": "<strong>状态</strong> — 完成或提前停止",
+        "hint": "随着进步，目标达到 80%+ 的达标时间！"
+      },
+      "complete": {
+        "title": "训练页面导览完成！",
+        "desc": "训练帮助您刻意练习特定技能。",
+        "next": "点击<strong>下一步</strong>查看<strong>成就</strong> — 您可以解锁的里程碑！"
+      }
+    },
+    "achievements": {
+      "welcome": {
+        "title": "成就与里程碑",
+        "desc": "随着训练和进步解锁成就！",
+        "hint": "这些跟踪您在数量、技术和坚持方面的进度。"
+      },
+      "stats": {
+        "title": "进度概览",
+        "desc": "您的成就进度：",
+        "achieved": "<strong>已达成</strong> — 已解锁的里程碑",
+        "remaining": "<strong>剩余</strong> — 待解锁",
+        "progress": "<strong>进度 %</strong> — 总体完成度",
+        "last": "<strong>最近</strong> — 最近解锁日期"
+      },
+      "categories": {
+        "title": "成就类别",
+        "desc": "成就涵盖多个类别：",
+        "volume": "<strong>数量</strong> — 骑行次数（10、50、100+）",
+        "balance": "<strong>平衡</strong> — 左/右对称目标",
+        "technique": "<strong>技术</strong> — 得分里程碑（80+、90+）",
+        "consistency": "<strong>坚持</strong> — 训练连续记录",
+        "training": "<strong>训练</strong> — 完成的训练",
+        "hint": "已达成的里程碑显示绿色对勾！"
+      },
+      "complete": {
+        "title": "成就导览完成！",
+        "desc": "继续骑行和训练以解锁更多里程碑！",
+        "next": "点击<strong>下一步</strong>进入最后一站：<strong>设置</strong>。"
+      }
+    },
+    "settings": {
+      "welcome": {
+        "title": "设置与偏好",
+        "desc": "配置 KPedal 以完全按照您的方式工作。",
+        "hint": "设置在网页和 Karoo 设备之间同步！"
+      },
+      "devices": {
+        "title": "已连接设备",
+        "desc": "查看所有已连接的 Karoo 设备：",
+        "name": "设备名称和状态",
+        "lastSync": "上次同步时间",
+        "requestSync": "<strong>请求同步</strong>从设备拉取数据",
+        "remove": "<strong>移除</strong>取消连接设备",
+        "hint": "您可以将多台 Karoo 连接到一个账户。"
+      },
+      "thresholds": {
+        "title": "指标阈值",
+        "desc": "自定义适合您的「最佳「标准：",
+        "balance": "<strong>平衡阈值</strong> — 多少左/右不平衡触发黄色/红色",
+        "teRange": "<strong>TE 最佳范围</strong> — 您的目标扭矩效率区间",
+        "psMin": "<strong>PS 最低值</strong> — 踏频平滑度下限",
+        "hint": "默认值基于骑行研究，但您可以根据自己的水平调整。"
+      },
+      "alerts": {
+        "title": "骑行中警报",
+        "desc": "当指标需要注意时在骑行中获得通知：",
+        "metrics": "选择要监控的指标",
+        "sensitivity": "设置灵敏度（仅严重或敏感）",
+        "type": "选择通知类型（振动、声音、横幅）",
+        "cooldown": "设置警报间隔冷却时间",
+        "hint": "警报直接显示在您骑行中的 Karoo 上！"
+      },
+      "theme": {
+        "title": "外观",
+        "desc": "选择您喜欢的配色方案：",
+        "auto": "<strong>自动</strong> — 早上 7 点/晚上 7 点自动切换",
+        "light": "<strong>浅色</strong> — 清爽的白色背景",
+        "dark": "<strong>深色</strong> — 护眼模式"
+      },
+      "complete": {
+        "title": "设置完成！",
+        "desc": "您已完成完整的 KPedal 导览！",
+        "toSeeData": "<strong>查看您自己的数据：</strong>",
+        "step1": "在 Karoo 上下载 KPedal",
+        "step2": "添加到骑行屏幕",
+        "step3": "开始骑行！",
+        "step4": "数据自动同步",
+        "download": "下载 KPedal →"
+      }
+    }
+  },
+  "privacy": {
+    "title": "隐私政策",
+    "lastUpdated": "最后更新：{date}",
+    "backToKpedal": "返回 KPedal",
+    "summary": {
+      "encrypted": "加密且安全",
+      "encryptedDesc": "所有数据在传输和存储时均加密",
+      "noLocation": "无位置追踪",
+      "noLocationDesc": "我们从不收集 GPS 或路线数据",
+      "neverSold": "绝不出售",
+      "neverSoldDesc": "您的数据绝不会被出售给任何人",
+      "yourControl": "您的控制权",
+      "yourControlDesc": "随时删除您的数据"
+    },
+    "toc": {
+      "title": "目录",
+      "whatWeCollect": "我们收集什么",
+      "whatWeDontCollect": "我们不收集什么",
+      "howDataFlows": "数据如何流动",
+      "storageSecurity": "存储与安全",
+      "yourRights": "您的权利",
+      "thirdParties": "第三方服务",
+      "contact": "联系方式"
+    },
+    "sections": {
+      "whatWeCollect": "1. 我们收集什么",
+      "whatWeDontCollect": "2. 我们不收集什么",
+      "howDataFlows": "3. 数据如何流动",
+      "storageSecurity": "4. 存储与安全",
+      "yourRights": "5. 您的权利",
+      "thirdParties": "6. 第三方服务",
+      "contact": "7. 联系方式",
+      "policyChanges": "政策变更"
+    },
+    "rights": {
+      "access": "访问",
+      "accessDesc": "随时在网页仪表盘查看您的所有数据。我们存储的每项指标对您都是可见的。",
+      "delete": "删除",
+      "deleteDesc": "从骑行页面删除单次骑行。如需完全删除账户，请发送邮件给我们。",
+      "export": "导出",
+      "exportDesc": "联系我们请求完整的数据导出。",
+      "optOut": "退出",
+      "optOutDesc": "无需登录即可离线使用 KPedal。数据不会离开您的设备。"
+    },
+    "contact": {
+      "text": "如有隐私问题、数据请求或账户删除需求：",
+      "email": "privacy@kpedal.com",
+      "github": "GitHub Issues"
+    },
+    "policyChanges": "当我们对本政策进行重大变更时，我们会更新上面的「最后更新「日期。我们建议您定期查看此页面。",
+    "footer": "Karoo 踏频效率分析工具",
+    "content": {
+      "accountData": {
+        "title": "账户数据",
+        "intro": "当您使用 Google 登录时，我们接收并存储：",
+        "fields": {
+          "email": "邮箱",
+          "emailPurpose": "账户识别、登录",
+          "name": "姓名",
+          "namePurpose": "在仪表盘中显示",
+          "profilePicture": "头像 URL",
+          "profilePicturePurpose": "显示为头像",
+          "googleId": "Google ID",
+          "googleIdPurpose": "将 Google 账户与 KPedal 关联"
+        },
+        "note": "我们无法访问您的 Google 密码。身份验证使用 OAuth 2.0。"
+      },
+      "pedalingMetrics": {
+        "title": "踏频指标",
+        "intro": "对于从 Karoo 设备同步的每次骑行：",
+        "fields": {
+          "timestamp": "时间戳",
+          "timestampPurpose": "骑行记录时间",
+          "duration": "时长",
+          "durationPurpose": "骑行持续时间（毫秒）",
+          "balance": "左/右平衡",
+          "balancePurpose": "两腿之间的功率分配（%）",
+          "te": "扭矩效率 左/右",
+          "tePurpose": "功率施加效率（%）",
+          "ps": "踏频平滑度 左/右",
+          "psPurpose": "踩踏平滑程度（%）",
+          "zones": "区间分布",
+          "zonesPurpose": "最佳/注意/问题区间的时间（%）",
+          "score": "效率得分",
+          "scorePurpose": "计算的综合得分（0-100）"
+        }
+      },
+      "performanceMetrics": {
+        "title": "表现指标",
+        "intro": "为全面分析骑行而同步的额外骑行数据：",
+        "fields": {
+          "power": "功率（平均/最大）",
+          "powerPurpose": "平均和最大功率输出（瓦特）",
+          "cadence": "踏频（平均）",
+          "cadencePurpose": "平均踩踏踏频（RPM）",
+          "hr": "心率（平均/最大）",
+          "hrPurpose": "平均和最大心率（BPM）",
+          "speed": "速度（平均）",
+          "speedPurpose": "平均速度（km/h）",
+          "distance": "距离",
+          "distancePurpose": "总行驶距离（km）",
+          "elevation": "海拔（爬升/下降）",
+          "elevationPurpose": "总爬升和下降（米）",
+          "grade": "坡度（平均/最大）",
+          "gradePurpose": "平均和最大坡度（%）",
+          "np": "标准化功率",
+          "npPurpose": "强度加权功率（瓦特）",
+          "energy": "能量",
+          "energyPurpose": "总能量输出（千焦）"
+        },
+        "note": "这些指标为您的踏频效率分析提供背景。它们从 Karoo 连接的传感器（功率计、心率监测器、GPS）读取。"
+      },
+      "snapshots": {
+        "title": "逐分钟快照",
+        "intro": "为详细的时间线图表，我们存储每次骑行期间的逐分钟平均值：",
+        "fields": {
+          "minuteIndex": "分钟索引",
+          "minuteIndexPurpose": "骑行的第几分钟（0、1、2...）",
+          "metricsAvg": "平衡 左/右、TE 左/右、PS 左/右",
+          "metricsAvgPurpose": "该分钟的平均踏频指标",
+          "perfAvg": "功率、踏频、心率",
+          "perfAvgPurpose": "该分钟的平均表现指标",
+          "zoneStatus": "区间状态",
+          "zoneStatusPurpose": "该分钟的主导区间（最佳/注意/问题）"
+        },
+        "note": "快照支持骑行详情中的时间线图表，显示您的技术在整个骑行过程中的变化。"
+      },
+      "deviceData": {
+        "title": "设备数据",
+        "fields": {
+          "deviceId": "设备 ID",
+          "deviceIdPurpose": "Karoo 的唯一标识符",
+          "deviceName": "设备名称",
+          "deviceNamePurpose": "例如「Karoo 3「",
+          "deviceType": "设备类型",
+          "deviceTypePurpose": "例如「karoo「",
+          "lastSync": "上次同步时间",
+          "lastSyncPurpose": "数据上次同步时间"
+        }
+      },
+      "userSettings": {
+        "title": "用户设置（登录后同步）",
+        "intro": "登录后，您的应用设置会在 Karoo 设备和网页仪表盘之间同步：",
+        "fields": {
+          "thresholds": "阈值设置",
+          "thresholdsPurpose": "平衡阈值、TE 最佳范围、PS 最低值",
+          "alertPrefs": "警报偏好",
+          "alertPrefsPurpose": "哪些指标触发警报、振动/声音/视觉选项",
+          "cooldowns": "警报冷却",
+          "cooldownsPurpose": "重复警报之间的时间（秒）",
+          "screenWake": "唤醒屏幕",
+          "screenWakePurpose": "警报是否唤醒 Karoo 屏幕",
+          "bgMode": "后台模式",
+          "bgModePurpose": "即使数据字段隐藏也收集数据",
+          "autoSync": "自动同步",
+          "autoSyncPurpose": "骑行完成后自动同步"
+        },
+        "note": "设置同步允许您在网页上配置阈值并自动应用到 Karoo。如果未登录，设置仅保存在本地。"
+      },
+      "drillResults": {
+        "title": "训练结果（登录后同步）",
+        "intro": "登录后，您的训练数据会同步：",
+        "fields": {
+          "drillId": "训练 ID 和名称",
+          "drillIdPurpose": "完成的训练项目",
+          "drillTimestamp": "时间戳和时长",
+          "drillTimestampPurpose": "训练完成时间和持续时间",
+          "drillScore": "得分",
+          "drillScorePurpose": "整体表现得分（0-100）",
+          "timeInTarget": "达标时间",
+          "timeInTargetPurpose": "保持目标指标的时间",
+          "phaseScores": "阶段得分",
+          "phaseScoresPurpose": "每个训练阶段的表现"
+        }
+      },
+      "achievements": {
+        "title": "成就（登录后同步）",
+        "intro": "登录后，您解锁的成就会同步：",
+        "fields": {
+          "achievementId": "成就 ID",
+          "achievementIdPurpose": "解锁的成就",
+          "unlockedAt": "解锁时间",
+          "unlockedAtPurpose": "获得成就的时间"
+        }
+      },
+      "localOnly": {
+        "title": "仅存储在 Karoo 上的数据（从不同步）",
+        "intro": "以下数据仅存储在 Karoo 设备本地，从不发送到我们的服务器：",
+        "fields": {
+          "ratings": "骑行评分",
+          "ratingsPurpose": "您为骑行分配的 1-5 星评分",
+          "notes": "骑行备注",
+          "notesPurpose": "您添加到骑行的个人备注",
+          "customDrills": "自定义训练",
+          "customDrillsPurpose": "您自己创建的训练",
+          "onboarding": "新手引导状态",
+          "onboardingPurpose": "是否已完成应用教程"
+        },
+        "note": "这些数据保留在您的设备上。如果卸载应用，这些数据将被删除。"
+      },
+      "dontCollect": {
+        "intro": "虽然我们收集用于分析的表现指标，但我们特别避免收集位置和追踪数据：",
+        "items": {
+          "gps": "GPS / 位置",
+          "route": "路线 / 地图数据",
+          "temperature": "温度",
+          "strava": "Strava / 其他平台",
+          "rideTitles": "骑行标题 / 名称",
+          "photos": "照片 / 媒体"
+        },
+        "note": "您的骑行无法追溯到具体位置。我们只存储汇总的表现指标，而非您骑行的地点。"
+      },
+      "usedNotStored": {
+        "title": "使用但不存储的数据",
+        "intro": "以下数据实时读取用于显示，但从不保存到设备或云端：",
+        "fields": {
+          "smoothed": "3秒/10秒平滑平衡",
+          "smoothedPurpose": "用于实时显示的趋势指标",
+          "rawStream": "原始传感器数据流（约 20Hz）",
+          "rawStreamPurpose": "单个数据点被处理后丢弃；只存储每分钟平均值"
+        }
+      },
+      "permissions": {
+        "title": "Android 权限",
+        "intro": "KPedal 应用在 Karoo 上请求以下权限：",
+        "fields": {
+          "foreground": "前台服务",
+          "foregroundPurpose": "在后台运行以在骑行期间收集数据",
+          "notifications": "通知",
+          "notificationsPurpose": "当踏频技术需要注意时显示警报",
+          "boot": "开机启动",
+          "bootPurpose": "Karoo 开机时自动启动"
+        },
+        "note": "不请求网络、位置、相机、麦克风或存储权限。"
+      },
+      "dataFlow": {
+        "step1": {
+          "title": "功率计踏板",
+          "desc": "您的踏板通过 ANT+ Cycling Dynamics 协议将平衡、TE 和 PS 传输到 Karoo。"
+        },
+        "step2": {
+          "title": "Karoo 上的 KPedal 应用",
+          "desc": "应用以约 20Hz 在本地处理实时数据，计算平均值，并将骑行摘要存储在本地数据库中。设备上最多保留 100 次骑行；较旧的骑行会自动删除。"
+        },
+        "step3": {
+          "title": "云同步（可选）",
+          "desc": "如果登录，骑行摘要和设置通过 HTTPS 同步到 KPedal 云端。只发送汇总数据 — 不发送原始传感器数据流。网页上的设置更改会自动应用到您的 Karoo。"
+        },
+        "step4": {
+          "title": "网页仪表盘",
+          "desc": "在 app.kpedal.com 查看您的骑行历史、趋势和分析。数据仅为您的已验证账户检索。"
+        },
+        "offlineTitle": "离线模式",
+        "offlineDesc": "KPedal 应用完全离线工作。您可以在不登录或同步的情况下使用所有功能。数据保留在您的设备上。"
+      },
+      "infrastructure": {
+        "title": "基础设施",
+        "workers": "Cloudflare Workers",
+        "workersUse": "API 处理（无服务器）。请求日志存储约 7 天。",
+        "d1": "Cloudflare D1",
+        "d1Use": "用户和骑行的 SQLite 数据库",
+        "kv": "Cloudflare KV",
+        "kvUse": "会话令牌（7 天后自动过期）",
+        "pages": "Cloudflare Pages",
+        "pagesUse": "静态网页仪表盘托管"
+      },
+      "security": {
+        "title": "安全措施",
+        "https": "全程 HTTPS",
+        "httpsDesc": "所有连接使用 TLS 1.3 加密",
+        "jwt": "JWT 身份验证",
+        "jwtDesc": "签名令牌，访问令牌 15 分钟过期，刷新令牌 7 天过期",
+        "rateLimit": "速率限制",
+        "rateLimitDesc": "认证：10 次/分钟，API：100 次/分钟，同步：30 次/分钟。使用 IP 地址计数，60 秒后自动删除。",
+        "validation": "输入验证",
+        "validationDesc": "所有数据在存储前经过验证和清理",
+        "csrf": "CSRF 防护",
+        "csrfDesc": "OAuth 状态验证防止跨站攻击"
+      },
+      "retention": {
+        "title": "数据保留",
+        "cloudTitle": "云存储 (app.kpedal.com)",
+        "localTitle": "本地存储（Karoo 设备）",
+        "cloud": {
+          "rideData": "骑行数据",
+          "rideDataPeriod": "直到您删除",
+          "drillResults": "训练结果",
+          "drillResultsPeriod": "直到您删除",
+          "achievements": "成就",
+          "achievementsPeriod": "直到账户删除",
+          "userSettings": "用户设置",
+          "userSettingsPeriod": "直到账户删除",
+          "accountData": "账户数据",
+          "accountDataPeriod": "直到账户删除",
+          "accessTokens": "访问令牌",
+          "accessTokensPeriod": "15 分钟",
+          "refreshTokens": "刷新令牌",
+          "refreshTokensPeriod": "7 天",
+          "oauthState": "OAuth 状态",
+          "oauthStatePeriod": "10 分钟"
+        },
+        "local": {
+          "rideHistory": "骑行历史",
+          "rideHistoryPeriod": "最多 100 次骑行（最旧的自动删除）",
+          "drillResults": "训练结果",
+          "drillResultsPeriod": "直到应用卸载（如已登录也同步到云端）",
+          "achievements": "成就",
+          "achievementsPeriod": "直到应用卸载（如已登录也同步到云端）",
+          "customDrills": "自定义训练",
+          "customDrillsPeriod": "直到您删除（仅本地）",
+          "settings": "设置",
+          "settingsPeriod": "直到应用卸载（如已登录同步到云端）"
+        }
+      },
+      "thirdParties": {
+        "google": {
+          "title": "Google OAuth",
+          "desc": "仅用于登录。我们请求最小权限范围：openid、email、profile。",
+          "link": "Google 隐私政策 →"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "desc": "我们的基础设施提供商。处理 API、数据库和网页托管。",
+          "link": "Cloudflare 隐私政策 →"
+        },
+        "notUsedTitle": "我们不使用的内容",
+        "notUsedIntro": "KPedal 不使用：",
+        "notUsed": [
+          "Google Analytics 或任何分析服务",
+          "Facebook Pixel 或任何广告追踪器",
+          "Cookie（我们使用 localStorage）",
+          "崩溃报告服务（无 Firebase Crashlytics、Sentry 等）",
+          "任何第三方数据经纪商"
+        ],
+        "browserStorageTitle": "浏览器存储",
+        "browserStorageIntro": "KPedal 网页仪表盘在浏览器的本地/会话存储中存储以下内容：",
+        "browserStorage": {
+          "access": "kpedal_auth_access",
+          "accessPurpose": "sessionStorage — JWT 访问令牌（标签页关闭时清除）",
+          "refresh": "kpedal_auth_refresh",
+          "refreshPurpose": "localStorage — JWT 刷新令牌（保留最多 7 天）",
+          "theme": "kpedal_theme",
+          "themePurpose": "localStorage — 主题偏好（自动/浅色/深色）"
+        },
+        "browserStorageNote": "您可以随时通过退出登录或清除浏览器存储来清除这些数据。不使用 Cookie。"
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "Karoo 扩展",
+      "version": "v1.3.0",
+      "titleLine1": "实时查看您的",
+      "titleLine2": "踏频效率",
+      "subtitle": "平衡、扭矩效率、踏频平滑度 — 在 Karoo 上显示，配有实时警报和引导式训练。",
+      "downloadFree": "免费下载",
+      "tryDemo": "试用演示",
+      "free": "免费",
+      "openSource": "开源",
+      "noAccountRequired": "无需账户"
+    },
+    "dataFields": {
+      "title": "在 Karoo 上查看",
+      "subtitle": "5 种数据字段布局。选择适合您训练的视图。",
+      "tabs": {
+        "quickGlance": "快速查看",
+        "balance": "平衡",
+        "efficiency": "效率",
+        "fullView": "完整视图",
+        "trend": "趋势"
+      },
+      "quickGlance": {
+        "name": "快速查看",
+        "desc": "带平衡条的状态指示器。最佳时显示对勾，否则列出需要注意的指标。"
+      },
+      "powerBalance": {
+        "name": "功率平衡",
+        "desc": "大字号左/右平衡数字配可视化进度条。非常适合专注平衡训练。"
+      },
+      "efficiency": {
+        "name": "效率",
+        "desc": "扭矩效率和踏频平滑度，显示左/右分配和平均值。"
+      },
+      "fullOverview": {
+        "name": "完整概览",
+        "desc": "三个指标集于一个紧凑视图。一目了然的完整踏频信息。"
+      },
+      "balanceTrend": {
+        "name": "平衡趋势",
+        "desc": "当前 + 3秒平滑 + 10秒平滑平衡。实时观察趋势发展。"
+      },
+      "karoo": {
+        "optimal": "最佳",
+        "balance": "平衡",
+        "left": "左",
+        "right": "右",
+        "torqueEff": "扭矩效率",
+        "smoothness": "平滑度",
+        "te": "TE",
+        "ps": "PS",
+        "ok": "正常",
+        "now": "当前",
+        "avg3s": "3秒平均",
+        "avg10s": "10秒平均"
+      }
+    },
+    "comparison": {
+      "title": "差异所在",
+      "subtitle": "停止猜测，开始进步。",
+      "without": "没有 KPedal",
+      "with": "使用 KPedal",
+      "items": {
+        "before1": "只有功率数字，无技术洞察",
+        "after1": "平衡、TE、PS 实时可见",
+        "before2": "从伤病中发现不平衡",
+        "after2": "在问题出现前发出警报",
+        "before3": "没有结构化的改进方法",
+        "after3": "10 个带评分的引导式训练",
+        "before4": "数据困在一台设备上",
+        "after4": "云同步配网页仪表盘"
+      }
+    },
+    "metrics": {
+      "title": "我们测量什么",
+      "subtitle": "三个指标。基于研究的阈值。",
+      "balance": {
+        "title": "功率平衡",
+        "range": "48-52% 最佳",
+        "desc": "左/右功率分配。专业骑行者保持在 2% 以内。超过 5% 的不平衡会增加过度使用伤害风险，并通过代偿模式浪费能量。"
+      },
+      "te": {
+        "title": "扭矩效率",
+        "range": "70-80% 最佳区间",
+        "desc": "在踩踏有效部分施加的功率百分比。基于 Wattbike 研究 — <strong>更高并不更好</strong>。超过 80% 实际上可能降低总功率输出。"
+      },
+      "ps": {
+        "title": "踏频平滑度",
+        "range": "目标 ≥20%",
+        "desc": "功率在整个踩踏过程中分布的均匀程度。消除「死点「。精英骑行者达到 25-35% — 这是最难改进的指标。"
+      },
+      "zones": {
+        "optimal": "最佳",
+        "attention": "注意",
+        "problem": "问题"
+      }
+    },
+    "drills": {
+      "title": "10 个引导式训练",
+      "subtitle": "从 30 秒练习到 15 分钟训练。每个评分 0-100%。",
+      "tabs": {
+        "focus": "专注",
+        "challenge": "挑战",
+        "workout": "训练课"
+      },
+      "target": "目标",
+      "levels": {
+        "beginner": "初学者",
+        "intermediate": "中级",
+        "advanced": "高级"
+      },
+      "featured": "推荐",
+      "featuredTitle": "踏频精通",
+      "featuredDesc": "15 分钟，10 个阶段。全面的技术训练。建议每周 1-2 次。",
+      "items": {
+        "leftFocus": {
+          "name": "左腿专注",
+          "duration": "30秒",
+          "target": "平衡 <48%",
+          "desc": "通过强调左腿来建立单腿力量意识。"
+        },
+        "rightFocus": {
+          "name": "右腿专注",
+          "duration": "30秒",
+          "target": "平衡 >52%",
+          "desc": "通过专注练习识别并加强您的弱侧腿。"
+        },
+        "smoothCircles": {
+          "name": "平滑踩踏",
+          "duration": "45秒",
+          "target": "PS ≥22%",
+          "desc": "通过平滑技术消除踩踏过程中的死点。"
+        },
+        "powerTransfer": {
+          "name": "功率传递",
+          "duration": "60秒",
+          "target": "TE 70-80%",
+          "desc": "在不牺牲效率的情况下最大化功率输出。"
+        },
+        "balanceChallenge": {
+          "name": "平衡挑战",
+          "duration": "保持15秒",
+          "target": "48-52%",
+          "desc": "保持完美的 50/50 平衡 15 秒。测试对称性和控制力。"
+        },
+        "smoothnessTarget": {
+          "name": "平滑度目标",
+          "duration": "保持20秒",
+          "target": "PS ≥25%",
+          "desc": "精英级别的踏频平滑度。最具挑战性的技术训练。"
+        },
+        "highCadenceSmooth": {
+          "name": "高踏频平滑",
+          "duration": "30秒",
+          "target": "PS ≥20% @ 100+ rpm",
+          "desc": "在高踏频下保持平滑状态。终极协调测试。"
+        },
+        "balanceRecovery": {
+          "name": "平衡恢复",
+          "duration": "5分钟",
+          "target": "3个阶段",
+          "desc": "交替左腿专注 → 居中 → 右腿专注。帮助逐步纠正不平衡。"
+        },
+        "efficiencyBuilder": {
+          "name": "效率训练",
+          "duration": "10分钟",
+          "target": "6个阶段",
+          "desc": "依次训练：平衡 → 平滑度 → TE。建立完整技术。"
+        },
+        "pedalingMastery": {
+          "name": "踏频精通",
+          "duration": "15分钟",
+          "target": "10个阶段",
+          "desc": "涵盖踏频技术所有方面的综合 10 阶段训练。"
+        }
+      }
+    },
+    "alerts": {
+      "title": "实时警报",
+      "subtitle": "骑行中技术偏离时立即纠正",
+      "demo": {
+        "title": "平衡警报",
+        "detail": "右腿主导：56%"
+      },
+      "features": {
+        "vibration": {
+          "title": "振动和声音",
+          "desc": "触觉反馈和音频提示。可分别开关。"
+        },
+        "screenWake": {
+          "title": "唤醒屏幕",
+          "desc": "警报触发时自动唤醒 Karoo 显示屏。"
+        },
+        "cooldown": {
+          "title": "智能冷却",
+          "desc": "警报间隔 15 秒到 2 分钟。有用但不烦人。"
+        },
+        "thresholds": {
+          "title": "单独指标阈值",
+          "desc": "平衡、TE 和 PS 分别设置。"
+        }
+      }
+    },
+    "analytics": {
+      "title": "分析与网页仪表盘",
+      "subtitle": "跟踪长期进步。查看趋势，而非仅仅数字。",
+      "preview": {
+        "greeting": "您好，Yuri！",
+        "recentRides": "最近骑行",
+        "technique": "技术",
+        "avgSuffix": "平均",
+        "morningRide": "晨骑",
+        "eveningSpin": "夜骑",
+        "longRide": "长途骑行",
+        "daysAgo": "天前"
+      },
+      "features": {
+        "periods": "7天、14天、30天、60天分析",
+        "history": "带筛选的完整骑行历史",
+        "multiDevice": "多设备同步",
+        "openSource": "在 GitHub 开源"
+      }
+    },
+    "motivation": {
+      "title": "保持动力",
+      "subtitle": "通过成就和每周挑战跟踪进度",
+      "achievements": "可解锁成就",
+      "challenges": "每周挑战",
+      "achievementsLabel": "成就",
+      "challengesLabel": "挑战",
+      "examples": {
+        "firstRide": "首次骑行",
+        "hundredRides": "100 次骑行",
+        "perfectBalance": "完美平衡 10 分钟",
+        "thirtyDayStreak": "30 天连续",
+        "balancedRider": "平衡骑行者：连续 3 次骑行 48-52%",
+        "zoneMaster": "区间大师：60%+ 时间在最佳区间"
+      }
+    },
+    "works": {
+      "title": "随处可用",
+      "subtitle": "后台收集。自动同步。您的数据跨所有设备。",
+      "background": {
+        "title": "后台模式",
+        "desc": "为所有骑行收集数据，即使没有可见的数据字段。开机自动启动。停止时保存。"
+      },
+      "sync": {
+        "title": "云同步",
+        "desc": "骑行完成后同步。在 link.kpedal.com 用简单代码连接设备 — Karoo 上无需输入密码。"
+      },
+      "multiDevice": {
+        "title": "多设备",
+        "desc": "连接多台 Karoo。所有骑行汇入一个账户。设置在应用和网页之间双向同步。"
+      }
+    },
+    "requirements": {
+      "title": "您需要什么",
+      "subtitle": "Karoo 2 或 3 + 双侧功率踏板",
+      "karoo": {
+        "title": "Hammerhead Karoo",
+        "desc": "Karoo 2 或 Karoo 3。KPedal 使用原生 Karoo SDK — 不支持其他设备。"
+      },
+      "pedals": {
+        "title": "双侧功率踏板",
+        "desc": "左 + 右功率测量，支持 ANT+ Cycling Dynamics 的平衡、TE 和 PS。"
+      },
+      "fullSupport": {
+        "title": "完全支持",
+        "desc": "平衡 + TE + PS"
+      },
+      "balanceOnly": {
+        "title": "仅平衡",
+        "desc": "左/右功率但无 TE/PS"
+      },
+      "notCompatible": {
+        "title": "不兼容",
+        "desc": "无双侧数据"
+      },
+      "pedalsList": {
+        "singleSided": "单侧功率计",
+        "trainerPower": "骑行台功率"
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "q1": {
+        "q": "哪些功率计踏板兼容？",
+        "a": "<strong>完全支持（平衡 + TE + PS）：</strong>Garmin Rally、Favero Assioma、SRM X-Power、PowerTap P2。<br><strong>仅平衡：</strong>Wahoo POWRLINK、Stages LR、4iiii Precision、Rotor INpower。<br>任何传输 ANT+ Cycling Dynamics 的踏板都可以使用。"
+      },
+      "q2": {
+        "q": "如何在 Karoo 上安装 KPedal？",
+        "a": "<strong>方式 1：</strong>从 GitHub Releases 下载 APK → 通过 USB 传输 → 在 Karoo 上打开文件管理器 → 点击安装。<br><strong>方式 2：</strong>直接在 Karoo 浏览器中打开 GitHub 发布链接下载。<br><strong>方式 3：</strong>使用 ADB：<code>adb install kpedal.apk</code>"
+      },
+      "q3": {
+        "q": "我需要将 KPedal 数据字段添加到骑行屏幕吗？",
+        "a": "<strong>不需要。</strong>启用后台模式后，KPedal 会自动为所有骑行收集指标 — 即使您从未添加任何数据字段。数据字段是可选的，仅用于骑行中实时查看指标。无论如何，您的完整骑行历史都会保存。"
+      },
+      "q4": {
+        "q": "什么样的功率平衡被认为是「好「的？",
+        "a": "<strong>48-52%</strong>（与 50/50 偏差 ±2%）是最佳的。大多数专业骑行者有 1-3% 的自然不对称。不要纠结于完美的 50/50 — 这几乎不可能也不必要。关注<strong>在您的范围内保持一致</strong>而非追求完美。"
+      },
+      "q5": {
+        "q": "为什么 70-80% 的扭矩效率是最佳的，而不是更高？",
+        "a": "基于 <strong>Wattbike 研究</strong>：超过 80% TE，您可能在上拉阶段过度用力。这会浪费能量，实际上可能降低总功率输出。70-80% 的范围表明您在整个踩踏过程中有效施力，而不会在恢复阶段与自己对抗。"
+      },
+      "q6": {
+        "q": "踏频平滑度到底测量什么？",
+        "a": "<strong>公式：</strong>PS = (平均功率 ÷ 峰值功率) × 100。<br>更高的 PS 意味着整个踩踏过程中更一致的功率施加。<strong>20%+ 对大多数骑行者来说是好的</strong>。冲刺型骑手通常 PS 较低（爆发性、有冲击力的功率），而耐力型骑手倾向于更高值。"
+      },
+      "q7": {
+        "q": "骑行得分是如何计算的？",
+        "a": "<strong>加权公式：</strong>平衡 (40%) + TE (35%) + PS (25%)。<br>每个指标根据在最佳区间的时间评分 0-100。<br><strong>85+</strong> = 出色技术<br><strong>70-84</strong> = 良好，有小改进空间<br><strong>低于 70</strong> = 有较大改进空间"
+      },
+      "q8": {
+        "q": "引导式训练是如何工作的？",
+        "a": "训练是结构化练习，屏幕上显示实时目标。例如：「单腿专注「要求您在一条腿上保持 55-60% 平衡 30 秒。KPedal 跟踪您的<strong>达标时间</strong>并在结束时给出得分。非常适合热身、恢复骑行或专门的技术训练。"
+      },
+      "q9": {
+        "q": "我可以创建自己的自定义训练吗？",
+        "a": "<strong>可以。</strong>自定义训练让您定义自己的阶段、目标和持续时间。创建针对您特定弱点的训练 — 也许是 45 秒高 TE 专注后跟 30 秒平衡训练。您的自定义训练保存在本地并同步到云端。"
+      },
+      "q10": {
+        "q": "什么会触发骑行中警报？",
+        "a": "<strong>可配置阈值：</strong><br>• 平衡：不对称超过设定限制（默认 5%）<br>• TE：低于最低值（默认 60%）<br>• PS：低于最低值（默认 15%）<br>警报使用<strong>振动 + 提示音</strong>。冷却时间（15秒-2分钟）防止过多提醒。您可以独立启用/禁用每个指标。"
+      },
+      "q11": {
+        "q": "KPedal 在没有网络的情况下能用吗？",
+        "a": "<strong>100% 可以。</strong>所有核心功能 — 数据收集、训练、警报、骑行历史 — 完全离线工作。云同步是可选的，只有在您启用后才激活。您的数据始终首先存储在 Karoo 本地。重新联网时会自动同步。"
+      },
+      "q12": {
+        "q": "KPedal 会耗费 Karoo 电池吗？",
+        "a": "<strong>影响很小：活动骑行期间每小时约多 1-2%</strong>。KPedal 仅在骑行时运行数据收集。骑行之间，只有一个很小的监听器等待骑行开始 — 功耗可忽略不计。已针对效率进行大量优化。"
+      },
+      "q13": {
+        "q": "我可以在多台 Karoo 设备上同步数据吗？",
+        "a": "<strong>可以。</strong>将多台 Karoo 连接到您的账户。设置在它们之间自动同步。所有设备的骑行都显示在一个统一的仪表盘中。非常适合备用 Karoo、比赛和训练设备，或升级到新设备时。"
+      },
+      "q14": {
+        "q": "成就系统是如何工作的？",
+        "a": "当您达到里程碑时解锁成就：骑行次数、总小时数、连续记录、技术改进。例如：「铁人平衡「（10 次骑行不对称 <2%）、「百骑俱乐部「（100 次追踪骑行）。成就同步到云端并显示在网页仪表盘上。"
+      },
+      "q15": {
+        "q": "我可以在 Garmin、Wahoo 或其他自行车电脑上使用 KPedal 吗？",
+        "a": "<strong>不可以。</strong>KPedal 是专门为 Hammerhead Karoo 使用其官方 karoo-ext SDK 构建的。它访问 ANT+ Cycling Dynamics 数据、原生警报系统和骑行状态监控 — 这些深度集成在其他平台上不可用。"
+      },
+      "q16": {
+        "q": "我的数据是私密和安全的吗？",
+        "a": "<strong>是的。</strong>除非您启用云同步，否则数据保留在 Karoo 上。云端使用 <strong>Google 登录</strong> — 我们永远不会看到或存储您的密码。没有追踪像素、没有广告、不出售数据。整个项目是<strong>开源的</strong> — 您可以在 GitHub 上自己审核代码。"
+      },
+      "q17": {
+        "q": "为什么我的平衡在不同功率输出下会变化？",
+        "a": "这是正常的。在低功率时，轻微的技术变化会被放大。在高功率时，您倾向于更均匀地调动肌肉。许多骑行者在耐力配速与阈值时不对称相差 2-3%。KPedal 跟踪这些，以便您识别模式并改进弱点。"
+      },
+      "q18": {
+        "q": "我应该多久做一次技术训练？",
+        "a": "<strong>每周 2-3 次</strong>是一个好的起点。在热身中加入（5-10 分钟）或将恢复骑行专门用于技术训练。坚持比训练量更重要 — 规律的短训练胜过偶尔的长训练。通过训练得分随时间跟踪进度。"
+      }
+    },
+    "cta": {
+      "headline": "今天就开始改进您的踏频",
+      "subtext": "免费。开源。同步到云端。",
+      "downloadForKaroo": "下载 Karoo 版",
+      "tryDemo": "试用演示"
+    },
+    "footer": {
+      "tagline": "Karoo 踏频效率分析",
+      "product": "产品",
+      "features": "功能",
+      "dataFields": "数据字段",
+      "drills": "训练",
+      "resources": "资源",
+      "github": "GitHub",
+      "releases": "发布版本",
+      "reportIssue": "报告问题",
+      "legal": "法律",
+      "privacyPolicy": "隐私政策",
+      "signIn": "登录",
+      "madeWith": "用爱为 Karoo 社区制作"
+    }
+  },
+  "aria": {
+    "home": "KPedal - 首页",
+    "downloadOptions": "下载选项",
+    "downloadKpedal": "从 GitHub 免费下载 KPedal",
+    "tryDemo": "试用演示账户",
+    "getStartedOptions": "开始使用选项",
+    "downloadForKaroo": "下载 Karoo 版 KPedal",
+    "footerNav": "页脚导航",
+    "viewOnGithub": "在 GitHub 上查看 KPedal",
+    "balanceTrendChart": "平衡趋势图表",
+    "techniqueTrendChart": "技术趋势图表",
+    "languageSelector": "选择语言"
+  }
+}

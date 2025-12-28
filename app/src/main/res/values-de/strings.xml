@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">Schnellansicht</string>
+    <string name="datatype_quick_glance_desc">Statusanzeige mit Balance-Leiste</string>
+
+    <string name="datatype_power_balance">Leistung + Balance</string>
+    <string name="datatype_power_balance_desc">Leistung mit L/R-Balance</string>
+
+    <string name="datatype_efficiency">Effizienz</string>
+    <string name="datatype_efficiency_desc">Drehmoment-Effektivität und Trittglätte</string>
+
+    <string name="datatype_full_overview">Gesamtübersicht</string>
+    <string name="datatype_full_overview_desc">Alle Tretmetriken in einer Ansicht</string>
+
+    <string name="datatype_balance_trend">Balance-Trend</string>
+    <string name="datatype_balance_trend_desc">Aktuelle, 3s und 10s Balance</string>
+
+    <string name="datatype_single_balance">Balance</string>
+    <string name="datatype_single_balance_desc">L/R-Leistungsbalance Vollbild</string>
+
+    <string name="datatype_live">Live</string>
+    <string name="datatype_live_desc">Alle Metriken mit Zeit-in-Zone-Statistik</string>
+
+    <!-- Labels -->
+    <string name="balance">BALANCE</string>
+    <string name="balance_lower">Balance</string>
+    <string name="balance_3s">3s DURCHSCHN.</string>
+    <string name="balance_10s">10s DURCHSCHN.</string>
+    <string name="power">LEISTUNG</string>
+    <string name="power_lower">Leistung</string>
+    <string name="te">TE</string>
+    <string name="te_full">Drehmoment-Effektivität</string>
+    <string name="ps">TG</string>
+    <string name="ps_full">Trittglätte</string>
+    <string name="left">L</string>
+    <string name="right">R</string>
+    <string name="lr">L/R</string>
+    <string name="lr_balance_format">L%1$d/R%2$d</string>
+    <string name="all_good">ALLES GUT</string>
+    <string name="watt_symbol">W</string>
+    <string name="issue_count">%1$d PROBLEM</string>
+    <string name="issues_count">%1$d PROBLEME</string>
+    <string name="no_data">KEINE DATEN</string>
+    <string name="no_data_lower">Keine Daten</string>
+    <string name="avg">Durchschn.</string>
+
+    <!-- Settings -->
+    <string name="settings">Einstellungen</string>
+    <string name="preferences">Einstellungen</string>
+    <string name="thresholds">SCHWELLENWERTE</string>
+    <string name="balance_threshold">Balance-Warnung</string>
+    <string name="te_optimal">TE optimaler Bereich</string>
+    <string name="ps_minimum">TG Minimum</string>
+    <string name="alerts">WARNUNGEN</string>
+    <string name="vibration">Vibration</string>
+    <string name="sound">Ton</string>
+    <string name="alert_settings">Warnungseinstellungen</string>
+    <string name="background_mode">Hintergrundmodus</string>
+    <string name="background_mode_desc">Daten für alle Fahrten erfassen</string>
+    <string name="cloud_sync">Cloud-Synchronisierung</string>
+    <string name="cloud_sync_desc">Synchronisierung mit app.kpedal.com</string>
+    <string name="language">Sprache</string>
+    <string name="settings_sync">SYNCHRONISIERUNG</string>
+    <string name="settings_auto_sync">Automatische Synchronisierung</string>
+    <string name="settings_auto_sync_desc">Nach jeder Fahrt synchronisieren</string>
+    <string name="settings_data_collection">DATENERFASSUNG</string>
+    <string name="settings_balance_threshold">BALANCE-SCHWELLENWERT</string>
+    <string name="settings_balance_threshold_desc">Abweichung von 50/50 für Warnung</string>
+    <string name="settings_te">DREHMOMENT-EFFEKTIVITÄT</string>
+    <string name="settings_te_desc">Minimale TE%% für optimalen Bereich</string>
+    <string name="settings_ps">TRITTGLÄTTE</string>
+    <string name="settings_ps_desc">Minimale TG%% für optimalen Bereich</string>
+    <string name="settings_configure_alerts">Warnungen konfigurieren</string>
+    <string name="settings_configure_alerts_desc">Wann und wie benachrichtigen</string>
+    <string name="settings_about">ÜBER</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_privacy">Datenschutzrichtlinie</string>
+    <string name="settings_contact">Kontakt</string>
+    <string name="settings_linked_account">Verknüpftes Konto</string>
+    <string name="settings_sync_desc">Fahrten mit app.kpedal.com synchronisieren</string>
+    <string name="settings_enter_code">Geben Sie diesen Code ein auf</string>
+    <string name="settings_code_expired">Code abgelaufen</string>
+    <string name="settings_code_expired_desc">Neuen Code anfordern</string>
+    <string name="settings_get_new_code">Neuen Code anfordern</string>
+    <string name="settings_access_denied">Zugriff verweigert</string>
+    <string name="settings_access_denied_desc">Autorisierung wurde abgebrochen</string>
+    <string name="settings_try_again">Erneut versuchen</string>
+    <string name="settings_connection_failed">Verbindung fehlgeschlagen</string>
+    <string name="settings_connection_failed_desc">Bitte erneut versuchen</string>
+    <string name="settings_last_sync">Letzte Synchronisierung: %1$s</string>
+    <string name="settings_never_synced">Noch nie synchronisiert</string>
+    <string name="settings_pending">%1$d ausstehend</string>
+    <string name="settings_up_to_date">Aktuell</string>
+    <string name="settings_sync_now">Jetzt synchronisieren</string>
+    <string name="settings_device_revoked_desc">Dieses Gerät wurde von Ihrem Konto getrennt. Sie müssen sich erneut anmelden, um Ihre Fahrten zu synchronisieren.</string>
+    <string name="ok">OK</string>
+
+    <!-- Account -->
+    <string name="account">KONTO</string>
+    <string name="link_account">Konto verknüpfen</string>
+    <string name="link_account_desc">Fahrten geräteübergreifend synchronisieren</string>
+    <string name="why_how_sync">Warum &amp; wie in die Cloud synchronisieren?</string>
+    <string name="account_linked">Konto verknüpft!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">Cloud-Synchronisierung</string>
+    <string name="cloud_sync_why_title">Warum synchronisieren?</string>
+    <string name="cloud_sync_why_1">Fahrtverlauf und Analysen auf jedem Gerät anzeigen</string>
+    <string name="cloud_sync_why_2">Detaillierte Diagramme und minütliche Momentaufnahmen</string>
+    <string name="cloud_sync_why_3">Fortschritt mit Erfolgen verfolgen</string>
+    <string name="cloud_sync_why_4">Keine Datenverluste bei Gerätezurücksetzung</string>
+    <string name="cloud_sync_how_title">Wie verknüpfen?</string>
+    <string name="cloud_sync_how_1">Tippen Sie oben auf \"Konto verknüpfen\"</string>
+    <string name="cloud_sync_how_2">Notieren Sie den angezeigten 8-stelligen Code</string>
+    <string name="cloud_sync_how_3">Besuchen Sie link.kpedal.com auf einem beliebigen Gerät</string>
+    <string name="cloud_sync_how_3_prefix">Besuchen Sie</string>
+    <string name="cloud_sync_how_4">Geben Sie den Code ein und melden Sie sich mit Google an</string>
+    <string name="cloud_sync_how_5">Fertig! Fahrten werden automatisch synchronisiert</string>
+    <string name="cloud_sync_what_syncs">Was wird synchronisiert?</string>
+    <string name="cloud_sync_syncs_rides">Fahrtübersichten mit minütlichen Momentaufnahmen</string>
+    <string name="cloud_sync_syncs_metrics">Leistung, HF, Trittfrequenz, Distanz, Höhenmeter</string>
+    <string name="cloud_sync_syncs_drills">Übungsergebnisse und Erfolge</string>
+    <string name="cloud_sync_syncs_settings">Warnungs- und Schwellenwerteinstellungen</string>
+    <string name="cloud_sync_not_syncs">GPS/Routen werden NICHT erfasst</string>
+    <string name="cloud_sync_free">Kostenlos &amp; ohne Werbung. Ihre Daten gehören Ihnen.</string>
+    <string name="sign_out">Abmelden</string>
+    <string name="sync">Synchronisieren</string>
+    <string name="syncing">Synchronisierung…</string>
+    <string name="synced">Synchronisiert</string>
+    <string name="sync_failed">Synchronisierung fehlgeschlagen</string>
+    <string name="offline">Offline</string>
+    <string name="getting_code">Code wird abgerufen…</string>
+    <string name="waiting_auth">Warten auf Autorisierung…</string>
+    <string name="device_disconnected">Gerät getrennt</string>
+    <string name="device_disconnected_desc">Dieses Gerät wurde von Ihrem Konto getrennt. Bitte verknüpfen Sie es erneut, um die Synchronisierung fortzusetzen.</string>
+    <string name="relink">Konto erneut verknüpfen</string>
+
+    <!-- Live -->
+    <string name="live">Live</string>
+    <string name="current_ride">Aktuelle Fahrt</string>
+    <string name="time_in_zone">ZEIT IN ZONE</string>
+    <string name="waiting_pedal_data">Warten auf Pedaldaten…</string>
+    <string name="start_riding">Beginnen Sie zu fahren oder prüfen Sie die Pedalverbindung</string>
+    <string name="save">Speichern</string>
+    <string name="saved">Gespeichert</string>
+    <string name="opt">Opt</string>
+    <string name="att">Acht</string>
+    <string name="prob">Prob</string>
+
+    <!-- Home Screen -->
+    <string name="drills">Übungen</string>
+    <string name="practice">Training</string>
+    <string name="rides">Fahrten</string>
+    <string name="avg_bal">Durchschn. Bal.</string>
+    <string name="streak">Serie</string>
+    <string name="streak_days">%1$dT</string>
+    <string name="section_data">DATEN</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">MEHR</string>
+    <string name="history">Verlauf</string>
+    <string name="saved_rides">Gespeicherte Fahrten</string>
+    <string name="analytics">Analysen</string>
+    <string name="trends">Trends</string>
+    <string name="achievements">Erfolge</string>
+    <string name="challenges">Herausforderungen</string>
+    <string name="weekly_goal">Wochenziel</string>
+    <string name="data_fields">Datenfelder</string>
+    <string name="layouts_count">6 Layouts</string>
+    <string name="pedal_status">Pedalstatus</string>
+    <string name="connection">Verbindung</string>
+    <string name="quick_guide">Kurzanleitung</string>
+    <string name="last_ride">Letzte Fahrt</string>
+    <string name="optimal">optimal</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">Überwacht Tretmetriken</string>
+    <string name="notification_channel_name">KPedal Hintergrund</string>
+    <string name="notification_channel_description">Überwacht Tretmetriken während aller Fahrten</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">Warnungen aktivieren</string>
+    <string name="metrics_to_monitor">ZU ÜBERWACHENDE METRIKEN</string>
+    <string name="sensitivity">EMPFINDLICHKEIT</string>
+    <string name="critical">Kritisch</string>
+    <string name="critical_desc">Nur größere Probleme</string>
+    <string name="sensitive">Empfindlich</string>
+    <string name="sensitive_desc">Häufigere Warnungen</string>
+    <string name="notify_via">BENACHRICHTIGUNG ÜBER</string>
+    <string name="vibrate">Vibrieren</string>
+    <string name="banner">Banner</string>
+    <string name="options">OPTIONEN</string>
+    <string name="wake_screen">Bildschirm aktivieren</string>
+    <string name="cooldown">Abklingzeit</string>
+    <string name="cooldown_15s">15s</string>
+    <string name="cooldown_30s">30s</string>
+    <string name="cooldown_1m">1m</string>
+    <string name="cooldown_2m">2m</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">Datenfeld-Layouts</string>
+    <string name="tap_to_preview">Tippen für Layoutvorschau auf Karoo</string>
+    <string name="layout_quick_glance_short">Status + Balance-Leiste</string>
+    <string name="layout_power_balance_short">Große L/R-Anzeige</string>
+    <string name="layout_efficiency_short">TE und TG Metriken</string>
+    <string name="layout_full_overview_short">Alle Metriken kompakt</string>
+    <string name="layout_balance_trend_short">3s/10s geglättet</string>
+    <string name="layout_single_balance_short">Nur Balance</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">Verbunden</string>
+    <string name="disconnected">Getrennt</string>
+    <string name="live_data">LIVE-DATEN</string>
+    <string name="data_flowing">Daten fließen korrekt</string>
+    <string name="signal_details">SIGNALDETAILS</string>
+    <string name="troubleshooting">FEHLERBEHEBUNG</string>
+    <string name="quality">Qualität</string>
+    <string name="excellent">Ausgezeichnet</string>
+    <string name="fair">Mäßig</string>
+    <string name="poor">Schlecht</string>
+    <string name="unknown">Unbekannt</string>
+    <string name="update_rate">Aktualisierungsrate</string>
+    <string name="last_update">Letzte Aktualisierung</string>
+    <string name="pedal_tip_start_riding">Beginnen Sie zu fahren, um Pedale zu erkennen</string>
+    <string name="pedal_tip_ensure_paired">Stellen Sie sicher, dass die Pedale mit Karoo gekoppelt sind</string>
+    <string name="pedal_tip_check_battery">Prüfen Sie die Pedalbatterie</string>
+    <string name="pedal_tip_low_rate">Niedrige Rate kann auf Störungen hinweisen</string>
+    <string name="pedal_tip_move_away">Entfernen Sie sich von anderen ANT+-Geräten</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">Fahrtenverlauf</string>
+    <string name="rides_count">%1$d Fahrten</string>
+    <string name="no_rides">Keine Fahrten</string>
+    <string name="no_rides_saved">Keine Fahrten gespeichert</string>
+    <string name="no_matching_rides">Keine passenden Fahrten</string>
+    <string name="try_adjusting_filter">Versuchen Sie, den Filter anzupassen</string>
+    <string name="rides_saved_auto">Fahrten werden automatisch gespeichert</string>
+    <string name="manual">manuell</string>
+    <string name="percent_optimal">%1$d%% optimal</string>
+    <string name="load_more">Mehr laden</string>
+    <string name="delete_ride">Fahrt löschen?</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="delete">Löschen</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">BEWERTUNG</string>
+    <string name="suggested_stars">Vorgeschlagen: %1$d Sterne</string>
+    <string name="overall">Gesamt</string>
+    <string name="efficiency">Effizienz</string>
+    <string name="consistency">Konstanz</string>
+    <string name="analysis">ANALYSE</string>
+    <string name="strengths">Stärken</string>
+    <string name="areas_to_improve">Verbesserungsbereiche</string>
+    <string name="attention">Achtung</string>
+    <string name="problem">Problem</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">Keine Fahrtdaten</string>
+    <string name="complete_rides_to_see">Absolvieren Sie einige Fahrten, um Trends zu sehen</string>
+    <string name="period_averages">Zeitraum-Durchschnitte</string>
+    <string name="progress_label">Fortschritt</string>
+    <string name="stable">Stabil</string>
+    <string name="avg_balance_label">Durchschn. Balance</string>
+    <string name="balance_trend_title">Balance-Trend</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">FAHRTEN</string>
+    <string name="section_balance">BALANCE</string>
+    <string name="section_efficiency">EFFIZIENZ</string>
+    <string name="section_streaks">SERIEN</string>
+    <string name="section_drills">ÜBUNGEN</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">Verlauf</string>
+    <string name="my_drills">MEINE ÜBUNGEN</string>
+    <string name="built_in_drills">INTEGRIERTE ÜBUNGEN</string>
+    <string name="create_custom_drill">Eigene Übung erstellen</string>
+    <string name="custom">Eigene</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">Beste %1$d%%</string>
+    <string name="start">Start</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">Weiter</string>
+    <string name="stop">Stopp</string>
+    <string name="pause">Pause</string>
+    <string name="paused">Pausiert</string>
+    <string name="resume">Fortsetzen</string>
+    <string name="rpm">U/min</string>
+    <string name="in_zone">in Zone</string>
+    <string name="spin_easy">Locker treten</string>
+    <string name="complete">Abgeschlossen</string>
+    <string name="stopped">Gestoppt</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">Neue Bestleistung!</string>
+    <string name="done">Fertig</string>
+    <string name="retry">Wiederholen</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">Löschen</string>
+    <string name="no_history">Kein Verlauf</string>
+    <string name="clear_all_question">Alle löschen?</string>
+    <string name="delete_question">Löschen?</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">Neue Übung</string>
+    <string name="edit_drill">Übung bearbeiten</string>
+    <string name="name_your_drill">Benennen Sie Ihre Übung</string>
+    <string name="drill_name_placeholder">z.B. Balance-Fokus, Hohe TE</string>
+    <string name="what_to_focus">Worauf konzentrieren?</string>
+    <string name="balance_option">Balance</string>
+    <string name="lr_power_distribution">L/R-Leistungsverteilung</string>
+    <string name="torque_effectiveness_option">Drehmoment-Effektivität</string>
+    <string name="power_transfer_efficiency">Effizienz der Kraftübertragung</string>
+    <string name="pedal_smoothness_option">Trittglätte</string>
+    <string name="circular_pedal_stroke">Runder Tritt</string>
+    <string name="how_long">Wie lange?</string>
+    <string name="quick_select">Schnellauswahl</string>
+    <string name="or_set_custom">Oder individuell einstellen</string>
+    <string name="minutes">Minuten</string>
+    <string name="seconds">Sekunden</string>
+    <string name="total_duration">Gesamt: %1$s</string>
+    <string name="min_10_seconds">Mindestens 10 Sekunden</string>
+    <string name="set_your_target">Ziel festlegen</string>
+    <string name="above">Über</string>
+    <string name="above_value">≥ Wert</string>
+    <string name="below">Unter</string>
+    <string name="below_value">≤ Wert</string>
+    <string name="range">Bereich</string>
+    <string name="min_max">min-max</string>
+    <string name="minimum">Minimum</string>
+    <string name="maximum">Maximum</string>
+    <string name="preview">VORSCHAU</string>
+    <string name="metric">Metrik</string>
+    <string name="duration">Dauer</string>
+    <string name="target">Ziel</string>
+    <string name="custom_drill_desc">Eigene %1$s-Übung</string>
+    <string name="torque_eff_short">Drehmoment-Eff.</string>
+    <string name="smoothness_short">Glätte</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">Wochenherausforderung</string>
+    <string name="active">Aktiv</string>
+    <string name="days_left_this_week">Noch %1$d Tage diese Woche</string>
+    <string name="completed_upper">ABGESCHLOSSEN</string>
+    <string name="this_week">DIESE WOCHE</string>
+    <string name="all_challenges">ALLE HERAUSFORDERUNGEN</string>
+    <string name="next_week">NÄCHSTE WOCHE</string>
+
+    <!-- Onboarding -->
+    <string name="skip">Überspringen</string>
+    <string name="get_started">Loslegen</string>
+    <string name="onboarding_welcome_title">Willkommen bei KPedal</string>
+    <string name="onboarding_welcome_desc">Echtzeit-Tretmetriken von Ihren Leistungsmesser-Pedalen. Verfolgen Sie Balance, Effizienz und Glätte, um Ihre Technik zu verbessern.</string>
+    <string name="onboarding_data_fields_title">Datenfelder</string>
+    <string name="onboarding_data_fields_desc">Fügen Sie KPedal-Datenfelder zu Ihren Karoo-Bildschirmen hinzu, um Metriken während der Fahrt zu sehen. Wählen Sie aus 6 verschiedenen Layouts.</string>
+    <string name="onboarding_drills_title">Übungen</string>
+    <string name="onboarding_drills_desc">Trainieren Sie mit geführten Übungen, um Ihre Trettechnik zu verbessern. Jede Übung zielt auf bestimmte Aspekte Ihres Tritts ab.</string>
+    <string name="onboarding_alerts_title">Warnungen</string>
+    <string name="onboarding_alerts_desc">Erhalten Sie Benachrichtigungen, wenn Ihre Metriken außerhalb der optimalen Bereiche liegen. Konfigurieren Sie Warnungen in den Einstellungen.</string>
+    <string name="onboarding_background_title">Hintergrunddaten</string>
+    <string name="onboarding_background_desc">KPedal erfasst automatisch Tretmetriken für alle Ihre Fahrten. Sie können dies in den Einstellungen deaktivieren.</string>
+    <string name="onboarding_cloud_title">Cloud-Synchronisierung</string>
+    <string name="onboarding_cloud_desc">Melden Sie sich mit Google an, um Ihre Fahrtdaten zu synchronisieren und Analysen auf app.kpedal.com anzuzeigen. Dies ist optional - Ihre Daten bleiben auf dem Gerät, bis Sie synchronisieren.</string>
+
+    <!-- Help Screen -->
+    <string name="help">Hilfe</string>
+    <string name="section_metrics">Metriken</string>
+    <string name="section_colors">Farben</string>
+    <string name="section_setup">Einrichtung</string>
+    <string name="section_tips">Tipps</string>
+    <string name="section_faq">FAQ</string>
+    <string name="section_troubleshooting">Fehlerbehebung</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">L/R-Leistungsverteilung</string>
+    <string name="help_balance_note">2-5%% Asymmetrie ist normal</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">Drehmoment-Effektivität</string>
+    <string name="help_te_note">Höher ist NICHT besser! Begrenzt Leistung</string>
+    <string name="help_ps_range">≥20%%</string>
+    <string name="help_ps_desc">Trittglätte</string>
+    <string name="help_ps_note">Elite: 25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">Leistungsbalance</string>
+    <string name="metric_balance_short">L/R-Leistungsverteilung</string>
+    <string name="metric_balance_explanation">Die Leistungsbalance zeigt, wie gleichmäßig Sie die Kraft zwischen Ihrem linken und rechten Bein verteilen. Eine perfekte Balance wäre 50/50, aber eine geringe Asymmetrie (48-52%%) ist normal und unbedenklich.</string>
+    <string name="metric_balance_optimal">48-52%% (optimal), 45-55%% (akzeptabel)</string>
+    <string name="metric_balance_tip1">Konzentrieren Sie sich auf gleichmäßigen Druck während des gesamten Trittzyklus</string>
+    <string name="metric_balance_tip2">Probieren Sie Einbein-Übungen, um Ihre schwächere Seite zu stärken</string>
+    <string name="metric_balance_tip3">Überprüfen Sie Ihre Radeinstellung - die Sattelhöhe kann die Balance beeinflussen</string>
+    <string name="metric_balance_tip4">Geringe Ungleichgewichte sind normal und korrigieren sich oft von selbst</string>
+    <string name="metric_balance_tip5">Achten Sie nicht zu sehr auf kleine Schwankungen während einer Fahrt</string>
+    <string name="metric_balance_research">Studien zeigen, dass die meisten Radfahrer ein natürliches Ungleichgewicht von 1-5%% haben. Profi-Radfahrer liegen im Durchschnitt bei 48-52%%.</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">Drehmoment-Effektivität</string>
+    <string name="metric_te_short">Effizienz des Trittzyklus</string>
+    <string name="metric_te_explanation">Die Drehmoment-Effektivität (TE) misst, wie viel Ihrer Tretbewegung zum Vortrieb beiträgt. Ein Wert von 100%% würde bedeuten, dass jeder Teil Ihres Tritts Leistung hinzufügt, aber das ist weder realistisch noch optimal.</string>
+    <string name="metric_te_optimal">70-80%% (optimal, NICHT höher)</string>
+    <string name="metric_te_tip1">Konzentrieren Sie sich darauf, am unteren Punkt durchzuziehen</string>
+    <string name="metric_te_tip2">Stellen Sie sich vor, Schlamm vom Schuh am unteren Punkt abzustreifen</string>
+    <string name="metric_te_tip3">Höhere TE (>80%%) REDUZIERT oft die Hauptleistungsabgabe</string>
+    <string name="metric_te_tip4">Geschmeidiges, rundes Treten ist effizienter als erzwungene hohe TE</string>
+    <string name="metric_te_tip5">TE variiert natürlich mit Trittfrequenz und Leistung</string>
+    <string name="metric_te_research">Wattbike-Forschung zeigt, dass TE über 80%% tatsächlich die Leistungsabgabe verringert. Elite-Radfahrer streben 70-80%% an.</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">Trittglätte</string>
+    <string name="metric_ps_short">Gleichmäßigkeit der Leistungsabgabe</string>
+    <string name="metric_ps_explanation">Die Trittglätte (TG) zeigt, wie gleichmäßig die Leistung während des Trittzyklus aufgebracht wird. Höhere Werte bedeuten eine gleichmäßigere Leistungsabgabe mit weniger Spitzen und Einbrüchen.</string>
+    <string name="metric_ps_optimal">20%%+ (gut), 25-35%% (Elite)</string>
+    <string name="metric_ps_tip1">Üben Sie Übungen mit hoher Trittfrequenz</string>
+    <string name="metric_ps_tip2">Konzentrieren Sie sich darauf, tote Punkte in Ihrem Tritt zu eliminieren</string>
+    <string name="metric_ps_tip3">Halten Sie gleichmäßigen Druck während der gesamten Umdrehung</string>
+    <string name="metric_ps_tip4">Niedrigere Gänge und höhere Trittfrequenz verbessern oft die Glätte</string>
+    <string name="metric_ps_tip5">TG sinkt natürlich bei sehr hoher Leistungsabgabe</string>
+    <string name="metric_ps_research">Professionelle Radfahrer erreichen typischerweise 25-35%% Trittglätte.</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">Weiß</string>
+    <string name="color_green">Grün</string>
+    <string name="color_yellow">Gelb</string>
+    <string name="color_red">Rot</string>
+    <string name="color_white_meaning">Normal / keine Daten</string>
+    <string name="color_green_meaning">Optimaler Bereich</string>
+    <string name="color_yellow_meaning">Aufmerksamkeit erforderlich</string>
+    <string name="color_red_meaning">Problem</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo → Profile → Datenfelder</string>
+    <string name="setup_step2">Feld antippen → Mehr Daten → kpedal</string>
+    <string name="setup_step3">Layout wählen</string>
+    <string name="setup_step4">Pedale koppeln (ANT+)</string>
+    <string name="setup_step5">Losfahren</string>
+    <string name="setup_requires">Benötigt: Garmin Rally, Favero Assioma, SRM, Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">Einbein-Übungen für die schwächere Seite</string>
+    <string name="tips_balance_2">Cleat-Position prüfen</string>
+    <string name="tips_balance_3">Ermüdung erhöht die Asymmetrie</string>
+    <string name="tips_te_1">Streben Sie nicht 100%% an</string>
+    <string name="tips_te_2">Schlamm am unteren Punkt abstreifen</string>
+    <string name="tips_te_3">Entlasten, nicht hochziehen</string>
+    <string name="tips_ps_1">Höhere Trittfrequenz hilft</string>
+    <string name="tips_ps_2">Tote Punkte eliminieren</string>
+    <string name="tips_ps_3">Auf Rollen üben</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">F: %1$s</string>
+    <string name="faq_te85_q">TE 85%%+ schlecht?</string>
+    <string name="faq_te85_a">Ja. 70-80%% ist optimal. Höher begrenzt die Abwärtstrittleistung.</string>
+    <string name="faq_balance_q">Balance 45/55 ok?</string>
+    <string name="faq_balance_a">Ja. ±5%% ist normal. Erst >10%% ist bedenklich.</string>
+    <string name="faq_jump_q">Werte springen?</string>
+    <string name="faq_jump_a">Konzentrieren Sie sich auf Durchschnitte, nicht auf Momentanwerte.</string>
+    <string name="faq_compare_q">Mit anderen vergleichen?</string>
+    <string name="faq_compare_a">Nein. Verfolgen Sie stattdessen Ihre eigenen Trends.</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">Keine Daten</string>
+    <string name="trouble_nodata_fix">Prüfen Sie, ob Pedale in den Karoo-Einstellungen gekoppelt sind. Beginnen Sie zu treten.</string>
+    <string name="trouble_balance_only">Nur Balance, keine TE/TG</string>
+    <string name="trouble_balance_only_fix">Pedale unterstützen möglicherweise kein TE/TG (z.B. Wahoo POWRLINK).</string>
+    <string name="trouble_stuck">Werte bleiben stehen</string>
+    <string name="trouble_stuck_fix">Fahrt neu starten. Batterie prüfen. Pedale neu koppeln.</string>
+    <string name="trouble_crash">App-Absturz</string>
+    <string name="trouble_crash_fix">App neu starten. Karoo neu starten. Neu installieren.</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">Linkes Bein Fokus</string>
+    <string name="drill_right_leg_focus">Rechtes Bein Fokus</string>
+    <string name="drill_smooth_circles">Runde Kreise</string>
+    <string name="drill_power_transfer">Kraftübertragung</string>
+    <string name="drill_balance_challenge">Balance-Herausforderung</string>
+    <string name="drill_smoothness_target">Glätte-Ziel</string>
+    <string name="drill_high_cadence_smooth">Hohe Trittfrequenz Glätte</string>
+    <string name="drill_balance_recovery">Balance-Erholung</string>
+    <string name="drill_efficiency_builder">Effizienz-Aufbau</string>
+    <string name="drill_pedaling_mastery">Tritt-Meisterschaft</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">Linke Bein-Leistung stärken</string>
+    <string name="drill_right_leg_focus_desc">Rechte Bein-Leistung stärken</string>
+    <string name="drill_smooth_circles_desc">Trittglätte verbessern</string>
+    <string name="drill_power_transfer_desc">Kraft zum Vortrieb maximieren</string>
+    <string name="drill_balance_challenge_desc">Perfekte L/R-Balance halten</string>
+    <string name="drill_smoothness_target_desc">Glätte-Ziele konstant erreichen</string>
+    <string name="drill_high_cadence_smooth_desc">Glatt bei hoher Trittfrequenz bleiben</string>
+    <string name="drill_balance_recovery_desc">Nach Belastung zur Balance zurückkehren</string>
+    <string name="drill_efficiency_builder_desc">TE und TG für Effizienz kombinieren</string>
+    <string name="drill_pedaling_mastery_desc">Alle Tretmetriken meistern</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">Aufwärmen</string>
+    <string name="phase_focus">Fokus</string>
+    <string name="phase_maintain">Halten</string>
+    <string name="phase_recover">Erholen</string>
+    <string name="phase_build">Aufbauen</string>
+    <string name="phase_push">Steigern</string>
+    <string name="phase_hold">Halten</string>
+    <string name="phase_rest">Pause</string>
+    <string name="phase_prepare">Vorbereiten</string>
+    <string name="phase_cooldown">Ausfahren</string>
+    <string name="phase_left_focus">Links Fokus</string>
+    <string name="phase_right_focus">Rechts Fokus</string>
+    <string name="phase_smooth_circles">Runde Kreise</string>
+    <string name="phase_max_transfer">Max. Übertragung</string>
+    <string name="phase_find_center">Mitte finden</string>
+    <string name="phase_hold_balance">Balance halten</string>
+    <string name="phase_relax">Entspannen</string>
+    <string name="phase_target_zone">Zielzone</string>
+    <string name="phase_normal_cadence">Normale Trittfrequenz</string>
+    <string name="phase_build_cadence">Trittfrequenz steigern</string>
+    <string name="phase_hold_smooth">Glätte halten</string>
+    <string name="phase_wind_down">Ausrollen</string>
+    <string name="phase_baseline">Ausgangswert</string>
+    <string name="phase_left_emphasis">Links betonen</string>
+    <string name="phase_center">Mitte</string>
+    <string name="phase_right_emphasis">Rechts betonen</string>
+    <string name="phase_center_again">Wieder Mitte</string>
+    <string name="phase_natural_finish">Natürlicher Abschluss</string>
+    <string name="phase_balance_focus">Balance-Fokus</string>
+    <string name="phase_smoothness_block">Glätte-Block</string>
+    <string name="phase_recovery">Erholung</string>
+    <string name="phase_te_focus">TE-Fokus</string>
+    <string name="phase_combined">Kombiniert</string>
+    <string name="phase_activation">Aktivierung</string>
+    <string name="phase_left_isolation">Linkes Bein isoliert</string>
+    <string name="phase_right_isolation">Rechtes Bein isoliert</string>
+    <string name="phase_perfect_balance">Perfekte Balance</string>
+    <string name="phase_smoothness_focus">Glätte-Fokus</string>
+    <string name="phase_te_optimization">TE-Optimierung</string>
+    <string name="phase_high_cadence_test">Hohe Trittfrequenz Test</string>
+    <string name="phase_integration">Integration</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">Lockeres Treten</string>
+    <string name="phase_desc_emphasize_left">Linkes Bein betonen</string>
+    <string name="phase_desc_return_normal">Zurück zu normal</string>
+    <string name="phase_desc_emphasize_right">Rechtes Bein betonen</string>
+    <string name="phase_desc_find_rhythm">Rhythmus finden</string>
+    <string name="phase_desc_max_smoothness">Glätte maximieren</string>
+    <string name="phase_desc_increase_focus">Fokus schrittweise erhöhen</string>
+    <string name="phase_desc_optimize_te">TE optimieren</string>
+    <string name="phase_desc_easy_spin">Locker treten</string>
+    <string name="phase_desc_center_power">Kraft zentrieren</string>
+    <string name="phase_desc_hold_5050">50/50 halten</string>
+    <string name="phase_desc_release_focus">Fokus loslassen</string>
+    <string name="phase_desc_loosen_up">Lockern</string>
+    <string name="phase_desc_hold_ps_25">TG ≥25%% halten</string>
+    <string name="phase_desc_recover">Erholen</string>
+    <string name="phase_desc_establish_baseline">Ausgangswert festlegen</string>
+    <string name="phase_desc_increase_100rpm">Auf 100+ U/min steigern</string>
+    <string name="phase_desc_smooth_high_cadence">Glatt bei hoher Trittfrequenz</string>
+    <string name="phase_desc_return_to_normal">Zurück zu normal</string>
+    <string name="phase_desc_find_natural_balance">Natürliche Balance finden</string>
+    <string name="phase_desc_focus_left">Links fokussieren</string>
+    <string name="phase_desc_find_5050">50/50 finden</string>
+    <string name="phase_desc_focus_right">Rechts fokussieren</string>
+    <string name="phase_desc_spin_naturally">Natürlich treten</string>
+    <string name="phase_desc_smooth_circles">Runde Kreise</string>
+    <string name="phase_desc_power_transfer">Kraftübertragung</string>
+    <string name="phase_desc_all_metrics">Alle Metriken</string>
+    <string name="phase_desc_wind_down">Ausrollen</string>
+    <string name="phase_desc_wake_legs">Beine aufwecken</string>
+    <string name="phase_desc_left_focus">Links fokussieren</string>
+    <string name="phase_desc_right_focus">Rechts fokussieren</string>
+    <string name="phase_desc_5050_hold">50/50 halten</string>
+    <string name="phase_desc_circular_motion">Kreisförmige Bewegung</string>
+    <string name="phase_desc_speed_form">Geschwindigkeit + Form</string>
+    <string name="phase_desc_everything_together">Alles zusammen</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">Locker treten, auf den Fokus vorbereiten</string>
+    <string name="instr_focus_left_leg">Konzentrieren Sie sich darauf, mit dem LINKEN Bein durchzudrücken</string>
+    <string name="instr_relax_spin_normally">Entspannen und normal treten</string>
+    <string name="instr_focus_right_leg">Konzentrieren Sie sich darauf, mit dem RECHTEN Bein durchzudrücken</string>
+    <string name="instr_settle_cadence">Finden Sie eine angenehme Trittfrequenz</string>
+    <string name="instr_smooth_circles">Stellen Sie sich vor, runde Kreise zu zeichnen. Streifen Sie am unteren Punkt Schlamm vom Schuh ab.</string>
+    <string name="instr_maintain_feeling">Entspannen und das Gefühl beibehalten</string>
+    <string name="instr_feel_power_transfer">Locker starten, auf die Kraftübertragung konzentrieren</string>
+    <string name="instr_apply_power">Kraft durch den gesamten Tritt aufbringen. Nicht stampfen.</string>
+    <string name="instr_spin_easy_recover">Locker treten, Beine erholen lassen</string>
+    <string name="instr_find_balance_point">Finden Sie Ihren natürlichen Gleichgewichtspunkt</string>
+    <string name="instr_hold_5050">50/50 Balance halten. Nur kleine Anpassungen!</string>
+    <string name="instr_good_work_relax">Gute Arbeit! Entspannen und locker treten</string>
+    <string name="instr_easy_spin_form">Lockeres Treten, auf die Form konzentrieren</string>
+    <string name="instr_keep_ps_25">Glätte über 25%% halten. Volle Kreise!</string>
+    <string name="instr_great_effort">Tolle Leistung! Locker treten</string>
+    <string name="instr_start_normal_cadence">Mit normaler Trittfrequenz starten</string>
+    <string name="instr_increase_cadence_100">Trittfrequenz schrittweise auf 100+ U/min erhöhen</string>
+    <string name="instr_keep_ps_high_cadence">Glätte über 20%% bei hoher Trittfrequenz halten!</string>
+    <string name="instr_reduce_cadence_smooth">Trittfrequenz schrittweise senken, glatt bleiben</string>
+    <string name="instr_observe_balance">Natürlich treten, Balance beobachten</string>
+    <string name="instr_emphasize_left">LINKES Bein betonen</string>
+    <string name="instr_return_center">Zurück zur Mitte, 50/50 Balance</string>
+    <string name="instr_emphasize_right">RECHTES Bein betonen</string>
+    <string name="instr_feel_symmetry">Zurück zur Mitte, Symmetrie spüren</string>
+    <string name="instr_notice_improvement">Natürlich treten, Verbesserung wahrnehmen</string>
+    <string name="instr_warmup_easy">Mit lockerem Treten aufwärmen</string>
+    <string name="instr_focus_even_balance">Auf gleichmäßige Balance konzentrieren, 50/50 Leistung</string>
+    <string name="instr_smooth_circular">Auf geschmeidigen, runden Tritt konzentrieren</string>
+    <string name="instr_shake_out">Locker treten, Beine ausschütteln</string>
+    <string name="instr_optimize_te">Drehmoment-Effektivität 70-80%% optimieren</string>
+    <string name="instr_combine_all">Jetzt kombinieren: Balance + Glatt + Effizient</string>
+    <string name="instr_appreciate_effort">Locker treten, Ihre Anstrengung würdigen</string>
+    <string name="instr_prepare_mentally">Leichtes Treten, mental vorbereiten</string>
+    <string name="instr_strong_left">Starke Betonung linkes Bein</string>
+    <string name="instr_strong_right">Starke Betonung rechtes Bein</string>
+    <string name="instr_perfect_5050">Perfekte Balance, 50/50</string>
+    <string name="instr_max_smoothness">Maximale Glätte, tote Punkte eliminieren</string>
+    <string name="instr_easy_recover">Locker treten, erholen</string>
+    <string name="instr_dial_te">TE auf 72-78%% Zone einstellen</string>
+    <string name="instr_increase_cadence_form">Trittfrequenz erhöhen, Form beibehalten</string>
+    <string name="instr_combine_skills">Alle Fähigkeiten kombinieren: Balance + Glatt + Effizient</string>
+    <string name="instr_appreciate_mastery">Locker treten, Ihre Meisterschaftsarbeit würdigen</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">Stellen Sie sich vor, wie die Kraft aus Ihrem linken Bein kommt</string>
+    <string name="tip_dont_neglect_right">Vernachlässigen Sie das rechte Bein nicht vollständig</string>
+    <string name="tip_maintain_cadence">Halten Sie durchgehend eine gleichmäßige Trittfrequenz</string>
+    <string name="tip_visualize_right">Stellen Sie sich vor, wie die Kraft aus Ihrem rechten Bein kommt</string>
+    <string name="tip_dont_neglect_left">Vernachlässigen Sie das linke Bein nicht vollständig</string>
+    <string name="tip_think_360">Denken Sie an die gesamten 360° des Trittzyklus</string>
+    <string name="tip_engage_hamstrings">Aktivieren Sie die Oberschenkelrückseite am unteren Punkt</string>
+    <string name="tip_pull_up">Ziehen Sie leicht durch die Rückwärtsbewegung</string>
+    <string name="tip_core_stability">Halten Sie die Körpermitte für Stabilität angespannt</string>
+    <string name="tip_te_above_80">TE über 80%% kann tatsächlich die Gesamtleistung reduzieren</string>
+    <string name="tip_focus_70_80">Konzentrieren Sie sich auf die optimale Zone von 70-80%%</string>
+    <string name="tip_dont_sacrifice">Opfern Sie nicht die Hauptleistungsphase für die Erholungsphase</string>
+    <string name="tip_equal_pressure">Konzentrieren Sie sich auf gleichmäßigen Druck von beiden Beinen</string>
+    <string name="tip_minor_imbalance">Geringe Ungleichgewichte sind normal, streben Sie die Zone an</string>
+    <string name="tip_steady_cadence">Halten Sie die Trittfrequenz gleichmäßig - jagen Sie nicht den Zahlen hinterher</string>
+    <string name="tip_elite_smoothness">Elite-Radfahrer halten 25-35%% Glätte</string>
+    <string name="tip_engage_all_muscles">Aktivieren Sie alle Muskelgruppen durch den Tritt</string>
+    <string name="tip_moderate_cadence">Halten Sie eine moderate Trittfrequenz (85-95 U/min funktioniert gut)</string>
+    <string name="tip_smoothness_drops">Glätte sinkt natürlich bei sehr hoher Trittfrequenz</string>
+    <string name="tip_relax_hips">Konzentrieren Sie sich darauf, Ihre Hüften zu entspannen</string>
+    <string name="tip_dont_bounce">Wippen Sie nicht im Sattel</string>
+    <string name="tip_core_crucial">Stabilität der Körpermitte ist entscheidend</string>
+    <string name="tip_identify_weaker">Diese Übung hilft, Ihr schwächeres Bein zu identifizieren</string>
+    <string name="tip_neural_pathways">Regelmäßiges Üben verbessert die Nervenbahnen</string>
+    <string name="tip_dont_force">Erzwingen Sie kein extremes Ungleichgewicht</string>
+    <string name="tip_no_perfection">Erwarten Sie keine Perfektion bei allen Metriken gleichzeitig</string>
+    <string name="tip_one_at_time">Konzentrieren Sie sich anfangs auf einen Aspekt</string>
+    <string name="tip_regular_practice">Fortschritt kommt durch regelmäßiges Üben</string>
+    <string name="tip_notice_hardest">Beachten Sie, welche Metrik für Sie am schwierigsten ist</string>
+    <string name="tip_demanding_session">Dies ist eine anspruchsvolle Einheit - seien Sie ausgeruht</string>
+    <string name="tip_phases_build">Jede Phase baut auf vorherigen Fähigkeiten auf</string>
+    <string name="tip_quality_over_perfection">Konzentrieren Sie sich auf Qualität statt Perfektion</string>
+    <string name="tip_track_progress">Verfolgen Sie Ihren Fortschritt über mehrere Einheiten</string>
+    <string name="tip_once_twice_week">Erwägen Sie, dies 1-2x pro Woche zu machen</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">Erste Fahrt</string>
+    <string name="achievement_getting_started">Erste Schritte</string>
+    <string name="achievement_dedicated">Engagiert</string>
+    <string name="achievement_century">Jahrhundert</string>
+    <string name="achievement_balanced">Ausgeglichen</string>
+    <string name="achievement_well_balanced">Gut ausgeglichen</string>
+    <string name="achievement_master_of_balance">Meister der Balance</string>
+    <string name="achievement_efficient_rider">Effizienter Fahrer</string>
+    <string name="achievement_smooth_operator">Geschmeidiger Fahrer</string>
+    <string name="achievement_getting_consistent">Werdende Konstanz</string>
+    <string name="achievement_weekly_warrior">Wochen-Krieger</string>
+    <string name="achievement_two_week_hero">Zwei-Wochen-Held</string>
+    <string name="achievement_monthly_master">Monats-Meister</string>
+    <string name="achievement_practice_perfect">Übung macht den Meister</string>
+    <string name="achievement_drill_enthusiast">Übungs-Enthusiast</string>
+    <string name="achievement_perfect_form">Perfekte Form</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">Schließen Sie Ihre erste aufgezeichnete Fahrt ab</string>
+    <string name="achievement_getting_started_desc">Schließen Sie 10 aufgezeichnete Fahrten ab</string>
+    <string name="achievement_dedicated_desc">Schließen Sie 50 aufgezeichnete Fahrten ab</string>
+    <string name="achievement_century_desc">Schließen Sie 100 aufgezeichnete Fahrten ab</string>
+    <string name="achievement_balanced_desc">Beenden Sie eine Fahrt mit unter 5%% Balance-Abweichung</string>
+    <string name="achievement_well_balanced_desc">Beenden Sie 5 Fahrten mit unter 3%% Balance-Abweichung</string>
+    <string name="achievement_master_of_balance_desc">Beenden Sie 20 Fahrten mit unter 2,5%% Balance-Abweichung</string>
+    <string name="achievement_efficient_rider_desc">Halten Sie einen TE-Durchschnitt von 70-80%% bei einer Fahrt</string>
+    <string name="achievement_smooth_operator_desc">Erreichen Sie einen TG-Durchschnitt von 25%%+ bei einer Fahrt</string>
+    <string name="achievement_getting_consistent_desc">Fahren Sie 3 Tage hintereinander</string>
+    <string name="achievement_weekly_warrior_desc">Fahren Sie 7 Tage hintereinander</string>
+    <string name="achievement_two_week_hero_desc">Fahren Sie 14 Tage hintereinander</string>
+    <string name="achievement_monthly_master_desc">Fahren Sie 30 Tage hintereinander</string>
+    <string name="achievement_practice_perfect_desc">Schließen Sie Ihre erste Übung ab</string>
+    <string name="achievement_drill_enthusiast_desc">Schließen Sie 10 Übungen ab</string>
+    <string name="achievement_perfect_form_desc">Erreichen Sie 90%%+ bei einer Übung</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">FAHRTEN</string>
+    <string name="category_balance">BALANCE</string>
+    <string name="category_efficiency">EFFIZIENZ</string>
+    <string name="category_streaks">SERIEN</string>
+    <string name="category_drills">ÜBUNGEN</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_system">System</string>
+</resources>

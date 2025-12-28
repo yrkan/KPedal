@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">Snelle Blik</string>
+    <string name="datatype_quick_glance_desc">Statusindicator met balansbalk</string>
+
+    <string name="datatype_power_balance">Vermogen + Balans</string>
+    <string name="datatype_power_balance_desc">Vermogen met L/R balans</string>
+
+    <string name="datatype_efficiency">Efficiëntie</string>
+    <string name="datatype_efficiency_desc">Koppeleffectiviteit en Trapvloeiendheid</string>
+
+    <string name="datatype_full_overview">Volledig Overzicht</string>
+    <string name="datatype_full_overview_desc">Alle trapstatistieken in één weergave</string>
+
+    <string name="datatype_balance_trend">Balanstrend</string>
+    <string name="datatype_balance_trend_desc">Huidige, 3s en 10s balans</string>
+
+    <string name="datatype_single_balance">Balans</string>
+    <string name="datatype_single_balance_desc">L/R vermogensbalans volledig scherm</string>
+
+    <string name="datatype_live">Live</string>
+    <string name="datatype_live_desc">Alle statistieken met Tijd In Zone stats</string>
+
+    <!-- Labels -->
+    <string name="balance">BALANS</string>
+    <string name="balance_lower">Balans</string>
+    <string name="balance_3s">3s GEM</string>
+    <string name="balance_10s">10s GEM</string>
+    <string name="power">VERMOGEN</string>
+    <string name="power_lower">Vermogen</string>
+    <string name="te">TE</string>
+    <string name="te_full">Koppeleffectiviteit</string>
+    <string name="ps">TV</string>
+    <string name="ps_full">Trapvloeiendheid</string>
+    <string name="left">L</string>
+    <string name="right">R</string>
+    <string name="lr">L/R</string>
+    <string name="lr_balance_format">L%1$d/R%2$d</string>
+    <string name="all_good">ALLES GOED</string>
+    <string name="watt_symbol">W</string>
+    <string name="issue_count">%1$d PROBLEEM</string>
+    <string name="issues_count">%1$d PROBLEMEN</string>
+    <string name="no_data">GEEN DATA</string>
+    <string name="no_data_lower">Geen data</string>
+    <string name="avg">gem</string>
+
+    <!-- Settings -->
+    <string name="settings">Instellingen</string>
+    <string name="preferences">Voorkeuren</string>
+    <string name="thresholds">DREMPELWAARDEN</string>
+    <string name="balance_threshold">Balanswaarschuwing</string>
+    <string name="te_optimal">TE optimaal bereik</string>
+    <string name="ps_minimum">TV minimum</string>
+    <string name="alerts">WAARSCHUWINGEN</string>
+    <string name="vibration">Trillen</string>
+    <string name="sound">Geluid</string>
+    <string name="alert_settings">Waarschuwingsinstellingen</string>
+    <string name="background_mode">Achtergrondmodus</string>
+    <string name="background_mode_desc">Verzamel data voor alle ritten</string>
+    <string name="cloud_sync">Cloudsynchronisatie</string>
+    <string name="cloud_sync_desc">Synchroniseer naar app.kpedal.com</string>
+    <string name="language">Taal</string>
+    <string name="settings_sync">SYNC</string>
+    <string name="settings_auto_sync">Automatisch synchroniseren</string>
+    <string name="settings_auto_sync_desc">Synchroniseer na elke rit</string>
+    <string name="settings_data_collection">DATAVERZAMELING</string>
+    <string name="settings_balance_threshold">BALANSDREMPEL</string>
+    <string name="settings_balance_threshold_desc">Afwijking van 50/50 om waarschuwing te activeren</string>
+    <string name="settings_te">KOPPELEFFECTIVITEIT</string>
+    <string name="settings_te_desc">Minimum TE%% om als optimaal te worden beschouwd</string>
+    <string name="settings_ps">TRAPVLOEIENDHEID</string>
+    <string name="settings_ps_desc">Minimum TV%% om als optimaal te worden beschouwd</string>
+    <string name="settings_configure_alerts">Waarschuwingen Configureren</string>
+    <string name="settings_configure_alerts_desc">Wanneer en hoe te melden</string>
+    <string name="settings_about">OVER</string>
+    <string name="settings_version">Versie</string>
+    <string name="settings_privacy">Privacybeleid</string>
+    <string name="settings_contact">Contact</string>
+    <string name="settings_linked_account">Gekoppeld Account</string>
+    <string name="settings_sync_desc">Synchroniseer ritten naar app.kpedal.com</string>
+    <string name="settings_enter_code">Voer deze code in op</string>
+    <string name="settings_code_expired">Code verlopen</string>
+    <string name="settings_code_expired_desc">Vraag een nieuwe code aan</string>
+    <string name="settings_get_new_code">Nieuwe Code Ophalen</string>
+    <string name="settings_access_denied">Toegang geweigerd</string>
+    <string name="settings_access_denied_desc">Autorisatie werd geannuleerd</string>
+    <string name="settings_try_again">Opnieuw Proberen</string>
+    <string name="settings_connection_failed">Verbinding mislukt</string>
+    <string name="settings_connection_failed_desc">Probeer het opnieuw</string>
+    <string name="settings_last_sync">Laatste sync: %1$s</string>
+    <string name="settings_never_synced">Nooit gesynchroniseerd</string>
+    <string name="settings_pending">%1$d in afwachting</string>
+    <string name="settings_up_to_date">Up-to-date</string>
+    <string name="settings_sync_now">Nu Synchroniseren</string>
+    <string name="settings_device_revoked_desc">Dit apparaat is losgekoppeld van je account. Je moet opnieuw inloggen om je ritten te synchroniseren.</string>
+    <string name="ok">OK</string>
+
+    <!-- Account -->
+    <string name="account">ACCOUNT</string>
+    <string name="link_account">Account Koppelen</string>
+    <string name="link_account_desc">Synchroniseer ritten tussen apparaten</string>
+    <string name="why_how_sync">Waarom &amp; hoe synchroniseren naar cloud?</string>
+    <string name="account_linked">Account Gekoppeld!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">Cloudsynchronisatie</string>
+    <string name="cloud_sync_why_title">Waarom synchroniseren?</string>
+    <string name="cloud_sync_why_1">Bekijk ritgeschiedenis en analyses op elk apparaat</string>
+    <string name="cloud_sync_why_2">Gedetailleerde grafieken en per-minuut snapshots</string>
+    <string name="cloud_sync_why_3">Volg voortgang met prestaties</string>
+    <string name="cloud_sync_why_4">Verlies nooit je data als apparaat reset</string>
+    <string name="cloud_sync_how_title">Hoe te koppelen?</string>
+    <string name="cloud_sync_how_1">Tik op "Account Koppelen" hierboven</string>
+    <string name="cloud_sync_how_2">Noteer de 8-karakter code die wordt getoond</string>
+    <string name="cloud_sync_how_3">Bezoek link.kpedal.com op elk apparaat</string>
+    <string name="cloud_sync_how_3_prefix">Bezoek</string>
+    <string name="cloud_sync_how_4">Voer de code in en log in met Google</string>
+    <string name="cloud_sync_how_5">Klaar! Ritten synchroniseren automatisch</string>
+    <string name="cloud_sync_what_syncs">Wat synchroniseert?</string>
+    <string name="cloud_sync_syncs_rides">Ritsamenvattingen met per-minuut snapshots</string>
+    <string name="cloud_sync_syncs_metrics">Vermogen, hartslag, cadans, afstand, hoogte</string>
+    <string name="cloud_sync_syncs_drills">Oefenresultaten en prestaties</string>
+    <string name="cloud_sync_syncs_settings">Waarschuwings- en drempelinstellingen</string>
+    <string name="cloud_sync_not_syncs">GPS/routes worden NIET verzameld</string>
+    <string name="cloud_sync_free">Gratis &amp; geen advertenties. Je data blijft van jou.</string>
+    <string name="sign_out">Uitloggen</string>
+    <string name="sync">Sync</string>
+    <string name="syncing">Synchroniseren…</string>
+    <string name="synced">Gesynchroniseerd</string>
+    <string name="sync_failed">Synchronisatie mislukt</string>
+    <string name="offline">Offline</string>
+    <string name="getting_code">Code ophalen…</string>
+    <string name="waiting_auth">Wachten op autorisatie…</string>
+    <string name="device_disconnected">Apparaat Losgekoppeld</string>
+    <string name="device_disconnected_desc">Dit apparaat is losgekoppeld van je account. Koppel opnieuw om te blijven synchroniseren.</string>
+    <string name="relink">Account Opnieuw Koppelen</string>
+
+    <!-- Live -->
+    <string name="live">Live</string>
+    <string name="current_ride">Huidige rit</string>
+    <string name="time_in_zone">TIJD IN ZONE</string>
+    <string name="waiting_pedal_data">Wachten op pedaaldata…</string>
+    <string name="start_riding">Begin te rijden of controleer pedaalverbinding</string>
+    <string name="save">Opslaan</string>
+    <string name="saved">Opgeslagen ✓</string>
+    <string name="opt">Opt</string>
+    <string name="att">Let</string>
+    <string name="prob">Prob</string>
+
+    <!-- Home Screen -->
+    <string name="drills">Oefeningen</string>
+    <string name="practice">Oefenen</string>
+    <string name="rides">ritten</string>
+    <string name="avg_bal">gem bal</string>
+    <string name="streak">reeks</string>
+    <string name="streak_days">%1$dd</string>
+    <string name="section_data">DATA</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">MEER</string>
+    <string name="history">Geschiedenis</string>
+    <string name="saved_rides">Opgeslagen ritten</string>
+    <string name="analytics">Analyses</string>
+    <string name="trends">Trends</string>
+    <string name="achievements">Prestaties</string>
+    <string name="challenges">Uitdagingen</string>
+    <string name="weekly_goal">Weekdoel</string>
+    <string name="data_fields">Datavelden</string>
+    <string name="layouts_count">6 lay-outs</string>
+    <string name="pedal_status">Pedaalstatus</string>
+    <string name="connection">Verbinding</string>
+    <string name="quick_guide">Snelgids</string>
+    <string name="last_ride">Laatste rit</string>
+    <string name="optimal">optimaal</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">Trapstatistieken worden gemonitord</string>
+    <string name="notification_channel_name">KPedal Achtergrond</string>
+    <string name="notification_channel_description">Monitort trapstatistieken tijdens alle ritten</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">Waarschuwingen inschakelen</string>
+    <string name="metrics_to_monitor">TE MONITOREN STATISTIEKEN</string>
+    <string name="sensitivity">GEVOELIGHEID</string>
+    <string name="critical">Kritiek</string>
+    <string name="critical_desc">Alleen grote problemen</string>
+    <string name="sensitive">Gevoelig</string>
+    <string name="sensitive_desc">Frequentere waarschuwingen</string>
+    <string name="notify_via">MELDEN VIA</string>
+    <string name="vibrate">Trillen</string>
+    <string name="banner">Banner</string>
+    <string name="options">OPTIES</string>
+    <string name="wake_screen">Scherm wekken</string>
+    <string name="cooldown">Afkoelperiode</string>
+    <string name="cooldown_15s">15s</string>
+    <string name="cooldown_30s">30s</string>
+    <string name="cooldown_1m">1m</string>
+    <string name="cooldown_2m">2m</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">Dataveld Lay-outs</string>
+    <string name="tap_to_preview">Tik om lay-out te bekijken op Karoo</string>
+    <string name="layout_quick_glance_short">Status + balansbalk</string>
+    <string name="layout_power_balance_short">Grote L/R focus</string>
+    <string name="layout_efficiency_short">TE en TV statistieken</string>
+    <string name="layout_full_overview_short">Alle statistieken compact</string>
+    <string name="layout_balance_trend_short">3s/10s gladgestreken</string>
+    <string name="layout_single_balance_short">Alleen balans</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">Verbonden</string>
+    <string name="disconnected">Niet verbonden</string>
+    <string name="live_data">LIVE DATA</string>
+    <string name="data_flowing">Data stroomt correct</string>
+    <string name="signal_details">SIGNAALDETAILS</string>
+    <string name="troubleshooting">PROBLEEMOPLOSSING</string>
+    <string name="quality">Kwaliteit</string>
+    <string name="excellent">Uitstekend</string>
+    <string name="fair">Redelijk</string>
+    <string name="poor">Slecht</string>
+    <string name="unknown">Onbekend</string>
+    <string name="update_rate">Updatesnelheid</string>
+    <string name="last_update">Laatste Update</string>
+    <string name="pedal_tip_start_riding">Begin te rijden om pedalen te detecteren</string>
+    <string name="pedal_tip_ensure_paired">Zorg dat pedalen gekoppeld zijn met Karoo</string>
+    <string name="pedal_tip_check_battery">Controleer pedaalbatterij</string>
+    <string name="pedal_tip_low_rate">Lage snelheid kan interferentie aangeven</string>
+    <string name="pedal_tip_move_away">Ga weg van andere ANT+ apparaten</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">Ritgeschiedenis</string>
+    <string name="rides_count">%1$d ritten</string>
+    <string name="no_rides">Geen ritten</string>
+    <string name="no_rides_saved">Geen ritten opgeslagen</string>
+    <string name="no_matching_rides">Geen overeenkomende ritten</string>
+    <string name="try_adjusting_filter">Probeer het filter aan te passen</string>
+    <string name="rides_saved_auto">Ritten worden automatisch opgeslagen</string>
+    <string name="manual">handmatig</string>
+    <string name="percent_optimal">%1$d%% optimaal</string>
+    <string name="load_more">Meer laden</string>
+    <string name="delete_ride">Rit verwijderen?</string>
+    <string name="cancel">Annuleren</string>
+    <string name="delete">Verwijderen</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">BEOORDELING</string>
+    <string name="suggested_stars">Voorgesteld: %1$d sterren</string>
+    <string name="overall">Algemeen</string>
+    <string name="efficiency">Efficiëntie</string>
+    <string name="consistency">Consistentie</string>
+    <string name="analysis">ANALYSE</string>
+    <string name="strengths">Sterke punten</string>
+    <string name="areas_to_improve">Verbeterpunten</string>
+    <string name="attention">let op</string>
+    <string name="problem">probleem</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">Geen ritdata</string>
+    <string name="complete_rides_to_see">Voltooi ritten om trends te zien</string>
+    <string name="period_averages">Periode Gemiddelden</string>
+    <string name="progress_label">Voortgang</string>
+    <string name="stable">Stabiel</string>
+    <string name="avg_balance_label">Gem Balans</string>
+    <string name="balance_trend_title">Balanstrend</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">RITTEN</string>
+    <string name="section_balance">BALANS</string>
+    <string name="section_efficiency">EFFICIËNTIE</string>
+    <string name="section_streaks">REEKSEN</string>
+    <string name="section_drills">OEFENINGEN</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">Geschiedenis</string>
+    <string name="my_drills">MIJN OEFENINGEN</string>
+    <string name="built_in_drills">INGEBOUWDE OEFENINGEN</string>
+    <string name="create_custom_drill">Aangepaste Oefening Maken</string>
+    <string name="custom">Aangepast</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">Beste %1$d%%</string>
+    <string name="start">Start</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">Volgende</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pauze</string>
+    <string name="paused">Gepauzeerd</string>
+    <string name="resume">Hervatten</string>
+    <string name="rpm">rpm</string>
+    <string name="in_zone">in zone</string>
+    <string name="spin_easy">Rustig draaien</string>
+    <string name="complete">Voltooid</string>
+    <string name="stopped">Gestopt</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">Nieuw record!</string>
+    <string name="done">Klaar</string>
+    <string name="retry">Opnieuw</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">Wissen</string>
+    <string name="no_history">Geen geschiedenis</string>
+    <string name="clear_all_question">Alles wissen?</string>
+    <string name="delete_question">Verwijderen?</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">Nieuwe Oefening</string>
+    <string name="edit_drill">Oefening Bewerken</string>
+    <string name="name_your_drill">Geef je oefening een naam</string>
+    <string name="drill_name_placeholder">bijv. Balans Focus, Hoge TE</string>
+    <string name="what_to_focus">Waar focussen op?</string>
+    <string name="balance_option">Balans</string>
+    <string name="lr_power_distribution">L/R vermogensverdeling</string>
+    <string name="torque_effectiveness_option">Koppeleffectiviteit</string>
+    <string name="power_transfer_efficiency">Vermogensoverdracht efficiëntie</string>
+    <string name="pedal_smoothness_option">Trapvloeiendheid</string>
+    <string name="circular_pedal_stroke">Circulaire trapbeweging</string>
+    <string name="how_long">Hoe lang?</string>
+    <string name="quick_select">Snelle selectie</string>
+    <string name="or_set_custom">Of stel aangepast in</string>
+    <string name="minutes">Minuten</string>
+    <string name="seconds">Seconden</string>
+    <string name="total_duration">Totaal: %1$s</string>
+    <string name="min_10_seconds">Minimaal 10 seconden</string>
+    <string name="set_your_target">Stel je doel in</string>
+    <string name="above">Boven</string>
+    <string name="above_value">≥ waarde</string>
+    <string name="below">Onder</string>
+    <string name="below_value">≤ waarde</string>
+    <string name="range">Bereik</string>
+    <string name="min_max">min-max</string>
+    <string name="minimum">Minimum</string>
+    <string name="maximum">Maximum</string>
+    <string name="preview">VOORBEELD</string>
+    <string name="metric">Statistiek</string>
+    <string name="duration">Duur</string>
+    <string name="target">Doel</string>
+    <string name="custom_drill_desc">Aangepaste %1$s oefening</string>
+    <string name="torque_eff_short">Koppeleff.</string>
+    <string name="smoothness_short">Vloeiendheid</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">Weekuitdaging</string>
+    <string name="active">Actief</string>
+    <string name="days_left_this_week">%1$d dagen over deze week</string>
+    <string name="completed_upper">VOLTOOID</string>
+    <string name="this_week">DEZE WEEK</string>
+    <string name="all_challenges">ALLE UITDAGINGEN</string>
+    <string name="next_week">VOLGENDE WEEK</string>
+
+    <!-- Onboarding -->
+    <string name="skip">Overslaan</string>
+    <string name="get_started">Aan de Slag</string>
+    <string name="onboarding_welcome_title">Welkom bij KPedal</string>
+    <string name="onboarding_welcome_desc">Real-time trapstatistieken van je vermogensmeterpedalen. Volg balans, efficiëntie en vloeiendheid om je techniek te verbeteren.</string>
+    <string name="onboarding_data_fields_title">Datavelden</string>
+    <string name="onboarding_data_fields_desc">Voeg KPedal datavelden toe aan je Karoo schermen om statistieken te zien tijdens je rit. Kies uit 6 verschillende lay-outs.</string>
+    <string name="onboarding_drills_title">Oefeningen</string>
+    <string name="onboarding_drills_desc">Oefen met begeleide oefeningen om je traptechniek te verbeteren. Elke oefening richt zich op specifieke aspecten van je trapbeweging.</string>
+    <string name="onboarding_alerts_title">Waarschuwingen</string>
+    <string name="onboarding_alerts_desc">Ontvang meldingen wanneer je statistieken buiten optimale bereiken vallen. Configureer waarschuwingen in Instellingen.</string>
+    <string name="onboarding_background_title">Achtergronddata</string>
+    <string name="onboarding_background_desc">KPedal verzamelt automatisch trapstatistieken voor al je ritten. Je kunt dit uitschakelen in Instellingen als je dat wilt.</string>
+    <string name="onboarding_cloud_title">Cloudsynchronisatie</string>
+    <string name="onboarding_cloud_desc">Log in met Google om je ritdata te synchroniseren en analyses te bekijken op app.kpedal.com. Dit is optioneel - je data blijft op het apparaat totdat je synchroniseert.</string>
+
+    <!-- Help Screen -->
+    <string name="help">Help</string>
+    <string name="section_metrics">Statistieken</string>
+    <string name="section_colors">Kleuren</string>
+    <string name="section_setup">Instellen</string>
+    <string name="section_tips">Tips</string>
+    <string name="section_faq">FAQ</string>
+    <string name="section_troubleshooting">Probleemoplossing</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">L/R vermogensverdeling</string>
+    <string name="help_balance_note">2-5%% asymmetrie is normaal</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">Koppeleffectiviteit</string>
+    <string name="help_te_note">Hoger is NIET beter! Beperkt vermogen</string>
+    <string name="help_ps_range">≥20%%</string>
+    <string name="help_ps_desc">Trapvloeiendheid</string>
+    <string name="help_ps_note">Elite: 25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">Vermogensbalans</string>
+    <string name="metric_balance_short">L/R vermogensverdeling</string>
+    <string name="metric_balance_explanation">Vermogensbalans toont hoe gelijkmatig je vermogen verdeelt tussen je linker- en rechterbeen. Een perfecte balans zou 50/50 zijn, maar kleine asymmetrie (48-52%%) is normaal en niet zorgwekkend.</string>
+    <string name="metric_balance_optimal">48-52%% (optimaal), 45-55%% (acceptabel)</string>
+    <string name="metric_balance_tip1">Focus op gelijke druk gedurende de hele trapbeweging</string>
+    <string name="metric_balance_tip2">Probeer eenbenige oefeningen om je zwakkere kant te versterken</string>
+    <string name="metric_balance_tip3">Controleer je fietsafstelling - zadelhoogte kan balans beïnvloeden</string>
+    <string name="metric_balance_tip4">Kleine onevenwichtigheden zijn normaal en corrigeren vaak vanzelf</string>
+    <string name="metric_balance_tip5">Obsedeer niet over kleine schommelingen tijdens een rit</string>
+    <string name="metric_balance_research">Studies tonen aan dat de meeste fietsers 1-5%% natuurlijke onevenwichtigheid hebben. Professionele wielrenners gemiddeld 48-52%%.</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">Koppeleffectiviteit</string>
+    <string name="metric_te_short">Trapbeweging efficiëntie</string>
+    <string name="metric_te_explanation">Koppeleffectiviteit (TE) meet hoeveel van je trapbeweging bijdraagt aan voorwaartse aandrijving. Een score van 100%% zou betekenen dat elk deel van je slag vermogen toevoegt, maar dit is niet realistisch noch optimaal.</string>
+    <string name="metric_te_optimal">70-80%% (optimaal, NIET hoger)</string>
+    <string name="metric_te_tip1">Focus op doortrekken aan de onderkant van de slag</string>
+    <string name="metric_te_tip2">Denk aan \'modder afschrapen\' van je schoen onderaan</string>
+    <string name="metric_te_tip3">Hogere TE (>80%%) VERMINDERT vaak het hoofdvermogen</string>
+    <string name="metric_te_tip4">Vloeiend, circulair trappen is efficiënter dan hoge TE forceren</string>
+    <string name="metric_te_tip5">TE varieert natuurlijk met cadans en vermogen</string>
+    <string name="metric_te_research">Wattbike onderzoek toont aan dat TE boven 80%% daadwerkelijk het vermogen vermindert. Elite wielrenners mikken op 70-80%%.</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">Trapvloeiendheid</string>
+    <string name="metric_ps_short">Consistentie vermogenslevering</string>
+    <string name="metric_ps_explanation">Trapvloeiendheid (TV) toont hoe gelijkmatig vermogen wordt toegepast gedurende de trapbeweging. Hogere waarden betekenen consistentere vermogenslevering met minder pieken en dalen.</string>
+    <string name="metric_ps_optimal">20%%+ (goed), 25-35%% (elite)</string>
+    <string name="metric_ps_tip1">Oefen met hoge-cadans draai-oefeningen</string>
+    <string name="metric_ps_tip2">Focus op het elimineren van dode punten in je slag</string>
+    <string name="metric_ps_tip3">Houd consistente druk gedurende de rotatie</string>
+    <string name="metric_ps_tip4">Lagere versnellingen en hogere cadans verbeteren vaak de vloeiendheid</string>
+    <string name="metric_ps_tip5">TV neemt natuurlijk af bij zeer hoge vermogens</string>
+    <string name="metric_ps_research">Professionele wielrenners bereiken typisch 25-35%% trapvloeiendheid.</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">Wit</string>
+    <string name="color_green">Groen</string>
+    <string name="color_yellow">Geel</string>
+    <string name="color_red">Rood</string>
+    <string name="color_white_meaning">Normaal / geen data</string>
+    <string name="color_green_meaning">Optimaal bereik</string>
+    <string name="color_yellow_meaning">Vraagt aandacht</string>
+    <string name="color_red_meaning">Probleem</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo → Profielen → Datavelden</string>
+    <string name="setup_step2">Tik vak → Meer Data → kpedal</string>
+    <string name="setup_step3">Kies lay-out</string>
+    <string name="setup_step4">Koppel pedalen (ANT+)</string>
+    <string name="setup_step5">Begin te rijden</string>
+    <string name="setup_requires">Vereist: Garmin Rally, Favero Assioma, SRM, Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">Eenbenige oefeningen voor zwakkere kant</string>
+    <string name="tips_balance_2">Controleer schoenplaatpositie</string>
+    <string name="tips_balance_3">Vermoeidheid verhoogt asymmetrie</string>
+    <string name="tips_te_1">Streef niet naar 100%%</string>
+    <string name="tips_te_2">Schraap modder af onderaan de slag</string>
+    <string name="tips_te_3">Ontlast, trek niet omhoog</string>
+    <string name="tips_ps_1">Hogere cadans helpt</string>
+    <string name="tips_ps_2">Elimineer dode punten</string>
+    <string name="tips_ps_3">Oefen op rollers</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">V: %1$s</string>
+    <string name="faq_te85_q">TE 85%%+ slecht?</string>
+    <string name="faq_te85_a">Ja. 70-80%% is optimaal. Hoger beperkt neerwaartse kracht.</string>
+    <string name="faq_balance_q">Balans 45/55 ok?</string>
+    <string name="faq_balance_a">Ja. ±5%% is normaal. Alleen >10%% is zorgwekkend.</string>
+    <string name="faq_jump_q">Waarden springen rond?</string>
+    <string name="faq_jump_a">Focus op gemiddelden, niet op directe waarden.</string>
+    <string name="faq_compare_q">Vergelijken met anderen?</string>
+    <string name="faq_compare_a">Nee. Volg in plaats daarvan je eigen trends.</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">Geen data</string>
+    <string name="trouble_nodata_fix">Controleer of pedalen gekoppeld zijn in Karoo instellingen. Begin te trappen.</string>
+    <string name="trouble_balance_only">Alleen Balans, geen TE/TV</string>
+    <string name="trouble_balance_only_fix">Pedalen ondersteunen mogelijk geen TE/TV (bijv. Wahoo POWRLINK).</string>
+    <string name="trouble_stuck">Waarden vastgelopen</string>
+    <string name="trouble_stuck_fix">Herstart rit. Controleer batterij. Koppel pedalen opnieuw.</string>
+    <string name="trouble_crash">App crasht</string>
+    <string name="trouble_crash_fix">Herstart app. Herstart Karoo. Herinstalleer.</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">Linkerbeen Focus</string>
+    <string name="drill_right_leg_focus">Rechterbeen Focus</string>
+    <string name="drill_smooth_circles">Vloeiende Cirkels</string>
+    <string name="drill_power_transfer">Vermogensoverdracht</string>
+    <string name="drill_balance_challenge">Balansuitdaging</string>
+    <string name="drill_smoothness_target">Vloeiendheid Doel</string>
+    <string name="drill_high_cadence_smooth">Hoge Cadans Vloeiendheid</string>
+    <string name="drill_balance_recovery">Balansherstel</string>
+    <string name="drill_efficiency_builder">Efficiëntie Opbouw</string>
+    <string name="drill_pedaling_mastery">Traptechniek Meesterschap</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">Versterk linkerbeen vermogen</string>
+    <string name="drill_right_leg_focus_desc">Versterk rechterbeen vermogen</string>
+    <string name="drill_smooth_circles_desc">Verbeter trapslag vloeiendheid</string>
+    <string name="drill_power_transfer_desc">Maximaliseer vermogen naar voorwaartse beweging</string>
+    <string name="drill_balance_challenge_desc">Behoud perfecte L/R balans</string>
+    <string name="drill_smoothness_target_desc">Haal vloeiendheiddoelen consistent</string>
+    <string name="drill_high_cadence_smooth_desc">Blijf vloeiend bij hoge RPM</string>
+    <string name="drill_balance_recovery_desc">Keer terug naar balans na inspanning</string>
+    <string name="drill_efficiency_builder_desc">Combineer TE en TV voor efficiëntie</string>
+    <string name="drill_pedaling_mastery_desc">Beheers alle trapstatistieken</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">Warming-up</string>
+    <string name="phase_focus">Focus</string>
+    <string name="phase_maintain">Behouden</string>
+    <string name="phase_recover">Herstel</string>
+    <string name="phase_build">Opbouw</string>
+    <string name="phase_push">Duwen</string>
+    <string name="phase_hold">Vasthouden</string>
+    <string name="phase_rest">Rust</string>
+    <string name="phase_prepare">Voorbereiden</string>
+    <string name="phase_cooldown">Afkoelen</string>
+    <string name="phase_left_focus">Links Focus</string>
+    <string name="phase_right_focus">Rechts Focus</string>
+    <string name="phase_smooth_circles">Vloeiende Cirkels</string>
+    <string name="phase_max_transfer">Max Overdracht</string>
+    <string name="phase_find_center">Vind Midden</string>
+    <string name="phase_hold_balance">Houd Balans</string>
+    <string name="phase_relax">Ontspan</string>
+    <string name="phase_target_zone">Doelzone</string>
+    <string name="phase_normal_cadence">Normale Cadans</string>
+    <string name="phase_build_cadence">Cadans Opbouwen</string>
+    <string name="phase_hold_smooth">Houd Vloeiend</string>
+    <string name="phase_wind_down">Afbouwen</string>
+    <string name="phase_baseline">Basislijn</string>
+    <string name="phase_left_emphasis">Links Nadruk</string>
+    <string name="phase_center">Midden</string>
+    <string name="phase_right_emphasis">Rechts Nadruk</string>
+    <string name="phase_center_again">Midden Opnieuw</string>
+    <string name="phase_natural_finish">Natuurlijk Einde</string>
+    <string name="phase_balance_focus">Balansfocus</string>
+    <string name="phase_smoothness_block">Vloeiendheidsblok</string>
+    <string name="phase_recovery">Herstel</string>
+    <string name="phase_te_focus">TE Focus</string>
+    <string name="phase_combined">Gecombineerd</string>
+    <string name="phase_activation">Activatie</string>
+    <string name="phase_left_isolation">Linkerbeen Isolatie</string>
+    <string name="phase_right_isolation">Rechterbeen Isolatie</string>
+    <string name="phase_perfect_balance">Perfecte Balans</string>
+    <string name="phase_smoothness_focus">Vloeiendheid Focus</string>
+    <string name="phase_te_optimization">TE Optimalisatie</string>
+    <string name="phase_high_cadence_test">Hoge Cadans Test</string>
+    <string name="phase_integration">Integratie</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">Rustig draaien</string>
+    <string name="phase_desc_emphasize_left">Nadruk op linkerbeen</string>
+    <string name="phase_desc_return_normal">Terug naar normaal</string>
+    <string name="phase_desc_emphasize_right">Nadruk op rechterbeen</string>
+    <string name="phase_desc_find_rhythm">Vind je ritme</string>
+    <string name="phase_desc_max_smoothness">Maximale vloeiendheid</string>
+    <string name="phase_desc_increase_focus">Geleidelijk focus verhogen</string>
+    <string name="phase_desc_optimize_te">Optimaliseer TE</string>
+    <string name="phase_desc_easy_spin">Rustig draaien</string>
+    <string name="phase_desc_center_power">Centreer je vermogen</string>
+    <string name="phase_desc_hold_5050">Houd 50/50</string>
+    <string name="phase_desc_release_focus">Laat focus los</string>
+    <string name="phase_desc_loosen_up">Loskomen</string>
+    <string name="phase_desc_hold_ps_25">Houd TV ≥25%%</string>
+    <string name="phase_desc_recover">Herstel</string>
+    <string name="phase_desc_establish_baseline">Stel basislijn vast</string>
+    <string name="phase_desc_increase_100rpm">Verhoog naar 100+ rpm</string>
+    <string name="phase_desc_smooth_high_cadence">Vloeiend bij hoge cadans</string>
+    <string name="phase_desc_return_to_normal">Terug naar normaal</string>
+    <string name="phase_desc_find_natural_balance">Vind natuurlijke balans</string>
+    <string name="phase_desc_focus_left">Focus links</string>
+    <string name="phase_desc_find_5050">Vind 50/50</string>
+    <string name="phase_desc_focus_right">Focus rechts</string>
+    <string name="phase_desc_spin_naturally">Draai natuurlijk</string>
+    <string name="phase_desc_smooth_circles">Vloeiende cirkels</string>
+    <string name="phase_desc_power_transfer">Vermogensoverdracht</string>
+    <string name="phase_desc_all_metrics">Alle statistieken</string>
+    <string name="phase_desc_wind_down">Afbouwen</string>
+    <string name="phase_desc_wake_legs">Benen wakker maken</string>
+    <string name="phase_desc_left_focus">Links focus</string>
+    <string name="phase_desc_right_focus">Rechts focus</string>
+    <string name="phase_desc_5050_hold">50/50 vasthouden</string>
+    <string name="phase_desc_circular_motion">Circulaire beweging</string>
+    <string name="phase_desc_speed_form">Snelheid + vorm</string>
+    <string name="phase_desc_everything_together">Alles samen</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">Draai rustig, bereid je voor om te focussen</string>
+    <string name="instr_focus_left_leg">Focus op doorduwen met je LINKER been</string>
+    <string name="instr_relax_spin_normally">Ontspan en draai normaal</string>
+    <string name="instr_focus_right_leg">Focus op doorduwen met je RECHTER been</string>
+    <string name="instr_settle_cadence">Kom tot rust in een comfortabele cadans</string>
+    <string name="instr_smooth_circles">Stel je voor dat je vloeiende cirkels tekent. Schraap modder van je schoen onderaan.</string>
+    <string name="instr_maintain_feeling">Ontspan en behoud het gevoel</string>
+    <string name="instr_feel_power_transfer">Begin rustig, focus op het voelen van de vermogensoverdracht</string>
+    <string name="instr_apply_power">Breng vermogen aan door de hele slag. Vermijd stampen.</string>
+    <string name="instr_spin_easy_recover">Draai rustig, laat benen herstellen</string>
+    <string name="instr_find_balance_point">Vind je natuurlijke balanspunt</string>
+    <string name="instr_hold_5050">Houd 50/50 balans. Alleen kleine aanpassingen!</string>
+    <string name="instr_good_work_relax">Goed werk! Ontspan en draai rustig</string>
+    <string name="instr_easy_spin_form">Rustig draaien, focus op vorm</string>
+    <string name="instr_keep_ps_25">Houd vloeiendheid boven 25%%. Volledige cirkels!</string>
+    <string name="instr_great_effort">Geweldige inspanning! Draai rustig</string>
+    <string name="instr_start_normal_cadence">Start met je normale cadans</string>
+    <string name="instr_increase_cadence_100">Verhoog geleidelijk cadans naar 100+ rpm</string>
+    <string name="instr_keep_ps_high_cadence">Houd vloeiendheid boven 20%% bij hoge cadans!</string>
+    <string name="instr_reduce_cadence_smooth">Verlaag geleidelijk cadans, blijf vloeiend</string>
+    <string name="instr_observe_balance">Draai natuurlijk, observeer je balans</string>
+    <string name="instr_emphasize_left">Leg nadruk op je LINKER been</string>
+    <string name="instr_return_center">Keer terug naar midden, 50/50 balans</string>
+    <string name="instr_emphasize_right">Leg nadruk op je RECHTER been</string>
+    <string name="instr_feel_symmetry">Keer terug naar midden, voel de symmetrie</string>
+    <string name="instr_notice_improvement">Draai natuurlijk, merk eventuele verbetering op</string>
+    <string name="instr_warmup_easy">Warm op met rustig draaien</string>
+    <string name="instr_focus_even_balance">Focus op gelijke balans, 50/50 vermogen</string>
+    <string name="instr_smooth_circular">Focus op vloeiende, circulaire trapbeweging</string>
+    <string name="instr_shake_out">Rustig draaien, schud benen los</string>
+    <string name="instr_optimize_te">Optimaliseer koppeleffectiviteit 70-80%%</string>
+    <string name="instr_combine_all">Combineer nu: Balans + Vloeiend + Efficiënt</string>
+    <string name="instr_appreciate_effort">Rustig draaien, waardeer je inspanning</string>
+    <string name="instr_prepare_mentally">Licht draaien, bereid je mentaal voor</string>
+    <string name="instr_strong_left">Sterke linkerbeen nadruk</string>
+    <string name="instr_strong_right">Sterke rechterbeen nadruk</string>
+    <string name="instr_perfect_5050">Perfecte balans, 50/50</string>
+    <string name="instr_max_smoothness">Maximale vloeiendheid, elimineer dode punten</string>
+    <string name="instr_easy_recover">Rustig draaien, herstel</string>
+    <string name="instr_dial_te">Stel TE af naar 72-78%% zone</string>
+    <string name="instr_increase_cadence_form">Verhoog cadans, behoud vorm</string>
+    <string name="instr_combine_skills">Combineer alle vaardigheden: Balans + Vloeiend + Efficiënt</string>
+    <string name="instr_appreciate_mastery">Rustig draaien, waardeer je meesterschapswerk</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">Visualiseer vermogen komend van je linkerbeen</string>
+    <string name="tip_dont_neglect_right">Verwaarloos het rechterbeen niet volledig</string>
+    <string name="tip_maintain_cadence">Behoud vloeiende cadans gedurende</string>
+    <string name="tip_visualize_right">Visualiseer vermogen komend van je rechterbeen</string>
+    <string name="tip_dont_neglect_left">Verwaarloos het linkerbeen niet volledig</string>
+    <string name="tip_think_360">Denk aan de volledige 360° van de trapbeweging</string>
+    <string name="tip_engage_hamstrings">Activeer hamstrings onderaan</string>
+    <string name="tip_pull_up">Trek licht omhoog door de achterwaartse slag</string>
+    <string name="tip_core_stability">Houd core aangespannen voor stabiliteit</string>
+    <string name="tip_te_above_80">TE boven 80%% kan daadwerkelijk totaal vermogen verminderen</string>
+    <string name="tip_focus_70_80">Focus op de 70-80%% optimale zone</string>
+    <string name="tip_dont_sacrifice">Offer hoofdvermogensfase niet op voor herstelfase</string>
+    <string name="tip_equal_pressure">Focus op gelijke druk van beide benen</string>
+    <string name="tip_minor_imbalance">Kleine onevenwichtigheid is normaal, mik op de zone</string>
+    <string name="tip_steady_cadence">Houd cadans stabiel - jaag de cijfers niet na</string>
+    <string name="tip_elite_smoothness">Elite wielrenners behouden 25-35%% vloeiendheid</string>
+    <string name="tip_engage_all_muscles">Activeer alle spiergroepen door de slag</string>
+    <string name="tip_moderate_cadence">Behoud matige cadans (85-95 rpm werkt goed)</string>
+    <string name="tip_smoothness_drops">Vloeiendheid neemt natuurlijk af bij zeer hoge cadans</string>
+    <string name="tip_relax_hips">Focus op het ontspannen van je heupen</string>
+    <string name="tip_dont_bounce">Stuiteren niet in het zadel</string>
+    <string name="tip_core_crucial">Core stabiliteit is cruciaal</string>
+    <string name="tip_identify_weaker">Deze training helpt je zwakkere been te identificeren</string>
+    <string name="tip_neural_pathways">Regelmatige oefening verbetert neurale paden</string>
+    <string name="tip_dont_force">Forceer geen extreme onevenwichtigheid</string>
+    <string name="tip_no_perfection">Verwacht geen perfectie op alle statistieken tegelijk</string>
+    <string name="tip_one_at_time">Focus eerst op één aspect per keer</string>
+    <string name="tip_regular_practice">Vooruitgang komt met regelmatige oefening</string>
+    <string name="tip_notice_hardest">Merk op welke statistiek het moeilijkst is voor jou</string>
+    <string name="tip_demanding_session">Dit is een veeleisende sessie - wees goed uitgerust</string>
+    <string name="tip_phases_build">Elke fase bouwt voort op vorige vaardigheden</string>
+    <string name="tip_quality_over_perfection">Focus op kwaliteit boven perfectie</string>
+    <string name="tip_track_progress">Volg je voortgang over meerdere sessies</string>
+    <string name="tip_once_twice_week">Overweeg dit 1-2x per week te doen</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">Eerste Rit</string>
+    <string name="achievement_getting_started">Aan de Slag</string>
+    <string name="achievement_dedicated">Toegewijd</string>
+    <string name="achievement_century">Eeuw</string>
+    <string name="achievement_balanced">Gebalanceerd</string>
+    <string name="achievement_well_balanced">Goed Gebalanceerd</string>
+    <string name="achievement_master_of_balance">Meester van Balans</string>
+    <string name="achievement_efficient_rider">Efficiënte Rijder</string>
+    <string name="achievement_smooth_operator">Vloeiende Operator</string>
+    <string name="achievement_getting_consistent">Consistent Worden</string>
+    <string name="achievement_weekly_warrior">Weekstrijder</string>
+    <string name="achievement_two_week_hero">Twee Weken Held</string>
+    <string name="achievement_monthly_master">Maandmeester</string>
+    <string name="achievement_practice_perfect">Oefening Baart Kunst</string>
+    <string name="achievement_drill_enthusiast">Oefening Enthousiast</string>
+    <string name="achievement_perfect_form">Perfecte Vorm</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">Voltooi je eerste gevolgde rit</string>
+    <string name="achievement_getting_started_desc">Voltooi 10 gevolgde ritten</string>
+    <string name="achievement_dedicated_desc">Voltooi 50 gevolgde ritten</string>
+    <string name="achievement_century_desc">Voltooi 100 gevolgde ritten</string>
+    <string name="achievement_balanced_desc">Beëindig een rit met minder dan 5%% balansafwijking</string>
+    <string name="achievement_well_balanced_desc">Beëindig 5 ritten met minder dan 3%% balansafwijking</string>
+    <string name="achievement_master_of_balance_desc">Beëindig 20 ritten met minder dan 2.5%% balansafwijking</string>
+    <string name="achievement_efficient_rider_desc">Behoud 70–80%% TE gemiddelde in een rit</string>
+    <string name="achievement_smooth_operator_desc">Bereik 25%%+ TV gemiddelde in een rit</string>
+    <string name="achievement_getting_consistent_desc">Rijd 3 dagen op rij</string>
+    <string name="achievement_weekly_warrior_desc">Rijd 7 dagen op rij</string>
+    <string name="achievement_two_week_hero_desc">Rijd 14 dagen op rij</string>
+    <string name="achievement_monthly_master_desc">Rijd 30 dagen op rij</string>
+    <string name="achievement_practice_perfect_desc">Voltooi je eerste oefening</string>
+    <string name="achievement_drill_enthusiast_desc">Voltooi 10 oefeningen</string>
+    <string name="achievement_perfect_form_desc">Scoor 90%%+ op een oefening</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">RITTEN</string>
+    <string name="category_balance">BALANS</string>
+    <string name="category_efficiency">EFFICIËNTIE</string>
+    <string name="category_streaks">REEKSEN</string>
+    <string name="category_drills">OEFENINGEN</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="language_system">Systeem</string>
+</resources>

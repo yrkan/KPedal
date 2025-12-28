@@ -64,7 +64,7 @@ KPedal provides cyclists with real-time feedback on pedaling technique during ri
 | **Web Dashboard** | Full-featured portal with ride details, charts, device management |
 | **Demo Mode** | Try the web portal without sign-up — explore with sample data |
 | **Guided Tour** | Interactive 39-step walkthrough of all web portal features |
-| **Multi-language** | English and Spanish UI (toggle on privacy/link pages) |
+| **Multi-language** | 17 languages: EN, ES, DE, FR, IT, PT, NL, JA, ZH, UK, RU, HE, AR, PL, KO, DA, SV |
 
 ### System Architecture
 
@@ -878,12 +878,12 @@ web/
     │   │   ├── demoData.ts         # Static demo data (27 rides, drills, achievements)
     │   │   ├── theme.ts            # Theme store (light/dark/auto)
     │   │   ├── tour.ts             # Product tour (driver.js)
-    │   │   ├── i18n.ts             # Internationalization (EN/ES)
+    │   │   ├── i18n.ts             # Internationalization (17 languages)
     │   │   ├── config.ts           # API_URL constant
     │   │   └── components/         # Shared components (InfoTip, etc.)
-    │   ├── locales/                # Translation files
-    │   │   ├── en.json             # English (1460 keys)
-    │   │   └── es.json             # Spanish
+    │   ├── locales/                # Translation files (17 languages)
+    │   │   ├── en.json             # English (1467 keys)
+    │   │   └── *.json              # DE, FR, IT, PT, NL, JA, ZH, UK, RU, HE, AR, PL, KO, DA, SV
     │   └── app.css                 # Global styles, CSS vars, themes
     └── svelte.config.js
 ```

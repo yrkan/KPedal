@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KPedal</string>
+    <string name="extension_name">KPedal</string>
+
+    <!-- DataType names -->
+    <string name="datatype_quick_glance">نظرة سريعة</string>
+    <string name="datatype_quick_glance_desc">مؤشر الحالة مع شريط التوازن</string>
+
+    <string name="datatype_power_balance">القوة + التوازن</string>
+    <string name="datatype_power_balance_desc">القوة مع توازن ي/ي</string>
+
+    <string name="datatype_efficiency">الكفاءة</string>
+    <string name="datatype_efficiency_desc">فعالية عزم الدوران وسلاسة التبديل</string>
+
+    <string name="datatype_full_overview">نظرة شاملة</string>
+    <string name="datatype_full_overview_desc">جميع مقاييس التبديل في عرض واحد</string>
+
+    <string name="datatype_balance_trend">اتجاه التوازن</string>
+    <string name="datatype_balance_trend_desc">التوازن الحالي، 3ث و 10ث</string>
+
+    <string name="datatype_single_balance">التوازن</string>
+    <string name="datatype_single_balance_desc">توازن القوة ي/ي بملء الشاشة</string>
+
+    <string name="datatype_live">مباشر</string>
+    <string name="datatype_live_desc">جميع المقاييس مع إحصائيات الوقت في النطاق</string>
+
+    <!-- Labels -->
+    <string name="balance">التوازن</string>
+    <string name="balance_lower">التوازن</string>
+    <string name="balance_3s">متوسط 3ث</string>
+    <string name="balance_10s">متوسط 10ث</string>
+    <string name="power">القوة</string>
+    <string name="power_lower">القوة</string>
+    <string name="te">ف.ع.د</string>
+    <string name="te_full">فعالية عزم الدوران</string>
+    <string name="ps">س.ت</string>
+    <string name="ps_full">سلاسة التبديل</string>
+    <string name="left">ي</string>
+    <string name="right">ي</string>
+    <string name="lr">ي/ي</string>
+    <string name="lr_balance_format">ي%1$d/ي%2$d</string>
+    <string name="all_good">كل شيء جيد</string>
+    <string name="watt_symbol">و</string>
+    <string name="issue_count">%1$d مشكلة</string>
+    <string name="issues_count">%1$d مشاكل</string>
+    <string name="no_data">لا توجد بيانات</string>
+    <string name="no_data_lower">لا توجد بيانات</string>
+    <string name="avg">متوسط</string>
+
+    <!-- Settings -->
+    <string name="settings">الإعدادات</string>
+    <string name="preferences">التفضيلات</string>
+    <string name="thresholds">الحدود</string>
+    <string name="balance_threshold">تنبيه التوازن</string>
+    <string name="te_optimal">نطاق ف.ع.د الأمثل</string>
+    <string name="ps_minimum">الحد الأدنى لـ س.ت</string>
+    <string name="alerts">التنبيهات</string>
+    <string name="vibration">الاهتزاز</string>
+    <string name="sound">الصوت</string>
+    <string name="alert_settings">إعدادات التنبيه</string>
+    <string name="background_mode">وضع الخلفية</string>
+    <string name="background_mode_desc">جمع البيانات لجميع الرحلات</string>
+    <string name="cloud_sync">المزامنة السحابية</string>
+    <string name="cloud_sync_desc">مزامنة إلى app.kpedal.com</string>
+    <string name="language">اللغة</string>
+    <string name="settings_sync">المزامنة</string>
+    <string name="settings_auto_sync">مزامنة الرحلات تلقائياً</string>
+    <string name="settings_auto_sync_desc">مزامنة بعد كل رحلة</string>
+    <string name="settings_data_collection">جمع البيانات</string>
+    <string name="settings_balance_threshold">حد التوازن</string>
+    <string name="settings_balance_threshold_desc">الانحراف عن 50/50 لتفعيل التنبيه</string>
+    <string name="settings_te">فعالية عزم الدوران</string>
+    <string name="settings_te_desc">الحد الأدنى لـ ف.ع.د%% لاعتباره أمثل</string>
+    <string name="settings_ps">سلاسة التبديل</string>
+    <string name="settings_ps_desc">الحد الأدنى لـ س.ت%% لاعتباره أمثل</string>
+    <string name="settings_configure_alerts">تكوين التنبيهات</string>
+    <string name="settings_configure_alerts_desc">متى وكيف يتم الإشعار</string>
+    <string name="settings_about">حول</string>
+    <string name="settings_version">الإصدار</string>
+    <string name="settings_privacy">سياسة الخصوصية</string>
+    <string name="settings_contact">اتصل بنا</string>
+    <string name="settings_linked_account">الحساب المرتبط</string>
+    <string name="settings_sync_desc">مزامنة الرحلات إلى app.kpedal.com</string>
+    <string name="settings_enter_code">أدخل هذا الرمز في</string>
+    <string name="settings_code_expired">انتهت صلاحية الرمز</string>
+    <string name="settings_code_expired_desc">اطلب رمزاً جديداً</string>
+    <string name="settings_get_new_code">احصل على رمز جديد</string>
+    <string name="settings_access_denied">تم رفض الوصول</string>
+    <string name="settings_access_denied_desc">تم إلغاء التفويض</string>
+    <string name="settings_try_again">حاول مرة أخرى</string>
+    <string name="settings_connection_failed">فشل الاتصال</string>
+    <string name="settings_connection_failed_desc">يرجى المحاولة مرة أخرى</string>
+    <string name="settings_last_sync">آخر مزامنة: %1$s</string>
+    <string name="settings_never_synced">لم تتم المزامنة</string>
+    <string name="settings_pending">%1$d في الانتظار</string>
+    <string name="settings_up_to_date">محدّث</string>
+    <string name="settings_sync_now">مزامنة الآن</string>
+    <string name="settings_device_revoked_desc">تم فصل هذا الجهاز من حسابك. ستحتاج إلى تسجيل الدخول مرة أخرى لمزامنة رحلاتك.</string>
+    <string name="ok">موافق</string>
+
+    <!-- Account -->
+    <string name="account">الحساب</string>
+    <string name="link_account">ربط الحساب</string>
+    <string name="link_account_desc">مزامنة الرحلات عبر الأجهزة</string>
+    <string name="why_how_sync">لماذا وكيف تتم المزامنة السحابية؟</string>
+    <string name="account_linked">تم ربط الحساب!</string>
+
+    <!-- Cloud Sync Help Screen -->
+    <string name="cloud_sync_help_title">المزامنة السحابية</string>
+    <string name="cloud_sync_why_title">لماذا المزامنة؟</string>
+    <string name="cloud_sync_why_1">عرض سجل الرحلات والتحليلات على أي جهاز</string>
+    <string name="cloud_sync_why_2">رسوم بيانية تفصيلية ولقطات كل دقيقة</string>
+    <string name="cloud_sync_why_3">تتبع التقدم مع الإنجازات</string>
+    <string name="cloud_sync_why_4">لا تفقد بياناتك أبداً إذا تمت إعادة تعيين الجهاز</string>
+    <string name="cloud_sync_how_title">كيفية الربط؟</string>
+    <string name="cloud_sync_how_1">اضغط على "ربط الحساب" أعلاه</string>
+    <string name="cloud_sync_how_2">لاحظ الرمز المكون من 8 أحرف المعروض</string>
+    <string name="cloud_sync_how_3">قم بزيارة link.kpedal.com على أي جهاز</string>
+    <string name="cloud_sync_how_3_prefix">قم بزيارة</string>
+    <string name="cloud_sync_how_4">أدخل الرمز وسجل الدخول باستخدام Google</string>
+    <string name="cloud_sync_how_5">تم! تتم مزامنة الرحلات تلقائياً</string>
+    <string name="cloud_sync_what_syncs">ما الذي تتم مزامنته؟</string>
+    <string name="cloud_sync_syncs_rides">ملخصات الرحلات مع لقطات كل دقيقة</string>
+    <string name="cloud_sync_syncs_metrics">القوة، معدل ضربات القلب، الإيقاع، المسافة، الارتفاع</string>
+    <string name="cloud_sync_syncs_drills">نتائج التمارين والإنجازات</string>
+    <string name="cloud_sync_syncs_settings">إعدادات التنبيهات والحدود</string>
+    <string name="cloud_sync_not_syncs">لا يتم جمع GPS/المسارات</string>
+    <string name="cloud_sync_free">مجاني وبدون إعلانات. بياناتك ملكك.</string>
+    <string name="sign_out">تسجيل الخروج</string>
+    <string name="sync">مزامنة</string>
+    <string name="syncing">جارٍ المزامنة…</string>
+    <string name="synced">تمت المزامنة</string>
+    <string name="sync_failed">فشلت المزامنة</string>
+    <string name="offline">غير متصل</string>
+    <string name="getting_code">جارٍ الحصول على الرمز…</string>
+    <string name="waiting_auth">في انتظار التفويض…</string>
+    <string name="device_disconnected">تم فصل الجهاز</string>
+    <string name="device_disconnected_desc">تم فصل هذا الجهاز من حسابك. يرجى إعادة الربط لمتابعة المزامنة.</string>
+    <string name="relink">إعادة ربط الحساب</string>
+
+    <!-- Live -->
+    <string name="live">مباشر</string>
+    <string name="current_ride">الرحلة الحالية</string>
+    <string name="time_in_zone">الوقت في النطاق</string>
+    <string name="waiting_pedal_data">في انتظار بيانات الدواسة…</string>
+    <string name="start_riding">ابدأ الركوب أو تحقق من اتصال الدواسة</string>
+    <string name="save">حفظ</string>
+    <string name="saved">تم الحفظ</string>
+    <string name="opt">أمثل</string>
+    <string name="att">انتباه</string>
+    <string name="prob">مشكلة</string>
+
+    <!-- Home Screen -->
+    <string name="drills">التمارين</string>
+    <string name="practice">تدريب</string>
+    <string name="rides">رحلات</string>
+    <string name="avg_bal">متوسط التوازن</string>
+    <string name="streak">سلسلة</string>
+    <string name="streak_days">%1$d يوم</string>
+    <string name="section_data">البيانات</string>
+    <string name="section_karoo">KAROO</string>
+    <string name="section_more">المزيد</string>
+    <string name="history">السجل</string>
+    <string name="saved_rides">الرحلات المحفوظة</string>
+    <string name="analytics">التحليلات</string>
+    <string name="trends">الاتجاهات</string>
+    <string name="achievements">الإنجازات</string>
+    <string name="challenges">التحديات</string>
+    <string name="weekly_goal">الهدف الأسبوعي</string>
+    <string name="data_fields">حقول البيانات</string>
+    <string name="layouts_count">6 تخطيطات</string>
+    <string name="pedal_status">حالة الدواسة</string>
+    <string name="connection">الاتصال</string>
+    <string name="quick_guide">دليل سريع</string>
+    <string name="last_ride">آخر رحلة</string>
+    <string name="optimal">أمثل</string>
+
+    <!-- Notification -->
+    <string name="notification_title">KPedal</string>
+    <string name="notification_text">مراقبة مقاييس التبديل</string>
+    <string name="notification_channel_name">خلفية KPedal</string>
+    <string name="notification_channel_description">مراقبة مقاييس التبديل أثناء جميع الرحلات</string>
+
+    <!-- Alert Settings -->
+    <string name="enable_alerts">تفعيل التنبيهات</string>
+    <string name="metrics_to_monitor">المقاييس للمراقبة</string>
+    <string name="sensitivity">الحساسية</string>
+    <string name="critical">حرج</string>
+    <string name="critical_desc">المشاكل الكبيرة فقط</string>
+    <string name="sensitive">حساس</string>
+    <string name="sensitive_desc">تنبيهات أكثر تكراراً</string>
+    <string name="notify_via">الإشعار عبر</string>
+    <string name="vibrate">اهتزاز</string>
+    <string name="banner">لافتة</string>
+    <string name="options">الخيارات</string>
+    <string name="wake_screen">تشغيل الشاشة</string>
+    <string name="cooldown">فترة الراحة</string>
+    <string name="cooldown_15s">15ث</string>
+    <string name="cooldown_30s">30ث</string>
+    <string name="cooldown_1m">1د</string>
+    <string name="cooldown_2m">2د</string>
+
+    <!-- Layouts Screen -->
+    <string name="data_field_layouts">تخطيطات حقول البيانات</string>
+    <string name="tap_to_preview">اضغط لمعاينة التخطيط على Karoo</string>
+    <string name="layout_quick_glance_short">الحالة + شريط التوازن</string>
+    <string name="layout_power_balance_short">تركيز ي/ي كبير</string>
+    <string name="layout_efficiency_short">مقاييس ف.ع.د و س.ت</string>
+    <string name="layout_full_overview_short">جميع المقاييس مضغوطة</string>
+    <string name="layout_balance_trend_short">تمهيد 3ث/10ث</string>
+    <string name="layout_single_balance_short">التوازن فقط</string>
+
+    <!-- Pedal Info Screen -->
+    <string name="connected">متصل</string>
+    <string name="disconnected">غير متصل</string>
+    <string name="live_data">بيانات مباشرة</string>
+    <string name="data_flowing">البيانات تتدفق بشكل صحيح</string>
+    <string name="signal_details">تفاصيل الإشارة</string>
+    <string name="troubleshooting">استكشاف الأخطاء</string>
+    <string name="quality">الجودة</string>
+    <string name="excellent">ممتاز</string>
+    <string name="fair">مقبول</string>
+    <string name="poor">ضعيف</string>
+    <string name="unknown">غير معروف</string>
+    <string name="update_rate">معدل التحديث</string>
+    <string name="last_update">آخر تحديث</string>
+    <string name="pedal_tip_start_riding">ابدأ الركوب لاكتشاف الدواسات</string>
+    <string name="pedal_tip_ensure_paired">تأكد من إقران الدواسات مع Karoo</string>
+    <string name="pedal_tip_check_battery">تحقق من بطارية الدواسة</string>
+    <string name="pedal_tip_low_rate">المعدل المنخفض قد يشير إلى تداخل</string>
+    <string name="pedal_tip_move_away">ابتعد عن أجهزة ANT+ الأخرى</string>
+
+    <!-- History Screen -->
+    <string name="ride_history">سجل الرحلات</string>
+    <string name="rides_count">%1$d رحلة</string>
+    <string name="no_rides">لا توجد رحلات</string>
+    <string name="no_rides_saved">لا توجد رحلات محفوظة</string>
+    <string name="no_matching_rides">لا توجد رحلات مطابقة</string>
+    <string name="try_adjusting_filter">حاول تعديل الفلتر</string>
+    <string name="rides_saved_auto">يتم حفظ الرحلات تلقائياً</string>
+    <string name="manual">يدوي</string>
+    <string name="percent_optimal">%1$d%% أمثل</string>
+    <string name="load_more">تحميل المزيد</string>
+    <string name="delete_ride">حذف الرحلة؟</string>
+    <string name="cancel">إلغاء</string>
+    <string name="delete">حذف</string>
+
+    <!-- Ride Detail Screen -->
+    <string name="rating">التقييم</string>
+    <string name="suggested_stars">المقترح: %1$d نجوم</string>
+    <string name="overall">إجمالي</string>
+    <string name="efficiency">الكفاءة</string>
+    <string name="consistency">الاتساق</string>
+    <string name="analysis">التحليل</string>
+    <string name="strengths">نقاط القوة</string>
+    <string name="areas_to_improve">مجالات التحسين</string>
+    <string name="attention">انتباه</string>
+    <string name="problem">مشكلة</string>
+
+    <!-- Analytics Screen -->
+    <string name="no_ride_data">لا توجد بيانات رحلات</string>
+    <string name="complete_rides_to_see">أكمل بعض الرحلات لرؤية الاتجاهات</string>
+    <string name="period_averages">متوسطات الفترة</string>
+    <string name="progress_label">التقدم</string>
+    <string name="stable">مستقر</string>
+    <string name="avg_balance_label">متوسط التوازن</string>
+    <string name="balance_trend_title">اتجاه التوازن</string>
+
+    <!-- Achievements Screen -->
+    <string name="section_rides">الرحلات</string>
+    <string name="section_balance">التوازن</string>
+    <string name="section_efficiency">الكفاءة</string>
+    <string name="section_streaks">السلاسل</string>
+    <string name="section_drills">التمارين</string>
+
+    <!-- Drills List Screen -->
+    <string name="drill_history">السجل</string>
+    <string name="my_drills">تماريني</string>
+    <string name="built_in_drills">التمارين المدمجة</string>
+    <string name="create_custom_drill">إنشاء تمرين مخصص</string>
+    <string name="custom">مخصص</string>
+
+    <!-- Drill Detail Screen -->
+    <string name="best_score">الأفضل %1$d%%</string>
+    <string name="start">ابدأ</string>
+
+    <!-- Drill Execution Screen -->
+    <string name="next">التالي</string>
+    <string name="stop">إيقاف</string>
+    <string name="pause">إيقاف مؤقت</string>
+    <string name="paused">متوقف</string>
+    <string name="resume">استئناف</string>
+    <string name="rpm">د/د</string>
+    <string name="in_zone">في النطاق</string>
+    <string name="spin_easy">دوران خفيف</string>
+    <string name="complete">مكتمل</string>
+    <string name="stopped">متوقف</string>
+
+    <!-- Drill Result Screen -->
+    <string name="new_best">رقم قياسي جديد!</string>
+    <string name="done">تم</string>
+    <string name="retry">إعادة المحاولة</string>
+
+    <!-- Drill History Screen -->
+    <string name="clear">مسح</string>
+    <string name="no_history">لا يوجد سجل</string>
+    <string name="clear_all_question">مسح الكل؟</string>
+    <string name="delete_question">حذف؟</string>
+
+    <!-- Custom Drill Screen -->
+    <string name="new_drill">تمرين جديد</string>
+    <string name="edit_drill">تعديل التمرين</string>
+    <string name="name_your_drill">سمِّ تمرينك</string>
+    <string name="drill_name_placeholder">مثال: تركيز التوازن، ف.ع.د عالي</string>
+    <string name="what_to_focus">على ماذا تريد التركيز؟</string>
+    <string name="balance_option">التوازن</string>
+    <string name="lr_power_distribution">توزيع القوة ي/ي</string>
+    <string name="torque_effectiveness_option">فعالية عزم الدوران</string>
+    <string name="power_transfer_efficiency">كفاءة نقل القوة</string>
+    <string name="pedal_smoothness_option">سلاسة التبديل</string>
+    <string name="circular_pedal_stroke">ضربة دواسة دائرية</string>
+    <string name="how_long">كم المدة؟</string>
+    <string name="quick_select">اختيار سريع</string>
+    <string name="or_set_custom">أو تعيين مخصص</string>
+    <string name="minutes">دقائق</string>
+    <string name="seconds">ثواني</string>
+    <string name="total_duration">المجموع: %1$s</string>
+    <string name="min_10_seconds">الحد الأدنى 10 ثوانٍ</string>
+    <string name="set_your_target">حدد هدفك</string>
+    <string name="above">فوق</string>
+    <string name="above_value">≥ القيمة</string>
+    <string name="below">تحت</string>
+    <string name="below_value">≤ القيمة</string>
+    <string name="range">نطاق</string>
+    <string name="min_max">الحد الأدنى-الأقصى</string>
+    <string name="minimum">الحد الأدنى</string>
+    <string name="maximum">الحد الأقصى</string>
+    <string name="preview">معاينة</string>
+    <string name="metric">المقياس</string>
+    <string name="duration">المدة</string>
+    <string name="target">الهدف</string>
+    <string name="custom_drill_desc">تمرين %1$s مخصص</string>
+    <string name="torque_eff_short">فعالية العزم</string>
+    <string name="smoothness_short">السلاسة</string>
+
+    <!-- Challenges Screen -->
+    <string name="weekly_challenge">التحدي الأسبوعي</string>
+    <string name="active">نشط</string>
+    <string name="days_left_this_week">%1$d أيام متبقية هذا الأسبوع</string>
+    <string name="completed_upper">مكتمل</string>
+    <string name="this_week">هذا الأسبوع</string>
+    <string name="all_challenges">جميع التحديات</string>
+    <string name="next_week">الأسبوع القادم</string>
+
+    <!-- Onboarding -->
+    <string name="skip">تخطي</string>
+    <string name="get_started">ابدأ الآن</string>
+    <string name="onboarding_welcome_title">مرحباً بك في KPedal</string>
+    <string name="onboarding_welcome_desc">مقاييس التبديل في الوقت الفعلي من دواسات قياس القوة. تتبع التوازن والكفاءة والسلاسة لتحسين تقنيتك.</string>
+    <string name="onboarding_data_fields_title">حقول البيانات</string>
+    <string name="onboarding_data_fields_desc">أضف حقول بيانات KPedal إلى شاشات Karoo الخاصة بك لرؤية المقاييس أثناء رحلتك. اختر من بين 6 تخطيطات مختلفة.</string>
+    <string name="onboarding_drills_title">التمارين</string>
+    <string name="onboarding_drills_desc">تدرب مع تمارين موجهة لتحسين تقنية التبديل. كل تمرين يستهدف جوانب محددة من ضربتك.</string>
+    <string name="onboarding_alerts_title">التنبيهات</string>
+    <string name="onboarding_alerts_desc">احصل على إشعارات عندما تخرج مقاييسك عن النطاقات المثلى. قم بتكوين التنبيهات في الإعدادات.</string>
+    <string name="onboarding_background_title">بيانات الخلفية</string>
+    <string name="onboarding_background_desc">يجمع KPedal مقاييس التبديل لجميع رحلاتك تلقائياً. يمكنك تعطيل هذا في الإعدادات إذا كنت تفضل ذلك.</string>
+    <string name="onboarding_cloud_title">المزامنة السحابية</string>
+    <string name="onboarding_cloud_desc">سجل الدخول باستخدام Google لمزامنة بيانات رحلتك وعرض التحليلات على app.kpedal.com. هذا اختياري - تبقى بياناتك على الجهاز حتى تقوم بالمزامنة.</string>
+
+    <!-- Help Screen -->
+    <string name="help">المساعدة</string>
+    <string name="section_metrics">المقاييس</string>
+    <string name="section_colors">الألوان</string>
+    <string name="section_setup">الإعداد</string>
+    <string name="section_tips">نصائح</string>
+    <string name="section_faq">الأسئلة الشائعة</string>
+    <string name="section_troubleshooting">استكشاف الأخطاء</string>
+
+    <!-- Help - Metrics (compact for HelpScreen) -->
+    <string name="help_balance_range">48-52%%</string>
+    <string name="help_balance_desc">توزيع القوة ي/ي</string>
+    <string name="help_balance_note">عدم التماثل 2-5%% طبيعي</string>
+    <string name="help_te_range">70-80%%</string>
+    <string name="help_te_desc">فعالية عزم الدوران</string>
+    <string name="help_te_note">الأعلى ليس أفضل! يحد من القوة</string>
+    <string name="help_ps_range">≥20%%</string>
+    <string name="help_ps_desc">سلاسة التبديل</string>
+    <string name="help_ps_note">النخبة: 25-35%%</string>
+
+    <!-- MetricInfo - Balance (detailed for HelpContent) -->
+    <string name="metric_balance_name">توازن القوة</string>
+    <string name="metric_balance_short">توزيع القوة ي/ي</string>
+    <string name="metric_balance_explanation">يُظهر توازن القوة مدى توزيع القوة بالتساوي بين ساقك اليسرى واليمنى. التوازن المثالي سيكون 50/50، لكن عدم التماثل الطفيف (48-52%%) طبيعي ولا يدعو للقلق.</string>
+    <string name="metric_balance_optimal">48-52%% (أمثل)، 45-55%% (مقبول)</string>
+    <string name="metric_balance_tip1">ركز على الضغط المتساوي طوال ضربة الدواسة</string>
+    <string name="metric_balance_tip2">جرب تمارين الساق الواحدة لتقوية الجانب الأضعف</string>
+    <string name="metric_balance_tip3">تحقق من ضبط الدراجة - ارتفاع السرج يمكن أن يؤثر على التوازن</string>
+    <string name="metric_balance_tip4">عدم التوازن الطفيف طبيعي وغالباً ما يصحح نفسه</string>
+    <string name="metric_balance_tip5">لا تهتم بالتقلبات الصغيرة أثناء الرحلة</string>
+    <string name="metric_balance_research">تُظهر الدراسات أن معظم الدراجين لديهم عدم توازن طبيعي 1-5%%. متوسط الدراجين المحترفين 48-52%%.</string>
+
+    <!-- MetricInfo - Torque Effectiveness (detailed) -->
+    <string name="metric_te_name">فعالية عزم الدوران</string>
+    <string name="metric_te_short">كفاءة ضربة الدواسة</string>
+    <string name="metric_te_explanation">تقيس فعالية عزم الدوران (ف.ع.د) مقدار حركة التبديل التي تساهم في الدفع للأمام. درجة 100%% تعني أن كل جزء من ضربتك يضيف قوة، لكن هذا ليس واقعياً ولا أمثل.</string>
+    <string name="metric_te_optimal">70-80%% (أمثل، ليس أعلى)</string>
+    <string name="metric_te_tip1">ركز على السحب عبر أسفل الضربة</string>
+    <string name="metric_te_tip2">تخيل "كشط الطين" من حذائك في الأسفل</string>
+    <string name="metric_te_tip3">ف.ع.د أعلى (>80%%) غالباً تقلل إنتاج القوة الرئيسية</string>
+    <string name="metric_te_tip4">التبديل السلس والدائري أكثر كفاءة من إجبار ف.ع.د عالية</string>
+    <string name="metric_te_tip5">ف.ع.د تتغير طبيعياً مع الإيقاع والقوة</string>
+    <string name="metric_te_research">تُظهر أبحاث Wattbike أن ف.ع.د فوق 80%% تقلل فعلياً من إنتاج القوة. يهدف الدراجون النخبة إلى 70-80%%.</string>
+
+    <!-- MetricInfo - Pedal Smoothness (detailed) -->
+    <string name="metric_ps_name">سلاسة التبديل</string>
+    <string name="metric_ps_short">اتساق توصيل القوة</string>
+    <string name="metric_ps_explanation">تُظهر سلاسة التبديل (س.ت) مدى تساوي تطبيق القوة طوال ضربة الدواسة. القيم الأعلى تعني توصيل قوة أكثر اتساقاً مع عدد أقل من القمم والانخفاضات.</string>
+    <string name="metric_ps_optimal">20%%+ (جيد)، 25-35%% (نخبة)</string>
+    <string name="metric_ps_tip1">مارس تمارين الدوران بإيقاع عالٍ</string>
+    <string name="metric_ps_tip2">ركز على إزالة النقاط الميتة في ضربتك</string>
+    <string name="metric_ps_tip3">حافظ على ضغط ثابت طوال الدوران</string>
+    <string name="metric_ps_tip4">التروس المنخفضة والإيقاع العالي غالباً تحسن السلاسة</string>
+    <string name="metric_ps_tip5">س.ت تنخفض طبيعياً عند مخرجات القوة العالية جداً</string>
+    <string name="metric_ps_research">يحقق الدراجون المحترفون عادةً 25-35%% سلاسة تبديل.</string>
+
+    <!-- Help - Colors -->
+    <string name="color_white">أبيض</string>
+    <string name="color_green">أخضر</string>
+    <string name="color_yellow">أصفر</string>
+    <string name="color_red">أحمر</string>
+    <string name="color_white_meaning">عادي / لا توجد بيانات</string>
+    <string name="color_green_meaning">النطاق الأمثل</string>
+    <string name="color_yellow_meaning">يحتاج انتباه</string>
+    <string name="color_red_meaning">مشكلة</string>
+
+    <!-- Help - Setup -->
+    <string name="setup_step1">Karoo ← الملفات الشخصية ← حقول البيانات</string>
+    <string name="setup_step2">اضغط على الخانة ← المزيد من البيانات ← kpedal</string>
+    <string name="setup_step3">اختر التخطيط</string>
+    <string name="setup_step4">قم بإقران الدواسات (ANT+)</string>
+    <string name="setup_step5">ابدأ الركوب</string>
+    <string name="setup_requires">يتطلب: Garmin Rally، Favero Assioma، SRM، Rotor</string>
+
+    <!-- Help - Tips -->
+    <string name="tips_balance_1">تمارين ساق واحدة للجانب الضعيف</string>
+    <string name="tips_balance_2">تحقق من وضع الكليت</string>
+    <string name="tips_balance_3">التعب يزيد عدم التماثل</string>
+    <string name="tips_te_1">لا تهدف إلى 100%%</string>
+    <string name="tips_te_2">اكشط الطين في أسفل الضربة</string>
+    <string name="tips_te_3">خفف الوزن، لا تسحب للأعلى</string>
+    <string name="tips_ps_1">الإيقاع الأعلى يساعد</string>
+    <string name="tips_ps_2">أزل النقاط الميتة</string>
+    <string name="tips_ps_3">تدرب على الأسطوانات</string>
+
+    <!-- Help - FAQ -->
+    <string name="question_prefix">س: %1$s</string>
+    <string name="faq_te85_q">ف.ع.د 85%%+ سيئة؟</string>
+    <string name="faq_te85_a">نعم. 70-80%% هو الأمثل. الأعلى يحد من قوة الضغط.</string>
+    <string name="faq_balance_q">التوازن 45/55 جيد؟</string>
+    <string name="faq_balance_a">نعم. ±5%% طبيعي. فقط >10%% مثير للقلق.</string>
+    <string name="faq_jump_q">القيم تقفز؟</string>
+    <string name="faq_jump_a">ركز على المتوسطات، وليس القيم اللحظية.</string>
+    <string name="faq_compare_q">المقارنة مع الآخرين؟</string>
+    <string name="faq_compare_a">لا. تتبع اتجاهاتك الخاصة بدلاً من ذلك.</string>
+
+    <!-- Help - Troubleshooting -->
+    <string name="trouble_nodata">لا توجد بيانات</string>
+    <string name="trouble_nodata_fix">تحقق من إقران الدواسات في إعدادات Karoo. ابدأ التبديل.</string>
+    <string name="trouble_balance_only">التوازن فقط، بدون ف.ع.د/س.ت</string>
+    <string name="trouble_balance_only_fix">الدواسات قد لا تدعم ف.ع.د/س.ت (مثل Wahoo POWRLINK).</string>
+    <string name="trouble_stuck">القيم عالقة</string>
+    <string name="trouble_stuck_fix">أعد تشغيل الرحلة. تحقق من البطارية. أعد إقران الدواسات.</string>
+    <string name="trouble_crash">تعطل التطبيق</string>
+    <string name="trouble_crash_fix">أعد تشغيل التطبيق. أعد تشغيل Karoo. أعد التثبيت.</string>
+
+    <!-- Drills - Names -->
+    <string name="drill_left_leg_focus">التركيز على الساق اليسرى</string>
+    <string name="drill_right_leg_focus">التركيز على الساق اليمنى</string>
+    <string name="drill_smooth_circles">دوائر سلسة</string>
+    <string name="drill_power_transfer">نقل القوة</string>
+    <string name="drill_balance_challenge">تحدي التوازن</string>
+    <string name="drill_smoothness_target">هدف السلاسة</string>
+    <string name="drill_high_cadence_smooth">سلاسة الإيقاع العالي</string>
+    <string name="drill_balance_recovery">استعادة التوازن</string>
+    <string name="drill_efficiency_builder">بناء الكفاءة</string>
+    <string name="drill_pedaling_mastery">إتقان التبديل</string>
+
+    <!-- Drills - Descriptions -->
+    <string name="drill_left_leg_focus_desc">تقوية إنتاج قوة الساق اليسرى</string>
+    <string name="drill_right_leg_focus_desc">تقوية إنتاج قوة الساق اليمنى</string>
+    <string name="drill_smooth_circles_desc">تحسين سلاسة ضربة الدواسة</string>
+    <string name="drill_power_transfer_desc">تعظيم القوة للحركة الأمامية</string>
+    <string name="drill_balance_challenge_desc">الحفاظ على توازن ي/ي مثالي</string>
+    <string name="drill_smoothness_target_desc">تحقيق أهداف السلاسة باستمرار</string>
+    <string name="drill_high_cadence_smooth_desc">البقاء سلساً عند RPM عالي</string>
+    <string name="drill_balance_recovery_desc">العودة للتوازن بعد الجهد</string>
+    <string name="drill_efficiency_builder_desc">الجمع بين ف.ع.د و س.ت للكفاءة</string>
+    <string name="drill_pedaling_mastery_desc">إتقان جميع مقاييس التبديل</string>
+
+    <!-- Drill Phases - Common names -->
+    <string name="phase_warmup">إحماء</string>
+    <string name="phase_focus">تركيز</string>
+    <string name="phase_maintain">حافظ</string>
+    <string name="phase_recover">استعادة</string>
+    <string name="phase_build">بناء</string>
+    <string name="phase_push">ادفع</string>
+    <string name="phase_hold">ثبّت</string>
+    <string name="phase_rest">راحة</string>
+    <string name="phase_prepare">تحضير</string>
+    <string name="phase_cooldown">تهدئة</string>
+    <string name="phase_left_focus">تركيز يسار</string>
+    <string name="phase_right_focus">تركيز يمين</string>
+    <string name="phase_smooth_circles">دوائر سلسة</string>
+    <string name="phase_max_transfer">نقل أقصى</string>
+    <string name="phase_find_center">اعثر على المركز</string>
+    <string name="phase_hold_balance">ثبّت التوازن</string>
+    <string name="phase_relax">استرخِ</string>
+    <string name="phase_target_zone">المنطقة المستهدفة</string>
+    <string name="phase_normal_cadence">إيقاع عادي</string>
+    <string name="phase_build_cadence">بناء الإيقاع</string>
+    <string name="phase_hold_smooth">ثبّت السلاسة</string>
+    <string name="phase_wind_down">تخفيف</string>
+    <string name="phase_baseline">خط الأساس</string>
+    <string name="phase_left_emphasis">تأكيد يسار</string>
+    <string name="phase_center">مركز</string>
+    <string name="phase_right_emphasis">تأكيد يمين</string>
+    <string name="phase_center_again">مركز مرة أخرى</string>
+    <string name="phase_natural_finish">نهاية طبيعية</string>
+    <string name="phase_balance_focus">تركيز التوازن</string>
+    <string name="phase_smoothness_block">كتلة السلاسة</string>
+    <string name="phase_recovery">استعادة</string>
+    <string name="phase_te_focus">تركيز ف.ع.د</string>
+    <string name="phase_combined">مجمع</string>
+    <string name="phase_activation">تنشيط</string>
+    <string name="phase_left_isolation">عزل الساق اليسرى</string>
+    <string name="phase_right_isolation">عزل الساق اليمنى</string>
+    <string name="phase_perfect_balance">توازن مثالي</string>
+    <string name="phase_smoothness_focus">تركيز السلاسة</string>
+    <string name="phase_te_optimization">تحسين ف.ع.د</string>
+    <string name="phase_high_cadence_test">اختبار الإيقاع العالي</string>
+    <string name="phase_integration">تكامل</string>
+
+    <!-- Drill Phase Descriptions -->
+    <string name="phase_desc_easy_spinning">دوران سهل</string>
+    <string name="phase_desc_emphasize_left">التأكيد على الساق اليسرى</string>
+    <string name="phase_desc_return_normal">العودة للطبيعي</string>
+    <string name="phase_desc_emphasize_right">التأكيد على الساق اليمنى</string>
+    <string name="phase_desc_find_rhythm">اعثر على إيقاعك</string>
+    <string name="phase_desc_max_smoothness">تعظيم السلاسة</string>
+    <string name="phase_desc_increase_focus">زيادة التركيز تدريجياً</string>
+    <string name="phase_desc_optimize_te">تحسين ف.ع.د</string>
+    <string name="phase_desc_easy_spin">دوران سهل</string>
+    <string name="phase_desc_center_power">مركِز قوتك</string>
+    <string name="phase_desc_hold_5050">ثبّت 50/50</string>
+    <string name="phase_desc_release_focus">حرر التركيز</string>
+    <string name="phase_desc_loosen_up">استرخِ</string>
+    <string name="phase_desc_hold_ps_25">ثبّت س.ت ≥25%%</string>
+    <string name="phase_desc_recover">استعد</string>
+    <string name="phase_desc_establish_baseline">ثبّت خط الأساس</string>
+    <string name="phase_desc_increase_100rpm">زِد إلى 100+ د/د</string>
+    <string name="phase_desc_smooth_high_cadence">سلاسة عند إيقاع عالٍ</string>
+    <string name="phase_desc_return_to_normal">العودة للطبيعي</string>
+    <string name="phase_desc_find_natural_balance">اعثر على توازنك الطبيعي</string>
+    <string name="phase_desc_focus_left">ركز يسار</string>
+    <string name="phase_desc_find_5050">اعثر على 50/50</string>
+    <string name="phase_desc_focus_right">ركز يمين</string>
+    <string name="phase_desc_spin_naturally">دوران طبيعي</string>
+    <string name="phase_desc_smooth_circles">دوائر سلسة</string>
+    <string name="phase_desc_power_transfer">نقل القوة</string>
+    <string name="phase_desc_all_metrics">جميع المقاييس</string>
+    <string name="phase_desc_wind_down">تخفيف</string>
+    <string name="phase_desc_wake_legs">أيقظ الساقين</string>
+    <string name="phase_desc_left_focus">تركيز يسار</string>
+    <string name="phase_desc_right_focus">تركيز يمين</string>
+    <string name="phase_desc_5050_hold">ثبّت 50/50</string>
+    <string name="phase_desc_circular_motion">حركة دائرية</string>
+    <string name="phase_desc_speed_form">السرعة + الشكل</string>
+    <string name="phase_desc_everything_together">كل شيء معاً</string>
+
+    <!-- Drill Phase Instructions -->
+    <string name="instr_spin_easy_prepare">دوران سهل، استعد للتركيز</string>
+    <string name="instr_focus_left_leg">ركز على الدفع بساقك اليسرى</string>
+    <string name="instr_relax_spin_normally">استرخِ ودور بشكل طبيعي</string>
+    <string name="instr_focus_right_leg">ركز على الدفع بساقك اليمنى</string>
+    <string name="instr_settle_cadence">استقر على إيقاع مريح</string>
+    <string name="instr_smooth_circles">تخيل رسم دوائر سلسة. اكشط الطين من حذائك في الأسفل.</string>
+    <string name="instr_maintain_feeling">استرخِ وحافظ على الشعور</string>
+    <string name="instr_feel_power_transfer">ابدأ بسهولة، ركز على الشعور بنقل القوة</string>
+    <string name="instr_apply_power">طبّق القوة طوال الضربة. تجنب الضرب العنيف.</string>
+    <string name="instr_spin_easy_recover">دوران سهل، دع الساقين تستعيدان</string>
+    <string name="instr_find_balance_point">اعثر على نقطة توازنك الطبيعية</string>
+    <string name="instr_hold_5050">ثبّت توازن 50/50. تعديلات صغيرة فقط!</string>
+    <string name="instr_good_work_relax">عمل جيد! استرخِ ودور بسهولة</string>
+    <string name="instr_easy_spin_form">دوران سهل، ركز على الشكل</string>
+    <string name="instr_keep_ps_25">حافظ على السلاسة فوق 25%%. دوائر كاملة!</string>
+    <string name="instr_great_effort">جهد رائع! دوران سهل</string>
+    <string name="instr_start_normal_cadence">ابدأ بإيقاعك العادي</string>
+    <string name="instr_increase_cadence_100">زِد الإيقاع تدريجياً إلى 100+ د/د</string>
+    <string name="instr_keep_ps_high_cadence">حافظ على السلاسة فوق 20%% عند الإيقاع العالي!</string>
+    <string name="instr_reduce_cadence_smooth">قلل الإيقاع تدريجياً، ابقَ سلساً</string>
+    <string name="instr_observe_balance">دور بشكل طبيعي، لاحظ توازنك</string>
+    <string name="instr_emphasize_left">أكّد على ساقك اليسرى</string>
+    <string name="instr_return_center">عد للمركز، توازن 50/50</string>
+    <string name="instr_emphasize_right">أكّد على ساقك اليمنى</string>
+    <string name="instr_feel_symmetry">عد للمركز، اشعر بالتماثل</string>
+    <string name="instr_notice_improvement">دور بشكل طبيعي، لاحظ أي تحسن</string>
+    <string name="instr_warmup_easy">إحماء بدوران سهل</string>
+    <string name="instr_focus_even_balance">ركز على توازن متساوٍ، قوة 50/50</string>
+    <string name="instr_smooth_circular">ركز على ضربة دواسة سلسة ودائرية</string>
+    <string name="instr_shake_out">دوران سهل، هز الساقين</string>
+    <string name="instr_optimize_te">حسّن فعالية عزم الدوران 70-80%%</string>
+    <string name="instr_combine_all">الآن اجمع: التوازن + السلاسة + الكفاءة</string>
+    <string name="instr_appreciate_effort">دوران سهل، قدّر جهدك</string>
+    <string name="instr_prepare_mentally">دوران خفيف، استعد ذهنياً</string>
+    <string name="instr_strong_left">تأكيد قوي على الساق اليسرى</string>
+    <string name="instr_strong_right">تأكيد قوي على الساق اليمنى</string>
+    <string name="instr_perfect_5050">توازن مثالي، 50/50</string>
+    <string name="instr_max_smoothness">سلاسة قصوى، أزل النقاط الميتة</string>
+    <string name="instr_easy_recover">دوران سهل، استعد</string>
+    <string name="instr_dial_te">اضبط ف.ع.د على منطقة 72-78%%</string>
+    <string name="instr_increase_cadence_form">زِد الإيقاع، حافظ على الشكل</string>
+    <string name="instr_combine_skills">اجمع كل المهارات: التوازن + السلاسة + الكفاءة</string>
+    <string name="instr_appreciate_mastery">دوران سهل، قدّر عملك على الإتقان</string>
+
+    <!-- Drill Tips -->
+    <string name="tip_visualize_left">تخيل القوة قادمة من ساقك اليسرى</string>
+    <string name="tip_dont_neglect_right">لا تهمل الساق اليمنى تماماً</string>
+    <string name="tip_maintain_cadence">حافظ على إيقاع سلس طوال الوقت</string>
+    <string name="tip_visualize_right">تخيل القوة قادمة من ساقك اليمنى</string>
+    <string name="tip_dont_neglect_left">لا تهمل الساق اليسرى تماماً</string>
+    <string name="tip_think_360">فكر في الـ 360° كاملة من ضربة الدواسة</string>
+    <string name="tip_engage_hamstrings">أشرك عضلات الفخذ الخلفية في الأسفل</string>
+    <string name="tip_pull_up">اسحب للأعلى قليلاً خلال الضربة الخلفية</string>
+    <string name="tip_core_stability">حافظ على استقرار الجذع</string>
+    <string name="tip_te_above_80">ف.ع.د فوق 80%% يمكن أن تقلل القوة الكلية فعلياً</string>
+    <string name="tip_focus_70_80">ركز على المنطقة المثلى 70-80%%</string>
+    <string name="tip_dont_sacrifice">لا تضحي بمرحلة القوة الرئيسية من أجل مرحلة الاستعادة</string>
+    <string name="tip_equal_pressure">ركز على ضغط متساوٍ من كلا الساقين</string>
+    <string name="tip_minor_imbalance">عدم التوازن الطفيف طبيعي، اهدف للمنطقة</string>
+    <string name="tip_steady_cadence">حافظ على إيقاع ثابت - لا تطارد الأرقام</string>
+    <string name="tip_elite_smoothness">الدراجون النخبة يحافظون على سلاسة 25-35%%</string>
+    <string name="tip_engage_all_muscles">أشرك جميع مجموعات العضلات خلال الضربة</string>
+    <string name="tip_moderate_cadence">حافظ على إيقاع معتدل (85-95 د/د يعمل جيداً)</string>
+    <string name="tip_smoothness_drops">السلاسة تنخفض طبيعياً عند الإيقاع العالي جداً</string>
+    <string name="tip_relax_hips">ركز على إرخاء وركيك</string>
+    <string name="tip_dont_bounce">لا تقفز في السرج</string>
+    <string name="tip_core_crucial">استقرار الجذع أمر حاسم</string>
+    <string name="tip_identify_weaker">هذا التمرين يساعد على تحديد ساقك الأضعف</string>
+    <string name="tip_neural_pathways">التدريب المنتظم يحسن المسارات العصبية</string>
+    <string name="tip_dont_force">لا تفرض عدم توازن شديد</string>
+    <string name="tip_no_perfection">لا تتوقع الكمال في جميع المقاييس دفعة واحدة</string>
+    <string name="tip_one_at_time">ركز على جانب واحد في البداية</string>
+    <string name="tip_regular_practice">التقدم يأتي مع التدريب المنتظم</string>
+    <string name="tip_notice_hardest">لاحظ أي مقياس هو الأصعب بالنسبة لك</string>
+    <string name="tip_demanding_session">هذه جلسة متطلبة - كن مرتاحاً جيداً</string>
+    <string name="tip_phases_build">كل مرحلة تبني على المهارات السابقة</string>
+    <string name="tip_quality_over_perfection">ركز على الجودة وليس الكمال</string>
+    <string name="tip_track_progress">تتبع تقدمك عبر جلسات متعددة</string>
+    <string name="tip_once_twice_week">فكر في عمل هذا 1-2 مرة في الأسبوع</string>
+
+    <!-- Achievements - Names -->
+    <string name="achievement_first_ride">الرحلة الأولى</string>
+    <string name="achievement_getting_started">البداية</string>
+    <string name="achievement_dedicated">متفانٍ</string>
+    <string name="achievement_century">المئة</string>
+    <string name="achievement_balanced">متوازن</string>
+    <string name="achievement_well_balanced">متوازن جيداً</string>
+    <string name="achievement_master_of_balance">سيد التوازن</string>
+    <string name="achievement_efficient_rider">راكب كفء</string>
+    <string name="achievement_smooth_operator">المشغل السلس</string>
+    <string name="achievement_getting_consistent">الاتساق</string>
+    <string name="achievement_weekly_warrior">محارب الأسبوع</string>
+    <string name="achievement_two_week_hero">بطل الأسبوعين</string>
+    <string name="achievement_monthly_master">سيد الشهر</string>
+    <string name="achievement_practice_perfect">التدريب يصنع الكمال</string>
+    <string name="achievement_drill_enthusiast">متحمس التمارين</string>
+    <string name="achievement_perfect_form">الشكل المثالي</string>
+
+    <!-- Achievements - Descriptions -->
+    <string name="achievement_first_ride_desc">أكمل رحلتك الأولى المتتبعة</string>
+    <string name="achievement_getting_started_desc">أكمل 10 رحلات متتبعة</string>
+    <string name="achievement_dedicated_desc">أكمل 50 رحلة متتبعة</string>
+    <string name="achievement_century_desc">أكمل 100 رحلة متتبعة</string>
+    <string name="achievement_balanced_desc">أنهِ رحلة بانحراف توازن أقل من 5%%</string>
+    <string name="achievement_well_balanced_desc">أنهِ 5 رحلات بانحراف توازن أقل من 3%%</string>
+    <string name="achievement_master_of_balance_desc">أنهِ 20 رحلة بانحراف توازن أقل من 2.5%%</string>
+    <string name="achievement_efficient_rider_desc">حافظ على متوسط ف.ع.د 70-80%% في رحلة</string>
+    <string name="achievement_smooth_operator_desc">حقق متوسط س.ت 25%%+ في رحلة</string>
+    <string name="achievement_getting_consistent_desc">اركب 3 أيام متتالية</string>
+    <string name="achievement_weekly_warrior_desc">اركب 7 أيام متتالية</string>
+    <string name="achievement_two_week_hero_desc">اركب 14 يوماً متتالياً</string>
+    <string name="achievement_monthly_master_desc">اركب 30 يوماً متتالياً</string>
+    <string name="achievement_practice_perfect_desc">أكمل تمرينك الأول</string>
+    <string name="achievement_drill_enthusiast_desc">أكمل 10 تمارين</string>
+    <string name="achievement_perfect_form_desc">سجل 90%%+ في أي تمرين</string>
+
+    <!-- Achievement Categories -->
+    <string name="category_rides">الرحلات</string>
+    <string name="category_balance">التوازن</string>
+    <string name="category_efficiency">الكفاءة</string>
+    <string name="category_streaks">السلاسل</string>
+    <string name="category_drills">التمارين</string>
+
+    <!-- Languages -->
+    <string name="language_english">English</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_system">النظام</string>
+</resources>

@@ -1,0 +1,1975 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "error": "Er is een fout opgetreden",
+    "loadError": "Gegevens laden mislukt",
+    "retry": "Opnieuw proberen",
+    "back": "Terug",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "confirm": "Bevestigen",
+    "or": "of",
+    "today": "Vandaag",
+    "yesterday": "Gisteren",
+    "daysAgo": "{days} dagen geleden",
+    "noData": "Geen gegevens",
+    "toggleTheme": "Thema wisselen",
+    "tableView": "Tabelweergave",
+    "cardView": "Kaartweergave",
+    "backToDashboard": "Terug naar Dashboard",
+    "remove": "Verwijderen"
+  },
+  "app": {
+    "name": "KPedal",
+    "tagline": "Trapefficiëntie-analyse voor Karoo",
+    "version": "Versie 1.3.0",
+    "webTitle": "KPedal Web"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "rides": "Ritten",
+    "drills": "Oefeningen",
+    "achievements": "Prestaties",
+    "goals": "Doelen",
+    "settings": "Instellingen",
+    "profile": "Profiel",
+    "logout": "Uitloggen"
+  },
+  "auth": {
+    "signIn": "Inloggen",
+    "signOut": "Uitloggen",
+    "continueWithGoogle": "Doorgaan met Google",
+    "tryDemo": "Demo proberen",
+    "loadingDemo": "Demo laden...",
+    "createFreeAccount": "Gratis account aanmaken",
+    "secureOAuth": "Beveiligde OAuth 2.0",
+    "googleVerified": "Google geverifieerd",
+    "privacyNote": "Door in te loggen gaat u akkoord met ons",
+    "privacyPolicy": "Privacybeleid",
+    "demoNote": "Verken het dashboard met voorbeeldgegevens.",
+    "noSignupRequired": "Geen registratie vereist.",
+    "backToLanding": "terug naar landingspagina",
+    "signedInViaGoogle": "Ingelogd via Google",
+    "sessionExpires": "Uw sessie verloopt over 7 dagen",
+    "authenticating": "Authenticeren...",
+    "signingIn": "U wordt ingelogd...",
+    "redirectingToLogin": "Doorsturen naar inlogpagina...",
+    "missingTokens": "Ontbrekende authenticatietokens"
+  },
+  "errors": {
+    "invalidState": "Beveiligingsverificatie mislukt. Probeer het opnieuw.",
+    "authFailed": "Authenticatie mislukt. Probeer het opnieuw.",
+    "somethingWrong": "Er is iets misgegaan. Probeer het opnieuw.",
+    "demoUnavailable": "Demomodus tijdelijk niet beschikbaar. Probeer het later opnieuw.",
+    "demoFailed": "Demomodus starten mislukt. Probeer het opnieuw.",
+    "failedToLoad": "Gegevens laden mislukt",
+    "failedToConnect": "Verbinding mislukt",
+    "failedToLoadRides": "Ritten laden mislukt",
+    "failedToLoadDrills": "Oefeningen laden mislukt",
+    "failedToLoadMilestones": "Mijlpalen laden mislukt",
+    "failedToLoadDevices": "Apparaten laden mislukt",
+    "failedToLoadSettings": "Instellingen laden mislukt"
+  },
+  "demo": {
+    "mode": "Demomodus",
+    "viewingSampleData": "Voorbeeldgegevens bekijken",
+    "tour": "Rondleiding"
+  },
+  "metrics": {
+    "balance": "Balans",
+    "balanceShort": "Bal",
+    "te": "Koppel-efficiëntie",
+    "teShort": "KE",
+    "ps": "Trapvloeiendheid",
+    "psShort": "TV",
+    "power": "Vermogen",
+    "powerAvg": "Gem. vermogen",
+    "powerMax": "Max. vermogen",
+    "normalizedPower": "Genormaliseerd vermogen",
+    "npShort": "NP",
+    "cadence": "Cadans",
+    "hr": "Hartslag",
+    "hrShort": "HS",
+    "speed": "Snelheid",
+    "distance": "Afstand",
+    "duration": "Duur",
+    "elevation": "Hoogte",
+    "elevationGain": "Hoogtemeters",
+    "energy": "Energie",
+    "score": "Score",
+    "asymmetry": "Asymmetrie",
+    "left": "L",
+    "right": "R",
+    "leftRight": "L/R",
+    "avg": "Gem.",
+    "max": "Max.",
+    "total": "Totaal"
+  },
+  "zones": {
+    "title": "Zones",
+    "optimal": "Optimaal",
+    "attention": "Aandacht",
+    "problem": "Probleem",
+    "timeInZone": "Tijd in zone",
+    "zoneStatus": "Zonestatus",
+    "description": {
+      "attention": "Techniek moet verbeterd worden",
+      "optimal": "Uitstekende vorm",
+      "problem": "Aanzienlijke problemen"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "period": {
+      "days7": "7 dagen",
+      "days14": "14 dagen",
+      "days30": "30 dagen",
+      "days60": "60 dagen",
+      "all": "Alle tijd",
+      "week": "Week",
+      "month": "Maand",
+      "year": "Jaar"
+    },
+    "stats": {
+      "rides": "{count, plural, one {# rit} other {# ritten}}",
+      "hours": "{count}u",
+      "km": "{value} km",
+      "avgScore": "Gem. score"
+    },
+    "powerAsymmetry": "Vermogensasymmetrie",
+    "lrBalance": "L/R Balans",
+    "weeklyActivity": "Wekelijkse activiteit",
+    "technique": "Techniek",
+    "trends": "Trends",
+    "recentRides": "Recente ritten",
+    "thisWeek": "Deze week",
+    "lastWeek": "Vorige week",
+    "vsLastWeek": "vs. vorige week",
+    "noRides": "Geen ritten in deze periode",
+    "viewAll": "Alles bekijken →",
+    "leftDominant": "L dominant",
+    "rightDominant": "R dominant",
+    "balanced": "Gebalanceerd",
+    "hello": "Hallo, {name}!",
+    "startRiding": "Begin met fietsen om uw gegevens te zien",
+    "welcome": "Welkom, {name}!",
+    "weeklyChart": {
+      "rides": "ritten",
+      "title": "Wekelijkse activiteit",
+      "hours": "uren"
+    },
+    "yourProgress": "Uw voortgang",
+    "allTime": "Alle tijd",
+    "summary": {
+      "rides": "ritten",
+      "hours": "uren",
+      "km": "km"
+    },
+    "comparison": {
+      "rides": "Ritten",
+      "hours": "Uren",
+      "distance": "Afstand",
+      "climb": "Klimmen",
+      "balance": "Balans",
+      "optimal": "Optimaal"
+    },
+    "sections": {
+      "performance": "Prestaties",
+      "insights": "Inzichten"
+    },
+    "perfStats": {
+      "score": "Score",
+      "optimal": "Optimaal",
+      "power": "Vermogen",
+      "energy": "Energie"
+    },
+    "trendCards": {
+      "balanceTrend": "Balanstrend",
+      "technique": "Techniek",
+      "asym": "Asym."
+    },
+    "trendStats": {
+      "current": "Huidig",
+      "average": "Gemiddeld",
+      "spread": "Spreiding",
+      "latest": "Laatste",
+      "best": "Beste"
+    },
+    "emptyStates": {
+      "needMoreRides": "Meer ritten nodig",
+      "needMoreData": "Meer gegevens nodig"
+    },
+    "progress": {
+      "title": "Voortgang vs. vorige {period} dagen",
+      "score": "Score",
+      "optimalZone": "Optimale zone",
+      "time": "Tijd",
+      "distance": "Afstand"
+    },
+    "table": {
+      "date": "Datum",
+      "duration": "Duur",
+      "asym": "Asym.",
+      "zones": "Zones",
+      "power": "Vermogen",
+      "clickToView": "Klik om te bekijken"
+    },
+    "actions": {
+      "downloadApk": "APK downloaden",
+      "linkDevice": "Apparaat koppelen"
+    },
+    "onboarding": {
+      "dashboardWillShow": "Uw dashboard toont realtime trapanalyses zodra u begint te fietsen met KPedal op uw Karoo.",
+      "whatYouWillSee": "Wat u hier zult zien",
+      "powerBalance": "Vermogensbalans",
+      "proTarget": "Pro: ±2,5%",
+      "torqueEffectiveness": "Koppel-efficiëntie",
+      "teOptimal": "Optimaal: 70-80%",
+      "pedalSmoothness": "Trapvloeiendheid",
+      "psOptimal": "Optimaal: ≥20%",
+      "getStarted": "Begin in 3 stappen",
+      "step1Title": "Installeren op Karoo",
+      "step1Desc": "Download APK en installeer via USB of Karoo-browser",
+      "step2Title": "Gegevensvelden toevoegen",
+      "step2Desc": "Bewerk uw ritprofiel en voeg KPedal-gegevensvelden toe",
+      "step3Title": "Koppel uw apparaat",
+      "step3Desc": "Verbind Karoo om ritten automatisch te synchroniseren",
+      "exampleBalance": "50% L / 50% R",
+      "exampleTe": "72% gem.",
+      "examplePs": "22% gem.",
+      "alreadyInstalled": "Al geïnstalleerd? Voltooi een rit op uw Karoo — gegevens verschijnen hier na synchronisatie."
+    },
+    "fatigue": {
+      "title": "Vermoeidheid (laatste rit)",
+      "trend": "Trend",
+      "dropped": "Gedaald",
+      "slight": "Licht",
+      "stable": "Stabiel"
+    },
+    "units": {
+      "wAvg": "W gem.",
+      "wMax": "W max.",
+      "rpm": "rpm",
+      "bpmAvg": "bpm gem.",
+      "bpmMax": "bpm max.",
+      "kmh": "km/u",
+      "mUp": "m ↑",
+      "mDown": "m ↓",
+      "grade": "% helling",
+      "kJ": "kJ",
+      "rides": "ritten"
+    },
+    "insights": {
+      "fatigueAction": "Uw vorm daalt laat in ritten. Bouw uithoudingsvermogen op met",
+      "fatigueLink": "Efficiëntieopbouw",
+      "balanceAction": "{asymmetry}% {dominant}-dominant. Versterk {weak} been met",
+      "balanceLink": "{side} Been Focus",
+      "leftLeg": "Linker",
+      "rightLeg": "Rechter",
+      "leftDominant": "links",
+      "rightDominant": "rechts",
+      "lowTeAction": "KE {te}% — focus op optrekken bij 6 uur. Probeer",
+      "lowTeLink": "Vermogensoverdracht",
+      "lowPsAction": "TV {ps}% betekent ongelijkmatige trap. Maak het vlotter met",
+      "lowPsLink": "Vloeiende cirkels",
+      "greatBalance": "{asymmetry}% asymmetrie — dat is balans op pro-niveau!",
+      "teOptimal": "KE {te}% — perfecte zone voor vermogensoverdracht.",
+      "excellentScore": "Score {score}% — elite techniek!",
+      "goodConsistency": "{count} ritten — geweldige week!",
+      "improvement": "Score {points} punten omhoog t.o.v. vorige periode.",
+      "encourageRides": "Slechts {count} {rideWord} — probeer de {lastCount} van vorige week te evenaren.",
+      "ride": "rit",
+      "ridesPl": "ritten",
+      "nearOptimalTe": "KE {te}% — nog maar {diff}% van de optimale zone."
+    }
+  },
+  "rides": {
+    "title": "Ritten",
+    "allRides": "Alle ritten",
+    "rideHistory": "Ritgeschiedenis",
+    "noRides": "Nog geen ritten geregistreerd",
+    "noRidesHint": "Uw ritgeschiedenis verschijnt hier zodra u ritten voltooit met KPedal op uw Karoo.",
+    "eachRideShows": "Elke rit toont",
+    "deleteRide": "Deze rit verwijderen?",
+    "viewTable": "Tabelweergave",
+    "viewCards": "Kaartweergave",
+    "rideDetail": "Ritdetails",
+    "performanceData": "Prestatiegegevens",
+    "techniqueBreakdown": "Techniekanalyse",
+    "fatigueAnalysis": "Vermoeidheidsanalyse",
+    "timeline": "Tijdlijn",
+    "minuteByMinute": "Minuut voor minuut",
+    "startToEnd": "Begin tot eind",
+    "degradation": "Achteruitgang",
+    "strong": "Sterk",
+    "moderate": "Matig",
+    "weak": "Zwak",
+    "backToDashboard": "Terug naar Dashboard",
+    "backToRides": "Terug naar Ritten",
+    "rideNotFound": "Rit niet gevonden",
+    "detail": {
+      "score": "Score",
+      "scoreTip": "Algehele techniekscore van 0 tot 100. Combineert balans, KE en TV.",
+      "asymmetry": "Asymmetrie",
+      "asymmetryTip": "Afwijking van 50/50 balans. Onder 2,5% is pro-niveau.",
+      "balanced": "Gebalanceerd",
+      "leftDominant": "L dominant",
+      "rightDominant": "R dominant",
+      "timeInZone": "Tijd in zone",
+      "timeInZoneTip": "Tijd in optimale, aandachts- en probleemzones. Meer groen is beter.",
+      "technique": "Techniek",
+      "techniqueTip": "Trapefficiëntie-statistieken. KE is vermogensoverdracht, TV is trapvloeiendheid.",
+      "te": "KE",
+      "teTip": "Koppel-efficiëntie. Hoeveel vermogen gaat naar voorwaartse beweging.",
+      "ps": "TV",
+      "psTip": "Trapvloeiendheid. Hoe gelijkmatig vermogen wordt toegepast tijdens de trap.",
+      "teInZone": "KE in zone",
+      "teInZoneTip": "Tijd met KE in optimaal 70-80% bereik.",
+      "psInZone": "TV in zone",
+      "psInZoneTip": "Tijd met TV boven 20% drempel.",
+      "teStab": "KE stab.",
+      "teStabTip": "Hoe consistent KE was. Hoger betekent stabielere techniek.",
+      "psStab": "TV stab.",
+      "psStabTip": "Hoe consistent TV was. Hoger betekent stabielere techniek.",
+      "fatigue": "Vermoeidheidsanalyse",
+      "fatigueTip": "Vergelijkt eerste ⅓ met laatste ⅓ van de rit.",
+      "fatigueStrong": "Sterk",
+      "fatigueModerate": "Matig",
+      "fatigueFatigued": "Vermoeid",
+      "fatigueAsymmetry": "Asymmetrie",
+      "balanceDegradedInsight": "Balans verslechterde met {value}% — focus op gelijkmatige krachtsverdeling bij vermoeidheid",
+      "teDroppedInsight": "KE daalde {value}% — oefen het behouden van vorm in het laatste derde deel",
+      "psFellInsight": "TV daalde {value}% — werk aan vloeiend trappen bij vermoeidheid",
+      "excellentFatigueInsight": "Uitstekende vermoeidheidsbestendigheid — techniek bleef consistent gedurende de hele rit",
+      "fatigueStartEnd": "Begin van rit → Einde van rit",
+      "byPowerZone": "Per vermogenszone",
+      "byPowerZoneTip": "Techniek bij verschillende intensiteiten.",
+      "timelineTip": "Statistieken in de tijd. Zoek naar dalingen die vermoeidheid aangeven.",
+      "min": "Min.",
+      "avg": "Gem.",
+      "max": "Max.",
+      "spread": "Spreiding",
+      "minuteByMinuteTip": "Gedetailleerde uitsplitsing per minuut. Handig voor analyse van specifieke segmenten.",
+      "points": "punten",
+      "balance": "Balans",
+      "balanceTip": "Links/rechts vermogensverdeling voor deze minuut.",
+      "teTip2": "Koppel-efficiëntie L/R voor deze minuut.",
+      "psTip2": "Trapvloeiendheid L/R voor deze minuut.",
+      "power": "Vermogen",
+      "hr": "HS",
+      "zone": "Zone",
+      "zoneTip": "Algehele zonestatus voor deze minuut.",
+      "asym": "Asym.",
+      "tooltipMin": "Min. {minute}",
+      "title": "Ritdetails",
+      "deleteWarning": "Deze actie kan niet ongedaan worden gemaakt",
+      "rating": "Beoordeling",
+      "performance": "Prestaties",
+      "confirmDelete": "Verwijderen bevestigen",
+      "comparison": "L/R vergelijking",
+      "fatigueDesc": "Hoe uw techniek veranderde tijdens de rit",
+      "notes": "Notities",
+      "timeline": "Tijdlijn",
+      "deleteRide": "Rit verwijderen"
+    },
+    "perf": {
+      "wattsTip": "Gemiddelde vermogensoutput in watt.",
+      "maxWattsTip": "Piekvermogen bereikt tijdens de rit.",
+      "npTip": "Genormaliseerd vermogen past aan voor variabiliteit in inspanning.",
+      "bpmTip": "Gemiddelde hartslag tijdens de rit.",
+      "maxBpmTip": "Maximale hartslag bereikt. Nabij maximum schaadt vaak de techniek.",
+      "rpmTip": "Gemiddelde cadans. Optimaal is 80-95 rpm voor de meeste fietsers.",
+      "speedTip": "Gemiddelde snelheid. Minder betrouwbaar dan vermogen door terrein.",
+      "kjTip": "Totale energie-output. Komt ongeveer overeen met verbrande calorieën.",
+      "elevGainTip": "Totale hoogtestijging tijdens de rit.",
+      "elevLossTip": "Totale hoogtedaling tijdens de rit.",
+      "gradeTip": "Maximale helling. Boven 10% is steil."
+    },
+    "zones": {
+      "recovery": "Herstel",
+      "endurance": "Uithoudingsvermogen",
+      "tempo": "Tempo",
+      "threshold": "Drempelwaarde",
+      "vo2max": "VO2max",
+      "anaerobic": "Anaeroob"
+    },
+    "list": {
+      "ridesLabel": "ritten",
+      "ridesTip": "Totaal aantal ritten in deze weergave.",
+      "kmLabel": "km",
+      "kmTip": "Totale afstand over alle ritten.",
+      "elevLabel": "m ↑",
+      "elevTip": "Totale hoogtestijging over alle ritten.",
+      "asymLabel": "asym.",
+      "asymTip": "Gemiddelde vermogensasymmetrie. Onder 2,5% is pro-niveau.",
+      "teLabel": "KE",
+      "teTip": "Gemiddelde koppel-efficiëntie. Optimaal bereik is 70-80%.",
+      "psLabel": "TV",
+      "psTip": "Gemiddelde trapvloeiendheid. Boven 20% is goede techniek.",
+      "optimalLabel": "optimaal",
+      "optimalTip": "Gemiddelde tijd in optimale zone. Hoger betekent betere vorm.",
+      "wAvgLabel": "W gem.",
+      "wAvgTip": "Gemiddelde vermogensoutput. Volg in de tijd voor fitnesstrends.",
+      "npLabel": "NP",
+      "npTip": "Gemiddeld genormaliseerd vermogen. Houdt rekening met variabiliteit in inspanning.",
+      "kjLabel": "kJ",
+      "kjTip": "Totale energie-output. Komt ongeveer overeen met verbrande calorieën.",
+      "dateCol": "Datum",
+      "durationCol": "Duur",
+      "asymCol": "Asym.",
+      "asymColTip": "Vermogensasymmetriepercentage. Lager betekent meer gebalanceerd.",
+      "lrCol": "L / R",
+      "lrColTip": "Links en rechts vermogensverdeling.",
+      "teCol": "KE",
+      "teColTip": "Koppel-efficiëntie per been. 70-80% is optimaal.",
+      "psCol": "TV",
+      "psColTip": "Trapvloeiendheid per been. Boven 20% is goed.",
+      "zonesCol": "Zones",
+      "zonesColTip": "Tijdverdeling over prestatiezones.",
+      "powerCol": "Vermogen",
+      "powerColTip": "Gemiddeld vermogen in watt.",
+      "deleteAriaLabel": "Rit verwijderen",
+      "balanceLR": "Balans L/R",
+      "teLR": "KE L/R",
+      "psLR": "TV L/R",
+      "powerLabel": "Vermogen",
+      "asymmetryLabel": "asymmetrie",
+      "domLabel": "dom.",
+      "optimalPercent": "{percent}% optimaal",
+      "pageInfo": "Pagina {page} van {total}",
+      "prevPage": "Vorige pagina",
+      "nextPage": "Volgende pagina"
+    },
+    "stats": {
+      "totalRides": "Totaal ritten",
+      "avgDuration": "Gem. duur",
+      "totalTime": "Totale tijd"
+    },
+    "sort": {
+      "longest": "Langste",
+      "oldest": "Oudste",
+      "highestScore": "Hoogste score",
+      "newest": "Nieuwste"
+    },
+    "filters": {
+      "all": "Alle",
+      "thisWeek": "Deze week",
+      "thisMonth": "Deze maand",
+      "last30Days": "Laatste 30 dagen"
+    },
+    "emptyDescription": "Synchroniseer ritten van uw Karoo om ze hier te zien",
+    "empty": "Nog geen ritten"
+  },
+  "drills": {
+    "title": "Oefeningen",
+    "noDrills": "Nog geen oefeningen voltooid",
+    "noDrillsHint": "KPedal bevat begeleide oefeningen om uw traptechniek te verbeteren. Voltooi ze op uw Karoo om hier de voortgang te volgen.",
+    "availableTypes": "Beschikbare oefeningstypes",
+    "types": {
+      "balanceFocus": "Balansfocus",
+      "powerTransfer": "Vermogensoverdracht",
+      "smoothCircles": "Vloeiende cirkels",
+      "challenges": "Uitdagingen"
+    },
+    "timeInTarget": "Tijd in doel",
+    "completed": "Voltooid",
+    "incomplete": "Onvolledig",
+    "abandoned": "Afgebroken",
+    "sessions": "Sessies",
+    "avgTarget": "Gem. doel",
+    "best": "Beste",
+    "drillTypes": "Oefeningstypes",
+    "date": "Datum",
+    "drill": "Oefening",
+    "duration": "Duur",
+    "status": "Status",
+    "of": "van",
+    "pageInfo": "Pagina {page} van {total}",
+    "prevPage": "Vorige pagina",
+    "nextPage": "Volgende pagina",
+    "tips": {
+      "avgTarget": "Gemiddelde tijd in doelstatistieken. Hoger is beter.",
+      "sessions": "Totaal aantal voltooide oefensessies.",
+      "best": "Beste tijd-in-doel percentage behaald.",
+      "completed": "Percentage oefeningen volledig afgerond.",
+      "types": "Aantal verschillende oefeningstypes die u hebt geprobeerd.",
+      "timeInTarget": "Percentage van oefentijd in de doelzone.",
+      "status": "Of de oefening is voltooid of voortijdig gestopt."
+    },
+    "detail": {
+      "timeInTarget": "Tijd in doel",
+      "score": "Score",
+      "phases": "Fasen",
+      "completed": "Voltooid"
+    },
+    "categories": {
+      "balance": "Balans",
+      "technique": "Techniek",
+      "smoothness": "Vloeiendheid",
+      "all": "Alle"
+    },
+    "empty": "Geen oefengeschiedenis",
+    "emptyDescription": "Voltooi oefeningen op uw Karoo om hier uw geschiedenis te zien"
+  },
+  "achievements": {
+    "title": "Prestaties",
+    "notAchieved": "Niet behaald",
+    "noAchievements": "Nog geen mijlpalen",
+    "noAchievementsHint": "Voltooi ritten en oefeningen op uw Karoo om prestaties te ontgrendelen",
+    "availableCategories": "Prestatiecategorieën",
+    "categories": {
+      "milestones": "Ritmijlpalen",
+      "balance": "Balansmeesterschap",
+      "performance": "Prestatiescores",
+      "streaks": "Consistentiestreaks",
+      "duration": "Duurdoelen",
+      "drills": "Oefenexpertise"
+    },
+    "stats": {
+      "achieved": "behaald",
+      "achievedTip": "Aantal ontgrendelde mijlpalen.",
+      "remaining": "resterend",
+      "remainingTip": "Mijlpalen nog te ontgrendelen.",
+      "total": "totaal",
+      "totalTip": "Totaal mijlpalen in het systeem.",
+      "progress": "voortgang",
+      "progressTip": "Algeheel voltooiingspercentage.",
+      "last": "laatste",
+      "lastTip": "Datum van uw meest recente prestatie."
+    },
+    "table": {
+      "milestone": "Mijlpaal",
+      "milestoneTip": "Naam en beschrijving van de prestatie.",
+      "category": "Categorie",
+      "categoryTip": "Type mijlpaal (Volume, Balans, Techniek, enz.).",
+      "target": "Doel",
+      "targetTip": "Vereiste om deze mijlpaal te ontgrendelen.",
+      "date": "Datum"
+    },
+    "milestones": {
+      "first_ride": {
+        "name": "Eerste getrackte rit",
+        "description": "Eerste rit met trapanalyse voltooien",
+        "category": "Volume",
+        "target": "1 rit"
+      },
+      "rides_10": {
+        "name": "10 ritten geanalyseerd",
+        "description": "Basisgegevens opbouwen voor trendanalyse",
+        "category": "Volume",
+        "target": "10 ritten"
+      },
+      "rides_50": {
+        "name": "50 ritten geanalyseerd",
+        "description": "Substantiële dataset voor patroonherkenning",
+        "category": "Volume",
+        "target": "50 ritten"
+      },
+      "rides_100": {
+        "name": "100 ritten geanalyseerd",
+        "description": "Uitgebreide trainingsgeschiedenis opgebouwd",
+        "category": "Volume",
+        "target": "100 ritten"
+      },
+      "rides_500": {
+        "name": "500 ritten geanalyseerd",
+        "description": "Langetermijn trapgegevensarchief",
+        "category": "Volume",
+        "target": "500 ritten"
+      },
+      "perfect_balance": {
+        "name": "50/50 Balans behaald",
+        "description": "Perfecte links/rechts vermogensverdeling",
+        "category": "Balans",
+        "target": "50/50"
+      },
+      "balance_master": {
+        "name": "10 optimale balansritten",
+        "description": "Consistente balans over meerdere sessies",
+        "category": "Balans",
+        "target": "10 ritten"
+      },
+      "score_80": {
+        "name": "80+ Techniekscore",
+        "description": "Goede traptechniek tijdens een rit",
+        "category": "Techniek",
+        "target": "80+"
+      },
+      "score_90": {
+        "name": "90+ Techniekscore",
+        "description": "Uitstekende techniek over alle statistieken",
+        "category": "Techniek",
+        "target": "90+"
+      },
+      "score_95": {
+        "name": "95+ Techniekscore",
+        "description": "Bijna optimale trapefficiëntie",
+        "category": "Techniek",
+        "target": "95+"
+      },
+      "streak_3": {
+        "name": "3-daags trainingsblok",
+        "description": "Drie opeenvolgende dagen getrackte ritten",
+        "category": "Consistentie",
+        "target": "3 dagen"
+      },
+      "streak_7": {
+        "name": "7-daagse trainingsweek",
+        "description": "Volledige week van consistente training",
+        "category": "Consistentie",
+        "target": "7 dagen"
+      },
+      "streak_30": {
+        "name": "30-daagse trainingsmaand",
+        "description": "Maand van toegewijde techniektraining",
+        "category": "Consistentie",
+        "target": "30 dagen"
+      },
+      "first_drill": {
+        "name": "Eerste oefening voltooid",
+        "description": "Begin met gestructureerde techniektraining",
+        "category": "Training",
+        "target": "1 oefening"
+      },
+      "drill_perfect": {
+        "name": "100% tijd in doel",
+        "description": "Perfecte uitvoering van een oefening",
+        "category": "Training",
+        "target": "100%"
+      },
+      "drills_10": {
+        "name": "10 oefeningen voltooid",
+        "description": "Oefenvaardigheid opbouwen",
+        "category": "Training",
+        "target": "10 oefeningen"
+      },
+      "zone_optimal_80": {
+        "name": "80% optimale zone",
+        "description": "80%+ van rittijd in optimale zone",
+        "category": "Zones",
+        "target": "80%"
+      },
+      "zone_optimal_90": {
+        "name": "90% optimale zone",
+        "description": "90%+ van rittijd in optimale zone",
+        "category": "Zones",
+        "target": "90%"
+      },
+      "te_optimal": {
+        "name": "Volledige rit optimale KE",
+        "description": "Optimale KE behouden gedurende hele rit",
+        "category": "Efficiëntie",
+        "target": "100%"
+      },
+      "duration_1h": {
+        "name": "1-uur rit",
+        "description": "Aanhoudende trapanalyse voor 1+ uur",
+        "category": "Uithoudingsvermogen",
+        "target": "1u+"
+      },
+      "duration_2h": {
+        "name": "2-uur rit",
+        "description": "Verlengde sessie met techniekfocus",
+        "category": "Uithoudingsvermogen",
+        "target": "2u+"
+      },
+      "duration_4h": {
+        "name": "4-uur rit",
+        "description": "Langdurig techniekonderhoud",
+        "category": "Uithoudingsvermogen",
+        "target": "4u+"
+      }
+    }
+  },
+  "settings": {
+    "title": "Instellingen",
+    "account": "Account",
+    "connectedDevices": "Gekoppelde apparaten",
+    "loadingDevices": "Apparaten laden...",
+    "noDevices": "Geen apparaten gekoppeld",
+    "noDevicesHint": "Koppel uw Karoo-apparaat om ritgegevens te synchroniseren",
+    "linkDevice": "Apparaat koppelen",
+    "linkAnotherDevice": "Nog een apparaat koppelen",
+    "removeDevice": "Dit apparaat verwijderen? Het moet opnieuw worden gekoppeld.",
+    "lastSync": "Laatste sync",
+    "neverSynced": "Nooit gesynchroniseerd",
+    "requestSync": "Synchronisatie aanvragen",
+    "syncRequested": "Synchronisatie aangevraagd - open app om te synchroniseren",
+    "deviceStatus": {
+      "connected": "Verbonden",
+      "idle": "Inactief",
+      "offline": "Offline"
+    },
+    "pedalingMetrics": "Trapstatistieken",
+    "syncBanner": "Wijzigingen synchroniseren naar uw Karoo wanneer u op <strong>Sync</strong> drukt in de app of een rit start.",
+    "thresholds": "Drempelwaarden",
+    "balanceThreshold": "Balansdrempel",
+    "balanceThresholdHint": "Waarschuwingen worden geactiveerd wanneer onbalans deze waarde overschrijdt",
+    "balanceThresholdTip": "Maximaal aanvaardbare L/R onbalans. Profwielrenners blijven doorgaans binnen ±2,5%.",
+    "teOptimalRange": "KE optimaal bereik",
+    "teOptimalRangeHint": "Groene zone voor koppel-efficiëntie",
+    "teOptimalRangeTip": "Koppel-efficiëntie ideale zone. Onderzoek toont aan dat 70-80% optimaal is — hoger is niet beter.",
+    "psMinimum": "TV minimum",
+    "psMinimumHint": "Waarden hieronder worden gemarkeerd als aandacht vereist",
+    "psMinimumTip": "Trapvloeiendheidsdrempel voor optimale zone. Elite fietsers behalen 25%+.",
+    "inRideAlerts": "Waarschuwingen tijdens rit",
+    "inRideAlertsHint": "Meldingen wanneer statistieken aandacht nodig hebben",
+    "inRideAlertsTip": "Realtime meldingen op uw Karoo wanneer statistieken aandacht nodig hebben.",
+    "metricsToMonitor": "Te monitoren statistieken",
+    "torqueEff": "Koppel-eff.",
+    "smoothness": "Vloeiendheid",
+    "sensitivity": "Gevoeligheid",
+    "critical": "Kritiek",
+    "problemZoneOnly": "Alleen probleemzone",
+    "sensitive": "Gevoelig",
+    "attentionAndProblem": "Aandacht & Probleem",
+    "notifyVia": "Melden via",
+    "vibrate": "Trillen",
+    "sound": "Geluid",
+    "banner": "Banner",
+    "options": "Opties",
+    "wakeScreenOnAlert": "Scherm wekken bij waarschuwing",
+    "cooldownBetweenAlerts": "Cooldown tussen waarschuwingen",
+    "dataCollection": "Gegevensverzameling",
+    "dataCollectionHint": "Hoe KPedal uw gegevens verzamelt en synchroniseert",
+    "backgroundMode": "Achtergrondmodus",
+    "backgroundModeHint": "Statistieken verzamelen ook wanneer gegevensveld verborgen is",
+    "backgroundModeTip": "Statistieken verzamelen ook wanneer KPedal-gegevensveld niet zichtbaar is op scherm.",
+    "autoSync": "Auto-sync",
+    "autoSyncHint": "Ritgegevens automatisch synchroniseren na elke rit",
+    "autoSyncTip": "Ritgegevens automatisch uploaden nadat elke rit eindigt.",
+    "appearance": "Uiterlijk",
+    "theme": "Thema",
+    "themeHint": "Automodus schakelt om 7:00 en 19:00 uur",
+    "themeAuto": "Auto",
+    "themeLight": "Licht",
+    "themeDark": "Donker",
+    "data": "Gegevens",
+    "rideData": "Ritgegevens",
+    "rideDataHint": "Uw gegevens worden veilig opgeslagen en gesynchroniseerd vanaf uw Karoo-apparaat",
+    "session": "Sessie",
+    "privacy": "Privacy",
+    "privacyHint": "Lees hoe wij uw gegevens verzamelen, gebruiken en beschermen",
+    "about": "Over",
+    "saving": "Opslaan...",
+    "saved": "Opgeslagen",
+    "thresholds_section": {
+      "teOptimal": "KE optimaal bereik",
+      "balance": "Balansdrempel",
+      "title": "Statistiekdrempels",
+      "psMinimum": "TV minimum",
+      "teOptimalDesc": "Doelbereik voor koppel-efficiëntie",
+      "psMinimumDesc": "Waarschuwen wanneer vloeiendheid hieronder daalt",
+      "balanceDesc": "Waarschuwen wanneer asymmetrie deze waarde overschrijdt"
+    },
+    "sections": {
+      "data": "Gegevens",
+      "session": "Sessie",
+      "devices": "Apparaten",
+      "appearance": "Uiterlijk",
+      "about": "Over",
+      "metrics": "Statistieken",
+      "privacy": "Privacy",
+      "account": "Account"
+    },
+    "devices_section": {
+      "remove": "Verwijderen",
+      "connectDescription": "Koppel uw Karoo om ritten te synchroniseren",
+      "removeWarning": "U moet opnieuw koppelen om ritten te synchroniseren",
+      "noDevices": "Geen apparaten gekoppeld",
+      "title": "Gekoppelde apparaten",
+      "lastSync": "Laatste sync",
+      "connectDevice": "Apparaat verbinden",
+      "removeConfirm": "Dit apparaat verwijderen?"
+    },
+    "alerts_section": {
+      "enabled": "Ingeschakeld",
+      "te": "Koppel-efficiëntie-waarschuwingen",
+      "balance": "Balanswaarschuwingen",
+      "title": "Waarschuwingsinstellingen",
+      "ps": "Vloeiendheidswaarschuwingen",
+      "screenWake": "Scherm wekken"
+    },
+    "privacy_section": {
+      "viewPolicy": "Privacybeleid bekijken",
+      "title": "Privacy"
+    },
+    "data_section": {
+      "exportDesc": "Download uw gegevens als JSON",
+      "deleteAllDesc": "Al uw ritten en instellingen permanent verwijderen",
+      "deleteAllWarning": "Dit kan niet ongedaan worden gemaakt",
+      "export": "Gegevens exporteren",
+      "title": "Gegevensbeheer",
+      "deleteAll": "Alle gegevens verwijderen",
+      "deleteAllConfirm": "Typ DELETE om te bevestigen"
+    },
+    "account_section": {
+      "signedInAs": "Ingelogd als",
+      "memberSince": "Lid sinds",
+      "email": "E-mail"
+    },
+    "appearance_section": {
+      "title": "Uiterlijk",
+      "themeAuto": "Auto",
+      "themeLight": "Licht",
+      "theme": "Thema",
+      "themeDark": "Donker"
+    },
+    "session_section": {
+      "title": "Sessie",
+      "signOutDesc": "U moet opnieuw inloggen",
+      "signOut": "Uitloggen",
+      "signOutConfirm": "Uitloggen van uw account?"
+    },
+    "about_section": {
+      "github": "GitHub",
+      "support": "Ondersteuning",
+      "version": "Versie"
+    }
+  },
+  "link": {
+    "title": "Apparaat koppelen",
+    "pageTitle": "Koppel uw Karoo",
+    "metaDescription": "Koppel uw Hammerhead Karoo aan KPedal. Voer de code in die op uw Karoo wordt weergegeven om ritten en instellingen naar de cloud te synchroniseren.",
+    "secureConnection": "Beveiligde verbinding",
+    "linkKaroo": "Koppel uw Karoo",
+    "enterCodeDescription": "Voer de 8-tekens code in die op uw apparaat wordt weergegeven om het veilig met uw account te verbinden.",
+    "verifying": "Verifiëren...",
+    "continue": "Doorgaan",
+    "encryption256": "256-bit encryptie",
+    "verifiedDomain": "Geverifieerd domein",
+    "signInToContinue": "Log in om door te gaan",
+    "linkingDevice": "{device} koppelen aan uw account.",
+    "signInWithGoogle": "Log in met Google om dit apparaat te autoriseren.",
+    "useDifferentCode": "Een andere code gebruiken",
+    "authorizeDevice": "Apparaat autoriseren?",
+    "deviceRequestingAccess": "{device} vraagt toegang om ritgegevens met uw account te synchroniseren.",
+    "permissionSync": "Trapstatistieken van ritten synchroniseren",
+    "permissionView": "Analyses bekijken op app.kpedal.com",
+    "authorize": "Autoriseren",
+    "deviceLinked": "Apparaat gekoppeld!",
+    "deviceConnected": "{device} is nu verbonden met uw account.",
+    "autoSync": "Uw ritgegevens worden automatisch gesynchroniseerd.",
+    "secureConnectionEstablished": "Beveiligde verbinding tot stand gebracht",
+    "dataEncrypted": "Gegevens zijn end-to-end versleuteld",
+    "closePageHint": "U kunt deze pagina sluiten en terugkeren naar uw Karoo.",
+    "goToDashboard": "Naar Dashboard",
+    "errors": {
+      "failedToVerify": "Code verifiëren mislukt",
+      "failedToConnect": "Verbinding mislukt",
+      "enterCompleteCode": "Voer de volledige code in",
+      "invalidOrExpired": "Deze code is ongeldig of verlopen. Vraag een nieuwe code aan op uw Karoo.",
+      "checkConnection": "Verbinding mislukt. Controleer uw internetverbinding.",
+      "signInFirst": "Log eerst in",
+      "failedToAuthorize": "Apparaat autoriseren mislukt",
+      "failedTryAgain": "Verbinding mislukt. Probeer het opnieuw."
+    }
+  },
+  "infotips": {
+    "asymmetry": "Uw afwijking van perfecte 50/50 L/R balans. Onder 2,5% is pro-niveau.",
+    "balance": "Hoe uw vermogen verdeeld is tussen links en rechts been. 50/50 is perfect.",
+    "te": "Percentage vermogen dat voorwaarts gaat. Streef naar 70-80% — hoger is niet altijd beter.",
+    "ps": "Hoe gelijkmatig uw vermogen is door de trapslag. Streef naar 20%+. Elite fietsers halen 25%+.",
+    "zones": "Tijd doorgebracht in optimale (groen), aandachts- (geel) en probleemzones (rood).",
+    "timeInZone": "Tijd doorgebracht in elke zone. Groen is optimaal, geel vereist aandacht, rood is een probleem.",
+    "score": "Algehele techniekbeoordeling die balans, KE en TV combineert. Hoger is beter.",
+    "achieved": "Aantal ontgrendelde mijlpalen.",
+    "remaining": "Mijlpalen nog te ontgrendelen.",
+    "total": "Totaal mijlpalen in het systeem.",
+    "progress": "Algeheel voltooiingspercentage.",
+    "lastAchievement": "Datum van uw meest recente prestatie.",
+    "milestone": "Naam en beschrijving van de prestatie.",
+    "category": "Type mijlpaal (Volume, Balans, Techniek, enz.).",
+    "target": "Vereiste om deze mijlpaal te ontgrendelen.",
+    "weeklyActivity": "Aantal ritten per dag. Streef naar 3-5 ritten per week voor gestage vooruitgang.",
+    "compRides": "Aantal ritten vergeleken met vorige week.",
+    "compHours": "Totale zadeltijd. Meer uren betekent meer trainingsadaptatie.",
+    "compDistance": "Totaal gereden kilometers. Nuttig om volume naast uren te volgen.",
+    "compClimb": "Totale hoogtestijging. Meer dan 2000m per week bouwt klimkracht op.",
+    "compBalance": "Vermogensasymmetrie vs. vorige week. Lager is beter, negatief is verbetering.",
+    "compOptimal": "Tijd in optimale zone vs. vorige week. Hoger is betere techniek.",
+    "perfScore": "Algehele techniekscore van 0 tot 100. Hoger betekent betere vorm.",
+    "perfOptimal": "Tijd met alle statistieken in de groene zone. Hoger is beter.",
+    "perfPower": "Gemiddelde vermogensoutput in watt. Hoger bij zelfde HS betekent betere conditie.",
+    "perfEnergy": "Totale energie in kilojoules. Komt ongeveer overeen met verbrande calorieën.",
+    "technique": "Trapefficiëntie-statistieken. KE is vermogensoverdracht, TV is trapvloeiendheid.",
+    "balanceFatigue": "Links vs. rechts vermogensverdeling. Veranderingen duiden op vermoeidheid of compensatie.",
+    "fatigueTrend": "Algehele vermoeidheidstrend. Stabiel is goed tempo, gedaald is overbelasting.",
+    "balanceTrend": "Links/rechts balanstrend in de tijd. Consistente waarden rond 50% duiden op goede symmetrie.",
+    "techniqueTrend": "Techniekstatistieken trend in de tijd. Zoek naar gestage verbeteringspatronen.",
+    "compTe": "Koppel-efficiëntie vs. vorige week. Positieve verandering is verbetering.",
+    "compPs": "Trapvloeiendheid vs. vorige week. Verbetert langzaam, kleine winsten tellen.",
+    "fatigue": "Techniek aan begin vs. einde van rit. Dalende waarden duiden op vermoeidheid.",
+    "teFatigue": "KE-verandering tijdens rit. Daling duidt op spiervermoeidheid.",
+    "psFatigue": "TV-verandering tijdens rit. Meestal eerste statistiek die daalt bij vermoeidheid.",
+    "powerAvg": "Gemiddeld vermogen in watt. Volg in de tijd om fitnesswinst te meten.",
+    "powerMax": "Piekvermogen behaald. Nuttig voor sprints en FTP-schatting.",
+    "np": "Genormaliseerd vermogen past aan voor pieken. Dicht bij gemiddelde betekent gelijkmatige inspanning.",
+    "cadence": "Trapomwentelingen per minuut. Optimaal is 80-95 rpm voor de meeste fietsers.",
+    "hrAvg": "Gemiddelde hartslag. Lager bij zelfde vermogen betekent betere conditie.",
+    "hrMax": "Maximale hartslag bereikt. Nabij maximum schaadt vaak de techniek.",
+    "speed": "Gemiddelde snelheid. Minder betrouwbaar dan vermogen door terrein en wind.",
+    "elevationGain": "Totale hoogtestijging. Meer dan 1000m is een serieuze klimtraining.",
+    "elevationLoss": "Totale hoogtedaling. Moet overeenkomen met stijging bij rondritten.",
+    "grade": "Maximale helling. Boven 10% is steil, boven 15% is zeer steil.",
+    "energy": "Totale energie-output. Plan voeding op 250-300 kcal per uur.",
+    "trendCurrent": "Waarde van uw meest recente rit in deze periode.",
+    "trendAverage": "Gemiddelde waarde over alle ritten in de geselecteerde periode.",
+    "trendSpread": "Verschil tussen beste en slechtste. Lagere spreiding betekent consistentere vorm.",
+    "trendLatest": "Waarde van uw meest recente rit voor deze statistiek.",
+    "trendBest": "Beste waarde in de periode. Voor asymmetrie is lager beter, voor KE/TV is hoger beter.",
+    "recentRides": "Recente ritten met techniekstatistieken. Klik op een rij voor volledige details.",
+    "tableAsym": "Vermogensasymmetriepercentage. Lager betekent meer gebalanceerde vermogensoutput.",
+    "tableZones": "Tijdverdeling over optimale, aandachts- en probleemzones."
+  },
+  "tour": {
+    "buttons": {
+      "next": "Volgende",
+      "prev": "Terug",
+      "done": "Klaar",
+      "continue": "Doorgaan →",
+      "skip": "of sla de rondleiding over →"
+    },
+    "dashboard": {
+      "welcome": {
+        "title": "Welkom bij KPedal! 👋",
+        "desc": "Dit zijn <strong>demogegevens van een echte wielrenner</strong> met ~4 weken ritten.",
+        "hint": "Korte rondleiding van wat KPedal kan (~2 min)."
+      },
+      "period": {
+        "title": "Periodekiezer",
+        "desc": "Schakel tussen <strong>7, 14, 30 of 60 dagen</strong> om uw trends over verschillende tijdframes te analyseren.",
+        "hint": "Kortere perioden tonen recente vorm. Langere perioden onthullen trainingspatronen."
+      },
+      "asymmetry": {
+        "title": "Vermogensasymmetrie",
+        "desc": "Uw afwijking van perfecte 50/50 L/R balans.",
+        "under25": "Onder 2,5%",
+        "proLevel": "Pro-niveau",
+        "range25to5": "2,5-5%",
+        "goodRoom": "Goed, ruimte voor verbetering",
+        "over5": "Boven 5%",
+        "needsAttention": "Vereist aandacht",
+        "hint": "Deze demofietser gemiddeld 1-2% — uitstekende symmetrie!"
+      },
+      "infoTip": {
+        "title": "Infotips overal",
+        "desc": "Ziet u dit <strong>ⓘ pictogram</strong>? Hover of tik erop voor gedetailleerde uitleg.",
+        "hint": "Elke statistiek in KPedal heeft een infotip die uitlegt wat het betekent en waar u naar moet streven."
+      },
+      "balance": {
+        "title": "L/R Vermogensbalans",
+        "desc": "Visuele uitsplitsing van uw links vs. rechts been vermogensverdeling.",
+        "greenZone": "<strong>Groene zone</strong> = gebalanceerd. De balk toont precies hoe uw vermogen verdeeld is tussen benen.",
+        "hint": "De meeste fietsers zijn licht dominant aan één kant. Volg dit om symmetrie te verbeteren in de tijd."
+      },
+      "zones": {
+        "title": "Tijd in zone-verdeling",
+        "desc": "Hoe uw rittijd verdeeld is naar techniekwaliteit:",
+        "optimal": "Groen (Optimaal)",
+        "optimalDesc": "Alle statistieken in ideaal bereik",
+        "attention": "Geel (Aandacht)",
+        "attentionDesc": "Een of meer statistieken afwijkend",
+        "problem": "Rood (Probleem)",
+        "problemDesc": "Significante vorminstorting",
+        "hint": "Doel: Maximaliseer groene tijd, vooral bij lange ritten!"
+      },
+      "summary": {
+        "title": "Activiteitssamenvatting",
+        "desc": "Snelle blik op uw trainingsvolume voor de geselecteerde periode:",
+        "rides": "Totaal ritten",
+        "hours": "Uren",
+        "km": "Kilometers"
+      },
+      "weekly": {
+        "title": "Wekelijkse activiteitsgrafiek",
+        "desc": "Zie uw ritfrequentie per dag van de week.",
+        "compareHint": "Onder de grafiek, vergelijk <strong>deze week vs. vorige week</strong>:",
+        "numRides": "Aantal ritten",
+        "totalHours": "Totale uren",
+        "distanceClimb": "Afstand en klimmen",
+        "hint": "Consistentie is belangrijk — streef naar regelmatige training, niet sporadische grote inspanningen."
+      },
+      "technique": {
+        "title": "Techniekstatistieken",
+        "desc": "De twee kernefficiëntiestatistieken van uw vermogensmeter:",
+        "teTitle": "Koppel-efficiëntie (KE)",
+        "teDesc": "Percentage vermogen dat voorwaarts gaat. Streef naar <strong>70-80%</strong> — hoger is niet altijd beter volgens Wattbike-onderzoek.",
+        "psTitle": "Trapvloeiendheid (TV)",
+        "psDesc": "Hoe gelijkmatig uw vermogen is door de trapslag. Streef naar <strong>≥20%</strong>. Elite fietsers halen 25%+."
+      },
+      "trends": {
+        "title": "Trends in de tijd",
+        "desc": "Volg uw balans- en techniekverbeteringen rit voor rit.",
+        "left": "<strong>Linkergrafiek:</strong> Balanstrend over ritten",
+        "right": "<strong>Rechtergrafiek:</strong> Schakel tussen KE, TV en Asymmetrie",
+        "hint": "Klik op een punt om naar de gedetailleerde analyse van die rit te gaan."
+      },
+      "recentRides": {
+        "title": "Recente rittentabel",
+        "desc": "Al uw gesynchroniseerde ritten met kernstatistieken in één oogopslag:",
+        "date": "Datum, duur en score",
+        "asymmetry": "Asymmetriepercentage",
+        "lrBreakdown": "L/R uitsplitsing voor KE en TV",
+        "zoneBars": "Zoneverdelingsbalken",
+        "hint": "Klik op een rij voor gedetailleerde minuut-voor-minuut analyse!"
+      },
+      "nav": {
+        "title": "Navigatie",
+        "desc": "Verken andere secties:",
+        "rides": "<strong>Ritten</strong> — Volledige geschiedenis met filters en zoeken",
+        "drills": "<strong>Oefeningen</strong> — Begeleide trainingsoefeningen",
+        "achievements": "<strong>Prestaties</strong> — Mijlpalen en badges",
+        "settings": "<strong>Instellingen</strong> — Apparaten, drempels en waarschuwingen"
+      },
+      "complete": {
+        "title": "Dashboard voltooid! 🎉",
+        "desc": "U hebt het dashboardoverzicht gezien. Klaar om meer te verkennen?",
+        "next": "Klik op <strong>Volgende</strong> om de rondleiding voort te zetten op de <strong>Ritten</strong>-pagina, waar u uw volledige ritgeschiedenis ziet.",
+        "done": "Of klik op Klaar om de rondleiding hier te beëindigen."
+      }
+    },
+    "rides": {
+      "welcome": {
+        "title": "Ritgeschiedenis 🚴",
+        "desc": "Deze pagina toont uw <strong>volledige ritgeschiedenis</strong> met filtering en sortering.",
+        "hint": "Laat me u de belangrijkste functies tonen."
+      },
+      "stats": {
+        "title": "Periodestatistieken",
+        "desc": "Snelle statistieken voor de geselecteerde periode:",
+        "ridesAndDuration": "Totaal ritten en duur",
+        "scores": "Gemiddelde en beste scores",
+        "powerDistance": "Vermogen en afstandstotalen",
+        "hint": "Deze worden bijgewerkt op basis van uw filters."
+      },
+      "viewToggle": {
+        "title": "Weergaveschakelaar 📋↔️🃏",
+        "desc": "Schakel tussen twee weergavemodi:",
+        "table": "<strong>Tabelweergave</strong> — Compacte lijst met alle statistieken",
+        "card": "<strong>Kaartweergave</strong> — Visuele kaarten met zonebalken",
+        "hint": "Kies wat het beste bij u past!"
+      },
+      "rideRow": {
+        "title": "Klik op een rit",
+        "desc": "Elke rit toont:",
+        "date": "Datum, duur en techniekscore",
+        "asymmetry": "Vermogensasymmetrie",
+        "lrMetrics": "L/R statistieken voor KE en TV",
+        "zones": "Zoneverdeling",
+        "hint": "<strong>Klik op een rit</strong> om de volledige detailpagina te zien met minuut-voor-minuut grafieken!"
+      },
+      "complete": {
+        "title": "Rittenpagina voltooid!",
+        "desc": "U kunt hier al uw ritten bekijken.",
+        "next": "Klik op <strong>Volgende</strong> om een <strong>ritdetailpagina</strong> te zien met diepgaande analyse."
+      }
+    },
+    "rideDetail": {
+      "welcome": {
+        "title": "Ritdetailanalyse 📊",
+        "desc": "Hier vindt de <strong>diepgaande analyse</strong> plaats.",
+        "hint": "Elke rit krijgt een volledige uitsplitsing van uw traptechniek minuut voor minuut."
+      },
+      "heroStats": {
+        "title": "Kernstatistieken in één oogopslag",
+        "desc": "De bovenste rij toont uw belangrijkste ritstatistieken:",
+        "score": "<strong>Score</strong> — Algehele techniekbeoordeling (0-100)",
+        "asymmetry": "<strong>Asymmetrie</strong> — L/R vermogensongelijkheid",
+        "balance": "<strong>Balansbalk</strong> — Visuele L/R verdeling",
+        "zones": "<strong>Tijd in zone</strong> — Kwaliteitsverdeling"
+      },
+      "perfStrip": {
+        "title": "Ritprestatiegegevens",
+        "desc": "Gedetailleerde ritstatistieken:",
+        "power": "<strong>Vermogen</strong> — Gem., max. en genormaliseerd",
+        "hr": "<strong>Hartslag</strong> — Gem. en max.",
+        "cadence": "<strong>Cadans</strong> — Trapsnelheid in RPM",
+        "elevation": "<strong>Hoogte</strong> — Klimmen en dalen",
+        "hint": "Tik op een infopictogram voor gedetailleerde uitleg!"
+      },
+      "techniqueCard": {
+        "title": "Techniekanalyse",
+        "desc": "Uw trapefficiëntie-statistieken:",
+        "te": "<strong>KE (Koppel-efficiëntie)</strong> — Vermogen naar voren. Streef naar 70-80%",
+        "ps": "<strong>TV (Trapvloeiendheid)</strong> — Gelijkmatigheid van trap. Streef naar ≥20%",
+        "lr": "<strong>L/R uitsplitsing</strong> — Zie de bijdrage van elk been",
+        "hint": "Grote L/R verschillen duiden op spieronbalans of fietspositieproblemen."
+      },
+      "fatigueCard": {
+        "title": "Vermoeidheidsanalyse",
+        "desc": "Hoe uw techniek veranderde van begin tot eind:",
+        "startEnd": "<strong>Begin → Eind</strong> waarden voor elke statistiek",
+        "colors": "<strong>Groen</strong> = verbeterd, <strong>Rood</strong> = verslechterd",
+        "badge": "<strong>Badge</strong> — STERK (geen dalingen), MATIG of ZWAK",
+        "hint": "Consistente techniek bij vermoeidheid is essentieel voor prestaties op lange ritten!"
+      },
+      "timeline": {
+        "title": "Minuut-voor-minuut tijdlijn",
+        "desc": "Volg hoe statistieken veranderden gedurende uw rit:",
+        "tabs": "<strong>Tabbladen</strong> — Schakel tussen Balans, KE, TV, Vermogen, HS",
+        "points": "<strong>Punten</strong> — Elke stip is één minuut",
+        "hover": "<strong>Hover</strong> — Zie exacte waarden op elk punt",
+        "hint": "Let op patronen — daalt techniek na 30 min? Dat is vermoeidheid!"
+      },
+      "complete": {
+        "title": "Ritdetails voltooid!",
+        "desc": "U weet nu hoe u individuele ritten diepgaand kunt analyseren.",
+        "next": "Klik op <strong>Volgende</strong> om de <strong>Oefeningen</strong>-pagina te verkennen — begeleide oefeningen om uw techniek te verbeteren."
+      }
+    },
+    "drills": {
+      "welcome": {
+        "title": "Trainingsoefeningen 🏋️",
+        "desc": "<strong>Oefeningen</strong> zijn begeleide trainingsoefeningen die u op uw Karoo doet om specifieke vaardigheden te verbeteren.",
+        "hint": "Resultaten synchroniseren hier zodat u uw voortgang kunt volgen!"
+      },
+      "stats": {
+        "title": "Oefenstatistieken",
+        "desc": "Uw algehele oefenprestaties:",
+        "avgTarget": "<strong>Gem. doel</strong> — Hoe goed u doelzones bereikt",
+        "sessions": "<strong>Sessies</strong> — Totaal voltooide oefeningen",
+        "best": "<strong>Beste</strong> — Uw hoogste tijd-in-doel score",
+        "completion": "<strong>Voltooiingspercentage</strong> — % afgerond vs. afgebroken"
+      },
+      "drillRow": {
+        "title": "Oefenresultaten",
+        "desc": "Elke oefensessie toont:",
+        "name": "<strong>Oefennaam</strong> — Welk type oefening",
+        "timeInTarget": "<strong>Tijd in doel</strong> — % van tijd dat u het doel haalde",
+        "duration": "<strong>Duur</strong> — Hoe lang u oefende",
+        "status": "<strong>Status</strong> — Voltooid of voortijdig gestopt",
+        "hint": "Streef naar 80%+ tijd in doel naarmate u verbetert!"
+      },
+      "complete": {
+        "title": "Oefenpagina voltooid!",
+        "desc": "Oefeningen helpen u specifieke vaardigheden doelbewust te oefenen.",
+        "next": "Klik op <strong>Volgende</strong> om <strong>Prestaties</strong> te zien — mijlpalen die u kunt ontgrendelen!"
+      }
+    },
+    "achievements": {
+      "welcome": {
+        "title": "Prestaties & Mijlpalen 🏆",
+        "desc": "Ontgrendel prestaties terwijl u traint en verbetert!",
+        "hint": "Deze volgen uw voortgang in volume, techniek en consistentie."
+      },
+      "stats": {
+        "title": "Voortgangsoverzicht",
+        "desc": "Uw prestatievoortgang:",
+        "achieved": "<strong>Behaald</strong> — Ontgrendelde mijlpalen",
+        "remaining": "<strong>Resterend</strong> — Nog te ontgrendelen",
+        "progress": "<strong>Voortgang %</strong> — Algehele voltooiing",
+        "last": "<strong>Laatste</strong> — Meest recente ontgrendeldatum"
+      },
+      "categories": {
+        "title": "Prestatiecategorieën",
+        "desc": "Prestaties beslaan meerdere categorieën:",
+        "volume": "<strong>Volume</strong> — Ritaantallen (10, 50, 100+)",
+        "balance": "<strong>Balans</strong> — L/R symmetriedoelen",
+        "technique": "<strong>Techniek</strong> — Scoremijlpalen (80+, 90+)",
+        "consistency": "<strong>Consistentie</strong> — Trainingsstreaks",
+        "training": "<strong>Training</strong> — Oefenvoltooiingen",
+        "hint": "Behaalde mijlpalen tonen een groen vinkje!"
+      },
+      "complete": {
+        "title": "Prestaties voltooid!",
+        "desc": "Blijf fietsen en trainen om meer mijlpalen te ontgrendelen!",
+        "next": "Klik op <strong>Volgende</strong> voor de laatste stop: <strong>Instellingen</strong>."
+      }
+    },
+    "settings": {
+      "welcome": {
+        "title": "Instellingen & Voorkeuren ⚙️",
+        "desc": "Configureer KPedal precies zoals u wilt.",
+        "hint": "Instellingen synchroniseren tussen web en uw Karoo-apparaat!"
+      },
+      "devices": {
+        "title": "Gekoppelde apparaten",
+        "desc": "Zie al uw gekoppelde Karoo-apparaten:",
+        "name": "Apparaatnaam en status",
+        "lastSync": "Laatste synchronisatietijd",
+        "requestSync": "<strong>Synchronisatie aanvragen</strong> om gegevens van apparaat te halen",
+        "remove": "<strong>Verwijderen</strong> om een apparaat te ontkoppelen",
+        "hint": "U kunt meerdere Karoos aan één account koppelen."
+      },
+      "thresholds": {
+        "title": "Statistiekdrempels",
+        "desc": "Pas aan wat \"optimaal\" voor u betekent:",
+        "balance": "<strong>Balansdrempel</strong> — Hoeveel L/R onbalans geel/rood activeert",
+        "teRange": "<strong>KE optimaal bereik</strong> — Uw doel koppel-efficiëntiezone",
+        "psMin": "<strong>TV minimum</strong> — Trapvloeiendheidsminimum",
+        "hint": "Standaarden zijn gebaseerd op wieleronderzoek, maar u kunt aanpassen naar uw niveau."
+      },
+      "alerts": {
+        "title": "Waarschuwingen tijdens rit",
+        "desc": "Ontvang meldingen tijdens ritten wanneer statistieken aandacht nodig hebben:",
+        "metrics": "Kies welke statistieken te monitoren",
+        "sensitivity": "Stel gevoeligheid in (alleen kritiek of gevoelig)",
+        "type": "Kies meldingstype (trillen, geluid, banner)",
+        "cooldown": "Stel cooldown tussen waarschuwingen in",
+        "hint": "Waarschuwingen worden direct op uw Karoo getoond tijdens de rit!"
+      },
+      "theme": {
+        "title": "Uiterlijk",
+        "desc": "Kies uw voorkeurs kleurenschema:",
+        "auto": "<strong>Auto</strong> — Schakelt om 7:00 / 19:00 uur",
+        "light": "<strong>Licht</strong> — Schone witte achtergrond",
+        "dark": "<strong>Donker</strong> — Prettig voor de ogen"
+      },
+      "complete": {
+        "title": "U bent helemaal klaar! 🚴‍♂️",
+        "desc": "U hebt de volledige KPedal-rondleiding voltooid!",
+        "toSeeData": "<strong>Om uw eigen gegevens te zien:</strong>",
+        "step1": "Download KPedal op uw Karoo",
+        "step2": "Voeg het toe aan uw ritscherm",
+        "step3": "Ga fietsen!",
+        "step4": "Gegevens synchroniseren automatisch",
+        "download": "Download KPedal →"
+      }
+    }
+  },
+  "privacy": {
+    "title": "Privacybeleid",
+    "lastUpdated": "Laatst bijgewerkt: {date}",
+    "backToKpedal": "Terug naar KPedal",
+    "summary": {
+      "encrypted": "Versleuteld & Beveiligd",
+      "encryptedDesc": "Alle gegevens versleuteld tijdens verzending en opslag",
+      "noLocation": "Geen locatietracking",
+      "noLocationDesc": "Wij verzamelen nooit GPS- of routegegevens",
+      "neverSold": "Nooit verkocht",
+      "neverSoldDesc": "Uw gegevens worden nooit aan iemand verkocht",
+      "yourControl": "Uw controle",
+      "yourControlDesc": "Verwijder uw gegevens op elk moment"
+    },
+    "toc": {
+      "title": "Inhoud",
+      "whatWeCollect": "Wat wij verzamelen",
+      "whatWeDontCollect": "Wat wij niet verzamelen",
+      "howDataFlows": "Hoe gegevens stromen",
+      "storageSecurity": "Opslag & Beveiliging",
+      "yourRights": "Uw rechten",
+      "thirdParties": "Diensten van derden",
+      "contact": "Contact"
+    },
+    "sections": {
+      "whatWeCollect": "1. Wat wij verzamelen",
+      "whatWeDontCollect": "2. Wat wij niet verzamelen",
+      "howDataFlows": "3. Hoe gegevens stromen",
+      "storageSecurity": "4. Opslag & Beveiliging",
+      "yourRights": "5. Uw rechten",
+      "thirdParties": "6. Diensten van derden",
+      "contact": "7. Contact",
+      "policyChanges": "Beleidswijzigingen"
+    },
+    "rights": {
+      "access": "Toegang",
+      "accessDesc": "Bekijk al uw gegevens op elk moment in het webdashboard. Elke statistiek die wij opslaan is voor u zichtbaar.",
+      "delete": "Verwijderen",
+      "deleteDesc": "Verwijder individuele ritten vanaf de Rittenpagina. Voor volledige accountverwijdering, e-mail ons.",
+      "export": "Exporteren",
+      "exportDesc": "Vraag een volledige export van uw gegevens aan door contact met ons op te nemen.",
+      "optOut": "Afmelden",
+      "optOutDesc": "Gebruik KPedal offline zonder in te loggen. Geen gegevens verlaten uw apparaat."
+    },
+    "contact": {
+      "text": "Voor privacyvragen, gegevensverzoeken of accountverwijdering:",
+      "email": "privacy@kpedal.com",
+      "github": "GitHub Issues"
+    },
+    "policyChanges": "Wanneer wij significante wijzigingen aan dit beleid aanbrengen, werken wij de \"Laatst bijgewerkt\" datum hierboven bij. Wij moedigen u aan deze pagina periodiek te bekijken.",
+    "footer": "Trapefficiëntie-analyse voor Karoo",
+    "content": {
+      "accountData": {
+        "title": "Accountgegevens",
+        "intro": "Wanneer u inlogt met Google, ontvangen en bewaren wij:",
+        "fields": {
+          "email": "E-mail",
+          "emailPurpose": "Accountidentificatie, inloggen",
+          "name": "Naam",
+          "namePurpose": "Weergave in dashboard",
+          "profilePicture": "Profielfoto-URL",
+          "profilePicturePurpose": "Weergave als avatar",
+          "googleId": "Google ID",
+          "googleIdPurpose": "Google-account koppelen aan KPedal"
+        },
+        "note": "Wij hebben geen toegang tot uw Google-wachtwoord. Authenticatie gebruikt OAuth 2.0."
+      },
+      "pedalingMetrics": {
+        "title": "Trapstatistieken",
+        "intro": "Voor elke rit gesynchroniseerd vanaf uw Karoo-apparaat:",
+        "fields": {
+          "timestamp": "Tijdstempel",
+          "timestampPurpose": "Wanneer de rit was opgenomen",
+          "duration": "Duur",
+          "durationPurpose": "Hoe lang de rit duurde (milliseconden)",
+          "balance": "Balans Links / Rechts",
+          "balancePurpose": "Vermogensverdeling tussen benen (%)",
+          "te": "Koppel-efficiëntie L/R",
+          "tePurpose": "Hoe efficiënt u vermogen toepast (%)",
+          "ps": "Trapvloeiendheid L/R",
+          "psPurpose": "Hoe vloeiend uw trapslag is (%)",
+          "zones": "Zoneverdeling",
+          "zonesPurpose": "Tijd in Optimaal/Aandacht/Probleem zones (%)",
+          "score": "Efficiëntiescore",
+          "scorePurpose": "Berekende algehele score (0-100)"
+        }
+      },
+      "performanceMetrics": {
+        "title": "Prestatiestatistieken",
+        "intro": "Aanvullende fietsgegevens gesynchroniseerd voor uitgebreide ritanalyse:",
+        "fields": {
+          "power": "Vermogen (gem./max.)",
+          "powerPurpose": "Gemiddelde en maximale vermogensoutput in watt",
+          "cadence": "Cadans (gem.)",
+          "cadencePurpose": "Gemiddelde trapcadans in RPM",
+          "hr": "Hartslag (gem./max.)",
+          "hrPurpose": "Gemiddelde en maximale hartslag in BPM",
+          "speed": "Snelheid (gem.)",
+          "speedPurpose": "Gemiddelde snelheid in km/u",
+          "distance": "Afstand",
+          "distancePurpose": "Totaal afgelegde afstand in km",
+          "elevation": "Hoogte (stijging/daling)",
+          "elevationPurpose": "Totaal geklommen en gedaalde meters",
+          "grade": "Helling (gem./max.)",
+          "gradePurpose": "Gemiddelde en maximale helling (%)",
+          "np": "Genormaliseerd vermogen",
+          "npPurpose": "Intensiteitsgewogen vermogen in watt",
+          "energy": "Energie",
+          "energyPurpose": "Totale energie-output in kilojoules"
+        },
+        "note": "Deze statistieken bieden context voor uw trapefficiëntie-analyse. Ze worden gelezen van de aangesloten sensoren van uw Karoo (vermogensmeter, hartslagmeter, GPS)."
+      },
+      "snapshots": {
+        "title": "Per-minuut snapshots",
+        "intro": "Voor gedetailleerde tijdlijngrafieken slaan wij per-minuut gemiddelden op tijdens elke rit:",
+        "fields": {
+          "minuteIndex": "Minuutindex",
+          "minuteIndexPurpose": "Welke minuut van de rit (0, 1, 2...)",
+          "metricsAvg": "Balans L/R, KE L/R, TV L/R",
+          "metricsAvgPurpose": "Gemiddelde trapstatistieken voor die minuut",
+          "perfAvg": "Vermogen, Cadans, Hartslag",
+          "perfAvgPurpose": "Gemiddelde prestatiestatistieken voor die minuut",
+          "zoneStatus": "Zonestatus",
+          "zoneStatusPurpose": "Dominante zone voor die minuut (Optimaal/Aandacht/Probleem)"
+        },
+        "note": "Snapshots maken de tijdlijngrafiek in ritdetails mogelijk, die toont hoe uw techniek evolueerde gedurende de rit."
+      },
+      "deviceData": {
+        "title": "Apparaatgegevens",
+        "fields": {
+          "deviceId": "Apparaat-ID",
+          "deviceIdPurpose": "Unieke identificatie voor uw Karoo",
+          "deviceName": "Apparaatnaam",
+          "deviceNamePurpose": "bijv. \"Karoo 3\"",
+          "deviceType": "Apparaattype",
+          "deviceTypePurpose": "bijv. \"karoo\"",
+          "lastSync": "Laatste synchronisatietijd",
+          "lastSyncPurpose": "Wanneer gegevens laatst waren gesynchroniseerd"
+        }
+      },
+      "userSettings": {
+        "title": "Gebruikersinstellingen (gesynchroniseerd indien ingelogd)",
+        "intro": "Wanneer ingelogd, worden uw app-instellingen gesynchroniseerd tussen uw Karoo-apparaat en webdashboard:",
+        "fields": {
+          "thresholds": "Drempelinstellingen",
+          "thresholdsPurpose": "Balansdrempel, KE optimaal bereik, TV minimum",
+          "alertPrefs": "Waarschuwingsvoorkeuren",
+          "alertPrefsPurpose": "Welke statistieken waarschuwingen activeren, trillings-/geluids-/visuele opties",
+          "cooldowns": "Waarschuwingscooldowns",
+          "cooldownsPurpose": "Tijd tussen herhaalde waarschuwingen (seconden)",
+          "screenWake": "Scherm wekken",
+          "screenWakePurpose": "Of waarschuwingen het Karoo-scherm wekken",
+          "bgMode": "Achtergrondmodus",
+          "bgModePurpose": "Gegevens verzamelen ook wanneer gegevensveld verborgen is",
+          "autoSync": "Auto-sync",
+          "autoSyncPurpose": "Ritten automatisch synchroniseren na voltooiing"
+        },
+        "note": "Instellingensynchronisatie stelt u in staat drempels op het web te configureren en ze automatisch toe te passen op uw Karoo. Indien niet ingelogd, blijven instellingen alleen lokaal."
+      },
+      "drillResults": {
+        "title": "Oefenresultaten (gesynchroniseerd indien ingelogd)",
+        "intro": "Wanneer ingelogd, worden uw oefentrainingsgegevens gesynchroniseerd:",
+        "fields": {
+          "drillId": "Oefening-ID & Naam",
+          "drillIdPurpose": "Welke oefening was voltooid",
+          "drillTimestamp": "Tijdstempel & Duur",
+          "drillTimestampPurpose": "Wanneer de oefening was gedaan en hoe lang het duurde",
+          "drillScore": "Score",
+          "drillScorePurpose": "Algehele prestatiescore (0-100)",
+          "timeInTarget": "Tijd in doel",
+          "timeInTargetPurpose": "Hoe lang u doelstatistieken behield",
+          "phaseScores": "Fasescores",
+          "phaseScoresPurpose": "Prestatie voor elke oefenfase"
+        }
+      },
+      "achievements": {
+        "title": "Prestaties (gesynchroniseerd indien ingelogd)",
+        "intro": "Wanneer ingelogd, worden uw ontgrendelde prestaties gesynchroniseerd:",
+        "fields": {
+          "achievementId": "Prestatie-ID",
+          "achievementIdPurpose": "Welke prestatie was ontgrendeld",
+          "unlockedAt": "Ontgrendeld op",
+          "unlockedAtPurpose": "Wanneer de prestatie was behaald"
+        }
+      },
+      "localOnly": {
+        "title": "Gegevens alleen opgeslagen op uw Karoo (nooit gesynchroniseerd)",
+        "intro": "De volgende gegevens worden lokaal op uw Karoo-apparaat opgeslagen en worden nooit naar onze servers verzonden:",
+        "fields": {
+          "ratings": "Ritbeoordelingen",
+          "ratingsPurpose": "1-5 sterrenbeoordelingen die u aan ritten geeft",
+          "notes": "Ritnotities",
+          "notesPurpose": "Persoonlijke notities die u aan ritten toevoegt",
+          "customDrills": "Aangepaste oefeningen",
+          "customDrillsPurpose": "Trainingsoefeningen die u zelf maakt",
+          "onboarding": "Onboardingstatus",
+          "onboardingPurpose": "Of u de app-tutorial hebt voltooid"
+        },
+        "note": "Deze gegevens blijven op uw apparaat. Als u de app verwijdert, worden deze gegevens verwijderd."
+      },
+      "dontCollect": {
+        "intro": "Hoewel wij prestatiestatistieken verzamelen voor analyse, vermijden wij specifiek locatie- en trackinggegevens:",
+        "items": {
+          "gps": "GPS / Locatie",
+          "route": "Route / Kaartgegevens",
+          "temperature": "Temperatuur",
+          "strava": "Strava / Andere platforms",
+          "rideTitles": "Rittitels / Namen",
+          "photos": "Foto's / Media"
+        },
+        "note": "Uw ritten kunnen niet worden getraceerd naar specifieke locaties. Wij slaan alleen geaggregeerde prestatiestatistieken op, niet waar u fietste."
+      },
+      "usedNotStored": {
+        "title": "Gegevens gebruikt maar niet opgeslagen",
+        "intro": "De volgende gegevens worden in realtime gelezen voor weergavedoeleinden maar worden nooit opgeslagen op apparaat of cloud:",
+        "fields": {
+          "smoothed": "3s/10s Gladgestreken balans",
+          "smoothedPurpose": "Realtime trendindicatoren voor live weergave",
+          "rawStream": "Ruwe sensorstroom (~20Hz)",
+          "rawStreamPurpose": "Individuele datapunten worden verwerkt en weggegooid; alleen per-minuut gemiddelden worden opgeslagen"
+        }
+      },
+      "permissions": {
+        "title": "Android-machtigingen",
+        "intro": "De KPedal-app vraagt de volgende machtigingen op uw Karoo:",
+        "fields": {
+          "foreground": "Voorgrondservice",
+          "foregroundPurpose": "Op achtergrond draaien om gegevens te verzamelen tijdens ritten",
+          "notifications": "Meldingen",
+          "notificationsPurpose": "Waarschuwingen tonen wanneer traptechniek aandacht nodig heeft",
+          "boot": "Boot voltooid",
+          "bootPurpose": "Automatisch starten wanneer Karoo opstart"
+        },
+        "note": "Geen internet-, locatie-, camera-, microfoon- of opslagmachtigingen worden gevraagd."
+      },
+      "dataFlow": {
+        "step1": {
+          "title": "Vermogensmeter-pedalen",
+          "desc": "Uw pedalen verzenden balans, KE en TV via ANT+ Cycling Dynamics-protocol naar uw Karoo."
+        },
+        "step2": {
+          "title": "KPedal-app op Karoo",
+          "desc": "De app verwerkt realtime gegevens lokaal op ~20Hz, berekent gemiddelden en slaat ritsamenvattingen op in lokale database. Maximaal 100 ritten worden op apparaat bewaard; oudere ritten worden automatisch verwijderd."
+        },
+        "step3": {
+          "title": "Cloudsynchronisatie (optioneel)",
+          "desc": "Indien ingelogd, worden ritsamenvattingen en instellingen gesynchroniseerd naar KPedal-cloud via HTTPS. Alleen geaggregeerde gegevens worden verzonden — geen ruwe sensorstromen. Instellingswijzigingen op web worden automatisch toegepast op uw Karoo."
+        },
+        "step4": {
+          "title": "Webdashboard",
+          "desc": "Bekijk uw ritgeschiedenis, trends en analyses op app.kpedal.com. Gegevens worden alleen opgehaald voor uw geauthenticeerde account."
+        },
+        "offlineTitle": "Offlinemodus",
+        "offlineDesc": "De KPedal-app werkt volledig offline. U kunt alle functies gebruiken zonder in te loggen of te synchroniseren. Gegevens blijven op uw apparaat."
+      },
+      "infrastructure": {
+        "title": "Infrastructuur",
+        "workers": "Cloudflare Workers",
+        "workersUse": "API-verwerking (serverloos). Verzoeklogboeken ~7 dagen bewaard.",
+        "d1": "Cloudflare D1",
+        "d1Use": "SQLite-database voor gebruikers en ritten",
+        "kv": "Cloudflare KV",
+        "kvUse": "Sessietokens (verlopen automatisch na 7 dagen)",
+        "pages": "Cloudflare Pages",
+        "pagesUse": "Statische webdashboard-hosting"
+      },
+      "security": {
+        "title": "Beveiligingsmaatregelen",
+        "https": "HTTPS overal",
+        "httpsDesc": "Alle verbindingen gebruiken TLS 1.3-encryptie",
+        "jwt": "JWT-authenticatie",
+        "jwtDesc": "Ondertekende tokens met 15 minuten verloop voor toegang, 7 dagen voor verversing",
+        "rateLimit": "Snelheidsbeperking",
+        "rateLimitDesc": "Auth: 10 verz./min, API: 100 verz./min, Sync: 30 verz./min. Gebruikt IP-adres voor telling, automatisch verwijderd na 60 seconden.",
+        "validation": "Invoervalidatie",
+        "validationDesc": "Alle gegevens gevalideerd en opgeschoond voor opslag",
+        "csrf": "CSRF-bescherming",
+        "csrfDesc": "OAuth-statusverificatie voorkomt cross-site-aanvallen"
+      },
+      "retention": {
+        "title": "Gegevensbewaring",
+        "cloudTitle": "Cloudopslag (app.kpedal.com)",
+        "localTitle": "Lokale opslag (Karoo-apparaat)",
+        "cloud": {
+          "rideData": "Ritgegevens",
+          "rideDataPeriod": "Tot u het verwijdert",
+          "drillResults": "Oefenresultaten",
+          "drillResultsPeriod": "Tot u het verwijdert",
+          "achievements": "Prestaties",
+          "achievementsPeriod": "Tot accountverwijdering",
+          "userSettings": "Gebruikersinstellingen",
+          "userSettingsPeriod": "Tot accountverwijdering",
+          "accountData": "Accountgegevens",
+          "accountDataPeriod": "Tot accountverwijdering",
+          "accessTokens": "Toegangstokens",
+          "accessTokensPeriod": "15 minuten",
+          "refreshTokens": "Verversingstokens",
+          "refreshTokensPeriod": "7 dagen",
+          "oauthState": "OAuth-status",
+          "oauthStatePeriod": "10 minuten"
+        },
+        "local": {
+          "rideHistory": "Ritgeschiedenis",
+          "rideHistoryPeriod": "Maximaal 100 ritten (oudste automatisch verwijderd)",
+          "drillResults": "Oefenresultaten",
+          "drillResultsPeriod": "Tot app-deïnstallatie (ook gesynchroniseerd naar cloud indien ingelogd)",
+          "achievements": "Prestaties",
+          "achievementsPeriod": "Tot app-deïnstallatie (ook gesynchroniseerd naar cloud indien ingelogd)",
+          "customDrills": "Aangepaste oefeningen",
+          "customDrillsPeriod": "Tot u ze verwijdert (alleen lokaal)",
+          "settings": "Instellingen",
+          "settingsPeriod": "Tot app-deïnstallatie (gesynchroniseerd naar cloud indien ingelogd)"
+        }
+      },
+      "thirdParties": {
+        "google": {
+          "title": "Google OAuth",
+          "desc": "Alleen gebruikt voor inloggen. Wij vragen minimale scopes: openid, email, profile.",
+          "link": "Google Privacybeleid →"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "desc": "Onze infrastructuurprovider. Verwerkt API, database en webhosting.",
+          "link": "Cloudflare Privacybeleid →"
+        },
+        "notUsedTitle": "Wat wij niet gebruiken",
+        "notUsedIntro": "KPedal gebruikt niet:",
+        "notUsed": [
+          "Google Analytics of enige analyseservice",
+          "Facebook Pixel of enige advertentietracker",
+          "Cookies (wij gebruiken in plaats daarvan localStorage)",
+          "Crashrapportageservices (geen Firebase Crashlytics, Sentry, enz.)",
+          "Enige externe gegevensmakelaars"
+        ],
+        "browserStorageTitle": "Browseropslag",
+        "browserStorageIntro": "Het KPedal-webdashboard slaat het volgende op in de lokale/sessie-opslag van uw browser:",
+        "browserStorage": {
+          "access": "kpedal_auth_access",
+          "accessPurpose": "sessionStorage — JWT-toegangstoken (gewist wanneer tabblad sluit)",
+          "refresh": "kpedal_auth_refresh",
+          "refreshPurpose": "localStorage — JWT-verversingstoken (blijft tot 7 dagen)",
+          "theme": "kpedal_theme",
+          "themePurpose": "localStorage — Themavoorkeur (auto/licht/donker)"
+        },
+        "browserStorageNote": "U kunt deze gegevens op elk moment wissen door uit te loggen of browseropslag te wissen. Er worden geen cookies gebruikt."
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "Karoo-extensie",
+      "version": "v1.3.0",
+      "titleLine1": "Zie uw trapefficiëntie",
+      "titleLine2": "in realtime",
+      "subtitle": "Balans, Koppel-efficiëntie, Trapvloeiendheid — weergegeven op uw Karoo met realtime waarschuwingen en begeleide oefeningen.",
+      "downloadFree": "Gratis downloaden",
+      "tryDemo": "Demo proberen",
+      "free": "Gratis",
+      "openSource": "open source",
+      "noAccountRequired": "Geen account vereist"
+    },
+    "dataFields": {
+      "title": "Zie het op uw Karoo",
+      "subtitle": "5 gegevensveldindelingen. Kies de weergave die bij uw training past.",
+      "tabs": {
+        "quickGlance": "Snelle blik",
+        "balance": "Balans",
+        "efficiency": "Efficiëntie",
+        "fullView": "Volledige weergave",
+        "trend": "Trend"
+      },
+      "quickGlance": {
+        "name": "Snelle blik",
+        "desc": "Statusindicator met balansbalk. Toont vinkje wanneer optimaal of vermeldt statistieken die aandacht nodig hebben."
+      },
+      "powerBalance": {
+        "name": "Vermogensbalans",
+        "desc": "Grote L/R-balansnummers met visuele voortgangsbalk. Perfect voor balansgerichte training."
+      },
+      "efficiency": {
+        "name": "Efficiëntie",
+        "desc": "Koppel-efficiëntie en Trapvloeiendheid met L/R-splitsingen en gemiddelden."
+      },
+      "fullOverview": {
+        "name": "Volledig overzicht",
+        "desc": "Alle drie statistieken in één compacte weergave. Compleet trapbeeld in één oogopslag."
+      },
+      "balanceTrend": {
+        "name": "Balanstrend",
+        "desc": "Huidige + 3s gladgestreken + 10s gladgestreken balans. Zie trends terwijl ze zich ontwikkelen."
+      },
+      "karoo": {
+        "optimal": "Optimaal",
+        "balance": "Balans",
+        "left": "Links",
+        "right": "Rechts",
+        "torqueEff": "Koppel-eff.",
+        "smoothness": "Vloeiendheid",
+        "te": "KE",
+        "ps": "TV",
+        "ok": "OK",
+        "now": "Nu",
+        "avg3s": "3s gem.",
+        "avg10s": "10s gem."
+      }
+    },
+    "comparison": {
+      "title": "Het verschil",
+      "subtitle": "Stop met gissen. Begin met verbeteren.",
+      "without": "Zonder KPedal",
+      "with": "Met KPedal",
+      "items": {
+        "before1": "Vermogensgetal, maar geen techniek-inzicht",
+        "after1": "Balans, KE, TV live zichtbaar",
+        "before2": "Onbalans ontdekken door blessure",
+        "after2": "Waarschuwing voordat het een probleem wordt",
+        "before3": "Geen gestructureerde manier om te verbeteren",
+        "after3": "10 begeleide oefeningen met scoring",
+        "before4": "Gegevens vast op één apparaat",
+        "after4": "Cloudsync met webdashboard"
+      }
+    },
+    "metrics": {
+      "title": "Wat wij meten",
+      "subtitle": "Drie statistieken. Op onderzoek gebaseerde drempels.",
+      "balance": {
+        "title": "Vermogensbalans",
+        "range": "48-52% optimaal",
+        "desc": "Links/rechts vermogensverdeling. Profwielrenners blijven binnen 2%. Onbalansen boven 5% verhogen het risico op overbelastingsblessures en verspillen energie door compensatiepatronen."
+      },
+      "te": {
+        "title": "Koppel-efficiëntie",
+        "range": "70-80% ideale zone",
+        "desc": "Percentage vermogen toegepast tijdens het effectieve deel van de slag. Gebaseerd op Wattbike-onderzoek — <strong>hoger is NIET beter</strong>. Boven 80% kan de totale vermogensoutput daadwerkelijk verminderen."
+      },
+      "ps": {
+        "title": "Trapvloeiendheid",
+        "range": "≥20% doel",
+        "desc": "Hoe gelijkmatig vermogen verdeeld is door de gehele trapslag. Elimineert \"dode punten\". Elite fietsers behalen 25-35% — dit is de moeilijkste statistiek om te verbeteren."
+      },
+      "zones": {
+        "optimal": "Optimaal",
+        "attention": "Aandacht",
+        "problem": "Probleem"
+      }
+    },
+    "drills": {
+      "title": "10 begeleide oefeningen",
+      "subtitle": "Van 30-seconden oefeningen tot 15-minuten workouts. Elk gescoord 0-100%.",
+      "tabs": {
+        "focus": "Focus",
+        "challenge": "Uitdaging",
+        "workout": "Workout"
+      },
+      "target": "Doel",
+      "levels": {
+        "beginner": "Beginner",
+        "intermediate": "Gemiddeld",
+        "advanced": "Gevorderd"
+      },
+      "featured": "Uitgelicht",
+      "featuredTitle": "Trapmeesterschap",
+      "featuredDesc": "15 minuten, 10 fasen. Volledige techniekdekking. Aanbevolen 1-2× per week.",
+      "items": {
+        "leftFocus": {
+          "name": "Linker been focus",
+          "duration": "30s",
+          "target": "Balans <48%",
+          "desc": "Bouw enkelbenige kracht en bewustzijn op door uw linker been te benadrukken."
+        },
+        "rightFocus": {
+          "name": "Rechter been focus",
+          "duration": "30s",
+          "target": "Balans >52%",
+          "desc": "Identificeer en versterk uw zwakkere been met gerichte oefening."
+        },
+        "smoothCircles": {
+          "name": "Vloeiende cirkels",
+          "duration": "45s",
+          "target": "TV ≥22%",
+          "desc": "Elimineer dode punten in uw trapslag door vloeiende techniek."
+        },
+        "powerTransfer": {
+          "name": "Vermogensoverdracht",
+          "duration": "60s",
+          "target": "KE 70-80%",
+          "desc": "Maximaliseer vermogensoutput zonder efficiëntie op te offeren."
+        },
+        "balanceChallenge": {
+          "name": "Balansuitdaging",
+          "duration": "15s vasthouden",
+          "target": "48-52%",
+          "desc": "Houd perfecte 50/50 balans 15 seconden vast. Test symmetrie en controle."
+        },
+        "smoothnessTarget": {
+          "name": "Vloeiendheidsdoel",
+          "duration": "20s vasthouden",
+          "target": "TV ≥25%",
+          "desc": "Elite-niveau trapvloeiendheid. De meest veeleisende techniekuitdaging."
+        },
+        "highCadenceSmooth": {
+          "name": "Hoge cadans vloeiend",
+          "duration": "30s",
+          "target": "TV ≥20% @ 100+ rpm",
+          "desc": "Behoud vloeiende vorm bij hoge cadans. Ultieme coördinatietest."
+        },
+        "balanceRecovery": {
+          "name": "Balansherstel",
+          "duration": "5 min",
+          "target": "3 fasen",
+          "desc": "Wissel links focus → midden → rechts focus af. Helpt onbalansen in de tijd te corrigeren."
+        },
+        "efficiencyBuilder": {
+          "name": "Efficiëntieopbouw",
+          "duration": "10 min",
+          "target": "6 fasen",
+          "desc": "Opeenvolgende blokken: balans → vloeiendheid → KE. Bouw complete techniek op."
+        },
+        "pedalingMastery": {
+          "name": "Trapmeesterschap",
+          "duration": "15 min",
+          "target": "10 fasen",
+          "desc": "Uitgebreide 10-fasen workout die alle aspecten van traptechniek behandelt."
+        }
+      }
+    },
+    "alerts": {
+      "title": "Realtime waarschuwingen",
+      "subtitle": "Word gecorrigeerd midden in de rit wanneer techniek afdwaalt",
+      "demo": {
+        "title": "Balanswaarschuwing",
+        "detail": "Rechter been dominant: 56%"
+      },
+      "features": {
+        "vibration": {
+          "title": "Trillen & Geluid",
+          "desc": "Haptische feedback en audiopiepjes. Schakel elk aan/uit."
+        },
+        "screenWake": {
+          "title": "Scherm wekken",
+          "desc": "Karoo-display automatisch wekken wanneer waarschuwing afgaat."
+        },
+        "cooldown": {
+          "title": "Slimme cooldown",
+          "desc": "15s tot 2min tussen waarschuwingen. Nuttig, niet vervelend."
+        },
+        "thresholds": {
+          "title": "Per-statistiek drempels",
+          "desc": "Aparte instellingen voor Balans, KE en TV."
+        }
+      }
+    },
+    "analytics": {
+      "title": "Analyses & Webdashboard",
+      "subtitle": "Volg verbetering in de tijd. Zie trends, niet alleen cijfers.",
+      "preview": {
+        "greeting": "Hallo, Yuri!",
+        "recentRides": "Recente ritten",
+        "technique": "Techniek",
+        "avgSuffix": "gem.",
+        "morningRide": "Ochtendrit",
+        "eveningSpin": "Avondrondje",
+        "longRide": "Lange rit",
+        "daysAgo": "dagen geleden"
+      },
+      "features": {
+        "periods": "7-daagse, 14-daagse, 30-daagse, 60-daagse analyse",
+        "history": "Volledige ritgeschiedenis met filters",
+        "multiDevice": "Multi-apparaat sync",
+        "openSource": "Open source op GitHub"
+      }
+    },
+    "motivation": {
+      "title": "Blijf gemotiveerd",
+      "subtitle": "Volg voortgang met prestaties en wekelijkse uitdagingen",
+      "achievements": "Prestaties om te ontgrendelen",
+      "challenges": "Wekelijkse uitdagingen",
+      "achievementsLabel": "Prestaties",
+      "challengesLabel": "Uitdagingen",
+      "examples": {
+        "firstRide": "Eerste rit",
+        "hundredRides": "100 ritten",
+        "perfectBalance": "Perfecte balans 10 min",
+        "thirtyDayStreak": "30-daagse streak",
+        "balancedRider": "Gebalanceerde fietser: 48-52% over 3 ritten",
+        "zoneMaster": "Zonemeester: 60%+ in optimale zone"
+      }
+    },
+    "works": {
+      "title": "Werkt overal",
+      "subtitle": "Achtergrondverzameling. Automatische sync. Uw gegevens op alle apparaten.",
+      "background": {
+        "title": "Achtergrondmodus",
+        "desc": "Verzamelt gegevens voor ALLE ritten, zelfs zonder zichtbare gegevensvelden. Start automatisch bij opstarten. Slaat op wanneer u stopt."
+      },
+      "sync": {
+        "title": "Cloudsync",
+        "desc": "Ritten synchroniseren na voltooiing. Koppel apparaat op link.kpedal.com met een simpele code — geen wachtwoord nodig op Karoo."
+      },
+      "multiDevice": {
+        "title": "Multi-apparaat",
+        "desc": "Koppel meerdere Karoos. Alle ritten gaan naar één account. Instellingen synchroniseren bidirectioneel tussen app en web."
+      }
+    },
+    "requirements": {
+      "title": "Wat u nodig hebt",
+      "subtitle": "Karoo 2 of 3 + tweezijdige vermogenspedalen",
+      "karoo": {
+        "title": "Hammerhead Karoo",
+        "desc": "Karoo 2 of Karoo 3. KPedal gebruikt de native Karoo SDK — niet beschikbaar op andere computers."
+      },
+      "pedals": {
+        "title": "Tweezijdige vermogenspedalen",
+        "desc": "Links + rechts vermogensmeting met ANT+ Cycling Dynamics voor Balans, KE en TV."
+      },
+      "fullSupport": {
+        "title": "Volledige ondersteuning",
+        "desc": "Balans + KE + TV"
+      },
+      "balanceOnly": {
+        "title": "Alleen balans",
+        "desc": "L/R vermogen maar geen KE/TV"
+      },
+      "notCompatible": {
+        "title": "Niet compatibel",
+        "desc": "Geen tweezijdige gegevens"
+      },
+      "pedalsList": {
+        "singleSided": "Enkelzijdige PM",
+        "trainerPower": "Trainer vermogen"
+      }
+    },
+    "faq": {
+      "title": "Veelgestelde vragen",
+      "q1": {
+        "q": "Welke vermogensmeter-pedalen zijn compatibel?",
+        "a": "<strong>Volledige ondersteuning (Balans + KE + TV):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>Alleen balans:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>Elke pedaal die ANT+ Cycling Dynamics verzendt werkt."
+      },
+      "q2": {
+        "q": "Hoe installeer ik KPedal op mijn Karoo?",
+        "a": "<strong>Optie 1:</strong> Download APK van GitHub Releases → breng over via USB → open bestandsbeheer op Karoo → tik om te installeren.<br><strong>Optie 2:</strong> Open de GitHub release-link direct in de browser van Karoo en download.<br><strong>Optie 3:</strong> Gebruik ADB: <code>adb install kpedal.apk</code>"
+      },
+      "q3": {
+        "q": "Moet ik KPedal-gegevensvelden toevoegen aan mijn ritscherm?",
+        "a": "<strong>Nee.</strong> Met Achtergrondmodus ingeschakeld, verzamelt KPedal automatisch statistieken voor ALLE ritten — zelfs als u nooit een gegevensveld toevoegt. Gegevensvelden zijn optioneel en alleen voor het live bekijken van statistieken tijdens de rit. Uw volledige ritgeschiedenis wordt hoe dan ook opgeslagen."
+      },
+      "q4": {
+        "q": "Wat wordt beschouwd als een \"goede\" vermogensbalans?",
+        "a": "<strong>48-52%</strong> (±2% van 50/50) is optimaal. De meeste professionele wielrenners fietsen met 1-3% natuurlijke asymmetrie. Obsedeer niet over perfecte 50/50 — het is bijna onmogelijk en niet nodig. Focus op <strong>consistentie binnen uw bereik</strong> in plaats van perfectie najagen."
+      },
+      "q5": {
+        "q": "Waarom is 70-80% Koppel-efficiëntie optimaal en niet hoger?",
+        "a": "Gebaseerd op <strong>Wattbike-onderzoek</strong>: boven 80% KE trekt u waarschijnlijk te hard aan de opwaartse slag. Dit verspilt energie en kan de totale vermogensoutput daadwerkelijk verminderen. Het 70-80% bereik geeft aan dat u kracht efficiënt toepast door de trapslag zonder uzelf tegen te werken in de herstelfase."
+      },
+      "q6": {
+        "q": "Wat meet Trapvloeiendheid precies?",
+        "a": "<strong>Formule:</strong> TV = (gemiddeld vermogen ÷ piekvermogen) × 100.<br>Hogere TV betekent consistentere krachtstoepassing door de trapslag. <strong>20%+ is goed</strong> voor de meeste fietsers. Sprinters hebben doorgaans lagere TV (explosief, puntig vermogen), terwijl duurfietsers naar hogere waarden neigen."
+      },
+      "q7": {
+        "q": "Hoe wordt de Ritscore berekend?",
+        "a": "<strong>Gewogen formule:</strong> Balans (40%) + KE (35%) + TV (25%).<br>Elke statistiek wordt gescoord 0-100 gebaseerd op tijd in optimale zones.<br><strong>85+</strong> = Uitstekende techniek<br><strong>70-84</strong> = Goed, kleine verbeterpunten<br><strong>Onder 70</strong> = Aanzienlijke ruimte voor verbetering"
+      },
+      "q8": {
+        "q": "Hoe werken de begeleide Oefeningen?",
+        "a": "Oefeningen zijn gestructureerde oefeningen met realtime doelen op het scherm. Voorbeeld: \"Enkelbeenfocus\" vraagt u om 55-60% balans op één been te behouden gedurende 30 seconden. KPedal volgt uw <strong>tijd-in-doel</strong> en geeft aan het einde een score. Perfect voor warming-ups, herstelritten of toegewijde technieksessies."
+      },
+      "q9": {
+        "q": "Kan ik mijn eigen aangepaste oefeningen maken?",
+        "a": "<strong>Ja.</strong> Aangepaste oefeningen laten u uw eigen fasen, doelen en duren definiëren. Maak oefeningen afgestemd op uw specifieke zwaktes — misschien een 45-seconden hoge-KE focus gevolgd door 30 seconden balanswerk. Uw aangepaste oefeningen worden lokaal opgeslagen en synchroniseren naar de cloud."
+      },
+      "q10": {
+        "q": "Wat activeert de waarschuwingen tijdens de rit?",
+        "a": "<strong>Configureerbare drempels:</strong><br>• Balans: asymmetrie overschrijdt uw ingestelde limiet (standaard 5%)<br>• KE: daalt onder minimum (standaard 60%)<br>• TV: daalt onder minimum (standaard 15%)<br>Waarschuwingen gebruiken <strong>trillen + piep</strong>. Cooldown (15s-2min) voorkomt spam. U kunt elke statistiek onafhankelijk in-/uitschakelen."
+      },
+      "q11": {
+        "q": "Werkt KPedal zonder internetverbinding?",
+        "a": "<strong>100% ja.</strong> Alle kernfuncties — gegevensverzameling, oefeningen, waarschuwingen, ritgeschiedenis — werken volledig offline. Cloudsync is optioneel en wordt alleen geactiveerd wanneer u het inschakelt. Uw gegevens worden altijd eerst lokaal op de Karoo opgeslagen. Synchronisatie gebeurt automatisch wanneer u weer online bent."
+      },
+      "q12": {
+        "q": "Zal KPedal mijn Karoo-batterij leegmaken?",
+        "a": "<strong>Minimale impact: ~1-2% extra per uur</strong> tijdens actieve ritten. KPedal draait alleen gegevensverzameling terwijl u fietst. Tussen ritten wacht alleen een kleine listener op ritstart — verwaarloosbaar stroomverbruik. Sterk geoptimaliseerd voor efficiëntie."
+      },
+      "q13": {
+        "q": "Kan ik gegevens synchroniseren over meerdere Karoo-apparaten?",
+        "a": "<strong>Ja.</strong> Koppel meerdere Karoos aan uw account. Instellingen synchroniseren automatisch tussen hen. Alle ritten van alle apparaten verschijnen in één unified dashboard. Perfect als u een reserve-Karoo hebt, race- en trainingsapparaten, of upgradet naar een nieuw apparaat."
+      },
+      "q14": {
+        "q": "Hoe werkt het Prestatiesysteem?",
+        "a": "Prestaties ontgrendelen wanneer u mijlpalen bereikt: ritaantal, totale uren, consistentiestreaks, techniekverbeteringen. Voorbeelden: \"IJzeren balans\" (10 ritten met <2% asymmetrie), \"Century Club\" (100 getrackte ritten). Prestaties synchroniseren naar de cloud en worden weergegeven op uw webdashboard."
+      },
+      "q15": {
+        "q": "Kan ik KPedal gebruiken met Garmin, Wahoo of andere fietscomputers?",
+        "a": "<strong>Nee.</strong> KPedal is specifiek gebouwd voor Hammerhead Karoo met hun officiële karoo-ext SDK. Het heeft toegang tot ANT+ Cycling Dynamics-gegevens, native waarschuwingssysteem en ritstatusmonitoring — diepe integraties niet beschikbaar op andere platforms."
+      },
+      "q16": {
+        "q": "Zijn mijn gegevens privé en veilig?",
+        "a": "<strong>Ja.</strong> Gegevens blijven op uw Karoo tenzij u cloudsync inschakelt. Cloud gebruikt <strong>Google Sign-In</strong> — wij zien of bewaren nooit uw wachtwoord. Geen trackingpixels, geen advertenties, geen gegevensverkoop. Het hele project is <strong>open source</strong> — audit de code zelf op GitHub."
+      },
+      "q17": {
+        "q": "Waarom verandert mijn balans bij verschillende vermogensoutputs?",
+        "a": "Dit is normaal. Bij laag vermogen worden kleine techniekVariaties versterkt. Bij hoog vermogen neigt u ertoe spieren gelijkmatiger te rekruteren. Veel fietsers zien 2-3% meer asymmetrie bij duurpace vs. drempel. KPedal volgt dit zodat u patronen kunt identificeren en aan zwakke punten kunt werken."
+      },
+      "q18": {
+        "q": "Hoe vaak moet ik techniek-oefeningen doen?",
+        "a": "<strong>2-3 keer per week</strong> is een goed startpunt. Neem ze op in warming-ups (5-10 min) of wijd herstelritten aan techniekwerk. Consistentie is belangrijker dan volume — regelmatige korte sessies verslaan incidentele lange. Volg voortgang via oefenscores in de tijd."
+      }
+    },
+    "cta": {
+      "headline": "Begin vandaag met het verbeteren van uw traptechniek",
+      "subtext": "Gratis. Open source. Synchroniseert naar de cloud.",
+      "downloadForKaroo": "Download voor Karoo",
+      "tryDemo": "Demo proberen"
+    },
+    "footer": {
+      "tagline": "Trapefficiëntie voor Karoo",
+      "product": "Product",
+      "features": "Functies",
+      "dataFields": "Gegevensvelden",
+      "drills": "Oefeningen",
+      "resources": "Bronnen",
+      "github": "GitHub",
+      "releases": "Releases",
+      "reportIssue": "Probleem melden",
+      "legal": "Juridisch",
+      "privacyPolicy": "Privacybeleid",
+      "signIn": "Inloggen",
+      "madeWith": "Gemaakt met ❤️ voor de Karoo-gemeenschap"
+    }
+  },
+  "aria": {
+    "home": "KPedal - Home",
+    "downloadOptions": "Downloadopties",
+    "downloadKpedal": "Download KPedal gratis van GitHub",
+    "tryDemo": "Demo-account proberen",
+    "getStartedOptions": "Startopties",
+    "downloadForKaroo": "Download KPedal voor Karoo",
+    "footerNav": "Voettekstnavigatie",
+    "viewOnGithub": "Bekijk KPedal op GitHub",
+    "balanceTrendChart": "Balanstrendgrafiek",
+    "techniqueTrendChart": "Techniektrendgrafiek",
+    "languageSelector": "Taal selecteren"
+  }
+}

@@ -2,17 +2,47 @@ import { browser } from '$app/environment';
 import { init, register, getLocaleFromNavigator, locale, waitLocale } from 'svelte-i18n';
 
 // Available locales
-export const locales = ['en', 'es'] as const;
+export const locales = ['en', 'uk', 'ru', 'de', 'es', 'fr', 'it', 'pt', 'nl', 'ja', 'zh', 'he', 'ar', 'pl', 'ko', 'da', 'sv'] as const;
 export type Locale = (typeof locales)[number];
 
 export const localeNames: Record<Locale, string> = {
 	en: 'English',
-	es: 'Español'
+	uk: 'Українська',
+	ru: 'Русский',
+	de: 'Deutsch',
+	es: 'Español',
+	fr: 'Français',
+	it: 'Italiano',
+	pt: 'Português',
+	nl: 'Nederlands',
+	ja: '日本語',
+	zh: '中文',
+	he: 'עברית',
+	ar: 'العربية',
+	pl: 'Polski',
+	ko: '한국어',
+	da: 'Dansk',
+	sv: 'Svenska'
 };
 
 // Register locales with dynamic imports
 register('en', () => import('../locales/en.json'));
+register('uk', () => import('../locales/uk.json'));
+register('ru', () => import('../locales/ru.json'));
+register('de', () => import('../locales/de.json'));
 register('es', () => import('../locales/es.json'));
+register('fr', () => import('../locales/fr.json'));
+register('it', () => import('../locales/it.json'));
+register('pt', () => import('../locales/pt.json'));
+register('nl', () => import('../locales/nl.json'));
+register('ja', () => import('../locales/ja.json'));
+register('zh', () => import('../locales/zh.json'));
+register('he', () => import('../locales/he.json'));
+register('ar', () => import('../locales/ar.json'));
+register('pl', () => import('../locales/pl.json'));
+register('ko', () => import('../locales/ko.json'));
+register('da', () => import('../locales/da.json'));
+register('sv', () => import('../locales/sv.json'));
 
 // Get saved locale or detect from browser
 function getInitialLocale(): string {

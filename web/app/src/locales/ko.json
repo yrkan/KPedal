@@ -1,0 +1,1975 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "loadError": "데이터를 불러오지 못했습니다",
+    "retry": "다시 시도",
+    "back": "뒤로",
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "confirm": "확인",
+    "or": "또는",
+    "today": "오늘",
+    "yesterday": "어제",
+    "daysAgo": "{days}일 전",
+    "noData": "데이터 없음",
+    "toggleTheme": "테마 전환",
+    "tableView": "테이블 보기",
+    "cardView": "카드 보기",
+    "backToDashboard": "대시보드로 돌아가기",
+    "remove": "제거"
+  },
+  "app": {
+    "name": "KPedal",
+    "tagline": "Karoo를 위한 페달링 효율 분석",
+    "version": "버전 1.3.0",
+    "webTitle": "KPedal 웹"
+  },
+  "nav": {
+    "dashboard": "대시보드",
+    "home": "홈",
+    "rides": "라이드",
+    "drills": "훈련",
+    "achievements": "업적",
+    "goals": "목표",
+    "settings": "설정",
+    "profile": "프로필",
+    "logout": "로그아웃"
+  },
+  "auth": {
+    "signIn": "로그인",
+    "signOut": "로그아웃",
+    "continueWithGoogle": "Google로 계속하기",
+    "tryDemo": "데모 체험",
+    "loadingDemo": "데모 로딩 중...",
+    "createFreeAccount": "무료 계정 만들기",
+    "secureOAuth": "보안 OAuth 2.0",
+    "googleVerified": "Google 인증됨",
+    "privacyNote": "로그인하면 다음에 동의하게 됩니다",
+    "privacyPolicy": "개인정보 처리방침",
+    "demoNote": "샘플 데이터로 대시보드를 탐색해보세요.",
+    "noSignupRequired": "가입 불필요.",
+    "backToLanding": "랜딩 페이지로 돌아가기",
+    "signedInViaGoogle": "Google로 로그인됨",
+    "sessionExpires": "세션이 7일 후 만료됩니다",
+    "authenticating": "인증 중...",
+    "signingIn": "로그인 중...",
+    "redirectingToLogin": "로그인 페이지로 이동 중...",
+    "missingTokens": "인증 토큰이 없습니다"
+  },
+  "errors": {
+    "invalidState": "보안 검증에 실패했습니다. 다시 시도해주세요.",
+    "authFailed": "인증에 실패했습니다. 다시 시도해주세요.",
+    "somethingWrong": "문제가 발생했습니다. 다시 시도해주세요.",
+    "demoUnavailable": "데모 모드를 일시적으로 사용할 수 없습니다. 나중에 다시 시도해주세요.",
+    "demoFailed": "데모 모드 시작에 실패했습니다. 다시 시도해주세요.",
+    "failedToLoad": "데이터를 불러오지 못했습니다",
+    "failedToConnect": "연결에 실패했습니다",
+    "failedToLoadRides": "라이드를 불러오지 못했습니다",
+    "failedToLoadDrills": "훈련을 불러오지 못했습니다",
+    "failedToLoadMilestones": "마일스톤을 불러오지 못했습니다",
+    "failedToLoadDevices": "기기를 불러오지 못했습니다",
+    "failedToLoadSettings": "설정을 불러오지 못했습니다"
+  },
+  "demo": {
+    "mode": "데모 모드",
+    "viewingSampleData": "샘플 데이터 보기",
+    "tour": "투어"
+  },
+  "metrics": {
+    "balance": "밸런스",
+    "balanceShort": "밸런스",
+    "te": "토크 효율",
+    "teShort": "TE",
+    "ps": "페달링 부드러움",
+    "psShort": "PS",
+    "power": "파워",
+    "powerAvg": "평균 파워",
+    "powerMax": "최대 파워",
+    "normalizedPower": "정규화 파워",
+    "npShort": "NP",
+    "cadence": "케이던스",
+    "hr": "심박수",
+    "hrShort": "HR",
+    "speed": "속도",
+    "distance": "거리",
+    "duration": "시간",
+    "elevation": "고도",
+    "elevationGain": "상승 고도",
+    "energy": "에너지",
+    "score": "점수",
+    "asymmetry": "비대칭",
+    "left": "좌",
+    "right": "우",
+    "leftRight": "좌/우",
+    "avg": "평균",
+    "max": "최대",
+    "total": "합계"
+  },
+  "zones": {
+    "title": "존",
+    "optimal": "최적",
+    "attention": "주의",
+    "problem": "문제",
+    "timeInZone": "존 내 시간",
+    "zoneStatus": "존 상태",
+    "description": {
+      "attention": "테크닉 개선 필요",
+      "optimal": "훌륭한 자세",
+      "problem": "심각한 문제"
+    }
+  },
+  "dashboard": {
+    "title": "대시보드",
+    "period": {
+      "days7": "7일",
+      "days14": "14일",
+      "days30": "30일",
+      "days60": "60일",
+      "all": "전체",
+      "week": "주",
+      "month": "월",
+      "year": "년"
+    },
+    "stats": {
+      "rides": "{count, plural, other {# 라이드}}",
+      "hours": "{count}시간",
+      "km": "{value} km",
+      "avgScore": "평균 점수"
+    },
+    "powerAsymmetry": "파워 비대칭",
+    "lrBalance": "좌/우 밸런스",
+    "weeklyActivity": "주간 활동",
+    "technique": "테크닉",
+    "trends": "트렌드",
+    "recentRides": "최근 라이드",
+    "thisWeek": "이번 주",
+    "lastWeek": "지난 주",
+    "vsLastWeek": "지난 주 대비",
+    "noRides": "이 기간에 라이드가 없습니다",
+    "viewAll": "전체 보기 →",
+    "leftDominant": "좌측 우세",
+    "rightDominant": "우측 우세",
+    "balanced": "균형",
+    "hello": "안녕하세요, {name}!",
+    "startRiding": "라이드를 시작하여 데이터를 확인하세요",
+    "welcome": "환영합니다, {name}!",
+    "weeklyChart": {
+      "rides": "라이드",
+      "title": "주간 활동",
+      "hours": "시간"
+    },
+    "yourProgress": "내 진행 상황",
+    "allTime": "전체 기간",
+    "summary": {
+      "rides": "라이드",
+      "hours": "시간",
+      "km": "km"
+    },
+    "comparison": {
+      "rides": "라이드",
+      "hours": "시간",
+      "distance": "거리",
+      "climb": "상승",
+      "balance": "밸런스",
+      "optimal": "최적"
+    },
+    "sections": {
+      "performance": "성능",
+      "insights": "인사이트"
+    },
+    "perfStats": {
+      "score": "점수",
+      "optimal": "최적",
+      "power": "파워",
+      "energy": "에너지"
+    },
+    "trendCards": {
+      "balanceTrend": "밸런스 트렌드",
+      "technique": "테크닉",
+      "asym": "비대칭"
+    },
+    "trendStats": {
+      "current": "현재",
+      "average": "평균",
+      "spread": "범위",
+      "latest": "최근",
+      "best": "최고"
+    },
+    "emptyStates": {
+      "needMoreRides": "더 많은 라이드 필요",
+      "needMoreData": "더 많은 데이터 필요"
+    },
+    "progress": {
+      "title": "이전 {period}일 대비 진행 상황",
+      "score": "점수",
+      "optimalZone": "최적 존",
+      "time": "시간",
+      "distance": "거리"
+    },
+    "table": {
+      "date": "날짜",
+      "duration": "시간",
+      "asym": "비대칭",
+      "zones": "존",
+      "power": "파워",
+      "clickToView": "클릭하여 보기"
+    },
+    "actions": {
+      "downloadApk": "APK 다운로드",
+      "linkDevice": "기기 연결"
+    },
+    "onboarding": {
+      "dashboardWillShow": "Karoo에서 KPedal로 라이드를 시작하면 대시보드에 실시간 페달링 분석이 표시됩니다.",
+      "whatYouWillSee": "여기서 확인할 수 있는 것들",
+      "powerBalance": "파워 밸런스",
+      "proTarget": "프로: ±2.5%",
+      "torqueEffectiveness": "토크 효율",
+      "teOptimal": "최적: 70-80%",
+      "pedalSmoothness": "페달링 부드러움",
+      "psOptimal": "최적: ≥20%",
+      "getStarted": "3단계로 시작하기",
+      "step1Title": "Karoo에 설치",
+      "step1Desc": "APK를 다운로드하여 USB 또는 Karoo 브라우저를 통해 설치",
+      "step2Title": "데이터 필드 추가",
+      "step2Desc": "라이드 프로필을 편집하여 KPedal 데이터 필드 추가",
+      "step3Title": "기기 연결",
+      "step3Desc": "Karoo를 연결하여 자동으로 라이드 동기화",
+      "exampleBalance": "50% 좌 / 50% 우",
+      "exampleTe": "72% 평균",
+      "examplePs": "22% 평균",
+      "alreadyInstalled": "이미 설치하셨나요? Karoo에서 라이드를 완료하세요 — 동기화 후 데이터가 여기에 표시됩니다."
+    },
+    "fatigue": {
+      "title": "피로도 (마지막 라이드)",
+      "trend": "트렌드",
+      "dropped": "하락",
+      "slight": "약간",
+      "stable": "안정"
+    },
+    "units": {
+      "wAvg": "W 평균",
+      "wMax": "W 최대",
+      "rpm": "rpm",
+      "bpmAvg": "bpm 평균",
+      "bpmMax": "bpm 최대",
+      "kmh": "km/h",
+      "mUp": "m ↑",
+      "mDown": "m ↓",
+      "grade": "% 경사",
+      "kJ": "kJ",
+      "rides": "라이드"
+    },
+    "insights": {
+      "fatigueAction": "라이드 후반에 폼이 떨어집니다. 다음으로 지구력을 키우세요",
+      "fatigueLink": "효율 빌더",
+      "balanceAction": "{asymmetry}% {dominant} 우세. {weak}쪽 다리를 강화하세요",
+      "balanceLink": "{side}쪽 다리 집중",
+      "leftLeg": "좌측",
+      "rightLeg": "우측",
+      "leftDominant": "좌측",
+      "rightDominant": "우측",
+      "lowTeAction": "TE {te}% — 6시 방향에서 당기는 것에 집중하세요. 시도해보세요",
+      "lowTeLink": "파워 전달",
+      "lowPsAction": "PS {ps}%는 불안정한 페달링입니다. 다음으로 부드럽게 만드세요",
+      "lowPsLink": "부드러운 원",
+      "greatBalance": "{asymmetry}% 비대칭 — 프로 수준의 밸런스입니다!",
+      "teOptimal": "TE {te}% — 파워 전달의 최적 구간입니다.",
+      "excellentScore": "점수 {score}% — 엘리트 수준의 테크닉!",
+      "goodConsistency": "{count}개의 라이드 — 훌륭한 한 주입니다!",
+      "improvement": "점수가 지난 기간보다 {points}점 상승했습니다.",
+      "encourageRides": "{count}개의 {rideWord}만 — 지난 주 {lastCount}개에 맞춰보세요.",
+      "ride": "라이드",
+      "ridesPl": "라이드",
+      "nearOptimalTe": "TE {te}% — 최적 구간까지 {diff}% 남았습니다."
+    }
+  },
+  "rides": {
+    "title": "라이드",
+    "allRides": "모든 라이드",
+    "rideHistory": "라이드 기록",
+    "noRides": "아직 기록된 라이드가 없습니다",
+    "noRidesHint": "Karoo에서 KPedal로 라이드를 완료하면 라이드 기록이 여기에 표시됩니다.",
+    "eachRideShows": "각 라이드에서 표시되는 항목",
+    "deleteRide": "이 라이드를 삭제하시겠습니까?",
+    "viewTable": "테이블 보기",
+    "viewCards": "카드 보기",
+    "rideDetail": "라이드 상세",
+    "performanceData": "성능 데이터",
+    "techniqueBreakdown": "테크닉 분석",
+    "fatigueAnalysis": "피로도 분석",
+    "timeline": "타임라인",
+    "minuteByMinute": "분별 분석",
+    "startToEnd": "시작부터 끝까지",
+    "degradation": "저하",
+    "strong": "강함",
+    "moderate": "보통",
+    "weak": "약함",
+    "backToDashboard": "대시보드로 돌아가기",
+    "backToRides": "라이드로 돌아가기",
+    "rideNotFound": "라이드를 찾을 수 없습니다",
+    "detail": {
+      "score": "점수",
+      "scoreTip": "0에서 100까지의 전체 테크닉 점수. 밸런스, TE, PS를 종합합니다.",
+      "asymmetry": "비대칭",
+      "asymmetryTip": "50/50 밸런스에서의 편차. 2.5% 미만이 프로 수준입니다.",
+      "balanced": "균형",
+      "leftDominant": "좌측 우세",
+      "rightDominant": "우측 우세",
+      "timeInZone": "존 내 시간",
+      "timeInZoneTip": "최적, 주의, 문제 존에서의 시간. 녹색이 많을수록 좋습니다.",
+      "technique": "테크닉",
+      "techniqueTip": "페달링 효율 지표. TE는 파워 전달, PS는 스트로크 부드러움입니다.",
+      "te": "TE",
+      "teTip": "토크 효율. 전방으로 전달되는 파워의 비율.",
+      "ps": "PS",
+      "psTip": "페달링 부드러움. 스트로크 전체에 걸쳐 파워가 얼마나 균일하게 적용되는지.",
+      "teInZone": "TE 존 내",
+      "teInZoneTip": "최적 70-80% 범위에서 TE가 유지된 시간.",
+      "psInZone": "PS 존 내",
+      "psInZoneTip": "20% 임계값 이상에서 PS가 유지된 시간.",
+      "teStab": "TE 안정성",
+      "teStabTip": "TE의 일관성. 높을수록 더 안정적인 테크닉.",
+      "psStab": "PS 안정성",
+      "psStabTip": "PS의 일관성. 높을수록 더 안정적인 테크닉.",
+      "fatigue": "피로도 분석",
+      "fatigueTip": "라이드 첫 1/3과 마지막 1/3을 비교합니다.",
+      "fatigueStrong": "강함",
+      "fatigueModerate": "보통",
+      "fatigueFatigued": "피로",
+      "fatigueAsymmetry": "비대칭",
+      "balanceDegradedInsight": "밸런스가 {value}% 저하됨 — 피로할 때 균일한 파워 분배에 집중하세요",
+      "teDroppedInsight": "TE가 {value}% 하락함 — 마지막 1/3에서 자세 유지 연습을 하세요",
+      "psFellInsight": "PS가 {value}% 하락함 — 피로 상태에서 부드러운 페달링 연습을 하세요",
+      "excellentFatigueInsight": "훌륭한 피로 저항력 — 라이드 전반에 걸쳐 테크닉이 일관되게 유지되었습니다",
+      "fatigueStartEnd": "라이드 시작 → 라이드 끝",
+      "byPowerZone": "파워 존별",
+      "byPowerZoneTip": "다양한 강도에서의 테크닉.",
+      "timelineTip": "시간에 따른 지표. 피로를 나타내는 하락을 확인하세요.",
+      "min": "최소",
+      "avg": "평균",
+      "max": "최대",
+      "spread": "범위",
+      "minuteByMinuteTip": "분별 상세 분석. 특정 구간 분석에 유용합니다.",
+      "points": "점",
+      "balance": "밸런스",
+      "balanceTip": "이 분의 좌/우 파워 분배.",
+      "teTip2": "이 분의 좌/우 토크 효율.",
+      "psTip2": "이 분의 좌/우 페달링 부드러움.",
+      "power": "파워",
+      "hr": "심박수",
+      "zone": "존",
+      "zoneTip": "이 분의 전체 존 상태.",
+      "asym": "비대칭",
+      "tooltipMin": "분 {minute}",
+      "title": "라이드 상세",
+      "deleteWarning": "이 작업은 취소할 수 없습니다",
+      "rating": "평점",
+      "performance": "성능",
+      "confirmDelete": "삭제 확인",
+      "comparison": "좌/우 비교",
+      "fatigueDesc": "라이드 중 테크닉이 어떻게 변화했는지",
+      "notes": "메모",
+      "timeline": "타임라인",
+      "deleteRide": "라이드 삭제"
+    },
+    "perf": {
+      "wattsTip": "평균 파워 출력(와트).",
+      "maxWattsTip": "라이드 중 달성한 최대 파워.",
+      "npTip": "정규화 파워는 노력의 변동성을 조정합니다.",
+      "bpmTip": "라이드 중 평균 심박수.",
+      "maxBpmTip": "도달한 최대 심박수. 최대치에 가까우면 테크닉에 영향을 줄 수 있습니다.",
+      "rpmTip": "평균 케이던스. 대부분의 라이더에게 80-95 rpm이 최적입니다.",
+      "speedTip": "평균 속도. 지형에 따라 파워보다 덜 신뢰할 수 있습니다.",
+      "kjTip": "총 에너지 출력. 대략 소모된 칼로리와 같습니다.",
+      "elevGainTip": "라이드 중 총 상승 고도.",
+      "elevLossTip": "라이드 중 총 하강 고도.",
+      "gradeTip": "최대 경사도. 10% 이상은 가파릅니다."
+    },
+    "zones": {
+      "recovery": "회복",
+      "endurance": "지구력",
+      "tempo": "템포",
+      "threshold": "역치",
+      "vo2max": "VO2max",
+      "anaerobic": "무산소"
+    },
+    "list": {
+      "ridesLabel": "라이드",
+      "ridesTip": "이 보기의 총 라이드 수.",
+      "kmLabel": "km",
+      "kmTip": "모든 라이드의 총 거리.",
+      "elevLabel": "m ↑",
+      "elevTip": "모든 라이드의 총 상승 고도.",
+      "asymLabel": "비대칭",
+      "asymTip": "평균 파워 비대칭. 2.5% 미만이 프로 수준.",
+      "teLabel": "TE",
+      "teTip": "평균 토크 효율. 최적 범위는 70-80%.",
+      "psLabel": "PS",
+      "psTip": "평균 페달링 부드러움. 20% 이상이 좋은 테크닉.",
+      "optimalLabel": "최적",
+      "optimalTip": "최적 존에서의 평균 시간. 높을수록 더 좋은 폼.",
+      "wAvgLabel": "W 평균",
+      "wAvgTip": "평균 파워 출력. 시간에 따라 추적하여 피트니스 트렌드 확인.",
+      "npLabel": "NP",
+      "npTip": "평균 정규화 파워. 노력의 변동성을 고려합니다.",
+      "kjLabel": "kJ",
+      "kjTip": "총 에너지 출력. 대략 소모된 칼로리와 같습니다.",
+      "dateCol": "날짜",
+      "durationCol": "시간",
+      "asymCol": "비대칭",
+      "asymColTip": "파워 비대칭 백분율. 낮을수록 더 균형 잡힌 것.",
+      "lrCol": "좌 / 우",
+      "lrColTip": "좌우 파워 분배.",
+      "teCol": "TE",
+      "teColTip": "각 다리별 토크 효율. 70-80%가 최적.",
+      "psCol": "PS",
+      "psColTip": "각 다리별 페달링 부드러움. 20% 이상이 좋음.",
+      "zonesCol": "존",
+      "zonesColTip": "성능 존별 시간 분포.",
+      "powerCol": "파워",
+      "powerColTip": "평균 파워(와트).",
+      "deleteAriaLabel": "라이드 삭제",
+      "balanceLR": "밸런스 좌/우",
+      "teLR": "TE 좌/우",
+      "psLR": "PS 좌/우",
+      "powerLabel": "파워",
+      "asymmetryLabel": "비대칭",
+      "domLabel": "우세",
+      "optimalPercent": "{percent}% 최적",
+      "pageInfo": "페이지 {page} / {total}",
+      "prevPage": "이전 페이지",
+      "nextPage": "다음 페이지"
+    },
+    "stats": {
+      "totalRides": "총 라이드",
+      "avgDuration": "평균 시간",
+      "totalTime": "총 시간"
+    },
+    "sort": {
+      "longest": "가장 긴",
+      "oldest": "가장 오래된",
+      "highestScore": "최고 점수",
+      "newest": "최신"
+    },
+    "filters": {
+      "all": "전체",
+      "thisWeek": "이번 주",
+      "thisMonth": "이번 달",
+      "last30Days": "최근 30일"
+    },
+    "emptyDescription": "Karoo에서 라이드를 동기화하여 여기서 확인하세요",
+    "empty": "아직 라이드가 없습니다"
+  },
+  "drills": {
+    "title": "훈련",
+    "noDrills": "아직 완료된 훈련이 없습니다",
+    "noDrillsHint": "KPedal에는 페달링 테크닉 향상을 위한 가이드 훈련이 포함되어 있습니다. Karoo에서 완료하여 진행 상황을 추적하세요.",
+    "availableTypes": "사용 가능한 훈련 유형",
+    "types": {
+      "balanceFocus": "밸런스 집중",
+      "powerTransfer": "파워 전달",
+      "smoothCircles": "부드러운 원",
+      "challenges": "챌린지"
+    },
+    "timeInTarget": "목표 내 시간",
+    "completed": "완료",
+    "incomplete": "미완료",
+    "abandoned": "포기",
+    "sessions": "세션",
+    "avgTarget": "평균 목표",
+    "best": "최고",
+    "drillTypes": "훈련 유형",
+    "date": "날짜",
+    "drill": "훈련",
+    "duration": "시간",
+    "status": "상태",
+    "of": "/",
+    "pageInfo": "페이지 {page} / {total}",
+    "prevPage": "이전 페이지",
+    "nextPage": "다음 페이지",
+    "tips": {
+      "avgTarget": "목표 지표에 도달한 평균 시간. 높을수록 좋습니다.",
+      "sessions": "완료된 총 훈련 세션 수.",
+      "best": "달성한 최고 목표 내 시간 비율.",
+      "completed": "완료까지 완료된 훈련의 비율.",
+      "types": "시도한 다양한 훈련 유형의 수.",
+      "timeInTarget": "목표 존에서 보낸 훈련 시간의 비율.",
+      "status": "훈련이 완료되었는지 조기 포기되었는지."
+    },
+    "detail": {
+      "timeInTarget": "목표 내 시간",
+      "score": "점수",
+      "phases": "단계",
+      "completed": "완료됨"
+    },
+    "categories": {
+      "balance": "밸런스",
+      "technique": "테크닉",
+      "smoothness": "부드러움",
+      "all": "전체"
+    },
+    "empty": "훈련 기록 없음",
+    "emptyDescription": "Karoo에서 훈련을 완료하여 기록을 확인하세요"
+  },
+  "achievements": {
+    "title": "업적",
+    "notAchieved": "달성하지 못함",
+    "noAchievements": "아직 마일스톤이 없습니다",
+    "noAchievementsHint": "Karoo에서 라이드와 훈련을 완료하여 업적을 잠금 해제하세요",
+    "availableCategories": "업적 카테고리",
+    "categories": {
+      "milestones": "라이드 마일스톤",
+      "balance": "밸런스 마스터리",
+      "performance": "성능 점수",
+      "streaks": "연속 기록",
+      "duration": "시간 목표",
+      "drills": "훈련 전문성"
+    },
+    "stats": {
+      "achieved": "달성",
+      "achievedTip": "잠금 해제한 마일스톤 수.",
+      "remaining": "남은",
+      "remainingTip": "아직 잠금 해제할 수 있는 마일스톤.",
+      "total": "전체",
+      "totalTip": "시스템의 총 마일스톤 수.",
+      "progress": "진행률",
+      "progressTip": "전체 완료율.",
+      "last": "마지막",
+      "lastTip": "가장 최근 업적 달성 날짜."
+    },
+    "table": {
+      "milestone": "마일스톤",
+      "milestoneTip": "업적의 이름과 설명.",
+      "category": "카테고리",
+      "categoryTip": "마일스톤 유형 (볼륨, 밸런스, 테크닉 등).",
+      "target": "목표",
+      "targetTip": "이 마일스톤을 잠금 해제하기 위한 요구 사항.",
+      "date": "날짜"
+    },
+    "milestones": {
+      "first_ride": {
+        "name": "첫 추적 라이드",
+        "description": "페달링 분석으로 첫 라이드 완료",
+        "category": "볼륨",
+        "target": "1개 라이드"
+      },
+      "rides_10": {
+        "name": "10개 라이드 분석됨",
+        "description": "트렌드 분석을 위한 기준 데이터 구축",
+        "category": "볼륨",
+        "target": "10개 라이드"
+      },
+      "rides_50": {
+        "name": "50개 라이드 분석됨",
+        "description": "패턴 인식을 위한 상당한 데이터셋",
+        "category": "볼륨",
+        "target": "50개 라이드"
+      },
+      "rides_100": {
+        "name": "100개 라이드 분석됨",
+        "description": "종합적인 훈련 기록 구축됨",
+        "category": "볼륨",
+        "target": "100개 라이드"
+      },
+      "rides_500": {
+        "name": "500개 라이드 분석됨",
+        "description": "장기 페달링 데이터 아카이브",
+        "category": "볼륨",
+        "target": "500개 라이드"
+      },
+      "perfect_balance": {
+        "name": "50/50 밸런스 달성",
+        "description": "완벽한 좌/우 파워 분배",
+        "category": "밸런스",
+        "target": "50/50"
+      },
+      "balance_master": {
+        "name": "10개 최적 밸런스 라이드",
+        "description": "여러 세션에 걸쳐 일관된 밸런스",
+        "category": "밸런스",
+        "target": "10개 라이드"
+      },
+      "score_80": {
+        "name": "80+ 테크닉 점수",
+        "description": "라이드에서 좋은 페달링 테크닉",
+        "category": "테크닉",
+        "target": "80+"
+      },
+      "score_90": {
+        "name": "90+ 테크닉 점수",
+        "description": "모든 지표에서 훌륭한 테크닉",
+        "category": "테크닉",
+        "target": "90+"
+      },
+      "score_95": {
+        "name": "95+ 테크닉 점수",
+        "description": "거의 최적의 페달링 효율",
+        "category": "테크닉",
+        "target": "95+"
+      },
+      "streak_3": {
+        "name": "3일 훈련 블록",
+        "description": "연속 3일 추적된 라이드",
+        "category": "연속성",
+        "target": "3일"
+      },
+      "streak_7": {
+        "name": "7일 훈련 주간",
+        "description": "일관된 훈련의 전체 주",
+        "category": "연속성",
+        "target": "7일"
+      },
+      "streak_30": {
+        "name": "30일 훈련 월간",
+        "description": "헌신적인 테크닉 작업의 한 달",
+        "category": "연속성",
+        "target": "30일"
+      },
+      "first_drill": {
+        "name": "첫 훈련 완료",
+        "description": "체계적인 테크닉 훈련 시작",
+        "category": "훈련",
+        "target": "1개 훈련"
+      },
+      "drill_perfect": {
+        "name": "100% 목표 내 시간",
+        "description": "모든 훈련에서 완벽한 실행",
+        "category": "훈련",
+        "target": "100%"
+      },
+      "drills_10": {
+        "name": "10개 훈련 완료",
+        "description": "훈련 숙련도 구축",
+        "category": "훈련",
+        "target": "10개 훈련"
+      },
+      "zone_optimal_80": {
+        "name": "80% 최적 존",
+        "description": "라이드 시간의 80% 이상 최적 존",
+        "category": "존",
+        "target": "80%"
+      },
+      "zone_optimal_90": {
+        "name": "90% 최적 존",
+        "description": "라이드 시간의 90% 이상 최적 존",
+        "category": "존",
+        "target": "90%"
+      },
+      "te_optimal": {
+        "name": "전체 라이드 최적 TE",
+        "description": "전체 라이드에서 최적 TE 유지",
+        "category": "효율",
+        "target": "100%"
+      },
+      "duration_1h": {
+        "name": "1시간 라이드",
+        "description": "1시간 이상 지속적인 페달링 분석",
+        "category": "지구력",
+        "target": "1시간+"
+      },
+      "duration_2h": {
+        "name": "2시간 라이드",
+        "description": "테크닉 집중의 연장 세션",
+        "category": "지구력",
+        "target": "2시간+"
+      },
+      "duration_4h": {
+        "name": "4시간 라이드",
+        "description": "장시간 테크닉 유지",
+        "category": "지구력",
+        "target": "4시간+"
+      }
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "account": "계정",
+    "connectedDevices": "연결된 기기",
+    "loadingDevices": "기기 로딩 중...",
+    "noDevices": "연결된 기기 없음",
+    "noDevicesHint": "라이드 데이터를 동기화하려면 Karoo 기기를 연결하세요",
+    "linkDevice": "기기 연결",
+    "linkAnotherDevice": "다른 기기 연결",
+    "removeDevice": "이 기기를 제거하시겠습니까? 다시 연결해야 합니다.",
+    "lastSync": "마지막 동기화",
+    "neverSynced": "동기화한 적 없음",
+    "requestSync": "동기화 요청",
+    "syncRequested": "동기화 요청됨 - 앱을 열어 동기화하세요",
+    "deviceStatus": {
+      "connected": "연결됨",
+      "idle": "유휴",
+      "offline": "오프라인"
+    },
+    "pedalingMetrics": "페달링 지표",
+    "syncBanner": "앱에서 <strong>동기화</strong>를 누르거나 라이드를 시작하면 변경 사항이 Karoo에 동기화됩니다.",
+    "thresholds": "임계값",
+    "balanceThreshold": "밸런스 임계값",
+    "balanceThresholdHint": "불균형이 이 값을 초과하면 알림 발생",
+    "balanceThresholdTip": "최대 허용 좌/우 불균형. 프로 사이클리스트는 일반적으로 ±2.5% 이내를 유지합니다.",
+    "teOptimalRange": "TE 최적 범위",
+    "teOptimalRangeHint": "토크 효율의 녹색 존",
+    "teOptimalRangeTip": "토크 효율 최적 구간. 연구에 따르면 70-80%가 최적이며 — 높다고 더 좋은 것은 아닙니다.",
+    "psMinimum": "PS 최소값",
+    "psMinimumHint": "이 값 미만은 주의가 필요한 것으로 표시됨",
+    "psMinimumTip": "최적 존의 페달링 부드러움 임계값. 엘리트 사이클리스트는 25% 이상을 달성합니다.",
+    "inRideAlerts": "라이드 중 알림",
+    "inRideAlertsHint": "지표가 주의가 필요할 때 알림",
+    "inRideAlertsTip": "지표가 주의가 필요할 때 Karoo에서의 실시간 알림.",
+    "metricsToMonitor": "모니터링할 지표",
+    "torqueEff": "토크 효율",
+    "smoothness": "부드러움",
+    "sensitivity": "민감도",
+    "critical": "심각",
+    "problemZoneOnly": "문제 존만",
+    "sensitive": "민감",
+    "attentionAndProblem": "주의 및 문제",
+    "notifyVia": "알림 방법",
+    "vibrate": "진동",
+    "sound": "소리",
+    "banner": "배너",
+    "options": "옵션",
+    "wakeScreenOnAlert": "알림 시 화면 켜기",
+    "cooldownBetweenAlerts": "알림 간 대기 시간",
+    "dataCollection": "데이터 수집",
+    "dataCollectionHint": "KPedal이 데이터를 수집하고 동기화하는 방법",
+    "backgroundMode": "백그라운드 모드",
+    "backgroundModeHint": "데이터 필드가 숨겨져 있어도 지표 수집",
+    "backgroundModeTip": "KPedal 데이터 필드가 화면에 보이지 않아도 지표를 수집합니다.",
+    "autoSync": "자동 동기화",
+    "autoSyncHint": "각 라이드 후 라이드 데이터를 자동으로 동기화",
+    "autoSyncTip": "각 라이드 종료 후 자동으로 라이드 데이터를 업로드합니다.",
+    "appearance": "외관",
+    "theme": "테마",
+    "themeHint": "자동 모드는 오전 7시와 오후 7시에 전환됩니다",
+    "themeAuto": "자동",
+    "themeLight": "라이트",
+    "themeDark": "다크",
+    "data": "데이터",
+    "rideData": "라이드 데이터",
+    "rideDataHint": "데이터는 안전하게 저장되며 Karoo 기기에서 동기화됩니다",
+    "session": "세션",
+    "privacy": "개인정보",
+    "privacyHint": "데이터 수집, 사용 및 보호 방법에 대해 알아보세요",
+    "about": "정보",
+    "saving": "저장 중...",
+    "saved": "저장됨",
+    "thresholds_section": {
+      "teOptimal": "TE 최적 범위",
+      "balance": "밸런스 임계값",
+      "title": "지표 임계값",
+      "psMinimum": "PS 최소값",
+      "teOptimalDesc": "토크 효율의 목표 범위",
+      "psMinimumDesc": "부드러움이 이 값 미만이면 알림",
+      "balanceDesc": "비대칭이 이 값을 초과하면 알림"
+    },
+    "sections": {
+      "data": "데이터",
+      "session": "세션",
+      "devices": "기기",
+      "appearance": "외관",
+      "about": "정보",
+      "metrics": "지표",
+      "privacy": "개인정보",
+      "account": "계정"
+    },
+    "devices_section": {
+      "remove": "제거",
+      "connectDescription": "라이드를 동기화하려면 Karoo를 연결하세요",
+      "removeWarning": "라이드를 동기화하려면 다시 연결해야 합니다",
+      "noDevices": "연결된 기기 없음",
+      "title": "연결된 기기",
+      "lastSync": "마지막 동기화",
+      "connectDevice": "기기 연결",
+      "removeConfirm": "이 기기를 제거하시겠습니까?"
+    },
+    "alerts_section": {
+      "enabled": "활성화됨",
+      "te": "토크 효율 알림",
+      "balance": "밸런스 알림",
+      "title": "알림 설정",
+      "ps": "부드러움 알림",
+      "screenWake": "화면 켜기"
+    },
+    "privacy_section": {
+      "viewPolicy": "개인정보 처리방침 보기",
+      "title": "개인정보"
+    },
+    "data_section": {
+      "exportDesc": "데이터를 JSON으로 다운로드",
+      "deleteAllDesc": "모든 라이드와 설정을 영구 삭제",
+      "deleteAllWarning": "이 작업은 취소할 수 없습니다",
+      "export": "데이터 내보내기",
+      "title": "데이터 관리",
+      "deleteAll": "모든 데이터 삭제",
+      "deleteAllConfirm": "확인하려면 DELETE를 입력하세요"
+    },
+    "account_section": {
+      "signedInAs": "로그인 계정",
+      "memberSince": "가입일",
+      "email": "이메일"
+    },
+    "appearance_section": {
+      "title": "외관",
+      "themeAuto": "자동",
+      "themeLight": "라이트",
+      "theme": "테마",
+      "themeDark": "다크"
+    },
+    "session_section": {
+      "title": "세션",
+      "signOutDesc": "다시 로그인해야 합니다",
+      "signOut": "로그아웃",
+      "signOutConfirm": "계정에서 로그아웃하시겠습니까?"
+    },
+    "about_section": {
+      "github": "GitHub",
+      "support": "지원",
+      "version": "버전"
+    }
+  },
+  "link": {
+    "title": "기기 연결",
+    "pageTitle": "Karoo 연결",
+    "metaDescription": "Hammerhead Karoo를 KPedal에 연결하세요. Karoo에 표시된 코드를 입력하여 라이드와 설정을 클라우드에 동기화하세요.",
+    "secureConnection": "보안 연결",
+    "linkKaroo": "Karoo 연결하기",
+    "enterCodeDescription": "기기에 표시된 8자리 코드를 입력하여 계정에 안전하게 연결하세요.",
+    "verifying": "확인 중...",
+    "continue": "계속",
+    "encryption256": "256비트 암호화",
+    "verifiedDomain": "인증된 도메인",
+    "signInToContinue": "계속하려면 로그인하세요",
+    "linkingDevice": "{device}을(를) 계정에 연결 중입니다.",
+    "signInWithGoogle": "이 기기를 승인하려면 Google로 로그인하세요.",
+    "useDifferentCode": "다른 코드 사용",
+    "authorizeDevice": "기기를 승인하시겠습니까?",
+    "deviceRequestingAccess": "{device}이(가) 계정과 라이드 데이터를 동기화하기 위한 액세스를 요청하고 있습니다.",
+    "permissionSync": "라이드에서 페달링 지표 동기화",
+    "permissionView": "app.kpedal.com에서 분석 보기",
+    "authorize": "승인",
+    "deviceLinked": "기기 연결됨!",
+    "deviceConnected": "{device}이(가) 이제 계정에 연결되었습니다.",
+    "autoSync": "라이드 데이터가 자동으로 동기화됩니다.",
+    "secureConnectionEstablished": "보안 연결 설정됨",
+    "dataEncrypted": "데이터는 종단 간 암호화됩니다",
+    "closePageHint": "이 페이지를 닫고 Karoo로 돌아갈 수 있습니다.",
+    "goToDashboard": "대시보드로 이동",
+    "errors": {
+      "failedToVerify": "코드 확인 실패",
+      "failedToConnect": "연결 실패",
+      "enterCompleteCode": "전체 코드를 입력하세요",
+      "invalidOrExpired": "이 코드가 유효하지 않거나 만료되었습니다. Karoo에서 새 코드를 받으세요.",
+      "checkConnection": "연결 실패. 인터넷 연결을 확인하세요.",
+      "signInFirst": "먼저 로그인하세요",
+      "failedToAuthorize": "기기 승인 실패",
+      "failedTryAgain": "연결 실패. 다시 시도하세요."
+    }
+  },
+  "infotips": {
+    "asymmetry": "완벽한 50/50 좌/우 밸런스에서의 편차. 2.5% 미만이 프로 수준입니다.",
+    "balance": "좌우 다리에 파워가 어떻게 분배되는지. 50/50이 완벽합니다.",
+    "te": "전방으로 가는 파워의 비율. 70-80%를 목표로 하세요 — 높다고 항상 좋은 것은 아닙니다.",
+    "ps": "페달 스트로크 전체에 걸쳐 파워가 얼마나 균일한지. 20% 이상을 목표로 하세요. 엘리트 사이클리스트는 25% 이상을 달성합니다.",
+    "zones": "최적(녹색), 주의(노란색), 문제(빨간색) 존에서 보낸 시간.",
+    "timeInZone": "각 존에서 보낸 시간. 녹색이 최적, 노란색은 주의 필요, 빨간색은 문제입니다.",
+    "score": "밸런스, TE, PS를 결합한 전체 테크닉 평점. 높을수록 좋습니다.",
+    "achieved": "잠금 해제한 마일스톤 수.",
+    "remaining": "아직 잠금 해제할 수 있는 마일스톤.",
+    "total": "시스템의 총 마일스톤 수.",
+    "progress": "전체 완료율.",
+    "lastAchievement": "가장 최근 업적 달성 날짜.",
+    "milestone": "업적의 이름과 설명.",
+    "category": "마일스톤 유형 (볼륨, 밸런스, 테크닉 등).",
+    "target": "이 마일스톤을 잠금 해제하기 위한 요구 사항.",
+    "weeklyActivity": "일별 라이드 수. 꾸준한 진전을 위해 주당 3-5개 라이드를 목표로 하세요.",
+    "compRides": "지난 주 대비 라이드 수.",
+    "compHours": "총 안장 시간. 시간이 길수록 훈련 적응이 더 많이 됩니다.",
+    "compDistance": "총 주행 킬로미터. 시간과 함께 볼륨 추적에 유용합니다.",
+    "compClimb": "총 상승 고도. 주당 2000m 이상은 클라이밍 실력을 키웁니다.",
+    "compBalance": "지난 주 대비 파워 비대칭. 낮을수록 좋고, 마이너스는 개선입니다.",
+    "compOptimal": "지난 주 대비 최적 존 시간. 높을수록 더 좋은 테크닉입니다.",
+    "perfScore": "0에서 100까지의 전체 테크닉 점수. 높을수록 더 좋은 폼입니다.",
+    "perfOptimal": "모든 지표가 녹색 존에 있는 시간. 높을수록 좋습니다.",
+    "perfPower": "평균 파워 출력(와트). 같은 심박수에서 높으면 더 좋은 피트니스입니다.",
+    "perfEnergy": "총 에너지(킬로줄). 대략 소모된 칼로리와 같습니다.",
+    "technique": "페달링 효율 지표. TE는 파워 전달, PS는 스트로크 부드러움입니다.",
+    "balanceFatigue": "좌우 파워 분배. 변화는 피로나 보상을 나타냅니다.",
+    "fatigueTrend": "전체 피로 트렌드. 안정은 좋은 페이싱, 하락은 과부하입니다.",
+    "balanceTrend": "시간에 따른 좌/우 밸런스 트렌드. 50% 근처의 일관된 값은 좋은 대칭을 나타냅니다.",
+    "techniqueTrend": "시간에 따른 테크닉 지표 트렌드. 꾸준한 개선 패턴을 찾으세요.",
+    "compTe": "지난 주 대비 토크 효율. 양수 변화는 개선입니다.",
+    "compPs": "지난 주 대비 페달링 부드러움. 천천히 개선되며, 작은 향상도 중요합니다.",
+    "fatigue": "라이드 시작 대비 끝의 테크닉. 값 하락은 피로를 나타냅니다.",
+    "teFatigue": "라이드 중 TE 변화. 하락은 근육 피로를 나타냅니다.",
+    "psFatigue": "라이드 중 PS 변화. 보통 피곤할 때 가장 먼저 떨어지는 지표입니다.",
+    "powerAvg": "평균 파워(와트). 시간에 따라 추적하여 피트니스 향상을 측정하세요.",
+    "powerMax": "달성한 최대 파워. 스프린트 및 FTP 추정에 유용합니다.",
+    "np": "정규화 파워는 급격한 변화를 조정합니다. 평균에 가까우면 꾸준한 노력을 의미합니다.",
+    "cadence": "분당 페달 회전수. 대부분의 라이더에게 80-95 rpm이 최적입니다.",
+    "hrAvg": "평균 심박수. 같은 파워에서 낮으면 더 좋은 피트니스입니다.",
+    "hrMax": "도달한 최대 심박수. 최대치에 가까우면 테크닉에 영향을 줄 수 있습니다.",
+    "speed": "평균 속도. 지형과 바람 때문에 파워보다 덜 신뢰할 수 있습니다.",
+    "elevationGain": "총 상승 고도. 1000m 이상은 심각한 클라이밍 워크아웃입니다.",
+    "elevationLoss": "총 하강 고도. 루프 라이드에서는 상승과 일치해야 합니다.",
+    "grade": "최대 경사. 10% 이상은 가파르고, 15% 이상은 매우 가파릅니다.",
+    "energy": "총 에너지 출력. 시간당 250-300 kcal로 영양을 계획하세요.",
+    "trendCurrent": "이 기간의 가장 최근 라이드 값.",
+    "trendAverage": "선택한 기간의 모든 라이드 평균값.",
+    "trendSpread": "최고와 최저의 차이. 낮은 범위는 더 일관된 폼을 의미합니다.",
+    "trendLatest": "이 지표에 대한 가장 최근 라이드 값.",
+    "trendBest": "기간 내 최고값. 비대칭은 낮을수록, TE/PS는 높을수록 좋습니다.",
+    "recentRides": "테크닉 지표가 있는 최근 라이드. 행을 클릭하면 전체 상세 정보를 볼 수 있습니다.",
+    "tableAsym": "파워 비대칭 백분율. 낮을수록 더 균형 잡힌 파워 출력을 의미합니다.",
+    "tableZones": "최적, 주의, 문제 존별 시간 분포."
+  },
+  "tour": {
+    "buttons": {
+      "next": "다음",
+      "prev": "뒤로",
+      "done": "완료",
+      "continue": "계속 →",
+      "skip": "또는 투어 건너뛰기 →"
+    },
+    "dashboard": {
+      "welcome": {
+        "title": "KPedal에 오신 것을 환영합니다!",
+        "desc": "이것은 약 4주간의 라이드를 보여주는 <strong>실제 사이클리스트의 데모 데이터</strong>입니다.",
+        "hint": "KPedal이 할 수 있는 것의 빠른 투어 (~2분)."
+      },
+      "period": {
+        "title": "기간 선택기",
+        "desc": "다양한 시간대의 트렌드를 분석하기 위해 <strong>7일, 14일, 30일 또는 60일</strong> 사이를 전환하세요.",
+        "hint": "짧은 기간은 최근 폼을 보여줍니다. 긴 기간은 훈련 패턴을 드러냅니다."
+      },
+      "asymmetry": {
+        "title": "파워 비대칭",
+        "desc": "완벽한 50/50 좌/우 밸런스에서의 편차.",
+        "under25": "2.5% 미만",
+        "proLevel": "프로 수준",
+        "range25to5": "2.5-5%",
+        "goodRoom": "좋음, 개선 여지 있음",
+        "over5": "5% 초과",
+        "needsAttention": "주의 필요",
+        "hint": "이 데모 사이클리스트는 평균 1-2% — 훌륭한 대칭!"
+      },
+      "infoTip": {
+        "title": "어디서나 정보 팁",
+        "desc": "이 <strong>ⓘ 아이콘</strong>이 보이나요? 언제든 호버하거나 탭하여 자세한 설명을 확인하세요.",
+        "hint": "KPedal의 모든 지표에는 그 의미와 목표를 설명하는 정보 팁이 있습니다."
+      },
+      "balance": {
+        "title": "좌/우 파워 밸런스",
+        "desc": "좌우 다리 파워 분배의 시각적 분석.",
+        "greenZone": "<strong>녹색 존</strong> = 균형. 바는 다리 사이에 파워가 어떻게 분배되는지 정확히 보여줍니다.",
+        "hint": "대부분의 사이클리스트는 한쪽이 약간 우세합니다. 시간에 따라 대칭을 개선하기 위해 이를 추적하세요."
+      },
+      "zones": {
+        "title": "존별 시간 분포",
+        "desc": "테크닉 품질에 따른 라이드 시간 분포:",
+        "optimal": "녹색 (최적)",
+        "optimalDesc": "모든 지표가 이상적인 범위",
+        "attention": "노란색 (주의)",
+        "attentionDesc": "하나 이상의 지표가 벗어남",
+        "problem": "빨간색 (문제)",
+        "problemDesc": "심각한 폼 저하",
+        "hint": "목표: 특히 긴 라이드에서 녹색 시간을 최대화하세요!"
+      },
+      "summary": {
+        "title": "활동 요약",
+        "desc": "선택한 기간의 훈련 볼륨 한눈에 보기:",
+        "rides": "총 라이드",
+        "hours": "시간",
+        "km": "킬로미터"
+      },
+      "weekly": {
+        "title": "주간 활동 차트",
+        "desc": "요일별 라이드 빈도를 확인하세요.",
+        "compareHint": "차트 아래에서 <strong>이번 주 대 지난 주</strong>를 비교하세요:",
+        "numRides": "라이드 수",
+        "totalHours": "총 시간",
+        "distanceClimb": "거리 및 상승",
+        "hint": "일관성이 핵심입니다 — 산발적인 큰 노력보다 규칙적인 훈련을 목표로 하세요."
+      },
+      "technique": {
+        "title": "테크닉 지표",
+        "desc": "파워 미터에서 나온 두 가지 핵심 효율 지표:",
+        "teTitle": "토크 효율 (TE)",
+        "teDesc": "전방으로 가는 파워의 비율. Wattbike 연구에 따르면 <strong>70-80%</strong>를 목표로 하세요 — 높다고 항상 좋은 것은 아닙니다.",
+        "psTitle": "페달링 부드러움 (PS)",
+        "psDesc": "페달 스트로크 전체에 걸쳐 파워가 얼마나 균일한지. <strong>≥20%</strong>를 목표로 하세요. 엘리트 사이클리스트는 25% 이상을 달성합니다."
+      },
+      "trends": {
+        "title": "시간별 트렌드",
+        "desc": "라이드별로 밸런스와 테크닉 개선을 추적하세요.",
+        "left": "<strong>왼쪽 차트:</strong> 라이드별 밸런스 트렌드",
+        "right": "<strong>오른쪽 차트:</strong> TE, PS, 비대칭 간 전환",
+        "hint": "포인트를 클릭하면 해당 라이드의 상세 분석으로 이동합니다."
+      },
+      "recentRides": {
+        "title": "최근 라이드 테이블",
+        "desc": "주요 지표를 한눈에 볼 수 있는 모든 동기화된 라이드:",
+        "date": "날짜, 시간, 점수",
+        "asymmetry": "비대칭 백분율",
+        "lrBreakdown": "TE와 PS의 좌/우 분석",
+        "zoneBars": "존 분포 바",
+        "hint": "행을 클릭하면 분별 상세 분석을 볼 수 있습니다!"
+      },
+      "nav": {
+        "title": "네비게이션",
+        "desc": "다른 섹션 탐색:",
+        "rides": "<strong>라이드</strong> — 필터와 검색이 있는 전체 기록",
+        "drills": "<strong>훈련</strong> — 가이드 훈련 운동",
+        "achievements": "<strong>업적</strong> — 마일스톤과 뱃지",
+        "settings": "<strong>설정</strong> — 기기, 임계값, 알림"
+      },
+      "complete": {
+        "title": "대시보드 완료!",
+        "desc": "대시보드 개요를 보셨습니다. 더 탐색할 준비가 되셨나요?",
+        "next": "<strong>다음</strong>을 클릭하여 전체 라이드 기록을 볼 수 있는 <strong>라이드</strong> 페이지에서 투어를 계속하세요.",
+        "done": "또는 완료를 클릭하여 여기서 투어를 종료하세요."
+      }
+    },
+    "rides": {
+      "welcome": {
+        "title": "라이드 기록",
+        "desc": "이 페이지는 필터링과 정렬이 있는 <strong>전체 라이드 기록</strong>을 보여줍니다.",
+        "hint": "주요 기능을 보여드리겠습니다."
+      },
+      "stats": {
+        "title": "기간 통계",
+        "desc": "선택한 기간의 빠른 통계:",
+        "ridesAndDuration": "총 라이드와 시간",
+        "scores": "평균 및 최고 점수",
+        "powerDistance": "파워 및 거리 합계",
+        "hint": "필터에 따라 업데이트됩니다."
+      },
+      "viewToggle": {
+        "title": "보기 전환",
+        "desc": "두 가지 보기 모드 간 전환:",
+        "table": "<strong>테이블 보기</strong> — 모든 지표가 있는 컴팩트 목록",
+        "card": "<strong>카드 보기</strong> — 존 바가 있는 시각적 카드",
+        "hint": "당신에게 맞는 것을 선택하세요!"
+      },
+      "rideRow": {
+        "title": "아무 라이드나 클릭",
+        "desc": "각 라이드에 표시되는 항목:",
+        "date": "날짜, 시간, 테크닉 점수",
+        "asymmetry": "파워 비대칭",
+        "lrMetrics": "TE와 PS의 좌/우 지표",
+        "zones": "존 분포",
+        "hint": "<strong>아무 라이드나 클릭</strong>하여 분별 차트가 있는 전체 상세 페이지를 보세요!"
+      },
+      "complete": {
+        "title": "라이드 페이지 완료!",
+        "desc": "여기서 모든 라이드를 탐색할 수 있습니다.",
+        "next": "<strong>다음</strong>을 클릭하여 심층 분석이 있는 <strong>라이드 상세 페이지</strong>를 보세요."
+      }
+    },
+    "rideDetail": {
+      "welcome": {
+        "title": "라이드 상세 분석",
+        "desc": "여기서 <strong>심층 분석</strong>이 이루어집니다.",
+        "hint": "모든 라이드는 분별 페달링 테크닉의 완전한 분석을 받습니다."
+      },
+      "heroStats": {
+        "title": "한눈에 보는 주요 지표",
+        "desc": "상단 행은 가장 중요한 라이드 지표를 보여줍니다:",
+        "score": "<strong>점수</strong> — 전체 테크닉 평점 (0-100)",
+        "asymmetry": "<strong>비대칭</strong> — 좌/우 파워 불균형",
+        "balance": "<strong>밸런스 바</strong> — 시각적 좌/우 분배",
+        "zones": "<strong>존 내 시간</strong> — 품질 분포"
+      },
+      "perfStrip": {
+        "title": "라이드 성능 데이터",
+        "desc": "상세 라이드 지표:",
+        "power": "<strong>파워</strong> — 평균, 최대, 정규화",
+        "hr": "<strong>심박수</strong> — 평균 및 최대",
+        "cadence": "<strong>케이던스</strong> — RPM 페달링 속도",
+        "elevation": "<strong>고도</strong> — 상승 및 하강",
+        "hint": "정보 아이콘을 탭하면 자세한 설명을 볼 수 있습니다!"
+      },
+      "techniqueCard": {
+        "title": "테크닉 분석",
+        "desc": "페달링 효율 지표:",
+        "te": "<strong>TE (토크 효율)</strong> — 전방으로 가는 파워. 70-80%를 목표로",
+        "ps": "<strong>PS (페달링 부드러움)</strong> — 스트로크 균일성. ≥20%를 목표로",
+        "lr": "<strong>좌/우 분석</strong> — 각 다리의 기여도 확인",
+        "hint": "큰 좌/우 차이는 근육 불균형이나 자전거 핏 문제를 나타냅니다."
+      },
+      "fatigueCard": {
+        "title": "피로도 분석",
+        "desc": "시작부터 끝까지 테크닉이 어떻게 변화했는지:",
+        "startEnd": "각 지표의 <strong>시작 → 끝</strong> 값",
+        "colors": "<strong>녹색</strong> = 개선, <strong>빨간색</strong> = 저하",
+        "badge": "<strong>뱃지</strong> — STRONG (하락 없음), MODERATE, 또는 WEAK",
+        "hint": "피로 상태에서 일관된 테크닉은 장거리 라이드 성능의 핵심입니다!"
+      },
+      "timeline": {
+        "title": "분별 타임라인",
+        "desc": "라이드 전반에 걸쳐 지표가 어떻게 변화했는지 추적:",
+        "tabs": "<strong>탭</strong> — 밸런스, TE, PS, 파워, 심박수 간 전환",
+        "points": "<strong>포인트</strong> — 각 점은 1분",
+        "hover": "<strong>호버</strong> — 어느 지점에서나 정확한 값 확인",
+        "hint": "패턴을 찾으세요 — 30분 후에 테크닉이 떨어지나요? 그것이 피로입니다!"
+      },
+      "complete": {
+        "title": "라이드 상세 완료!",
+        "desc": "이제 개별 라이드를 심층 분석하는 방법을 알게 되었습니다.",
+        "next": "<strong>다음</strong>을 클릭하여 테크닉 향상을 위한 가이드 운동인 <strong>훈련</strong> 페이지를 탐색하세요."
+      }
+    },
+    "drills": {
+      "welcome": {
+        "title": "훈련 드릴",
+        "desc": "<strong>훈련</strong>은 특정 기술을 향상시키기 위해 Karoo에서 수행하는 가이드 훈련 운동입니다.",
+        "hint": "결과가 여기에 동기화되어 진행 상황을 추적할 수 있습니다!"
+      },
+      "stats": {
+        "title": "훈련 통계",
+        "desc": "전체 훈련 성능:",
+        "avgTarget": "<strong>평균 목표</strong> — 목표 존에 얼마나 잘 도달했는지",
+        "sessions": "<strong>세션</strong> — 완료된 총 훈련 수",
+        "best": "<strong>최고</strong> — 최고 목표 내 시간 점수",
+        "completion": "<strong>완료율</strong> — 완료 대 포기 비율"
+      },
+      "drillRow": {
+        "title": "훈련 결과",
+        "desc": "각 훈련 세션에 표시되는 항목:",
+        "name": "<strong>훈련 이름</strong> — 어떤 유형의 운동인지",
+        "timeInTarget": "<strong>목표 내 시간</strong> — 목표에 도달한 시간의 비율",
+        "duration": "<strong>시간</strong> — 연습한 시간",
+        "status": "<strong>상태</strong> — 완료 또는 조기 중단",
+        "hint": "실력이 향상되면 80% 이상의 목표 내 시간을 목표로 하세요!"
+      },
+      "complete": {
+        "title": "훈련 페이지 완료!",
+        "desc": "훈련은 특정 기술을 의도적으로 연습하는 데 도움이 됩니다.",
+        "next": "<strong>다음</strong>을 클릭하여 잠금 해제할 수 있는 마일스톤인 <strong>업적</strong>을 보세요!"
+      }
+    },
+    "achievements": {
+      "welcome": {
+        "title": "업적 및 마일스톤",
+        "desc": "훈련하고 향상되면 업적을 잠금 해제하세요!",
+        "hint": "볼륨, 테크닉, 일관성에 걸친 진행 상황을 추적합니다."
+      },
+      "stats": {
+        "title": "진행 상황 개요",
+        "desc": "업적 진행 상황:",
+        "achieved": "<strong>달성</strong> — 잠금 해제된 마일스톤",
+        "remaining": "<strong>남은</strong> — 아직 잠금 해제할 것",
+        "progress": "<strong>진행률 %</strong> — 전체 완료율",
+        "last": "<strong>마지막</strong> — 가장 최근 잠금 해제 날짜"
+      },
+      "categories": {
+        "title": "업적 카테고리",
+        "desc": "업적은 여러 카테고리에 걸쳐 있습니다:",
+        "volume": "<strong>볼륨</strong> — 라이드 수 (10, 50, 100+)",
+        "balance": "<strong>밸런스</strong> — 좌/우 대칭 목표",
+        "technique": "<strong>테크닉</strong> — 점수 마일스톤 (80+, 90+)",
+        "consistency": "<strong>연속성</strong> — 훈련 연속 기록",
+        "training": "<strong>훈련</strong> — 훈련 완료",
+        "hint": "달성된 마일스톤은 녹색 체크 표시로 표시됩니다!"
+      },
+      "complete": {
+        "title": "업적 완료!",
+        "desc": "라이드와 훈련을 계속하여 더 많은 마일스톤을 잠금 해제하세요!",
+        "next": "<strong>다음</strong>을 클릭하여 마지막 목적지: <strong>설정</strong>으로 가세요."
+      }
+    },
+    "settings": {
+      "welcome": {
+        "title": "설정 및 환경설정",
+        "desc": "KPedal을 원하는 대로 정확하게 구성하세요.",
+        "hint": "설정은 웹과 Karoo 기기 간에 동기화됩니다!"
+      },
+      "devices": {
+        "title": "연결된 기기",
+        "desc": "연결된 모든 Karoo 기기 확인:",
+        "name": "기기 이름 및 상태",
+        "lastSync": "마지막 동기화 시간",
+        "requestSync": "<strong>동기화 요청</strong>으로 기기에서 데이터 가져오기",
+        "remove": "<strong>제거</strong>로 기기 연결 해제",
+        "hint": "여러 Karoo를 하나의 계정에 연결할 수 있습니다."
+      },
+      "thresholds": {
+        "title": "지표 임계값",
+        "desc": "당신에게 \"최적\"이 의미하는 것을 맞춤 설정:",
+        "balance": "<strong>밸런스 임계값</strong> — 어느 정도의 좌/우 불균형이 노란색/빨간색을 트리거하는지",
+        "teRange": "<strong>TE 최적 범위</strong> — 목표 토크 효율 존",
+        "psMin": "<strong>PS 최소값</strong> — 페달링 부드러움 하한",
+        "hint": "기본값은 사이클링 연구를 기반으로 하지만, 당신의 수준에 맞게 조정할 수 있습니다."
+      },
+      "alerts": {
+        "title": "라이드 중 알림",
+        "desc": "라이드 중 지표가 주의가 필요할 때 알림 받기:",
+        "metrics": "모니터링할 지표 선택",
+        "sensitivity": "민감도 설정 (심각만 또는 민감)",
+        "type": "알림 유형 선택 (진동, 소리, 배너)",
+        "cooldown": "알림 간 대기 시간 설정",
+        "hint": "알림은 라이드 중 Karoo에 직접 표시됩니다!"
+      },
+      "theme": {
+        "title": "외관",
+        "desc": "선호하는 색상 구성표 선택:",
+        "auto": "<strong>자동</strong> — 오전 7시 / 오후 7시에 전환",
+        "light": "<strong>라이트</strong> — 깨끗한 흰색 배경",
+        "dark": "<strong>다크</strong> — 눈에 편함"
+      },
+      "complete": {
+        "title": "모든 준비 완료!",
+        "desc": "KPedal 전체 투어를 완료했습니다!",
+        "toSeeData": "<strong>자신의 데이터를 보려면:</strong>",
+        "step1": "Karoo에 KPedal 다운로드",
+        "step2": "라이드 화면에 추가",
+        "step3": "라이드하세요!",
+        "step4": "데이터가 자동으로 동기화됩니다",
+        "download": "KPedal 다운로드 →"
+      }
+    }
+  },
+  "privacy": {
+    "title": "개인정보 처리방침",
+    "lastUpdated": "최종 업데이트: {date}",
+    "backToKpedal": "KPedal로 돌아가기",
+    "summary": {
+      "encrypted": "암호화 및 보안",
+      "encryptedDesc": "모든 데이터는 전송 및 저장 시 암호화됨",
+      "noLocation": "위치 추적 없음",
+      "noLocationDesc": "GPS나 경로 데이터를 수집하지 않습니다",
+      "neverSold": "절대 판매하지 않음",
+      "neverSoldDesc": "데이터는 절대 누구에게도 판매되지 않습니다",
+      "yourControl": "당신의 통제",
+      "yourControlDesc": "언제든지 데이터 삭제 가능"
+    },
+    "toc": {
+      "title": "목차",
+      "whatWeCollect": "수집하는 정보",
+      "whatWeDontCollect": "수집하지 않는 정보",
+      "howDataFlows": "데이터 흐름",
+      "storageSecurity": "저장 및 보안",
+      "yourRights": "귀하의 권리",
+      "thirdParties": "제3자 서비스",
+      "contact": "연락처"
+    },
+    "sections": {
+      "whatWeCollect": "1. 수집하는 정보",
+      "whatWeDontCollect": "2. 수집하지 않는 정보",
+      "howDataFlows": "3. 데이터 흐름",
+      "storageSecurity": "4. 저장 및 보안",
+      "yourRights": "5. 귀하의 권리",
+      "thirdParties": "6. 제3자 서비스",
+      "contact": "7. 연락처",
+      "policyChanges": "정책 변경"
+    },
+    "rights": {
+      "access": "접근",
+      "accessDesc": "웹 대시보드에서 언제든지 모든 데이터를 볼 수 있습니다. 저장하는 모든 지표를 볼 수 있습니다.",
+      "delete": "삭제",
+      "deleteDesc": "라이드 페이지에서 개별 라이드를 삭제할 수 있습니다. 전체 계정 삭제는 이메일로 문의하세요.",
+      "export": "내보내기",
+      "exportDesc": "연락하여 데이터의 전체 내보내기를 요청하세요.",
+      "optOut": "옵트아웃",
+      "optOutDesc": "로그인하지 않고 오프라인으로 KPedal을 사용하세요. 기기에서 데이터가 나가지 않습니다."
+    },
+    "contact": {
+      "text": "개인정보 질문, 데이터 요청 또는 계정 삭제의 경우:",
+      "email": "privacy@kpedal.com",
+      "github": "GitHub Issues"
+    },
+    "policyChanges": "이 정책에 중요한 변경을 할 때 위의 \"최종 업데이트\" 날짜를 업데이트합니다. 이 페이지를 주기적으로 검토할 것을 권장합니다.",
+    "footer": "Karoo를 위한 페달링 효율 분석",
+    "content": {
+      "accountData": {
+        "title": "계정 데이터",
+        "intro": "Google로 로그인하면 다음을 받아 저장합니다:",
+        "fields": {
+          "email": "이메일",
+          "emailPurpose": "계정 식별, 로그인",
+          "name": "이름",
+          "namePurpose": "대시보드에 표시",
+          "profilePicture": "프로필 사진 URL",
+          "profilePicturePurpose": "아바타로 표시",
+          "googleId": "Google ID",
+          "googleIdPurpose": "Google 계정을 KPedal에 연결"
+        },
+        "note": "귀하의 Google 비밀번호에 대한 액세스 권한이 없습니다. 인증은 OAuth 2.0을 사용합니다."
+      },
+      "pedalingMetrics": {
+        "title": "페달링 지표",
+        "intro": "Karoo 기기에서 동기화된 각 라이드에 대해:",
+        "fields": {
+          "timestamp": "타임스탬프",
+          "timestampPurpose": "라이드가 기록된 시점",
+          "duration": "시간",
+          "durationPurpose": "라이드가 얼마나 지속되었는지 (밀리초)",
+          "balance": "밸런스 좌 / 우",
+          "balancePurpose": "다리 간 파워 분배 (%)",
+          "te": "토크 효율 좌/우",
+          "tePurpose": "파워를 얼마나 효율적으로 적용하는지 (%)",
+          "ps": "페달링 부드러움 좌/우",
+          "psPurpose": "페달 스트로크가 얼마나 부드러운지 (%)",
+          "zones": "존 분포",
+          "zonesPurpose": "최적/주의/문제 존에서의 시간 (%)",
+          "score": "효율 점수",
+          "scorePurpose": "계산된 전체 점수 (0-100)"
+        }
+      },
+      "performanceMetrics": {
+        "title": "성능 지표",
+        "intro": "종합적인 라이드 분석을 위해 동기화된 추가 사이클링 데이터:",
+        "fields": {
+          "power": "파워 (평균/최대)",
+          "powerPurpose": "평균 및 최대 파워 출력(와트)",
+          "cadence": "케이던스 (평균)",
+          "cadencePurpose": "평균 페달링 케이던스(RPM)",
+          "hr": "심박수 (평균/최대)",
+          "hrPurpose": "평균 및 최대 심박수(BPM)",
+          "speed": "속도 (평균)",
+          "speedPurpose": "평균 속도(km/h)",
+          "distance": "거리",
+          "distancePurpose": "총 이동 거리(km)",
+          "elevation": "고도 (상승/하강)",
+          "elevationPurpose": "총 상승 및 하강 미터",
+          "grade": "경사 (평균/최대)",
+          "gradePurpose": "평균 및 최대 경사도 (%)",
+          "np": "정규화 파워",
+          "npPurpose": "강도 가중 파워(와트)",
+          "energy": "에너지",
+          "energyPurpose": "총 에너지 출력(킬로줄)"
+        },
+        "note": "이러한 지표는 페달링 효율 분석에 맥락을 제공합니다. Karoo의 연결된 센서(파워 미터, 심박 모니터, GPS)에서 읽습니다."
+      },
+      "snapshots": {
+        "title": "분별 스냅샷",
+        "intro": "상세 타임라인 차트를 위해 각 라이드 중 분당 평균을 저장합니다:",
+        "fields": {
+          "minuteIndex": "분 인덱스",
+          "minuteIndexPurpose": "라이드의 몇 분인지 (0, 1, 2...)",
+          "metricsAvg": "밸런스 좌/우, TE 좌/우, PS 좌/우",
+          "metricsAvgPurpose": "해당 분의 평균 페달링 지표",
+          "perfAvg": "파워, 케이던스, 심박수",
+          "perfAvgPurpose": "해당 분의 평균 성능 지표",
+          "zoneStatus": "존 상태",
+          "zoneStatusPurpose": "해당 분의 주요 존 (최적/주의/문제)"
+        },
+        "note": "스냅샷은 라이드 상세에서 타임라인 차트를 가능하게 하여 라이드 전반에 걸쳐 테크닉이 어떻게 진화했는지 보여줍니다."
+      },
+      "deviceData": {
+        "title": "기기 데이터",
+        "fields": {
+          "deviceId": "기기 ID",
+          "deviceIdPurpose": "Karoo의 고유 식별자",
+          "deviceName": "기기 이름",
+          "deviceNamePurpose": "예: \"Karoo 3\"",
+          "deviceType": "기기 유형",
+          "deviceTypePurpose": "예: \"karoo\"",
+          "lastSync": "마지막 동기화 시간",
+          "lastSyncPurpose": "데이터가 마지막으로 동기화된 시점"
+        }
+      },
+      "userSettings": {
+        "title": "사용자 설정 (로그인 시 동기화)",
+        "intro": "로그인하면 앱 설정이 Karoo 기기와 웹 대시보드 간에 동기화됩니다:",
+        "fields": {
+          "thresholds": "임계값 설정",
+          "thresholdsPurpose": "밸런스 임계값, TE 최적 범위, PS 최소값",
+          "alertPrefs": "알림 환경설정",
+          "alertPrefsPurpose": "어떤 지표가 알림을 트리거하는지, 진동/소리/시각 옵션",
+          "cooldowns": "알림 대기 시간",
+          "cooldownsPurpose": "반복 알림 간 시간 (초)",
+          "screenWake": "화면 켜기",
+          "screenWakePurpose": "알림이 Karoo 화면을 깨우는지 여부",
+          "bgMode": "백그라운드 모드",
+          "bgModePurpose": "데이터 필드가 숨겨져 있어도 데이터 수집",
+          "autoSync": "자동 동기화",
+          "autoSyncPurpose": "완료 후 자동으로 라이드 동기화"
+        },
+        "note": "설정 동기화를 통해 웹에서 임계값을 구성하면 Karoo에 자동으로 적용됩니다. 로그인하지 않으면 설정은 로컬에만 유지됩니다."
+      },
+      "drillResults": {
+        "title": "훈련 결과 (로그인 시 동기화)",
+        "intro": "로그인하면 훈련 훈련 데이터가 동기화됩니다:",
+        "fields": {
+          "drillId": "훈련 ID 및 이름",
+          "drillIdPurpose": "어떤 훈련이 완료되었는지",
+          "drillTimestamp": "타임스탬프 및 시간",
+          "drillTimestampPurpose": "훈련이 언제 수행되었고 얼마나 걸렸는지",
+          "drillScore": "점수",
+          "drillScorePurpose": "전체 성능 점수 (0-100)",
+          "timeInTarget": "목표 내 시간",
+          "timeInTargetPurpose": "목표 지표를 유지한 시간",
+          "phaseScores": "단계 점수",
+          "phaseScoresPurpose": "각 훈련 단계의 성능"
+        }
+      },
+      "achievements": {
+        "title": "업적 (로그인 시 동기화)",
+        "intro": "로그인하면 잠금 해제된 업적이 동기화됩니다:",
+        "fields": {
+          "achievementId": "업적 ID",
+          "achievementIdPurpose": "어떤 업적이 잠금 해제되었는지",
+          "unlockedAt": "잠금 해제 시점",
+          "unlockedAtPurpose": "업적을 획득한 시점"
+        }
+      },
+      "localOnly": {
+        "title": "Karoo에만 저장되는 데이터 (동기화되지 않음)",
+        "intro": "다음 데이터는 Karoo 기기에 로컬로 저장되며 서버로 전송되지 않습니다:",
+        "fields": {
+          "ratings": "라이드 평점",
+          "ratingsPurpose": "라이드에 부여하는 1-5 별점",
+          "notes": "라이드 메모",
+          "notesPurpose": "라이드에 추가하는 개인 메모",
+          "customDrills": "맞춤 훈련",
+          "customDrillsPurpose": "직접 만드는 훈련 드릴",
+          "onboarding": "온보딩 상태",
+          "onboardingPurpose": "앱 튜토리얼을 완료했는지 여부"
+        },
+        "note": "이 데이터는 기기에 남습니다. 앱을 제거하면 이 데이터가 삭제됩니다."
+      },
+      "dontCollect": {
+        "intro": "분석을 위해 성능 지표를 수집하지만 위치 및 추적 데이터는 구체적으로 피합니다:",
+        "items": {
+          "gps": "GPS / 위치",
+          "route": "경로 / 지도 데이터",
+          "temperature": "온도",
+          "strava": "Strava / 기타 플랫폼",
+          "rideTitles": "라이드 제목 / 이름",
+          "photos": "사진 / 미디어"
+        },
+        "note": "라이드를 특정 위치로 추적할 수 없습니다. 어디서 라이드했는지가 아닌 집계된 성능 지표만 저장합니다."
+      },
+      "usedNotStored": {
+        "title": "사용되지만 저장되지 않는 데이터",
+        "intro": "다음 데이터는 표시 목적으로 실시간으로 읽지만 기기나 클라우드에 저장되지 않습니다:",
+        "fields": {
+          "smoothed": "3초/10초 평활화 밸런스",
+          "smoothedPurpose": "실시간 표시를 위한 실시간 트렌드 지표",
+          "rawStream": "원시 센서 스트림 (~20Hz)",
+          "rawStreamPurpose": "개별 데이터 포인트는 처리 후 폐기; 분당 평균만 저장됨"
+        }
+      },
+      "permissions": {
+        "title": "Android 권한",
+        "intro": "KPedal 앱은 Karoo에서 다음 권한을 요청합니다:",
+        "fields": {
+          "foreground": "포그라운드 서비스",
+          "foregroundPurpose": "라이드 중 데이터 수집을 위해 백그라운드에서 실행",
+          "notifications": "알림",
+          "notificationsPurpose": "페달링 테크닉에 주의가 필요할 때 알림 표시",
+          "boot": "부팅 완료",
+          "bootPurpose": "Karoo 전원이 켜지면 자동 시작"
+        },
+        "note": "인터넷, 위치, 카메라, 마이크 또는 저장소 권한은 요청되지 않습니다."
+      },
+      "dataFlow": {
+        "step1": {
+          "title": "파워 미터 페달",
+          "desc": "페달이 ANT+ Cycling Dynamics 프로토콜을 통해 밸런스, TE, PS를 Karoo로 전송합니다."
+        },
+        "step2": {
+          "title": "Karoo의 KPedal 앱",
+          "desc": "앱은 ~20Hz로 로컬에서 실시간 데이터를 처리하고, 평균을 계산하고, 라이드 요약을 로컬 데이터베이스에 저장합니다. 최대 100개의 라이드가 기기에 보관되며; 오래된 라이드는 자동 삭제됩니다."
+        },
+        "step3": {
+          "title": "클라우드 동기화 (선택)",
+          "desc": "로그인하면 라이드 요약과 설정이 HTTPS를 통해 KPedal 클라우드에 동기화됩니다. 집계된 데이터만 전송되며 — 원시 센서 스트림은 전송되지 않습니다. 웹에서의 설정 변경은 자동으로 Karoo에 적용됩니다."
+        },
+        "step4": {
+          "title": "웹 대시보드",
+          "desc": "app.kpedal.com에서 라이드 기록, 트렌드, 분석을 확인하세요. 데이터는 인증된 계정에 대해서만 검색됩니다."
+        },
+        "offlineTitle": "오프라인 모드",
+        "offlineDesc": "KPedal 앱은 완전히 오프라인으로 작동합니다. 로그인하거나 동기화하지 않고도 모든 기능을 사용할 수 있습니다. 데이터는 기기에 남습니다."
+      },
+      "infrastructure": {
+        "title": "인프라",
+        "workers": "Cloudflare Workers",
+        "workersUse": "API 처리 (서버리스). 요청 로그는 ~7일간 저장됩니다.",
+        "d1": "Cloudflare D1",
+        "d1Use": "사용자 및 라이드를 위한 SQLite 데이터베이스",
+        "kv": "Cloudflare KV",
+        "kvUse": "세션 토큰 (7일 후 자동 만료)",
+        "pages": "Cloudflare Pages",
+        "pagesUse": "정적 웹 대시보드 호스팅"
+      },
+      "security": {
+        "title": "보안 조치",
+        "https": "HTTPS 전면 적용",
+        "httpsDesc": "모든 연결은 TLS 1.3 암호화를 사용합니다",
+        "jwt": "JWT 인증",
+        "jwtDesc": "액세스용 15분, 리프레시용 7일 만료의 서명된 토큰",
+        "rateLimit": "요청 제한",
+        "rateLimitDesc": "인증: 10 req/분, API: 100 req/분, 동기화: 30 req/분. 카운팅에 IP 주소를 사용하며 60초 후 자동 삭제됩니다.",
+        "validation": "입력 검증",
+        "validationDesc": "모든 데이터는 저장 전 검증 및 정제됩니다",
+        "csrf": "CSRF 보호",
+        "csrfDesc": "OAuth 상태 검증으로 사이트 간 공격을 방지합니다"
+      },
+      "retention": {
+        "title": "데이터 보관",
+        "cloudTitle": "클라우드 저장 (app.kpedal.com)",
+        "localTitle": "로컬 저장 (Karoo 기기)",
+        "cloud": {
+          "rideData": "라이드 데이터",
+          "rideDataPeriod": "삭제할 때까지",
+          "drillResults": "훈련 결과",
+          "drillResultsPeriod": "삭제할 때까지",
+          "achievements": "업적",
+          "achievementsPeriod": "계정 삭제 시까지",
+          "userSettings": "사용자 설정",
+          "userSettingsPeriod": "계정 삭제 시까지",
+          "accountData": "계정 데이터",
+          "accountDataPeriod": "계정 삭제 시까지",
+          "accessTokens": "액세스 토큰",
+          "accessTokensPeriod": "15분",
+          "refreshTokens": "리프레시 토큰",
+          "refreshTokensPeriod": "7일",
+          "oauthState": "OAuth 상태",
+          "oauthStatePeriod": "10분"
+        },
+        "local": {
+          "rideHistory": "라이드 기록",
+          "rideHistoryPeriod": "최대 100개 라이드 (오래된 것 자동 삭제)",
+          "drillResults": "훈련 결과",
+          "drillResultsPeriod": "앱 제거 시까지 (로그인 시 클라우드에도 동기화)",
+          "achievements": "업적",
+          "achievementsPeriod": "앱 제거 시까지 (로그인 시 클라우드에도 동기화)",
+          "customDrills": "맞춤 훈련",
+          "customDrillsPeriod": "삭제할 때까지 (로컬만)",
+          "settings": "설정",
+          "settingsPeriod": "앱 제거 시까지 (로그인 시 클라우드에 동기화)"
+        }
+      },
+      "thirdParties": {
+        "google": {
+          "title": "Google OAuth",
+          "desc": "로그인에만 사용됩니다. 최소 범위를 요청합니다: openid, email, profile.",
+          "link": "Google 개인정보 처리방침 →"
+        },
+        "cloudflare": {
+          "title": "Cloudflare",
+          "desc": "인프라 제공업체. API, 데이터베이스, 웹 호스팅을 처리합니다.",
+          "link": "Cloudflare 개인정보 처리방침 →"
+        },
+        "notUsedTitle": "사용하지 않는 것",
+        "notUsedIntro": "KPedal은 다음을 사용하지 않습니다:",
+        "notUsed": [
+          "Google Analytics 또는 기타 분석 서비스",
+          "Facebook Pixel 또는 기타 광고 추적기",
+          "쿠키 (대신 localStorage 사용)",
+          "충돌 보고 서비스 (Firebase Crashlytics, Sentry 등 없음)",
+          "제3자 데이터 브로커"
+        ],
+        "browserStorageTitle": "브라우저 저장소",
+        "browserStorageIntro": "KPedal 웹 대시보드는 브라우저의 로컬/세션 저장소에 다음을 저장합니다:",
+        "browserStorage": {
+          "access": "kpedal_auth_access",
+          "accessPurpose": "sessionStorage — JWT 액세스 토큰 (탭 닫을 때 삭제)",
+          "refresh": "kpedal_auth_refresh",
+          "refreshPurpose": "localStorage — JWT 리프레시 토큰 (최대 7일 유지)",
+          "theme": "kpedal_theme",
+          "themePurpose": "localStorage — 테마 환경설정 (자동/라이트/다크)"
+        },
+        "browserStorageNote": "로그아웃하거나 브라우저 저장소를 지워 언제든지 이 데이터를 삭제할 수 있습니다. 쿠키는 사용되지 않습니다."
+      }
+    }
+  },
+  "landing": {
+    "hero": {
+      "eyebrow": "Karoo 확장 프로그램",
+      "version": "v1.3.0",
+      "titleLine1": "페달링 효율을",
+      "titleLine2": "실시간으로 확인하세요",
+      "subtitle": "밸런스, 토크 효율, 페달링 부드러움 — 실시간 알림과 가이드 훈련과 함께 Karoo에 표시됩니다.",
+      "downloadFree": "무료 다운로드",
+      "tryDemo": "데모 체험",
+      "free": "무료",
+      "openSource": "오픈 소스",
+      "noAccountRequired": "계정 불필요"
+    },
+    "dataFields": {
+      "title": "Karoo에서 확인하세요",
+      "subtitle": "5가지 데이터 필드 레이아웃. 훈련에 맞는 뷰를 선택하세요.",
+      "tabs": {
+        "quickGlance": "빠른 보기",
+        "balance": "밸런스",
+        "efficiency": "효율",
+        "fullView": "전체 보기",
+        "trend": "트렌드"
+      },
+      "quickGlance": {
+        "name": "빠른 보기",
+        "desc": "밸런스 바가 있는 상태 표시기. 최적일 때 체크 표시 또는 주의가 필요한 지표를 나열합니다."
+      },
+      "powerBalance": {
+        "name": "파워 밸런스",
+        "desc": "시각적 진행 바가 있는 큰 좌/우 밸런스 숫자. 밸런스 중심 훈련에 완벽합니다."
+      },
+      "efficiency": {
+        "name": "효율",
+        "desc": "좌/우 분할 및 평균이 있는 토크 효율과 페달링 부드러움."
+      },
+      "fullOverview": {
+        "name": "전체 개요",
+        "desc": "하나의 컴팩트한 뷰에 세 가지 지표 모두. 한눈에 완전한 페달링 그림."
+      },
+      "balanceTrend": {
+        "name": "밸런스 트렌드",
+        "desc": "현재 + 3초 평활화 + 10초 평활화 밸런스. 트렌드가 발전하는 것을 확인하세요."
+      },
+      "karoo": {
+        "optimal": "최적",
+        "balance": "밸런스",
+        "left": "좌",
+        "right": "우",
+        "torqueEff": "토크 효율",
+        "smoothness": "부드러움",
+        "te": "TE",
+        "ps": "PS",
+        "ok": "OK",
+        "now": "현재",
+        "avg3s": "3초 평균",
+        "avg10s": "10초 평균"
+      }
+    },
+    "comparison": {
+      "title": "차이점",
+      "subtitle": "추측을 멈추세요. 개선을 시작하세요.",
+      "without": "KPedal 없이",
+      "with": "KPedal과 함께",
+      "items": {
+        "before1": "파워 숫자는 있지만 테크닉 인사이트 없음",
+        "after1": "밸런스, TE, PS 실시간 확인",
+        "before2": "부상으로 불균형 발견",
+        "after2": "문제가 되기 전에 알림",
+        "before3": "개선할 구조화된 방법 없음",
+        "after3": "점수가 있는 10개의 가이드 훈련",
+        "before4": "데이터가 하나의 기기에 갇힘",
+        "after4": "웹 대시보드와 클라우드 동기화"
+      }
+    },
+    "metrics": {
+      "title": "측정하는 것",
+      "subtitle": "세 가지 지표. 연구 기반 임계값.",
+      "balance": {
+        "title": "파워 밸런스",
+        "range": "48-52% 최적",
+        "desc": "좌/우 파워 분배. 프로 사이클리스트는 2% 이내를 유지합니다. 5% 이상의 불균형은 과사용 부상 위험을 높이고 보상 패턴을 통해 에너지를 낭비합니다."
+      },
+      "te": {
+        "title": "토크 효율",
+        "range": "70-80% 최적 구간",
+        "desc": "스트로크의 효과적인 부분 동안 적용되는 파워의 비율. Wattbike 연구 기반 — <strong>높다고 더 좋은 것은 아닙니다</strong>. 80% 이상은 실제로 총 파워 출력을 줄일 수 있습니다."
+      },
+      "ps": {
+        "title": "페달링 부드러움",
+        "range": "≥20% 목표",
+        "desc": "전체 페달 스트로크에 걸쳐 파워가 얼마나 균일하게 분배되는지. \"데드 스팟\"을 제거합니다. 엘리트 사이클리스트는 25-35%를 달성합니다 — 개선하기 가장 어려운 지표입니다."
+      },
+      "zones": {
+        "optimal": "최적",
+        "attention": "주의",
+        "problem": "문제"
+      }
+    },
+    "drills": {
+      "title": "10개의 가이드 훈련",
+      "subtitle": "30초 운동부터 15분 워크아웃까지. 각각 0-100%로 점수화됩니다.",
+      "tabs": {
+        "focus": "집중",
+        "challenge": "챌린지",
+        "workout": "워크아웃"
+      },
+      "target": "목표",
+      "levels": {
+        "beginner": "초급",
+        "intermediate": "중급",
+        "advanced": "고급"
+      },
+      "featured": "추천",
+      "featuredTitle": "페달링 마스터리",
+      "featuredDesc": "15분, 10단계. 완전한 테크닉 커버리지. 주 1-2회 권장.",
+      "items": {
+        "leftFocus": {
+          "name": "왼쪽 다리 집중",
+          "duration": "30초",
+          "target": "밸런스 <48%",
+          "desc": "왼쪽 다리를 강조하여 단일 다리 힘 인식을 구축하세요."
+        },
+        "rightFocus": {
+          "name": "오른쪽 다리 집중",
+          "duration": "30초",
+          "target": "밸런스 >52%",
+          "desc": "집중 연습으로 약한 다리를 식별하고 강화하세요."
+        },
+        "smoothCircles": {
+          "name": "부드러운 원",
+          "duration": "45초",
+          "target": "PS ≥22%",
+          "desc": "부드러운 테크닉을 통해 페달 스트로크의 데드 스팟을 제거하세요."
+        },
+        "powerTransfer": {
+          "name": "파워 전달",
+          "duration": "60초",
+          "target": "TE 70-80%",
+          "desc": "효율을 희생하지 않고 파워 출력을 최대화하세요."
+        },
+        "balanceChallenge": {
+          "name": "밸런스 챌린지",
+          "duration": "15초 유지",
+          "target": "48-52%",
+          "desc": "15초 동안 완벽한 50/50 밸런스를 유지하세요. 대칭과 컨트롤을 테스트합니다."
+        },
+        "smoothnessTarget": {
+          "name": "부드러움 목표",
+          "duration": "20초 유지",
+          "target": "PS ≥25%",
+          "desc": "엘리트 수준의 페달링 부드러움. 가장 까다로운 테크닉 챌린지."
+        },
+        "highCadenceSmooth": {
+          "name": "높은 케이던스 부드러움",
+          "duration": "30초",
+          "target": "PS ≥20% @ 100+ rpm",
+          "desc": "높은 케이던스에서 부드러운 폼을 유지하세요. 궁극의 협응 테스트."
+        },
+        "balanceRecovery": {
+          "name": "밸런스 회복",
+          "duration": "5분",
+          "target": "3단계",
+          "desc": "왼쪽 집중 → 중앙 → 오른쪽 집중을 교대로. 시간이 지남에 따라 불균형을 교정하는 데 도움이 됩니다."
+        },
+        "efficiencyBuilder": {
+          "name": "효율 빌더",
+          "duration": "10분",
+          "target": "6단계",
+          "desc": "순차적 블록: 밸런스 → 부드러움 → TE. 완전한 테크닉 구축."
+        },
+        "pedalingMastery": {
+          "name": "페달링 마스터리",
+          "duration": "15분",
+          "target": "10단계",
+          "desc": "페달링 테크닉의 모든 측면을 다루는 종합 10단계 워크아웃."
+        }
+      }
+    },
+    "alerts": {
+      "title": "실시간 알림",
+      "subtitle": "테크닉이 벗어날 때 라이드 중 교정 받기",
+      "demo": {
+        "title": "밸런스 알림",
+        "detail": "오른쪽 다리 우세: 56%"
+      },
+      "features": {
+        "vibration": {
+          "title": "진동 및 소리",
+          "desc": "햅틱 피드백과 오디오 비프. 각각 켜기/끄기 전환."
+        },
+        "screenWake": {
+          "title": "화면 켜기",
+          "desc": "알림이 트리거되면 Karoo 디스플레이 자동 켜기."
+        },
+        "cooldown": {
+          "title": "스마트 대기 시간",
+          "desc": "알림 간 15초에서 2분. 유용하지만 짜증나지 않게."
+        },
+        "thresholds": {
+          "title": "지표별 임계값",
+          "desc": "밸런스, TE, PS에 대한 별도 설정."
+        }
+      }
+    },
+    "analytics": {
+      "title": "분석 및 웹 대시보드",
+      "subtitle": "시간에 따른 개선을 추적하세요. 숫자가 아닌 트렌드를 확인하세요.",
+      "preview": {
+        "greeting": "안녕하세요, Yuri!",
+        "recentRides": "최근 라이드",
+        "technique": "테크닉",
+        "avgSuffix": "평균",
+        "morningRide": "아침 라이드",
+        "eveningSpin": "저녁 스핀",
+        "longRide": "긴 라이드",
+        "daysAgo": "일 전"
+      },
+      "features": {
+        "periods": "7일, 14일, 30일, 60일 분석",
+        "history": "필터가 있는 전체 라이드 기록",
+        "multiDevice": "멀티 기기 동기화",
+        "openSource": "GitHub에 오픈 소스"
+      }
+    },
+    "motivation": {
+      "title": "동기 부여 유지",
+      "subtitle": "업적과 주간 챌린지로 진행 상황 추적",
+      "achievements": "잠금 해제할 업적",
+      "challenges": "주간 챌린지",
+      "achievementsLabel": "업적",
+      "challengesLabel": "챌린지",
+      "examples": {
+        "firstRide": "첫 라이드",
+        "hundredRides": "100개 라이드",
+        "perfectBalance": "10분 완벽 밸런스",
+        "thirtyDayStreak": "30일 연속",
+        "balancedRider": "밸런스 라이더: 3개 라이드에서 48-52%",
+        "zoneMaster": "존 마스터: 최적 존에서 60% 이상"
+      }
+    },
+    "works": {
+      "title": "어디서나 작동",
+      "subtitle": "백그라운드 수집. 자동 동기화. 모든 기기에 걸친 데이터.",
+      "background": {
+        "title": "백그라운드 모드",
+        "desc": "데이터 필드가 보이지 않아도 모든 라이드의 데이터를 수집합니다. 부팅 시 자동 시작. 멈추면 저장."
+      },
+      "sync": {
+        "title": "클라우드 동기화",
+        "desc": "완료 후 라이드 동기화. link.kpedal.com에서 간단한 코드로 기기 연결 — Karoo에서 비밀번호 불필요."
+      },
+      "multiDevice": {
+        "title": "멀티 기기",
+        "desc": "여러 Karoo 연결. 모든 라이드가 하나의 계정으로. 앱과 웹 간 설정 양방향 동기화."
+      }
+    },
+    "requirements": {
+      "title": "필요한 것",
+      "subtitle": "Karoo 2 또는 3 + 양측 파워 페달",
+      "karoo": {
+        "title": "Hammerhead Karoo",
+        "desc": "Karoo 2 또는 Karoo 3. KPedal은 네이티브 Karoo SDK를 사용합니다 — 다른 컴퓨터에서는 사용할 수 없습니다."
+      },
+      "pedals": {
+        "title": "듀얼 파워 페달",
+        "desc": "밸런스, TE, PS를 위한 ANT+ Cycling Dynamics를 갖춘 좌 + 우 파워 측정."
+      },
+      "fullSupport": {
+        "title": "완전 지원",
+        "desc": "밸런스 + TE + PS"
+      },
+      "balanceOnly": {
+        "title": "밸런스만",
+        "desc": "좌/우 파워는 있지만 TE/PS 없음"
+      },
+      "notCompatible": {
+        "title": "호환되지 않음",
+        "desc": "양측 데이터 없음"
+      },
+      "pedalsList": {
+        "singleSided": "단측 파워미터",
+        "trainerPower": "트레이너 파워"
+      }
+    },
+    "faq": {
+      "title": "자주 묻는 질문",
+      "q1": {
+        "q": "어떤 파워 미터 페달이 호환되나요?",
+        "a": "<strong>완전 지원 (밸런스 + TE + PS):</strong> Garmin Rally, Favero Assioma, SRM X-Power, PowerTap P2.<br><strong>밸런스만:</strong> Wahoo POWRLINK, Stages LR, 4iiii Precision, Rotor INpower.<br>ANT+ Cycling Dynamics를 전송하는 모든 페달이 작동합니다."
+      },
+      "q2": {
+        "q": "Karoo에 KPedal을 어떻게 설치하나요?",
+        "a": "<strong>옵션 1:</strong> GitHub Releases에서 APK 다운로드 → USB로 전송 → Karoo에서 파일 관리자 열기 → 탭하여 설치.<br><strong>옵션 2:</strong> Karoo 브라우저에서 직접 GitHub 릴리스 링크를 열고 다운로드.<br><strong>옵션 3:</strong> ADB 사용: <code>adb install kpedal.apk</code>"
+      },
+      "q3": {
+        "q": "라이드 화면에 KPedal 데이터 필드를 추가해야 하나요?",
+        "a": "<strong>아니요.</strong> 백그라운드 모드가 활성화되면 KPedal은 데이터 필드를 하나도 추가하지 않아도 모든 라이드의 지표를 자동으로 수집합니다. 데이터 필드는 선택 사항이며 라이드 중 지표를 실시간으로 보기 위한 것입니다. 전체 라이드 기록은 관계없이 저장됩니다."
+      },
+      "q4": {
+        "q": "\"좋은\" 파워 밸런스란 무엇인가요?",
+        "a": "<strong>48-52%</strong> (50/50에서 ±2%)가 최적입니다. 대부분의 프로 사이클리스트는 1-3% 자연 비대칭으로 라이드합니다. 완벽한 50/50에 집착하지 마세요 — 거의 불가능하고 필요하지도 않습니다. 완벽을 쫓기보다 <strong>범위 내 일관성</strong>에 집중하세요."
+      },
+      "q5": {
+        "q": "왜 70-80% 토크 효율이 최적이고 더 높지 않나요?",
+        "a": "<strong>Wattbike 연구</strong>에 기반: 80% TE 이상에서는 업스트로크에서 과도하게 당기고 있을 가능성이 높습니다. 이것은 에너지를 낭비하고 실제로 총 파워 출력을 줄일 수 있습니다. 70-80% 범위는 회복 단계에서 자신과 싸우지 않고 페달 스트로크 전체에 효율적으로 힘을 가하고 있음을 나타냅니다."
+      },
+      "q6": {
+        "q": "페달링 부드러움은 정확히 무엇을 측정하나요?",
+        "a": "<strong>공식:</strong> PS = (평균 파워 ÷ 피크 파워) × 100.<br>높은 PS는 페달 스트로크 전체에 걸쳐 더 일관된 파워 적용을 의미합니다. <strong>20% 이상이 좋음</strong> 대부분의 사이클리스트에게. 스프린터는 일반적으로 더 낮은 PS (폭발적이고 펀치 있는 파워)를 가지며, 지구력 라이더는 더 높은 값을 향합니다."
+      },
+      "q7": {
+        "q": "라이드 점수는 어떻게 계산되나요?",
+        "a": "<strong>가중 공식:</strong> 밸런스 (40%) + TE (35%) + PS (25%).<br>각 지표는 최적 존에서 보낸 시간을 기준으로 0-100으로 점수화됩니다.<br><strong>85+</strong> = 훌륭한 테크닉<br><strong>70-84</strong> = 좋음, 개선할 사소한 부분 있음<br><strong>70 미만</strong> = 상당한 개선 여지"
+      },
+      "q8": {
+        "q": "가이드 훈련은 어떻게 작동하나요?",
+        "a": "훈련은 화면에 표시되는 실시간 목표가 있는 구조화된 운동입니다. 예: \"단일 다리 집중\"은 30초 동안 한쪽 다리에서 55-60% 밸런스를 유지하도록 요청합니다. KPedal은 <strong>목표 내 시간</strong>을 추적하고 끝에 점수를 제공합니다. 워밍업, 회복 라이드 또는 전용 테크닉 세션에 완벽합니다."
+      },
+      "q9": {
+        "q": "나만의 맞춤 훈련을 만들 수 있나요?",
+        "a": "<strong>네.</strong> 맞춤 훈련으로 자신만의 단계, 목표, 시간을 정의할 수 있습니다. 특정 약점에 맞춤화된 훈련을 만드세요 — 45초 높은 TE 집중 후 30초 밸런스 작업 같은 것. 맞춤 훈련은 로컬에 저장되고 클라우드에 동기화됩니다."
+      },
+      "q10": {
+        "q": "라이드 중 알림은 무엇이 트리거하나요?",
+        "a": "<strong>구성 가능한 임계값:</strong><br>• 밸런스: 비대칭이 설정된 한계를 초과 (기본 5%)<br>• TE: 최소값 미만으로 떨어짐 (기본 60%)<br>• PS: 최소값 미만으로 떨어짐 (기본 15%)<br>알림은 <strong>진동 + 비프</strong>를 사용합니다. 대기 시간 (15초-2분)이 스팸을 방지합니다. 각 지표를 독립적으로 활성화/비활성화할 수 있습니다."
+      },
+      "q11": {
+        "q": "KPedal은 인터넷 연결 없이 작동하나요?",
+        "a": "<strong>100% 네.</strong> 모든 핵심 기능 — 데이터 수집, 훈련, 알림, 라이드 기록 — 은 완전히 오프라인으로 작동합니다. 클라우드 동기화는 선택 사항이며 활성화할 때만 활성화됩니다. 데이터는 항상 먼저 Karoo에 로컬로 저장됩니다. 온라인으로 돌아오면 동기화가 자동으로 발생합니다."
+      },
+      "q12": {
+        "q": "KPedal이 Karoo 배터리를 소모하나요?",
+        "a": "<strong>최소 영향: 시간당 ~1-2% 추가</strong> 활성 라이드 중. KPedal은 라이드 중에만 데이터 수집을 실행합니다. 라이드 사이에는 라이드 시작을 기다리는 작은 리스너만 있습니다 — 무시할 수 있는 전력 소비. 효율을 위해 대폭 최적화되었습니다."
+      },
+      "q13": {
+        "q": "여러 Karoo 기기 간에 데이터를 동기화할 수 있나요?",
+        "a": "<strong>네.</strong> 여러 Karoo를 계정에 연결하세요. 설정이 자동으로 동기화됩니다. 모든 기기의 모든 라이드가 하나의 통합 대시보드에 나타납니다. 백업 Karoo, 레이스 및 훈련 기기가 있거나 새 유닛으로 업그레이드하는 경우에 완벽합니다."
+      },
+      "q14": {
+        "q": "업적 시스템은 어떻게 작동하나요?",
+        "a": "마일스톤에 도달하면 업적이 잠금 해제됩니다: 라이드 수, 총 시간, 연속 기록, 테크닉 개선. 예: \"철 밸런스\" (<2% 비대칭으로 10개 라이드), \"센추리 클럽\" (100개 라이드 추적). 업적은 클라우드에 동기화되고 웹 대시보드에 표시됩니다."
+      },
+      "q15": {
+        "q": "Garmin, Wahoo 또는 다른 사이클 컴퓨터에서 KPedal을 사용할 수 있나요?",
+        "a": "<strong>아니요.</strong> KPedal은 공식 karoo-ext SDK를 사용하여 Hammerhead Karoo 전용으로 구축되었습니다. ANT+ Cycling Dynamics 데이터, 네이티브 알림 시스템, 라이드 상태 모니터링에 액세스합니다 — 다른 플랫폼에서는 사용할 수 없는 깊은 통합입니다."
+      },
+      "q16": {
+        "q": "내 데이터는 비공개이고 안전한가요?",
+        "a": "<strong>네.</strong> 클라우드 동기화를 활성화하지 않으면 데이터가 Karoo에 남습니다. 클라우드는 <strong>Google 로그인</strong>을 사용합니다 — 비밀번호를 보거나 저장하지 않습니다. 추적 픽셀, 광고, 데이터 판매 없음. 전체 프로젝트가 <strong>오픈 소스</strong>입니다 — GitHub에서 직접 코드를 감사하세요."
+      },
+      "q17": {
+        "q": "파워 출력에 따라 밸런스가 변하는 이유는 무엇인가요?",
+        "a": "이것은 정상입니다. 낮은 파워에서 약간의 테크닉 변화가 증폭됩니다. 높은 파워에서는 근육을 더 균일하게 사용하는 경향이 있습니다. 많은 사이클리스트가 지구력 페이스 대 역치에서 2-3% 더 많은 비대칭을 봅니다. KPedal은 이를 추적하여 패턴을 식별하고 약점을 작업할 수 있습니다."
+      },
+      "q18": {
+        "q": "테크닉 훈련을 얼마나 자주 해야 하나요?",
+        "a": "<strong>주 2-3회</strong>가 좋은 시작점입니다. 워밍업에 포함하거나 (5-10분) 회복 라이드를 테크닉 작업에 할애하세요. 볼륨보다 일관성이 중요합니다 — 규칙적인 짧은 세션이 가끔 긴 세션을 이깁니다. 시간에 따라 훈련 점수로 진행 상황을 추적하세요."
+      }
+    },
+    "cta": {
+      "headline": "오늘 페달링 개선을 시작하세요",
+      "subtext": "무료. 오픈 소스. 클라우드에 동기화.",
+      "downloadForKaroo": "Karoo용 다운로드",
+      "tryDemo": "데모 체험"
+    },
+    "footer": {
+      "tagline": "Karoo를 위한 페달링 효율",
+      "product": "제품",
+      "features": "기능",
+      "dataFields": "데이터 필드",
+      "drills": "훈련",
+      "resources": "리소스",
+      "github": "GitHub",
+      "releases": "릴리스",
+      "reportIssue": "문제 보고",
+      "legal": "법적 정보",
+      "privacyPolicy": "개인정보 처리방침",
+      "signIn": "로그인",
+      "madeWith": "Karoo 커뮤니티를 위해 ❤️로 제작됨"
+    }
+  },
+  "aria": {
+    "home": "KPedal - 홈",
+    "downloadOptions": "다운로드 옵션",
+    "downloadKpedal": "GitHub에서 무료로 KPedal 다운로드",
+    "tryDemo": "데모 계정 체험",
+    "getStartedOptions": "시작하기 옵션",
+    "downloadForKaroo": "Karoo용 KPedal 다운로드",
+    "footerNav": "푸터 네비게이션",
+    "viewOnGithub": "GitHub에서 KPedal 보기",
+    "balanceTrendChart": "밸런스 트렌드 차트",
+    "techniqueTrendChart": "테크닉 트렌드 차트",
+    "languageSelector": "언어 선택"
+  }
+}
