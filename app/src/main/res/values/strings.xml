@@ -91,6 +91,12 @@
     <string name="settings_try_again">Try Again</string>
     <string name="settings_connection_failed">Connection failed</string>
     <string name="settings_connection_failed_desc">Please try again</string>
+    <!-- Detailed error messages (compact for Karoo display) -->
+    <string name="error_no_internet">No internet connection</string>
+    <string name="error_timeout">Server not responding</string>
+    <string name="error_ssl">Security error</string>
+    <string name="error_server">Server error, try later</string>
+    <string name="error_device_id">Device ID error</string>
     <string name="settings_last_sync">Last sync: %1$s</string>
     <string name="settings_never_synced">Never synced</string>
     <string name="settings_pending">%1$d pending</string>

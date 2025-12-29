@@ -91,6 +91,11 @@
     <string name="settings_try_again">נסה שוב</string>
     <string name="settings_connection_failed">החיבור נכשל</string>
     <string name="settings_connection_failed_desc">נסה שוב</string>
+    <string name="error_no_internet">אין חיבור לאינטרנט</string>
+    <string name="error_timeout">השרת לא מגיב</string>
+    <string name="error_ssl">שגיאת אבטחה</string>
+    <string name="error_server">שגיאת שרת</string>
+    <string name="error_device_id">שגיאת מזהה מכשיר</string>
     <string name="settings_last_sync">סנכרון אחרון: %1$s</string>
     <string name="settings_never_synced">לא סונכרן מעולם</string>
     <string name="settings_pending">%1$d ממתינים</string>

@@ -91,6 +91,11 @@
     <string name="settings_try_again">Opnieuw Proberen</string>
     <string name="settings_connection_failed">Verbinding mislukt</string>
     <string name="settings_connection_failed_desc">Probeer het opnieuw</string>
+    <string name="error_no_internet">Geen internetverbinding</string>
+    <string name="error_timeout">Server reageert niet</string>
+    <string name="error_ssl">Beveiligingsfout</string>
+    <string name="error_server">Serverfout</string>
+    <string name="error_device_id">Apparaat-ID fout</string>
     <string name="settings_last_sync">Laatste sync: %1$s</string>
     <string name="settings_never_synced">Nooit gesynchroniseerd</string>
     <string name="settings_pending">%1$d in afwachting</string>

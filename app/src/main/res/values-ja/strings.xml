@@ -91,6 +91,11 @@
     <string name="settings_try_again">再試行</string>
     <string name="settings_connection_failed">接続に失敗しました</string>
     <string name="settings_connection_failed_desc">もう一度お試しください</string>
+    <string name="error_no_internet">インターネット未接続</string>
+    <string name="error_timeout">サーバー応答なし</string>
+    <string name="error_ssl">セキュリティエラー</string>
+    <string name="error_server">サーバーエラー</string>
+    <string name="error_device_id">デバイスIDエラー</string>
     <string name="settings_last_sync">最終同期: %1$s</string>
     <string name="settings_never_synced">未同期</string>
     <string name="settings_pending">%1$d件保留中</string>

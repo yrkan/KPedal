@@ -713,9 +713,28 @@ private fun DeviceAuthSection(
             }
 
             is DeviceAuthService.DeviceAuthState.Error -> {
+                // Map technical errors to user-friendly messages
+                val errorMessage = when {
+                    deviceAuthState.message.contains("Unable to resolve host", ignoreCase = true) ||
+                    deviceAuthState.message.contains("UnknownHost", ignoreCase = true) ->
+                        stringResource(R.string.error_no_internet)
+                    deviceAuthState.message.contains("timeout", ignoreCase = true) ||
+                    deviceAuthState.message.contains("SocketTimeout", ignoreCase = true) ->
+                        stringResource(R.string.error_timeout)
+                    deviceAuthState.message.contains("SSL", ignoreCase = true) ||
+                    deviceAuthState.message.contains("Certificate", ignoreCase = true) ->
+                        stringResource(R.string.error_ssl)
+                    deviceAuthState.message.contains("Failed to generate", ignoreCase = true) ->
+                        stringResource(R.string.error_server)
+                    deviceAuthState.message.contains("Invalid device_id", ignoreCase = true) ->
+                        stringResource(R.string.error_device_id)
+                    deviceAuthState.message == "No data in response" ->
+                        stringResource(R.string.error_server)
+                    else -> deviceAuthState.message.take(40) // Truncate long messages
+                }
                 ErrorStateCard(
                     title = connectionFailedText,
-                    subtitle = connectionFailedDescText,
+                    subtitle = errorMessage,
                     buttonText = tryAgainText,
                     onAction = onStartAuth
                 )

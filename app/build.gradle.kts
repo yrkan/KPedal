@@ -14,8 +14,8 @@ android {
         applicationId = "io.github.kpedal"
         minSdk = 23
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.3.0"
+        versionCode = 5
+        versionName = "1.4.0"
     }
 
     buildTypes {

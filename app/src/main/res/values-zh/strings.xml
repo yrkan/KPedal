@@ -91,6 +91,11 @@
     <string name="settings_try_again">重试</string>
     <string name="settings_connection_failed">连接失败</string>
     <string name="settings_connection_failed_desc">请重试</string>
+    <string name="error_no_internet">无网络连接</string>
+    <string name="error_timeout">服务器无响应</string>
+    <string name="error_ssl">安全错误</string>
+    <string name="error_server">服务器错误</string>
+    <string name="error_device_id">设备ID错误</string>
     <string name="settings_last_sync">上次同步：%1$s</string>
     <string name="settings_never_synced">从未同步</string>
     <string name="settings_pending">%1$d 待同步</string>

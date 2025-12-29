@@ -91,6 +91,11 @@
     <string name="settings_try_again">Reessayer</string>
     <string name="settings_connection_failed">Connexion echouee</string>
     <string name="settings_connection_failed_desc">Veuillez reessayer</string>
+    <string name="error_no_internet">Pas de connexion internet</string>
+    <string name="error_timeout">Le serveur ne repond pas</string>
+    <string name="error_ssl">Erreur de securite</string>
+    <string name="error_server">Erreur serveur</string>
+    <string name="error_device_id">Erreur ID appareil</string>
     <string name="settings_last_sync">Derniere synchronisation : %1$s</string>
     <string name="settings_never_synced">Jamais synchronise</string>
     <string name="settings_pending">%1$d en attente</string>

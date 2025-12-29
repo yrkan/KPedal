@@ -91,6 +91,11 @@
     <string name="settings_try_again">Försök igen</string>
     <string name="settings_connection_failed">Anslutningen misslyckades</string>
     <string name="settings_connection_failed_desc">Vänligen försök igen</string>
+    <string name="error_no_internet">Ingen internetanslutning</string>
+    <string name="error_timeout">Servern svarar inte</string>
+    <string name="error_ssl">Säkerhetsfel</string>
+    <string name="error_server">Serverfel</string>
+    <string name="error_device_id">Enhets-ID fel</string>
     <string name="settings_last_sync">Senaste synk: %1$s</string>
     <string name="settings_never_synced">Aldrig synkad</string>
     <string name="settings_pending">%1$d väntande</string>

@@ -91,6 +91,11 @@
     <string name="settings_try_again">Spróbuj ponownie</string>
     <string name="settings_connection_failed">Połączenie nieudane</string>
     <string name="settings_connection_failed_desc">Spróbuj ponownie</string>
+    <string name="error_no_internet">Brak połączenia z internetem</string>
+    <string name="error_timeout">Serwer nie odpowiada</string>
+    <string name="error_ssl">Błąd bezpieczeństwa</string>
+    <string name="error_server">Błąd serwera</string>
+    <string name="error_device_id">Błąd ID urządzenia</string>
     <string name="settings_last_sync">Ostatnia synchronizacja: %1$s</string>
     <string name="settings_never_synced">Nigdy nie synchronizowano</string>
     <string name="settings_pending">%1$d oczekujących</string>

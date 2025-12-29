@@ -91,6 +91,11 @@
     <string name="settings_try_again">حاول مرة أخرى</string>
     <string name="settings_connection_failed">فشل الاتصال</string>
     <string name="settings_connection_failed_desc">يرجى المحاولة مرة أخرى</string>
+    <string name="error_no_internet">لا يوجد اتصال بالإنترنت</string>
+    <string name="error_timeout">الخادم لا يستجيب</string>
+    <string name="error_ssl">خطأ أمني</string>
+    <string name="error_server">خطأ في الخادم</string>
+    <string name="error_device_id">خطأ في معرف الجهاز</string>
     <string name="settings_last_sync">آخر مزامنة: %1$s</string>
     <string name="settings_never_synced">لم تتم المزامنة</string>
     <string name="settings_pending">%1$d في الانتظار</string>

@@ -91,6 +91,11 @@
     <string name="settings_try_again">Спробувати знову</string>
     <string name="settings_connection_failed">Помилка підключення</string>
     <string name="settings_connection_failed_desc">Будь ласка, спробуйте знову</string>
+    <string name="error_no_internet">Немає інтернету</string>
+    <string name="error_timeout">Сервер не відповідає</string>
+    <string name="error_ssl">Помилка безпеки</string>
+    <string name="error_server">Помилка сервера</string>
+    <string name="error_device_id">Помилка ID пристрою</string>
     <string name="settings_last_sync">Остання синхронізація: %1$s</string>
     <string name="settings_never_synced">Ніколи не синхронізовано</string>
     <string name="settings_pending">%1$d очікує</string>

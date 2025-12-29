@@ -23,7 +23,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Treteffizenz-Analyse für Karoo",
-    "version": "Version 1.3.0",
+    "version": "Version 1.4.0",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1588,7 +1588,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-Erweiterung",
-      "version": "v1.3.0",
+      "version": "v1.4.0",
       "titleLine1": "Sieh deine Treteffizenz",
       "titleLine2": "in Echtzeit",
       "subtitle": "Balance, Drehmoment-Effektivität, Tritt-Gleichmäßigkeit - auf deinem Karoo mit Echtzeit-Alarmen und geführten Übungen.",
