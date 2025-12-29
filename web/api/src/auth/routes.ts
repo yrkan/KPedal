@@ -90,13 +90,25 @@ function getRemainingSeconds(expiresAt: string): number {
 auth.post('/device/code', async (c) => {
   const env = c.env;
 
+  // Parse body with explicit error handling
+  let device_id: string;
+  let device_name: string = 'Karoo';
+
   try {
     const body = await c.req.json<{
       device_id: string;
       device_name?: string;
     }>();
+    device_id = body.device_id;
+    device_name = body.device_name || 'Karoo';
+  } catch {
+    return c.json<ApiResponse>({
+      success: false,
+      error: 'Invalid JSON body',
+    }, 400);
+  }
 
-    const { device_id, device_name = 'Karoo' } = body;
+  try {
 
     if (!device_id) {
       return c.json<ApiResponse>({
@@ -113,10 +125,11 @@ auth.post('/device/code', async (c) => {
       }, 400);
     }
 
-    // Clean up expired codes for this device first
+    // Clean up ALL expired codes globally (not just for this device)
+    // This prevents user_code collisions with old expired codes
     await env.DB.prepare(
-      `DELETE FROM device_codes WHERE device_id = ? AND expires_at < datetime('now')`
-    ).bind(device_id).run();
+      `DELETE FROM device_codes WHERE expires_at < datetime('now')`
+    ).run();
 
     // Check if device already has an active code (pending or authorized)
     const existing = await env.DB.prepare(
@@ -146,30 +159,62 @@ auth.post('/device/code', async (c) => {
       });
     }
 
-    // Generate new codes
-    const deviceCode = crypto.randomUUID();
-    const userCode = generateUserCode();
-    const expiresAt = getExpiryTimestamp();
+    // Generate new codes with retry for UNIQUE constraint violations
+    const MAX_RETRIES = 3;
+    let lastError: unknown = null;
 
-    // Insert into D1 database
-    await env.DB.prepare(
-      `INSERT INTO device_codes (device_code, user_code, device_id, device_name, status, expires_at)
-       VALUES (?, ?, ?, ?, 'pending', ?)`
-    ).bind(deviceCode, userCode, device_id, device_name, expiresAt).run();
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const deviceCode = crypto.randomUUID();
+        const userCode = generateUserCode();
+        const expiresAt = getExpiryTimestamp();
 
+        // Insert into D1 database
+        await env.DB.prepare(
+          `INSERT INTO device_codes (device_code, user_code, device_id, device_name, status, expires_at)
+           VALUES (?, ?, ?, ?, 'pending', ?)`
+        ).bind(deviceCode, userCode, device_id, device_name, expiresAt).run();
+
+        console.log('Device code created:', { device_id: device_id.slice(0, 8), userCode, attempt });
+
+        return c.json<ApiResponse>({
+          success: true,
+          data: {
+            device_code: deviceCode,
+            user_code: userCode,
+            verification_uri: env.LINK_URL,
+            expires_in: DEVICE_CODE_EXPIRY_SECONDS,
+            interval: DEVICE_CODE_INTERVAL,
+          },
+        });
+      } catch (insertErr) {
+        lastError = insertErr;
+        const errMsg = String(insertErr);
+
+        // Check if it's a UNIQUE constraint violation
+        if (errMsg.includes('UNIQUE') || errMsg.includes('constraint')) {
+          console.warn(`Device code collision on attempt ${attempt}, retrying...`);
+          continue;
+        }
+
+        // For other errors, throw immediately
+        throw insertErr;
+      }
+    }
+
+    // All retries exhausted
+    console.error('Device code generation failed after retries:', lastError);
     return c.json<ApiResponse>({
-      success: true,
-      data: {
-        device_code: deviceCode,
-        user_code: userCode,
-        verification_uri: env.LINK_URL,
-        expires_in: DEVICE_CODE_EXPIRY_SECONDS,
-        interval: DEVICE_CODE_INTERVAL,
-      },
-    });
+      success: false,
+      error: 'Failed to generate unique code, please try again',
+    }, 500);
 
   } catch (err) {
-    console.error('Device code error:', err);
+    // Log detailed error info
+    const errMessage = err instanceof Error ? err.message : String(err);
+    const errStack = err instanceof Error ? err.stack : undefined;
+    console.error('Device code error:', { message: errMessage, stack: errStack });
+
     return c.json<ApiResponse>({
       success: false,
       error: 'Failed to generate device code',

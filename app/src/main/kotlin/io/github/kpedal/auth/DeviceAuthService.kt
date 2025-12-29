@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import io.github.kpedal.api.ApiClient
 import io.github.kpedal.api.DeviceCodeData
 import io.github.kpedal.api.DeviceCodeRequest
+import io.github.kpedal.api.DeviceCodeResponse
 import io.github.kpedal.api.DeviceTokenRequest
 import io.github.kpedal.api.DeviceTokenData
 import io.github.kpedal.api.DeviceTokenResponse
@@ -32,6 +33,8 @@ class DeviceAuthService(
         private const val MAX_POLL_INTERVAL_MS = 8000L // Max 8 sec with backoff
         private const val BACKOFF_AFTER_ATTEMPTS = 20 // Start backing off after 20 attempts (~1.5 min)
         private const val MAX_POLL_ATTEMPTS = 120 // 10 min with current settings
+        private const val MAX_REQUEST_RETRIES = 3 // Retry transient errors
+        private const val RETRY_DELAY_MS = 1000L // 1 sec between retries
         private val gson = Gson()
     }
 
@@ -84,52 +87,109 @@ class DeviceAuthService(
 
     /**
      * Start the device code flow.
-     * Requests a device code from the server.
+     * Requests a device code from the server with automatic retry for transient errors.
      */
     suspend fun startAuthFlow(): DeviceCodeData? {
         _state.value = DeviceAuthState.RequestingCode
         pollIntervalMs = INITIAL_POLL_INTERVAL_MS // Reset interval for new flow
 
-        return try {
-            val deviceId = authRepository.getOrCreateDeviceId()
-            val response = ApiClient.authService.requestDeviceCode(
-                DeviceCodeRequest(
-                    device_id = deviceId,
-                    device_name = "Karoo"
-                )
-            )
+        val deviceId = authRepository.getOrCreateDeviceId()
+        var lastError: String? = null
 
-            if (response.isSuccessful && response.body()?.success == true) {
-                val data = response.body()?.data
-                if (data != null) {
-                    currentDeviceCode = data.device_code
-                    pollIntervalMs = data.interval * 1000L
-
-                    _state.value = DeviceAuthState.WaitingForUser(
-                        userCode = data.user_code,
-                        verificationUri = data.verification_uri,
-                        expiresIn = data.expires_in
+        // Retry loop for transient errors (HTTP 5xx, network issues)
+        for (attempt in 1..MAX_REQUEST_RETRIES) {
+            try {
+                val response = ApiClient.authService.requestDeviceCode(
+                    DeviceCodeRequest(
+                        device_id = deviceId,
+                        device_name = "Karoo"
                     )
+                )
 
-                    android.util.Log.i(TAG, "Device code received: ${data.user_code}")
-                    data
+                if (response.isSuccessful && response.body()?.success == true) {
+                    val data = response.body()?.data
+                    if (data != null) {
+                        currentDeviceCode = data.device_code
+                        pollIntervalMs = data.interval * 1000L
+
+                        _state.value = DeviceAuthState.WaitingForUser(
+                            userCode = data.user_code,
+                            verificationUri = data.verification_uri,
+                            expiresIn = data.expires_in
+                        )
+
+                        android.util.Log.i(TAG, "Device code received: ${data.user_code}" +
+                            if (attempt > 1) " (attempt $attempt)" else "")
+                        return data
+                    } else {
+                        lastError = "No data in response"
+                        // Don't retry - server returned success but no data
+                        break
+                    }
                 } else {
-                    _state.value = DeviceAuthState.Error("No data in response")
-                    null
+                    // Parse error from errorBody for HTTP errors
+                    val errorMessage = if (response.isSuccessful) {
+                        response.body()?.error ?: "Unknown error"
+                    } else {
+                        try {
+                            response.errorBody()?.string()?.let { errorJson ->
+                                gson.fromJson(errorJson, DeviceCodeResponse::class.java)?.error
+                            } ?: "Server error (${response.code()})"
+                        } catch (e: Exception) {
+                            "Server error (${response.code()})"
+                        }
+                    }
+
+                    val httpCode = response.code()
+                    android.util.Log.w(TAG, "Request failed: $errorMessage (HTTP $httpCode, attempt $attempt)")
+
+                    // Retry only for 5xx server errors
+                    if (httpCode in 500..599 && attempt < MAX_REQUEST_RETRIES) {
+                        delay(RETRY_DELAY_MS * attempt) // Exponential backoff
+                        continue
+                    }
+
+                    // Don't retry 4xx client errors
+                    lastError = errorMessage
+                    break
                 }
-            } else {
-                val error = response.body()?.error ?: "Unknown error"
-                _state.value = DeviceAuthState.Error(error)
-                android.util.Log.e(TAG, "Failed to get device code: $error")
-                null
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+
+                android.util.Log.w(TAG, "Network error on attempt $attempt", e)
+
+                // Retry network errors (timeout, connection issues)
+                if (attempt < MAX_REQUEST_RETRIES) {
+                    delay(RETRY_DELAY_MS * attempt)
+                    continue
+                }
+
+                // All retries exhausted - format error message
+                lastError = when {
+                    e.message?.contains("Unable to resolve host", ignoreCase = true) == true ->
+                        "Unable to resolve host: api.kpedal.com"
+                    e.message?.contains("timeout", ignoreCase = true) == true ->
+                        "Connection timeout"
+                    e.message?.contains("SSL", ignoreCase = true) == true ||
+                    e.message?.contains("Certificate", ignoreCase = true) == true ->
+                        "SSL error: ${e.message}"
+                    e.message?.contains("Connection refused", ignoreCase = true) == true ->
+                        "Connection refused"
+                    e.message?.contains("Network is unreachable", ignoreCase = true) == true ->
+                        "Network is unreachable"
+                    e.message.isNullOrBlank() ->
+                        "${e.javaClass.simpleName}: (no message)"
+                    else ->
+                        "${e.javaClass.simpleName}: ${e.message}"
+                }
+                break
             }
-        } catch (e: Exception) {
-            if (e is CancellationException) throw e
-            val error = e.message ?: "Network error"
-            _state.value = DeviceAuthState.Error(error)
-            android.util.Log.e(TAG, "Error requesting device code: $error")
-            null
         }
+
+        // All attempts failed
+        android.util.Log.e(TAG, "Failed to get device code after $MAX_REQUEST_RETRIES attempts: $lastError")
+        _state.value = DeviceAuthState.Error(lastError ?: "Unknown error")
+        return null
     }
 
     /**

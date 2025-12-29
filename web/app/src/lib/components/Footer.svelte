@@ -69,18 +69,24 @@
     height: 20px;
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 600px) {
     .site-footer {
+      flex-direction: column;
       gap: 16px;
-      padding: 16px;
+      padding: 20px 16px;
     }
 
     .footer-links {
-      gap: 12px 16px;
+      gap: 10px 16px;
     }
 
     .footer-links a {
       font-size: 13px;
+    }
+
+    .footer-github {
+      order: 1;
+      margin-top: 4px;
     }
   }
 </style>
