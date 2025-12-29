@@ -23,7 +23,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Analisi dell'efficienza di pedalata per Karoo",
-    "version": "Versione 1.4.0",
+    "version": "Versione 1.5.0",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1588,7 +1588,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Estensione Karoo",
-      "version": "v1.4.0",
+      "version": "v1.5.0",
       "titleLine1": "Vedi la tua efficienza",
       "titleLine2": "di pedalata in tempo reale",
       "subtitle": "Bilanciamento, Efficacia della Coppia, Fluidità di Pedalata — visualizzati sul tuo Karoo con avvisi in tempo reale ed esercizi guidati.",
