@@ -11,6 +11,7 @@
 # Keep data classes
 -keep class io.github.kpedal.data.** { *; }
 -keep class io.github.kpedal.engine.** { *; }
+-keep class io.github.kpedal.api.** { *; }
 
 # Keep Karoo extension classes
 -keep class io.github.kpedal.KPedalExtension { *; }

@@ -23,7 +23,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Trampeffektivitetsanalys för Karoo",
-    "version": "Version 1.6.0",
+    "version": "Version 1.6.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1588,7 +1588,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-tillägg",
-      "version": "v1.6.0",
+      "version": "v1.6.1",
       "titleLine1": "Se din tramp-",
       "titleLine2": "effektivitet i realtid",
       "subtitle": "Balans, vridmomentseffektivitet, trampjämnhet — visas på din Karoo med realtidsvarningar och guidade övningar.",

@@ -884,7 +884,7 @@ web/
     │   │   ├── config.ts           # API_URL constant
     │   │   └── components/         # Shared components (Footer, InfoTip)
     │   ├── locales/                # Translation files (17 languages)
-    │   │   ├── en.json             # English (1467 keys)
+    │   │   ├── en.json             # English (1533 keys)
     │   │   └── *.json              # DE, FR, IT, PT, NL, JA, ZH, UK, RU, HE, AR, PL, KO, DA, SV
     │   └── app.css                 # Global styles, CSS vars, themes
     └── svelte.config.js
