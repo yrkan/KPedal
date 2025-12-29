@@ -23,7 +23,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Karoo를 위한 페달링 효율 분석",
-    "version": "버전 1.5.0",
+    "version": "버전 1.6.0",
     "webTitle": "KPedal 웹"
   },
   "nav": {
@@ -1588,7 +1588,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo 확장 프로그램",
-      "version": "v1.5.0",
+      "version": "v1.6.0",
       "titleLine1": "페달링 효율을",
       "titleLine2": "실시간으로 확인하세요",
       "subtitle": "밸런스, 토크 효율, 페달링 부드러움 — 실시간 알림과 가이드 훈련과 함께 Karoo에 표시됩니다.",

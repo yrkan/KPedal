@@ -125,41 +125,39 @@ auth.post('/device/code', async (c) => {
       }, 400);
     }
 
-    // Clean up ALL expired codes globally (not just for this device)
-    // This prevents user_code collisions with old expired codes
-    await env.DB.prepare(
-      `DELETE FROM device_codes WHERE expires_at < datetime('now')`
-    ).run();
+    // Cleanup expired codes async (doesn't block response)
+    c.executionCtx.waitUntil(
+      env.DB.prepare(`DELETE FROM device_codes WHERE expires_at < datetime('now')`).run()
+    );
 
-    // Check if device already has an active code (pending or authorized)
+    // Check for existing pending code (important for app restart scenario)
+    // If user already has a code displayed, we should return the same one
     const existing = await env.DB.prepare(
-      `SELECT device_code, user_code, status, expires_at
+      `SELECT device_code, user_code, expires_at
        FROM device_codes
-       WHERE device_id = ? AND expires_at > datetime('now')
-       ORDER BY created_at DESC LIMIT 1`
+       WHERE device_id = ? AND status = 'pending' AND expires_at > datetime('now', '+1 minute')
+       LIMIT 1`
     ).bind(device_id).first<{
       device_code: string;
       user_code: string;
-      status: string;
       expires_at: string;
     }>();
 
-    if (existing && (existing.status === 'pending' || existing.status === 'authorized')) {
-      // Return existing code
-      const remainingTime = getRemainingSeconds(existing.expires_at);
+    if (existing) {
+      // Return existing code (has > 1 min remaining)
       return c.json<ApiResponse>({
         success: true,
         data: {
           device_code: existing.device_code,
           user_code: existing.user_code,
           verification_uri: env.LINK_URL,
-          expires_in: remainingTime,
+          expires_in: getRemainingSeconds(existing.expires_at),
           interval: DEVICE_CODE_INTERVAL,
         },
       });
     }
 
-    // Generate new codes with retry for UNIQUE constraint violations
+    // Generate new code
     const MAX_RETRIES = 3;
     let lastError: unknown = null;
 

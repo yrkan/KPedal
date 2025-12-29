@@ -94,6 +94,13 @@ class DeviceAuthService(
         pollIntervalMs = INITIAL_POLL_INTERVAL_MS // Reset interval for new flow
 
         val deviceId = authRepository.getOrCreateDeviceId()
+
+        if (deviceId.isBlank()) {
+            android.util.Log.e(TAG, "Device ID is blank!")
+            _state.value = DeviceAuthState.Error("Failed to generate device ID")
+            return null
+        }
+
         var lastError: String? = null
 
         // Retry loop for transient errors (HTTP 5xx, network issues)
@@ -118,8 +125,7 @@ class DeviceAuthService(
                             expiresIn = data.expires_in
                         )
 
-                        android.util.Log.i(TAG, "Device code received: ${data.user_code}" +
-                            if (attempt > 1) " (attempt $attempt)" else "")
+                        android.util.Log.i(TAG, "Device code received: ${data.user_code}")
                         return data
                     } else {
                         lastError = "No data in response"
@@ -132,8 +138,9 @@ class DeviceAuthService(
                         response.body()?.error ?: "Unknown error"
                     } else {
                         try {
-                            response.errorBody()?.string()?.let { errorJson ->
-                                gson.fromJson(errorJson, DeviceCodeResponse::class.java)?.error
+                            val errorJson = response.errorBody()?.string()
+                            errorJson?.let {
+                                gson.fromJson(it, DeviceCodeResponse::class.java)?.error
                             } ?: "Server error (${response.code()})"
                         } catch (e: Exception) {
                             "Server error (${response.code()})"
@@ -141,7 +148,6 @@ class DeviceAuthService(
                     }
 
                     val httpCode = response.code()
-                    android.util.Log.w(TAG, "Request failed: $errorMessage (HTTP $httpCode, attempt $attempt)")
 
                     // Retry only for 5xx server errors
                     if (httpCode in 500..599 && attempt < MAX_REQUEST_RETRIES) {
@@ -267,7 +273,6 @@ class DeviceAuthService(
 
                     body?.status == "authorization_pending" -> {
                         // Still waiting, continue polling
-                        android.util.Log.d(TAG, "Still waiting for user auth (attempt $attempts)")
                     }
 
                     body?.status == "slow_down" -> {
@@ -322,7 +327,6 @@ class DeviceAuthService(
             // Increase interval after initial attempts (5 sec -> 6 sec -> 7 sec -> 8 sec)
             if (attempts >= BACKOFF_AFTER_ATTEMPTS && pollIntervalMs < MAX_POLL_INTERVAL_MS) {
                 pollIntervalMs = minOf(pollIntervalMs + 1000L, MAX_POLL_INTERVAL_MS)
-                android.util.Log.d(TAG, "Backing off, new interval: ${pollIntervalMs}ms")
             }
         }
 

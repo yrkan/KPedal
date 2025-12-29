@@ -1,12 +1,9 @@
 package io.github.kpedal.api
 
-import android.util.Log
-import okhttp3.Interceptor
+import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 /**
@@ -16,36 +13,14 @@ object ApiClient {
     private const val TAG = "ApiClient"
     private const val BASE_URL = "https://api.kpedal.com/"
 
-    /**
-     * Logs requests and responses for debugging network issues.
-     */
-    private val loggingInterceptor = Interceptor { chain ->
-        val request = chain.request()
-        val startTime = System.currentTimeMillis()
-
-        Log.d(TAG, "→ ${request.method} ${request.url}")
-
-        val response: Response
-        try {
-            response = chain.proceed(request)
-        } catch (e: IOException) {
-            val duration = System.currentTimeMillis() - startTime
-            Log.e(TAG, "✗ ${request.url} failed after ${duration}ms: ${e.javaClass.simpleName}: ${e.message}")
-            throw e
-        }
-
-        val duration = System.currentTimeMillis() - startTime
-        Log.d(TAG, "← ${response.code} ${request.url} (${duration}ms)")
-
-        response
-    }
-
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
+            // Shorter keep-alive to avoid stale connections on Karoo
+            .connectionPool(ConnectionPool(2, 1, TimeUnit.MINUTES))
+            .retryOnConnectionFailure(true)
             .build()
     }
 
