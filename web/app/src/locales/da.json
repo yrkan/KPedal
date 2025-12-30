@@ -23,7 +23,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Pedal-effektivitetsanalyse til Karoo",
-    "version": "Version 1.6.1",
+    "version": "Version 1.6.2",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1588,7 +1588,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-udvidelse",
-      "version": "v1.6.1",
+      "version": "v1.6.2",
       "titleLine1": "Se din pedal-",
       "titleLine2": "effektivitet i realtid",
       "subtitle": "Balance, drejningsmoment-effektivitet, pedaljævnhed — vist på din Karoo med realtidsalarmer og guidede øvelser.",

@@ -1,37 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- PowerBalance SMALL: Power + Balance compact -->
+<!-- PowerBalance SMALL_WIDE: Power + Balance with weighted sections -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@color/background"
     android:gravity="center"
-    android:baselineAligned="false"
-    android:padding="2dp">
+    android:baselineAligned="false">
 
-    <!-- Power row -->
+    <!-- Power section (more weight - primary metric) -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
         android:orientation="horizontal"
         android:gravity="center">
-
-        <TextView
-            android:id="@+id/label_power"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pwr"
-            android:textSize="10sp"
-            android:textColor="@color/text_dim"
-            android:layout_marginEnd="4dp" />
 
         <TextView
             android:id="@+id/power_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="245"
-            android:textSize="28sp"
+            android:textSize="44sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary" />
 
@@ -40,34 +30,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/watt_symbol"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textColor="@color/text_dim"
             android:layout_marginStart="2dp" />
     </LinearLayout>
 
-    <!-- Balance row -->
+    <!-- Balance section -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center">
-
-        <TextView
-            android:id="@+id/label_balance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bal"
-            android:textSize="10sp"
-            android:textColor="@color/text_dim"
-            android:layout_marginEnd="4dp" />
 
         <TextView
             android:id="@+id/balance_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="48"
-            android:textSize="20sp"
+            android:textSize="36sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary" />
 
@@ -76,16 +57,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="|"
-            android:textSize="16sp"
+            android:textSize="28sp"
             android:textColor="@color/text_dim"
-            android:paddingHorizontal="2dp" />
+            android:paddingHorizontal="3dp" />
 
         <TextView
             android:id="@+id/balance_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="52"
-            android:textSize="20sp"
+            android:textSize="36sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary" />
     </LinearLayout>

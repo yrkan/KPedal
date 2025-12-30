@@ -1,55 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- FullOverview MEDIUM: Balance + TE -->
+<!-- FullOverview MEDIUM: Balance + TE + PS (3 rows) -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background"
-    android:padding="4dp">
+    android:background="@color/background">
 
-    <!-- Balance (50%) -->
+    <!-- Balance (33%) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="4dp">
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/balance"
-            android:textSize="9sp"
-            android:textColor="@color/text_dim" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/balance_left"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:text="50"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:includeFontPadding="false" />
 
-            <TextView
-                android:id="@+id/balance_left"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="50"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/balance_right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="50"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:gravity="center" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/balance_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="50"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:includeFontPadding="false" />
     </LinearLayout>
 
     <!-- Divider -->
@@ -58,65 +45,76 @@
         android:layout_height="1dp"
         android:background="@color/divider" />
 
-    <!-- TE (50%) -->
+    <!-- TE (33%) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="4dp">
+        android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/te"
-                android:textSize="9sp"
-                android:textColor="@color/text_dim" />
-
-            <TextView
-                android:id="@+id/te_avg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="76%"
-                android:textSize="10sp"
-                android:textColor="@color/status_optimal" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/te_left"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:text="74"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:includeFontPadding="false" />
 
-            <TextView
-                android:id="@+id/te_left"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="74"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:gravity="center" />
+        <TextView
+            android:id="@+id/te_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="77"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:includeFontPadding="false" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/te_right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="77"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:gravity="center" />
-        </LinearLayout>
+    <!-- Divider -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <!-- PS (33%) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/ps_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="22"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:includeFontPadding="false" />
+
+        <TextView
+            android:id="@+id/ps_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="24"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:includeFontPadding="false" />
     </LinearLayout>
 
 </LinearLayout>

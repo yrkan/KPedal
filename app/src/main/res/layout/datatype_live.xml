@@ -178,7 +178,9 @@
         android:layout_height="0dp"
         android:layout_weight="40"
         android:orientation="vertical"
-        android:padding="6dp">
+        android:paddingHorizontal="6dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -195,79 +197,40 @@
             android:gravity="center">
 
             <!-- Optimal -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/zone_optimal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/zone_optimal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0%"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/status_optimal" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/opt"
-                    android:textSize="9sp"
-                    android:textColor="@color/text_dim" />
-            </LinearLayout>
+                android:text="0%"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/status_optimal"
+                android:gravity="center" />
 
             <!-- Attention -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/zone_attention"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/zone_attention"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0%"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/status_attention" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/att"
-                    android:textSize="9sp"
-                    android:textColor="@color/text_dim" />
-            </LinearLayout>
+                android:text="0%"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/status_attention"
+                android:gravity="center" />
 
             <!-- Problem -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/zone_problem"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/zone_problem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0%"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/status_problem" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/prob"
-                    android:textSize="9sp"
-                    android:textColor="@color/text_dim" />
-            </LinearLayout>
+                android:text="0%"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/status_problem"
+                android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

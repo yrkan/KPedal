@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/label_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balance"
@@ -59,6 +60,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/label_balance_3s"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balance_3s"
@@ -101,6 +103,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/label_balance_10s"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balance_10s"

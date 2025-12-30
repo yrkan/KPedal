@@ -5,19 +5,48 @@ import io.github.kpedal.KPedalExtension
 import io.github.kpedal.R
 import io.github.kpedal.engine.PedalingMetrics
 import io.github.kpedal.engine.StatusCalculator
+import io.hammerhead.karooext.models.ViewConfig
 
 /**
  * Layout 1: Quick Glance
- * Status indicator (checkmark or warning) + Balance bar
+ * Status indicator (checkmark or warning) + Balance bar.
+ *
+ * Uses adaptive text sizes based on ViewConfig.textSize from Karoo SDK.
  */
 class QuickGlanceDataType(
     kpedalExtension: KPedalExtension
 ) : BaseDataType(kpedalExtension, "quick-glance") {
 
     override fun getLayoutResId(size: LayoutSize) = when (size) {
-        LayoutSize.SMALL -> R.layout.datatype_quick_glance_small
-        LayoutSize.MEDIUM -> R.layout.datatype_quick_glance_medium
+        LayoutSize.SMALL, LayoutSize.SMALL_WIDE, LayoutSize.MEDIUM_WIDE -> R.layout.datatype_quick_glance_small
+        LayoutSize.MEDIUM, LayoutSize.NARROW -> R.layout.datatype_quick_glance_medium  // Narrow uses MEDIUM
         LayoutSize.LARGE -> R.layout.datatype_quick_glance_large
+    }
+
+    override fun onViewCreated(views: RemoteViews, config: ViewConfig) {
+        when (currentLayoutSize) {
+            LayoutSize.SMALL, LayoutSize.SMALL_WIDE, LayoutSize.MEDIUM_WIDE -> {
+                // ImageView icon + status text (no text size for ImageView)
+                views.setAdaptiveTextSize(R.id.status_text, config, TextSizeCalculator.Role.PRIMARY)
+            }
+            LayoutSize.MEDIUM, LayoutSize.NARROW -> {
+                // Icon + status text + balance (NARROW uses MEDIUM layout)
+                views.setAdaptiveTextSize(R.id.status_icon, config, TextSizeCalculator.Role.ICON)
+                views.setAdaptiveTextSize(R.id.status_text, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.SECONDARY)
+            }
+            LayoutSize.LARGE -> {
+                // Full layout with labels
+                views.setAdaptiveTextSize(R.id.status_icon, config, TextSizeCalculator.Role.ICON)
+                views.setAdaptiveTextSize(R.id.status_text, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.label_header, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.label_left, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.label_right, config, TextSizeCalculator.Role.LABEL)
+            }
+        }
     }
 
     override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
@@ -32,22 +61,31 @@ class QuickGlanceDataType(
         if (!psOk) issues.add("PS")
 
         if (issues.isEmpty()) {
-            views.setTextViewText(R.id.status_icon, "✓")
-            views.setTextColor(R.id.status_icon, StatusCalculator.COLOR_OPTIMAL)
-            if (currentLayoutSize != LayoutSize.SMALL) {
-                views.setTextViewText(R.id.status_text, "ALL GOOD")
+            // SMALL/SMALL_WIDE/MEDIUM_WIDE uses ImageView, MEDIUM/LARGE use TextView
+            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setImageViewResource(R.id.status_icon_image, R.drawable.ic_check)
+            } else {
+                views.setTextViewText(R.id.status_icon, "✓")
+                views.setTextColor(R.id.status_icon, StatusCalculator.COLOR_OPTIMAL)
             }
+            val okText = if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) "OK" else "ALL GOOD"
+            views.setTextViewText(R.id.status_text, okText)
+            views.setTextColor(R.id.status_text, StatusCalculator.COLOR_OPTIMAL)
         } else {
-            views.setTextViewText(R.id.status_icon, "!")
             val color = if (issues.size >= 2) StatusCalculator.COLOR_PROBLEM else StatusCalculator.COLOR_ATTENTION
-            views.setTextColor(R.id.status_icon, color)
-            if (currentLayoutSize != LayoutSize.SMALL) {
-                views.setTextViewText(R.id.status_text, issues.joinToString(", "))
+            // SMALL/SMALL_WIDE/MEDIUM_WIDE uses ImageView, MEDIUM/LARGE use TextView
+            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setImageViewResource(R.id.status_icon_image, R.drawable.ic_warning)
+            } else {
+                views.setTextViewText(R.id.status_icon, "!")
+                views.setTextColor(R.id.status_icon, color)
             }
+            views.setTextViewText(R.id.status_text, issues.joinToString(", "))
+            views.setTextColor(R.id.status_text, color)
         }
 
-        // Balance - not in SMALL
-        if (currentLayoutSize != LayoutSize.SMALL) {
+        // Balance - MEDIUM, LARGE and NARROW
+        if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
             val left = metrics.balanceLeft.toInt()
             val right = metrics.balance.toInt()
 

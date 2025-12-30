@@ -21,6 +21,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_te"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -60,6 +61,7 @@
                     android:textColor="@color/text_primary" />
 
                 <TextView
+                    android:id="@+id/te_left_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/left"
@@ -89,6 +91,7 @@
                     android:textColor="@color/text_primary" />
 
                 <TextView
+                    android:id="@+id/te_right_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/right"
@@ -118,6 +121,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_ps"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -157,6 +161,7 @@
                     android:textColor="@color/text_primary" />
 
                 <TextView
+                    android:id="@+id/ps_left_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/left"
@@ -186,6 +191,7 @@
                     android:textColor="@color/text_primary" />
 
                 <TextView
+                    android:id="@+id/ps_right_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/right"

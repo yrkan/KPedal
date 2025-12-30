@@ -28,10 +28,14 @@
     <!-- Labels -->
     <string name="balance">BALANCE</string>
     <string name="balance_lower">Balance</string>
+    <string name="bal">BAL</string>
     <string name="balance_3s">3s AVG</string>
     <string name="balance_10s">10s AVG</string>
     <string name="power">POWER</string>
     <string name="power_lower">Power</string>
+    <string name="pwr">PWR</string>
+    <string name="ride">RIDE</string>
+    <string name="now">NOW</string>
     <string name="te">TE</string>
     <string name="te_full">Torque Effectiveness</string>
     <string name="ps">PS</string>

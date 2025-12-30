@@ -30,7 +30,7 @@ class LiveDataType(
 ) : DataTypeImpl("kpedal", "live") {
 
     enum class LayoutSize {
-        SMALL, MEDIUM, LARGE
+        SMALL, SMALL_WIDE, MEDIUM_WIDE, MEDIUM, LARGE, NARROW
     }
 
     companion object {
@@ -55,11 +55,23 @@ class LiveDataType(
         )
 
         fun getLayoutSize(config: ViewConfig): LayoutSize {
-            val rows = config.gridSize.second
-            return when {
-                rows < 20 -> LayoutSize.SMALL
-                rows <= 40 -> LayoutSize.MEDIUM
-                else -> LayoutSize.LARGE
+            val isFullWidth = config.gridSize.first >= 50  // 60 = full, 30 = half
+            val height = config.viewSize.second
+
+            return if (isFullWidth) {
+                // Full width layouts
+                when {
+                    height >= 250 -> LayoutSize.LARGE       // 1-3 fields stacked
+                    height >= 160 -> LayoutSize.MEDIUM_WIDE // 4 fields (2-row wide)
+                    else -> LayoutSize.SMALL_WIDE           // 5-6 fields (1-row wide)
+                }
+            } else {
+                // Half width layouts (side by side)
+                when {
+                    height >= 600 -> LayoutSize.NARROW      // 2 fields side by side (tall, narrow)
+                    height >= 200 -> LayoutSize.MEDIUM      // 2x2, 2x3 grid
+                    else -> LayoutSize.SMALL                // 2x4+ grid cells (minimal content)
+                }
             }
         }
     }
@@ -69,8 +81,53 @@ class LiveDataType(
 
     private fun getLayoutResId(size: LayoutSize) = when (size) {
         LayoutSize.SMALL -> R.layout.datatype_live_small
+        LayoutSize.SMALL_WIDE -> R.layout.datatype_live_small_wide
+        LayoutSize.MEDIUM_WIDE -> R.layout.datatype_live_small_wide  // 2-row wide uses SMALL_WIDE layout
         LayoutSize.MEDIUM -> R.layout.datatype_live_medium
         LayoutSize.LARGE -> R.layout.datatype_live_large
+        LayoutSize.NARROW -> R.layout.datatype_live_medium  // Narrow uses MEDIUM layout
+    }
+
+    /**
+     * Apply adaptive text sizes based on ViewConfig.
+     */
+    private fun applyAdaptiveTextSizes(views: RemoteViews, config: ViewConfig) {
+        when (currentLayoutSize) {
+            LayoutSize.SMALL, LayoutSize.SMALL_WIDE, LayoutSize.MEDIUM_WIDE -> {
+                // Time in Zone: label + zone bar + optimal %
+                views.setAdaptiveTextSize(R.id.label_ride, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.zone_optimal, config, TextSizeCalculator.Role.PRIMARY)
+                views.setAdaptiveTextSize(R.id.zone_unit, config, TextSizeCalculator.Role.SECONDARY)
+            }
+            LayoutSize.MEDIUM, LayoutSize.NARROW -> {
+                // Balance + TE/PS (NARROW uses MEDIUM layout)
+                views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.PRIMARY)
+                views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.PRIMARY)
+                views.setAdaptiveTextSize(R.id.label_balance, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.label_te, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.label_ps, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.te_left, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.te_right, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.ps_left, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.ps_right, config, TextSizeCalculator.Role.SECONDARY)
+            }
+            LayoutSize.LARGE -> {
+                // Balance + TE/PS + Time in Zone
+                views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.PRIMARY)
+                views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.PRIMARY)
+                views.setAdaptiveTextSize(R.id.label_balance, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.label_te, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.label_ps, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.te_left, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.te_right, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.ps_left, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.ps_right, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.label_time_in_zone, config, TextSizeCalculator.Role.LABEL)
+                views.setAdaptiveTextSize(R.id.zone_optimal, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.zone_attention, config, TextSizeCalculator.Role.SECONDARY)
+                views.setAdaptiveTextSize(R.id.zone_problem, config, TextSizeCalculator.Role.SECONDARY)
+            }
+        }
     }
 
     override fun startStream(emitter: Emitter<StreamState>) {
@@ -89,6 +146,9 @@ class LiveDataType(
         android.util.Log.d(TAG, "Grid: ${config.gridSize}, Size: $currentLayoutSize")
 
         val cachedViews = RemoteViews(context.packageName, getLayoutResId(currentLayoutSize))
+
+        // Apply adaptive text sizes based on ViewConfig
+        applyAdaptiveTextSizes(cachedViews, config)
 
         // Preview mode: render with sample data
         if (config.preview) {
@@ -155,7 +215,20 @@ class LiveDataType(
     }
 
     private fun updateViews(views: RemoteViews, liveData: LiveRideData) {
-        // Balance - in all layouts
+        // SMALL/SMALL_WIDE/MEDIUM_WIDE: Time in Zone only
+        if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+            // Zone optimal percentage
+            views.setTextViewText(R.id.zone_optimal, "${liveData.zoneOptimal}")
+
+            // Update zone bar weights based on percentages
+            // The bars use layout_weight, so we need to update visibility for 0% zones
+            views.setProgressBar(R.id.zone_bar_optimal, 100, if (liveData.zoneOptimal > 0) 100 else 0, false)
+            views.setProgressBar(R.id.zone_bar_attention, 100, if (liveData.zoneAttention > 0) 100 else 0, false)
+            views.setProgressBar(R.id.zone_bar_problem, 100, if (liveData.zoneProblem > 0) 100 else 0, false)
+            return
+        }
+
+        // MEDIUM and LARGE: Balance + TE/PS
         views.setTextViewText(R.id.balance_left, "${liveData.balanceLeft}")
         views.setTextViewText(R.id.balance_right, "${liveData.balanceRight}")
 
@@ -174,10 +247,10 @@ class LiveDataType(
             views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
         }
 
-        // Balance bar - in all layouts
+        // Balance bar
         views.setProgressBar(R.id.balance_bar, 100, liveData.balanceRight, false)
 
-        // TE and PS - not in SMALL
+        // TE and PS
         if (currentLayoutSize != LayoutSize.SMALL) {
             views.setTextViewText(R.id.te_left, "${liveData.teLeft}")
             views.setTextViewText(R.id.te_right, "${liveData.teRight}")

@@ -229,13 +229,16 @@ adb install kpedal-x.x.x.apk
 
 ### Data Field Layouts
 
-7 layouts available for Karoo ride screens. Each layout **automatically adapts** to the grid size:
+7 layouts available for Karoo ride screens. Each layout **automatically adapts** to 6 size categories based on grid dimensions:
 
-| Size | Grid Rows | Description |
-|------|:---------:|-------------|
-| **Small** | < 20 | Compact essential metrics |
-| **Medium** | 20-40 | Balanced layout with bars |
-| **Large** | > 40 | Full details with zones and averages |
+| Size | Grid Type | Height | Description |
+|------|-----------|:------:|-------------|
+| **LARGE** | Full width | 250px+ | Full details with progress bars, zones, averages |
+| **MEDIUM_WIDE** | Full width | 160-250px | Compact wide with essential metrics |
+| **SMALL_WIDE** | Full width | <160px | Minimal wide, single row of metrics |
+| **MEDIUM** | Half width | 200px+ | Balanced layout with L/R values |
+| **SMALL** | Half width | <200px | Compact essential metrics |
+| **NARROW** | Half width tall | 600px+ | Tall narrow, optimized for 2-column layouts |
 
 #### Layout Catalog
 

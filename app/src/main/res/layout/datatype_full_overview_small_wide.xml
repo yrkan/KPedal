@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- FullOverview SMALL: Compact layout for narrow cells -->
+<!-- FullOverview SMALL_WIDE: Balance left, TE/PS right stacked -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:background="@color/background"
     android:gravity="center"
-    android:paddingHorizontal="2dp"
     android:baselineAligned="false">
 
     <!-- Balance section -->
@@ -28,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="48"
-                android:textSize="16sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary" />
 
@@ -37,16 +36,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="|"
-                android:textSize="14sp"
+                android:textSize="24sp"
                 android:textColor="@color/text_dim"
-                android:paddingHorizontal="1dp" />
+                android:paddingHorizontal="4dp" />
 
             <TextView
                 android:id="@+id/balance_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="52"
-                android:textSize="16sp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary" />
         </LinearLayout>
@@ -56,11 +55,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/bal"
-            android:textSize="9sp"
+            android:textSize="10sp"
             android:textColor="@color/text_dim" />
     </LinearLayout>
 
-    <!-- TE/PS section -->
+    <!-- TE/PS section stacked -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -80,16 +79,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/te"
-                android:textSize="9sp"
+                android:textSize="12sp"
                 android:textColor="@color/text_dim"
-                android:layout_marginEnd="2dp" />
+                android:layout_marginEnd="4dp" />
 
             <TextView
                 android:id="@+id/te_avg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="76"
-                android:textSize="12sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/status_optimal" />
         </LinearLayout>
@@ -106,16 +105,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ps"
-                android:textSize="9sp"
+                android:textSize="12sp"
                 android:textColor="@color/text_dim"
-                android:layout_marginEnd="2dp" />
+                android:layout_marginEnd="4dp" />
 
             <TextView
                 android:id="@+id/ps_avg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="22"
-                android:textSize="12sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/status_optimal" />
         </LinearLayout>

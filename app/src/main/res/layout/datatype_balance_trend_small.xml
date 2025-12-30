@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- BalanceTrend SMALL: Just current balance - huge text -->
+<!-- BalanceTrend SMALL: Label + Balance + Trend indicator -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
     android:gravity="center"
-    android:padding="4dp">
+    android:baselineAligned="false"
+    android:padding="2dp">
 
+    <!-- Label -->
+    <TextView
+        android:id="@+id/label_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bal"
+        android:textSize="10sp"
+        android:textColor="@color/text_dim" />
+
+    <!-- Balance values with trend -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,10 +30,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="50"
-            android:textSize="44sp"
+            android:text="48"
+            android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
+            android:gravity="center" />
+
+        <!-- Trend indicator (↗ ↘ →) -->
+        <TextView
+            android:id="@+id/trend_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="→"
+            android:textSize="20sp"
+            android:textColor="@color/text_dim"
             android:gravity="center" />
 
         <TextView
@@ -30,8 +51,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="50"
-            android:textSize="44sp"
+            android:text="52"
+            android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
             android:gravity="center" />

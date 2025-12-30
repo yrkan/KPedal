@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- QuickGlance SMALL: Status icon only - maximum readability -->
+<!-- QuickGlance SMALL: Status icon + problem text -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@color/background"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="4dp">
 
+    <!-- Status icon (ImageView for reliable rendering) -->
+    <ImageView
+        android:id="@+id/status_icon_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_check"
+        android:layout_marginEnd="8dp" />
+
+    <!-- Problem text (OK, TE, PS, BAL) -->
     <TextView
-        android:id="@+id/status_icon"
+        android:id="@+id/status_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="✓"
-        android:textSize="64sp"
+        android:text="OK"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/status_optimal" />
 
