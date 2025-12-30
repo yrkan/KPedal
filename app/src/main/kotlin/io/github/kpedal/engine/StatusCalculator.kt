@@ -155,4 +155,102 @@ object StatusCalculator {
                teStatus(metrics.torqueEffAvg, teMin, teMax) == Status.OPTIMAL &&
                psStatus(metrics.pedalSmoothAvg, psMinimum) == Status.OPTIMAL
     }
+
+    // ========== Unified Score Calculation ==========
+    // Formula: 40% balance + 35% efficiency (TE/PS) + 25% consistency (zones)
+    // All scores are 0-100
+
+    /**
+     * Calculate balance score based on deviation from 50%.
+     * @param balanceRight Right side balance percentage (0-100)
+     * @return Score 0-100 (higher = better balance)
+     */
+    fun calculateBalanceScore(balanceRight: Int): Int {
+        val deviation = kotlin.math.abs(balanceRight - 50)
+        return when {
+            deviation <= 1 -> 100
+            deviation <= 2 -> 90
+            deviation <= 3 -> 80
+            deviation <= 5 -> 70
+            deviation <= 7 -> 55
+            deviation <= 10 -> 40
+            else -> 25
+        }
+    }
+
+    /**
+     * Calculate efficiency score based on TE and PS averages.
+     * @return Score 0-100 (higher = better efficiency)
+     */
+    fun calculateEfficiencyScore(teLeft: Int, teRight: Int, psLeft: Int, psRight: Int): Int {
+        val teAvg = (teLeft + teRight) / 2
+        val psAvg = (psLeft + psRight) / 2
+
+        // TE score (optimal is 70-80)
+        val teScore = when {
+            teAvg in 70..80 -> 100
+            teAvg in 65..85 -> 80
+            teAvg in 60..90 -> 60
+            else -> 40
+        }
+
+        // PS score (optimal is >= 20)
+        val psScore = when {
+            psAvg >= 25 -> 100
+            psAvg >= 22 -> 90
+            psAvg >= 20 -> 80
+            psAvg >= 18 -> 65
+            psAvg >= 15 -> 50
+            else -> 35
+        }
+
+        return (teScore * 0.5 + psScore * 0.5).toInt()
+    }
+
+    /**
+     * Calculate consistency score based on time in optimal zone.
+     * @param zoneOptimal Percentage of time in optimal zone (0-100)
+     * @return Score 0-100 (higher = more consistent)
+     */
+    fun calculateConsistencyScore(zoneOptimal: Int): Int {
+        return when {
+            zoneOptimal >= 80 -> 100
+            zoneOptimal >= 70 -> 90
+            zoneOptimal >= 60 -> 80
+            zoneOptimal >= 50 -> 70
+            zoneOptimal >= 40 -> 55
+            zoneOptimal >= 30 -> 40
+            else -> 25
+        }
+    }
+
+    /**
+     * Calculate overall ride score.
+     * Unified formula: 40% balance + 35% efficiency + 25% consistency
+     *
+     * @return Score 0-100
+     */
+    fun calculateOverallScore(balanceScore: Int, efficiencyScore: Int, consistencyScore: Int): Int {
+        return (balanceScore * 0.4 + efficiencyScore * 0.35 + consistencyScore * 0.25).toInt()
+    }
+
+    /**
+     * Calculate overall ride score from raw metrics.
+     * Convenience method that calculates all sub-scores internally.
+     *
+     * @return Score 0-100
+     */
+    fun calculateOverallScore(
+        balanceRight: Int,
+        teLeft: Int,
+        teRight: Int,
+        psLeft: Int,
+        psRight: Int,
+        zoneOptimal: Int
+    ): Int {
+        val balanceScore = calculateBalanceScore(balanceRight)
+        val efficiencyScore = calculateEfficiencyScore(teLeft, teRight, psLeft, psRight)
+        val consistencyScore = calculateConsistencyScore(zoneOptimal)
+        return calculateOverallScore(balanceScore, efficiencyScore, consistencyScore)
+    }
 }

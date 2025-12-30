@@ -1,6 +1,7 @@
 package io.github.kpedal.data.models
 
 import io.github.kpedal.data.database.RideEntity
+import io.github.kpedal.engine.StatusCalculator
 import kotlin.math.abs
 
 /**
@@ -19,6 +20,7 @@ data class RideAnalysis(
 
 /**
  * Analyzes a ride and provides insights.
+ * Uses unified score calculation from StatusCalculator.
  */
 object RideAnalyzer {
 
@@ -26,11 +28,13 @@ object RideAnalyzer {
      * Analyze a ride and return insights.
      */
     fun analyze(ride: RideEntity): RideAnalysis {
-        val balanceScore = calculateBalanceScore(ride)
-        val efficiencyScore = calculateEfficiencyScore(ride)
-        val consistencyScore = calculateConsistencyScore(ride)
-
-        val overallScore = (balanceScore * 0.4 + efficiencyScore * 0.35 + consistencyScore * 0.25).toInt()
+        // Use unified score calculation from StatusCalculator
+        val balanceScore = StatusCalculator.calculateBalanceScore(ride.balanceRight)
+        val efficiencyScore = StatusCalculator.calculateEfficiencyScore(
+            ride.teLeft, ride.teRight, ride.psLeft, ride.psRight
+        )
+        val consistencyScore = StatusCalculator.calculateConsistencyScore(ride.zoneOptimal)
+        val overallScore = StatusCalculator.calculateOverallScore(balanceScore, efficiencyScore, consistencyScore)
 
         val suggestedRating = when {
             overallScore >= 85 -> 5
@@ -92,56 +96,7 @@ object RideAnalyzer {
         )
     }
 
-    private fun calculateBalanceScore(ride: RideEntity): Int {
-        val deviation = abs(ride.balanceRight - 50)
-        return when {
-            deviation <= 1 -> 100
-            deviation <= 2 -> 90
-            deviation <= 3 -> 80
-            deviation <= 5 -> 70
-            deviation <= 7 -> 55
-            deviation <= 10 -> 40
-            else -> 25
-        }
-    }
-
-    private fun calculateEfficiencyScore(ride: RideEntity): Int {
-        val teAvg = (ride.teLeft + ride.teRight) / 2
-        val psAvg = (ride.psLeft + ride.psRight) / 2
-
-        // TE score (optimal is 70-80)
-        val teScore = when {
-            teAvg in 70..80 -> 100
-            teAvg in 65..85 -> 80
-            teAvg in 60..90 -> 60
-            else -> 40
-        }
-
-        // PS score (optimal is >= 20)
-        val psScore = when {
-            psAvg >= 25 -> 100
-            psAvg >= 22 -> 90
-            psAvg >= 20 -> 80
-            psAvg >= 18 -> 65
-            psAvg >= 15 -> 50
-            else -> 35
-        }
-
-        return (teScore * 0.5 + psScore * 0.5).toInt()
-    }
-
-    private fun calculateConsistencyScore(ride: RideEntity): Int {
-        // Based on time in optimal zone
-        return when {
-            ride.zoneOptimal >= 80 -> 100
-            ride.zoneOptimal >= 70 -> 90
-            ride.zoneOptimal >= 60 -> 80
-            ride.zoneOptimal >= 50 -> 70
-            ride.zoneOptimal >= 40 -> 55
-            ride.zoneOptimal >= 30 -> 40
-            else -> 25
-        }
-    }
+    // Score calculation functions moved to StatusCalculator for unified usage
 
     private fun generateSummary(
         overallScore: Int,

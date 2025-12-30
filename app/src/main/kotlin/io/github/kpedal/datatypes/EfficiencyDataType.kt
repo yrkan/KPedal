@@ -84,6 +84,31 @@ class EfficiencyDataType(
     }
 
     override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
+        if (!metrics.hasData) {
+            // No data - show dashes
+            views.setTextViewText(R.id.te_avg, NO_DATA)
+            views.setTextColor(R.id.te_avg, StatusCalculator.COLOR_WHITE)
+
+            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setTextViewText(R.id.ps_avg, NO_DATA)
+                views.setTextColor(R.id.ps_avg, StatusCalculator.COLOR_WHITE)
+            }
+
+            if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
+                views.setTextViewText(R.id.te_left, NO_DATA)
+                views.setTextViewText(R.id.te_right, NO_DATA)
+                views.setTextViewText(R.id.ps_left, NO_DATA)
+                views.setTextViewText(R.id.ps_right, NO_DATA)
+                views.setTextViewText(R.id.ps_avg, NO_DATA)
+                views.setTextColor(R.id.te_left, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.te_right, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.ps_left, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.ps_right, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.ps_avg, StatusCalculator.COLOR_WHITE)
+            }
+            return
+        }
+
         val teAvg = metrics.torqueEffAvg.toInt()
         val teAvgStatus = StatusCalculator.teStatus(metrics.torqueEffAvg)
 

@@ -1,9 +1,15 @@
 package io.github.kpedal.ui.screens
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -130,12 +137,23 @@ fun LiveScreen(
                         ) { onBack() }
                         .padding(end = 12.dp)
                 )
-                // Tabs: Live | Drills
-                Text(
-                    text = stringResource(R.string.live),
-                    color = Theme.colors.text,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold
+                // Pulsing green dot (like our logo)
+                val infiniteTransition = rememberInfiniteTransition(label = "pulse")
+                val alpha by infiniteTransition.animateFloat(
+                    initialValue = 0.4f,
+                    targetValue = 1f,
+                    animationSpec = infiniteRepeatable(
+                        animation = tween(800),
+                        repeatMode = RepeatMode.Reverse
+                    ),
+                    label = "pulseAlpha"
+                )
+                Box(
+                    modifier = Modifier
+                        .size(10.dp)
+                        .alpha(alpha)
+                        .clip(CircleShape)
+                        .background(Theme.colors.optimal)
                 )
                 Text(
                     text = " · ",
@@ -154,7 +172,7 @@ fun LiveScreen(
             }
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 // Score with color based on value
                 val scoreColor = when {
@@ -176,14 +194,14 @@ fun LiveScreen(
                     color = Theme.colors.dim,
                     fontSize = 12.sp
                 )
-                // Save button
+                // Save icon (compact)
                 when (saveStatus) {
                     SaveStatus.Idle -> {
                         Text(
-                            text = stringResource(R.string.save),
+                            text = "↓",
                             color = Theme.colors.optimal,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Medium,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
                             modifier = Modifier.clickable {
                                 if (onSave()) {
                                     saveStatus = SaveStatus.Saved
@@ -195,16 +213,17 @@ fun LiveScreen(
                     }
                     SaveStatus.Saved -> {
                         Text(
-                            text = stringResource(R.string.saved),
+                            text = "✓",
                             color = Theme.colors.dim,
-                            fontSize = 12.sp
+                            fontSize = 14.sp
                         )
                     }
                     SaveStatus.Failed -> {
                         Text(
-                            text = stringResource(R.string.no_data_lower),
+                            text = "!",
                             color = Theme.colors.problem,
-                            fontSize = 12.sp
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold
                         )
                     }
                 }
@@ -286,7 +305,7 @@ private fun BalanceSection(liveData: LiveRideData) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
-            .padding(top = 8.dp, bottom = 4.dp)
+            .padding(top = 8.dp, bottom = 12.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
@@ -305,38 +324,50 @@ private fun BalanceSection(liveData: LiveRideData) {
             }
         }
 
-        Box(
+        // Balance numbers with L/R labels inline
+        Row(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth(),
-            contentAlignment = Alignment.Center
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Column(horizontalAlignment = Alignment.Start) {
                 Text(
                     text = "${liveData.balanceLeft}",
                     color = Theme.colors.text,
-                    fontSize = 48.sp,
+                    fontSize = 44.sp,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
+                    text = stringResource(R.string.left),
+                    color = Theme.colors.dim,
+                    fontSize = 11.sp
+                )
+            }
+            Column(horizontalAlignment = Alignment.End) {
+                Text(
                     text = "${liveData.balanceRight}",
                     color = Theme.colors.text,
-                    fontSize = 48.sp,
+                    fontSize = 44.sp,
                     fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = stringResource(R.string.right),
+                    color = Theme.colors.dim,
+                    fontSize = 11.sp
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         // Balance bar
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(8.dp)
-                .clip(RoundedCornerShape(2.dp))
+                .height(6.dp)
+                .clip(RoundedCornerShape(3.dp))
                 .background(Color(0xFF222222))
         ) {
             Row(modifier = Modifier.fillMaxSize()) {
@@ -359,17 +390,6 @@ private fun BalanceSection(liveData: LiveRideData) {
                         .background(Theme.colors.dim)
                 )
             }
-        }
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        // L/R labels at bottom
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
-            Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
         }
     }
 }
@@ -478,11 +498,6 @@ private fun TimeInZoneSection(liveData: LiveRideData) {
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    Text(
-                        text = stringResource(R.string.opt),
-                        color = Theme.colors.dim,
-                        fontSize = 10.sp
-                    )
                     if (liveData.zoneOptimalMin > 0) {
                         Text(
                             text = "${liveData.zoneOptimalMin}m",
@@ -498,11 +513,6 @@ private fun TimeInZoneSection(liveData: LiveRideData) {
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold
                     )
-                    Text(
-                        text = stringResource(R.string.att),
-                        color = Theme.colors.dim,
-                        fontSize = 10.sp
-                    )
                     if (liveData.zoneAttentionMin > 0) {
                         Text(
                             text = "${liveData.zoneAttentionMin}m",
@@ -517,11 +527,6 @@ private fun TimeInZoneSection(liveData: LiveRideData) {
                         color = Theme.colors.problem,
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = stringResource(R.string.prob),
-                        color = Theme.colors.dim,
-                        fontSize = 10.sp
                     )
                     if (liveData.zoneProblemMin > 0) {
                         Text(

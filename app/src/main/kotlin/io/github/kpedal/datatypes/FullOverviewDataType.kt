@@ -73,6 +73,48 @@ class FullOverviewDataType(
     }
 
     override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
+        if (!metrics.hasData) {
+            // No data - show dashes for all values
+            views.setTextViewText(R.id.balance_left, NO_DATA)
+            views.setTextViewText(R.id.balance_right, NO_DATA)
+            views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
+            views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
+
+            if (currentLayoutSize == LayoutSize.LARGE) {
+                views.setProgressBar(R.id.balance_bar, 100, 50, false)
+            }
+
+            // TE and PS averages - in SMALL, SMALL_WIDE and MEDIUM_WIDE
+            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setTextViewText(R.id.te_avg, NO_DATA)
+                views.setTextViewText(R.id.ps_avg, NO_DATA)
+                views.setTextColor(R.id.te_avg, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.ps_avg, StatusCalculator.COLOR_WHITE)
+            }
+
+            // TE and PS L/R - MEDIUM, LARGE and NARROW
+            if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
+                views.setTextViewText(R.id.te_left, NO_DATA)
+                views.setTextViewText(R.id.te_right, NO_DATA)
+                views.setTextViewText(R.id.ps_left, NO_DATA)
+                views.setTextViewText(R.id.ps_right, NO_DATA)
+                views.setTextColor(R.id.te_left, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.te_right, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.ps_left, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.ps_right, StatusCalculator.COLOR_WHITE)
+
+                if (currentLayoutSize == LayoutSize.LARGE) {
+                    views.setTextViewText(R.id.te_avg, NO_DATA)
+                    views.setTextViewText(R.id.ps_avg, NO_DATA)
+                    views.setTextColor(R.id.te_avg, StatusCalculator.COLOR_WHITE)
+                    views.setTextColor(R.id.ps_avg, StatusCalculator.COLOR_WHITE)
+                    views.setProgressBar(R.id.te_bar, 100, 0, false)
+                    views.setProgressBar(R.id.ps_bar, 50, 0, false)
+                }
+            }
+            return
+        }
+
         // Balance - in all layouts
         val left = metrics.balanceLeft.toInt()
         val right = metrics.balance.toInt()

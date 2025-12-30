@@ -23,7 +23,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Analityka efektywności pedalowania dla Karoo",
-    "version": "Wersja 1.6.2",
+    "version": "Wersja 1.6.3",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1588,7 +1588,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Rozszerzenie Karoo",
-      "version": "v1.6.2",
+      "version": "v1.6.3",
       "titleLine1": "Zobacz efektywność",
       "titleLine2": "pedalowania w czasie rzeczywistym",
       "subtitle": "Balans, efektywność momentu obrotowego, płynność pedalowania - wyświetlane na Karoo z alertami w czasie rzeczywistym i ćwiczeniami z przewodnikiem.",

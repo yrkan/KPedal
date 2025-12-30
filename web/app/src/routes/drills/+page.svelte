@@ -719,5 +719,7 @@
     .target-number { font-size: 22px; }
     .target-label { font-size: 9px; }
     .target-duration { font-size: 11px; }
+    /* Empty state */
+    .drill-cat-grid { grid-template-columns: 1fr; }
   }
 </style>

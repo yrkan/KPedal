@@ -63,6 +63,28 @@ class BalanceTrendDataType(
     }
 
     override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
+        if (!metrics.hasData) {
+            // No data - show dashes for all balance values
+            views.setTextViewText(R.id.balance_left, NO_DATA)
+            views.setTextViewText(R.id.balance_right, NO_DATA)
+            views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
+            views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
+
+            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setTextViewText(R.id.trend_indicator, NO_DATA)
+                views.setTextColor(R.id.trend_indicator, StatusCalculator.COLOR_WHITE)
+            }
+            if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
+                views.setTextViewText(R.id.balance_3s_left, NO_DATA)
+                views.setTextViewText(R.id.balance_3s_right, NO_DATA)
+                if (currentLayoutSize == LayoutSize.LARGE) {
+                    views.setTextViewText(R.id.balance_10s_left, NO_DATA)
+                    views.setTextViewText(R.id.balance_10s_right, NO_DATA)
+                }
+            }
+            return
+        }
+
         // Current balance - in all layouts
         val left = metrics.balanceLeft.toInt()
         val right = metrics.balance.toInt()

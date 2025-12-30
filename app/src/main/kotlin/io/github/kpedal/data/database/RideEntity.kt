@@ -101,7 +101,11 @@ data class RideEntity(
     val normalizedPower: Int = 0,
 
     /** Energy output in kilojoules */
-    val energyKj: Int = 0
+    val energyKj: Int = 0,
+
+    // Score (added in v9 - unified formula)
+    /** Overall ride score (0-100), calculated using unified formula */
+    val score: Int = 0
 ) {
     companion object {
         const val SYNC_STATUS_PENDING = 0

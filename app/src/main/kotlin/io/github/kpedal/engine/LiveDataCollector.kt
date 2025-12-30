@@ -112,6 +112,8 @@ class LiveDataCollector {
         startTimeMs = System.currentTimeMillis()
         lastUpdateTimeMs = startTimeMs
         resetAccumulators()
+        // Reset live data to defaults (hasData = false) to prevent stale data from previous ride
+        _liveData.value = LiveRideData()
 
         // Start periodic emission (every 1 second instead of every metrics update)
         emitJob = scope.launch {
@@ -506,25 +508,16 @@ class LiveDataCollector {
             Triple(0, 0, 0)
         }
 
-        // Calculate overall score (0-100)
-        // Based on: 50% time in optimal zone + 25% balance quality + 25% TE/PS quality
-        val zoneScore = zoneOptimalPct  // 0-100 already
-        val balanceScore = (100 - (snapshot.currentBalanceDeviation * 10)).coerceIn(0f, 100f)
-        val avgTe = (snapshot.avgTeLeft + snapshot.avgTeRight) / 2f
-        val avgPs = (snapshot.avgPsLeft + snapshot.avgPsRight) / 2f
-        val teScore = when {
-            avgTe >= 70 && avgTe <= 80 -> 100f
-            avgTe >= 60 -> 80f
-            avgTe >= 50 -> 60f
-            else -> 40f
-        }
-        val psScore = when {
-            avgPs >= 20 -> 100f
-            avgPs >= 15 -> 80f
-            avgPs >= 10 -> 60f
-            else -> 40f
-        }
-        val overallScore = (zoneScore * 0.5f + balanceScore * 0.25f + (teScore + psScore) / 2 * 0.25f).roundToInt().coerceIn(0, 100)
+        // Calculate overall score using unified formula from StatusCalculator
+        // Formula: 40% balance + 35% efficiency (TE/PS) + 25% consistency (zones)
+        val overallScore = StatusCalculator.calculateOverallScore(
+            balanceRight = snapshot.avgBalanceRight,
+            teLeft = snapshot.avgTeLeft,
+            teRight = snapshot.avgTeRight,
+            psLeft = snapshot.avgPsLeft,
+            psRight = snapshot.avgPsRight,
+            zoneOptimal = zoneOptimalPct
+        )
 
         _liveData.value = LiveRideData(
             duration = durationStr,

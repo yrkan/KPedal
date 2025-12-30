@@ -4,6 +4,7 @@ import android.widget.RemoteViews
 import io.github.kpedal.KPedalExtension
 import io.github.kpedal.R
 import io.github.kpedal.engine.PedalingMetrics
+import io.github.kpedal.engine.StatusCalculator
 import io.hammerhead.karooext.models.ViewConfig
 
 /**
@@ -69,20 +70,31 @@ class PowerBalanceDataType(
     }
 
     override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
-        // Power value - in all layouts
+        // Power value - in all layouts (always show, even without pedal data)
         views.setTextViewText(R.id.power_value, "${metrics.power}")
 
-        // Balance - now in all layouts
-        val left = metrics.balanceLeft.toInt()
-        val right = metrics.balance.toInt()
+        // Balance - show dash when no pedal data available
+        if (metrics.hasData) {
+            val left = metrics.balanceLeft.toInt()
+            val right = metrics.balance.toInt()
+            views.setTextViewText(R.id.balance_left, "$left")
+            views.setTextViewText(R.id.balance_right, "$right")
+            applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
 
-        views.setTextViewText(R.id.balance_left, "$left")
-        views.setTextViewText(R.id.balance_right, "$right")
-        applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
+            // Progress bar - only in LARGE
+            if (currentLayoutSize == LayoutSize.LARGE) {
+                views.setProgressBar(R.id.balance_bar, 100, right, false)
+            }
+        } else {
+            views.setTextViewText(R.id.balance_left, NO_DATA)
+            views.setTextViewText(R.id.balance_right, NO_DATA)
+            views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
+            views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
 
-        // Progress bar - only in LARGE
-        if (currentLayoutSize == LayoutSize.LARGE) {
-            views.setProgressBar(R.id.balance_bar, 100, right, false)
+            // Reset progress bar to center when no data
+            if (currentLayoutSize == LayoutSize.LARGE) {
+                views.setProgressBar(R.id.balance_bar, 100, 50, false)
+            }
         }
     }
 }

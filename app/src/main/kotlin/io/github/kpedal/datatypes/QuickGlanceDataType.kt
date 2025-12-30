@@ -50,6 +50,29 @@ class QuickGlanceDataType(
     }
 
     override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
+        if (!metrics.hasData) {
+            // No data - show dash for status
+            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setImageViewResource(R.id.status_icon_image, R.drawable.ic_warning)
+            } else {
+                views.setTextViewText(R.id.status_icon, NO_DATA)
+                views.setTextColor(R.id.status_icon, StatusCalculator.COLOR_WHITE)
+            }
+            views.setTextViewText(R.id.status_text, NO_DATA)
+            views.setTextColor(R.id.status_text, StatusCalculator.COLOR_WHITE)
+
+            if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
+                views.setTextViewText(R.id.balance_left, NO_DATA)
+                views.setTextViewText(R.id.balance_right, NO_DATA)
+                views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
+                if (currentLayoutSize == LayoutSize.LARGE) {
+                    views.setProgressBar(R.id.balance_bar, 100, 50, false)
+                }
+            }
+            return
+        }
+
         // Status indicator - show which metrics have issues
         val balanceOk = StatusCalculator.balanceStatus(metrics.balance) == StatusCalculator.Status.OPTIMAL
         val teOk = StatusCalculator.teStatus(metrics.torqueEffAvg) == StatusCalculator.Status.OPTIMAL

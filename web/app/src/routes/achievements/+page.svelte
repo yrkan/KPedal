@@ -586,5 +586,7 @@
     .target-badge { padding: 2px 6px; font-size: 10px; }
     .col-date { width: 70px; }
     .date-value { font-size: 11px; }
+    /* Empty state */
+    .cat-grid { grid-template-columns: 1fr; }
   }
 </style>

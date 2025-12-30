@@ -21,6 +21,7 @@ import io.github.kpedal.data.database.DrillResultEntity
 import io.github.kpedal.data.database.RideDao
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.engine.RideSnapshot
+import io.github.kpedal.engine.StatusCalculator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -281,26 +282,7 @@ class SyncService(
 
         val deviceId = authRepository.getOrCreateDeviceId()
 
-        val request = SyncRideRequest(
-            timestamp = ride.timestamp,
-            duration = ride.durationMs,
-            balance_left_avg = ride.balanceLeft,
-            balance_right_avg = ride.balanceRight,
-            te_left_avg = ride.teLeft,
-            te_right_avg = ride.teRight,
-            ps_left_avg = ride.psLeft,
-            ps_right_avg = ride.psRight,
-            optimal_pct = ride.zoneOptimal,
-            attention_pct = ride.zoneAttention,
-            problem_pct = ride.zoneProblem,
-            // Extended metrics
-            power_avg = ride.powerAvg,
-            power_max = ride.powerMax,
-            cadence_avg = ride.cadenceAvg,
-            hr_avg = ride.heartRateAvg,
-            speed_avg = ride.speedAvgKmh,
-            distance_km = ride.distanceKm
-        )
+        val request = createSyncRideRequest(ride)
 
         return try {
             val response = ApiClient.syncService.syncRide(
@@ -373,25 +355,7 @@ class SyncService(
 
         val deviceId = authRepository.getOrCreateDeviceId()
 
-        val rideRequest = SyncRideRequest(
-            timestamp = ride.timestamp,
-            duration = ride.durationMs,
-            balance_left_avg = ride.balanceLeft,
-            balance_right_avg = ride.balanceRight,
-            te_left_avg = ride.teLeft,
-            te_right_avg = ride.teRight,
-            ps_left_avg = ride.psLeft,
-            ps_right_avg = ride.psRight,
-            optimal_pct = ride.zoneOptimal,
-            attention_pct = ride.zoneAttention,
-            problem_pct = ride.zoneProblem,
-            power_avg = ride.powerAvg,
-            power_max = ride.powerMax,
-            cadence_avg = ride.cadenceAvg,
-            hr_avg = ride.heartRateAvg,
-            speed_avg = ride.speedAvgKmh,
-            distance_km = ride.distanceKm
-        )
+        val rideRequest = createSyncRideRequest(ride)
 
         val snapshotRequests = snapshots.map { snapshot ->
             SyncSnapshotRequest(
@@ -683,6 +647,7 @@ class SyncService(
 
     /**
      * Called after a ride is saved. Triggers sync if auto-sync is enabled.
+     * NOTE: This syncs WITHOUT snapshots. Use onRideSavedWithSnapshots for full sync.
      */
     fun onRideSaved(rideId: Long) {
         scope.launch {
@@ -691,6 +656,27 @@ class SyncService(
                 val ride = rideDao.getRideById(rideId)
                 if (ride != null && ride.syncStatus == RideEntity.SYNC_STATUS_PENDING) {
                     syncRide(ride)
+                }
+            }
+        }
+    }
+
+    /**
+     * Called after a ride is saved with snapshots collected during the ride.
+     * Triggers full sync with per-minute data if auto-sync is enabled.
+     */
+    fun onRideSavedWithSnapshots(rideId: Long, snapshots: List<RideSnapshot>) {
+        scope.launch {
+            val autoSync = preferencesRepository.autoSyncEnabledFlow.first()
+            if (autoSync && authRepository.isLoggedIn) {
+                val ride = rideDao.getRideById(rideId)
+                if (ride != null && ride.syncStatus == RideEntity.SYNC_STATUS_PENDING) {
+                    if (snapshots.isNotEmpty()) {
+                        syncRideWithSnapshots(ride, snapshots)
+                    } else {
+                        // Fallback to simple sync if no snapshots
+                        syncRide(ride)
+                    }
                 }
             }
         }
@@ -1002,6 +988,57 @@ class SyncService(
         val network = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+
+    /**
+     * Create SyncRideRequest from RideEntity with all fields.
+     * Recalculates score for legacy rides (score = 0) to ensure consistent scoring.
+     */
+    private fun createSyncRideRequest(ride: RideEntity): SyncRideRequest {
+        // For legacy rides (before score was added), recalculate using unified formula
+        val score = if (ride.score == 0) {
+            StatusCalculator.calculateOverallScore(
+                balanceRight = ride.balanceRight,
+                teLeft = ride.teLeft,
+                teRight = ride.teRight,
+                psLeft = ride.psLeft,
+                psRight = ride.psRight,
+                zoneOptimal = ride.zoneOptimal
+            )
+        } else {
+            ride.score
+        }
+
+        return SyncRideRequest(
+            timestamp = ride.timestamp,
+            duration = ride.durationMs,
+            balance_left_avg = ride.balanceLeft,
+            balance_right_avg = ride.balanceRight,
+            te_left_avg = ride.teLeft,
+            te_right_avg = ride.teRight,
+            ps_left_avg = ride.psLeft,
+            ps_right_avg = ride.psRight,
+            optimal_pct = ride.zoneOptimal,
+            attention_pct = ride.zoneAttention,
+            problem_pct = ride.zoneProblem,
+            // Unified score (recalculated for legacy rides)
+            score = score,
+            // Extended metrics
+            power_avg = ride.powerAvg,
+            power_max = ride.powerMax,
+            cadence_avg = ride.cadenceAvg,
+            hr_avg = ride.heartRateAvg,
+            hr_max = ride.heartRateMax,
+            speed_avg = ride.speedAvgKmh,
+            distance_km = ride.distanceKm,
+            // Pro cyclist metrics
+            elevation_gain = ride.elevationGain,
+            elevation_loss = ride.elevationLoss,
+            grade_avg = ride.gradeAvg,
+            grade_max = ride.gradeMax,
+            normalized_power = ride.normalizedPower,
+            energy_kj = ride.energyKj
+        )
     }
 
     /**

@@ -147,12 +147,25 @@ class RideStateMonitor(
     private fun autoSaveRide(durationMs: Long) {
         val liveData = liveDataCollector.liveData.value
         val actualDurationMs = liveDataCollector.getDurationMs()
+        // Get snapshots BEFORE reset (they are cleared on reset)
+        val snapshots = liveDataCollector.getSnapshots()
+
+        // Don't save if no pedal data was received (prevents saving default 50/50 values)
+        if (!liveData.hasData) {
+            android.util.Log.i(TAG, "No pedal data received, skipping auto-save")
+            liveDataCollector.reset()
+            return
+        }
 
         // Only save if we have meaningful data (at least 1 minute)
         if (actualDurationMs < MIN_RIDE_DURATION_MS || durationMs < MIN_RIDE_DURATION_MS) {
             android.util.Log.i(TAG, "Ride too short to save (duration=${durationMs}ms, actual=${actualDurationMs}ms)")
+            liveDataCollector.reset()
             return
         }
+
+        // Reset collector now that we have all the data
+        liveDataCollector.reset()
 
         scope.launch {
             _saveStatus.value = SaveStatus.Saving
@@ -162,11 +175,11 @@ class RideStateMonitor(
                     durationMs = durationMs,
                     savedManually = false
                 )
-                android.util.Log.i(TAG, "Auto-saved ride with ID: ${ride.id}")
+                android.util.Log.i(TAG, "Auto-saved ride with ID: ${ride.id}, snapshots: ${snapshots.size}")
                 _saveStatus.value = SaveStatus.Success(ride.id)
 
-                // Trigger cloud sync if available
-                syncService?.onRideSaved(ride.id)
+                // Trigger cloud sync with snapshots if available
+                syncService?.onRideSavedWithSnapshots(ride.id, snapshots)
 
                 // Check for new achievements
                 checkAchievements(ride)
@@ -192,6 +205,14 @@ class RideStateMonitor(
     fun manualSave(): Boolean {
         val liveData = liveDataCollector.liveData.value
         val durationMs = liveDataCollector.getDurationMs()
+        // Get snapshots BEFORE any potential reset
+        val snapshots = liveDataCollector.getSnapshots()
+
+        // Don't save if no pedal data was received (prevents saving default 50/50 values)
+        if (!liveData.hasData) {
+            android.util.Log.w(TAG, "No pedal data received, cannot save")
+            return false
+        }
 
         // Require minimum duration to avoid junk data
         if (durationMs < MIN_RIDE_DURATION_MS) {
@@ -207,11 +228,11 @@ class RideStateMonitor(
                     durationMs = durationMs,
                     savedManually = true
                 )
-                android.util.Log.i(TAG, "Manually saved ride with ID: ${ride.id}")
+                android.util.Log.i(TAG, "Manually saved ride with ID: ${ride.id}, snapshots: ${snapshots.size}")
                 _saveStatus.value = SaveStatus.Success(ride.id)
 
-                // Trigger cloud sync if available
-                syncService?.onRideSaved(ride.id)
+                // Trigger cloud sync with snapshots if available
+                syncService?.onRideSavedWithSnapshots(ride.id, snapshots)
 
                 // Check for new achievements
                 checkAchievements(ride)

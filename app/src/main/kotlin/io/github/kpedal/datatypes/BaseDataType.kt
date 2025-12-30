@@ -79,6 +79,12 @@ abstract class BaseDataType(
         private const val VIEW_UPDATE_INTERVAL_MS = 1000L
 
         /**
+         * Text to display when no data is available.
+         * Standard cycling computer convention.
+         */
+        const val NO_DATA = "-"
+
+        /**
          * Sample metrics for preview mode in the Profiles editor.
          * Shows realistic-looking data so user can see how the widget will appear.
          * Note: balanceLeft, torqueEffAvg, pedalSmoothAvg are computed properties.
@@ -241,39 +247,27 @@ abstract class BaseDataType(
             return
         }
 
-        // Not preview mode - still try to render something immediately
+        // Not preview mode - render real data (or "-" if no data)
         android.util.Log.d(TAG, "[$dataTypeId] Live mode, config.preview=${config.preview}")
 
-        // Render PREVIEW_METRICS first to ensure something shows immediately
-        try {
-            updateViews(cachedViews, PREVIEW_METRICS)
-            emitter.updateView(cachedViews)
-            android.util.Log.d(TAG, "[$dataTypeId] Initial preview render successful")
+        // Render current metrics immediately (shows "-" if no data yet)
+        val initialMetrics = try {
+            kpedalExtension.pedalingEngine.metrics.value
         } catch (e: Exception) {
-            android.util.Log.e(TAG, "[$dataTypeId] Initial preview render failed: ${e.message}", e)
+            android.util.Log.w(TAG, "[$dataTypeId] Engine not ready: ${e.message}")
+            PedalingMetrics() // Default metrics with hasData = false (shows "-")
+        }
+        try {
+            updateViews(cachedViews, initialMetrics)
+            emitter.updateView(cachedViews)
+            android.util.Log.d(TAG, "[$dataTypeId] Initial live render successful (hasData=${initialMetrics.hasData})")
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "[$dataTypeId] Initial live render failed: ${e.message}", e)
         }
 
         // Live mode: use coroutines for async updates
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         viewScope = scope
-
-        // Start live updates after a short delay (let initial render complete)
-        scope.launch {
-            delay(500L) // Give initial render time to complete
-
-            try {
-                val initialMetrics = try {
-                    kpedalExtension.pedalingEngine.metrics.value
-                } catch (e: Exception) {
-                    android.util.Log.w(TAG, "[$dataTypeId] Engine not ready: ${e.message}")
-                    return@launch // Keep showing preview metrics
-                }
-                updateViews(cachedViews, initialMetrics)
-                emitter.updateView(cachedViews)
-            } catch (e: Exception) {
-                android.util.Log.w(TAG, "[$dataTypeId] Live update error: ${e.message}")
-            }
-        }
 
         // Rate-limited updates at 1Hz
         scope.launch {

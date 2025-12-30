@@ -72,9 +72,12 @@ sync.post('/ride', async (c) => {
       grade_max?: number;
       normalized_power?: number;
       energy_kj?: number;
+      // Unified score (calculated on Android using StatusCalculator)
+      score?: number;
     }>();
 
     // Convert from client format to server format
+    // Use score from Android if provided, otherwise fallback for old clients
     const ride: RideData = {
       timestamp: body.timestamp,
       duration_ms: body.duration,
@@ -87,7 +90,7 @@ sync.post('/ride', async (c) => {
       zone_optimal: body.optimal_pct,
       zone_attention: body.attention_pct,
       zone_problem: body.problem_pct,
-      score: Math.round((body.optimal_pct * 100 + body.attention_pct * 50) / 100),
+      score: body.score ?? Math.round((body.optimal_pct * 100 + body.attention_pct * 50) / 100),
       // Extended metrics (default to 0 if not provided)
       power_avg: body.power_avg ?? 0,
       power_max: body.power_max ?? 0,
@@ -222,6 +225,8 @@ sync.post('/ride-full', async (c) => {
         grade_max?: number;
         normalized_power?: number;
         energy_kj?: number;
+        // Unified score (calculated on Android using StatusCalculator)
+        score?: number;
       };
       snapshots: Array<{
         minute_index: number;
@@ -242,6 +247,7 @@ sync.post('/ride-full', async (c) => {
     const { ride, snapshots } = body;
 
     // Convert ride from client format to server format
+    // Use score from Android if provided, otherwise fallback for old clients
     const rideData: RideData = {
       timestamp: ride.timestamp,
       duration_ms: ride.duration,
@@ -254,7 +260,7 @@ sync.post('/ride-full', async (c) => {
       zone_optimal: ride.optimal_pct,
       zone_attention: ride.attention_pct,
       zone_problem: ride.problem_pct,
-      score: Math.round((ride.optimal_pct * 100 + ride.attention_pct * 50) / 100),
+      score: ride.score ?? Math.round((ride.optimal_pct * 100 + ride.attention_pct * 50) / 100),
       power_avg: ride.power_avg ?? 0,
       power_max: ride.power_max ?? 0,
       cadence_avg: ride.cadence_avg ?? 0,

@@ -427,6 +427,39 @@ Create personalized drills with configurable parameters:
 | Efficiency | 35% | (TE score + PS score) / 2 |
 | Consistency | 25% | % time in optimal zone |
 
+<details>
+<summary><b>Score Formulas</b> - Click to expand</summary>
+
+**Balance Score** (40% weight):
+```
+deviation = abs(balanceRight - 50)
+balanceScore = max(0, 100 - deviation * 10)
+```
+- 50/50 = 100 points
+- 48/52 or 52/48 = 80 points
+- 45/55 = 50 points
+
+**Efficiency Score** (35% weight):
+```
+teScore = if TE in [70-80] → 100, else → 100 - abs(75 - TE) * 2
+psScore = if PS >= 20 → 100, else → PS * 5
+efficiencyScore = (teScore + psScore) / 2
+```
+
+**Consistency Score** (25% weight):
+```
+consistencyScore = zoneOptimal  // % time in optimal zone
+```
+
+**Final Score**:
+```
+score = balanceScore * 0.4 + efficiencyScore * 0.35 + consistencyScore * 0.25
+```
+
+Score is calculated on Android (`StatusCalculator.kt`) and sent to cloud. Backend has fallback for legacy rides without score.
+
+</details>
+
 #### Score to Stars
 
 | Score | Stars |
@@ -592,6 +625,16 @@ Theme persists in localStorage and syncs with Karoo app settings.
 3. Enter code, sign in with Google
 4. Done!
 
+**Data Flow:**
+
+| Data Type | Direction | Description |
+|-----------|:---------:|-------------|
+| Rides | Android → Cloud | One-way upload after ride completion |
+| Snapshots | Android → Cloud | Per-minute metrics with rides |
+| Drills | Android → Cloud | Drill results with phase scores |
+| Achievements | Android → Cloud | Unlock timestamps |
+| Settings | ↔ Bidirectional | Sync on app start, auto-upload on change |
+
 **What syncs:**
 - ✅ Ride summaries + per-minute snapshots
 - ✅ Extended metrics (power, HR, cadence, distance, elevation)
@@ -601,15 +644,18 @@ Theme persists in localStorage and syncs with Karoo app settings.
 - ❌ GPS/routes (not collected)
 - ❌ Custom drills (local only)
 - ❌ Ride notes/ratings (local only)
+- ❌ Deletions (not synchronized)
 
 **Sync Behavior:**
 
 | Action | Result |
 |--------|--------|
+| Ride ends | Auto-sync ride + snapshots to cloud |
 | Change setting in app | Auto-upload to cloud (2s debounce) |
-| Press Sync button | Pull from cloud + sync pending rides |
+| Press Sync button | Pull settings + sync pending rides |
 | Start ride | Pull settings from cloud |
 | Change on web | Saved to cloud, app gets it on next sync |
+| Delete ride on web | Deleted from cloud only, stays on device |
 
 ### Device Management
 

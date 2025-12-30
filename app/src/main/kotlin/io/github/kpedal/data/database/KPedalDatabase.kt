@@ -17,7 +17,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  */
 @Database(
     entities = [RideEntity::class, DrillResultEntity::class, AchievementEntity::class, CustomDrillEntity::class],
-    version = 9,
+    version = 10,
     exportSchema = true
 )
 abstract class KPedalDatabase : RoomDatabase() {
@@ -81,10 +81,21 @@ abstract class KPedalDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Migration from v9 to v10: Add unified score to rides table.
+         * Score is calculated using unified formula: 40% balance + 35% efficiency + 25% consistency.
+         */
+        private val MIGRATION_9_10 = object : Migration(9, 10) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE rides ADD COLUMN score INTEGER NOT NULL DEFAULT 0")
+            }
+        }
+
         private val MIGRATIONS = arrayOf<Migration>(
             MIGRATION_6_7,
             MIGRATION_7_8,
-            MIGRATION_8_9
+            MIGRATION_8_9,
+            MIGRATION_9_10
         )
 
         fun getInstance(context: Context): KPedalDatabase {

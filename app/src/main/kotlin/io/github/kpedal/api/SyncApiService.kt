@@ -112,13 +112,23 @@ data class SyncRideRequest(
     val optimal_pct: Int,
     val attention_pct: Int,
     val problem_pct: Int,
+    // Unified score (calculated on Android using StatusCalculator)
+    val score: Int = 0,
     // Extended metrics
     val power_avg: Int = 0,
     val power_max: Int = 0,
     val cadence_avg: Int = 0,
     val hr_avg: Int = 0,
+    val hr_max: Int = 0,
     val speed_avg: Float = 0f,
-    val distance_km: Float = 0f
+    val distance_km: Float = 0f,
+    // Pro cyclist metrics
+    val elevation_gain: Int = 0,
+    val elevation_loss: Int = 0,
+    val grade_avg: Float = 0f,
+    val grade_max: Float = 0f,
+    val normalized_power: Int = 0,
+    val energy_kj: Int = 0
 )
 
 /**

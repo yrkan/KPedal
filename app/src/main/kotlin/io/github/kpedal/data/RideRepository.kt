@@ -3,6 +3,7 @@ package io.github.kpedal.data
 import android.content.Context
 import io.github.kpedal.data.database.KPedalDatabase
 import io.github.kpedal.data.database.RideEntity
+import io.github.kpedal.engine.StatusCalculator
 import io.github.kpedal.ui.screens.LiveRideData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -41,6 +42,17 @@ class RideRepository(context: Context) {
         savedManually: Boolean = false
     ): RideEntity = withContext(Dispatchers.IO) {
         val timestamp = System.currentTimeMillis()
+
+        // Calculate unified score using StatusCalculator
+        val score = StatusCalculator.calculateOverallScore(
+            balanceRight = liveData.balanceRight,
+            teLeft = liveData.teLeft,
+            teRight = liveData.teRight,
+            psLeft = liveData.psLeft,
+            psRight = liveData.psRight,
+            zoneOptimal = liveData.zoneOptimal
+        )
+
         val entity = RideEntity(
             timestamp = timestamp,
             durationMs = durationMs,
@@ -69,7 +81,9 @@ class RideRepository(context: Context) {
             gradeAvg = liveData.gradeAvg,
             gradeMax = liveData.gradeMax,
             normalizedPower = liveData.normalizedPower,
-            energyKj = liveData.energyKj
+            energyKj = liveData.energyKj,
+            // Unified score
+            score = score
         )
 
         val id = rideDao.insertRide(entity)

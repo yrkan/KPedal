@@ -120,7 +120,7 @@
           <select
             class="lang-select"
             value={$locale}
-            on:change={(e) => setLocale(e.currentTarget.value as Locale)}
+            on:change={(e) => { setLocale(e.currentTarget.value as Locale); e.currentTarget.blur(); }}
             aria-label={$t('aria.languageSelector')}
           >
             {#each locales as loc}
@@ -655,6 +655,54 @@
 
   /* Small mobile */
   @media (max-width: 480px) {
+    .nav-container {
+      padding: 0 12px;
+    }
+
+    .nav-right {
+      gap: 8px;
+    }
+
+    .lang-select {
+      height: 32px;
+      padding: 0 22px 0 8px;
+      font-size: 11px;
+      background-position: right 5px center;
+    }
+
+    .icon-btn {
+      height: 32px;
+      width: 32px;
+    }
+
+    .icon-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .logout-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .bottom-nav {
+      height: 60px;
+    }
+
+    .bottom-nav-item {
+      padding: 6px 4px;
+      gap: 2px;
+    }
+
+    .bottom-nav-item svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .bottom-nav-item span {
+      font-size: 9px;
+    }
+
     .demo-banner {
       padding: 8px 12px;
       gap: 8px;

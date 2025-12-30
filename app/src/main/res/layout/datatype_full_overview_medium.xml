@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background">
+    android:padding="4dp">
 
     <!-- Balance (33%) -->
     <LinearLayout
@@ -12,7 +12,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingHorizontal="4dp">
 
         <TextView
             android:id="@+id/balance_left"
@@ -51,7 +52,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingHorizontal="4dp">
 
         <TextView
             android:id="@+id/te_left"
@@ -90,7 +92,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:paddingHorizontal="4dp">
 
         <TextView
             android:id="@+id/ps_left"

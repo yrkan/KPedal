@@ -917,6 +917,10 @@
     .zone-bar-mini { min-width: 40px; height: 6px; }
     .date-secondary { display: none; }
     .ride-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    /* Empty state */
+    .preview-grid { grid-template-columns: 1fr; }
+    .empty-actions { flex-direction: column; }
+    .empty-action-btn { width: 100%; justify-content: center; }
     .asymmetry-num { font-size: 22px; }
   }
 </style>

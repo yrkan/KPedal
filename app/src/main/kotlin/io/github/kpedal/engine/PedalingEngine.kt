@@ -83,6 +83,10 @@ class PedalingEngine(private val extension: KPedalExtension) {
     @Volatile private var currentDistance: Float = 0f
     @Volatile private var currentBalance3sLeft: Float = 50f
     @Volatile private var currentBalance10sLeft: Float = 50f
+
+    // Track if we've received real pedaling data from sensors
+    // (balance alone is not enough - need TE or PS to confirm pedal data)
+    @Volatile private var hasReceivedPedalData: Boolean = false
     // Pro cyclist current values
     @Volatile private var currentElevationGain: Float = 0f
     @Volatile private var currentElevationLoss: Float = 0f
@@ -124,6 +128,8 @@ class PedalingEngine(private val extension: KPedalExtension) {
                         val values = state.dataPoint.values
                         values[DataType.Field.PEDAL_POWER_BALANCE_LEFT]?.toFloat()?.let { left ->
                             currentBalanceLeft = left
+                            // Balance from SDK = power meter connected (even without TE/PS)
+                            hasReceivedPedalData = true
                             triggerUpdate()
                         }
                     }
@@ -142,9 +148,11 @@ class PedalingEngine(private val extension: KPedalExtension) {
                         val values = state.dataPoint.values
                         values[DataType.Field.TORQUE_EFFECTIVENESS_LEFT]?.toFloat()?.let { left ->
                             currentTeLeft = left
+                            if (left > 0) hasReceivedPedalData = true
                         }
                         values[DataType.Field.TORQUE_EFFECTIVENESS_RIGHT]?.toFloat()?.let { right ->
                             currentTeRight = right
+                            if (right > 0) hasReceivedPedalData = true
                         }
                         triggerUpdate()
                     }
@@ -163,9 +171,11 @@ class PedalingEngine(private val extension: KPedalExtension) {
                         val values = state.dataPoint.values
                         values[DataType.Field.PEDAL_SMOOTHNESS_LEFT]?.toFloat()?.let { left ->
                             currentPsLeft = left
+                            if (left > 0) hasReceivedPedalData = true
                         }
                         values[DataType.Field.PEDAL_SMOOTHNESS_RIGHT]?.toFloat()?.let { right ->
                             currentPsRight = right
+                            if (right > 0) hasReceivedPedalData = true
                         }
                         triggerUpdate()
                     }
@@ -432,6 +442,9 @@ class PedalingEngine(private val extension: KPedalExtension) {
         normalizedPowerConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
         energyConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
 
+        // Reset pedal data flag for next ride
+        hasReceivedPedalData = false
+
         android.util.Log.i(TAG, "Stopped streaming")
     }
 
@@ -474,6 +487,8 @@ class PedalingEngine(private val extension: KPedalExtension) {
 
         // Balance: SDK returns left side %, right = 100 - left
         // PedalingMetrics.balance stores RIGHT side value for display
+        // Only set timestamp if we have real pedal data (TE or PS > 0)
+        // This ensures hasData = false until real data arrives
         val newMetrics = PedalingMetrics(
             balance = 100f - balanceLeft,  // Right side %
             torqueEffLeft = teLeft,
@@ -493,7 +508,7 @@ class PedalingEngine(private val extension: KPedalExtension) {
             grade = grade,
             normalizedPower = normalizedPower,
             energyKj = energy,
-            timestamp = System.currentTimeMillis()
+            timestamp = if (hasReceivedPedalData) System.currentTimeMillis() else 0L
         )
 
         _metrics.value = newMetrics
