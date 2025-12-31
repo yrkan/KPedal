@@ -577,15 +577,21 @@
   }
 
   @media (max-width: 480px) {
-    .col-status { width: 36px; }
-    .status-icon { width: 22px; height: 22px; }
-    .status-icon svg { width: 12px; height: 12px; }
-    .milestone-name { font-size: 12px; }
+    /* Override global min-width */
+    .data-table { min-width: auto; }
+    .col-status { width: 32px; }
+    .status-icon { width: 20px; height: 20px; }
+    .status-icon svg { width: 11px; height: 11px; }
+    .col-milestone { max-width: 180px; }
+    .milestone-name { font-size: 12px; white-space: normal; word-wrap: break-word; }
     .milestone-desc { display: none; }
-    .col-target { width: 70px; }
-    .target-badge { padding: 2px 6px; font-size: 10px; }
-    .col-date { width: 70px; }
-    .date-value { font-size: 11px; }
+    .col-target { width: 65px; }
+    .target-badge { padding: 2px 5px; font-size: 9px; }
+    /* Hide date column on small screens */
+    .col-date { display: none; }
+    /* Reduce table padding */
+    .data-table th,
+    .data-table td { padding: 10px 8px; }
     /* Empty state */
     .cat-grid { grid-template-columns: 1fr; }
   }
