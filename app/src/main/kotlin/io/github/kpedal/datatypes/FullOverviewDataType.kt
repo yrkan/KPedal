@@ -35,6 +35,10 @@ class FullOverviewDataType(
                 views.setAdaptiveTextSize(R.id.te_avg, config, TextSizeCalculator.Role.TERTIARY)
                 views.setAdaptiveTextSize(R.id.label_ps, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.ps_avg, config, TextSizeCalculator.Role.TERTIARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_balance, getString(R.string.bal))
+                views.setTextViewText(R.id.label_te, getString(R.string.te))
+                views.setTextViewText(R.id.label_ps, getString(R.string.ps))
             }
             LayoutSize.SMALL_WIDE, LayoutSize.MEDIUM_WIDE -> {
                 // BAL + TE + PS horizontal (48|52 | TE 76 | PS 22)
@@ -45,6 +49,10 @@ class FullOverviewDataType(
                 views.setAdaptiveTextSize(R.id.te_avg, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.label_ps, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.ps_avg, config, TextSizeCalculator.Role.SECONDARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_balance, getString(R.string.bal))
+                views.setTextViewText(R.id.label_te, getString(R.string.te))
+                views.setTextViewText(R.id.label_ps, getString(R.string.ps))
             }
             LayoutSize.MEDIUM, LayoutSize.NARROW -> {
                 // Balance + TE + PS (3 rows) - TERTIARY for all to fit
@@ -68,6 +76,10 @@ class FullOverviewDataType(
                 views.setAdaptiveTextSize(R.id.ps_avg, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.ps_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.ps_right, config, TextSizeCalculator.Role.SECONDARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_balance, getString(R.string.balance))
+                views.setTextViewText(R.id.label_te, getString(R.string.te))
+                views.setTextViewText(R.id.label_ps, getString(R.string.ps))
             }
         }
     }

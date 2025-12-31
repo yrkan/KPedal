@@ -109,7 +109,7 @@ fun DrillExecutionScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     // Current phase
-                    Column {
+                    Column(modifier = Modifier.weight(1f, fill = false)) {
                         Text(
                             text = currentPhase?.let { it.nameOverride ?: stringResource(it.nameRes) } ?: "",
                             color = Theme.colors.text,
@@ -125,6 +125,7 @@ fun DrillExecutionScreen(
 
                     // Next phase preview
                     state.nextPhase?.let { next ->
+                        Spacer(modifier = Modifier.width(12.dp))
                         Column(horizontalAlignment = Alignment.End) {
                             Text(
                                 text = stringResource(R.string.next),

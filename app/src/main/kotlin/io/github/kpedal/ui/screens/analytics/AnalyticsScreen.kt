@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,7 @@ import kotlin.math.abs
 
 /**
  * Analytics screen showing trends and progress.
+ * Clean, informative layout for Karoo 3.
  */
 @Composable
 fun AnalyticsScreen(
@@ -40,68 +42,50 @@ fun AnalyticsScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp, end = 12.dp, top = 24.dp, bottom = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(start = 12.dp, end = 12.dp, top = 24.dp, bottom = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "←",
-                    color = Theme.colors.dim,
-                    fontSize = 18.sp,
-                    modifier = Modifier
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { onBack() }
-                        .padding(end = 12.dp)
-                )
-                Text(
-                    text = stringResource(R.string.analytics),
-                    color = Theme.colors.text,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
+            Text(
+                text = "←",
+                color = Theme.colors.dim,
+                fontSize = 16.sp,
+                modifier = Modifier
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) { onBack() }
+                    .padding(end = 12.dp)
+            )
+            Text(
+                text = stringResource(R.string.analytics),
+                color = Theme.colors.text,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.weight(1f)
+            )
+        }
 
-            // Period selector
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                TrendData.Period.entries.forEach { period ->
-                    PeriodChip(
-                        label = period.label,
-                        isSelected = trendData.period == period,
-                        onClick = { onPeriodChange(period) }
-                    )
-                }
+        // Period tabs
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            TrendData.Period.entries.forEach { period ->
+                PeriodTab(
+                    label = period.label,
+                    isSelected = trendData.period == period,
+                    onClick = { onPeriodChange(period) },
+                    modifier = Modifier.weight(1f)
+                )
             }
         }
 
-        Divider()
+        Spacer(modifier = Modifier.height(12.dp))
 
         if (!trendData.hasData) {
-            // Empty state
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = stringResource(R.string.no_ride_data),
-                        color = Theme.colors.dim,
-                        fontSize = 14.sp
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.complete_rides_to_see),
-                        color = Theme.colors.muted,
-                        fontSize = 12.sp
-                    )
-                }
-            }
+            EmptyState()
             return
         }
 
@@ -109,18 +93,28 @@ fun AnalyticsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(horizontal = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Progress Summary
-            ProgressCard(
-                progressScore = trendData.progressScore,
+            // Hero stats
+            HeroStats(
                 rideCount = trendData.rideCount,
-                avgBalance = trendData.avgBalance
+                progressScore = trendData.progressScore
             )
 
-            // Balance Trend
-            ChartCard(title = stringResource(R.string.balance_trend_title)) {
+            // Metrics overview
+            MetricsOverview(
+                avgBalance = trendData.avgBalance,
+                avgTE = trendData.avgTE,
+                avgPS = trendData.avgPS
+            )
+
+            // Balance chart
+            ChartSection(
+                title = stringResource(R.string.balance),
+                value = "${(100 - trendData.avgBalance).toInt()}/${trendData.avgBalance.toInt()}",
+                valueColor = getBalanceColor(trendData.avgBalance)
+            ) {
                 TrendChart(
                     data = trendData.balanceTrend,
                     lineColor = getBalanceColor(trendData.avgBalance),
@@ -132,57 +126,161 @@ fun AnalyticsScreen(
                 )
             }
 
-            // TE Trend
-            ChartCard(title = stringResource(R.string.te_full)) {
+            // TE chart
+            ChartSection(
+                title = stringResource(R.string.torque_eff_short),
+                value = "${trendData.avgTE.toInt()}%",
+                valueColor = getTEColor(trendData.avgTE)
+            ) {
                 TrendChart(
                     data = trendData.teTrend,
                     lineColor = getTEColor(trendData.avgTE),
                     unit = "%",
-                    minValue = 0f,
-                    maxValue = 100f,
+                    minValue = 50f,
+                    maxValue = 90f,
                     referenceValue = 75f,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
 
-            // PS Trend
-            ChartCard(title = stringResource(R.string.ps_full)) {
+            // PS chart
+            ChartSection(
+                title = stringResource(R.string.smoothness_short),
+                value = "${trendData.avgPS.toInt()}%",
+                valueColor = getPSColor(trendData.avgPS)
+            ) {
                 TrendChart(
                     data = trendData.psTrend,
                     lineColor = getPSColor(trendData.avgPS),
                     unit = "%",
-                    minValue = 0f,
-                    maxValue = 50f,
+                    minValue = 10f,
+                    maxValue = 40f,
                     referenceValue = 20f,
                     modifier = Modifier.fillMaxWidth()
                 )
             }
 
-            // Averages Summary
-            AveragesCard(
-                avgBalance = trendData.avgBalance,
-                avgTE = trendData.avgTE,
-                avgPS = trendData.avgPS
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
 
 @Composable
-private fun ProgressCard(
-    progressScore: Int,
-    rideCount: Int,
-    avgBalance: Float
+private fun PeriodTab(
+    label: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    val stableText = stringResource(R.string.stable)
-    val progressLabel = stringResource(R.string.progress_label)
-    val ridesLabel = stringResource(R.string.rides)
-    val avgBalanceLabel = stringResource(R.string.avg_balance_label)
-    val leftLabel = stringResource(R.string.left)
-    val rightLabel = stringResource(R.string.right)
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(8.dp))
+            .background(if (isSelected) Theme.colors.optimal else Theme.colors.surface)
+            .clickable { onClick() }
+            .padding(vertical = 10.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = label,
+            color = if (isSelected) Theme.colors.background else Theme.colors.dim,
+            fontSize = 12.sp,
+            fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal
+        )
+    }
+}
 
+@Composable
+private fun EmptyState() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = stringResource(R.string.no_ride_data),
+                color = Theme.colors.dim,
+                fontSize = 13.sp
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = stringResource(R.string.complete_rides_to_see),
+                color = Theme.colors.muted,
+                fontSize = 11.sp
+            )
+        }
+    }
+}
+
+@Composable
+private fun HeroStats(
+    rideCount: Int,
+    progressScore: Int
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        // Rides count
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Theme.colors.surface)
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "$rideCount",
+                color = Theme.colors.text,
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.rides).uppercase(),
+                color = Theme.colors.dim,
+                fontSize = 9.sp,
+                letterSpacing = 0.5.sp
+            )
+        }
+
+        // Progress
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Theme.colors.surface)
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val (progressText, progressColor) = when {
+                progressScore > 5 -> "+$progressScore%" to Theme.colors.optimal
+                progressScore < -5 -> "$progressScore%" to Theme.colors.problem
+                else -> stringResource(R.string.stable) to Theme.colors.text
+            }
+            Text(
+                text = progressText,
+                color = progressColor,
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.progress_label).uppercase(),
+                color = Theme.colors.dim,
+                fontSize = 9.sp,
+                letterSpacing = 0.5.sp
+            )
+        }
+    }
+}
+
+@Composable
+private fun MetricsOverview(
+    avgBalance: Float,
+    avgTE: Float,
+    avgPS: Float
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -191,127 +289,29 @@ private fun ProgressCard(
             .padding(12.dp),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        StatItem(
-            label = progressLabel,
-            value = when {
-                progressScore > 5 -> "+$progressScore%"
-                progressScore < -5 -> "$progressScore%"
-                else -> stableText
-            },
-            valueColor = when {
-                progressScore > 5 -> Theme.colors.optimal
-                progressScore < -5 -> Theme.colors.problem
-                else -> Theme.colors.text
-            }
+        MetricItem(
+            label = stringResource(R.string.balance_lower),
+            value = "${(100 - avgBalance).toInt()}/${avgBalance.toInt()}",
+            color = getBalanceColor(avgBalance)
         )
-        StatItem(
-            label = ridesLabel,
-            value = rideCount.toString(),
-            valueColor = Theme.colors.text
+        MetricItem(
+            label = stringResource(R.string.te),
+            value = "${avgTE.toInt()}%",
+            color = getTEColor(avgTE)
         )
-        StatItem(
-            label = avgBalanceLabel,
-            value = "$leftLabel${(100 - avgBalance).toInt()}/$rightLabel${avgBalance.toInt()}",
-            valueColor = getBalanceColor(avgBalance)
+        MetricItem(
+            label = stringResource(R.string.ps),
+            value = "${avgPS.toInt()}%",
+            color = getPSColor(avgPS)
         )
     }
 }
 
 @Composable
-private fun StatItem(
+private fun MetricItem(
     label: String,
     value: String,
-    valueColor: androidx.compose.ui.graphics.Color
-) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = value,
-            color = valueColor,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = label,
-            color = Theme.colors.dim,
-            fontSize = 10.sp
-        )
-    }
-}
-
-@Composable
-private fun ChartCard(
-    title: String,
-    content: @Composable () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(Theme.colors.surface)
-            .padding(12.dp)
-    ) {
-        Text(
-            text = title,
-            color = Theme.colors.text,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        content()
-    }
-}
-
-@Composable
-private fun AveragesCard(
-    avgBalance: Float,
-    avgTE: Float,
-    avgPS: Float
-) {
-    val rightLabel = stringResource(R.string.right)
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(Theme.colors.surface)
-            .padding(12.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.period_averages),
-            color = Theme.colors.text,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            AverageItem(
-                label = stringResource(R.string.balance_lower),
-                value = "${avgBalance.toInt()}% $rightLabel",
-                color = getBalanceColor(avgBalance)
-            )
-            AverageItem(
-                label = stringResource(R.string.te),
-                value = "${avgTE.toInt()}%",
-                color = getTEColor(avgTE)
-            )
-            AverageItem(
-                label = stringResource(R.string.ps),
-                value = "${avgPS.toInt()}%",
-                color = getPSColor(avgPS)
-            )
-        }
-    }
-}
-
-@Composable
-private fun AverageItem(
-    label: String,
-    value: String,
-    color: androidx.compose.ui.graphics.Color
+    color: Color
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
@@ -323,42 +323,51 @@ private fun AverageItem(
         Text(
             text = label,
             color = Theme.colors.dim,
-            fontSize = 10.sp
+            fontSize = 9.sp
         )
     }
 }
 
 @Composable
-private fun PeriodChip(
-    label: String,
-    isSelected: Boolean,
-    onClick: () -> Unit
+private fun ChartSection(
+    title: String,
+    value: String,
+    valueColor: Color,
+    chart: @Composable () -> Unit
 ) {
-    Text(
-        text = label,
-        color = if (isSelected) Theme.colors.background else Theme.colors.dim,
-        fontSize = 10.sp,
-        fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal,
-        modifier = Modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(if (isSelected) Theme.colors.optimal else Theme.colors.surface)
-            .clickable { onClick() }
-            .padding(horizontal = 8.dp, vertical = 4.dp)
-    )
-}
-
-@Composable
-private fun Divider() {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(1.dp)
-            .background(Theme.colors.divider)
-    )
+            .clip(RoundedCornerShape(8.dp))
+            .background(Theme.colors.surface)
+            .padding(10.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = title.uppercase(),
+                color = Theme.colors.dim,
+                fontSize = 10.sp,
+                letterSpacing = 0.5.sp
+            )
+            Text(
+                text = value,
+                color = valueColor,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        chart()
+    }
 }
 
 @Composable
-private fun getBalanceColor(balance: Float): androidx.compose.ui.graphics.Color {
+private fun getBalanceColor(balance: Float): Color {
     val deviation = abs(balance - 50)
     return when {
         deviation <= 2.5f -> Theme.colors.optimal
@@ -368,7 +377,7 @@ private fun getBalanceColor(balance: Float): androidx.compose.ui.graphics.Color 
 }
 
 @Composable
-private fun getTEColor(te: Float): androidx.compose.ui.graphics.Color {
+private fun getTEColor(te: Float): Color {
     return when {
         te in 70f..80f -> Theme.colors.optimal
         te in 65f..85f -> Theme.colors.attention
@@ -377,7 +386,7 @@ private fun getTEColor(te: Float): androidx.compose.ui.graphics.Color {
 }
 
 @Composable
-private fun getPSColor(ps: Float): androidx.compose.ui.graphics.Color {
+private fun getPSColor(ps: Float): Color {
     return when {
         ps >= 20f -> Theme.colors.optimal
         ps >= 15f -> Theme.colors.attention

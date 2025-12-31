@@ -1,10 +1,12 @@
 package io.github.kpedal.data.models
 
+import androidx.compose.runtime.Immutable
 import io.github.kpedal.ui.components.charts.TrendPoint
 
 /**
  * Aggregated trend data for analytics.
  */
+@Immutable
 data class TrendData(
     val period: Period = Period.WEEK,
     val balanceTrend: List<TrendPoint> = emptyList(),

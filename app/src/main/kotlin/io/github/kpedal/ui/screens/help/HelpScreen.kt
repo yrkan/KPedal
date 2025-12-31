@@ -169,8 +169,10 @@ private fun SectionRow(
             text = title,
             color = Theme.colors.text,
             fontSize = 13.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.weight(1f, fill = false)
         )
+        Spacer(modifier = Modifier.width(12.dp))
         Text(
             text = if (isExpanded) "−" else "+",
             color = if (isExpanded) Theme.colors.optimal else Theme.colors.dim,
@@ -245,8 +247,10 @@ private fun MetricItem(
                     text = name,
                     color = Theme.colors.text,
                     fontSize = 13.sp,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.weight(1f, fill = false)
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = value,
                     color = color,

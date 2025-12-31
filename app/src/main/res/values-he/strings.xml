@@ -163,9 +163,11 @@
     <string name="avg_bal">ממוצע איזון</string>
     <string name="streak">רצף</string>
     <string name="streak_days">%1$d ימים</string>
+    <string name="section_progress">התקדמות</string>
     <string name="section_data">נתונים</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">עוד</string>
+    <string name="view_details">הצג פרטים</string>
     <string name="history">היסטוריה</string>
     <string name="saved_rides">רכיבות שמורות</string>
     <string name="analytics">אנליטיקה</string>
@@ -341,6 +343,12 @@
     <string name="min_max">מינימום-מקסימום</string>
     <string name="minimum">מינימום</string>
     <string name="maximum">מקסימום</string>
+    <string name="target_min_title">לפחות</string>
+    <string name="target_max_title">לכל היותר</string>
+    <string name="target_range_title">בטווח</string>
+    <string name="balance_desc">התפלגות ש/י</string>
+    <string name="te_desc">יעילות דיווש</string>
+    <string name="ps_desc">הספק חלק</string>
     <string name="preview">תצוגה מקדימה</string>
     <string name="metric">מדד</string>
     <string name="duration">משך</string>
@@ -712,4 +720,64 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
     <string name="language_system">מערכת</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">הכל</string>
+    <string name="filter_optimal">אופטימלי</string>
+    <string name="filter_problem">בעיה</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">איזון מצוין שמאל/ימין</string>
+    <string name="analysis_good_balance">שליטה טובה באיזון</string>
+    <string name="analysis_optimal_te">יעילות מומנט אופטימלית</string>
+    <string name="analysis_good_te">העברת כוח טובה</string>
+    <string name="analysis_very_smooth">דיווש חלק מאוד</string>
+    <string name="analysis_good_smooth">חלקות דיווש טובה</string>
+    <string name="analysis_excellent_zone">זמן מצוין באזור אופטימלי</string>
+    <string name="analysis_good_consistency">עקביות טובה</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">האיזון מעט לא ממורכז</string>
+    <string name="analysis_balance_imbalance">חוסר איזון משמעותי</string>
+    <string name="analysis_te_too_high">TE גבוה מדי</string>
+    <string name="analysis_te_low">יעילות מומנט נמוכה</string>
+    <string name="analysis_smooth_improve">החלקות יכולה להשתפר</string>
+    <string name="analysis_smooth_focus">התמקד בדיווש חלק יותר</string>
+    <string name="analysis_zone_more">יותר זמן באזור אופטימלי</string>
+    <string name="analysis_zone_practice">תרגל שמירה על צורה אופטימלית</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">מצוין! טכניקת הדיווש הייתה יעילה מאוד.</string>
+    <string name="analysis_summary_good_balance">ביצועים טובים. המשך לעבוד על האיזון.</string>
+    <string name="analysis_summary_good_smooth">ביצועים טובים. המשך לעבוד על החלקות.</string>
+    <string name="analysis_summary_solid">מאמץ טוב. שמור על צורה אופטימלית.</string>
+    <string name="analysis_summary_improve">יש מקום לשיפור. נסה את התרגילים.</string>
+    <string name="analysis_summary_practice">תרגול עושה מושלם!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">שבוע פעיל</string>
+    <string name="challenge_balanced_rider">רוכב מאוזן</string>
+    <string name="challenge_zone_master">מאסטר אזור</string>
+    <string name="challenge_technique_focus">פוקוס טכניקה</string>
+    <string name="challenge_consistency">עקביות</string>
+    <string name="challenge_efficient_pedaling">דיווש יעיל</string>
+    <string name="challenge_smooth_circles">מעגלים חלקים</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">השלם 3 רכיבות</string>
+    <string name="challenge_balanced_rider_desc">איזון ממוצע 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ באזור אופטימלי</string>
+    <string name="challenge_technique_focus_desc">השלם 2 תרגילים</string>
+    <string name="challenge_consistency_desc">רכב 4 ימים ברציפות</string>
+    <string name="challenge_efficient_pedaling_desc">TE ממוצע >70%%</string>
+    <string name="challenge_smooth_circles_desc">PS ממוצע >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">רכיבות</string>
+    <string name="unit_drills">תרגילים</string>
+    <string name="unit_days">ימים</string>
+    <string name="unit_percent">%</string>
 </resources>

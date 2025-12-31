@@ -232,11 +232,12 @@
 
         <TextView
             android:id="@+id/label_time_in_zone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/time_in_zone"
             android:textSize="9sp"
-            android:textColor="@color/text_dim" />
+            android:textColor="@color/text_dim"
+            android:gravity="center" />
 
         <!-- Stacked bar for zone distribution -->
         <LinearLayout

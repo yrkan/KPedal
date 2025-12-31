@@ -290,8 +290,10 @@ private fun ToggleRow(
         Text(
             text = label,
             color = Theme.colors.text,
-            fontSize = 13.sp
+            fontSize = 13.sp,
+            modifier = Modifier.weight(1f, fill = false)
         )
+        Spacer(modifier = Modifier.width(12.dp))
         Toggle(checked = checked)
     }
 }
@@ -445,22 +447,21 @@ private fun CooldownRow(
         120 to stringResource(R.string.cooldown_2m)
     )
 
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(6.dp))
             .background(Theme.colors.surface)
-            .padding(10.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(10.dp)
     ) {
         Text(
             text = stringResource(R.string.cooldown),
             color = Theme.colors.text,
-            fontSize = 12.sp,
-            modifier = Modifier.width(70.dp)
+            fontSize = 12.sp
         )
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             options.forEach { (value, label) ->

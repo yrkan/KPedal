@@ -8,10 +8,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,14 +23,23 @@ import io.github.kpedal.R
 import io.github.kpedal.data.models.Achievement
 import io.github.kpedal.data.models.DashboardData
 import io.github.kpedal.data.models.UnlockedAchievement
+import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.ui.theme.Theme
+import io.github.kpedal.util.LocaleHelper
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import kotlin.math.abs
 
 /**
- * Home Screen - Clean navigation for Karoo 3
+ * Home Screen - Dashboard for cyclists
+ *
+ * Design principles for Karoo 3 (480×800px):
+ * - Single column layout for readability
+ * - Large touch targets for gloved fingers
+ * - Rich data display - all key metrics visible
+ * - Clear visual hierarchy with sections
+ * - Scrollable for all content
  */
 @Composable
 fun HomeScreen(
@@ -47,7 +58,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp)
-                .padding(top = 20.dp, bottom = 12.dp),
+                .padding(top = 16.dp, bottom = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -61,108 +72,154 @@ fun HomeScreen(
                 Text(
                     text = "KPedal",
                     color = Theme.colors.text,
-                    fontSize = 16.sp,
+                    fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
-            // Settings icon
             Text(
                 text = "⚙",
                 color = Theme.colors.dim,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 modifier = Modifier
                     .clip(CircleShape)
                     .clickable { onNavigate("settings") }
-                    .padding(4.dp)
+                    .padding(8.dp)
             )
         }
 
-        // Primary Actions (Live / Drills buttons)
-        Row(
+        // Primary Actions
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            ActionCard(
+            // LIVE - Hero button
+            HeroButton(
                 title = stringResource(R.string.live),
                 subtitle = stringResource(R.string.current_ride),
-                modifier = Modifier.weight(1f),
+                icon = "▶",
                 onClick = { onNavigate("live") }
             )
-            ActionCard(
+
+            // DRILLS - Secondary action
+            ActionButton(
                 title = stringResource(R.string.drills),
                 subtitle = stringResource(R.string.practice),
                 highlighted = true,
-                modifier = Modifier.weight(1f),
                 onClick = { onNavigate("drills") }
             )
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        // Quick Stats (compact inline)
+        // Progress Section
         if (dashboardData.hasData) {
-            QuickStats(
-                totalRides = dashboardData.totalRides,
-                avgBalance = dashboardData.avgBalance,
-                streak = dashboardData.currentStreak,
+            SectionHeader(stringResource(R.string.section_progress))
+
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp)
-            )
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Theme.colors.surface)
+                    .padding(vertical = 12.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                StatItem(
+                    value = "${dashboardData.totalRides}",
+                    label = stringResource(R.string.rides)
+                )
+                VerticalDivider()
+                StatItem(
+                    value = formatBalance(dashboardData.avgBalance),
+                    label = stringResource(R.string.avg_bal),
+                    valueColor = getBalanceColor(dashboardData.avgBalance.toInt())
+                )
+                VerticalDivider()
+                StatItem(
+                    value = "${dashboardData.currentStreak}d",
+                    label = stringResource(R.string.streak),
+                    valueColor = if (dashboardData.currentStreak >= 3) Theme.colors.optimal else Theme.colors.text,
+                    suffix = if (dashboardData.currentStreak >= 3) " 🔥" else ""
+                )
+            }
+
             Spacer(modifier = Modifier.height(12.dp))
         }
 
-        // Last Ride (if exists)
+        // Last Ride Section (detailed)
         dashboardData.lastRide?.let { ride ->
-            LastRideRow(
-                date = formatDate(ride.timestamp),
-                balanceLeft = ride.balanceLeft,
-                balanceRight = ride.balanceRight,
-                zoneOptimal = ride.zoneOptimal,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp),
-                onClick = { onNavigate("history") }
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+            SectionHeader(stringResource(R.string.last_ride))
+            LastRideCard(ride = ride, onClick = { onNavigate("history") })
+            Spacer(modifier = Modifier.height(12.dp))
         }
 
-        // Menu sections
+        // Data Section
+        SectionHeader(stringResource(R.string.section_data))
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp)
         ) {
-            // Data section
-            SectionLabel(stringResource(R.string.section_data))
-            Spacer(modifier = Modifier.height(4.dp))
-
-            MenuRow(stringResource(R.string.history), stringResource(R.string.saved_rides)) { onNavigate("history") }
-            MenuRow(stringResource(R.string.analytics), stringResource(R.string.trends)) { onNavigate("analytics") }
             MenuRow(
-                stringResource(R.string.achievements),
-                "${unlockedAchievements.size}/${Achievement.all.size}"
-            ) { onNavigate("achievements") }
-            MenuRow(stringResource(R.string.challenges), stringResource(R.string.weekly_goal)) { onNavigate("challenges") }
+                title = stringResource(R.string.history),
+                value = "${dashboardData.totalRides} ${stringResource(R.string.rides).lowercase(Locale.getDefault())}",
+                onClick = { onNavigate("history") }
+            )
+            MenuRow(
+                title = stringResource(R.string.analytics),
+                value = stringResource(R.string.trends),
+                onClick = { onNavigate("analytics") }
+            )
+            MenuRow(
+                title = stringResource(R.string.achievements),
+                value = "${unlockedAchievements.size}/${Achievement.all.size}",
+                onClick = { onNavigate("achievements") }
+            )
+            MenuRow(
+                title = stringResource(R.string.challenges),
+                value = stringResource(R.string.weekly_goal),
+                onClick = { onNavigate("challenges") }
+            )
+        }
 
-            Spacer(modifier = Modifier.height(14.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-            // Karoo section
-            SectionLabel(stringResource(R.string.section_karoo))
-            Spacer(modifier = Modifier.height(4.dp))
+        // Karoo Section
+        SectionHeader(stringResource(R.string.section_karoo))
 
-            MenuRow(stringResource(R.string.data_fields), stringResource(R.string.layouts_count)) { onNavigate("layouts") }
-            MenuRow(stringResource(R.string.pedal_status), stringResource(R.string.connection)) { onNavigate("pedal-info") }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp)
+        ) {
+            MenuRow(
+                title = stringResource(R.string.data_fields),
+                value = stringResource(R.string.layouts_count),
+                onClick = { onNavigate("layouts") }
+            )
+            MenuRow(
+                title = stringResource(R.string.pedal_status),
+                value = stringResource(R.string.connection),
+                onClick = { onNavigate("pedal-info") }
+            )
+        }
 
-            Spacer(modifier = Modifier.height(14.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-            // More section
-            SectionLabel(stringResource(R.string.section_more))
-            Spacer(modifier = Modifier.height(4.dp))
-
-            MenuRow(stringResource(R.string.help), stringResource(R.string.quick_guide)) { onNavigate("help") }
+        // Help
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp)
+        ) {
+            MenuRow(
+                title = stringResource(R.string.help),
+                value = stringResource(R.string.quick_guide),
+                onClick = { onNavigate("help") }
+            )
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -170,48 +227,119 @@ fun HomeScreen(
 }
 
 @Composable
-private fun QuickStats(
-    totalRides: Int,
-    avgBalance: Float,
-    streak: Int,
-    modifier: Modifier = Modifier
+private fun HeroButton(
+    title: String,
+    subtitle: String,
+    icon: String,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(Theme.colors.surface)
+            .clickable { onClick() }
+            .padding(vertical = 20.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = icon,
+                color = Theme.colors.optimal,
+                fontSize = 28.sp
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = title.uppercase(),
+                color = Theme.colors.text,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp
+            )
+            Text(
+                text = subtitle,
+                color = Theme.colors.dim,
+                fontSize = 11.sp
+            )
+        }
+    }
+}
+
+@Composable
+private fun ActionButton(
+    title: String,
+    subtitle: String,
+    highlighted: Boolean = false,
+    onClick: () -> Unit
 ) {
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(6.dp))
-            .background(Theme.colors.surface)
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(
+                if (highlighted) Theme.colors.optimal.copy(alpha = 0.12f)
+                else Theme.colors.surface
+            )
+            .clickable { onClick() }
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        StatItem(value = "$totalRides", label = stringResource(R.string.rides))
-        Divider()
-        StatItem(
-            value = formatBalance(avgBalance),
-            label = stringResource(R.string.avg_bal),
-            valueColor = getBalanceColor(avgBalance.toInt())
-        )
-        Divider()
-        StatItem(
-            value = "${streak}d",
-            label = stringResource(R.string.streak),
-            valueColor = if (streak >= 3) Theme.colors.optimal else Theme.colors.text
+        Column {
+            Text(
+                text = title,
+                color = Theme.colors.text,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = subtitle,
+                color = Theme.colors.dim,
+                fontSize = 11.sp
+            )
+        }
+        Text(
+            text = "›",
+            color = Theme.colors.dim,
+            fontSize = 18.sp
         )
     }
+}
+
+@Composable
+private fun SectionHeader(text: String) {
+    Text(
+        text = text.uppercase(),
+        color = Theme.colors.dim,
+        fontSize = 10.sp,
+        fontWeight = FontWeight.SemiBold,
+        letterSpacing = 0.5.sp,
+        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+    )
 }
 
 @Composable
 private fun StatItem(
     value: String,
     label: String,
-    valueColor: Color = Theme.colors.text
+    valueColor: Color = Theme.colors.text,
+    suffix: String = ""
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = value,
-            color = valueColor,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = value,
+                color = valueColor,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+            if (suffix.isNotEmpty()) {
+                Text(
+                    text = suffix,
+                    fontSize = 12.sp
+                )
+            }
+        }
         Text(
             text = label,
             color = Theme.colors.dim,
@@ -221,152 +349,254 @@ private fun StatItem(
 }
 
 @Composable
-private fun Divider() {
+private fun VerticalDivider() {
     Box(
         modifier = Modifier
             .width(1.dp)
-            .height(24.dp)
+            .height(28.dp)
             .background(Theme.colors.divider)
     )
 }
 
 @Composable
-private fun ActionCard(
-    title: String,
-    subtitle: String,
-    highlighted: Boolean = false,
-    modifier: Modifier = Modifier,
+private fun LastRideCard(
+    ride: RideEntity,
     onClick: () -> Unit
 ) {
+    val context = LocalContext.current
+    val locale = remember { LocaleHelper.getCurrentLocale(context) }
+    val dateFormat = remember(locale) { SimpleDateFormat("MMM d, HH:mm", locale) }
+    val dateStr = dateFormat.format(Date(ride.timestamp))
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
+
     Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(
-                if (highlighted) Theme.colors.optimal.copy(alpha = 0.12f)
-                else Theme.colors.surface
-            )
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(Theme.colors.surface)
             .clickable { onClick() }
-            .padding(12.dp)
     ) {
-        Text(
-            text = title,
-            color = Theme.colors.text,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold
-        )
-        Text(
-            text = subtitle,
-            color = Theme.colors.dim,
-            fontSize = 10.sp
-        )
+        // Header: Date + Duration + Distance
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = dateStr,
+                color = Theme.colors.text,
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(
+                    text = ride.durationFormatted,
+                    color = Theme.colors.dim,
+                    fontSize = 12.sp
+                )
+                if (ride.distanceKm > 0) {
+                    Text(
+                        text = String.format(locale, "%.1f km", ride.distanceKm),
+                        color = Theme.colors.dim,
+                        fontSize = 12.sp
+                    )
+                }
+            }
+        }
+
+        HorizontalDivider()
+
+        // Metrics grid
+        Column(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            // Balance
+            MetricRow(
+                label = stringResource(R.string.balance_lower),
+                value = "${ride.balanceLeft}/${ride.balanceRight}",
+                color = getBalanceColor(ride.balanceRight)
+            )
+            // Torque Effectiveness
+            MetricRow(
+                label = "TE",
+                value = "${ride.teLeft}/${ride.teRight}%",
+                color = getTEColor((ride.teLeft + ride.teRight) / 2)
+            )
+            // Pedal Smoothness
+            MetricRow(
+                label = "PS",
+                value = "${ride.psLeft}/${ride.psRight}%",
+                color = getPSColor((ride.psLeft + ride.psRight) / 2)
+            )
+            // Zone distribution
+            MetricRow(
+                label = stringResource(R.string.optimal),
+                value = "${ride.zoneOptimal}%",
+                color = getZoneColor(ride.zoneOptimal)
+            )
+
+            // Power & Cadence (if available)
+            if (ride.powerAvg > 0 || ride.cadenceAvg > 0) {
+                Spacer(modifier = Modifier.height(2.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    if (ride.powerAvg > 0) {
+                        Text(
+                            text = "${ride.powerAvg}W",
+                            color = Theme.colors.dim,
+                            fontSize = 11.sp
+                        )
+                    }
+                    if (ride.cadenceAvg > 0) {
+                        Text(
+                            text = "${ride.cadenceAvg} rpm",
+                            color = Theme.colors.dim,
+                            fontSize = 11.sp
+                        )
+                    }
+                    if (ride.score > 0) {
+                        Text(
+                            text = "Score: ${ride.score}",
+                            color = getScoreColor(ride.score),
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
+            }
+        }
+
+        HorizontalDivider()
+
+        // View details link
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            Text(
+                text = stringResource(R.string.view_details) + " ›",
+                color = Theme.colors.dim,
+                fontSize = 11.sp
+            )
+        }
     }
 }
 
 @Composable
-private fun LastRideRow(
-    date: String,
-    balanceLeft: Int,
-    balanceRight: Int,
-    zoneOptimal: Int,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
+private fun MetricRow(
+    label: String,
+    value: String,
+    color: Color
 ) {
     Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(6.dp))
-            .background(Theme.colors.surface)
-            .clickable { onClick() }
-            .padding(horizontal = 12.dp, vertical = 10.dp),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
-            Text(
-                text = stringResource(R.string.last_ride),
-                color = Theme.colors.dim,
-                fontSize = 9.sp
+        Text(
+            text = label,
+            color = Theme.colors.dim,
+            fontSize = 12.sp
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(6.dp)
+                    .background(color, shape = CircleShape)
             )
             Text(
-                text = date,
-                color = Theme.colors.text,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium
+                text = value,
+                color = color,
+                fontSize = 13.sp,
+                fontWeight = FontWeight.SemiBold
             )
-        }
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "$balanceLeft/$balanceRight",
-                    color = getBalanceColor(balanceRight),
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium
-                )
-                Text(text = stringResource(R.string.lr), color = Theme.colors.dim, fontSize = 8.sp)
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "$zoneOptimal%",
-                    color = getZoneColor(zoneOptimal),
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium
-                )
-                Text(text = stringResource(R.string.optimal), color = Theme.colors.dim, fontSize = 8.sp)
-            }
         }
     }
 }
 
 @Composable
-private fun SectionLabel(text: String) {
-    Text(
-        text = text,
-        color = Theme.colors.dim,
-        fontSize = 10.sp,
-        fontWeight = FontWeight.Medium
+private fun HorizontalDivider() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(1.dp)
+            .background(Theme.colors.divider)
     )
 }
 
 @Composable
 private fun MenuRow(
     title: String,
-    subtitle: String,
+    value: String,
     onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(vertical = 10.dp),
+            .padding(vertical = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = title,
             color = Theme.colors.text,
-            fontSize = 13.sp
+            fontSize = 14.sp,
+            modifier = Modifier.weight(1f, fill = false)
         )
+        Spacer(modifier = Modifier.width(12.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = subtitle,
+                text = value,
                 color = Theme.colors.dim,
-                fontSize = 11.sp
+                fontSize = 12.sp
             )
             Spacer(modifier = Modifier.width(6.dp))
             Text(
                 text = "›",
                 color = Theme.colors.dim,
-                fontSize = 14.sp
+                fontSize = 16.sp
             )
         }
     }
 }
 
+// Color functions
 @Composable
 private fun getBalanceColor(balanceRight: Int): Color {
     val deviation = abs(balanceRight - 50)
     return when {
         deviation <= 2 -> Theme.colors.optimal
         deviation <= 5 -> Theme.colors.attention
+        else -> Theme.colors.problem
+    }
+}
+
+@Composable
+private fun getTEColor(te: Int): Color {
+    return when {
+        te in 70..80 -> Theme.colors.optimal
+        te in 65..85 -> Theme.colors.attention
+        else -> Theme.colors.problem
+    }
+}
+
+@Composable
+private fun getPSColor(ps: Int): Color {
+    return when {
+        ps >= 20 -> Theme.colors.optimal
+        ps >= 15 -> Theme.colors.attention
         else -> Theme.colors.problem
     }
 }
@@ -380,13 +610,18 @@ private fun getZoneColor(zoneOptimal: Int): Color {
     }
 }
 
+@Composable
+private fun getScoreColor(score: Int): Color {
+    return when {
+        score >= 80 -> Theme.colors.optimal
+        score >= 60 -> Theme.colors.attention
+        else -> Theme.colors.problem
+    }
+}
+
+// Formatting functions
 private fun formatBalance(balance: Float): String {
     val left = (100 - balance).toInt()
     val right = balance.toInt()
     return "$left/$right"
-}
-
-private fun formatDate(timestamp: Long): String {
-    val sdf = SimpleDateFormat("MMM d, HH:mm", Locale.getDefault())
-    return sdf.format(Date(timestamp))
 }

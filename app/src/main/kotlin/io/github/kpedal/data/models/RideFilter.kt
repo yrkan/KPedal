@@ -1,23 +1,20 @@
 package io.github.kpedal.data.models
 
+import androidx.compose.runtime.Immutable
+import io.github.kpedal.R
+
 /**
  * Filter criteria for ride history.
  */
+@Immutable
 data class RideFilter(
-    val dateRange: DateRange = DateRange.ALL,
-    val balanceFilter: BalanceFilter = BalanceFilter.ALL
+    val dateRange: DateRange = DateRange.ALL
 ) {
-    val isActive: Boolean get() = dateRange != DateRange.ALL || balanceFilter != BalanceFilter.ALL
+    val isActive: Boolean get() = dateRange != DateRange.ALL
 
-    enum class DateRange(val label: String, val daysBack: Int?) {
-        LAST_WEEK("Last Week", 7),
-        LAST_MONTH("Last Month", 30),
-        ALL("All Time", null)
-    }
-
-    enum class BalanceFilter(val label: String) {
-        ALL("All"),
-        OPTIMAL_ONLY("Optimal Only"),
-        PROBLEM_ONLY("Problem Only")
+    enum class DateRange(val labelResId: Int, val daysBack: Int?) {
+        LAST_WEEK(R.string.filter_7d, 7),
+        LAST_MONTH(R.string.filter_30d, 30),
+        ALL(R.string.filter_all, null)
     }
 }

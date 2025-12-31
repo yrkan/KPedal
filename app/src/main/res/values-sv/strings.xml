@@ -163,9 +163,11 @@
     <string name="avg_bal">snittbal</string>
     <string name="streak">svit</string>
     <string name="streak_days">%1$dd</string>
+    <string name="section_progress">FRAMSTEG</string>
     <string name="section_data">DATA</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">MER</string>
+    <string name="view_details">Visa detaljer</string>
     <string name="history">Historik</string>
     <string name="saved_rides">Sparade turer</string>
     <string name="analytics">Analys</string>
@@ -348,6 +350,12 @@
     <string name="custom_drill_desc">Egen %1$s övning</string>
     <string name="torque_eff_short">Vridmom.eff.</string>
     <string name="smoothness_short">Jämnhet</string>
+    <string name="target_min_title">Minst</string>
+    <string name="target_max_title">Högst</string>
+    <string name="target_range_title">I intervall</string>
+    <string name="balance_desc">V/H effektfördelning</string>
+    <string name="te_desc">Pedalslagseffektivitet</string>
+    <string name="ps_desc">Jämn kraftleverans</string>
 
     <!-- Challenges Screen -->
     <string name="weekly_challenge">Veckoutmaning</string>
@@ -712,4 +720,64 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
     <string name="language_system">System</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">Alla</string>
+    <string name="filter_optimal">Optimal</string>
+    <string name="filter_problem">Problem</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Utmärkt V/H-balans</string>
+    <string name="analysis_good_balance">Bra balanskontroll</string>
+    <string name="analysis_optimal_te">Optimal vridmomenteffektivitet</string>
+    <string name="analysis_good_te">Bra kraftöverföring</string>
+    <string name="analysis_very_smooth">Mycket jämn tramping</string>
+    <string name="analysis_good_smooth">Bra trampjämnhet</string>
+    <string name="analysis_excellent_zone">Utmärkt tid i optimal zon</string>
+    <string name="analysis_good_consistency">Bra konsekvens</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Balans något förskjuten</string>
+    <string name="analysis_balance_imbalance">Betydande obalans</string>
+    <string name="analysis_te_too_high">TE för hög</string>
+    <string name="analysis_te_low">Låg vridmomenteffektivitet</string>
+    <string name="analysis_smooth_improve">Jämnheten kan förbättras</string>
+    <string name="analysis_smooth_focus">Fokusera på jämnare tramping</string>
+    <string name="analysis_zone_more">Mer tid i optimal zon</string>
+    <string name="analysis_zone_practice">Öva optimal form</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Utmärkt! Din trampteknik var mycket effektiv.</string>
+    <string name="analysis_summary_good_balance">Bra prestation. Fortsätt arbeta med balansen.</string>
+    <string name="analysis_summary_good_smooth">Bra prestation. Fortsätt arbeta med jämnheten.</string>
+    <string name="analysis_summary_solid">Bra insats. Behåll optimal form.</string>
+    <string name="analysis_summary_improve">Utrymme för förbättring. Prova övningarna.</string>
+    <string name="analysis_summary_practice">Övning ger färdighet!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Aktiv Vecka</string>
+    <string name="challenge_balanced_rider">Balanserad Cyklist</string>
+    <string name="challenge_zone_master">Zon Mästare</string>
+    <string name="challenge_technique_focus">Teknik Fokus</string>
+    <string name="challenge_consistency">Konsekvens</string>
+    <string name="challenge_efficient_pedaling">Effektiv Tramping</string>
+    <string name="challenge_smooth_circles">Mjuka Cirklar</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">Slutför 3 turer</string>
+    <string name="challenge_balanced_rider_desc">Snittbalans 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ i optimal zon</string>
+    <string name="challenge_technique_focus_desc">Slutför 2 övningar</string>
+    <string name="challenge_consistency_desc">Cykla 4 dagar i rad</string>
+    <string name="challenge_efficient_pedaling_desc">Snitt TE >70%%</string>
+    <string name="challenge_smooth_circles_desc">Snitt PS >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">turer</string>
+    <string name="unit_drills">övningar</string>
+    <string name="unit_days">dagar</string>
+    <string name="unit_percent">%</string>
 </resources>

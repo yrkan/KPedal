@@ -354,8 +354,10 @@ private fun InfoRow(label: String, value: String) {
         Text(
             text = label,
             color = Theme.colors.text,
-            fontSize = 13.sp
+            fontSize = 13.sp,
+            modifier = Modifier.weight(1f, fill = false)
         )
+        Spacer(modifier = Modifier.width(12.dp))
         Text(
             text = value,
             color = Theme.colors.dim,
@@ -381,8 +383,10 @@ private fun LinkRow(
         Text(
             text = label,
             color = Theme.colors.text,
-            fontSize = 13.sp
+            fontSize = 13.sp,
+            modifier = Modifier.weight(1f, fill = false)
         )
+        Spacer(modifier = Modifier.width(12.dp))
         Text(
             text = value ?: "→",
             color = Theme.colors.optimal,
@@ -408,52 +412,52 @@ private fun AccountRow(
             .fillMaxWidth()
             .padding(horizontal = 12.dp, vertical = 12.dp)
     ) {
-        // Account info card with sync button
-        Row(
+        // Account info card
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(10.dp))
                 .background(Theme.colors.surface)
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(12.dp)
         ) {
-            Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = name.ifEmpty { linkedAccountText },
+                color = Theme.colors.text,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium
+            )
+            Text(
+                text = email,
+                color = Theme.colors.dim,
+                fontSize = 12.sp
+            )
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        // Sync button (full width)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(Theme.colors.optimal.copy(alpha = 0.15f))
+                .clickable(enabled = !isSyncing) { onSync() }
+                .padding(vertical = 12.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isSyncing) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(16.dp),
+                    color = Theme.colors.optimal,
+                    strokeWidth = 2.dp
+                )
+            } else {
                 Text(
-                    text = name.ifEmpty { linkedAccountText },
-                    color = Theme.colors.text,
-                    fontSize = 14.sp,
+                    text = syncText,
+                    color = Theme.colors.optimal,
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Medium
                 )
-                Text(
-                    text = email,
-                    color = Theme.colors.dim,
-                    fontSize = 12.sp
-                )
-            }
-
-            // Sync button
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Theme.colors.optimal.copy(alpha = 0.15f))
-                    .clickable(enabled = !isSyncing) { onSync() }
-                    .padding(horizontal = 14.dp, vertical = 8.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                if (isSyncing) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(16.dp),
-                        color = Theme.colors.optimal,
-                        strokeWidth = 2.dp
-                    )
-                } else {
-                    Text(
-                        text = syncText,
-                        color = Theme.colors.optimal,
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
             }
         }
 
@@ -863,6 +867,9 @@ private fun SyncStatusRow(
     syncState: SyncService.SyncState,
     onManualSync: () -> Unit
 ) {
+    val context = LocalContext.current
+    val locale = remember { LocaleHelper.getCurrentLocale(context) }
+
     val neverSyncedText = stringResource(R.string.settings_never_synced)
     val syncingText = stringResource(R.string.syncing)
     val syncedText = stringResource(R.string.synced)
@@ -872,8 +879,10 @@ private fun SyncStatusRow(
     val syncNowText = stringResource(R.string.settings_sync_now)
 
     val lastSyncText = if (syncState.lastSyncTimestamp > 0) {
-        val formatter = SimpleDateFormat("MMM d, HH:mm", Locale.getDefault())
-        stringResource(R.string.settings_last_sync, formatter.format(Date(syncState.lastSyncTimestamp)))
+        val formatter = remember(locale) { SimpleDateFormat("MMM d, HH:mm", locale) }
+        val formatted = formatter.format(Date(syncState.lastSyncTimestamp))
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
+        stringResource(R.string.settings_last_sync, formatted)
     } else {
         neverSyncedText
     }
@@ -960,6 +969,44 @@ private fun DeviceRevokedDialog(
 }
 
 /**
+ * Get native display name for a language (shown in its own language).
+ * Best practice: show languages in their native names for easy recognition.
+ */
+private fun getNativeLanguageName(language: LocaleHelper.AppLanguage): String {
+    return when (language) {
+        LocaleHelper.AppLanguage.SYSTEM -> "System"
+        LocaleHelper.AppLanguage.ARABIC -> "العربية"
+        LocaleHelper.AppLanguage.CHINESE -> "中文"
+        LocaleHelper.AppLanguage.DANISH -> "Dansk"
+        LocaleHelper.AppLanguage.DUTCH -> "Nederlands"
+        LocaleHelper.AppLanguage.ENGLISH -> "English"
+        LocaleHelper.AppLanguage.FRENCH -> "Français"
+        LocaleHelper.AppLanguage.GERMAN -> "Deutsch"
+        LocaleHelper.AppLanguage.HEBREW -> "עברית"
+        LocaleHelper.AppLanguage.ITALIAN -> "Italiano"
+        LocaleHelper.AppLanguage.JAPANESE -> "日本語"
+        LocaleHelper.AppLanguage.KOREAN -> "한국어"
+        LocaleHelper.AppLanguage.POLISH -> "Polski"
+        LocaleHelper.AppLanguage.PORTUGUESE -> "Português"
+        LocaleHelper.AppLanguage.RUSSIAN -> "Русский"
+        LocaleHelper.AppLanguage.SPANISH -> "Español"
+        LocaleHelper.AppLanguage.SWEDISH -> "Svenska"
+        LocaleHelper.AppLanguage.UKRAINIAN -> "Українська"
+    }
+}
+
+/**
+ * Get sorted language list: System first, then alphabetically by native name.
+ */
+private fun getSortedLanguages(): List<LocaleHelper.AppLanguage> {
+    val system = LocaleHelper.AppLanguage.SYSTEM
+    val others = LocaleHelper.AppLanguage.entries
+        .filter { it != system }
+        .sortedBy { getNativeLanguageName(it).lowercase() }
+    return listOf(system) + others
+}
+
+/**
  * Language selection row with dropdown menu.
  */
 @Composable
@@ -968,11 +1015,16 @@ private fun LanguageRow(
     onSelectLanguage: (LocaleHelper.AppLanguage) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var pendingLanguage by remember { mutableStateOf<LocaleHelper.AppLanguage?>(null) }
+    val sortedLanguages = remember { getSortedLanguages() }
 
-    val languageDisplayName = when (currentLanguage) {
-        LocaleHelper.AppLanguage.SYSTEM -> stringResource(R.string.language_system)
-        LocaleHelper.AppLanguage.ENGLISH -> stringResource(R.string.language_english)
-        LocaleHelper.AppLanguage.SPANISH -> stringResource(R.string.language_spanish)
+    // Apply language change after menu closes to avoid lag
+    LaunchedEffect(pendingLanguage, expanded) {
+        if (pendingLanguage != null && !expanded) {
+            kotlinx.coroutines.delay(50)
+            onSelectLanguage(pendingLanguage!!)
+            pendingLanguage = null
+        }
     }
 
     Row(
@@ -986,8 +1038,10 @@ private fun LanguageRow(
         Text(
             text = stringResource(R.string.language),
             color = Theme.colors.text,
-            fontSize = 13.sp
+            fontSize = 13.sp,
+            modifier = Modifier.weight(1f, fill = false)
         )
+        Spacer(modifier = Modifier.width(12.dp))
 
         Box {
             Row(
@@ -998,7 +1052,7 @@ private fun LanguageRow(
                     .padding(horizontal = 10.dp, vertical = 6.dp)
             ) {
                 Text(
-                    text = languageDisplayName,
+                    text = getNativeLanguageName(currentLanguage),
                     color = Theme.colors.optimal,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium
@@ -1017,13 +1071,7 @@ private fun LanguageRow(
                 onDismissRequest = { expanded = false },
                 modifier = Modifier.background(Theme.colors.surface)
             ) {
-                LocaleHelper.AppLanguage.entries.forEach { language ->
-                    val displayName = when (language) {
-                        LocaleHelper.AppLanguage.SYSTEM -> stringResource(R.string.language_system)
-                        LocaleHelper.AppLanguage.ENGLISH -> stringResource(R.string.language_english)
-                        LocaleHelper.AppLanguage.SPANISH -> stringResource(R.string.language_spanish)
-                    }
-
+                sortedLanguages.forEach { language ->
                     DropdownMenuItem(
                         text = {
                             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -1037,16 +1085,18 @@ private fun LanguageRow(
                                     Spacer(modifier = Modifier.width(6.dp))
                                 }
                                 Text(
-                                    text = displayName,
+                                    text = getNativeLanguageName(language),
                                     fontSize = 13.sp,
-                                    fontWeight = if (language == currentLanguage) FontWeight.Bold else FontWeight.Normal,
+                                    fontWeight = if (language == currentLanguage) FontWeight.Medium else FontWeight.Normal,
                                     color = if (language == currentLanguage) Theme.colors.optimal else Theme.colors.text
                                 )
                             }
                         },
                         onClick = {
-                            onSelectLanguage(language)
                             expanded = false
+                            if (language != currentLanguage) {
+                                pendingLanguage = language
+                            }
                         }
                     )
                 }

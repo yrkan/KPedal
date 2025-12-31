@@ -163,15 +163,17 @@
     <string name="avg_bal">Durchschn. Bal.</string>
     <string name="streak">Serie</string>
     <string name="streak_days">%1$dT</string>
+    <string name="section_progress">FORTSCHRITT</string>
     <string name="section_data">DATEN</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">MEHR</string>
+    <string name="view_details">Details ansehen</string>
     <string name="history">Verlauf</string>
     <string name="saved_rides">Gespeicherte Fahrten</string>
     <string name="analytics">Analysen</string>
     <string name="trends">Trends</string>
     <string name="achievements">Erfolge</string>
-    <string name="challenges">Herausforderungen</string>
+    <string name="challenges">Challenges</string>
     <string name="weekly_goal">Wochenziel</string>
     <string name="data_fields">Datenfelder</string>
     <string name="layouts_count">6 Layouts</string>
@@ -341,6 +343,12 @@
     <string name="min_max">min-max</string>
     <string name="minimum">Minimum</string>
     <string name="maximum">Maximum</string>
+    <string name="target_min_title">Mindestens</string>
+    <string name="target_max_title">Höchstens</string>
+    <string name="target_range_title">Im Bereich</string>
+    <string name="balance_desc">L/R Leistungsverteilung</string>
+    <string name="te_desc">Trittfrequenz-Effizienz</string>
+    <string name="ps_desc">Gleichmäßige Kraftabgabe</string>
     <string name="preview">VORSCHAU</string>
     <string name="metric">Metrik</string>
     <string name="duration">Dauer</string>
@@ -713,4 +721,64 @@
     <string name="language_spanish">Español</string>
     <string name="language_german">Deutsch</string>
     <string name="language_system">System</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">Alle</string>
+    <string name="filter_optimal">Optimal</string>
+    <string name="filter_problem">Problem</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Ausgezeichnete L/R-Balance</string>
+    <string name="analysis_good_balance">Gute Balancekontrolle</string>
+    <string name="analysis_optimal_te">Optimale Drehmomenteffektivität</string>
+    <string name="analysis_good_te">Gute Kraftübertragung</string>
+    <string name="analysis_very_smooth">Sehr sanftes Treten</string>
+    <string name="analysis_good_smooth">Gute Tretglätte</string>
+    <string name="analysis_excellent_zone">Exzellente Zeit in optimaler Zone</string>
+    <string name="analysis_good_consistency">Gute Konsistenz</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Balance leicht außermittig</string>
+    <string name="analysis_balance_imbalance">Erhebliches Ungleichgewicht</string>
+    <string name="analysis_te_too_high">TE zu hoch</string>
+    <string name="analysis_te_low">Niedrige Drehmomenteffektivität</string>
+    <string name="analysis_smooth_improve">Glätte könnte besser sein</string>
+    <string name="analysis_smooth_focus">Arbeite an sanfterem Tritt</string>
+    <string name="analysis_zone_more">Mehr Zeit in optimaler Zone</string>
+    <string name="analysis_zone_practice">Übe optimale Form</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Ausgezeichnet! Deine Trittechnik war sehr effizient.</string>
+    <string name="analysis_summary_good_balance">Gute Leistung. Arbeite weiter an der Balance.</string>
+    <string name="analysis_summary_good_smooth">Gute Leistung. Arbeite weiter an der Glätte.</string>
+    <string name="analysis_summary_solid">Solide Leistung. Halte die optimale Form.</string>
+    <string name="analysis_summary_improve">Raum für Verbesserung. Probiere die Übungen.</string>
+    <string name="analysis_summary_practice">Übung macht den Meister!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Aktive Woche</string>
+    <string name="challenge_balanced_rider">Ausgeglichener Fahrer</string>
+    <string name="challenge_zone_master">Zonen-Meister</string>
+    <string name="challenge_technique_focus">Technik-Fokus</string>
+    <string name="challenge_consistency">Beständigkeit</string>
+    <string name="challenge_efficient_pedaling">Effizientes Treten</string>
+    <string name="challenge_smooth_circles">Runde Bewegungen</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">3 Fahrten absolvieren</string>
+    <string name="challenge_balanced_rider_desc">Balance im Schnitt 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ Zeit in optimaler Zone</string>
+    <string name="challenge_technique_focus_desc">2 Übungen absolvieren</string>
+    <string name="challenge_consistency_desc">4 Tage hintereinander fahren</string>
+    <string name="challenge_efficient_pedaling_desc">TE Durchschnitt >70%%</string>
+    <string name="challenge_smooth_circles_desc">PS Durchschnitt >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">Fahrten</string>
+    <string name="unit_drills">Übungen</string>
+    <string name="unit_days">Tage</string>
+    <string name="unit_percent">%</string>
 </resources>

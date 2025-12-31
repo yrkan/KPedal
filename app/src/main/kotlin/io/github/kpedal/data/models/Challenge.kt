@@ -1,5 +1,7 @@
 package io.github.kpedal.data.models
 
+import androidx.annotation.StringRes
+import io.github.kpedal.R
 import java.util.Calendar
 
 /**
@@ -10,10 +12,10 @@ object WeeklyChallenges {
 
     data class Challenge(
         val id: String,
-        val name: String,
-        val description: String,
+        @StringRes val nameRes: Int,
+        @StringRes val descriptionRes: Int,
         val target: Int,
-        val unit: String,
+        @StringRes val unitRes: Int,
         val type: ChallengeType = ChallengeType.RIDES
     )
 
@@ -28,13 +30,13 @@ object WeeklyChallenges {
     }
 
     val challenges = listOf(
-        Challenge("rides_3", "Active Week", "Complete 3 rides", 3, "rides", ChallengeType.RIDES),
-        Challenge("balance_52", "Balanced Rider", "Avg balance within 48-52%", 3, "rides", ChallengeType.BALANCE),
-        Challenge("optimal_60", "Zone Master", "60%+ time in optimal zone", 60, "%", ChallengeType.ZONE),
-        Challenge("drills_2", "Technique Focus", "Complete 2 drills", 2, "drills", ChallengeType.DRILLS),
-        Challenge("streak_4", "Consistency", "Ride 4 days in a row", 4, "days", ChallengeType.STREAK),
-        Challenge("te_75", "Efficient Pedaling", "Avg TE above 70%", 3, "rides", ChallengeType.TE),
-        Challenge("ps_22", "Smooth Circles", "Avg PS above 20%", 3, "rides", ChallengeType.PS)
+        Challenge("rides_3", R.string.challenge_active_week, R.string.challenge_active_week_desc, 3, R.string.unit_rides, ChallengeType.RIDES),
+        Challenge("balance_52", R.string.challenge_balanced_rider, R.string.challenge_balanced_rider_desc, 3, R.string.unit_rides, ChallengeType.BALANCE),
+        Challenge("optimal_60", R.string.challenge_zone_master, R.string.challenge_zone_master_desc, 60, R.string.unit_percent, ChallengeType.ZONE),
+        Challenge("drills_2", R.string.challenge_technique_focus, R.string.challenge_technique_focus_desc, 2, R.string.unit_drills, ChallengeType.DRILLS),
+        Challenge("streak_4", R.string.challenge_consistency, R.string.challenge_consistency_desc, 4, R.string.unit_days, ChallengeType.STREAK),
+        Challenge("te_75", R.string.challenge_efficient_pedaling, R.string.challenge_efficient_pedaling_desc, 3, R.string.unit_rides, ChallengeType.TE),
+        Challenge("ps_22", R.string.challenge_smooth_circles, R.string.challenge_smooth_circles_desc, 3, R.string.unit_rides, ChallengeType.PS)
     )
 
     /**

@@ -25,6 +25,10 @@ class EfficiencyDataType(
     }
 
     override fun onViewCreated(views: RemoteViews, config: ViewConfig) {
+        // Set localized labels (RemoteViews don't use app locale in Karoo)
+        views.setTextViewText(R.id.label_te, getString(R.string.te))
+        views.setTextViewText(R.id.label_ps, getString(R.string.ps))
+
         when (currentLayoutSize) {
             LayoutSize.SMALL -> {
                 // TE + PS horizontal - both are primary values
@@ -67,6 +71,11 @@ class EfficiencyDataType(
                 views.setAdaptiveTextSize(R.id.ps_right, config, TextSizeCalculator.Role.PRIMARY)
                 views.setAdaptiveTextSize(R.id.ps_left_label, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.ps_right_label, config, TextSizeCalculator.Role.LABEL)
+                // L/R labels only in LARGE
+                views.setTextViewText(R.id.te_left_label, getString(R.string.left))
+                views.setTextViewText(R.id.te_right_label, getString(R.string.right))
+                views.setTextViewText(R.id.ps_left_label, getString(R.string.left))
+                views.setTextViewText(R.id.ps_right_label, getString(R.string.right))
             }
             LayoutSize.NARROW -> {
                 // Same as MEDIUM (uses MEDIUM layout)

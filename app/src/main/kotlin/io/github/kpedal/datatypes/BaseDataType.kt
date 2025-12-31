@@ -2,8 +2,10 @@ package io.github.kpedal.datatypes
 
 import android.content.Context
 import android.widget.RemoteViews
+import androidx.annotation.StringRes
 import io.github.kpedal.KPedalExtension
 import io.github.kpedal.engine.PedalingMetrics
+import io.github.kpedal.util.LocaleHelper
 import io.github.kpedal.engine.StatusCalculator
 import io.hammerhead.karooext.extension.DataTypeImpl
 import io.hammerhead.karooext.internal.Emitter
@@ -329,5 +331,15 @@ abstract class BaseDataType(
             views.setTextColor(leftResId, StatusCalculator.COLOR_WHITE)
             views.setTextColor(rightResId, StatusCalculator.COLOR_WHITE)
         }
+    }
+
+    /**
+     * Get localized string using user's selected language.
+     * RemoteViews don't respect app locale when displayed in Karoo,
+     * so we must set strings programmatically.
+     */
+    protected fun getString(@StringRes resId: Int): String {
+        val context = LocaleHelper.wrapContext(kpedalExtension)
+        return context.getString(resId)
     }
 }

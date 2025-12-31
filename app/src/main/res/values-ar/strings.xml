@@ -163,9 +163,11 @@
     <string name="avg_bal">متوسط التوازن</string>
     <string name="streak">سلسلة</string>
     <string name="streak_days">%1$d يوم</string>
+    <string name="section_progress">التقدم</string>
     <string name="section_data">البيانات</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">المزيد</string>
+    <string name="view_details">عرض التفاصيل</string>
     <string name="history">السجل</string>
     <string name="saved_rides">الرحلات المحفوظة</string>
     <string name="analytics">التحليلات</string>
@@ -341,6 +343,12 @@
     <string name="min_max">الحد الأدنى-الأقصى</string>
     <string name="minimum">الحد الأدنى</string>
     <string name="maximum">الحد الأقصى</string>
+    <string name="target_min_title">على الأقل</string>
+    <string name="target_max_title">على الأكثر</string>
+    <string name="target_range_title">ضمن النطاق</string>
+    <string name="balance_desc">توزيع ي/ش</string>
+    <string name="te_desc">كفاءة التدوير</string>
+    <string name="ps_desc">انسياب الطاقة</string>
     <string name="preview">معاينة</string>
     <string name="metric">المقياس</string>
     <string name="duration">المدة</string>
@@ -712,4 +720,64 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
     <string name="language_system">النظام</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">الكل</string>
+    <string name="filter_optimal">مثالي</string>
+    <string name="filter_problem">مشكلة</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">توازن ممتاز يسار/يمين</string>
+    <string name="analysis_good_balance">تحكم جيد بالتوازن</string>
+    <string name="analysis_optimal_te">فعالية عزم دوران مثالية</string>
+    <string name="analysis_good_te">نقل قوة جيد</string>
+    <string name="analysis_very_smooth">تبديل سلس جداً</string>
+    <string name="analysis_good_smooth">سلاسة تبديل جيدة</string>
+    <string name="analysis_excellent_zone">وقت ممتاز في المنطقة المثلى</string>
+    <string name="analysis_good_consistency">ثبات جيد</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">التوازن منحرف قليلاً</string>
+    <string name="analysis_balance_imbalance">عدم توازن ملحوظ</string>
+    <string name="analysis_te_too_high">TE مرتفع جداً</string>
+    <string name="analysis_te_low">فعالية عزم منخفضة</string>
+    <string name="analysis_smooth_improve">السلاسة تحتاج تحسين</string>
+    <string name="analysis_smooth_focus">ركز على تبديل أكثر سلاسة</string>
+    <string name="analysis_zone_more">المزيد من الوقت في المنطقة المثلى</string>
+    <string name="analysis_zone_practice">تدرب على الحفاظ على الأداء</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">ممتاز! تقنية التبديل كانت فعالة جداً.</string>
+    <string name="analysis_summary_good_balance">أداء جيد. استمر بتحسين التوازن.</string>
+    <string name="analysis_summary_good_smooth">أداء جيد. استمر بتحسين السلاسة.</string>
+    <string name="analysis_summary_solid">جهد جيد. حافظ على الأداء الأمثل.</string>
+    <string name="analysis_summary_improve">مجال للتحسين. جرب التمارين.</string>
+    <string name="analysis_summary_practice">الممارسة تصنع الكمال!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">أسبوع نشط</string>
+    <string name="challenge_balanced_rider">راكب متوازن</string>
+    <string name="challenge_zone_master">سيد المنطقة</string>
+    <string name="challenge_technique_focus">تركيز على التقنية</string>
+    <string name="challenge_consistency">الاستمرارية</string>
+    <string name="challenge_efficient_pedaling">تبديل فعال</string>
+    <string name="challenge_smooth_circles">دوائر سلسة</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">أكمل 3 جولات</string>
+    <string name="challenge_balanced_rider_desc">متوسط توازن 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ في المنطقة المثالية</string>
+    <string name="challenge_technique_focus_desc">أكمل تمرينين</string>
+    <string name="challenge_consistency_desc">اركب 4 أيام متتالية</string>
+    <string name="challenge_efficient_pedaling_desc">متوسط TE >70%%</string>
+    <string name="challenge_smooth_circles_desc">متوسط PS >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">رحلات</string>
+    <string name="unit_drills">تمارين</string>
+    <string name="unit_days">أيام</string>
+    <string name="unit_percent">%</string>
 </resources>

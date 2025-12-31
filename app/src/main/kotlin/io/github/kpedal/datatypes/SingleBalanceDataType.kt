@@ -36,12 +36,18 @@ class SingleBalanceDataType(
                 // Label + separator
                 views.setAdaptiveTextSize(R.id.label_balance, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.separator, config, TextSizeCalculator.Role.SECONDARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_balance, getString(R.string.bal))
             }
             LayoutSize.MEDIUM, LayoutSize.LARGE, LayoutSize.NARROW -> {
                 // Full labels (NARROW uses MEDIUM layout)
                 views.setAdaptiveTextSize(R.id.label_header, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.label_left, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.label_right, config, TextSizeCalculator.Role.LABEL)
+                // Set localized labels
+                views.setTextViewText(R.id.label_header, getString(R.string.balance))
+                views.setTextViewText(R.id.label_left, getString(R.string.left))
+                views.setTextViewText(R.id.label_right, getString(R.string.right))
             }
         }
     }

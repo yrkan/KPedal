@@ -163,9 +163,11 @@
     <string name="avg_bal">eq moy</string>
     <string name="streak">serie</string>
     <string name="streak_days">%1$dj</string>
+    <string name="section_progress">PROGRESSION</string>
     <string name="section_data">DONNEES</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">PLUS</string>
+    <string name="view_details">Voir les détails</string>
     <string name="history">Historique</string>
     <string name="saved_rides">Sorties enregistrees</string>
     <string name="analytics">Analyses</string>
@@ -341,6 +343,12 @@
     <string name="min_max">min-max</string>
     <string name="minimum">Minimum</string>
     <string name="maximum">Maximum</string>
+    <string name="target_min_title">Au moins</string>
+    <string name="target_max_title">Au plus</string>
+    <string name="target_range_title">Dans la plage</string>
+    <string name="balance_desc">Répartition G/D</string>
+    <string name="te_desc">Efficacité pédalage</string>
+    <string name="ps_desc">Fluidité de puissance</string>
     <string name="preview">APERCU</string>
     <string name="metric">Metrique</string>
     <string name="duration">Duree</string>
@@ -713,4 +721,64 @@
     <string name="language_spanish">Espanol</string>
     <string name="language_french">Francais</string>
     <string name="language_system">Systeme</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">Tous</string>
+    <string name="filter_optimal">Optimal</string>
+    <string name="filter_problem">Problème</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Excellent équilibre G/D</string>
+    <string name="analysis_good_balance">Bon contrôle de l\'équilibre</string>
+    <string name="analysis_optimal_te">Efficacité de couple optimale</string>
+    <string name="analysis_good_te">Bon transfert de puissance</string>
+    <string name="analysis_very_smooth">Pédalage très fluide</string>
+    <string name="analysis_good_smooth">Bonne fluidité de pédalage</string>
+    <string name="analysis_excellent_zone">Excellent temps en zone optimale</string>
+    <string name="analysis_good_consistency">Bonne régularité</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Équilibre légèrement décentré</string>
+    <string name="analysis_balance_imbalance">Déséquilibre important</string>
+    <string name="analysis_te_too_high">TE trop élevé</string>
+    <string name="analysis_te_low">Faible efficacité de couple</string>
+    <string name="analysis_smooth_improve">La fluidité peut s\'améliorer</string>
+    <string name="analysis_smooth_focus">Travaillez le pédalage fluide</string>
+    <string name="analysis_zone_more">Plus de temps en zone optimale</string>
+    <string name="analysis_zone_practice">Pratiquez la forme optimale</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Excellent ! Votre technique était très efficace.</string>
+    <string name="analysis_summary_good_balance">Bonne performance. Continuez à travailler l\'équilibre.</string>
+    <string name="analysis_summary_good_smooth">Bonne performance. Continuez à travailler la fluidité.</string>
+    <string name="analysis_summary_solid">Bon effort. Maintenez la forme optimale.</string>
+    <string name="analysis_summary_improve">À améliorer. Essayez les exercices.</string>
+    <string name="analysis_summary_practice">C\'est en forgeant qu\'on devient forgeron !</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Semaine Active</string>
+    <string name="challenge_balanced_rider">Cycliste Équilibré</string>
+    <string name="challenge_zone_master">Maître de Zone</string>
+    <string name="challenge_technique_focus">Focus Technique</string>
+    <string name="challenge_consistency">Régularité</string>
+    <string name="challenge_efficient_pedaling">Pédalage Efficace</string>
+    <string name="challenge_smooth_circles">Cercles Fluides</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">Compléter 3 sorties</string>
+    <string name="challenge_balanced_rider_desc">Balance moyenne 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ en zone optimale</string>
+    <string name="challenge_technique_focus_desc">Compléter 2 exercices</string>
+    <string name="challenge_consistency_desc">Rouler 4 jours consécutifs</string>
+    <string name="challenge_efficient_pedaling_desc">TE moyenne >70%%</string>
+    <string name="challenge_smooth_circles_desc">PS moyenne >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">sorties</string>
+    <string name="unit_drills">exercices</string>
+    <string name="unit_days">jours</string>
+    <string name="unit_percent">%</string>
 </resources>

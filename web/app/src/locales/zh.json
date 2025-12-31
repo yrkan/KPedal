@@ -23,7 +23,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Karoo 踏频效率分析工具",
-    "version": "版本 1.6.3",
+    "version": "版本 1.7.0",
     "webTitle": "KPedal 网页版"
   },
   "nav": {
@@ -1588,7 +1588,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo 扩展",
-      "version": "v1.6.3",
+      "version": "v1.7.0",
       "titleLine1": "实时查看您的",
       "titleLine2": "踏频效率",
       "subtitle": "平衡、扭矩效率、踏频平滑度 — 在 Karoo 上显示，配有实时警报和引导式训练。",

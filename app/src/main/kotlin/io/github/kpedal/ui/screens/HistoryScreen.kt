@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,9 +23,9 @@ import io.github.kpedal.R
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.RideFilter
 import io.github.kpedal.ui.theme.Theme
+import io.github.kpedal.util.LocaleHelper
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.abs
 
 /**
  * History screen showing list of saved rides with filtering.
@@ -58,7 +59,10 @@ fun HistoryScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f, fill = false)
+                ) {
                     Text(
                         text = "←",
                         color = Theme.colors.dim,
@@ -77,6 +81,7 @@ fun HistoryScreen(
                         fontWeight = FontWeight.SemiBold
                     )
                 }
+                Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = if (filter.isActive) "${filteredRides.size}/${rides.size}" else stringResource(R.string.rides_count, rides.size),
                     color = if (filter.isActive) Theme.colors.optimal else Theme.colors.dim,
@@ -148,7 +153,9 @@ private fun RideListItem(
     onClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
-    val dateFormat = remember { SimpleDateFormat("MMM d, HH:mm", Locale.getDefault()) }
+    val context = LocalContext.current
+    val locale = remember { LocaleHelper.getCurrentLocale(context) }
+    val dateFormat = remember(locale) { SimpleDateFormat("d MMM HH:mm", locale) }
     val dateStr = dateFormat.format(Date(ride.timestamp))
 
     Column {
@@ -285,23 +292,12 @@ private fun FilterChips(
             .padding(horizontal = 12.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // Date range chips
+        // Date range chips only
         RideFilter.DateRange.entries.forEach { dateRange ->
             FilterChip(
-                label = dateRange.label,
+                label = stringResource(dateRange.labelResId),
                 isSelected = filter.dateRange == dateRange,
                 onClick = { onFilterChange(filter.copy(dateRange = dateRange)) }
-            )
-        }
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        // Balance filter chips
-        RideFilter.BalanceFilter.entries.forEach { balanceFilter ->
-            FilterChip(
-                label = balanceFilter.label,
-                isSelected = filter.balanceFilter == balanceFilter,
-                onClick = { onFilterChange(filter.copy(balanceFilter = balanceFilter)) }
             )
         }
     }
@@ -329,24 +325,7 @@ private fun FilterChip(
 // ========== Filter Logic ==========
 
 private fun applyFilter(rides: List<RideEntity>, filter: RideFilter): List<RideEntity> {
-    var result = rides
-
-    // Apply date filter
-    filter.dateRange.daysBack?.let { days ->
-        val cutoff = System.currentTimeMillis() - (days * 24 * 60 * 60 * 1000L)
-        result = result.filter { it.timestamp >= cutoff }
-    }
-
-    // Apply balance filter
-    result = when (filter.balanceFilter) {
-        RideFilter.BalanceFilter.OPTIMAL_ONLY -> result.filter {
-            abs(it.balanceRight - 50) <= 5
-        }
-        RideFilter.BalanceFilter.PROBLEM_ONLY -> result.filter {
-            abs(it.balanceRight - 50) > 5
-        }
-        RideFilter.BalanceFilter.ALL -> result
-    }
-
-    return result
+    val daysBack = filter.dateRange.daysBack ?: return rides
+    val cutoff = System.currentTimeMillis() - (daysBack * 24 * 60 * 60 * 1000L)
+    return rides.filter { it.timestamp >= cutoff }
 }

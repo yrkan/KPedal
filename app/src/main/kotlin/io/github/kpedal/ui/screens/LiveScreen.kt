@@ -107,8 +107,7 @@ private fun trendArrow(trend: Int): String = when (trend) {
 fun LiveScreen(
     liveData: LiveRideData,
     onBack: () -> Unit,
-    onSave: () -> Boolean = { false },
-    onNavigateToDrills: () -> Unit = {}
+    onSave: () -> Boolean = { false }
 ) {
     var saveStatus by remember { mutableStateOf(SaveStatus.Idle) }
 
@@ -155,19 +154,12 @@ fun LiveScreen(
                         .clip(CircleShape)
                         .background(Theme.colors.optimal)
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = " · ",
-                    color = Theme.colors.dim,
-                    fontSize = 14.sp
-                )
-                Text(
-                    text = stringResource(R.string.drills),
-                    color = Theme.colors.dim,
+                    text = stringResource(R.string.live),
+                    color = Theme.colors.text,
                     fontSize = 14.sp,
-                    modifier = Modifier.clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null
-                    ) { onNavigateToDrills() }
+                    fontWeight = FontWeight.SemiBold
                 )
             }
             Row(
@@ -232,62 +224,48 @@ fun LiveScreen(
 
         Divider()
 
-        if (!liveData.hasData) {
-            // Show waiting message when no pedal data yet
+        // BALANCE section (weight 1)
+        Box(modifier = Modifier.weight(1f)) {
+            BalanceSection(liveData)
+        }
+
+        Divider()
+
+        // TE & PS grid (weight 1)
+        Row(modifier = Modifier.weight(1f)) {
+            Box(modifier = Modifier.weight(1f)) {
+                MetricSection(
+                    label = "TE",
+                    left = liveData.teLeft,
+                    right = liveData.teRight,
+                    trend = liveData.teTrend,
+                    hasData = liveData.hasData,
+                    statusFn = { StatusCalculator.teStatus(it.toFloat()) }
+                )
+            }
             Box(
                 modifier = Modifier
-                    .weight(3f)
-                    .fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = stringResource(R.string.waiting_pedal_data),
-                        color = Theme.colors.dim,
-                        fontSize = 14.sp
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = stringResource(R.string.start_riding),
-                        color = Theme.colors.muted,
-                        fontSize = 12.sp
-                    )
-                }
-            }
-        } else {
-            // BALANCE section (weight 1)
+                    .width(1.dp)
+                    .fillMaxHeight()
+                    .background(Theme.colors.divider)
+            )
             Box(modifier = Modifier.weight(1f)) {
-                BalanceSection(liveData)
-            }
-
-            Divider()
-
-            // TE & PS grid (weight 1)
-            Row(modifier = Modifier.weight(1f)) {
-                Box(modifier = Modifier.weight(1f)) {
-                    MetricSection("TE", liveData.teLeft, liveData.teRight, liveData.teTrend) {
-                        StatusCalculator.teStatus(it.toFloat())
-                    }
-                }
-                Box(
-                    modifier = Modifier
-                        .width(1.dp)
-                        .fillMaxHeight()
-                        .background(Theme.colors.divider)
+                MetricSection(
+                    label = "PS",
+                    left = liveData.psLeft,
+                    right = liveData.psRight,
+                    trend = liveData.psTrend,
+                    hasData = liveData.hasData,
+                    statusFn = { StatusCalculator.psStatus(it.toFloat()) }
                 )
-                Box(modifier = Modifier.weight(1f)) {
-                    MetricSection("PS", liveData.psLeft, liveData.psRight, liveData.psTrend) {
-                        StatusCalculator.psStatus(it.toFloat())
-                    }
-                }
             }
+        }
 
-            Divider()
+        Divider()
 
-            // TIME IN ZONE section (weight 1)
-            Box(modifier = Modifier.weight(1f)) {
-                TimeInZoneSection(liveData)
-            }
+        // TIME IN ZONE section (weight 1)
+        Box(modifier = Modifier.weight(1f)) {
+            TimeInZoneSection(liveData)
         }
     }
 }
@@ -400,11 +378,10 @@ private fun MetricSection(
     left: Int,
     right: Int,
     trend: Int = 0,
+    hasData: Boolean = true,
     statusFn: (Int) -> StatusCalculator.Status
 ) {
-    val leftStatus = statusFn(left)
-    val rightStatus = statusFn(right)
-    val trendText = trendArrow(trend)
+    val trendText = if (hasData) trendArrow(trend) else ""
     val trendColor = when (trend) {
         1 -> Theme.colors.optimal
         -1 -> Theme.colors.problem
@@ -444,8 +421,8 @@ private fun MetricSection(
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "$left",
-                    color = Color(StatusCalculator.statusColor(leftStatus)),
+                    text = if (hasData) "$left" else "--",
+                    color = if (hasData) Color(StatusCalculator.statusColor(statusFn(left))) else Theme.colors.dim,
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -454,8 +431,8 @@ private fun MetricSection(
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "$right",
-                    color = Color(StatusCalculator.statusColor(rightStatus)),
+                    text = if (hasData) "$right" else "--",
+                    color = if (hasData) Color(StatusCalculator.statusColor(statusFn(right))) else Theme.colors.dim,
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -471,7 +448,8 @@ private fun TimeInZoneSection(liveData: LiveRideData) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp)
-            .padding(top = 8.dp, bottom = 12.dp)
+            .padding(top = 8.dp, bottom = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(R.string.time_in_zone),

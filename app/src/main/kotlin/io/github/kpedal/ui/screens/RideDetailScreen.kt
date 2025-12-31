@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,11 +23,13 @@ import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.RideAnalyzer
 import io.github.kpedal.engine.StatusCalculator
 import io.github.kpedal.ui.theme.Theme
+import io.github.kpedal.util.LocaleHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Detail screen for a saved ride - mirrors SummaryScreen layout.
+ * Detail screen for a saved ride.
+ * Clean, informative layout optimized for Karoo 3 (480×800px).
  */
 @Composable
 fun RideDetailScreen(
@@ -37,8 +40,11 @@ fun RideDetailScreen(
 ) {
     var showDeleteConfirm by remember { mutableStateOf(false) }
     var currentRating by remember { mutableStateOf(ride.rating) }
-    val dateFormat = remember { SimpleDateFormat("MMM d, yyyy HH:mm", Locale.getDefault()) }
+    val context = LocalContext.current
+    val locale = remember { LocaleHelper.getCurrentLocale(context) }
+    val dateFormat = remember(locale) { SimpleDateFormat("MMM d, HH:mm", locale) }
     val dateStr = dateFormat.format(Date(ride.timestamp))
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
     val analysis = remember(ride) { RideAnalyzer.analyze(ride) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -52,47 +58,92 @@ fun RideDetailScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 12.dp, end = 12.dp, top = 24.dp, bottom = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                    .padding(start = 12.dp, end = 12.dp, top = 24.dp, bottom = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "←",
-                        color = Theme.colors.dim,
-                        fontSize = 18.sp,
-                        modifier = Modifier
-                            .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = null
-                            ) { onBack() }
-                            .padding(end = 12.dp)
-                    )
-                    Column {
-                        Text(
-                            text = dateStr,
-                            color = Theme.colors.text,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Text(
-                            text = ride.durationFormatted,
-                            color = Theme.colors.dim,
-                            fontSize = 12.sp
-                        )
-                    }
-                }
-
                 Text(
-                    text = stringResource(R.string.delete),
-                    color = Theme.colors.problem,
-                    fontSize = 12.sp,
-                    modifier = Modifier.clickable { showDeleteConfirm = true }
+                    text = "←",
+                    color = Theme.colors.dim,
+                    fontSize = 16.sp,
+                    modifier = Modifier
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null
+                        ) { onBack() }
+                        .padding(end = 12.dp)
+                )
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = dateStr,
+                        color = Theme.colors.text,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        text = ride.durationFormatted,
+                        color = Theme.colors.dim,
+                        fontSize = 11.sp
+                    )
+                }
+            }
+
+            // Hero Score
+            HeroScore(
+                score = analysis.overallScore,
+                balanceScore = analysis.balanceScore,
+                efficiencyScore = analysis.efficiencyScore,
+                consistencyScore = analysis.consistencyScore
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Balance
+            BalanceRow(ride.balanceLeft, ride.balanceRight)
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // TE & PS
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                MetricCard(
+                    label = "TE",
+                    left = ride.teLeft,
+                    right = ride.teRight,
+                    statusFn = { StatusCalculator.teStatus(it.toFloat()) },
+                    modifier = Modifier.weight(1f)
+                )
+                MetricCard(
+                    label = "PS",
+                    left = ride.psLeft,
+                    right = ride.psRight,
+                    statusFn = { StatusCalculator.psStatus(it.toFloat()) },
+                    modifier = Modifier.weight(1f)
                 )
             }
 
-            // Rating section
-            RatingSection(
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Time in Zone
+            ZoneBar(ride.zoneOptimal, ride.zoneAttention, ride.zoneProblem)
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Analysis
+            if (analysis.strengthResIds.isNotEmpty() || analysis.improvementResIds.isNotEmpty()) {
+                AnalysisSection(
+                    summaryResId = analysis.summaryResId,
+                    strengthResIds = analysis.strengthResIds,
+                    improvementResIds = analysis.improvementResIds
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+
+            // Rating
+            RatingRow(
                 rating = currentRating,
                 suggestedRating = analysis.suggestedRating,
                 onRatingChange = { newRating ->
@@ -101,63 +152,31 @@ fun RideDetailScreen(
                 }
             )
 
-            Divider()
+            Spacer(modifier = Modifier.height(16.dp))
 
-            // Score overview
-            ScoreOverview(
-                overallScore = analysis.overallScore,
-                balanceScore = analysis.balanceScore,
-                efficiencyScore = analysis.efficiencyScore,
-                consistencyScore = analysis.consistencyScore
-            )
-
-            Divider()
-
-            // BALANCE section
-            BalanceSection(ride.balanceLeft, ride.balanceRight)
-
-            Divider()
-
-            // TE & PS row
-            Row(modifier = Modifier.height(100.dp)) {
-                Box(modifier = Modifier.weight(1f)) {
-                    MetricSection("TE", ride.teLeft, ride.teRight) {
-                        StatusCalculator.teStatus(it.toFloat())
-                    }
-                }
-                Box(
+            // Delete
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(R.string.delete_ride),
+                    color = Theme.colors.muted,
+                    fontSize = 11.sp,
                     modifier = Modifier
-                        .width(1.dp)
-                        .fillMaxHeight()
-                        .background(Theme.colors.divider)
+                        .clickable { showDeleteConfirm = true }
+                        .padding(8.dp)
                 )
-                Box(modifier = Modifier.weight(1f)) {
-                    MetricSection("PS", ride.psLeft, ride.psRight) {
-                        StatusCalculator.psStatus(it.toFloat())
-                    }
-                }
             }
 
-            Divider()
-
-            // TIME IN ZONE section
-            TimeInZoneSection(ride.zoneOptimal, ride.zoneAttention, ride.zoneProblem)
-
-            Divider()
-
-            // Analysis insights
-            AnalysisSection(
-                strengths = analysis.strengths,
-                improvements = analysis.improvements,
-                summary = analysis.summary
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
         }
 
-        // Delete confirmation overlay
+        // Delete confirmation
         if (showDeleteConfirm) {
-            DeleteConfirmDialog(
+            DeleteConfirmOverlay(
                 onConfirm = onDelete,
                 onDismiss = { showDeleteConfirm = false }
             )
@@ -166,17 +185,336 @@ fun RideDetailScreen(
 }
 
 @Composable
-private fun Divider() {
-    Box(
+private fun HeroScore(
+    score: Int,
+    balanceScore: Int,
+    efficiencyScore: Int,
+    consistencyScore: Int
+) {
+    val scoreColor = when {
+        score >= 80 -> Theme.colors.optimal
+        score >= 60 -> Theme.colors.attention
+        else -> Theme.colors.problem
+    }
+
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(1.dp)
-            .background(Theme.colors.divider)
+            .padding(horizontal = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "$score",
+            color = scoreColor,
+            fontSize = 56.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = stringResource(R.string.overall).uppercase(),
+            color = Theme.colors.dim,
+            fontSize = 10.sp,
+            letterSpacing = 1.sp
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Sub-scores
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            SubScore(stringResource(R.string.balance_lower), balanceScore)
+            SubScore(stringResource(R.string.efficiency), efficiencyScore)
+            SubScore(stringResource(R.string.consistency), consistencyScore)
+        }
+    }
+}
+
+@Composable
+private fun SubScore(label: String, score: Int) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = "$score",
+            color = Theme.colors.text,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = label,
+            color = Theme.colors.dim,
+            fontSize = 9.sp
+        )
+    }
+}
+
+@Composable
+private fun BalanceRow(left: Int, right: Int) {
+    val status = StatusCalculator.balanceStatus(right.toFloat())
+    val barColor = Color(StatusCalculator.statusColor(status))
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            Column {
+                Text(
+                    text = "$left",
+                    color = Theme.colors.text,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = stringResource(R.string.left),
+                    color = Theme.colors.dim,
+                    fontSize = 10.sp
+                )
+            }
+            Text(
+                text = stringResource(R.string.balance).uppercase(),
+                color = Theme.colors.dim,
+                fontSize = 10.sp,
+                letterSpacing = 0.5.sp
+            )
+            Column(horizontalAlignment = Alignment.End) {
+                Text(
+                    text = "$right",
+                    color = Theme.colors.text,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = stringResource(R.string.right),
+                    color = Theme.colors.dim,
+                    fontSize = 10.sp
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        // Balance bar
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(6.dp)
+                .clip(RoundedCornerShape(3.dp))
+                .background(Theme.colors.surface)
+        ) {
+            Row(modifier = Modifier.fillMaxSize()) {
+                Box(
+                    modifier = Modifier
+                        .weight(left.toFloat().coerceAtLeast(1f))
+                        .fillMaxHeight()
+                        .background(barColor.copy(alpha = 0.6f))
+                )
+                Box(
+                    modifier = Modifier
+                        .width(2.dp)
+                        .fillMaxHeight()
+                        .background(Theme.colors.text)
+                )
+                Box(
+                    modifier = Modifier
+                        .weight(right.toFloat().coerceAtLeast(1f))
+                        .fillMaxHeight()
+                        .background(barColor.copy(alpha = 0.6f))
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun MetricCard(
+    label: String,
+    left: Int,
+    right: Int,
+    statusFn: (Int) -> StatusCalculator.Status,
+    modifier: Modifier = Modifier
+) {
+    val leftColor = Color(StatusCalculator.statusColor(statusFn(left)))
+    val rightColor = Color(StatusCalculator.statusColor(statusFn(right)))
+
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(8.dp))
+            .background(Theme.colors.surface)
+            .padding(10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = label,
+            color = Theme.colors.dim,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Medium
+        )
+        Spacer(modifier = Modifier.height(6.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "$left",
+                    color = leftColor,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = stringResource(R.string.left),
+                    color = Theme.colors.muted,
+                    fontSize = 8.sp
+                )
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "$right",
+                    color = rightColor,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = stringResource(R.string.right),
+                    color = Theme.colors.muted,
+                    fontSize = 8.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ZoneBar(optimal: Int, attention: Int, problem: Int) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = stringResource(R.string.time_in_zone).uppercase(),
+                color = Theme.colors.dim,
+                fontSize = 10.sp,
+                letterSpacing = 0.5.sp
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                ZoneLabel(optimal, Theme.colors.optimal)
+                ZoneLabel(attention, Theme.colors.attention)
+                ZoneLabel(problem, Theme.colors.problem)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(6.dp))
+
+        // Stacked bar
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(6.dp)
+                .clip(RoundedCornerShape(3.dp))
+        ) {
+            val total = (optimal + attention + problem).coerceAtLeast(1)
+            if (optimal > 0) {
+                Box(
+                    modifier = Modifier
+                        .weight(optimal.toFloat() / total)
+                        .fillMaxHeight()
+                        .background(Theme.colors.optimal)
+                )
+            }
+            if (attention > 0) {
+                Box(
+                    modifier = Modifier
+                        .weight(attention.toFloat() / total)
+                        .fillMaxHeight()
+                        .background(Theme.colors.attention)
+                )
+            }
+            if (problem > 0) {
+                Box(
+                    modifier = Modifier
+                        .weight(problem.toFloat() / total)
+                        .fillMaxHeight()
+                        .background(Theme.colors.problem)
+                )
+            }
+            if (total <= 1) {
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .background(Theme.colors.surface)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ZoneLabel(value: Int, color: Color) {
+    Text(
+        text = "$value%",
+        color = color,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Medium
     )
 }
 
 @Composable
-private fun RatingSection(
+private fun AnalysisSection(
+    summaryResId: Int,
+    strengthResIds: List<Int>,
+    improvementResIds: List<Int>
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(Theme.colors.surface)
+            .padding(10.dp)
+    ) {
+        Text(
+            text = stringResource(summaryResId),
+            color = Theme.colors.text,
+            fontSize = 11.sp
+        )
+
+        if (strengthResIds.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            strengthResIds.forEach { resId ->
+                Text(
+                    text = "✓ ${stringResource(resId)}",
+                    color = Theme.colors.optimal,
+                    fontSize = 10.sp
+                )
+            }
+        }
+
+        if (improvementResIds.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(6.dp))
+            improvementResIds.forEach { resId ->
+                Text(
+                    text = "→ ${stringResource(resId)}",
+                    color = Theme.colors.attention,
+                    fontSize = 10.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RatingRow(
     rating: Int,
     suggestedRating: Int,
     onRatingChange: (Int) -> Unit
@@ -184,6 +522,9 @@ private fun RatingSection(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 12.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .background(Theme.colors.surface)
             .padding(horizontal = 12.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -192,24 +533,22 @@ private fun RatingSection(
             Text(
                 text = stringResource(R.string.rating),
                 color = Theme.colors.dim,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Medium
+                fontSize = 10.sp
             )
             if (rating == 0) {
                 Text(
                     text = stringResource(R.string.suggested_stars, suggestedRating),
                     color = Theme.colors.muted,
-                    fontSize = 9.sp
+                    fontSize = 8.sp
                 )
             }
         }
-
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
             (1..5).forEach { star ->
                 Text(
                     text = if (star <= rating) "★" else "☆",
                     color = if (star <= rating) Theme.colors.attention else Theme.colors.muted,
-                    fontSize = 22.sp,
+                    fontSize = 20.sp,
                     modifier = Modifier.clickable(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
@@ -223,351 +562,14 @@ private fun RatingSection(
 }
 
 @Composable
-private fun ScoreOverview(
-    overallScore: Int,
-    balanceScore: Int,
-    efficiencyScore: Int,
-    consistencyScore: Int
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly
-    ) {
-        ScoreItem(stringResource(R.string.overall), overallScore, true)
-        ScoreItem(stringResource(R.string.balance_lower), balanceScore)
-        ScoreItem(stringResource(R.string.efficiency), efficiencyScore)
-        ScoreItem(stringResource(R.string.consistency), consistencyScore)
-    }
-}
-
-@Composable
-private fun ScoreItem(label: String, score: Int, isPrimary: Boolean = false) {
-    val scoreColor = when {
-        score >= 80 -> Theme.colors.optimal
-        score >= 60 -> Theme.colors.attention
-        else -> Theme.colors.problem
-    }
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = "$score",
-            color = if (isPrimary) scoreColor else Theme.colors.text,
-            fontSize = if (isPrimary) 24.sp else 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = label,
-            color = Theme.colors.dim,
-            fontSize = 9.sp
-        )
-    }
-}
-
-@Composable
-private fun AnalysisSection(
-    strengths: List<String>,
-    improvements: List<String>,
-    summary: String
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 10.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.analysis),
-            color = Theme.colors.dim,
-            fontSize = 10.sp,
-            fontWeight = FontWeight.Medium
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = summary,
-            color = Theme.colors.text,
-            fontSize = 12.sp
-        )
-
-        if (strengths.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = stringResource(R.string.strengths),
-                color = Theme.colors.optimal,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Medium
-            )
-            strengths.forEach { strength ->
-                Text(
-                    text = "• $strength",
-                    color = Theme.colors.text,
-                    fontSize = 11.sp,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
-            }
-        }
-
-        if (improvements.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = stringResource(R.string.areas_to_improve),
-                color = Theme.colors.attention,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Medium
-            )
-            improvements.forEach { improvement ->
-                Text(
-                    text = "• $improvement",
-                    color = Theme.colors.text,
-                    fontSize = 11.sp,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun BalanceSection(balanceLeft: Int, balanceRight: Int) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 8.dp, bottom = 8.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.balance),
-            color = Theme.colors.dim,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "$balanceLeft",
-                color = Theme.colors.text,
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = "$balanceRight",
-                color = Theme.colors.text,
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        // Balance bar
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-                .clip(RoundedCornerShape(2.dp))
-                .background(Color(0xFF222222))
-        ) {
-            Row(modifier = Modifier.fillMaxSize()) {
-                Box(
-                    modifier = Modifier
-                        .weight(balanceLeft.toFloat().coerceAtLeast(1f))
-                        .fillMaxHeight()
-                        .background(Theme.colors.dim)
-                )
-                Box(
-                    modifier = Modifier
-                        .width(2.dp)
-                        .fillMaxHeight()
-                        .background(Theme.colors.text)
-                )
-                Box(
-                    modifier = Modifier
-                        .weight(balanceRight.toFloat().coerceAtLeast(1f))
-                        .fillMaxHeight()
-                        .background(Theme.colors.dim)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        // L/R labels at bottom
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 12.sp)
-            Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 12.sp)
-        }
-    }
-}
-
-@Composable
-private fun MetricSection(
-    label: String,
-    left: Int,
-    right: Int,
-    statusFn: (Int) -> StatusCalculator.Status
-) {
-    val leftStatus = statusFn(left)
-    val rightStatus = statusFn(right)
-
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .padding(horizontal = 12.dp)
-            .padding(top = 8.dp, bottom = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = label,
-            color = Theme.colors.dim,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
-        )
-
-        Row(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "$left",
-                    color = Color(StatusCalculator.statusColor(leftStatus)),
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = stringResource(R.string.left), color = Theme.colors.dim, fontSize = 10.sp)
-            }
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "$right",
-                    color = Color(StatusCalculator.statusColor(rightStatus)),
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = stringResource(R.string.right), color = Theme.colors.dim, fontSize = 10.sp)
-            }
-        }
-    }
-}
-
-@Composable
-private fun TimeInZoneSection(zoneOptimal: Int, zoneAttention: Int, zoneProblem: Int) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(top = 8.dp, bottom = 12.dp)
-    ) {
-        Text(
-            text = stringResource(R.string.time_in_zone),
-            color = Theme.colors.dim,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
-        )
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "$zoneOptimal%",
-                    color = Theme.colors.optimal,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = stringResource(R.string.optimal), color = Theme.colors.dim, fontSize = 9.sp)
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "$zoneAttention%",
-                    color = Theme.colors.attention,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = stringResource(R.string.attention), color = Theme.colors.dim, fontSize = 9.sp)
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "$zoneProblem%",
-                    color = Theme.colors.problem,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(text = stringResource(R.string.problem), color = Theme.colors.dim, fontSize = 9.sp)
-            }
-        }
-
-        // Stacked bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-                .clip(RoundedCornerShape(2.dp)),
-            horizontalArrangement = Arrangement.spacedBy(2.dp)
-        ) {
-            val total = (zoneOptimal + zoneAttention + zoneProblem).coerceAtLeast(1)
-
-            if (zoneOptimal > 0) {
-                Box(
-                    modifier = Modifier
-                        .weight(zoneOptimal.toFloat() / total)
-                        .fillMaxHeight()
-                        .background(Theme.colors.optimal)
-                )
-            }
-            if (zoneAttention > 0) {
-                Box(
-                    modifier = Modifier
-                        .weight(zoneAttention.toFloat() / total)
-                        .fillMaxHeight()
-                        .background(Theme.colors.attention)
-                )
-            }
-            if (zoneProblem > 0) {
-                Box(
-                    modifier = Modifier
-                        .weight(zoneProblem.toFloat() / total)
-                        .fillMaxHeight()
-                        .background(Theme.colors.problem)
-                )
-            }
-            if (total <= 1 && zoneOptimal == 0) {
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .background(Theme.colors.muted)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun DeleteConfirmDialog(
+private fun DeleteConfirmOverlay(
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Theme.colors.background.copy(alpha = 0.9f))
+            .background(Theme.colors.background.copy(alpha = 0.95f))
             .clickable { onDismiss() },
         contentAlignment = Alignment.Center
     ) {
@@ -582,21 +584,21 @@ private fun DeleteConfirmDialog(
             Text(
                 text = stringResource(R.string.delete_ride),
                 color = Theme.colors.text,
-                fontSize = 14.sp,
+                fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
             )
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            Spacer(modifier = Modifier.height(14.dp))
+            Row(horizontalArrangement = Arrangement.spacedBy(20.dp)) {
                 Text(
                     text = stringResource(R.string.cancel),
                     color = Theme.colors.dim,
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     modifier = Modifier.clickable { onDismiss() }
                 )
                 Text(
                     text = stringResource(R.string.delete),
                     color = Theme.colors.problem,
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.clickable { onConfirm() }
                 )

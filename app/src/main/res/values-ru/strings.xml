@@ -145,7 +145,7 @@
     <string name="relink">Привязать снова</string>
 
     <!-- Live -->
-    <string name="live">В реальном времени</string>
+    <string name="live">Вживую</string>
     <string name="current_ride">Текущая поездка</string>
     <string name="time_in_zone">ВРЕМЯ В ЗОНЕ</string>
     <string name="waiting_pedal_data">Ожидание данных с педалей…</string>
@@ -163,9 +163,11 @@
     <string name="avg_bal">средн бал</string>
     <string name="streak">серия</string>
     <string name="streak_days">%1$dд</string>
+    <string name="section_progress">ПРОГРЕСС</string>
     <string name="section_data">ДАННЫЕ</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">ЕЩЁ</string>
+    <string name="view_details">Подробнее</string>
     <string name="history">История</string>
     <string name="saved_rides">Сохранённые поездки</string>
     <string name="analytics">Аналитика</string>
@@ -341,6 +343,12 @@
     <string name="min_max">мин-макс</string>
     <string name="minimum">Минимум</string>
     <string name="maximum">Максимум</string>
+    <string name="target_min_title">Не менее</string>
+    <string name="target_max_title">Не более</string>
+    <string name="target_range_title">В диапазоне</string>
+    <string name="balance_desc">Распределение Л/П</string>
+    <string name="te_desc">Эффективность педалирования</string>
+    <string name="ps_desc">Плавность мощности</string>
     <string name="preview">ПРЕДПРОСМОТР</string>
     <string name="metric">Метрика</string>
     <string name="duration">Длительность</string>
@@ -713,4 +721,64 @@
     <string name="language_spanish">Español</string>
     <string name="language_russian">Русский</string>
     <string name="language_system">Системный</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">Все</string>
+    <string name="filter_optimal">Оптимум</string>
+    <string name="filter_problem">Проблема</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Отличный баланс L/R</string>
+    <string name="analysis_good_balance">Хороший контроль баланса</string>
+    <string name="analysis_optimal_te">Оптимальная эффективность крутящего момента</string>
+    <string name="analysis_good_te">Хорошая передача мощности</string>
+    <string name="analysis_very_smooth">Очень плавное педалирование</string>
+    <string name="analysis_good_smooth">Хорошая плавность педалирования</string>
+    <string name="analysis_excellent_zone">Отличное время в оптимальной зоне</string>
+    <string name="analysis_good_consistency">Хорошая стабильность</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Баланс немного смещён</string>
+    <string name="analysis_balance_imbalance">Значительный дисбаланс</string>
+    <string name="analysis_te_too_high">TE слишком высокий</string>
+    <string name="analysis_te_low">Низкая эффективность момента</string>
+    <string name="analysis_smooth_improve">Плавность можно улучшить</string>
+    <string name="analysis_smooth_focus">Работайте над плавностью</string>
+    <string name="analysis_zone_more">Больше времени в оптимальной зоне</string>
+    <string name="analysis_zone_practice">Тренируйте технику</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Отличная поездка! Техника педалирования была очень эффективной.</string>
+    <string name="analysis_summary_good_balance">Хорошо. Продолжайте работать над балансом.</string>
+    <string name="analysis_summary_good_smooth">Хорошо. Продолжайте работать над плавностью.</string>
+    <string name="analysis_summary_solid">Неплохо. Старайтесь держать форму.</string>
+    <string name="analysis_summary_improve">Есть над чем работать. Попробуйте упражнения.</string>
+    <string name="analysis_summary_practice">Практика делает мастера!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Активная неделя</string>
+    <string name="challenge_balanced_rider">Сбалансированный райдер</string>
+    <string name="challenge_zone_master">Мастер зоны</string>
+    <string name="challenge_technique_focus">Фокус на технике</string>
+    <string name="challenge_consistency">Постоянство</string>
+    <string name="challenge_efficient_pedaling">Эффективное педалирование</string>
+    <string name="challenge_smooth_circles">Плавные круги</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">Завершите 3 поездки</string>
+    <string name="challenge_balanced_rider_desc">Средний баланс 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ в оптимальной зоне</string>
+    <string name="challenge_technique_focus_desc">Завершите 2 упражнения</string>
+    <string name="challenge_consistency_desc">Катайтесь 4 дня подряд</string>
+    <string name="challenge_efficient_pedaling_desc">Средний TE >70%%</string>
+    <string name="challenge_smooth_circles_desc">Средний PS >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">поездок</string>
+    <string name="unit_drills">упражнений</string>
+    <string name="unit_days">дней</string>
+    <string name="unit_percent">%</string>
 </resources>

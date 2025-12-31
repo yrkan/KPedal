@@ -168,9 +168,11 @@
     <string name="avg_bal">avg bal</string>
     <string name="streak">streak</string>
     <string name="streak_days">%1$dd</string>
+    <string name="section_progress">PROGRESS</string>
     <string name="section_data">DATA</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">MORE</string>
+    <string name="view_details">View details</string>
     <string name="history">History</string>
     <string name="saved_rides">Saved rides</string>
     <string name="analytics">Analytics</string>
@@ -185,6 +187,41 @@
     <string name="quick_guide">Quick guide</string>
     <string name="last_ride">Last ride</string>
     <string name="optimal">optimal</string>
+
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">All</string>
+    <string name="filter_optimal">Optimal</string>
+    <string name="filter_problem">Problem</string>
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Excellent L/R balance</string>
+    <string name="analysis_good_balance">Good balance control</string>
+    <string name="analysis_optimal_te">Optimal torque effectiveness</string>
+    <string name="analysis_good_te">Good power transfer</string>
+    <string name="analysis_very_smooth">Very smooth pedaling</string>
+    <string name="analysis_good_smooth">Good pedal smoothness</string>
+    <string name="analysis_excellent_zone">Excellent time in optimal zone</string>
+    <string name="analysis_good_consistency">Good consistency</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Balance slightly off-center</string>
+    <string name="analysis_balance_imbalance">Significant balance imbalance</string>
+    <string name="analysis_te_too_high">TE too high - may reduce total power</string>
+    <string name="analysis_te_low">Low torque effectiveness</string>
+    <string name="analysis_smooth_improve">Smoothness could improve</string>
+    <string name="analysis_smooth_focus">Focus on smoother pedal stroke</string>
+    <string name="analysis_zone_more">More time in optimal zone needed</string>
+    <string name="analysis_zone_practice">Practice maintaining optimal form</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Excellent ride! Your pedaling technique was highly efficient.</string>
+    <string name="analysis_summary_good_balance">Good performance. Keep working on balance.</string>
+    <string name="analysis_summary_good_smooth">Good performance. Keep working on smoothness.</string>
+    <string name="analysis_summary_solid">Solid effort. Focus on maintaining optimal form throughout.</string>
+    <string name="analysis_summary_improve">Room for improvement. Try the technique drills.</string>
+    <string name="analysis_summary_practice">Practice makes perfect. Keep training!</string>
 
     <!-- Notification -->
     <string name="notification_title">KPedal</string>
@@ -346,6 +383,12 @@
     <string name="min_max">min-max</string>
     <string name="minimum">Minimum</string>
     <string name="maximum">Maximum</string>
+    <string name="target_min_title">At least</string>
+    <string name="target_max_title">At most</string>
+    <string name="target_range_title">In range</string>
+    <string name="balance_desc">L/R power split</string>
+    <string name="te_desc">Pedal stroke efficiency</string>
+    <string name="ps_desc">Smooth power delivery</string>
     <string name="preview">PREVIEW</string>
     <string name="metric">Metric</string>
     <string name="duration">Duration</string>
@@ -362,6 +405,30 @@
     <string name="this_week">THIS WEEK</string>
     <string name="all_challenges">ALL CHALLENGES</string>
     <string name="next_week">NEXT WEEK</string>
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Active Week</string>
+    <string name="challenge_balanced_rider">Balanced Rider</string>
+    <string name="challenge_zone_master">Zone Master</string>
+    <string name="challenge_technique_focus">Technique Focus</string>
+    <string name="challenge_consistency">Consistency</string>
+    <string name="challenge_efficient_pedaling">Efficient Pedaling</string>
+    <string name="challenge_smooth_circles">Smooth Circles</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">Complete 3 rides</string>
+    <string name="challenge_balanced_rider_desc">Avg balance within 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ time in optimal zone</string>
+    <string name="challenge_technique_focus_desc">Complete 2 drills</string>
+    <string name="challenge_consistency_desc">Ride 4 days in a row</string>
+    <string name="challenge_efficient_pedaling_desc">Avg TE above 70%%</string>
+    <string name="challenge_smooth_circles_desc">Avg PS above 20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">rides</string>
+    <string name="unit_drills">drills</string>
+    <string name="unit_days">days</string>
+    <string name="unit_percent">%</string>
 
     <!-- Onboarding -->
     <string name="skip">Skip</string>

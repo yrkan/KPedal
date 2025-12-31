@@ -29,8 +29,7 @@ fun DrillsListScreen(
     onDrillClick: (String) -> Unit,
     onHistoryClick: () -> Unit,
     onCreateCustomDrill: () -> Unit = {},
-    onDeleteCustomDrill: (String) -> Unit = {},
-    onNavigateToLive: () -> Unit = {}
+    onDeleteCustomDrill: (String) -> Unit = {}
 ) {
     val drills = DrillCatalog.all
 
@@ -47,7 +46,10 @@ fun DrillsListScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f, fill = false)
+            ) {
                 Text(
                     text = "←",
                     color = Theme.colors.dim,
@@ -59,21 +61,6 @@ fun DrillsListScreen(
                         ) { onBack() }
                         .padding(end = 8.dp)
                 )
-                // Tabs: Live | Drills
-                Text(
-                    text = stringResource(R.string.live),
-                    color = Theme.colors.dim,
-                    fontSize = 14.sp,
-                    modifier = Modifier.clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null
-                    ) { onNavigateToLive() }
-                )
-                Text(
-                    text = " · ",
-                    color = Theme.colors.dim,
-                    fontSize = 14.sp
-                )
                 Text(
                     text = stringResource(R.string.drills),
                     color = Theme.colors.text,
@@ -81,7 +68,7 @@ fun DrillsListScreen(
                     fontWeight = FontWeight.SemiBold
                 )
             }
-
+            Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = stringResource(R.string.drill_history),
                 color = Theme.colors.dim,
@@ -104,7 +91,6 @@ fun DrillsListScreen(
                 customDrills.forEach { drill ->
                     DrillRow(
                         drill = drill,
-                        isCustom = true,
                         onClick = { onDrillClick(drill.id) },
                         onDelete = { onDeleteCustomDrill(drill.id) }
                     )
@@ -182,7 +168,6 @@ private fun Divider() {
 @Composable
 private fun DrillRow(
     drill: Drill,
-    isCustom: Boolean = false,
     onClick: () -> Unit,
     onDelete: (() -> Unit)? = null
 ) {
@@ -214,22 +199,12 @@ private fun DrillRow(
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Column {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = drill.nameOverride ?: stringResource(drill.nameRes),
-                            color = Theme.colors.text,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-                        if (isCustom) {
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(
-                                text = stringResource(R.string.custom),
-                                color = Theme.colors.muted,
-                                fontSize = 9.sp
-                            )
-                        }
-                    }
+                    Text(
+                        text = drill.nameOverride ?: stringResource(drill.nameRes),
+                        color = Theme.colors.text,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium
+                    )
                     Text(
                         text = drill.durationFormatted,
                         color = Theme.colors.dim,
@@ -238,20 +213,18 @@ private fun DrillRow(
                 }
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                if (isCustom && onDelete != null) {
-                    Text(
-                        text = stringResource(R.string.delete),
-                        color = Theme.colors.problem,
-                        fontSize = 11.sp,
-                        modifier = Modifier
-                            .clickable(
-                                indication = null,
-                                interactionSource = remember { MutableInteractionSource() }
-                            ) { onDelete() }
-                            .padding(horizontal = 8.dp)
-                    )
-                }
+            if (onDelete != null) {
+                Text(
+                    text = "×",
+                    color = Theme.colors.dim,
+                    fontSize = 18.sp,
+                    modifier = Modifier
+                        .clickable(
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() }
+                        ) { onDelete() }
+                )
+            } else {
                 Text(
                     text = "›",
                     color = Theme.colors.dim,

@@ -17,11 +17,27 @@ object LocaleHelper {
 
     /**
      * Available app languages.
+     * Order: System, then alphabetically by English name.
      */
-    enum class AppLanguage(val code: String, val displayName: String) {
-        SYSTEM("", "System"),
-        ENGLISH("en", "English"),
-        SPANISH("es", "Español")
+    enum class AppLanguage(val code: String) {
+        SYSTEM(""),
+        ARABIC("ar"),
+        CHINESE("zh"),
+        DANISH("da"),
+        DUTCH("nl"),
+        ENGLISH("en"),
+        FRENCH("fr"),
+        GERMAN("de"),
+        HEBREW("he"),
+        ITALIAN("it"),
+        JAPANESE("ja"),
+        KOREAN("ko"),
+        POLISH("pl"),
+        PORTUGUESE("pt"),
+        RUSSIAN("ru"),
+        SPANISH("es"),
+        SWEDISH("sv"),
+        UKRAINIAN("uk")
     }
 
     /**
@@ -77,20 +93,22 @@ object LocaleHelper {
      * Get Locale for the given AppLanguage.
      */
     private fun getLocaleForLanguage(language: AppLanguage): Locale {
-        return when (language) {
-            AppLanguage.SYSTEM -> Locale.getDefault()
-            AppLanguage.ENGLISH -> Locale.ENGLISH
-            AppLanguage.SPANISH -> Locale("es")
+        return if (language == AppLanguage.SYSTEM || language.code.isEmpty()) {
+            Locale.getDefault()
+        } else {
+            Locale(language.code)
         }
     }
 
     /**
      * Wrap context with the specified locale.
+     * Sets layout direction for RTL languages (Hebrew, Arabic).
      */
     private fun wrapContextWithLocale(context: Context, locale: Locale): Context {
         Locale.setDefault(locale)
 
         val config = Configuration(context.resources.configuration)
+        config.setLayoutDirection(locale)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             config.setLocale(locale)

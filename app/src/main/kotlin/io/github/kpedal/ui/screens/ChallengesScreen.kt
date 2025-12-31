@@ -167,9 +167,11 @@ private fun CurrentChallengeCard(
                 text = if (isComplete) completedText else thisWeekText,
                 color = if (isComplete) Theme.colors.optimal else Theme.colors.dim,
                 fontSize = 10.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.weight(1f, fill = false)
             )
             if (isComplete) {
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "✓",
                     color = Theme.colors.optimal,
@@ -183,7 +185,7 @@ private fun CurrentChallengeCard(
 
         // Challenge name
         Text(
-            text = challenge.name,
+            text = stringResource(challenge.nameRes),
             color = Theme.colors.text,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
@@ -193,7 +195,7 @@ private fun CurrentChallengeCard(
 
         // Description
         Text(
-            text = challenge.description,
+            text = stringResource(challenge.descriptionRes),
             color = Theme.colors.dim,
             fontSize = 12.sp
         )
@@ -228,7 +230,7 @@ private fun CurrentChallengeCard(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "$currentProgress / ${challenge.target} ${challenge.unit}",
+                text = "$currentProgress / ${challenge.target} ${stringResource(challenge.unitRes)}",
                 color = Theme.colors.text,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
@@ -273,13 +275,13 @@ private fun ChallengeRow(
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = challenge.name,
+                text = stringResource(challenge.nameRes),
                 color = if (isCurrent) Theme.colors.text else Theme.colors.dim,
                 fontSize = 12.sp,
                 fontWeight = if (isCurrent) FontWeight.Medium else FontWeight.Normal
             )
             Text(
-                text = challenge.description,
+                text = stringResource(challenge.descriptionRes),
                 color = Theme.colors.muted,
                 fontSize = 10.sp
             )
@@ -310,13 +312,13 @@ private fun NextChallengePreview(
     ) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = challenge.name,
+                text = stringResource(challenge.nameRes),
                 color = Theme.colors.text,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
             )
             Text(
-                text = challenge.description,
+                text = stringResource(challenge.descriptionRes),
                 color = Theme.colors.dim,
                 fontSize = 10.sp
             )

@@ -14,7 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -23,19 +23,22 @@ import io.github.kpedal.R
 import io.github.kpedal.data.models.Achievement
 import io.github.kpedal.data.models.UnlockedAchievement
 import io.github.kpedal.ui.theme.Theme
+import io.github.kpedal.util.LocaleHelper
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 /**
- * Compact achievements screen with grouped list design.
+ * Clean achievements screen with minimal design for Karoo 3.
  */
 @Composable
 fun AchievementsScreen(
     unlockedAchievements: List<UnlockedAchievement>,
     onBack: () -> Unit
 ) {
-    val unlockedIds = unlockedAchievements.map { it.achievement.id }.toSet()
+    val unlockedIds = remember(unlockedAchievements) {
+        unlockedAchievements.map { it.achievement.id }.toSet()
+    }
 
     Column(
         modifier = Modifier
@@ -58,7 +61,7 @@ fun AchievementsScreen(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     ) { onBack() }
-                    .padding(end = 8.dp)
+                    .padding(end = 12.dp)
             )
             Text(
                 text = stringResource(R.string.achievements),
@@ -69,7 +72,7 @@ fun AchievementsScreen(
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "${unlockedAchievements.size}/${Achievement.all.size}",
-                color = Theme.colors.optimal,
+                color = if (unlockedAchievements.size == Achievement.all.size) Theme.colors.optimal else Theme.colors.dim,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -86,7 +89,7 @@ fun AchievementsScreen(
                     .fillMaxWidth()
                     .height(4.dp)
                     .clip(RoundedCornerShape(2.dp))
-                    .background(Theme.colors.muted)
+                    .background(Theme.colors.surface)
             )
             val progress = if (Achievement.all.isNotEmpty()) {
                 unlockedAchievements.size.toFloat() / Achievement.all.size
@@ -107,6 +110,7 @@ fun AchievementsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .padding(top = 4.dp)
         ) {
             // Rides category
             AchievementCategory(
@@ -118,8 +122,7 @@ fun AchievementsScreen(
                     Achievement.HundredRides
                 ),
                 unlockedAchievements = unlockedAchievements,
-                unlockedIds = unlockedIds,
-                color = Theme.colors.optimal
+                unlockedIds = unlockedIds
             )
 
             // Balance category
@@ -131,8 +134,7 @@ fun AchievementsScreen(
                     Achievement.PerfectBalance10m
                 ),
                 unlockedAchievements = unlockedAchievements,
-                unlockedIds = unlockedIds,
-                color = Theme.colors.attention
+                unlockedIds = unlockedIds
             )
 
             // Efficiency category
@@ -143,8 +145,7 @@ fun AchievementsScreen(
                     Achievement.SmoothOperator
                 ),
                 unlockedAchievements = unlockedAchievements,
-                unlockedIds = unlockedIds,
-                color = Theme.colors.optimal
+                unlockedIds = unlockedIds
             )
 
             // Streak category
@@ -157,8 +158,7 @@ fun AchievementsScreen(
                     Achievement.ThirtyDayStreak
                 ),
                 unlockedAchievements = unlockedAchievements,
-                unlockedIds = unlockedIds,
-                color = Theme.colors.problem
+                unlockedIds = unlockedIds
             )
 
             // Drills category
@@ -170,11 +170,10 @@ fun AchievementsScreen(
                     Achievement.PerfectDrill
                 ),
                 unlockedAchievements = unlockedAchievements,
-                unlockedIds = unlockedIds,
-                color = Theme.colors.attention
+                unlockedIds = unlockedIds
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
@@ -194,10 +193,10 @@ private fun AchievementCategory(
     title: String,
     achievements: List<Achievement>,
     unlockedAchievements: List<UnlockedAchievement>,
-    unlockedIds: Set<String>,
-    color: Color
+    unlockedIds: Set<String>
 ) {
     val unlockedCount = achievements.count { it.id in unlockedIds }
+    val allUnlocked = unlockedCount == achievements.size
 
     Column {
         // Category header
@@ -207,24 +206,17 @@ private fun AchievementCategory(
                 .padding(horizontal = 12.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier
-                    .width(3.dp)
-                    .height(12.dp)
-                    .background(color)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = title,
                 color = Theme.colors.dim,
-                fontSize = 10.sp,
+                fontSize = 11.sp,
                 fontWeight = FontWeight.Medium
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "$unlockedCount/${achievements.size}",
-                color = if (unlockedCount == achievements.size) color else Theme.colors.dim,
-                fontSize = 10.sp
+                color = if (allUnlocked) Theme.colors.optimal else Theme.colors.dim,
+                fontSize = 11.sp
             )
         }
 
@@ -236,12 +228,11 @@ private fun AchievementCategory(
             AchievementRow(
                 achievement = achievement,
                 isUnlocked = isUnlocked,
-                unlockedAt = unlocked?.unlockedAt,
-                color = color
+                unlockedAt = unlocked?.unlockedAt
             )
         }
 
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
@@ -249,9 +240,12 @@ private fun AchievementCategory(
 private fun AchievementRow(
     achievement: Achievement,
     isUnlocked: Boolean,
-    unlockedAt: Long?,
-    color: Color
+    unlockedAt: Long?
 ) {
+    val context = LocalContext.current
+    val locale = remember { LocaleHelper.getCurrentLocale(context) }
+    val dateFormat = remember(locale) { SimpleDateFormat("MMM d", locale) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -261,22 +255,10 @@ private fun AchievementRow(
         // Status indicator
         Box(
             modifier = Modifier
-                .size(16.dp)
-                .background(
-                    color = if (isUnlocked) color else Theme.colors.muted,
-                    shape = CircleShape
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            if (isUnlocked) {
-                Text(
-                    text = "✓",
-                    color = Theme.colors.background,
-                    fontSize = 10.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
+                .size(10.dp)
+                .clip(CircleShape)
+                .background(if (isUnlocked) Theme.colors.optimal else Theme.colors.surface)
+        )
 
         Spacer(modifier = Modifier.width(10.dp))
 
@@ -285,28 +267,25 @@ private fun AchievementRow(
             Text(
                 text = stringResource(achievement.nameRes),
                 color = if (isUnlocked) Theme.colors.text else Theme.colors.dim,
-                fontSize = 12.sp,
+                fontSize = 13.sp,
                 fontWeight = if (isUnlocked) FontWeight.Medium else FontWeight.Normal
             )
             Text(
                 text = stringResource(achievement.descriptionRes),
-                color = Theme.colors.muted,
-                fontSize = 10.sp
+                color = if (isUnlocked) Theme.colors.dim else Theme.colors.muted,
+                fontSize = 11.sp
             )
         }
 
         // Unlock date
         if (isUnlocked && unlockedAt != null) {
+            val dateStr = dateFormat.format(Date(unlockedAt))
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
             Text(
-                text = formatDate(unlockedAt),
-                color = color,
-                fontSize = 10.sp
+                text = dateStr,
+                color = Theme.colors.optimal,
+                fontSize = 11.sp
             )
         }
     }
-}
-
-private fun formatDate(timestamp: Long): String {
-    val dateFormat = SimpleDateFormat("MMM d", Locale.getDefault())
-    return dateFormat.format(Date(timestamp))
 }

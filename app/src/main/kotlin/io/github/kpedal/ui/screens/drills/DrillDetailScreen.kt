@@ -53,7 +53,10 @@ fun DrillDetailScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f, fill = false)
+            ) {
                 Text(
                     text = "←",
                     color = Theme.colors.dim,
@@ -79,6 +82,7 @@ fun DrillDetailScreen(
                     )
                 }
             }
+            Spacer(modifier = Modifier.width(12.dp))
             // Stats in header
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 bestScore?.let {

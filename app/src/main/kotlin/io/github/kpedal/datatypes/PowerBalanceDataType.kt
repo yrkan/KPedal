@@ -37,6 +37,10 @@ class PowerBalanceDataType(
                 views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.separator, config, TextSizeCalculator.Role.TERTIARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_power, getString(R.string.pwr))
+                views.setTextViewText(R.id.power_unit, getString(R.string.watt_symbol))
+                views.setTextViewText(R.id.label_balance, getString(R.string.bal))
             }
             LayoutSize.SMALL_WIDE, LayoutSize.MEDIUM_WIDE -> {
                 // Power + Balance horizontal (245W | 48|52)
@@ -44,12 +48,16 @@ class PowerBalanceDataType(
                 views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.separator, config, TextSizeCalculator.Role.TERTIARY)
+                // Set localized labels
+                views.setTextViewText(R.id.power_unit, getString(R.string.watt_symbol))
             }
             LayoutSize.MEDIUM -> {
                 // Power label + balance values
                 views.setAdaptiveTextSize(R.id.label_power, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.SECONDARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_power, getString(R.string.power))
             }
             LayoutSize.LARGE -> {
                 // Full layout with all labels
@@ -59,12 +67,19 @@ class PowerBalanceDataType(
                 views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.label_left, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.label_right, config, TextSizeCalculator.Role.LABEL)
+                // Set localized labels
+                views.setTextViewText(R.id.label_power, getString(R.string.power))
+                views.setTextViewText(R.id.label_balance, getString(R.string.balance))
+                views.setTextViewText(R.id.label_left, getString(R.string.left))
+                views.setTextViewText(R.id.label_right, getString(R.string.right))
             }
             LayoutSize.NARROW -> {
                 // Same as MEDIUM (uses MEDIUM layout)
                 views.setAdaptiveTextSize(R.id.label_power, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.SECONDARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_power, getString(R.string.power))
             }
         }
     }

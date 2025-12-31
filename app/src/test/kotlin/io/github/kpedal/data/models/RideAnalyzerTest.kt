@@ -1,6 +1,7 @@
 package io.github.kpedal.data.models
 
 import com.google.common.truth.Truth.assertThat
+import io.github.kpedal.R
 import io.github.kpedal.data.database.RideEntity
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -324,84 +325,84 @@ class RideAnalyzerTest {
         fun `excellent balance adds strength`() {
             val ride = createRide(balanceRight = 50)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths).contains("Excellent L/R balance")
+            assertThat(analysis.strengthResIds).contains(R.string.analysis_excellent_balance)
         }
 
         @Test
         fun `good balance adds strength`() {
             val ride = createRide(balanceRight = 53)  // 3% deviation
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths).contains("Good balance control")
+            assertThat(analysis.strengthResIds).contains(R.string.analysis_good_balance)
         }
 
         @Test
         fun `slight imbalance adds improvement`() {
             val ride = createRide(balanceRight = 56)  // 6% deviation
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements).contains("Balance slightly off-center")
+            assertThat(analysis.improvementResIds).contains(R.string.analysis_balance_off)
         }
 
         @Test
         fun `significant imbalance adds improvement`() {
             val ride = createRide(balanceRight = 62)  // 12% deviation
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements).contains("Significant balance imbalance")
+            assertThat(analysis.improvementResIds).contains(R.string.analysis_balance_imbalance)
         }
 
         @Test
         fun `optimal TE adds strength`() {
             val ride = createRide(teLeft = 75, teRight = 75)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths).contains("Optimal torque effectiveness")
+            assertThat(analysis.strengthResIds).contains(R.string.analysis_optimal_te)
         }
 
         @Test
         fun `good TE adds strength`() {
             val ride = createRide(teLeft = 65, teRight = 65)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths).contains("Good power transfer")
+            assertThat(analysis.strengthResIds).contains(R.string.analysis_good_te)
         }
 
         @Test
         fun `high TE adds improvement warning`() {
             val ride = createRide(teLeft = 88, teRight = 88)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements).contains("TE too high - may reduce total power")
+            assertThat(analysis.improvementResIds).contains(R.string.analysis_te_too_high)
         }
 
         @Test
         fun `low TE adds improvement`() {
             val ride = createRide(teLeft = 50, teRight = 50)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements).contains("Low torque effectiveness")
+            assertThat(analysis.improvementResIds).contains(R.string.analysis_te_low)
         }
 
         @Test
         fun `very smooth pedaling adds strength`() {
             val ride = createRide(psLeft = 28, psRight = 28)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths).contains("Very smooth pedaling")
+            assertThat(analysis.strengthResIds).contains(R.string.analysis_very_smooth)
         }
 
         @Test
         fun `good smoothness adds strength`() {
             val ride = createRide(psLeft = 22, psRight = 22)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths).contains("Good pedal smoothness")
+            assertThat(analysis.strengthResIds).contains(R.string.analysis_good_smooth)
         }
 
         @Test
         fun `low smoothness adds improvement`() {
             val ride = createRide(psLeft = 16, psRight = 16)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements).contains("Smoothness could improve")
+            assertThat(analysis.improvementResIds).contains(R.string.analysis_smooth_improve)
         }
 
         @Test
         fun `very low smoothness adds improvement`() {
             val ride = createRide(psLeft = 10, psRight = 10)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements).contains("Focus on smoother pedal stroke")
+            assertThat(analysis.improvementResIds).contains(R.string.analysis_smooth_focus)
         }
 
         @Test
@@ -414,7 +415,7 @@ class RideAnalyzerTest {
                 zoneOptimal = 75  // Excellent zone - should add strength
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths).contains("Excellent time in optimal zone")
+            assertThat(analysis.strengthResIds).contains(R.string.analysis_excellent_zone)
         }
 
         @Test
@@ -427,21 +428,21 @@ class RideAnalyzerTest {
                 zoneOptimal = 55  // Good zone - should add strength
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths).contains("Good consistency")
+            assertThat(analysis.strengthResIds).contains(R.string.analysis_good_consistency)
         }
 
         @Test
         fun `low zone time adds improvement`() {
             val ride = createRide(zoneOptimal = 35)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements).contains("More time in optimal zone needed")
+            assertThat(analysis.improvementResIds).contains(R.string.analysis_zone_more)
         }
 
         @Test
         fun `very low zone time adds improvement`() {
             val ride = createRide(zoneOptimal = 20)
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements).contains("Practice maintaining optimal form")
+            assertThat(analysis.improvementResIds).contains(R.string.analysis_zone_practice)
         }
 
         @Test
@@ -454,7 +455,7 @@ class RideAnalyzerTest {
                 zoneOptimal = 75            // Excellent zone time
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.strengths.size).isAtMost(3)
+            assertThat(analysis.strengthResIds.size).isAtMost(3)
         }
 
         @Test
@@ -467,7 +468,7 @@ class RideAnalyzerTest {
                 zoneOptimal = 20            // Very low zone time
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.improvements.size).isAtMost(3)
+            assertThat(analysis.improvementResIds.size).isAtMost(3)
         }
     }
 
@@ -484,7 +485,7 @@ class RideAnalyzerTest {
                 zoneOptimal = 80
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.summary).contains("Excellent ride")
+            assertThat(analysis.summaryResId).isEqualTo(R.string.analysis_summary_excellent)
         }
 
         @Test
@@ -503,7 +504,8 @@ class RideAnalyzerTest {
                 zoneOptimal = 50
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.summary).contains("Good performance")
+            // Score 78 with balance deviation 3 → smooth variant
+            assertThat(analysis.summaryResId).isIn(listOf(R.string.analysis_summary_good_balance, R.string.analysis_summary_good_smooth))
         }
 
         @Test
@@ -522,7 +524,7 @@ class RideAnalyzerTest {
                 zoneOptimal = 40
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.summary).contains("Solid effort")
+            assertThat(analysis.summaryResId).isEqualTo(R.string.analysis_summary_solid)
         }
 
         @Test
@@ -534,7 +536,7 @@ class RideAnalyzerTest {
                 zoneOptimal = 35
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.summary).contains("Room for improvement")
+            assertThat(analysis.summaryResId).isEqualTo(R.string.analysis_summary_improve)
         }
 
         @Test
@@ -546,7 +548,7 @@ class RideAnalyzerTest {
                 zoneOptimal = 20
             )
             val analysis = RideAnalyzer.analyze(ride)
-            assertThat(analysis.summary).contains("Practice makes perfect")
+            assertThat(analysis.summaryResId).isEqualTo(R.string.analysis_summary_practice)
         }
     }
 

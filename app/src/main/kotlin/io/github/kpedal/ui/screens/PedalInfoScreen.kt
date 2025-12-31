@@ -28,6 +28,7 @@ import io.github.kpedal.R
 import io.github.kpedal.data.models.PedalInfo
 import io.github.kpedal.engine.PedalingMetrics
 import io.github.kpedal.ui.theme.Theme
+import java.util.Locale
 
 /**
  * Screen showing pedal connection status, signal quality, and live data preview.
@@ -343,7 +344,7 @@ private fun SignalDetailsSection(pedalInfo: PedalInfo) {
         DetailRow(
             label = stringResource(R.string.update_rate),
             value = if (pedalInfo.updateFrequency > 0) {
-                String.format("%.1f Hz", pedalInfo.updateFrequency)
+                String.format(Locale.getDefault(), "%.1f Hz", pedalInfo.updateFrequency)
             } else {
                 "—"
             },
@@ -381,8 +382,10 @@ private fun DetailRow(
         Text(
             text = label,
             color = Theme.colors.text,
-            fontSize = 13.sp
+            fontSize = 13.sp,
+            modifier = Modifier.weight(1f, fill = false)
         )
+        Spacer(modifier = Modifier.width(12.dp))
         Text(
             text = value,
             color = valueColor,

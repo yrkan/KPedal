@@ -163,9 +163,11 @@
     <string name="avg_bal">gem bal</string>
     <string name="streak">reeks</string>
     <string name="streak_days">%1$dd</string>
+    <string name="section_progress">VOORTGANG</string>
     <string name="section_data">DATA</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">MEER</string>
+    <string name="view_details">Details bekijken</string>
     <string name="history">Geschiedenis</string>
     <string name="saved_rides">Opgeslagen ritten</string>
     <string name="analytics">Analyses</string>
@@ -341,6 +343,12 @@
     <string name="min_max">min-max</string>
     <string name="minimum">Minimum</string>
     <string name="maximum">Maximum</string>
+    <string name="target_min_title">Minimaal</string>
+    <string name="target_max_title">Maximaal</string>
+    <string name="target_range_title">Binnen bereik</string>
+    <string name="balance_desc">L/R vermogensverdeling</string>
+    <string name="te_desc">Trapefficiëntie</string>
+    <string name="ps_desc">Vloeiende vermogensafgifte</string>
     <string name="preview">VOORBEELD</string>
     <string name="metric">Statistiek</string>
     <string name="duration">Duur</string>
@@ -713,4 +721,64 @@
     <string name="language_spanish">Español</string>
     <string name="language_dutch">Nederlands</string>
     <string name="language_system">Systeem</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">Alle</string>
+    <string name="filter_optimal">Optimaal</string>
+    <string name="filter_problem">Probleem</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Uitstekende L/R-balans</string>
+    <string name="analysis_good_balance">Goede balanscontrole</string>
+    <string name="analysis_optimal_te">Optimale koppeleffectiviteit</string>
+    <string name="analysis_good_te">Goede vermogensoverdracht</string>
+    <string name="analysis_very_smooth">Zeer vloeiend trappen</string>
+    <string name="analysis_good_smooth">Goede trapvloeiendheid</string>
+    <string name="analysis_excellent_zone">Uitstekende tijd in optimale zone</string>
+    <string name="analysis_good_consistency">Goede consistentie</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Balans licht uit het midden</string>
+    <string name="analysis_balance_imbalance">Aanzienlijke onbalans</string>
+    <string name="analysis_te_too_high">TE te hoog</string>
+    <string name="analysis_te_low">Lage koppeleffectiviteit</string>
+    <string name="analysis_smooth_improve">Vloeiendheid kan beter</string>
+    <string name="analysis_smooth_focus">Werk aan vloeiender trappen</string>
+    <string name="analysis_zone_more">Meer tijd in optimale zone</string>
+    <string name="analysis_zone_practice">Oefen optimale vorm</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Uitstekend! Je traptechniek was zeer efficiënt.</string>
+    <string name="analysis_summary_good_balance">Goede prestatie. Blijf werken aan balans.</string>
+    <string name="analysis_summary_good_smooth">Goede prestatie. Blijf werken aan vloeiendheid.</string>
+    <string name="analysis_summary_solid">Goede inspanning. Behoud optimale vorm.</string>
+    <string name="analysis_summary_improve">Ruimte voor verbetering. Probeer de oefeningen.</string>
+    <string name="analysis_summary_practice">Oefening baart kunst!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Actieve Week</string>
+    <string name="challenge_balanced_rider">Evenwichtige Fietser</string>
+    <string name="challenge_zone_master">Zone Meester</string>
+    <string name="challenge_technique_focus">Techniek Focus</string>
+    <string name="challenge_consistency">Consistentie</string>
+    <string name="challenge_efficient_pedaling">Efficiënt Trappen</string>
+    <string name="challenge_smooth_circles">Vloeiende Cirkels</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">Voltooi 3 ritten</string>
+    <string name="challenge_balanced_rider_desc">Gem. balans 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ in optimale zone</string>
+    <string name="challenge_technique_focus_desc">Voltooi 2 oefeningen</string>
+    <string name="challenge_consistency_desc">Fiets 4 dagen achtereen</string>
+    <string name="challenge_efficient_pedaling_desc">Gem. TE >70%%</string>
+    <string name="challenge_smooth_circles_desc">Gem. PS >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">ritten</string>
+    <string name="unit_drills">oefeningen</string>
+    <string name="unit_days">dagen</string>
+    <string name="unit_percent">%</string>
 </resources>

@@ -29,6 +29,9 @@ class BalanceTrendDataType(
         views.setAdaptiveTextSize(R.id.balance_left, config, TextSizeCalculator.Role.PRIMARY)
         views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.PRIMARY)
 
+        // Set localized label texts (RemoteViews don't use app locale in Karoo)
+        views.setTextViewText(R.id.label_balance, getString(R.string.balance))
+
         when (currentLayoutSize) {
             LayoutSize.SMALL, LayoutSize.SMALL_WIDE, LayoutSize.MEDIUM_WIDE -> {
                 // Label + trend indicator
@@ -41,6 +44,7 @@ class BalanceTrendDataType(
                 views.setAdaptiveTextSize(R.id.label_balance_3s, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.balance_3s_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.balance_3s_right, config, TextSizeCalculator.Role.SECONDARY)
+                views.setTextViewText(R.id.label_balance_3s, getString(R.string.balance_3s))
             }
             LayoutSize.LARGE -> {
                 // Current + 3s + 10s smoothed
@@ -51,6 +55,8 @@ class BalanceTrendDataType(
                 views.setAdaptiveTextSize(R.id.balance_3s_right, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.balance_10s_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.balance_10s_right, config, TextSizeCalculator.Role.SECONDARY)
+                views.setTextViewText(R.id.label_balance_3s, getString(R.string.balance_3s))
+                views.setTextViewText(R.id.label_balance_10s, getString(R.string.balance_10s))
             }
             LayoutSize.NARROW -> {
                 // Same as MEDIUM (uses MEDIUM layout)
@@ -58,6 +64,7 @@ class BalanceTrendDataType(
                 views.setAdaptiveTextSize(R.id.label_balance_3s, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.balance_3s_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.balance_3s_right, config, TextSizeCalculator.Role.SECONDARY)
+                views.setTextViewText(R.id.label_balance_3s, getString(R.string.balance_3s))
             }
         }
     }

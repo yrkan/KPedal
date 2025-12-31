@@ -270,12 +270,7 @@ fun KPedalApp(
             LiveScreen(
                 liveData = liveData,
                 onBack = { navController.popBackStack() },
-                onSave = { viewModel.manualSaveRide() },
-                onNavigateToDrills = {
-                    navController.navigate("drills") {
-                        popUpTo("live") { inclusive = true }
-                    }
-                }
+                onSave = { viewModel.manualSaveRide() }
             )
         }
 
@@ -358,12 +353,7 @@ fun KPedalApp(
                 onDrillClick = { drillId -> navController.navigate("drill-detail/$drillId") },
                 onHistoryClick = { navController.navigate("drill-history") },
                 onCreateCustomDrill = { navController.navigate("custom-drill") },
-                onDeleteCustomDrill = { drillId -> viewModel.deleteCustomDrill(drillId) },
-                onNavigateToLive = {
-                    navController.navigate("live") {
-                        popUpTo("drills") { inclusive = true }
-                    }
-                }
+                onDeleteCustomDrill = { drillId -> viewModel.deleteCustomDrill(drillId) }
             )
         }
 

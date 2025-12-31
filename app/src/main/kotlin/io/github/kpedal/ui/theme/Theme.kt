@@ -1,12 +1,16 @@
 package io.github.kpedal.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLayoutDirection
+import android.view.View
 
 /**
  * kpedal color palette
@@ -38,6 +42,7 @@ object KPedalColors {
     val onPrimary = Color(0xFF000000)
 }
 
+@Immutable
 data class KPedalColorScheme(
     val background: Color,
     val surface: Color,
@@ -102,7 +107,17 @@ fun KPedalTheme(
         onPrimary = KPedalColors.onPrimary
     )
 
-    CompositionLocalProvider(LocalKPedalColors provides colors) {
+    val configuration = LocalConfiguration.current
+    val layoutDirection = if (configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+        LayoutDirection.Rtl
+    } else {
+        LayoutDirection.Ltr
+    }
+
+    CompositionLocalProvider(
+        LocalLayoutDirection provides layoutDirection,
+        LocalKPedalColors provides colors
+    ) {
         MaterialTheme(
             colorScheme = DarkColorScheme,
             content = content

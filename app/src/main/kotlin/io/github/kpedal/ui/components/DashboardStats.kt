@@ -4,9 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -16,6 +18,7 @@ import io.github.kpedal.R
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.DashboardData
 import io.github.kpedal.ui.theme.Theme
+import io.github.kpedal.util.LocaleHelper
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -93,6 +96,10 @@ private fun StatCard(
 
 @Composable
 private fun LastRideCard(ride: RideEntity) {
+    val context = LocalContext.current
+    val locale = remember { LocaleHelper.getCurrentLocale(context) }
+    val dateFormat = remember(locale) { SimpleDateFormat("MMM d, HH:mm", locale) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -109,7 +116,7 @@ private fun LastRideCard(ride: RideEntity) {
                 fontSize = 9.sp
             )
             Text(
-                text = formatDate(ride.timestamp),
+                text = dateFormat.format(Date(ride.timestamp)),
                 color = Theme.colors.text,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium
@@ -176,9 +183,4 @@ private fun formatBalance(balance: Float): String {
     val left = (100 - balance).toInt()
     val right = balance.toInt()
     return "L$left/R$right"
-}
-
-private fun formatDate(timestamp: Long): String {
-    val sdf = SimpleDateFormat("MMM d, HH:mm", Locale.getDefault())
-    return sdf.format(Date(timestamp))
 }

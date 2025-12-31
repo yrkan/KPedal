@@ -59,7 +59,7 @@
     <string name="vibration">Vibrazione</string>
     <string name="sound">Suono</string>
     <string name="alert_settings">Impostazioni avvisi</string>
-    <string name="background_mode">Modalita in Background</string>
+    <string name="background_mode">Modalità in Background</string>
     <string name="background_mode_desc">Raccoglie dati per tutte le uscite</string>
     <string name="cloud_sync">Sincronizzazione cloud</string>
     <string name="cloud_sync_desc">Sincronizza con app.kpedal.com</string>
@@ -72,7 +72,7 @@
     <string name="settings_balance_threshold_desc">Deviazione dal 50/50 per attivare l\'avviso</string>
     <string name="settings_te">EFFICACIA DELLA COPPIA</string>
     <string name="settings_te_desc">EC%% minimo per essere considerato ottimale</string>
-    <string name="settings_ps">FLUIDITA PEDALATA</string>
+    <string name="settings_ps">FLUIDITÀ PEDALATA</string>
     <string name="settings_ps_desc">FP%% minimo per essere considerato ottimale</string>
     <string name="settings_configure_alerts">Configura Avvisi</string>
     <string name="settings_configure_alerts_desc">Quando e come notificare</string>
@@ -87,7 +87,7 @@
     <string name="settings_code_expired_desc">Richieda un nuovo codice</string>
     <string name="settings_get_new_code">Ottieni Nuovo Codice</string>
     <string name="settings_access_denied">Accesso negato</string>
-    <string name="settings_access_denied_desc">L\'autorizzazione e stata annullata</string>
+    <string name="settings_access_denied_desc">L\'autorizzazione è stata annullata</string>
     <string name="settings_try_again">Riprova</string>
     <string name="settings_connection_failed">Connessione fallita</string>
     <string name="settings_connection_failed_desc">La preghiamo di riprovare</string>
@@ -101,19 +101,19 @@
     <string name="settings_pending">%1$d in attesa</string>
     <string name="settings_up_to_date">Aggiornato</string>
     <string name="settings_sync_now">Sincronizza Ora</string>
-    <string name="settings_device_revoked_desc">Questo dispositivo e stato disconnesso dal Suo account. Dovra accedere nuovamente per sincronizzare le Sue uscite.</string>
+    <string name="settings_device_revoked_desc">Questo dispositivo è stato disconnesso dal Suo account. Dovrà accedere nuovamente per sincronizzare le Sue uscite.</string>
     <string name="ok">OK</string>
 
     <!-- Account -->
     <string name="account">ACCOUNT</string>
     <string name="link_account">Collega Account</string>
     <string name="link_account_desc">Sincronizza le uscite tra i dispositivi</string>
-    <string name="why_how_sync">perché e come sincronizzare nel cloud?</string>
+    <string name="why_how_sync">Perché e come sincronizzare nel cloud?</string>
     <string name="account_linked">Account Collegato!</string>
 
     <!-- Cloud Sync Help Screen -->
     <string name="cloud_sync_help_title">Sincronizzazione Cloud</string>
-    <string name="cloud_sync_why_title">perché sincronizzare?</string>
+    <string name="cloud_sync_why_title">Perché sincronizzare?</string>
     <string name="cloud_sync_why_1">Visualizza la cronologia delle uscite e le analisi su qualsiasi dispositivo</string>
     <string name="cloud_sync_why_2">Grafici dettagliati e istantanee al minuto</string>
     <string name="cloud_sync_why_3">Tieni traccia dei progressi con gli obiettivi raggiunti</string>
@@ -131,7 +131,7 @@
     <string name="cloud_sync_syncs_drills">Risultati degli esercizi e obiettivi raggiunti</string>
     <string name="cloud_sync_syncs_settings">Impostazioni di avvisi e soglie</string>
     <string name="cloud_sync_not_syncs">GPS/percorsi NON vengono raccolti</string>
-    <string name="cloud_sync_free">Gratuito e senza pubblicita. I Suoi dati restano Suoi.</string>
+    <string name="cloud_sync_free">Gratuito e senza pubblicità. I Suoi dati restano Suoi.</string>
     <string name="sign_out">Esci</string>
     <string name="sync">Sincronizza</string>
     <string name="syncing">Sincronizzazione in corso...</string>
@@ -141,7 +141,7 @@
     <string name="getting_code">Ottenimento codice...</string>
     <string name="waiting_auth">In attesa di autorizzazione...</string>
     <string name="device_disconnected">Dispositivo Disconnesso</string>
-    <string name="device_disconnected_desc">Questo dispositivo e stato disconnesso dal Suo account. La preghiamo di ricollegarlo per continuare la sincronizzazione.</string>
+    <string name="device_disconnected_desc">Questo dispositivo è stato disconnesso dal Suo account. La preghiamo di ricollegarlo per continuare la sincronizzazione.</string>
     <string name="relink">Ricollega Account</string>
 
     <!-- Live -->
@@ -163,9 +163,11 @@
     <string name="avg_bal">bil. med.</string>
     <string name="streak">serie</string>
     <string name="streak_days">%1$dg</string>
+    <string name="section_progress">PROGRESSO</string>
     <string name="section_data">DATI</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">ALTRO</string>
+    <string name="view_details">Vedi dettagli</string>
     <string name="history">Cronologia</string>
     <string name="saved_rides">Uscite salvate</string>
     <string name="analytics">Analisi</string>
@@ -190,7 +192,7 @@
     <!-- Alert Settings -->
     <string name="enable_alerts">Abilita avvisi</string>
     <string name="metrics_to_monitor">METRICHE DA MONITORARE</string>
-    <string name="sensitivity">SENSIBILITA</string>
+    <string name="sensitivity">SENSIBILITÀ</string>
     <string name="critical">Critico</string>
     <string name="critical_desc">Solo problemi importanti</string>
     <string name="sensitive">Sensibile</string>
@@ -233,7 +235,7 @@
     <string name="pedal_tip_start_riding">Inizi a pedalare per rilevare i pedali</string>
     <string name="pedal_tip_ensure_paired">Si assicuri che i pedali siano abbinati con Karoo</string>
     <string name="pedal_tip_check_battery">Verifichi la batteria dei pedali</string>
-    <string name="pedal_tip_low_rate">Una frequenza bassa puo indicare interferenze</string>
+    <string name="pedal_tip_low_rate">Una frequenza bassa può indicare interferenze</string>
     <string name="pedal_tip_move_away">Si allontani da altri dispositivi ANT+</string>
 
     <!-- History Screen -->
@@ -341,6 +343,12 @@
     <string name="min_max">min-max</string>
     <string name="minimum">Minimo</string>
     <string name="maximum">Massimo</string>
+    <string name="target_min_title">Almeno</string>
+    <string name="target_max_title">Al massimo</string>
+    <string name="target_range_title">Nell\'intervallo</string>
+    <string name="balance_desc">Distribuzione S/D</string>
+    <string name="te_desc">Efficienza pedalata</string>
+    <string name="ps_desc">Fluidità di potenza</string>
     <string name="preview">ANTEPRIMA</string>
     <string name="metric">Metrica</string>
     <string name="duration">Durata</string>
@@ -370,9 +378,9 @@
     <string name="onboarding_alerts_title">Avvisi</string>
     <string name="onboarding_alerts_desc">Riceva notifiche quando le Sue metriche escono dagli intervalli ottimali. Configuri gli avvisi nelle Impostazioni.</string>
     <string name="onboarding_background_title">Dati in Background</string>
-    <string name="onboarding_background_desc">KPedal raccoglie automaticamente le metriche di pedalata per tutte le Sue uscite. Puo disabilitarlo nelle Impostazioni se preferisce.</string>
+    <string name="onboarding_background_desc">KPedal raccoglie automaticamente le metriche di pedalata per tutte le Sue uscite. Può disabilitarlo nelle Impostazioni se preferisce.</string>
     <string name="onboarding_cloud_title">Sincronizzazione Cloud</string>
-    <string name="onboarding_cloud_desc">Acceda con Google per sincronizzare i dati delle Sue uscite e visualizzare le analisi su app.kpedal.com. E opzionale - i Suoi dati rimangono sul dispositivo finche non sincronizza.</string>
+    <string name="onboarding_cloud_desc">Acceda con Google per sincronizzare i dati delle Sue uscite e visualizzare le analisi su app.kpedal.com. È opzionale - i Suoi dati rimangono sul dispositivo finché non sincronizza.</string>
 
     <!-- Help Screen -->
     <string name="help">Aiuto</string>
@@ -386,10 +394,10 @@
     <!-- Help - Metrics (compact for HelpScreen) -->
     <string name="help_balance_range">48-52%%</string>
     <string name="help_balance_desc">Distribuzione potenza S/D</string>
-    <string name="help_balance_note">2-5%% di asimmetria e normale</string>
+    <string name="help_balance_note">2-5%% di asimmetria è normale</string>
     <string name="help_te_range">70-80%%</string>
     <string name="help_te_desc">Efficacia della Coppia</string>
-    <string name="help_te_note">più alto NON e meglio! Limita la potenza</string>
+    <string name="help_te_note">Più alto NON è meglio! Limita la potenza</string>
     <string name="help_ps_range">20%%</string>
     <string name="help_ps_desc">Fluidità Pedalata</string>
     <string name="help_ps_note">Elite: 25-35%%</string>
@@ -397,11 +405,11 @@
     <!-- MetricInfo - Balance (detailed for HelpContent) -->
     <string name="metric_balance_name">Bilanciamento Potenza</string>
     <string name="metric_balance_short">Distribuzione potenza S/D</string>
-    <string name="metric_balance_explanation">Il Bilanciamento della Potenza mostra quanto uniformemente distribuisce la potenza tra la gamba sinistra e destra. Un bilanciamento perfetto sarebbe 50/50, ma una leggera asimmetria (48-52%%) e normale e non preoccupante.</string>
+    <string name="metric_balance_explanation">Il Bilanciamento della Potenza mostra quanto uniformemente distribuisce la potenza tra la gamba sinistra e destra. Un bilanciamento perfetto sarebbe 50/50, ma una leggera asimmetria (48-52%%) è normale e non preoccupante.</string>
     <string name="metric_balance_optimal">48-52%% (ottimale), 45-55%% (accettabile)</string>
     <string name="metric_balance_tip1">Si concentri su una pressione uniforme durante l\'intera pedalata</string>
     <string name="metric_balance_tip2">Provi esercizi a gamba singola per rafforzare il lato più debole</string>
-    <string name="metric_balance_tip3">Verifichi la posizione in sella - l\'altezza della sella puo influenzare il bilanciamento</string>
+    <string name="metric_balance_tip3">Verifichi la posizione in sella - l\'altezza della sella può influenzare il bilanciamento</string>
     <string name="metric_balance_tip4">Piccoli squilibri sono normali e spesso si correggono da soli</string>
     <string name="metric_balance_tip5">Non si ossessioni per piccole fluttuazioni durante l\'uscita</string>
     <string name="metric_balance_research">Gli studi dimostrano che la maggior parte dei ciclisti ha uno squilibrio naturale dell\'1-5%%. I ciclisti professionisti hanno una media del 48-52%%.</string>
@@ -409,14 +417,14 @@
     <!-- MetricInfo - Torque Effectiveness (detailed) -->
     <string name="metric_te_name">Efficacia della Coppia</string>
     <string name="metric_te_short">Efficienza della pedalata</string>
-    <string name="metric_te_explanation">L\'Efficacia della Coppia (EC) misura quanta parte del movimento della pedalata contribuisce alla propulsione in avanti. Un punteggio del 100%% significherebbe che ogni parte della pedalata aggiunge potenza, ma questo non e ne realistico ne ottimale.</string>
+    <string name="metric_te_explanation">L\'Efficacia della Coppia (EC) misura quanta parte del movimento della pedalata contribuisce alla propulsione in avanti. Un punteggio del 100%% significherebbe che ogni parte della pedalata aggiunge potenza, ma questo non è né realistico né ottimale.</string>
     <string name="metric_te_optimal">70-80%% (ottimale, NON più alto)</string>
     <string name="metric_te_tip1">Si concentri sulla trazione nella parte inferiore della pedalata</string>
     <string name="metric_te_tip2">Pensi a \'raschiare il fango\' dalla scarpa in basso</string>
     <string name="metric_te_tip3">EC più alto (>80%%) spesso RIDUCE la potenza principale</string>
-    <string name="metric_te_tip4">Una pedalata fluida e circolare e più efficiente che forzare un\'EC alta</string>
+    <string name="metric_te_tip4">Una pedalata fluida e circolare è più efficiente che forzare un\'EC alta</string>
     <string name="metric_te_tip5">L\'EC varia naturalmente con la cadenza e la potenza</string>
-    <string name="metric_te_research">La ricerca Wattbike mostra che l\'EC superiore all\'80%% in realta diminuisce la potenza. I ciclisti elite puntano al 70-80%%.</string>
+    <string name="metric_te_research">La ricerca Wattbike mostra che l\'EC superiore all\'80%% in realtà diminuisce la potenza. I ciclisti elite puntano al 70-80%%.</string>
 
     <!-- MetricInfo - Pedal Smoothness (detailed) -->
     <string name="metric_ps_name">Fluidità Pedalata</string>
@@ -461,10 +469,10 @@
 
     <!-- Help - FAQ -->
     <string name="question_prefix">D: %1$s</string>
-    <string name="faq_te85_q">EC 85%%+ e male?</string>
-    <string name="faq_te85_a">Si. 70-80%% e ottimale. Valori più alti limitano la potenza nella fase di spinta.</string>
+    <string name="faq_te85_q">EC 85%%+ è male?</string>
+    <string name="faq_te85_a">Sì. 70-80%% è ottimale. Valori più alti limitano la potenza nella fase di spinta.</string>
     <string name="faq_balance_q">Bilanciamento 45/55 ok?</string>
-    <string name="faq_balance_a">Si. 5%% e normale. Solo oltre il 10%% e preoccupante.</string>
+    <string name="faq_balance_a">Sì. 5%% è normale. Solo oltre il 10%% è preoccupante.</string>
     <string name="faq_jump_q">I valori saltano?</string>
     <string name="faq_jump_a">Si concentri sulle medie, non sui valori istantanei.</string>
     <string name="faq_compare_q">Confrontarsi con altri?</string>
@@ -550,7 +558,7 @@
     <!-- Drill Phase Descriptions -->
     <string name="phase_desc_easy_spinning">Spinning leggero</string>
     <string name="phase_desc_emphasize_left">Enfatizzi la gamba sinistra</string>
-    <string name="phase_desc_return_normal">Torni alla normalita</string>
+    <string name="phase_desc_return_normal">Torni alla normalità</string>
     <string name="phase_desc_emphasize_right">Enfatizzi la gamba destra</string>
     <string name="phase_desc_find_rhythm">Trovi il Suo ritmo</string>
     <string name="phase_desc_max_smoothness">Massimizzi la fluidità</string>
@@ -566,7 +574,7 @@
     <string name="phase_desc_establish_baseline">Stabilisca la base</string>
     <string name="phase_desc_increase_100rpm">Aumenti a 100+ rpm</string>
     <string name="phase_desc_smooth_high_cadence">Fluido ad alta cadenza</string>
-    <string name="phase_desc_return_to_normal">Torni alla normalita</string>
+    <string name="phase_desc_return_to_normal">Torni alla normalità</string>
     <string name="phase_desc_find_natural_balance">Trovi il bilanciamento naturale</string>
     <string name="phase_desc_focus_left">Focus sinistra</string>
     <string name="phase_desc_find_5050">Trovi 50/50</string>
@@ -638,12 +646,12 @@
     <string name="tip_think_360">Pensi all\'intero giro di 360 della pedalata</string>
     <string name="tip_engage_hamstrings">Attivi i muscoli posteriori della coscia in basso</string>
     <string name="tip_pull_up">Tiri leggermente su nella fase posteriore</string>
-    <string name="tip_core_stability">Mantenga il core attivo per la stabilita</string>
-    <string name="tip_te_above_80">EC sopra l\'80%% puo in realta ridurre la potenza totale</string>
+    <string name="tip_core_stability">Mantenga il core attivo per la stabilità</string>
+    <string name="tip_te_above_80">EC sopra l\'80%% può in realtà ridurre la potenza totale</string>
     <string name="tip_focus_70_80">Si concentri sulla zona ottimale 70-80%%</string>
     <string name="tip_dont_sacrifice">Non sacrifichi la fase di spinta principale per la fase di recupero</string>
     <string name="tip_equal_pressure">Si concentri su pressione uguale da entrambe le gambe</string>
-    <string name="tip_minor_imbalance">Un leggero squilibrio e normale, punti alla zona</string>
+    <string name="tip_minor_imbalance">Un leggero squilibrio è normale, punti alla zona</string>
     <string name="tip_steady_cadence">Mantenga la cadenza stabile - non insegua i numeri</string>
     <string name="tip_elite_smoothness">I ciclisti elite mantengono il 25-35%% di fluidità</string>
     <string name="tip_engage_all_muscles">Attivi tutti i gruppi muscolari durante la pedalata</string>
@@ -651,16 +659,16 @@
     <string name="tip_smoothness_drops">La fluidità diminuisce naturalmente a cadenza molto alta</string>
     <string name="tip_relax_hips">Si concentri sul rilassare i fianchi</string>
     <string name="tip_dont_bounce">Non rimbalzi sulla sella</string>
-    <string name="tip_core_crucial">La stabilita del core e cruciale</string>
+    <string name="tip_core_crucial">La stabilità del core è cruciale</string>
     <string name="tip_identify_weaker">Questo allenamento aiuta a identificare la gamba più debole</string>
     <string name="tip_neural_pathways">La pratica regolare migliora i percorsi neurali</string>
     <string name="tip_dont_force">Non forzi uno squilibrio estremo</string>
     <string name="tip_no_perfection">Non si aspetti la perfezione su tutte le metriche contemporaneamente</string>
     <string name="tip_one_at_time">Si concentri su un aspetto alla volta inizialmente</string>
     <string name="tip_regular_practice">Il progresso viene con la pratica regolare</string>
-    <string name="tip_notice_hardest">Noti quale metrica e più difficile per Lei</string>
-    <string name="tip_demanding_session">Questa e una sessione impegnativa - sia ben riposato</string>
-    <string name="tip_phases_build">Ogni fase si basa sulle abilita precedenti</string>
+    <string name="tip_notice_hardest">Noti quale metrica è più difficile per Lei</string>
+    <string name="tip_demanding_session">Questa è una sessione impegnativa - sia ben riposato</string>
+    <string name="tip_phases_build">Ogni fase si basa sulle abilità precedenti</string>
     <string name="tip_quality_over_perfection">Si concentri sulla qualità piuttosto che sulla perfezione</string>
     <string name="tip_track_progress">Monitori i Suoi progressi su più sessioni</string>
     <string name="tip_once_twice_week">Consideri di farlo 1-2 volte a settimana</string>
@@ -713,4 +721,64 @@
     <string name="language_spanish">Espanol</string>
     <string name="language_italian">Italiano</string>
     <string name="language_system">Sistema</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">Tutti</string>
+    <string name="filter_optimal">Ottimale</string>
+    <string name="filter_problem">Problema</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Eccellente bilanciamento S/D</string>
+    <string name="analysis_good_balance">Buon controllo del bilanciamento</string>
+    <string name="analysis_optimal_te">Efficacia di coppia ottimale</string>
+    <string name="analysis_good_te">Buon trasferimento di potenza</string>
+    <string name="analysis_very_smooth">Pedalata molto fluida</string>
+    <string name="analysis_good_smooth">Buona fluidità di pedalata</string>
+    <string name="analysis_excellent_zone">Eccellente tempo in zona ottimale</string>
+    <string name="analysis_good_consistency">Buona costanza</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Bilanciamento leggermente scentrato</string>
+    <string name="analysis_balance_imbalance">Squilibrio significativo</string>
+    <string name="analysis_te_too_high">TE troppo alto</string>
+    <string name="analysis_te_low">Bassa efficacia di coppia</string>
+    <string name="analysis_smooth_improve">La fluidità può migliorare</string>
+    <string name="analysis_smooth_focus">Lavora sulla pedalata fluida</string>
+    <string name="analysis_zone_more">Più tempo in zona ottimale</string>
+    <string name="analysis_zone_practice">Pratica la forma ottimale</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Eccellente! La tua tecnica era molto efficiente.</string>
+    <string name="analysis_summary_good_balance">Buona prestazione. Continua a lavorare sul bilanciamento.</string>
+    <string name="analysis_summary_good_smooth">Buona prestazione. Continua a lavorare sulla fluidità.</string>
+    <string name="analysis_summary_solid">Buon impegno. Mantieni la forma ottimale.</string>
+    <string name="analysis_summary_improve">Margine di miglioramento. Prova gli esercizi.</string>
+    <string name="analysis_summary_practice">La pratica rende perfetti!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Settimana Attiva</string>
+    <string name="challenge_balanced_rider">Ciclista Equilibrato</string>
+    <string name="challenge_zone_master">Maestro di Zona</string>
+    <string name="challenge_technique_focus">Focus Tecnica</string>
+    <string name="challenge_consistency">Costanza</string>
+    <string name="challenge_efficient_pedaling">Pedalata Efficiente</string>
+    <string name="challenge_smooth_circles">Cerchi Fluidi</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">Completa 3 uscite</string>
+    <string name="challenge_balanced_rider_desc">Bilanciamento medio 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ in zona ottimale</string>
+    <string name="challenge_technique_focus_desc">Completa 2 esercizi</string>
+    <string name="challenge_consistency_desc">Pedala 4 giorni consecutivi</string>
+    <string name="challenge_efficient_pedaling_desc">TE media >70%%</string>
+    <string name="challenge_smooth_circles_desc">PS media >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">uscite</string>
+    <string name="unit_drills">esercizi</string>
+    <string name="unit_days">giorni</string>
+    <string name="unit_percent">%</string>
 </resources>

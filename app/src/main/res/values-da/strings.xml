@@ -163,9 +163,11 @@
     <string name="avg_bal">gns bal</string>
     <string name="streak">serie</string>
     <string name="streak_days">%1$dd</string>
+    <string name="section_progress">FREMSKRIDT</string>
     <string name="section_data">DATA</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">MERE</string>
+    <string name="view_details">Se detaljer</string>
     <string name="history">Historik</string>
     <string name="saved_rides">Gemte ture</string>
     <string name="analytics">Analyser</string>
@@ -348,6 +350,12 @@
     <string name="custom_drill_desc">Tilpasset %1$s øvelse</string>
     <string name="torque_eff_short">Drejningsm.eff.</string>
     <string name="smoothness_short">Jævnhed</string>
+    <string name="target_min_title">Mindst</string>
+    <string name="target_max_title">Højst</string>
+    <string name="target_range_title">I interval</string>
+    <string name="balance_desc">V/H kraftfordeling</string>
+    <string name="te_desc">Pedalbevægelsens effektivitet</string>
+    <string name="ps_desc">Jævn kraftlevering</string>
 
     <!-- Challenges Screen -->
     <string name="weekly_challenge">Ugentlig udfordring</string>
@@ -712,4 +720,64 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
     <string name="language_system">System</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">Alle</string>
+    <string name="filter_optimal">Optimal</string>
+    <string name="filter_problem">Problem</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Fremragende V/H-balance</string>
+    <string name="analysis_good_balance">God balancekontrol</string>
+    <string name="analysis_optimal_te">Optimal momenteffektivitet</string>
+    <string name="analysis_good_te">God kraftoverførsel</string>
+    <string name="analysis_very_smooth">Meget jævn træden</string>
+    <string name="analysis_good_smooth">God trædeglatthed</string>
+    <string name="analysis_excellent_zone">Fremragende tid i optimal zone</string>
+    <string name="analysis_good_consistency">God konsistens</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Balance lidt forskudt</string>
+    <string name="analysis_balance_imbalance">Betydelig ubalance</string>
+    <string name="analysis_te_too_high">TE for høj</string>
+    <string name="analysis_te_low">Lav momenteffektivitet</string>
+    <string name="analysis_smooth_improve">Glatheden kan forbedres</string>
+    <string name="analysis_smooth_focus">Fokuser på jævnere træden</string>
+    <string name="analysis_zone_more">Mere tid i optimal zone</string>
+    <string name="analysis_zone_practice">Øv optimal form</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Fremragende! Din træteknik var meget effektiv.</string>
+    <string name="analysis_summary_good_balance">God præstation. Fortsæt med at arbejde på balance.</string>
+    <string name="analysis_summary_good_smooth">God præstation. Fortsæt med at arbejde på glathed.</string>
+    <string name="analysis_summary_solid">God indsats. Behold optimal form.</string>
+    <string name="analysis_summary_improve">Plads til forbedring. Prøv øvelserne.</string>
+    <string name="analysis_summary_practice">Øvelse gør mester!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Aktiv Uge</string>
+    <string name="challenge_balanced_rider">Balanceret Cyklist</string>
+    <string name="challenge_zone_master">Zone Mester</string>
+    <string name="challenge_technique_focus">Teknik Fokus</string>
+    <string name="challenge_consistency">Konsekvens</string>
+    <string name="challenge_efficient_pedaling">Effektiv Pedalering</string>
+    <string name="challenge_smooth_circles">Jævne Cirkler</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">Gennemfør 3 ture</string>
+    <string name="challenge_balanced_rider_desc">Gns. balance 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ i optimal zone</string>
+    <string name="challenge_technique_focus_desc">Gennemfør 2 øvelser</string>
+    <string name="challenge_consistency_desc">Cykel 4 dage i træk</string>
+    <string name="challenge_efficient_pedaling_desc">Gns. TE >70%%</string>
+    <string name="challenge_smooth_circles_desc">Gns. PS >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">ture</string>
+    <string name="unit_drills">øvelser</string>
+    <string name="unit_days">dage</string>
+    <string name="unit_percent">%</string>
 </resources>

@@ -2,10 +2,12 @@ package io.github.kpedal.datatypes
 
 import android.content.Context
 import android.widget.RemoteViews
+import androidx.annotation.StringRes
 import io.github.kpedal.KPedalExtension
 import io.github.kpedal.R
 import io.github.kpedal.engine.StatusCalculator
 import io.github.kpedal.ui.screens.LiveRideData
+import io.github.kpedal.util.LocaleHelper
 import io.hammerhead.karooext.extension.DataTypeImpl
 import io.hammerhead.karooext.internal.Emitter
 import io.hammerhead.karooext.internal.ViewEmitter
@@ -79,6 +81,15 @@ class LiveDataType(
     private var viewScope: CoroutineScope? = null
     private var currentLayoutSize: LayoutSize = LayoutSize.MEDIUM
 
+    /**
+     * Get localized string using user's selected language.
+     * RemoteViews don't respect app locale when displayed in Karoo.
+     */
+    private fun getString(@StringRes resId: Int): String {
+        val context = LocaleHelper.wrapContext(kpedalExtension)
+        return context.getString(resId)
+    }
+
     private fun getLayoutResId(size: LayoutSize) = when (size) {
         LayoutSize.SMALL -> R.layout.datatype_live_small
         LayoutSize.SMALL_WIDE -> R.layout.datatype_live_small_wide
@@ -98,6 +109,8 @@ class LiveDataType(
                 views.setAdaptiveTextSize(R.id.label_ride, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.zone_optimal, config, TextSizeCalculator.Role.PRIMARY)
                 views.setAdaptiveTextSize(R.id.zone_unit, config, TextSizeCalculator.Role.SECONDARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_ride, getString(R.string.ride))
             }
             LayoutSize.MEDIUM, LayoutSize.NARROW -> {
                 // Balance + TE/PS (NARROW uses MEDIUM layout)
@@ -110,6 +123,10 @@ class LiveDataType(
                 views.setAdaptiveTextSize(R.id.te_right, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.ps_left, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.ps_right, config, TextSizeCalculator.Role.SECONDARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_balance, getString(R.string.balance))
+                views.setTextViewText(R.id.label_te, getString(R.string.te))
+                views.setTextViewText(R.id.label_ps, getString(R.string.ps))
             }
             LayoutSize.LARGE -> {
                 // Balance + TE/PS + Time in Zone
@@ -126,6 +143,11 @@ class LiveDataType(
                 views.setAdaptiveTextSize(R.id.zone_optimal, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.zone_attention, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.zone_problem, config, TextSizeCalculator.Role.SECONDARY)
+                // Set localized labels
+                views.setTextViewText(R.id.label_balance, getString(R.string.balance))
+                views.setTextViewText(R.id.label_te, getString(R.string.te))
+                views.setTextViewText(R.id.label_ps, getString(R.string.ps))
+                views.setTextViewText(R.id.label_time_in_zone, getString(R.string.time_in_zone))
             }
         }
     }

@@ -54,6 +54,7 @@ sealed class Achievement(
 /**
  * Unlocked achievement data.
  */
+@androidx.compose.runtime.Immutable
 data class UnlockedAchievement(
     val achievement: Achievement,
     val unlockedAt: Long,

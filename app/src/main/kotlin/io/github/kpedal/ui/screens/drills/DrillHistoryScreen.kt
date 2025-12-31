@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import io.github.kpedal.R
 import io.github.kpedal.drill.model.DrillResult
 import io.github.kpedal.ui.theme.Theme
+import io.github.kpedal.util.LocaleHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,7 +49,10 @@ fun DrillHistoryScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f, fill = false)
+                ) {
                     Text(
                         text = "←",
                         color = Theme.colors.dim,
@@ -67,6 +72,7 @@ fun DrillHistoryScreen(
                     )
                 }
 
+                Spacer(modifier = Modifier.width(12.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text(
                         text = "${results.size}",
@@ -153,6 +159,12 @@ private fun ResultRow(
     onClick: () -> Unit,
     onDelete: () -> Unit
 ) {
+    val context = LocalContext.current
+    val locale = remember { LocaleHelper.getCurrentLocale(context) }
+    val dateFormat = remember(locale) { SimpleDateFormat("MMM d, HH:mm", locale) }
+    val dateStr = dateFormat.format(Date(result.timestamp))
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(locale) else it.toString() }
+
     val scoreColor = when {
         result.score >= 75 -> Theme.colors.optimal
         result.score >= 50 -> Theme.colors.attention
@@ -177,7 +189,7 @@ private fun ResultRow(
                 )
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text(
-                        text = formatDate(result.timestamp),
+                        text = dateStr,
                         color = Theme.colors.dim,
                         fontSize = 10.sp
                     )
@@ -249,9 +261,4 @@ private fun ConfirmDialog(
             }
         }
     }
-}
-
-private fun formatDate(timestamp: Long): String {
-    val dateFormat = SimpleDateFormat("MMM d, HH:mm", Locale.getDefault())
-    return dateFormat.format(Date(timestamp))
 }

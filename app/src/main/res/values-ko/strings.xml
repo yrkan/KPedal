@@ -163,9 +163,11 @@
     <string name="avg_bal">평균 밸런스</string>
     <string name="streak">연속</string>
     <string name="streak_days">%1$d일</string>
+    <string name="section_progress">진행 상황</string>
     <string name="section_data">데이터</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">더 보기</string>
+    <string name="view_details">상세 보기</string>
     <string name="history">기록</string>
     <string name="saved_rides">저장된 라이딩</string>
     <string name="analytics">분석</string>
@@ -348,6 +350,12 @@
     <string name="custom_drill_desc">맞춤 %1$s 훈련</string>
     <string name="torque_eff_short">토크 효율</string>
     <string name="smoothness_short">부드러움</string>
+    <string name="target_min_title">최소</string>
+    <string name="target_max_title">최대</string>
+    <string name="target_range_title">범위 내</string>
+    <string name="balance_desc">좌/우 파워 분배</string>
+    <string name="te_desc">페달 스트로크 효율</string>
+    <string name="ps_desc">부드러운 파워 전달</string>
 
     <!-- Challenges Screen -->
     <string name="weekly_challenge">주간 챌린지</string>
@@ -712,4 +720,64 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
     <string name="language_system">시스템</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">전체</string>
+    <string name="filter_optimal">최적</string>
+    <string name="filter_problem">문제</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">우수한 좌우 밸런스</string>
+    <string name="analysis_good_balance">좋은 밸런스 제어</string>
+    <string name="analysis_optimal_te">최적의 토크 효율</string>
+    <string name="analysis_good_te">좋은 파워 전달</string>
+    <string name="analysis_very_smooth">매우 부드러운 페달링</string>
+    <string name="analysis_good_smooth">좋은 페달 부드러움</string>
+    <string name="analysis_excellent_zone">최적 구간 시간 우수</string>
+    <string name="analysis_good_consistency">좋은 일관성</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">밸런스가 약간 치우침</string>
+    <string name="analysis_balance_imbalance">상당한 불균형</string>
+    <string name="analysis_te_too_high">TE가 너무 높음</string>
+    <string name="analysis_te_low">낮은 토크 효율</string>
+    <string name="analysis_smooth_improve">부드러움 개선 필요</string>
+    <string name="analysis_smooth_focus">더 부드러운 페달링에 집중</string>
+    <string name="analysis_zone_more">최적 구간 시간 증가 필요</string>
+    <string name="analysis_zone_practice">최적 자세 연습</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">훌륭합니다! 페달링 기술이 매우 효율적이었습니다.</string>
+    <string name="analysis_summary_good_balance">좋은 성과. 밸런스를 계속 개선하세요.</string>
+    <string name="analysis_summary_good_smooth">좋은 성과. 부드러움을 계속 개선하세요.</string>
+    <string name="analysis_summary_solid">좋은 노력. 최적의 자세를 유지하세요.</string>
+    <string name="analysis_summary_improve">개선 여지가 있습니다. 드릴을 시도해보세요.</string>
+    <string name="analysis_summary_practice">연습이 완벽을 만듭니다!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">활동적인 주</string>
+    <string name="challenge_balanced_rider">균형 잡힌 라이더</string>
+    <string name="challenge_zone_master">존 마스터</string>
+    <string name="challenge_technique_focus">테크닉 집중</string>
+    <string name="challenge_consistency">꾸준함</string>
+    <string name="challenge_efficient_pedaling">효율적 페달링</string>
+    <string name="challenge_smooth_circles">부드러운 원</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">3회 라이드 완료</string>
+    <string name="challenge_balanced_rider_desc">평균 밸런스 48-52%%</string>
+    <string name="challenge_zone_master_desc">최적 존 60%% 이상</string>
+    <string name="challenge_technique_focus_desc">드릴 2회 완료</string>
+    <string name="challenge_consistency_desc">4일 연속 라이드</string>
+    <string name="challenge_efficient_pedaling_desc">평균 TE >70%%</string>
+    <string name="challenge_smooth_circles_desc">평균 PS >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">회</string>
+    <string name="unit_drills">회</string>
+    <string name="unit_days">일</string>
+    <string name="unit_percent">%</string>
 </resources>

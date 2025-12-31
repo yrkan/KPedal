@@ -28,8 +28,8 @@
     <!-- Labels -->
     <string name="balance">БАЛАНС</string>
     <string name="balance_lower">Баланс</string>
-    <string name="balance_3s">3с СЕЕРД</string>
-    <string name="balance_10s">10с СЕРД</string>
+    <string name="balance_3s">3с СЕРЕД</string>
+    <string name="balance_10s">10с СЕРЕД</string>
     <string name="power">ПОТУЖНІСТЬ</string>
     <string name="power_lower">Потужність</string>
     <string name="te">ЕКМ</string>
@@ -145,7 +145,7 @@
     <string name="relink">Прив\'язати знову</string>
 
     <!-- Live -->
-    <string name="live">У реальному часі</string>
+    <string name="live">Вживу</string>
     <string name="current_ride">Поточна поїздка</string>
     <string name="time_in_zone">ЧАС У ЗОНІ</string>
     <string name="waiting_pedal_data">Очікування даних з педалей…</string>
@@ -163,9 +163,11 @@
     <string name="avg_bal">серед бал</string>
     <string name="streak">серія</string>
     <string name="streak_days">%1$dд</string>
+    <string name="section_progress">ПРОГРЕС</string>
     <string name="section_data">ДАНІ</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">ЩЕ</string>
+    <string name="view_details">Детальніше</string>
     <string name="history">Історія</string>
     <string name="saved_rides">Збережені поїздки</string>
     <string name="analytics">Аналітика</string>
@@ -341,6 +343,12 @@
     <string name="min_max">мін-макс</string>
     <string name="minimum">Мінімум</string>
     <string name="maximum">Максимум</string>
+    <string name="target_min_title">Принаймні</string>
+    <string name="target_max_title">Щонайбільше</string>
+    <string name="target_range_title">У діапазоні</string>
+    <string name="balance_desc">Розподіл Л/П</string>
+    <string name="te_desc">Ефективність педалювання</string>
+    <string name="ps_desc">Плавна потужність</string>
     <string name="preview">ПОПЕРЕДНІЙ ПЕРЕГЛЯД</string>
     <string name="metric">Метрика</string>
     <string name="duration">Тривалість</string>
@@ -714,4 +722,64 @@
     <string name="language_russian">Русский</string>
     <string name="language_ukrainian">Українська</string>
     <string name="language_system">Системна</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">Всі</string>
+    <string name="filter_optimal">Оптимум</string>
+    <string name="filter_problem">Проблема</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">Відмінний баланс L/R</string>
+    <string name="analysis_good_balance">Гарний контроль балансу</string>
+    <string name="analysis_optimal_te">Оптимальна ефективність моменту</string>
+    <string name="analysis_good_te">Гарна передача потужності</string>
+    <string name="analysis_very_smooth">Дуже плавне педалювання</string>
+    <string name="analysis_good_smooth">Гарна плавність педалювання</string>
+    <string name="analysis_excellent_zone">Відмінний час в оптимальній зоні</string>
+    <string name="analysis_good_consistency">Гарна стабільність</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">Баланс трохи зміщений</string>
+    <string name="analysis_balance_imbalance">Значний дисбаланс</string>
+    <string name="analysis_te_too_high">TE занадто високий</string>
+    <string name="analysis_te_low">Низька ефективність моменту</string>
+    <string name="analysis_smooth_improve">Плавність можна покращити</string>
+    <string name="analysis_smooth_focus">Працюйте над плавністю</string>
+    <string name="analysis_zone_more">Більше часу в оптимальній зоні</string>
+    <string name="analysis_zone_practice">Тренуйте техніку</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">Чудова поїздка! Техніка педалювання була дуже ефективною.</string>
+    <string name="analysis_summary_good_balance">Добре. Продовжуйте працювати над балансом.</string>
+    <string name="analysis_summary_good_smooth">Добре. Продовжуйте працювати над плавністю.</string>
+    <string name="analysis_summary_solid">Непогано. Намагайтеся тримати форму.</string>
+    <string name="analysis_summary_improve">Є над чим працювати. Спробуйте вправи.</string>
+    <string name="analysis_summary_practice">Практика робить майстра!</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">Активний тиждень</string>
+    <string name="challenge_balanced_rider">Збалансований райдер</string>
+    <string name="challenge_zone_master">Майстер зони</string>
+    <string name="challenge_technique_focus">Фокус на техніці</string>
+    <string name="challenge_consistency">Постійність</string>
+    <string name="challenge_efficient_pedaling">Ефективне педалювання</string>
+    <string name="challenge_smooth_circles">Плавні кола</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">Завершіть 3 поїздки</string>
+    <string name="challenge_balanced_rider_desc">Середній баланс 48-52%%</string>
+    <string name="challenge_zone_master_desc">60%%+ в оптимальній зоні</string>
+    <string name="challenge_technique_focus_desc">Завершіть 2 вправи</string>
+    <string name="challenge_consistency_desc">Їздіть 4 дні поспіль</string>
+    <string name="challenge_efficient_pedaling_desc">Середній TE >70%%</string>
+    <string name="challenge_smooth_circles_desc">Середній PS >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">поїздок</string>
+    <string name="unit_drills">вправ</string>
+    <string name="unit_days">днів</string>
+    <string name="unit_percent">%</string>
 </resources>

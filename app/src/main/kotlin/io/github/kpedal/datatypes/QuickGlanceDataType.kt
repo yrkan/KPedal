@@ -45,6 +45,10 @@ class QuickGlanceDataType(
                 views.setAdaptiveTextSize(R.id.balance_right, config, TextSizeCalculator.Role.SECONDARY)
                 views.setAdaptiveTextSize(R.id.label_left, config, TextSizeCalculator.Role.LABEL)
                 views.setAdaptiveTextSize(R.id.label_right, config, TextSizeCalculator.Role.LABEL)
+                // Set localized labels
+                views.setTextViewText(R.id.label_header, getString(R.string.balance))
+                views.setTextViewText(R.id.label_left, getString(R.string.left))
+                views.setTextViewText(R.id.label_right, getString(R.string.right))
             }
         }
     }
@@ -91,7 +95,7 @@ class QuickGlanceDataType(
                 views.setTextViewText(R.id.status_icon, "✓")
                 views.setTextColor(R.id.status_icon, StatusCalculator.COLOR_OPTIMAL)
             }
-            val okText = if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) "OK" else "ALL GOOD"
+            val okText = getString(R.string.all_good)
             views.setTextViewText(R.id.status_text, okText)
             views.setTextColor(R.id.status_text, StatusCalculator.COLOR_OPTIMAL)
         } else {

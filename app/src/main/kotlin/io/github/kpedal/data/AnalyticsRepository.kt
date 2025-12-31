@@ -5,6 +5,7 @@ import io.github.kpedal.data.database.KPedalDatabase
 import io.github.kpedal.data.database.RideEntity
 import io.github.kpedal.data.models.TrendData
 import io.github.kpedal.ui.components.charts.TrendPoint
+import io.github.kpedal.util.LocaleHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -13,7 +14,7 @@ import java.util.*
 /**
  * Repository for analytics and trend calculations.
  */
-class AnalyticsRepository(context: Context) {
+class AnalyticsRepository(private val context: Context) {
 
     private val database = KPedalDatabase.getInstance(context)
     private val rideDao = database.rideDao()
@@ -31,7 +32,8 @@ class AnalyticsRepository(context: Context) {
         }
 
         // Group rides by day
-        val dateFormat = SimpleDateFormat("MMM d", Locale.getDefault())
+        val locale = LocaleHelper.getCurrentLocale(context)
+        val dateFormat = SimpleDateFormat("MMM d", locale)
         val ridesByDay = rides.groupBy { ride ->
             getDayStart(ride.timestamp)
         }.toSortedMap()

@@ -250,6 +250,7 @@ private fun TrendChartCanvas(
 /**
  * Data point for trend chart.
  */
+@androidx.compose.runtime.Immutable
 data class TrendPoint(
     val value: Float,
     val label: String

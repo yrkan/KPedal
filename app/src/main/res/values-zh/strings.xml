@@ -163,9 +163,11 @@
     <string name="avg_bal">均值平衡</string>
     <string name="streak">连续</string>
     <string name="streak_days">%1$d天</string>
+    <string name="section_progress">进度</string>
     <string name="section_data">数据</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">更多</string>
+    <string name="view_details">查看详情</string>
     <string name="history">历史</string>
     <string name="saved_rides">已保存骑行</string>
     <string name="analytics">分析</string>
@@ -341,6 +343,12 @@
     <string name="min_max">最小-最大</string>
     <string name="minimum">最小值</string>
     <string name="maximum">最大值</string>
+    <string name="target_min_title">至少</string>
+    <string name="target_max_title">最多</string>
+    <string name="target_range_title">范围内</string>
+    <string name="balance_desc">左右功率分配</string>
+    <string name="te_desc">踏频效率</string>
+    <string name="ps_desc">平顺功率输出</string>
     <string name="preview">预览</string>
     <string name="metric">指标</string>
     <string name="duration">时长</string>
@@ -712,4 +720,64 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
     <string name="language_system">系统</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">全部</string>
+    <string name="filter_optimal">最佳</string>
+    <string name="filter_problem">问题</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">优秀的左右平衡</string>
+    <string name="analysis_good_balance">良好的平衡控制</string>
+    <string name="analysis_optimal_te">最佳扭矩效率</string>
+    <string name="analysis_good_te">良好的功率传递</string>
+    <string name="analysis_very_smooth">非常顺畅的踩踏</string>
+    <string name="analysis_good_smooth">良好的踩踏顺畅度</string>
+    <string name="analysis_excellent_zone">最佳区域时间出色</string>
+    <string name="analysis_good_consistency">良好的一致性</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">平衡略有偏移</string>
+    <string name="analysis_balance_imbalance">明显不平衡</string>
+    <string name="analysis_te_too_high">TE过高</string>
+    <string name="analysis_te_low">扭矩效率低</string>
+    <string name="analysis_smooth_improve">顺畅度可以提高</string>
+    <string name="analysis_smooth_focus">专注于更顺畅的踩踏</string>
+    <string name="analysis_zone_more">增加最佳区域时间</string>
+    <string name="analysis_zone_practice">练习保持最佳状态</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">太棒了！你的踩踏技术非常高效。</string>
+    <string name="analysis_summary_good_balance">表现不错。继续提高平衡性。</string>
+    <string name="analysis_summary_good_smooth">表现不错。继续提高顺畅度。</string>
+    <string name="analysis_summary_solid">不错的努力。保持最佳状态。</string>
+    <string name="analysis_summary_improve">还有提升空间。试试训练练习。</string>
+    <string name="analysis_summary_practice">熟能生巧！</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">活力周</string>
+    <string name="challenge_balanced_rider">平衡骑手</string>
+    <string name="challenge_zone_master">区域大师</string>
+    <string name="challenge_technique_focus">技术专注</string>
+    <string name="challenge_consistency">持续性</string>
+    <string name="challenge_efficient_pedaling">高效踩踏</string>
+    <string name="challenge_smooth_circles">流畅圆周</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">完成3次骑行</string>
+    <string name="challenge_balanced_rider_desc">平均平衡度48-52%%</string>
+    <string name="challenge_zone_master_desc">最佳区域60%%以上</string>
+    <string name="challenge_technique_focus_desc">完成2项训练</string>
+    <string name="challenge_consistency_desc">连续骑行4天</string>
+    <string name="challenge_efficient_pedaling_desc">平均TE >70%%</string>
+    <string name="challenge_smooth_circles_desc">平均PS >20%%</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">次骑行</string>
+    <string name="unit_drills">次训练</string>
+    <string name="unit_days">天</string>
+    <string name="unit_percent">%</string>
 </resources>

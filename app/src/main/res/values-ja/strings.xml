@@ -163,9 +163,11 @@
     <string name="avg_bal">平均バランス</string>
     <string name="streak">連続日数</string>
     <string name="streak_days">%1$d日</string>
+    <string name="section_progress">進捗</string>
     <string name="section_data">データ</string>
     <string name="section_karoo">KAROO</string>
     <string name="section_more">その他</string>
+    <string name="view_details">詳細を見る</string>
     <string name="history">履歴</string>
     <string name="saved_rides">保存されたライド</string>
     <string name="analytics">分析</string>
@@ -341,6 +343,12 @@
     <string name="min_max">最小-最大</string>
     <string name="minimum">最小</string>
     <string name="maximum">最大</string>
+    <string name="target_min_title">以上</string>
+    <string name="target_max_title">以下</string>
+    <string name="target_range_title">範囲内</string>
+    <string name="balance_desc">左右パワー配分</string>
+    <string name="te_desc">ペダリング効率</string>
+    <string name="ps_desc">スムーズな出力</string>
     <string name="preview">プレビュー</string>
     <string name="metric">指標</string>
     <string name="duration">時間</string>
@@ -712,4 +720,64 @@
     <string name="language_english">English</string>
     <string name="language_spanish">Español</string>
     <string name="language_system">システム</string>
+    <!-- Filters -->
+    <string name="filter_7d">7d</string>
+    <string name="filter_30d">30d</string>
+    <string name="filter_all">全て</string>
+    <string name="filter_optimal">最適</string>
+    <string name="filter_problem">問題</string>
+
+
+    <!-- Ride Analysis - Strengths -->
+    <string name="analysis_excellent_balance">優れた左右バランス</string>
+    <string name="analysis_good_balance">良好なバランス制御</string>
+    <string name="analysis_optimal_te">最適なトルク効率</string>
+    <string name="analysis_good_te">良好なパワー伝達</string>
+    <string name="analysis_very_smooth">非常にスムーズなペダリング</string>
+    <string name="analysis_good_smooth">良好なペダルスムーズネス</string>
+    <string name="analysis_excellent_zone">最適ゾーンでの優れた時間</string>
+    <string name="analysis_good_consistency">良好な一貫性</string>
+
+    <!-- Ride Analysis - Improvements -->
+    <string name="analysis_balance_off">バランスがやや偏っている</string>
+    <string name="analysis_balance_imbalance">大きなアンバランス</string>
+    <string name="analysis_te_too_high">TEが高すぎる</string>
+    <string name="analysis_te_low">トルク効率が低い</string>
+    <string name="analysis_smooth_improve">スムーズネスを改善できる</string>
+    <string name="analysis_smooth_focus">スムーズなペダリングを意識</string>
+    <string name="analysis_zone_more">最適ゾーンでの時間を増やす</string>
+    <string name="analysis_zone_practice">最適なフォームを練習</string>
+
+    <!-- Ride Analysis - Summary -->
+    <string name="analysis_summary_excellent">素晴らしい！ペダリング技術が非常に効率的でした。</string>
+    <string name="analysis_summary_good_balance">良いパフォーマンス。バランスを磨き続けましょう。</string>
+    <string name="analysis_summary_good_smooth">良いパフォーマンス。スムーズネスを磨き続けましょう。</string>
+    <string name="analysis_summary_solid">良い努力。最適なフォームを維持しましょう。</string>
+    <string name="analysis_summary_improve">改善の余地あり。ドリルを試してみましょう。</string>
+    <string name="analysis_summary_practice">練習あるのみ！</string>
+
+
+    <!-- Weekly Challenges - Names -->
+    <string name="challenge_active_week">アクティブウィーク</string>
+    <string name="challenge_balanced_rider">バランスライダー</string>
+    <string name="challenge_zone_master">ゾーンマスター</string>
+    <string name="challenge_technique_focus">テクニック強化</string>
+    <string name="challenge_consistency">継続力</string>
+    <string name="challenge_efficient_pedaling">効率的なペダリング</string>
+    <string name="challenge_smooth_circles">スムーズな回転</string>
+
+    <!-- Weekly Challenges - Descriptions -->
+    <string name="challenge_active_week_desc">3回ライドを完了</string>
+    <string name="challenge_balanced_rider_desc">平均バランス48-52%%</string>
+    <string name="challenge_zone_master_desc">最適ゾーンで60%%以上</string>
+    <string name="challenge_technique_focus_desc">2つのドリルを完了</string>
+    <string name="challenge_consistency_desc">4日連続でライド</string>
+    <string name="challenge_efficient_pedaling_desc">平均TE 70%%以上</string>
+    <string name="challenge_smooth_circles_desc">平均PS 20%%以上</string>
+
+    <!-- Challenge Units -->
+    <string name="unit_rides">回</string>
+    <string name="unit_drills">回</string>
+    <string name="unit_days">日</string>
+    <string name="unit_percent">%</string>
 </resources>

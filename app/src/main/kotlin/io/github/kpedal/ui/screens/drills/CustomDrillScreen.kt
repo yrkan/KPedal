@@ -22,7 +22,7 @@ import io.github.kpedal.ui.theme.Theme
 
 /**
  * Screen for creating or editing a custom drill.
- * Step-by-step flow for clarity.
+ * Clean, vertical layout optimized for Karoo 3 (480×800px).
  */
 @Composable
 fun CustomDrillScreen(
@@ -34,8 +34,8 @@ fun CustomDrillScreen(
 
     var name by remember { mutableStateOf(existingDrill?.name ?: "") }
     var metric by remember { mutableStateOf(existingDrill?.metric ?: "BALANCE") }
-    var durationMinutes by remember { mutableStateOf((existingDrill?.durationSeconds ?: 30) / 60) }
-    var durationSeconds by remember { mutableStateOf((existingDrill?.durationSeconds ?: 30) % 60) }
+    var durationMinutes by remember { mutableStateOf((existingDrill?.durationSeconds ?: 60) / 60) }
+    var durationSeconds by remember { mutableStateOf((existingDrill?.durationSeconds ?: 60) % 60) }
     var targetType by remember { mutableStateOf(existingDrill?.targetType ?: "RANGE") }
     var targetMin by remember { mutableStateOf(existingDrill?.targetMin ?: getDefaultMin(metric)) }
     var targetMax by remember { mutableStateOf(existingDrill?.targetMax ?: getDefaultMax(metric)) }
@@ -65,14 +65,15 @@ fun CustomDrillScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = stringResource(R.string.cancel),
+                text = "←",
                 color = Theme.colors.dim,
-                fontSize = 13.sp,
+                fontSize = 16.sp,
                 modifier = Modifier
                     .clickable(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     ) { onBack() }
+                    .padding(end = 8.dp)
             )
             Text(
                 text = stringResource(if (isEdit) R.string.edit_drill else R.string.new_drill),
@@ -115,208 +116,171 @@ fun CustomDrillScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(12.dp)
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             // Step 1: Name
-            StepHeader(step = 1, title = stringResource(R.string.name_your_drill))
-            Spacer(modifier = Modifier.height(8.dp))
-            TextInputField(
-                value = name,
-                placeholder = stringResource(R.string.drill_name_placeholder),
-                onValueChange = { name = it }
-            )
+            Section(title = stringResource(R.string.name_your_drill)) {
+                TextInputField(
+                    value = name,
+                    placeholder = stringResource(R.string.drill_name_placeholder),
+                    onValueChange = { name = it }
+                )
+            }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            // Step 2: Metric - vertical list
+            Section(title = stringResource(R.string.what_to_focus)) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    MetricRow(
+                        title = stringResource(R.string.balance_option),
+                        subtitle = stringResource(R.string.balance_desc),
+                        isSelected = metric == "BALANCE",
+                        onClick = {
+                            metric = "BALANCE"
+                            targetMin = getDefaultMin(metric)
+                            targetMax = getDefaultMax(metric)
+                        }
+                    )
+                    MetricRow(
+                        title = stringResource(R.string.torque_eff_short),
+                        subtitle = stringResource(R.string.te_desc),
+                        isSelected = metric == "TE",
+                        onClick = {
+                            metric = "TE"
+                            targetMin = getDefaultMin(metric)
+                            targetMax = getDefaultMax(metric)
+                        }
+                    )
+                    MetricRow(
+                        title = stringResource(R.string.smoothness_short),
+                        subtitle = stringResource(R.string.ps_desc),
+                        isSelected = metric == "PS",
+                        onClick = {
+                            metric = "PS"
+                            targetMin = getDefaultMin(metric)
+                            targetMax = getDefaultMax(metric)
+                        }
+                    )
+                }
+            }
 
-            // Step 2: Metric
-            StepHeader(step = 2, title = stringResource(R.string.what_to_focus))
-            Spacer(modifier = Modifier.height(8.dp))
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                MetricOption(
-                    title = stringResource(R.string.balance_option),
-                    description = stringResource(R.string.lr_power_distribution),
-                    isSelected = metric == "BALANCE",
-                    onClick = {
-                        metric = "BALANCE"
-                        targetMin = getDefaultMin(metric)
-                        targetMax = getDefaultMax(metric)
+            // Step 3: Duration - 2x2 grid + custom picker
+            Section(title = stringResource(R.string.how_long)) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    // 2x2 preset grid
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        DurationPreset("30s", 0, 30, durationMinutes, durationSeconds, Modifier.weight(1f)) {
+                            durationMinutes = 0; durationSeconds = 30
+                        }
+                        DurationPreset("1m", 1, 0, durationMinutes, durationSeconds, Modifier.weight(1f)) {
+                            durationMinutes = 1; durationSeconds = 0
+                        }
                     }
-                )
-                MetricOption(
-                    title = stringResource(R.string.torque_effectiveness_option),
-                    description = stringResource(R.string.power_transfer_efficiency),
-                    isSelected = metric == "TE",
-                    onClick = {
-                        metric = "TE"
-                        targetMin = getDefaultMin(metric)
-                        targetMax = getDefaultMax(metric)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        DurationPreset("2m", 2, 0, durationMinutes, durationSeconds, Modifier.weight(1f)) {
+                            durationMinutes = 2; durationSeconds = 0
+                        }
+                        DurationPreset("5m", 5, 0, durationMinutes, durationSeconds, Modifier.weight(1f)) {
+                            durationMinutes = 5; durationSeconds = 0
+                        }
                     }
-                )
-                MetricOption(
-                    title = stringResource(R.string.pedal_smoothness_option),
-                    description = stringResource(R.string.circular_pedal_stroke),
-                    isSelected = metric == "PS",
-                    onClick = {
-                        metric = "PS"
-                        targetMin = getDefaultMin(metric)
-                        targetMax = getDefaultMax(metric)
+
+                    // Custom duration
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        NumberPicker(
+                            label = stringResource(R.string.minutes),
+                            value = durationMinutes,
+                            range = 0..10,
+                            onValueChange = { durationMinutes = it },
+                            modifier = Modifier.weight(1f)
+                        )
+                        NumberPicker(
+                            label = stringResource(R.string.seconds),
+                            value = durationSeconds,
+                            range = 0..59,
+                            step = 5,
+                            onValueChange = { durationSeconds = it },
+                            modifier = Modifier.weight(1f)
+                        )
                     }
-                )
-            }
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            // Step 3: Duration
-            StepHeader(step = 3, title = stringResource(R.string.how_long))
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Quick presets
-            Text(
-                text = stringResource(R.string.quick_select),
-                color = Theme.colors.dim,
-                fontSize = 10.sp
-            )
-            Spacer(modifier = Modifier.height(6.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                QuickDurationChip("30s", 0, 30, durationMinutes, durationSeconds) {
-                    durationMinutes = 0; durationSeconds = 30
-                }
-                QuickDurationChip("1m", 1, 0, durationMinutes, durationSeconds) {
-                    durationMinutes = 1; durationSeconds = 0
-                }
-                QuickDurationChip("2m", 2, 0, durationMinutes, durationSeconds) {
-                    durationMinutes = 2; durationSeconds = 0
-                }
-                QuickDurationChip("3m", 3, 0, durationMinutes, durationSeconds) {
-                    durationMinutes = 3; durationSeconds = 0
+                    if (totalSeconds < 10) {
+                        Text(
+                            text = stringResource(R.string.min_10_seconds),
+                            color = Theme.colors.problem,
+                            fontSize = 11.sp
+                        )
+                    }
                 }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Custom duration
-            Text(
-                text = stringResource(R.string.or_set_custom),
-                color = Theme.colors.dim,
-                fontSize = 10.sp
-            )
-            Spacer(modifier = Modifier.height(6.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                DurationPicker(
-                    label = stringResource(R.string.minutes),
-                    value = durationMinutes,
-                    range = 0..10,
-                    onValueChange = { durationMinutes = it },
-                    modifier = Modifier.weight(1f)
-                )
-                DurationPicker(
-                    label = stringResource(R.string.seconds),
-                    value = durationSeconds,
-                    range = 0..59,
-                    step = 5,
-                    onValueChange = { durationSeconds = it },
-                    modifier = Modifier.weight(1f)
-                )
-            }
-
-            // Duration display
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = stringResource(R.string.total_duration, formatDuration(totalSeconds)),
-                color = if (totalSeconds >= 10) Theme.colors.text else Theme.colors.problem,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium
-            )
-            if (totalSeconds < 10) {
-                Text(
-                    text = stringResource(R.string.min_10_seconds),
-                    color = Theme.colors.problem,
-                    fontSize = 10.sp
-                )
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            // Step 4: Target
-            StepHeader(step = 4, title = stringResource(R.string.set_your_target))
-            Spacer(modifier = Modifier.height(8.dp))
-
-            // Target type
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                TargetTypeOption(
-                    title = stringResource(R.string.above),
-                    description = stringResource(R.string.above_value),
-                    isSelected = targetType == "MIN",
-                    onClick = { targetType = "MIN" },
-                    modifier = Modifier.weight(1f)
-                )
-                TargetTypeOption(
-                    title = stringResource(R.string.below),
-                    description = stringResource(R.string.below_value),
-                    isSelected = targetType == "MAX",
-                    onClick = { targetType = "MAX" },
-                    modifier = Modifier.weight(1f)
-                )
-                TargetTypeOption(
-                    title = stringResource(R.string.range),
-                    description = stringResource(R.string.min_max),
-                    isSelected = targetType == "RANGE",
-                    onClick = { targetType = "RANGE" },
-                    modifier = Modifier.weight(1f)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            // Target values
-            val minimumLabel = stringResource(R.string.minimum)
-            val maximumLabel = stringResource(R.string.maximum)
-            when (targetType) {
-                "MIN" -> {
-                    TargetValueRow(
-                        label = minimumLabel,
-                        value = targetMin ?: 50f,
-                        metric = metric,
-                        onValueChange = { targetMin = it }
+            // Step 4: Target - vertical list
+            Section(title = stringResource(R.string.set_your_target)) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    TargetTypeRow(
+                        title = stringResource(R.string.target_min_title),
+                        isSelected = targetType == "MIN",
+                        onClick = { targetType = "MIN" }
                     )
-                }
-                "MAX" -> {
-                    TargetValueRow(
-                        label = maximumLabel,
-                        value = targetMax ?: 50f,
-                        metric = metric,
-                        onValueChange = { targetMax = it }
+                    TargetTypeRow(
+                        title = stringResource(R.string.target_max_title),
+                        isSelected = targetType == "MAX",
+                        onClick = { targetType = "MAX" }
                     )
-                }
-                "RANGE" -> {
-                    TargetValueRow(
-                        label = minimumLabel,
-                        value = targetMin ?: 48f,
-                        metric = metric,
-                        onValueChange = { targetMin = it }
+                    TargetTypeRow(
+                        title = stringResource(R.string.target_range_title),
+                        isSelected = targetType == "RANGE",
+                        onClick = { targetType = "RANGE" }
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    TargetValueRow(
-                        label = maximumLabel,
-                        value = targetMax ?: 52f,
-                        metric = metric,
-                        onValueChange = { targetMax = it }
-                    )
+
+                    Spacer(modifier = Modifier.height(2.dp))
+
+                    // Target value picker(s)
+                    when (targetType) {
+                        "MIN" -> {
+                            TargetValuePicker(
+                                label = stringResource(R.string.minimum),
+                                value = targetMin ?: 50f,
+                                metric = metric,
+                                onValueChange = { targetMin = it }
+                            )
+                        }
+                        "MAX" -> {
+                            TargetValuePicker(
+                                label = stringResource(R.string.maximum),
+                                value = targetMax ?: 50f,
+                                metric = metric,
+                                onValueChange = { targetMax = it }
+                            )
+                        }
+                        "RANGE" -> {
+                            TargetValuePicker(
+                                label = stringResource(R.string.minimum),
+                                value = targetMin ?: 48f,
+                                metric = metric,
+                                onValueChange = { targetMin = it }
+                            )
+                            TargetValuePicker(
+                                label = stringResource(R.string.maximum),
+                                value = targetMax ?: 52f,
+                                metric = metric,
+                                onValueChange = { targetMax = it }
+                            )
+                        }
+                    }
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Preview card
+            // Preview
             if (name.isNotBlank()) {
                 PreviewCard(
                     name = name,
@@ -328,10 +292,12 @@ fun CustomDrillScreen(
                 )
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(4.dp))
         }
     }
 }
+
+// ==================== Layout Components ====================
 
 @Composable
 private fun Divider() {
@@ -344,29 +310,20 @@ private fun Divider() {
 }
 
 @Composable
-private fun StepHeader(step: Int, title: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(
-            modifier = Modifier
-                .size(20.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .background(Theme.colors.optimal.copy(alpha = 0.2f)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "$step",
-                color = Theme.colors.optimal,
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Spacer(modifier = Modifier.width(8.dp))
+private fun Section(
+    title: String,
+    content: @Composable () -> Unit
+) {
+    Column {
         Text(
-            text = title,
-            color = Theme.colors.text,
-            fontSize = 13.sp,
-            fontWeight = FontWeight.Medium
+            text = title.uppercase(),
+            color = Theme.colors.dim,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Medium,
+            letterSpacing = 0.5.sp
         )
+        Spacer(modifier = Modifier.height(6.dp))
+        content()
     }
 }
 
@@ -381,7 +338,7 @@ private fun TextInputField(
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(Theme.colors.surface)
-            .padding(14.dp)
+            .padding(12.dp)
     ) {
         if (value.isEmpty()) {
             Text(
@@ -403,10 +360,12 @@ private fun TextInputField(
     }
 }
 
+// ==================== Metric Selection ====================
+
 @Composable
-private fun MetricOption(
+private fun MetricRow(
     title: String,
-    description: String,
+    subtitle: String,
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
@@ -419,65 +378,70 @@ private fun MetricOption(
                 else Theme.colors.surface
             )
             .clickable { onClick() }
-            .padding(12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
                 color = if (isSelected) Theme.colors.optimal else Theme.colors.text,
                 fontSize = 13.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal
             )
             Text(
-                text = description,
+                text = subtitle,
                 color = Theme.colors.dim,
                 fontSize = 10.sp
             )
         }
+
+        // Selection indicator
         if (isSelected) {
-            Text(
-                text = "✓",
-                color = Theme.colors.optimal,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold
+            Box(
+                modifier = Modifier
+                    .size(6.dp)
+                    .clip(RoundedCornerShape(3.dp))
+                    .background(Theme.colors.optimal)
             )
         }
     }
 }
 
+// ==================== Duration Selection ====================
+
 @Composable
-private fun QuickDurationChip(
+private fun DurationPreset(
     label: String,
     targetMinutes: Int,
     targetSeconds: Int,
     currentMinutes: Int,
     currentSeconds: Int,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     val isSelected = currentMinutes == targetMinutes && currentSeconds == targetSeconds
     Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(6.dp))
+        modifier = modifier
+            .clip(RoundedCornerShape(8.dp))
             .background(
                 if (isSelected) Theme.colors.attention.copy(alpha = 0.2f)
                 else Theme.colors.surface
             )
             .clickable { onClick() }
-            .padding(horizontal = 12.dp, vertical = 8.dp)
+            .padding(vertical = 10.dp),
+        contentAlignment = Alignment.Center
     ) {
         Text(
             text = label,
             color = if (isSelected) Theme.colors.attention else Theme.colors.text,
-            fontSize = 12.sp,
-            fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal
+            fontSize = 14.sp,
+            fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
         )
     }
 }
 
 @Composable
-private fun DurationPicker(
+private fun NumberPicker(
     label: String,
     value: Int,
     range: IntRange,
@@ -485,90 +449,98 @@ private fun DurationPicker(
     onValueChange: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    Row(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .background(Theme.colors.surface)
-            .padding(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 8.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        // Minus button
         Text(
-            text = label,
-            color = Theme.colors.dim,
-            fontSize = 10.sp
+            text = "−",
+            color = if (value > range.first) Theme.colors.text else Theme.colors.muted,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier
+                .clickable(enabled = value > range.first) {
+                    onValueChange((value - step).coerceIn(range))
+                }
+                .padding(horizontal = 8.dp)
         )
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text(
-                text = "−",
-                color = if (value > range.first) Theme.colors.text else Theme.colors.muted,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier
-                    .clickable(enabled = value > range.first) {
-                        onValueChange((value - step).coerceIn(range))
-                    }
-                    .padding(horizontal = 8.dp)
-            )
+
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = "%02d".format(value),
                 color = Theme.colors.text,
-                fontSize = 24.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = "+",
-                color = if (value < range.last) Theme.colors.text else Theme.colors.muted,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier
-                    .clickable(enabled = value < range.last) {
-                        onValueChange((value + step).coerceIn(range))
-                    }
-                    .padding(horizontal = 8.dp)
+                text = label,
+                color = Theme.colors.dim,
+                fontSize = 9.sp
             )
         }
+
+        // Plus button
+        Text(
+            text = "+",
+            color = if (value < range.last) Theme.colors.text else Theme.colors.muted,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier
+                .clickable(enabled = value < range.last) {
+                    onValueChange((value + step).coerceIn(range))
+                }
+                .padding(horizontal = 8.dp)
+        )
     }
 }
 
+// ==================== Target Selection ====================
+
 @Composable
-private fun TargetTypeOption(
+private fun TargetTypeRow(
     title: String,
-    description: String,
     isSelected: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit
 ) {
-    Column(
-        modifier = modifier
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(
                 if (isSelected) Theme.colors.attention.copy(alpha = 0.15f)
                 else Theme.colors.surface
             )
             .clickable { onClick() }
-            .padding(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = title,
             color = if (isSelected) Theme.colors.attention else Theme.colors.text,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
+            fontSize = 13.sp,
+            fontWeight = if (isSelected) FontWeight.Medium else FontWeight.Normal,
+            modifier = Modifier.weight(1f)
         )
-        Text(
-            text = description,
-            color = Theme.colors.dim,
-            fontSize = 9.sp
-        )
+
+        // Selection indicator
+        if (isSelected) {
+            Box(
+                modifier = Modifier
+                    .size(6.dp)
+                    .clip(RoundedCornerShape(3.dp))
+                    .background(Theme.colors.attention)
+            )
+        }
     }
 }
 
 @Composable
-private fun TargetValueRow(
+private fun TargetValuePicker(
     label: String,
     value: Float,
     metric: String,
@@ -587,7 +559,7 @@ private fun TargetValueRow(
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(Theme.colors.surface)
-            .padding(horizontal = 14.dp, vertical = 12.dp),
+            .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -599,8 +571,9 @@ private fun TargetValueRow(
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(14.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
+            // Minus
             Text(
                 text = "−",
                 color = if (value > range.start) Theme.colors.text else Theme.colors.muted,
@@ -616,10 +589,11 @@ private fun TargetValueRow(
             Text(
                 text = formatTargetValue(value, metric),
                 color = Theme.colors.text,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
 
+            // Plus
             Text(
                 text = "+",
                 color = if (value < range.endInclusive) Theme.colors.text else Theme.colors.muted,
@@ -634,6 +608,8 @@ private fun TargetValueRow(
         }
     }
 }
+
+// ==================== Preview ====================
 
 @Composable
 private fun PreviewCard(
@@ -655,22 +631,23 @@ private fun PreviewCard(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
-            .background(Theme.colors.surface)
-            .padding(14.dp)
+            .background(Theme.colors.optimal.copy(alpha = 0.1f))
+            .padding(12.dp)
     ) {
         Text(
-            text = stringResource(R.string.preview),
-            color = Theme.colors.dim,
+            text = stringResource(R.string.preview).uppercase(),
+            color = Theme.colors.optimal,
             fontSize = 9.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            letterSpacing = 0.5.sp
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         Text(
             text = name,
             color = Theme.colors.text,
-            fontSize = 15.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold
         )
 
@@ -680,34 +657,45 @@ private fun PreviewCard(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column {
-                Text(text = stringResource(R.string.metric), color = Theme.colors.muted, fontSize = 9.sp)
-                Text(
-                    text = metricName,
-                    color = Theme.colors.text,
-                    fontSize = 12.sp
-                )
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = stringResource(R.string.duration), color = Theme.colors.muted, fontSize = 9.sp)
-                Text(
-                    text = formatDuration(duration),
-                    color = Theme.colors.text,
-                    fontSize = 12.sp
-                )
-            }
-            Column(horizontalAlignment = Alignment.End) {
-                Text(text = stringResource(R.string.target), color = Theme.colors.muted, fontSize = 9.sp)
-                Text(
-                    text = formatTargetPreview(metric, targetType, targetMin, targetMax),
-                    color = Theme.colors.optimal,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium
-                )
-            }
+            PreviewStat(
+                label = stringResource(R.string.metric),
+                value = metricName
+            )
+            PreviewStat(
+                label = stringResource(R.string.duration),
+                value = formatDuration(duration)
+            )
+            PreviewStat(
+                label = stringResource(R.string.target),
+                value = formatTargetPreview(metric, targetType, targetMin, targetMax),
+                valueColor = Theme.colors.optimal
+            )
         }
     }
 }
+
+@Composable
+private fun PreviewStat(
+    label: String,
+    value: String,
+    valueColor: androidx.compose.ui.graphics.Color = Theme.colors.text
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = label,
+            color = Theme.colors.dim,
+            fontSize = 9.sp
+        )
+        Text(
+            text = value,
+            color = valueColor,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium
+        )
+    }
+}
+
+// ==================== Helpers ====================
 
 private fun formatTargetValue(value: Float, metric: String): String {
     return when (metric) {
@@ -753,15 +741,6 @@ private fun formatDuration(seconds: Int): String {
         m == 0 -> "${s}s"
         s == 0 -> "${m}m"
         else -> "${m}m ${s}s"
-    }
-}
-
-private fun getMetricName(metric: String): String {
-    return when (metric) {
-        "BALANCE" -> "Balance"
-        "TE" -> "Torque Eff."
-        "PS" -> "Smoothness"
-        else -> metric
     }
 }
 
