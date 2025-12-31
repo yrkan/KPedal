@@ -13,9 +13,9 @@
       <tr>
         <th>{$t('drills.date')}</th>
         <th>{$t('drills.drill')}</th>
-        <th>{$t('drills.duration')}</th>
+        <th class="col-duration">{$t('drills.duration')}</th>
         <th>{$t('drills.timeInTarget')} <InfoTip text={$t('drills.tips.timeInTarget')} position="bottom" size="sm" /></th>
-        <th>{$t('drills.status')} <InfoTip text={$t('drills.tips.status')} position="bottom" size="sm" /></th>
+        <th class="col-status-header">{$t('drills.status')} <InfoTip text={$t('drills.tips.status')} position="bottom" size="sm" /></th>
       </tr>
     </thead>
     <tbody>
@@ -36,7 +36,7 @@
               <span class="target-time">{formatDrillDuration(drill.time_in_target_ms)}</span>
             </div>
           </td>
-          <td class="col-status">
+          <td class="col-status col-status-header">
             {#if drill.completed}
               <span class="status-badge completed">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
@@ -162,11 +162,57 @@
       padding: 10px 12px;
     }
 
+    /* Hide duration column (both header and data) */
     .col-duration {
       display: none;
     }
 
     .target-time {
+      display: none;
+    }
+
+    .col-target {
+      min-width: 120px;
+    }
+
+    .target-bar {
+      min-width: 40px;
+    }
+
+    /* Compact status badge */
+    .status-badge {
+      padding: 3px 8px;
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .data-table th,
+    .data-table td {
+      padding: 8px 10px;
+    }
+
+    .col-date {
+      min-width: 70px;
+    }
+
+    .date-secondary {
+      display: block;
+      margin-left: 0;
+      margin-top: 2px;
+    }
+
+    .col-target {
+      min-width: 90px;
+    }
+
+    .target-bar {
+      display: none;
+    }
+
+    /* Hide status column on very small screens */
+    .col-status,
+    .col-status-header {
       display: none;
     }
   }
