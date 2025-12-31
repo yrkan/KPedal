@@ -21,10 +21,10 @@
         <tr>
           <th>{$t('rides.detail.min')}</th>
           <th>{$t('rides.detail.balance')} <InfoTip text={$t('rides.detail.balanceTip')} position="bottom" size="sm" /></th>
-          <th>{$t('rides.detail.te')} <InfoTip text={$t('rides.detail.teTip2')} position="bottom" size="sm" /></th>
-          <th>{$t('rides.detail.ps')} <InfoTip text={$t('rides.detail.psTip2')} position="bottom" size="sm" /></th>
-          {#if hasPower}<th>{$t('rides.detail.power')}</th>{/if}
-          {#if hasHr}<th>{$t('rides.detail.hr')}</th>{/if}
+          <th class="col-te">{$t('rides.detail.te')} <InfoTip text={$t('rides.detail.teTip2')} position="bottom" size="sm" /></th>
+          <th class="col-ps">{$t('rides.detail.ps')} <InfoTip text={$t('rides.detail.psTip2')} position="bottom" size="sm" /></th>
+          {#if hasPower}<th class="col-power">{$t('rides.detail.power')}</th>{/if}
+          {#if hasHr}<th class="col-hr">{$t('rides.detail.hr')}</th>{/if}
           <th>{$t('rides.detail.zone')} <InfoTip text={$t('rides.detail.zoneTip')} position="bottom" size="sm" /></th>
         </tr>
       </thead>
@@ -33,10 +33,10 @@
           <tr class="zone-{s.zone_status.toLowerCase()}">
             <td class="col-min">{s.minute_index + 1}</td>
             <td><span class="{getBalanceStatus(s.balance_left)}">{s.balance_left}/{s.balance_right}</span></td>
-            <td><span class="{getTeStatus((s.te_left + s.te_right) / 2)}">{s.te_left}/{s.te_right}</span></td>
-            <td><span class="{getPsStatus((s.ps_left + s.ps_right) / 2)}">{s.ps_left}/{s.ps_right}</span></td>
-            {#if hasPower}<td>{s.power_avg > 0 ? `${s.power_avg}W` : '—'}</td>{/if}
-            {#if hasHr}<td>{s.hr_avg > 0 ? s.hr_avg : '—'}</td>{/if}
+            <td class="col-te"><span class="{getTeStatus((s.te_left + s.te_right) / 2)}">{s.te_left}/{s.te_right}</span></td>
+            <td class="col-ps"><span class="{getPsStatus((s.ps_left + s.ps_right) / 2)}">{s.ps_left}/{s.ps_right}</span></td>
+            {#if hasPower}<td class="col-power">{s.power_avg > 0 ? `${s.power_avg}W` : '—'}</td>{/if}
+            {#if hasHr}<td class="col-hr">{s.hr_avg > 0 ? s.hr_avg : '—'}</td>{/if}
             <td><span class="zone-badge {s.zone_status.toLowerCase()}">{$t(`zones.${s.zone_status.toLowerCase()}`)}</span></td>
           </tr>
         {/each}
@@ -63,9 +63,8 @@
 
   .table-wrapper {
     border-radius: 10px;
-    overflow: hidden;
     max-height: 400px;
-    overflow-y: auto;
+    overflow: auto;
     scrollbar-width: none;
     border: 1px solid var(--border-subtle);
   }
@@ -124,5 +123,22 @@
 
   @media (max-width: 768px) {
     .grid-card.wide { grid-column: span 1; }
+  }
+
+  @media (max-width: 480px) {
+    /* Hide TE and PS columns on small screens to fit essential data */
+    .col-te,
+    .col-ps {
+      display: none;
+    }
+
+    .data-table {
+      min-width: 280px;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 6px 8px;
+    }
   }
 </style>
