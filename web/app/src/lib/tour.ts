@@ -2,11 +2,34 @@
  * KPedal Comprehensive Product Tour
  * Super detailed guided onboarding for demo users using driver.js
  * Covers: Dashboard, Rides, Ride Details, Drills, Achievements, Settings
+ *
+ * Performance: driver.js is lazy-loaded only when tour is actually started
  */
 
-import { driver, type DriveStep, type Driver } from 'driver.js';
-import 'driver.js/dist/driver.css';
 import { browser } from '$app/environment';
+
+// Types imported separately (tree-shaken, no runtime cost)
+import type { DriveStep, Driver } from 'driver.js';
+
+// Lazy load driver.js and CSS only when needed
+let driverModule: typeof import('driver.js') | null = null;
+let cssLoaded = false;
+
+async function loadDriver(): Promise<typeof import('driver.js')> {
+  if (!driverModule) {
+    // Load CSS dynamically (only once)
+    if (!cssLoaded && browser) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '/driver.css';
+      document.head.appendChild(link);
+      cssLoaded = true;
+    }
+    // Dynamic import of driver.js
+    driverModule = await import('driver.js');
+  }
+  return driverModule;
+}
 import { goto } from '$app/navigation';
 import { get } from 'svelte/store';
 import { t } from '$lib/i18n';
@@ -782,12 +805,13 @@ async function waitForLoading(timeoutMs: number = 5000): Promise<boolean> {
 /**
  * Create a driver instance with common config
  */
-function createDriver(
+async function createDriver(
   steps: DriveStep[],
   nextPage: string | null,
   isFinalTour: boolean = false
-): Driver {
+): Promise<Driver> {
   const i = _();
+  const { driver } = await loadDriver();
   return driver({
     showProgress: true,
     progressText: '{{current}} / {{total}}',
@@ -838,11 +862,11 @@ if (browser) {
 /**
  * Start the dashboard tour
  */
-export function startDashboardTour(): void {
+export async function startDashboardTour(): Promise<void> {
   if (!browser) return;
 
   const availableSteps = filterAvailableSteps(getDashboardSteps());
-  driverInstance = createDriver(availableSteps, '/rides');
+  driverInstance = await createDriver(availableSteps, '/rides');
   driverInstance.drive();
 }
 
@@ -862,7 +886,7 @@ export async function startRidesPageTour(): Promise<void> {
   const rideId = firstRideRow?.dataset.rideId;
   const nextPage = rideId ? `/rides/${rideId}` : '/drills';
 
-  driverInstance = createDriver(availableSteps, nextPage);
+  driverInstance = await createDriver(availableSteps, nextPage);
   driverInstance.drive();
 }
 
@@ -877,7 +901,7 @@ export async function startRideDetailTour(): Promise<void> {
   await waitForElement(['.hero-stats', '.error-state'], 5000);
 
   const availableSteps = filterAvailableSteps(getRideDetailSteps());
-  driverInstance = createDriver(availableSteps, '/drills');
+  driverInstance = await createDriver(availableSteps, '/drills');
   driverInstance.drive();
 }
 
@@ -892,7 +916,7 @@ export async function startDrillsPageTour(): Promise<void> {
   await waitForElement(['.drill-row', '.drill-card', '.empty-state-enhanced'], 5000);
 
   const availableSteps = filterAvailableSteps(getDrillsPageSteps());
-  driverInstance = createDriver(availableSteps, '/achievements');
+  driverInstance = await createDriver(availableSteps, '/achievements');
   driverInstance.drive();
 }
 
@@ -907,7 +931,7 @@ export async function startAchievementsPageTour(): Promise<void> {
   await waitForElement(['.milestone-card', '.empty-state-enhanced'], 5000);
 
   const availableSteps = filterAvailableSteps(getAchievementsPageSteps());
-  driverInstance = createDriver(availableSteps, '/settings');
+  driverInstance = await createDriver(availableSteps, '/settings');
   driverInstance.drive();
 }
 
@@ -922,7 +946,7 @@ export async function startSettingsPageTour(): Promise<void> {
   await waitForElement(['.settings-section', '.theme-selector'], 3000);
 
   const availableSteps = filterAvailableSteps(getSettingsPageSteps());
-  driverInstance = createDriver(availableSteps, null, true);
+  driverInstance = await createDriver(availableSteps, null, true);
   driverInstance.drive();
 }
 

@@ -19,7 +19,6 @@
     "wrangler": "^4.56.0"
   },
   "dependencies": {
-    "chart.js": "^4.4.0",
     "driver.js": "^1.4.0",
     "svelte-i18n": "^4.0.1"
   },
