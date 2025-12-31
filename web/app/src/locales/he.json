@@ -18,7 +18,10 @@
     "tableView": "תצוגת טבלה",
     "cardView": "תצוגת כרטיסים",
     "backToDashboard": "חזרה ללוח הבקרה",
-    "remove": "הסר"
+    "remove": "הסר",
+    "pageInfo": "עמוד {page} מתוך {total}",
+    "prevPage": "עמוד קודם",
+    "nextPage": "עמוד הבא"
   },
   "app": {
     "name": "KPedal",

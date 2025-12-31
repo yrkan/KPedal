@@ -128,14 +128,14 @@ function generateTrends() {
 export function getDemoDrills() {
   return {
     drills: [
-      { id: 15, drill_id: 'smooth_circles', drill_name: 'Smooth Circles', timestamp: ago(2), duration_ms: 240000, score: 91, time_in_target_ms: 218400, time_in_target_percent: 91, completed: 1 },
-      { id: 14, drill_id: 'power_endurance', drill_name: 'Power Endurance', timestamp: ago(5), duration_ms: 600000, score: 71, time_in_target_ms: 426000, time_in_target_percent: 71, completed: 1 },
-      { id: 13, drill_id: 'balance_focus', drill_name: 'Balance Focus', timestamp: ago(8), duration_ms: 300000, score: 85, time_in_target_ms: 255000, time_in_target_percent: 85, completed: 1 },
-      { id: 12, drill_id: 'high_cadence', drill_name: 'High Cadence Spin', timestamp: ago(12), duration_ms: 300000, score: 75, time_in_target_ms: 225000, time_in_target_percent: 75, completed: 1 },
-      { id: 11, drill_id: 'smooth_circles', drill_name: 'Smooth Circles', timestamp: ago(15), duration_ms: 240000, score: 82, time_in_target_ms: 196800, time_in_target_percent: 82, completed: 1 },
-      { id: 10, drill_id: 'single_leg_right', drill_name: 'Single Leg Right', timestamp: ago(18), duration_ms: 180000, score: 78, time_in_target_ms: 140400, time_in_target_percent: 78, completed: 1 },
-      { id: 9, drill_id: 'single_leg_left', drill_name: 'Single Leg Left', timestamp: ago(18, 1), duration_ms: 180000, score: 65, time_in_target_ms: 117000, time_in_target_percent: 65, completed: 1 },
-      { id: 8, drill_id: 'balance_focus', drill_name: 'Balance Focus', timestamp: ago(20), duration_ms: 300000, score: 72, time_in_target_ms: 216000, time_in_target_percent: 72, completed: 1 }
+      { id: 15, drill_id: 'smooth_circles', drill_name: 'Smooth Circles', timestamp: ago(2), duration_ms: 240000, score: 91, time_in_target_ms: 218400, time_in_target_percent: 91, completed: true },
+      { id: 14, drill_id: 'power_endurance', drill_name: 'Power Endurance', timestamp: ago(5), duration_ms: 600000, score: 71, time_in_target_ms: 426000, time_in_target_percent: 71, completed: true },
+      { id: 13, drill_id: 'balance_focus', drill_name: 'Balance Focus', timestamp: ago(8), duration_ms: 300000, score: 85, time_in_target_ms: 255000, time_in_target_percent: 85, completed: true },
+      { id: 12, drill_id: 'high_cadence', drill_name: 'High Cadence Spin', timestamp: ago(12), duration_ms: 300000, score: 75, time_in_target_ms: 225000, time_in_target_percent: 75, completed: true },
+      { id: 11, drill_id: 'smooth_circles', drill_name: 'Smooth Circles', timestamp: ago(15), duration_ms: 240000, score: 82, time_in_target_ms: 196800, time_in_target_percent: 82, completed: true },
+      { id: 10, drill_id: 'single_leg_right', drill_name: 'Single Leg Right', timestamp: ago(18), duration_ms: 180000, score: 78, time_in_target_ms: 140400, time_in_target_percent: 78, completed: true },
+      { id: 9, drill_id: 'single_leg_left', drill_name: 'Single Leg Left', timestamp: ago(18, 1), duration_ms: 180000, score: 65, time_in_target_ms: 117000, time_in_target_percent: 65, completed: true },
+      { id: 8, drill_id: 'balance_focus', drill_name: 'Balance Focus', timestamp: ago(20), duration_ms: 300000, score: 72, time_in_target_ms: 216000, time_in_target_percent: 72, completed: true }
     ],
     total: 8,
     limit: 50,

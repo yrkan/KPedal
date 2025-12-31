@@ -18,7 +18,10 @@
     "tableView": "Tabelvisning",
     "cardView": "Kortvisning",
     "backToDashboard": "Tilbage til Dashboard",
-    "remove": "Fjern"
+    "remove": "Fjern",
+    "pageInfo": "Side {page} af {total}",
+    "prevPage": "Forrige side",
+    "nextPage": "Næste side"
   },
   "app": {
     "name": "KPedal",

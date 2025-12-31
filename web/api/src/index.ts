@@ -35,6 +35,9 @@ app.use('*', cors({
       env.LINK_URL,
       'https://kpedal.com',     // Main domain (serves same app)
       'http://localhost:5173',  // SvelteKit dev
+      'http://localhost:5174',  // SvelteKit dev (alt port)
+      'http://localhost:5175',  // SvelteKit dev (alt port)
+      'http://localhost:5176',  // SvelteKit dev (alt port)
       'http://localhost:4173',  // SvelteKit preview
     ];
     return allowedOrigins.includes(origin) ? origin : env.APP_URL;

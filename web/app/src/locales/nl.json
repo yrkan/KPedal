@@ -18,7 +18,10 @@
     "tableView": "Tabelweergave",
     "cardView": "Kaartweergave",
     "backToDashboard": "Terug naar Dashboard",
-    "remove": "Verwijderen"
+    "remove": "Verwijderen",
+    "pageInfo": "Pagina {page} van {total}",
+    "prevPage": "Vorige pagina",
+    "nextPage": "Volgende pagina"
   },
   "app": {
     "name": "KPedal",

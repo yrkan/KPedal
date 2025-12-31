@@ -3,10 +3,11 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { auth, isAuthenticated, user } from '$lib/auth';
-  import { theme, resolvedTheme } from '$lib/theme';
   import { API_URL } from '$lib/config';
-  import { t, locale, locales, localeNames, setLocale, type Locale } from '$lib/i18n';
+  import { t } from '$lib/i18n';
   import Footer from '$lib/components/Footer.svelte';
+  import GuestLogo from '$lib/components/GuestLogo.svelte';
+  import GuestControls from '$lib/components/GuestControls.svelte';
 
   let code = '';
   let codeInputs: string[] = ['', '', '', '', '', '', '', ''];
@@ -207,44 +208,13 @@
   <div class="bg-pattern"></div>
 
   <main class="link-main">
-    <a href="/" class="site-logo" aria-label={$t('aria.home')}>
-      <span class="site-logo-dot" aria-hidden="true"></span>
-      <span class="site-logo-text">KPedal</span>
-    </a>
+    <GuestLogo />
 
     <div class="link-container">
     <!-- Header actions - only show if not authenticated -->
     {#if !$isAuthenticated}
       <div class="header-actions">
-        <select
-          class="lang-select"
-          value={$locale}
-          on:change={(e) => setLocale(e.currentTarget.value as Locale)}
-          aria-label={$t('aria.languageSelector')}
-        >
-          {#each locales as loc}
-            <option value={loc}>{localeNames[loc]}</option>
-          {/each}
-        </select>
-
-        <button class="theme-toggle" on:click={() => theme.toggle()} aria-label={$t('common.toggleTheme')}>
-          {#if $resolvedTheme === 'light'}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
-          {:else}
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-          {/if}
-          {#if $theme === 'auto'}
-            <span class="auto-badge">A</span>
-          {/if}
-        </button>
+        <GuestControls />
       </div>
     {/if}
 
@@ -594,72 +564,8 @@
 
   .header-actions {
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    gap: 8px;
     margin-bottom: 12px;
-  }
-
-  .lang-select {
-    appearance: none;
-    height: 36px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    padding: 0 28px 0 12px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-  }
-
-  .lang-select:hover {
-    border-color: var(--border-default);
-    color: var(--text-primary);
-  }
-
-  .theme-toggle {
-    position: relative;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.15s ease;
-    flex-shrink: 0;
-  }
-
-  .auto-badge {
-    position: absolute;
-    bottom: -4px;
-    right: -4px;
-    width: 14px;
-    height: 14px;
-    background: #22c55e;
-    color: #fff;
-    font-size: 9px;
-    font-weight: 900;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 1;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    border: 1.5px solid var(--bg-base);
-  }
-
-  .theme-toggle:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
   }
 
   .link-card {
@@ -668,28 +574,6 @@
     border-radius: 24px;
     padding: 32px;
     text-align: center;
-  }
-
-  .site-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    text-decoration: none;
-    z-index: 100;
-  }
-  .site-logo-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-optimal);
-    border-radius: 50%;
-  }
-  .site-logo-text {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-primary);
   }
 
   .card-header {
@@ -1211,9 +1095,6 @@
       padding: 16px;
     }
 
-    .site-logo { top: 12px; left: 12px; }
-    .site-logo-text { font-size: 14px; }
-
     .link-card {
       padding: 24px 20px;
       border-radius: 20px;
@@ -1248,22 +1129,6 @@
 
     .security-badge {
       padding: 8px;
-    }
-
-    .lang-select {
-      height: 32px;
-      font-size: 12px;
-      padding: 0 24px 0 10px;
-    }
-
-    .theme-toggle {
-      width: 32px;
-      height: 32px;
-    }
-
-    .theme-toggle svg {
-      width: 16px;
-      height: 16px;
     }
   }
 

@@ -18,7 +18,10 @@
     "tableView": "테이블 보기",
     "cardView": "카드 보기",
     "backToDashboard": "대시보드로 돌아가기",
-    "remove": "제거"
+    "remove": "제거",
+    "pageInfo": "{page} / {total} 페이지",
+    "prevPage": "이전 페이지",
+    "nextPage": "다음 페이지"
   },
   "app": {
     "name": "KPedal",

@@ -18,7 +18,10 @@
     "tableView": "Visualização em tabela",
     "cardView": "Visualização em cartões",
     "backToDashboard": "Voltar ao Painel",
-    "remove": "Remover"
+    "remove": "Remover",
+    "pageInfo": "Página {page} de {total}",
+    "prevPage": "Página anterior",
+    "nextPage": "Próxima página"
   },
   "app": {
     "name": "KPedal",

@@ -27,7 +27,7 @@
     id: number;
     achievement_id: string;
     unlocked_at: number;
-    created_at: string;
+    created_at?: string;
   }
 
   interface MilestoneStats {

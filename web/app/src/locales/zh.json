@@ -18,7 +18,10 @@
     "tableView": "表格视图",
     "cardView": "卡片视图",
     "backToDashboard": "返回仪表盘",
-    "remove": "移除"
+    "remove": "移除",
+    "pageInfo": "第 {page} 页，共 {total} 页",
+    "prevPage": "上一页",
+    "nextPage": "下一页"
   },
   "app": {
     "name": "KPedal",

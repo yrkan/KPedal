@@ -18,7 +18,10 @@
     "tableView": "Tabellvy",
     "cardView": "Kortvy",
     "backToDashboard": "Tillbaka till instrumentpanelen",
-    "remove": "Ta bort"
+    "remove": "Ta bort",
+    "pageInfo": "Sida {page} av {total}",
+    "prevPage": "Föregående sida",
+    "nextPage": "Nästa sida"
   },
   "app": {
     "name": "KPedal",

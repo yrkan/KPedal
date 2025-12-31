@@ -18,7 +18,10 @@
     "tableView": "Таблиця",
     "cardView": "Картки",
     "backToDashboard": "Назад до панелі",
-    "remove": "Видалити"
+    "remove": "Видалити",
+    "pageInfo": "Сторінка {page} з {total}",
+    "prevPage": "Попередня сторінка",
+    "nextPage": "Наступна сторінка"
   },
   "app": {
     "name": "KPedal",

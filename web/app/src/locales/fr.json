@@ -18,7 +18,10 @@
     "tableView": "Vue tableau",
     "cardView": "Vue cartes",
     "backToDashboard": "Retour au tableau de bord",
-    "remove": "Retirer"
+    "remove": "Retirer",
+    "pageInfo": "Page {page} sur {total}",
+    "prevPage": "Page précédente",
+    "nextPage": "Page suivante"
   },
   "app": {
     "name": "KPedal",
