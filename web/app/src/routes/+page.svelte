@@ -414,7 +414,6 @@
       {:else}
         {#if stats && stats.total_rides > 0}
           <DashboardHeader
-            userName={$user?.name}
             {selectedPeriod}
             {ridesIn7Days}
             {ridesIn14Days}

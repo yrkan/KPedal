@@ -1,8 +1,4 @@
 <script lang="ts">
-  import { t } from '$lib/i18n';
-  import { getFirstName } from '$lib/utils/dashboard';
-
-  export let userName: string | undefined;
   export let selectedPeriod: '7' | '14' | '30' | '60';
   export let ridesIn7Days: number;
   export let ridesIn14Days: number;
@@ -18,9 +14,6 @@
 </script>
 
 <header class="dash-header animate-in">
-  <div class="dash-greeting">
-    <h1>{$t('dashboard.hello', { values: { name: getFirstName(userName) } })}</h1>
-  </div>
   <div class="dash-controls">
     <div class="period-selector">
       <button class="period-btn" class:active={selectedPeriod === '7'} on:click={() => selectPeriod('7')}>7d</button>
@@ -40,15 +33,9 @@
 <style>
   .dash-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 20px;
-  }
-  .dash-greeting h1 {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
   }
   .dash-controls {
     display: flex;
@@ -94,20 +81,11 @@
   /* Responsive - 480px */
   @media (max-width: 480px) {
     .dash-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .dash-greeting h1 {
-      font-size: 20px;
-    }
-    .period-selector {
-      width: 100%;
-      justify-content: center;
+      justify-content: flex-end;
     }
     .period-btn {
-      flex: 1;
-      text-align: center;
+      padding: 6px 12px;
+      font-size: 12px;
     }
   }
 
@@ -116,12 +94,9 @@
     .dash-header {
       margin-bottom: 14px;
     }
-    .dash-greeting h1 {
-      font-size: 18px;
-    }
     .period-btn {
-      padding: 6px 12px;
-      font-size: 12px;
+      padding: 5px 10px;
+      font-size: 11px;
     }
   }
 </style>
