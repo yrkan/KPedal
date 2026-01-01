@@ -654,8 +654,8 @@ Theme persists in localStorage and syncs with Karoo app settings.
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │  ┌──────────────┐     ┌──────────────┐     ┌──────────────────────────┐ │
-│  │  Karoo Ride  │     │RideState     │     │   LiveDataCollector     │ │
-│  │   Recording  │────▶│  Monitor     │────▶│  (1s interval samples)  │ │
+│  │  Karoo Ride  │     │RideState     │     │   LiveDataCollector      │ │
+│  │   Recording  │────▶│  Monitor     │────▶│  (1s interval samples)   │ │
 │  └──────────────┘     └──────────────┘     └──────────────────────────┘ │
 │                              │                         │                │
 │                              │ Ride ends               │ Snapshots      │
@@ -849,6 +849,13 @@ adb install kpedal-x.x.x.apk
 # 1. Enable Developer Mode (Settings → About → Tap Build 7x)
 # 2. Go to http://KAROO_IP:4567
 # 3. Upload APK
+
+# Option 3 (Recommended): via Hammerhead Companion
+# 1. Open GitHub Releases page on your phone browser
+# 2. Long-press on the .apk file link
+# 3. Select Share → Hammerhead Companion
+# 4. Tap Install on your Karoo when prompted
+
 ```
 
 ### Build from Source
