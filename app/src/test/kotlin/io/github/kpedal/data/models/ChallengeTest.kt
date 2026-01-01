@@ -1,6 +1,7 @@
 package io.github.kpedal.data.models
 
 import com.google.common.truth.Truth.assertThat
+import io.github.kpedal.R
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -27,9 +28,9 @@ class WeeklyChallengesTest {
         }
 
         @Test
-        fun `all challenges have non-empty names`() {
+        fun `all challenges have valid name resources`() {
             WeeklyChallenges.challenges.forEach { challenge ->
-                assertThat(challenge.name).isNotEmpty()
+                assertThat(challenge.nameRes).isNotEqualTo(0)
             }
         }
 
@@ -162,10 +163,10 @@ class ChallengeProgressTest {
 
     private val sampleChallenge = WeeklyChallenges.Challenge(
         id = "test",
-        name = "Test Challenge",
-        description = "Test description",
+        nameRes = R.string.challenge_active_week,
+        descriptionRes = R.string.challenge_active_week_desc,
         target = 5,
-        unit = "rides"
+        unitRes = R.string.unit_rides
     )
 
     @Nested

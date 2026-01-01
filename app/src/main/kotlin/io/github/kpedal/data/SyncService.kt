@@ -2,6 +2,7 @@ package io.github.kpedal.data
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities
 import io.github.kpedal.api.ApiClient
 import io.github.kpedal.api.CloudSettings
@@ -88,7 +89,19 @@ class SyncService(
     companion object {
         private const val TAG = "SyncService"
         private const val SETTINGS_UPLOAD_DEBOUNCE_MS = 2000L // 2 seconds debounce
+        private const val NETWORK_SYNC_COOLDOWN_MS = 60_000L // 1 minute cooldown between network-triggered syncs
     }
+
+    // Network callback for automatic sync when network becomes available
+    private var networkCallback: ConnectivityManager.NetworkCallback? = null
+
+    // Track ride state to avoid syncing during active rides
+    @Volatile
+    private var isRecording = false
+
+    // Debounce network-triggered syncs
+    @Volatile
+    private var lastNetworkSyncAttemptTime = 0L
 
     // Flag to prevent upload loop when applying cloud settings
     @Volatile
@@ -132,6 +145,146 @@ class SyncService(
                         android.util.Log.i(TAG, "Auto-uploaded settings on change: $uploaded")
                     }
                 }
+        }
+
+        // Register network callback for automatic sync when network is restored
+        registerNetworkCallback()
+    }
+
+    /**
+     * Register a network callback to automatically sync pending data when network becomes available.
+     * This handles the case where a ride was recorded offline and the device later connects to WiFi.
+     */
+    private fun registerNetworkCallback() {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        if (connectivityManager == null) {
+            android.util.Log.w(TAG, "ConnectivityManager not available")
+            return
+        }
+
+        networkCallback = object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                android.util.Log.i(TAG, "Network became available")
+                scope.launch {
+                    onNetworkBecameAvailable()
+                }
+            }
+
+            override fun onLost(network: Network) {
+                android.util.Log.d(TAG, "Network lost")
+            }
+        }
+
+        try {
+            connectivityManager.registerDefaultNetworkCallback(networkCallback!!)
+            android.util.Log.i(TAG, "Registered network callback for auto-sync on network restore")
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "Failed to register network callback: ${e.message}")
+            networkCallback = null
+        }
+    }
+
+    /**
+     * Called when network becomes available. Syncs all pending data if conditions are met.
+     *
+     * Conditions:
+     * - User is logged in
+     * - Not currently recording a ride (don't interrupt active ride)
+     * - Cooldown period has passed (prevent rapid-fire syncs on network flapping)
+     * - There is pending data to sync
+     */
+    private suspend fun onNetworkBecameAvailable() {
+        // Skip if not logged in
+        if (!authRepository.isLoggedIn) {
+            android.util.Log.d(TAG, "Network available but not logged in, skipping sync")
+            return
+        }
+
+        // Skip if currently recording a ride - don't interfere with active ride
+        if (isRecording) {
+            android.util.Log.d(TAG, "Network available but ride in progress, skipping sync")
+            return
+        }
+
+        // Debounce - don't sync too frequently (handles network flapping)
+        val now = System.currentTimeMillis()
+        if (now - lastNetworkSyncAttemptTime < NETWORK_SYNC_COOLDOWN_MS) {
+            android.util.Log.d(TAG, "Network available but cooldown active (${(NETWORK_SYNC_COOLDOWN_MS - (now - lastNetworkSyncAttemptTime)) / 1000}s remaining), skipping sync")
+            return
+        }
+
+        // Check if there's anything to sync
+        val pendingRides = rideDao.getPendingRides()
+        val pendingDrills = drillResultDao.getPendingSync()
+        val pendingAchievements = achievementDao.getPendingSync()
+
+        if (pendingRides.isEmpty() && pendingDrills.isEmpty() && pendingAchievements.isEmpty()) {
+            android.util.Log.d(TAG, "Network available but nothing pending to sync")
+            return
+        }
+
+        android.util.Log.i(TAG, "Network restored - syncing ${pendingRides.size} rides, ${pendingDrills.size} drills, ${pendingAchievements.size} achievements")
+        lastNetworkSyncAttemptTime = now
+
+        _syncState.value = _syncState.value.copy(
+            status = SyncStatus.SYNCING,
+            errorMessage = null
+        )
+
+        try {
+            // Sync all pending data
+            val syncedRides = syncPendingRidesInternal()
+            val syncedDrills = syncPendingDrills()
+            val syncedAchievements = syncPendingAchievements()
+
+            android.util.Log.i(TAG, "Network sync complete: $syncedRides rides, $syncedDrills drills, $syncedAchievements achievements")
+
+            if (syncedRides > 0 || syncedDrills > 0 || syncedAchievements > 0) {
+                preferencesRepository.updateLastSyncTimestamp(System.currentTimeMillis())
+                _syncState.value = _syncState.value.copy(
+                    status = SyncStatus.SUCCESS,
+                    lastSyncTimestamp = System.currentTimeMillis()
+                )
+            } else {
+                // Nothing synced (maybe all failed)
+                val remaining = rideDao.getPendingRides().size + drillResultDao.getPendingSync().size + achievementDao.getPendingSync().size
+                if (remaining > 0) {
+                    _syncState.value = _syncState.value.copy(status = SyncStatus.FAILED)
+                } else {
+                    _syncState.value = _syncState.value.copy(status = SyncStatus.IDLE)
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "Network sync failed: ${e.message}")
+            _syncState.value = _syncState.value.copy(
+                status = SyncStatus.FAILED,
+                errorMessage = e.message
+            )
+        }
+    }
+
+    /**
+     * Notify SyncService of ride state changes.
+     * Called by RideStateMonitor when ride starts/ends.
+     *
+     * @param recording true if a ride is currently being recorded
+     */
+    fun notifyRideStateChanged(recording: Boolean) {
+        val wasRecording = isRecording
+        isRecording = recording
+        android.util.Log.d(TAG, "Ride state changed: recording=$recording")
+
+        // When ride ends, try to sync if we have network
+        if (wasRecording && !recording) {
+            scope.launch {
+                // Small delay to allow ride save to complete
+                delay(2000)
+                if (isNetworkAvailable() && authRepository.isLoggedIn) {
+                    android.util.Log.i(TAG, "Ride ended, checking for pending syncs")
+                    // This will respect the cooldown
+                    onNetworkBecameAvailable()
+                }
+            }
         }
     }
 
@@ -1045,6 +1198,18 @@ class SyncService(
      * Clean up resources. Call when service is no longer needed.
      */
     fun destroy() {
+        // Unregister network callback
+        networkCallback?.let { callback ->
+            try {
+                val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+                connectivityManager?.unregisterNetworkCallback(callback)
+                android.util.Log.i(TAG, "Unregistered network callback")
+            } catch (e: Exception) {
+                android.util.Log.w(TAG, "Failed to unregister network callback: ${e.message}")
+            }
+        }
+        networkCallback = null
+
         scope.cancel()
         android.util.Log.i(TAG, "SyncService destroyed")
     }

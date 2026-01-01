@@ -646,13 +646,127 @@ Theme persists in localStorage and syncs with Karoo app settings.
 - ❌ Ride notes/ratings (local only)
 - ❌ Deletions (not synchronized)
 
-**Sync Behavior:**
+#### Ride Sync Flow
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         Ride Sync Architecture                          │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌──────────────┐     ┌──────────────┐     ┌──────────────────────────┐ │
+│  │  Karoo Ride  │     │RideState     │     │   LiveDataCollector     │ │
+│  │   Recording  │────▶│  Monitor     │────▶│  (1s interval samples)  │ │
+│  └──────────────┘     └──────────────┘     └──────────────────────────┘ │
+│                              │                         │                │
+│                              │ Ride ends               │ Snapshots      │
+│                              ▼                         ▼                │
+│                       ┌──────────────┐     ┌──────────────────────────┐ │
+│                       │    Room DB   │◀────│   RideRepository.save()  │ │
+│                       │  (local)     │     │   syncStatus = PENDING   │ │
+│                       └──────────────┘     └──────────────────────────┘ │
+│                              │                                          │
+│                              ▼                                          │
+│  ┌───────────────────────────────────────────────────────────────────┐  │
+│  │                        SyncService                                │  │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌───────────────────┐  │  │
+│  │  │ Auto-sync after │  │ NetworkCallback │  │  Manual sync      │  │  │
+│  │  │ ride completion │  │ (offline→online)│  │  button press     │  │  │
+│  │  └────────┬────────┘  └────────┬────────┘  └─────────┬─────────┘  │  │
+│  │           └───────────────────┬┴─────────────────────┘            │  │
+│  │                               ▼                                   │  │
+│  │                    ┌──────────────────┐                           │  │
+│  │                    │ syncPendingRides │                           │  │
+│  │                    │   + snapshots    │                           │  │
+│  │                    └────────┬─────────┘                           │  │
+│  └─────────────────────────────┼─────────────────────────────────────┘  │
+│                                │ HTTPS POST /sync/ride                  │
+│                                ▼                                        │
+│  ┌──────────────────────────────────────────────────────────────────┐   │
+│  │                    api.kpedal.com                                │   │
+│  │         Cloudflare Worker → D1 Database (SQLite)                 │   │
+│  └──────────────────────────────────────────────────────────────────┘   │
+│                                │                                        │
+│                                ▼                                        │
+│                       ┌──────────────┐                                  │
+│                       │  Room DB     │  syncStatus = SYNCED             │
+│                       │  (update)    │  cloudId = response.id           │
+│                       └──────────────┘                                  │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Sync Triggers
+
+| Trigger | When | What Happens |
+|---------|------|--------------|
+| **Ride completion** | `RideState.Idle` after recording | Immediate sync of ride + snapshots |
+| **Network restored** | WiFi/cellular connected | Auto-sync pending rides (60s cooldown) |
+| **App start** | `KPedalExtension.onCreate()` | Sync pending rides + fetch settings |
+| **Manual button** | User taps Sync | Sync all pending + fetch settings |
+| **Settings change** | Any threshold/alert change | Upload settings (2s debounce) |
+
+#### Offline Ride Scenario
+
+```
+Timeline: Ride without network → Return home → Auto-sync
+
+1. 🚴 Start ride (no network)
+   └─ RideStateMonitor: notifyRideStateChanged(recording=true)
+   └─ SyncService: isRecording = true (blocks network sync)
+
+2. 🚴 During ride
+   └─ LiveDataCollector: samples every 1 second
+   └─ Creates RideSnapshot every minute
+
+3. 🏁 End ride
+   └─ RideStateMonitor: notifyRideStateChanged(recording=false)
+   └─ SyncService: isRecording = false
+   └─ RideRepository.saveRide(syncStatus=PENDING)
+   └─ SyncService.syncPendingRides() → FAILS (no network)
+   └─ Ride stays in Room DB with syncStatus=PENDING
+
+4. 🏠 Arrive home (WiFi connects)
+   └─ NetworkCallback.onAvailable() triggered
+   └─ SyncService.onNetworkBecameAvailable()
+       ├─ Check: isRecording? No ✓
+       ├─ Check: cooldown passed? Yes ✓
+       ├─ Check: logged in? Yes ✓
+       ├─ Check: pending rides? Yes ✓
+       └─ syncPendingRides() → SUCCESS
+   └─ Room DB: syncStatus=SYNCED, cloudId=123
+
+5. 💻 Open web portal
+   └─ Ride visible with all snapshots and metrics
+```
+
+#### Sync Status States
+
+| Status | Meaning | Next Action |
+|--------|---------|-------------|
+| `PENDING` | Saved locally, not yet uploaded | Will sync on next trigger |
+| `SYNCING` | Upload in progress | Wait for completion |
+| `SYNCED` | Successfully uploaded to cloud | No action needed |
+| `FAILED` | Upload failed (will retry) | Retry on next trigger |
+
+#### Error Handling & Retry
+
+| Error Type | Behavior |
+|------------|----------|
+| **No network** | Mark as PENDING, retry on NetworkCallback |
+| **HTTP 5xx** | Retry up to 3 times with exponential backoff |
+| **HTTP 401** | Refresh token, then retry |
+| **HTTP 403 (revoked)** | Mark device as revoked, stop syncing |
+| **Timeout** | Retry on next trigger |
+
+#### Sync Behavior Summary
 
 | Action | Result |
 |--------|--------|
-| Ride ends | Auto-sync ride + snapshots to cloud |
+| Ride ends (online) | Immediate sync ride + snapshots to cloud |
+| Ride ends (offline) | Save as PENDING, auto-sync when network restores |
+| Network restored | Auto-sync pending (60s cooldown, skips if riding) |
 | Change setting in app | Auto-upload to cloud (2s debounce) |
-| Press Sync button | Pull settings + sync pending rides |
+| Press Sync button | Pull settings + sync all pending rides |
 | Start ride | Pull settings from cloud |
 | Change on web | Saved to cloud, app gets it on next sync |
 | Delete ride on web | Deleted from cloud only, stays on device |

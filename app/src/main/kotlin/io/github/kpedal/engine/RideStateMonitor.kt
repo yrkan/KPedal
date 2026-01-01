@@ -99,6 +99,9 @@ class RideStateMonitor(
                     wasRecording = true
                     rideStartTimeMs = System.currentTimeMillis()
 
+                    // Notify SyncService that ride is in progress (prevents network sync during ride)
+                    syncService?.notifyRideStateChanged(recording = true)
+
                     // Fetch latest settings from cloud before ride starts
                     scope.launch {
                         try {
@@ -134,6 +137,9 @@ class RideStateMonitor(
                     extension.pedalingEngine.stopStreaming()
                     extension.alertManager.stopMonitoring()
                     extension.pedalMonitor.stopMonitoring()
+
+                    // Notify SyncService that ride ended (allows pending sync on network restore)
+                    syncService?.notifyRideStateChanged(recording = false)
 
                     val durationMs = System.currentTimeMillis() - rideStartTimeMs
                     autoSaveRide(durationMs)

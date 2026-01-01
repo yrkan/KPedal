@@ -1,6 +1,6 @@
 {
   "name": "kpedal-api",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -21,11 +21,11 @@
     "test": "vitest"
   },
   "dependencies": {
-    "hono": "^4.11.0",
+    "hono": "^4.11.3",
     "jose": "^6.1.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20251225.0",
+    "@cloudflare/workers-types": "^4.20260101.0",
     "@types/node": "^22.19.0",
     "typescript": "^5.7.0",
     "vitest": "^4.0.0",

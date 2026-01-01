@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Trapefficiëntie-analyse voor Karoo",
-    "version": "Versie 1.7.1",
+    "version": "Versie 1.7.2",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1591,7 +1591,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-extensie",
-      "version": "v1.7.1",
+      "version": "v1.7.2",
       "titleLine1": "Zie uw trapefficiëntie",
       "titleLine2": "in realtime",
       "subtitle": "Balans, Koppel-efficiëntie, Trapvloeiendheid — weergegeven op uw Karoo met realtime waarschuwingen en begeleide oefeningen.",
