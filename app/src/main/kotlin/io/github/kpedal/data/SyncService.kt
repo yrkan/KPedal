@@ -90,6 +90,7 @@ class SyncService(
         private const val TAG = "SyncService"
         private const val SETTINGS_UPLOAD_DEBOUNCE_MS = 2000L // 2 seconds debounce
         private const val NETWORK_SYNC_COOLDOWN_MS = 60_000L // 1 minute cooldown between network-triggered syncs
+        private const val APP_LAUNCH_SYNC_COOLDOWN_MS = 300_000L // 5 minutes cooldown between app launch syncs
     }
 
     // Network callback for automatic sync when network becomes available
@@ -102,6 +103,10 @@ class SyncService(
     // Debounce network-triggered syncs
     @Volatile
     private var lastNetworkSyncAttemptTime = 0L
+
+    // Debounce app launch syncs
+    @Volatile
+    private var lastAppLaunchSyncTime = 0L
 
     // Flag to prevent upload loop when applying cloud settings
     @Volatile
@@ -285,6 +290,113 @@ class SyncService(
                     onNetworkBecameAvailable()
                 }
             }
+        }
+    }
+
+    /**
+     * Sync pending data on app launch.
+     * Called when the app is opened to ensure any pending rides/drills/achievements are synced.
+     *
+     * Features:
+     * - 5-minute cooldown to prevent excessive syncs on rapid app open/close
+     * - Skips if not logged in, offline, or currently recording
+     * - Syncs rides, drills, and achievements in parallel
+     *
+     * @return Number of items synced (rides + drills + achievements), or -1 if skipped
+     */
+    suspend fun syncOnAppLaunch(): Int {
+        val now = System.currentTimeMillis()
+
+        // Get pending counts
+        val pendingRides = rideDao.getPendingRides()
+        val pendingDrills = drillResultDao.getPendingSync()
+        val pendingAchievements = achievementDao.getPendingSync()
+
+        // Build conditions and decide
+        val conditions = SyncOnLaunchDecider.Conditions(
+            isLoggedIn = authRepository.isLoggedIn,
+            isNetworkAvailable = isNetworkAvailable(),
+            isRecording = isRecording,
+            lastSyncTimeMs = lastAppLaunchSyncTime,
+            currentTimeMs = now,
+            cooldownMs = APP_LAUNCH_SYNC_COOLDOWN_MS,
+            pendingRidesCount = pendingRides.size,
+            pendingDrillsCount = pendingDrills.size,
+            pendingAchievementsCount = pendingAchievements.size
+        )
+
+        return when (val decision = SyncOnLaunchDecider.decide(conditions)) {
+            is SyncOnLaunchDecider.Decision.NotLoggedIn -> {
+                android.util.Log.d(TAG, "App launch sync: skipped (not logged in)")
+                -1
+            }
+            is SyncOnLaunchDecider.Decision.Offline -> {
+                android.util.Log.d(TAG, "App launch sync: skipped (offline)")
+                -1
+            }
+            is SyncOnLaunchDecider.Decision.Recording -> {
+                android.util.Log.d(TAG, "App launch sync: skipped (ride in progress)")
+                -1
+            }
+            is SyncOnLaunchDecider.Decision.Cooldown -> {
+                android.util.Log.d(TAG, "App launch sync: skipped (cooldown, ${decision.remainingSeconds}s remaining)")
+                -1
+            }
+            is SyncOnLaunchDecider.Decision.NothingPending -> {
+                android.util.Log.d(TAG, "App launch sync: nothing pending")
+                0
+            }
+            is SyncOnLaunchDecider.Decision.Sync -> {
+                executeSyncOnLaunch(decision)
+            }
+        }
+    }
+
+    /**
+     * Execute the actual sync after decision is made.
+     */
+    private suspend fun executeSyncOnLaunch(decision: SyncOnLaunchDecider.Decision.Sync): Int {
+        android.util.Log.i(TAG, "App launch sync: starting (${decision.pendingRides} rides, ${decision.pendingDrills} drills, ${decision.pendingAchievements} achievements)")
+        lastAppLaunchSyncTime = System.currentTimeMillis()
+
+        _syncState.value = _syncState.value.copy(
+            status = SyncStatus.SYNCING,
+            errorMessage = null
+        )
+
+        return try {
+            // Sync all pending data
+            val syncedRides = syncPendingRidesInternal()
+            val syncedDrills = syncPendingDrills()
+            val syncedAchievements = syncPendingAchievements()
+
+            val totalSynced = syncedRides + syncedDrills + syncedAchievements
+            android.util.Log.i(TAG, "App launch sync complete: $syncedRides rides, $syncedDrills drills, $syncedAchievements achievements")
+
+            if (totalSynced > 0) {
+                preferencesRepository.updateLastSyncTimestamp(System.currentTimeMillis())
+                _syncState.value = _syncState.value.copy(
+                    status = SyncStatus.SUCCESS,
+                    lastSyncTimestamp = System.currentTimeMillis()
+                )
+            } else {
+                // Nothing synced (maybe all failed)
+                val remaining = rideDao.getPendingRides().size + drillResultDao.getPendingSync().size + achievementDao.getPendingSync().size
+                if (remaining > 0) {
+                    _syncState.value = _syncState.value.copy(status = SyncStatus.FAILED)
+                } else {
+                    _syncState.value = _syncState.value.copy(status = SyncStatus.IDLE)
+                }
+            }
+
+            totalSynced
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "App launch sync failed: ${e.message}")
+            _syncState.value = _syncState.value.copy(
+                status = SyncStatus.FAILED,
+                errorMessage = e.message
+            )
+            -1
         }
     }
 

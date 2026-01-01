@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "ניתוח יעילות דיווש ל-Karoo",
-    "version": "גרסה 1.7.2",
+    "version": "גרסה 1.7.3",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1591,7 +1591,7 @@
   "landing": {
     "hero": {
       "eyebrow": "הרחבת Karoo",
-      "version": "v1.7.2",
+      "version": "v1.7.3",
       "titleLine1": "ראה את יעילות",
       "titleLine2": "הדיווש שלך בזמן אמת",
       "subtitle": "איזון, יעילות מומנט, חלקות דיווש — מוצגים ב-Karoo שלך עם התראות בזמן אמת ותרגילים מודרכים.",

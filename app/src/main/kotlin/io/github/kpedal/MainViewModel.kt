@@ -307,6 +307,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 android.util.Log.w(TAG, "Sync state observation cancelled: ${e.message}")
             }
         }
+
+        // Sync pending data on app launch (fire-and-forget)
+        launch {
+            try {
+                val synced = extension.syncService.syncOnAppLaunch()
+                if (synced > 0) {
+                    android.util.Log.i(TAG, "App launch sync: $synced items synced")
+                }
+            } catch (e: Exception) {
+                android.util.Log.w(TAG, "App launch sync failed: ${e.message}")
+            }
+        }
     }
 
     // Settings update methods

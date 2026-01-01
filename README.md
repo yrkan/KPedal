@@ -697,13 +697,80 @@ Theme persists in localStorage and syncs with Karoo app settings.
 
 #### Sync Triggers
 
-| Trigger | When | What Happens |
-|---------|------|--------------|
-| **Ride completion** | `RideState.Idle` after recording | Immediate sync of ride + snapshots |
-| **Network restored** | WiFi/cellular connected | Auto-sync pending rides (60s cooldown) |
-| **App start** | `KPedalExtension.onCreate()` | Sync pending rides + fetch settings |
-| **Manual button** | User taps Sync | Sync all pending + fetch settings |
-| **Settings change** | Any threshold/alert change | Upload settings (2s debounce) |
+| Trigger | When | Conditions | Cooldown |
+|---------|------|------------|:--------:|
+| **Ride completion** | `RideState.Idle` after recording | Online, logged in | None |
+| **Network restored** | WiFi/cellular connected | Not recording, logged in | 60s |
+| **App launch** | User opens KPedal app | Online, not recording, pending data | 5 min |
+| **Manual button** | User taps Sync | Logged in | None |
+| **Settings change** | Any threshold/alert change | Logged in | 2s debounce |
+
+#### Sync Decision Logic
+
+When the app launches or network is restored, `SyncOnLaunchDecider` evaluates conditions in priority order:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    Sync Decision Flow                                │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                     │
+│  ┌──────────────────┐                                               │
+│  │   Trigger Event  │  (app launch, network restore)                │
+│  └────────┬─────────┘                                               │
+│           │                                                         │
+│           ▼                                                         │
+│  ┌──────────────────┐     No      ┌─────────────────────────────┐   │
+│  │  User logged in? │────────────▶│ Skip: NotLoggedIn           │   │
+│  └────────┬─────────┘             └─────────────────────────────┘   │
+│           │ Yes                                                     │
+│           ▼                                                         │
+│  ┌──────────────────┐     No      ┌─────────────────────────────┐   │
+│  │ Network online?  │────────────▶│ Skip: Offline               │   │
+│  └────────┬─────────┘             └─────────────────────────────┘   │
+│           │ Yes                                                     │
+│           ▼                                                         │
+│  ┌──────────────────┐     Yes     ┌─────────────────────────────┐   │
+│  │ Ride recording?  │────────────▶│ Skip: Recording             │   │
+│  └────────┬─────────┘             └─────────────────────────────┘   │
+│           │ No                                                      │
+│           ▼                                                         │
+│  ┌──────────────────┐     No      ┌─────────────────────────────┐   │
+│  │ Cooldown passed? │────────────▶│ Skip: Cooldown (N sec left) │   │
+│  └────────┬─────────┘             └─────────────────────────────┘   │
+│           │ Yes                                                     │
+│           ▼                                                         │
+│  ┌──────────────────┐     No      ┌─────────────────────────────┐   │
+│  │ Pending data?    │────────────▶│ Skip: NothingPending        │   │
+│  └────────┬─────────┘             └─────────────────────────────┘   │
+│           │ Yes                                                     │
+│           ▼                                                         │
+│  ┌──────────────────────────────────────────────────────────────┐   │
+│  │ ✓ Sync: Upload pending rides, drills, achievements           │   │
+│  └──────────────────────────────────────────────────────────────┘   │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+#### Cooldown Periods
+
+| Trigger | Cooldown | Purpose |
+|---------|:--------:|---------|
+| **App launch sync** | 5 minutes | Prevent excessive syncs when user switches apps |
+| **Network restore sync** | 60 seconds | Avoid sync storms on flaky connections |
+| **Settings upload** | 2 seconds | Debounce rapid threshold adjustments |
+| **Alert cooldown** | 10-120s (configurable) | Prevent alert fatigue during ride |
+
+#### Pending Data Detection
+
+Sync checks for pending items across three tables:
+
+| Data Type | Pending Condition | Sync Endpoint |
+|-----------|-------------------|---------------|
+| **Rides** | `syncStatus = PENDING` | `POST /sync/ride` |
+| **Drills** | `syncStatus = PENDING` | `POST /drills` |
+| **Achievements** | `syncStatus = PENDING` | `POST /achievements` |
+
+Only items with `PENDING` status are uploaded. After successful upload, status changes to `SYNCED`.
 
 #### Offline Ride Scenario
 
