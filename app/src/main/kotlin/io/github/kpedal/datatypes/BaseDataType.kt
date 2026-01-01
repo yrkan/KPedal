@@ -272,23 +272,17 @@ abstract class BaseDataType(
         viewScope = scope
 
         // Rate-limited updates at 1Hz
+        // IMPORTANT: Try-catch INSIDE the loop to prevent a single error from killing the update loop
         scope.launch {
-            try {
-                while (isActive) {
-                    delay(VIEW_UPDATE_INTERVAL_MS)
-
-                    // Get latest metrics (skip if engine not ready)
-                    val metrics = try {
-                        kpedalExtension.pedalingEngine.metrics.value
-                    } catch (e: Exception) {
-                        continue // Skip this update cycle
-                    }
+            while (isActive) {
+                delay(VIEW_UPDATE_INTERVAL_MS)
+                try {
+                    val metrics = kpedalExtension.pedalingEngine.metrics.value
                     updateViews(cachedViews, metrics)
                     emitter.updateView(cachedViews)
-                }
-            } catch (e: Exception) {
-                if (isActive) {
-                    android.util.Log.w(TAG, "View update loop error: ${e.message}")
+                } catch (e: Exception) {
+                    // Log but continue - don't let one error freeze the view
+                    android.util.Log.w(TAG, "[$dataTypeId] View update error: ${e.message}")
                 }
             }
         }

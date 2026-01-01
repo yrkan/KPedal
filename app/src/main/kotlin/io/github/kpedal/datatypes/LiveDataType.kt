@@ -210,22 +210,17 @@ class LiveDataType(
         }
 
         // Rate-limited updates at 1Hz
+        // IMPORTANT: Try-catch INSIDE the loop to prevent a single error from killing the update loop
         scope.launch {
-            try {
-                while (isActive) {
-                    delay(VIEW_UPDATE_INTERVAL_MS)
-
-                    val liveData = try {
-                        kpedalExtension.pedalingEngine.liveDataCollector.liveData.value
-                    } catch (e: Exception) {
-                        continue
-                    }
+            while (isActive) {
+                delay(VIEW_UPDATE_INTERVAL_MS)
+                try {
+                    val liveData = kpedalExtension.pedalingEngine.liveDataCollector.liveData.value
                     updateViews(cachedViews, liveData)
                     emitter.updateView(cachedViews)
-                }
-            } catch (e: Exception) {
-                if (isActive) {
-                    android.util.Log.w(TAG, "View update loop error: ${e.message}")
+                } catch (e: Exception) {
+                    // Log but continue - don't let one error freeze the view
+                    android.util.Log.w(TAG, "View update error: ${e.message}")
                 }
             }
         }
