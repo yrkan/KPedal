@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Pedaling efficiency analytics for Karoo",
-    "version": "Version 1.7.4",
+    "version": "Version 1.7.5",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo Extension",
-      "version": "v1.7.4",
+      "version": "v1.7.5",
       "titleLine1": "See your pedaling",
       "titleLine2": "efficiency in real-time",
       "subtitle": "Balance, Torque Effectiveness, Pedal Smoothness — displayed on your Karoo with real-time alerts and guided drills.",

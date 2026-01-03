@@ -218,9 +218,12 @@ class LiveDataType(
                     val liveData = kpedalExtension.pedalingEngine.liveDataCollector.liveData.value
                     updateViews(cachedViews, liveData)
                     emitter.updateView(cachedViews)
-                } catch (e: Exception) {
-                    // Log but continue - don't let one error freeze the view
-                    android.util.Log.w(TAG, "View update error: ${e.message}")
+                } catch (t: Throwable) {
+                    // Rethrow CancellationException to allow proper coroutine cancellation
+                    if (t is kotlinx.coroutines.CancellationException) throw t
+                    // Catch other Throwable (including OutOfMemoryError) to prevent view freeze
+                    // Log but continue - don't let one error kill the update loop
+                    android.util.Log.w(TAG, "View update error: ${t.javaClass.simpleName}: ${t.message}")
                 }
             }
         }

@@ -152,8 +152,8 @@ class RideStateMonitor(
                         checkpointManager?.clearCheckpoint()
                     }
 
-                    // Notify SyncService that ride ended (allows pending sync on network restore)
-                    syncService?.notifyRideStateChanged(recording = false)
+                    // NOTE: notifyRideStateChanged(false) is called AFTER ride is saved
+                    // to avoid race condition where sync tries before ride exists in DB
 
                     val durationMs = System.currentTimeMillis() - rideStartTimeMs
                     autoSaveRide(durationMs)
@@ -213,6 +213,10 @@ class RideStateMonitor(
                 // Keep failure status visible longer
                 delay(STATUS_DISPLAY_MS * 2)
                 _saveStatus.value = SaveStatus.Idle
+            } finally {
+                // ALWAYS notify sync service that recording ended, even if save failed.
+                // Otherwise isRecording stays true forever and blocks all future syncs.
+                syncService?.notifyRideStateChanged(recording = false)
             }
         }
     }
