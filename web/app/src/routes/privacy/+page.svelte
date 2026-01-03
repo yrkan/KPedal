@@ -133,7 +133,8 @@
     { field: $t('privacy.content.localOnly.fields.ratings'), purpose: $t('privacy.content.localOnly.fields.ratingsPurpose') },
     { field: $t('privacy.content.localOnly.fields.notes'), purpose: $t('privacy.content.localOnly.fields.notesPurpose') },
     { field: $t('privacy.content.localOnly.fields.customDrills'), purpose: $t('privacy.content.localOnly.fields.customDrillsPurpose') },
-    { field: $t('privacy.content.localOnly.fields.onboarding'), purpose: $t('privacy.content.localOnly.fields.onboardingPurpose') }
+    { field: $t('privacy.content.localOnly.fields.onboarding'), purpose: $t('privacy.content.localOnly.fields.onboardingPurpose') },
+    { field: $t('privacy.content.localOnly.fields.checkpoint'), purpose: $t('privacy.content.localOnly.fields.checkpointPurpose') }
   ];
 
   $: usedNotStoredRows = [
@@ -170,7 +171,8 @@
     { field: $t('privacy.content.retention.local.drillResults'), purpose: $t('privacy.content.retention.local.drillResultsPeriod') },
     { field: $t('privacy.content.retention.local.achievements'), purpose: $t('privacy.content.retention.local.achievementsPeriod') },
     { field: $t('privacy.content.retention.local.customDrills'), purpose: $t('privacy.content.retention.local.customDrillsPeriod') },
-    { field: $t('privacy.content.retention.local.settings'), purpose: $t('privacy.content.retention.local.settingsPeriod') }
+    { field: $t('privacy.content.retention.local.settings'), purpose: $t('privacy.content.retention.local.settingsPeriod') },
+    { field: $t('privacy.content.retention.local.checkpoints'), purpose: $t('privacy.content.retention.local.checkpointsPeriod') }
   ];
 
   $: browserStorageRows = [
@@ -205,7 +207,7 @@
         <a href="/" class="back-link">← {$t('privacy.backToKpedal')}</a>
       {/if}
       <h1>{$t('privacy.title')}</h1>
-      <p class="last-updated">{$t('privacy.lastUpdated', { values: { date: 'December 27, 2025' } })}</p>
+      <p class="last-updated">{$t('privacy.lastUpdated', { values: { date: 'January 3, 2026' } })}</p>
     </header>
 
     <SummaryGrid items={summaryItems} />

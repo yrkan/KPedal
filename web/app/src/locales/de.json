@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Treteffizenz-Analyse für Karoo",
-    "version": "Version 1.7.3",
+    "version": "Version 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "Benutzerdefinierte Übungen",
           "customDrillsPurpose": "Trainingsübungen, die du selbst erstellst",
           "onboarding": "Onboarding-Status",
-          "onboardingPurpose": "Ob du das App-Tutorial abgeschlossen hast"
+          "onboardingPurpose": "Ob du das App-Tutorial abgeschlossen hast",
+          "checkpoint": "Absturz-Wiederherstellungs-Checkpoints",
+          "checkpointPurpose": "Temporäre Fahrtdaten, die während der Fahrt jede Minute gespeichert werden, um vor App-Abstürzen oder Geräteneustarts zu schützen"
         },
-        "note": "Diese Daten bleiben auf deinem Gerät. Wenn du die App deinstallierst, werden diese Daten gelöscht."
+        "note": "Diese Daten verbleiben auf Ihrem Gerät. Wenn Sie die App deinstallieren, werden diese Daten gelöscht. Absturz-Wiederherstellungs-Checkpoints werden automatisch gelöscht, wenn eine Fahrt normal endet, oder verfallen nach 24 Stunden."
       },
       "dontCollect": {
         "intro": "Während wir Leistungsmetriken für die Analyse erfassen, vermeiden wir spezifisch Standort- und Tracking-Daten:",
@@ -1551,7 +1553,9 @@
           "customDrills": "Benutzerdefinierte Übungen",
           "customDrillsPeriod": "Bis du sie löschst (nur lokal)",
           "settings": "Einstellungen",
-          "settingsPeriod": "Bis zur App-Deinstallation (zur Cloud synchronisiert wenn angemeldet)"
+          "settingsPeriod": "Bis zur App-Deinstallation (zur Cloud synchronisiert wenn angemeldet)",
+          "checkpoints": "Absturz-Wiederherstellungs-Checkpoints",
+          "checkpointsPeriod": "Bis Fahrt endet oder 24 Stunden"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-Erweiterung",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "Sieh deine Treteffizenz",
       "titleLine2": "in Echtzeit",
       "subtitle": "Balance, Drehmoment-Effektivität, Tritt-Gleichmäßigkeit - auf deinem Karoo mit Echtzeit-Alarmen und geführten Übungen.",

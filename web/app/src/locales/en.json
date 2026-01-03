@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Pedaling efficiency analytics for Karoo",
-    "version": "Version 1.7.3",
+    "version": "Version 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "Custom Drills",
           "customDrillsPurpose": "Training drills you create yourself",
           "onboarding": "Onboarding Status",
-          "onboardingPurpose": "Whether you've completed the app tutorial"
+          "onboardingPurpose": "Whether you've completed the app tutorial",
+          "checkpoint": "Crash Recovery Checkpoints",
+          "checkpointPurpose": "Temporary ride data saved every minute during rides to protect against app crashes or device restarts"
         },
-        "note": "This data remains on your device. If you uninstall the app, this data is deleted."
+        "note": "This data remains on your device. If you uninstall the app, this data is deleted. Crash recovery checkpoints are automatically cleared when a ride ends normally or expire after 24 hours."
       },
       "dontCollect": {
         "intro": "While we collect performance metrics for analysis, we specifically avoid location and tracking data:",
@@ -1551,7 +1553,9 @@
           "customDrills": "Custom drills",
           "customDrillsPeriod": "Until you delete them (local only)",
           "settings": "Settings",
-          "settingsPeriod": "Until app uninstall (synced to cloud if signed in)"
+          "settingsPeriod": "Until app uninstall (synced to cloud if signed in)",
+          "checkpoints": "Crash recovery checkpoints",
+          "checkpointsPeriod": "Until ride ends or 24 hours"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo Extension",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "See your pedaling",
       "titleLine2": "efficiency in real-time",
       "subtitle": "Balance, Torque Effectiveness, Pedal Smoothness — displayed on your Karoo with real-time alerts and guided drills.",

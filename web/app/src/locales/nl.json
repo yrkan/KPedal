@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Trapefficiëntie-analyse voor Karoo",
-    "version": "Versie 1.7.3",
+    "version": "Versie 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "Aangepaste oefeningen",
           "customDrillsPurpose": "Trainingsoefeningen die u zelf maakt",
           "onboarding": "Onboardingstatus",
-          "onboardingPurpose": "Of u de app-tutorial hebt voltooid"
+          "onboardingPurpose": "Of u de app-tutorial hebt voltooid",
+          "checkpoint": "Crash-herstel checkpoints",
+          "checkpointPurpose": "Tijdelijke ritgegevens die elke minuut worden opgeslagen tijdens ritten om te beschermen tegen app-crashes of apparaatherstarts"
         },
-        "note": "Deze gegevens blijven op uw apparaat. Als u de app verwijdert, worden deze gegevens verwijderd."
+        "note": "Deze gegevens blijven op uw apparaat. Als u de app verwijdert, worden deze gegevens verwijderd. Crash-herstel checkpoints worden automatisch gewist wanneer een rit normaal eindigt of vervallen na 24 uur."
       },
       "dontCollect": {
         "intro": "Hoewel wij prestatiestatistieken verzamelen voor analyse, vermijden wij specifiek locatie- en trackinggegevens:",
@@ -1551,7 +1553,9 @@
           "customDrills": "Aangepaste oefeningen",
           "customDrillsPeriod": "Tot u ze verwijdert (alleen lokaal)",
           "settings": "Instellingen",
-          "settingsPeriod": "Tot app-deïnstallatie (gesynchroniseerd naar cloud indien ingelogd)"
+          "settingsPeriod": "Tot app-deïnstallatie (gesynchroniseerd naar cloud indien ingelogd)",
+          "checkpoints": "Crash-herstel checkpoints",
+          "checkpointsPeriod": "Tot einde rit of 24 uur"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-extensie",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "Zie uw trapefficiëntie",
       "titleLine2": "in realtime",
       "subtitle": "Balans, Koppel-efficiëntie, Trapvloeiendheid — weergegeven op uw Karoo met realtime waarschuwingen en begeleide oefeningen.",

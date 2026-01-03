@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Karoo를 위한 페달링 효율 분석",
-    "version": "버전 1.7.3",
+    "version": "버전 1.7.4",
     "webTitle": "KPedal 웹"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "맞춤 훈련",
           "customDrillsPurpose": "직접 만드는 훈련 드릴",
           "onboarding": "온보딩 상태",
-          "onboardingPurpose": "앱 튜토리얼을 완료했는지 여부"
+          "onboardingPurpose": "앱 튜토리얼을 완료했는지 여부",
+          "checkpoint": "충돌 복구 체크포인트",
+          "checkpointPurpose": "앱 충돌이나 기기 재시작으로부터 보호하기 위해 라이드 중 매분 저장되는 임시 라이드 데이터"
         },
-        "note": "이 데이터는 기기에 남습니다. 앱을 제거하면 이 데이터가 삭제됩니다."
+        "note": "이 데이터는 기기에 남아 있습니다. 앱을 삭제하면 이 데이터도 삭제됩니다. 충돌 복구 체크포인트는 라이드가 정상적으로 종료되면 자동으로 지워지거나 24시간 후에 만료됩니다."
       },
       "dontCollect": {
         "intro": "분석을 위해 성능 지표를 수집하지만 위치 및 추적 데이터는 구체적으로 피합니다:",
@@ -1551,7 +1553,9 @@
           "customDrills": "맞춤 훈련",
           "customDrillsPeriod": "삭제할 때까지 (로컬만)",
           "settings": "설정",
-          "settingsPeriod": "앱 제거 시까지 (로그인 시 클라우드에 동기화)"
+          "settingsPeriod": "앱 제거 시까지 (로그인 시 클라우드에 동기화)",
+          "checkpoints": "충돌 복구 체크포인트",
+          "checkpointsPeriod": "라이드 종료 또는 24시간까지"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo 확장 프로그램",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "페달링 효율을",
       "titleLine2": "실시간으로 확인하세요",
       "subtitle": "밸런스, 토크 효율, 페달링 부드러움 — 실시간 알림과 가이드 훈련과 함께 Karoo에 표시됩니다.",

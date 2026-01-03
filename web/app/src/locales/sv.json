@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Trampeffektivitetsanalys för Karoo",
-    "version": "Version 1.7.3",
+    "version": "Version 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "Anpassade övningar",
           "customDrillsPurpose": "Träningsövningar du skapar själv",
           "onboarding": "Introduktionsstatus",
-          "onboardingPurpose": "Om du har slutfört apphandledningen"
+          "onboardingPurpose": "Om du har slutfört apphandledningen",
+          "checkpoint": "Krasch-återställningspunkter",
+          "checkpointPurpose": "Tillfällig turdata som sparas varje minut under turer för att skydda mot app-krascher eller enhetsomstarter"
         },
-        "note": "Denna data förblir på din enhet. Om du avinstallerar appen raderas denna data."
+        "note": "Denna data finns kvar på din enhet. Om du avinstallerar appen raderas denna data. Krasch-återställningspunkter rensas automatiskt när en tur avslutas normalt eller upphör efter 24 timmar."
       },
       "dontCollect": {
         "intro": "Medan vi samlar prestandamätvärden för analys undviker vi specifikt plats- och spårningsdata:",
@@ -1551,7 +1553,9 @@
           "customDrills": "Anpassade övningar",
           "customDrillsPeriod": "Tills du tar bort dem (endast lokalt)",
           "settings": "Inställningar",
-          "settingsPeriod": "Tills appavinstallation (synkas till molnet om inloggad)"
+          "settingsPeriod": "Tills appavinstallation (synkas till molnet om inloggad)",
+          "checkpoints": "Krasch-återställningspunkter",
+          "checkpointsPeriod": "Tills turen avslutas eller 24 timmar"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-tillägg",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "Se din tramp-",
       "titleLine2": "effektivitet i realtid",
       "subtitle": "Balans, vridmomentseffektivitet, trampjämnhet — visas på din Karoo med realtidsvarningar och guidade övningar.",

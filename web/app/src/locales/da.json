@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Pedal-effektivitetsanalyse til Karoo",
-    "version": "Version 1.7.3",
+    "version": "Version 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "Tilpassede øvelser",
           "customDrillsPurpose": "Træningsøvelser du selv opretter",
           "onboarding": "Onboarding-status",
-          "onboardingPurpose": "Om du har gennemført app-vejledningen"
+          "onboardingPurpose": "Om du har gennemført app-vejledningen",
+          "checkpoint": "Genoprettelses-checkpoints",
+          "checkpointPurpose": "Midlertidige turdata gemt hvert minut under ture for at beskytte mod app-nedbrud eller genstart af enhed"
         },
-        "note": "Disse data forbliver på din enhed. Hvis du afinstallerer appen, slettes disse data."
+        "note": "Disse data forbliver på din enhed. Hvis du afinstallerer appen, slettes disse data. Genoprettelses-checkpoints ryddes automatisk, når en tur afsluttes normalt, eller udløber efter 24 timer."
       },
       "dontCollect": {
         "intro": "Mens vi indsamler præstations-metrikker til analyse, undgår vi specifikt lokations- og sporingsdata:",
@@ -1551,7 +1553,9 @@
           "customDrills": "Tilpassede øvelser",
           "customDrillsPeriod": "Indtil du sletter dem (kun lokalt)",
           "settings": "Indstillinger",
-          "settingsPeriod": "Indtil app-afinstallation (synkroniseres til sky hvis logget ind)"
+          "settingsPeriod": "Indtil app-afinstallation (synkroniseres til sky hvis logget ind)",
+          "checkpoints": "Genoprettelses-checkpoints",
+          "checkpointsPeriod": "Indtil tur slutter eller 24 timer"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-udvidelse",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "Se din pedal-",
       "titleLine2": "effektivitet i realtid",
       "subtitle": "Balance, drejningsmoment-effektivitet, pedaljævnhed — vist på din Karoo med realtidsalarmer og guidede øvelser.",

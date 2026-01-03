@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Analyse de l'efficacité du pédalage pour Karoo",
-    "version": "Version 1.7.3",
+    "version": "Version 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "Exercices personnalisés",
           "customDrillsPurpose": "Exercices d'entraînement que vous créez vous-même",
           "onboarding": "Statut d'intégration",
-          "onboardingPurpose": "Si vous avez terminé le tutoriel de l'application"
+          "onboardingPurpose": "Si vous avez terminé le tutoriel de l'application",
+          "checkpoint": "Points de contrôle de récupération",
+          "checkpointPurpose": "Données de trajet temporaires sauvegardées chaque minute pendant les trajets pour protéger contre les plantages de l'application ou les redémarrages de l'appareil"
         },
-        "note": "Ces données restent sur votre appareil. Si vous désinstallez l'application, ces données sont supprimées."
+        "note": "Ces données restent sur votre appareil. Si vous désinstallez l'application, ces données sont supprimées. Les points de contrôle de récupération sont automatiquement effacés lorsqu'un trajet se termine normalement ou expirent après 24 heures."
       },
       "dontCollect": {
         "intro": "Bien que nous collections des métriques de performance pour l'analyse, nous évitons spécifiquement les données de localisation et de suivi :",
@@ -1551,7 +1553,9 @@
           "customDrills": "Exercices personnalisés",
           "customDrillsPeriod": "Jusqu'à ce que vous les supprimiez (local uniquement)",
           "settings": "Paramètres",
-          "settingsPeriod": "Jusqu'à desinstallation de l'app (synchronisés dans le cloud si connecté)"
+          "settingsPeriod": "Jusqu'à desinstallation de l'app (synchronisés dans le cloud si connecté)",
+          "checkpoints": "Points de contrôle de récupération",
+          "checkpointsPeriod": "Jusqu'à la fin du trajet ou 24 heures"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Extension Karoo",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "Voyez votre efficacité",
       "titleLine2": "de pédalage en temps réel",
       "subtitle": "Équilibre, Efficacité du couple, Fluidité du pédalage — affichés sur votre Karoo avec alertes en temps réel et exercices guidés.",

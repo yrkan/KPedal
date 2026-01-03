@@ -1,5 +1,6 @@
 package io.github.kpedal.engine
 
+import io.github.kpedal.engine.checkpoint.AccumulatorState
 import io.github.kpedal.ui.screens.LiveRideData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -620,6 +621,157 @@ class LiveDataCollector {
         synchronized(lock) {
             return snapshots.toList()
         }
+    }
+
+    // ========== Checkpoint Support ==========
+
+    /**
+     * Get current sample count for checkpoint decision.
+     */
+    fun getSampleCount(): Int {
+        synchronized(lock) {
+            return sampleCount
+        }
+    }
+
+    /**
+     * Create checkpoint state from all accumulators.
+     * Used for periodic checkpoint saving.
+     */
+    fun createCheckpointState(): AccumulatorState {
+        synchronized(lock) {
+            return AccumulatorState(
+                // Core metrics
+                sampleCount = sampleCount,
+                balanceLeftSum = balanceLeftSum,
+                balanceRightSum = balanceRightSum,
+                teLeftSum = teLeftSum,
+                teRightSum = teRightSum,
+                psLeftSum = psLeftSum,
+                psRightSum = psRightSum,
+                // Extended metrics
+                powerSum = powerSum,
+                powerMax = powerMax,
+                powerSampleCount = powerSampleCount,
+                cadenceSum = cadenceSum,
+                cadenceSampleCount = cadenceSampleCount,
+                heartRateSum = heartRateSum,
+                heartRateMax = heartRateMax,
+                heartRateSampleCount = heartRateSampleCount,
+                speedSum = speedSum,
+                speedSampleCount = speedSampleCount,
+                lastDistance = lastDistance,
+                // Pro cyclist metrics
+                lastElevationGain = lastElevationGain,
+                lastElevationLoss = lastElevationLoss,
+                gradeSum = gradeSum,
+                gradeMax = gradeMax,
+                gradeSampleCount = gradeSampleCount,
+                lastNormalizedPower = lastNormalizedPower,
+                lastEnergy = lastEnergy,
+                // Zone tracking
+                timeOptimalMs = timeOptimalMs,
+                timeAttentionMs = timeAttentionMs,
+                timeProblemMs = timeProblemMs,
+                // Initial period
+                initialBalanceSum = initialBalanceSum,
+                initialTeSum = initialTeSum,
+                initialPsSum = initialPsSum,
+                initialSampleCount = initialSampleCount,
+                initialPeriodComplete = initialPeriodComplete,
+                // Timing
+                startTimeMs = startTimeMs,
+                lastUpdateTimeMs = lastUpdateTimeMs,
+                // Minute accumulators
+                minuteBalanceLeftSum = minuteBalanceLeftSum,
+                minuteBalanceRightSum = minuteBalanceRightSum,
+                minuteTeLeftSum = minuteTeLeftSum,
+                minuteTeRightSum = minuteTeRightSum,
+                minutePsLeftSum = minutePsLeftSum,
+                minutePsRightSum = minutePsRightSum,
+                minutePowerSum = minutePowerSum,
+                minuteCadenceSum = minuteCadenceSum,
+                minuteHeartRateSum = minuteHeartRateSum,
+                minuteTimeOptimalMs = minuteTimeOptimalMs,
+                minuteTimeAttentionMs = minuteTimeAttentionMs,
+                minuteTimeProblemMs = minuteTimeProblemMs,
+                minuteSampleCount = minuteSampleCount,
+                lastSnapshotMinute = lastSnapshotMinute
+            )
+        }
+    }
+
+    /**
+     * Restore all accumulators from checkpoint state.
+     * Called on app launch to recover from crash.
+     */
+    fun restoreFromCheckpoint(state: AccumulatorState, restoredSnapshots: List<RideSnapshot>) {
+        synchronized(lock) {
+            // Core metrics
+            sampleCount = state.sampleCount
+            balanceLeftSum = state.balanceLeftSum
+            balanceRightSum = state.balanceRightSum
+            teLeftSum = state.teLeftSum
+            teRightSum = state.teRightSum
+            psLeftSum = state.psLeftSum
+            psRightSum = state.psRightSum
+            // Extended metrics
+            powerSum = state.powerSum
+            powerMax = state.powerMax
+            powerSampleCount = state.powerSampleCount
+            cadenceSum = state.cadenceSum
+            cadenceSampleCount = state.cadenceSampleCount
+            heartRateSum = state.heartRateSum
+            heartRateMax = state.heartRateMax
+            heartRateSampleCount = state.heartRateSampleCount
+            speedSum = state.speedSum
+            speedSampleCount = state.speedSampleCount
+            lastDistance = state.lastDistance
+            // Pro cyclist metrics
+            lastElevationGain = state.lastElevationGain
+            lastElevationLoss = state.lastElevationLoss
+            gradeSum = state.gradeSum
+            gradeMax = state.gradeMax
+            gradeSampleCount = state.gradeSampleCount
+            lastNormalizedPower = state.lastNormalizedPower
+            lastEnergy = state.lastEnergy
+            // Zone tracking
+            timeOptimalMs = state.timeOptimalMs
+            timeAttentionMs = state.timeAttentionMs
+            timeProblemMs = state.timeProblemMs
+            // Initial period
+            initialBalanceSum = state.initialBalanceSum
+            initialTeSum = state.initialTeSum
+            initialPsSum = state.initialPsSum
+            initialSampleCount = state.initialSampleCount
+            initialPeriodComplete = state.initialPeriodComplete
+            // Timing
+            startTimeMs = state.startTimeMs
+            lastUpdateTimeMs = state.lastUpdateTimeMs
+            // Minute accumulators
+            minuteBalanceLeftSum = state.minuteBalanceLeftSum
+            minuteBalanceRightSum = state.minuteBalanceRightSum
+            minuteTeLeftSum = state.minuteTeLeftSum
+            minuteTeRightSum = state.minuteTeRightSum
+            minutePsLeftSum = state.minutePsLeftSum
+            minutePsRightSum = state.minutePsRightSum
+            minutePowerSum = state.minutePowerSum
+            minuteCadenceSum = state.minuteCadenceSum
+            minuteHeartRateSum = state.minuteHeartRateSum
+            minuteTimeOptimalMs = state.minuteTimeOptimalMs
+            minuteTimeAttentionMs = state.minuteTimeAttentionMs
+            minuteTimeProblemMs = state.minuteTimeProblemMs
+            minuteSampleCount = state.minuteSampleCount
+            lastSnapshotMinute = state.lastSnapshotMinute
+            // Restore snapshots
+            snapshots.clear()
+            snapshots.addAll(restoredSnapshots)
+        }
+
+        android.util.Log.i(TAG, "Restored from checkpoint: samples=$sampleCount, snapshots=${restoredSnapshots.size}")
+
+        // Emit restored state to update UI
+        emitLiveData()
     }
 
     /**

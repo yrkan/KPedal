@@ -20,6 +20,7 @@ import io.github.kpedal.engine.AlertManager
 import io.github.kpedal.engine.PedalingEngine
 import io.github.kpedal.engine.PedalMonitor
 import io.github.kpedal.engine.RideStateMonitor
+import io.github.kpedal.engine.checkpoint.RideCheckpointManager
 import io.hammerhead.karooext.KarooSystemService
 import io.hammerhead.karooext.extension.KarooExtension
 import kotlinx.coroutines.CoroutineScope
@@ -103,6 +104,9 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
     val syncService: SyncService
         get() = _syncService ?: throw IllegalStateException("SyncService not initialized")
 
+    // Checkpoint manager for crash recovery
+    private var _checkpointManager: RideCheckpointManager? = null
+
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreate() {
@@ -134,13 +138,30 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
             drillRepository = drillRepository,
             syncService = syncService
         )
+        _checkpointManager = RideCheckpointManager(
+            checkpointDao = database.rideCheckpointDao(),
+            liveDataCollector = pedalingEngine.liveDataCollector
+        )
         _rideStateMonitor = RideStateMonitor(
             extension = this,
             rideRepository = rideRepository,
             liveDataCollector = pedalingEngine.liveDataCollector,
             achievementChecker = achievementChecker,
-            syncService = syncService
+            syncService = syncService,
+            checkpointManager = _checkpointManager
         )
+
+        // Try to restore from checkpoint (crash recovery)
+        serviceScope.launch(Dispatchers.IO) {
+            try {
+                val restored = _checkpointManager?.tryRestore() ?: false
+                if (restored) {
+                    android.util.Log.i(TAG, "Restored ride data from checkpoint")
+                }
+            } catch (e: Exception) {
+                android.util.Log.w(TAG, "Failed to restore checkpoint: ${e.message}")
+            }
+        }
         _alertManager = AlertManager(
             extension = this,
             pedalingEngine = pedalingEngine,
@@ -236,6 +257,12 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
     override fun onDestroy() {
         android.util.Log.i(TAG, "onDestroy called")
 
+        // Emergency checkpoint save if ride is in progress
+        if (_rideStateMonitor?.isRecording() == true) {
+            android.util.Log.i(TAG, "Emergency checkpoint save - ride in progress")
+            _checkpointManager?.emergencySave(wasRecording = true)
+        }
+
         // Clear instance first to prevent new observers
         instance = null
         _isConnected.value = false
@@ -251,6 +278,10 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
         // Cleanup RideStateMonitor
         _rideStateMonitor?.destroy()
         _rideStateMonitor = null
+
+        // Cleanup CheckpointManager
+        _checkpointManager?.destroy()
+        _checkpointManager = null
 
         // Cleanup PedalingEngine
         _pedalingEngine?.destroy()

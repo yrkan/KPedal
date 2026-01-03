@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Analisi dell'efficienza di pedalata per Karoo",
-    "version": "Versione 1.7.3",
+    "version": "Versione 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "Esercizi Personalizzati",
           "customDrillsPurpose": "Esercizi di allenamento che crei tu stesso",
           "onboarding": "Stato Onboarding",
-          "onboardingPurpose": "Se hai completato il tutorial dell'app"
+          "onboardingPurpose": "Se hai completato il tutorial dell'app",
+          "checkpoint": "Checkpoint di recupero crash",
+          "checkpointPurpose": "Dati di viaggio temporanei salvati ogni minuto durante i viaggi per proteggere da crash dell'app o riavvii del dispositivo"
         },
-        "note": "Questi dati rimangono sul tuo dispositivo. Se disinstalli l'app, questi dati vengono eliminati."
+        "note": "Questi dati rimangono sul tuo dispositivo. Se disinstalli l'app, questi dati vengono eliminati. I checkpoint di recupero crash vengono automaticamente cancellati quando un viaggio termina normalmente o scadono dopo 24 ore."
       },
       "dontCollect": {
         "intro": "Mentre raccogliamo metriche prestazioni per l'analisi, evitiamo specificamente dati di posizione è tracciamento:",
@@ -1551,7 +1553,9 @@
           "customDrills": "Esercizi personalizzati",
           "customDrillsPeriod": "Fino a quando li elimini (solo locali)",
           "settings": "Impostazioni",
-          "settingsPeriod": "Fino alla disinstallazione app (sincronizzate al cloud se connesso)"
+          "settingsPeriod": "Fino alla disinstallazione app (sincronizzate al cloud se connesso)",
+          "checkpoints": "Checkpoint di recupero crash",
+          "checkpointsPeriod": "Fino alla fine del viaggio o 24 ore"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Estensione Karoo",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "Vedi la tua efficienza",
       "titleLine2": "di pedalata in tempo reale",
       "subtitle": "Bilanciamento, Efficacia della Coppia, Fluidità di Pedalata — visualizzati sul tuo Karoo con avvisi in tempo reale ed esercizi guidati.",

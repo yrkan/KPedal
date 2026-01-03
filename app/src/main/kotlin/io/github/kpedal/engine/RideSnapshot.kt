@@ -1,9 +1,13 @@
 package io.github.kpedal.engine
 
+import kotlinx.serialization.Serializable
+
 /**
  * Per-minute snapshot of ride metrics.
  * Stored in cloud only (not local database) for time-series charts.
+ * @Serializable for checkpoint persistence.
  */
+@Serializable
 data class RideSnapshot(
     val minuteIndex: Int,         // 0, 1, 2...
     val timestamp: Long,          // Unix ms

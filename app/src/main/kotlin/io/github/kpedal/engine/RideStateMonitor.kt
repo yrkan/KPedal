@@ -3,6 +3,7 @@ package io.github.kpedal.engine
 import io.github.kpedal.KPedalExtension
 import io.github.kpedal.data.RideRepository
 import io.github.kpedal.data.SyncService
+import io.github.kpedal.engine.checkpoint.RideCheckpointManager
 import io.hammerhead.karooext.models.RideState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +34,8 @@ class RideStateMonitor(
     private val rideRepository: RideRepository,
     private val liveDataCollector: LiveDataCollector,
     private val achievementChecker: AchievementChecker? = null,
-    private val syncService: SyncService? = null
+    private val syncService: SyncService? = null,
+    private val checkpointManager: RideCheckpointManager? = null
 ) {
     companion object {
         private const val TAG = "RideStateMonitor"
@@ -118,13 +120,19 @@ class RideStateMonitor(
                     extension.pedalMonitor.startMonitoring()
                     liveDataCollector.startCollecting()
 
+                    // Start periodic checkpoints for crash recovery
+                    checkpointManager?.startPeriodicCheckpoints()
+
                     android.util.Log.i(TAG, "Ride started - began collecting")
                 }
             }
 
             is RideState.Paused -> {
-                // Paused - continue collecting but note the pause
+                // Paused - save checkpoint immediately for crash recovery
                 android.util.Log.d(TAG, "Ride paused (auto=${rideState.auto})")
+                scope.launch {
+                    checkpointManager?.saveCheckpoint(wasRecording = true)
+                }
             }
 
             is RideState.Idle -> {
@@ -137,6 +145,12 @@ class RideStateMonitor(
                     extension.pedalingEngine.stopStreaming()
                     extension.alertManager.stopMonitoring()
                     extension.pedalMonitor.stopMonitoring()
+
+                    // Stop periodic checkpoints - ride ended normally
+                    checkpointManager?.stopPeriodicCheckpoints()
+                    scope.launch {
+                        checkpointManager?.clearCheckpoint()
+                    }
 
                     // Notify SyncService that ride ended (allows pending sync on network restore)
                     syncService?.notifyRideStateChanged(recording = false)
@@ -270,6 +284,12 @@ class RideStateMonitor(
             android.util.Log.e(TAG, "Failed to check achievements: ${e.message}")
         }
     }
+
+    /**
+     * Check if ride is currently recording.
+     * Used for emergency checkpoint save on service destroy.
+     */
+    fun isRecording(): Boolean = wasRecording
 
     /**
      * Clean up resources.

@@ -16,8 +16,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  * - Version 6+: Proper migrations to preserve user data
  */
 @Database(
-    entities = [RideEntity::class, DrillResultEntity::class, AchievementEntity::class, CustomDrillEntity::class],
-    version = 10,
+    entities = [RideEntity::class, DrillResultEntity::class, AchievementEntity::class, CustomDrillEntity::class, RideCheckpointEntity::class],
+    version = 11,
     exportSchema = true
 )
 abstract class KPedalDatabase : RoomDatabase() {
@@ -26,6 +26,7 @@ abstract class KPedalDatabase : RoomDatabase() {
     abstract fun drillResultDao(): DrillResultDao
     abstract fun achievementDao(): AchievementDao
     abstract fun customDrillDao(): CustomDrillDao
+    abstract fun rideCheckpointDao(): RideCheckpointDao
 
     companion object {
         private const val DATABASE_NAME = "kpedal_rides.db"
@@ -91,11 +92,32 @@ abstract class KPedalDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Migration from v10 to v11: Add ride checkpoint table for crash recovery.
+         * Single-row table storing serialized ride data for recovery after crash.
+         */
+        private val MIGRATION_10_11 = object : Migration(10, 11) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("""
+                    CREATE TABLE IF NOT EXISTS ride_checkpoint (
+                        id INTEGER NOT NULL PRIMARY KEY,
+                        rideStartTimeMs INTEGER NOT NULL,
+                        lastCheckpointMs INTEGER NOT NULL,
+                        sampleCount INTEGER NOT NULL,
+                        accumulatorsJson TEXT NOT NULL,
+                        snapshotsJson TEXT NOT NULL,
+                        wasRecording INTEGER NOT NULL
+                    )
+                """.trimIndent())
+            }
+        }
+
         private val MIGRATIONS = arrayOf<Migration>(
             MIGRATION_6_7,
             MIGRATION_7_8,
             MIGRATION_8_9,
-            MIGRATION_9_10
+            MIGRATION_9_10,
+            MIGRATION_10_11
         )
 
         fun getInstance(context: Context): KPedalDatabase {

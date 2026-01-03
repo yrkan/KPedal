@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Analityka efektywności pedalowania dla Karoo",
-    "version": "Wersja 1.7.3",
+    "version": "Wersja 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "Własne ćwiczenia",
           "customDrillsPurpose": "Ćwiczenia treningowe, które sam tworzysz",
           "onboarding": "Status wprowadzenia",
-          "onboardingPurpose": "Czy ukończyłeś samouczek aplikacji"
+          "onboardingPurpose": "Czy ukończyłeś samouczek aplikacji",
+          "checkpoint": "Punkty kontrolne odzyskiwania po awarii",
+          "checkpointPurpose": "Tymczasowe dane przejazdu zapisywane co minutę podczas przejazdów w celu ochrony przed awariami aplikacji lub restartami urządzenia"
         },
-        "note": "Te dane pozostają na urządzeniu. Jeśli odinstalujesz aplikację, te dane zostaną usunięte."
+        "note": "Te dane pozostają na Twoim urządzeniu. Jeśli odinstalujesz aplikację, te dane zostaną usunięte. Punkty kontrolne odzyskiwania są automatycznie czyszczone po normalnym zakończeniu przejazdu lub wygasają po 24 godzinach."
       },
       "dontCollect": {
         "intro": "Chociaż zbieramy metryki wydajności do analizy, celowo unikamy danych lokalizacji i śledzenia:",
@@ -1551,7 +1553,9 @@
           "customDrills": "Własne ćwiczenia",
           "customDrillsPeriod": "Do momentu usunięcia (tylko lokalne)",
           "settings": "Ustawienia",
-          "settingsPeriod": "Do odinstalowania aplikacji (synchronizowane do chmury przy zalogowaniu)"
+          "settingsPeriod": "Do odinstalowania aplikacji (synchronizowane do chmury przy zalogowaniu)",
+          "checkpoints": "Punkty kontrolne odzyskiwania po awarii",
+          "checkpointsPeriod": "Do końca przejazdu lub 24 godziny"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Rozszerzenie Karoo",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "Zobacz efektywność",
       "titleLine2": "pedalowania w czasie rzeczywistym",
       "subtitle": "Balans, efektywność momentu obrotowego, płynność pedalowania - wyświetlane na Karoo z alertami w czasie rzeczywistym i ćwiczeniami z przewodnikiem.",

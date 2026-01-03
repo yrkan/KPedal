@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Karoo 踏频效率分析工具",
-    "version": "版本 1.7.3",
+    "version": "版本 1.7.4",
     "webTitle": "KPedal 网页版"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "自定义训练",
           "customDrillsPurpose": "您自己创建的训练",
           "onboarding": "新手引导状态",
-          "onboardingPurpose": "是否已完成应用教程"
+          "onboardingPurpose": "是否已完成应用教程",
+          "checkpoint": "崩溃恢复检查点",
+          "checkpointPurpose": "骑行期间每分钟保存的临时骑行数据，用于防止应用崩溃或设备重启导致的数据丢失"
         },
-        "note": "这些数据保留在您的设备上。如果卸载应用，这些数据将被删除。"
+        "note": "此数据保留在您的设备上。如果卸载应用程序，此数据将被删除。崩溃恢复检查点在骑行正常结束时自动清除，或在24小时后过期。"
       },
       "dontCollect": {
         "intro": "虽然我们收集用于分析的表现指标，但我们特别避免收集位置和追踪数据：",
@@ -1551,7 +1553,9 @@
           "customDrills": "自定义训练",
           "customDrillsPeriod": "直到您删除（仅本地）",
           "settings": "设置",
-          "settingsPeriod": "直到应用卸载（如已登录同步到云端）"
+          "settingsPeriod": "直到应用卸载（如已登录同步到云端）",
+          "checkpoints": "崩溃恢复检查点",
+          "checkpointsPeriod": "直到骑行结束或24小时"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo 扩展",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "实时查看您的",
       "titleLine2": "踏频效率",
       "subtitle": "平衡、扭矩效率、踏频平滑度 — 在 Karoo 上显示，配有实时警报和引导式训练。",

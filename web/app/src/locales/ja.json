@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Karoo向けペダリング効率分析",
-    "version": "バージョン 1.7.3",
+    "version": "バージョン 1.7.4",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1436,9 +1436,11 @@
           "customDrills": "カスタムドリル",
           "customDrillsPurpose": "自分で作成したトレーニングドリル",
           "onboarding": "オンボーディング状態",
-          "onboardingPurpose": "アプリチュートリアルを完了したかどうか"
+          "onboardingPurpose": "アプリチュートリアルを完了したかどうか",
+          "checkpoint": "クラッシュ回復チェックポイント",
+          "checkpointPurpose": "アプリのクラッシュやデバイスの再起動から保護するために、ライド中に毎分保存される一時的なライドデータ"
         },
-        "note": "このデータはデバイスに残ります。アプリをアンインストールすると、このデータは削除されます。"
+        "note": "このデータはデバイスに残ります。アプリをアンインストールすると、このデータは削除されます。クラッシュ回復チェックポイントは、ライドが正常に終了すると自動的にクリアされるか、24時間後に期限切れになります。"
       },
       "dontCollect": {
         "intro": "分析用のパフォーマンス指標を収集しますが、位置情報と追跡データは特に避けています：",
@@ -1551,7 +1553,9 @@
           "customDrills": "カスタムドリル",
           "customDrillsPeriod": "削除するまで（ローカルのみ）",
           "settings": "設定",
-          "settingsPeriod": "アプリアンインストールまで（サインイン時はクラウドに同期）"
+          "settingsPeriod": "アプリアンインストールまで（サインイン時はクラウドに同期）",
+          "checkpoints": "クラッシュ回復チェックポイント",
+          "checkpointsPeriod": "ライド終了まで、または24時間"
         }
       },
       "thirdParties": {
@@ -1591,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo拡張機能",
-      "version": "v1.7.3",
+      "version": "v1.7.4",
       "titleLine1": "ペダリング効率を",
       "titleLine2": "リアルタイムで確認",
       "subtitle": "バランス、トルク効率、ペダルスムーズネス — リアルタイムアラートとガイド付きドリルでKarooに表示。",
