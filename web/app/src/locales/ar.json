@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "تحليلات كفاءة التبديل لـ Karoo",
-    "version": "الإصدار 1.7.5",
+    "version": "الإصدار 1.7.6",
     "webTitle": "KPedal ويب"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "إضافة Karoo",
-      "version": "v1.7.5",
+      "version": "v1.7.6",
       "titleLine1": "شاهد كفاءة",
       "titleLine2": "تبديلك فورياً",
       "subtitle": "التوازن، فعالية عزم الدوران، سلاسة التبديل — مع تنبيهات فورية وتمارين موجّهة على Karoo.",

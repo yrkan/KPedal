@@ -9,7 +9,7 @@
   <div class="settings-card">
     <div class="about-content">
       <p class="app-name">KPedal Web</p>
-      <p class="app-version">Version 1.7.5</p>
+      <p class="app-version">Version 1.7.6</p>
       <p class="app-description">{$t('app.tagline')}</p>
     </div>
   </div>
