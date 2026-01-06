@@ -202,6 +202,12 @@
     <string name="banner">Banner</string>
     <string name="options">OPTIES</string>
     <string name="wake_screen">Scherm wekken</string>
+    <string name="sensor_disconnect">ALS SENSOR WEG</string>
+    <string name="show_dashes">Toon --</string>
+    <string name="show_alert_option">Melding</string>
+    <string name="do_nothing">Niets</string>
+    <string name="alert_sensor_lost_title">SENSOR WEG</string>
+    <string name="alert_sensor_lost_detail">Vermogensmeter ontkoppeld</string>
     <string name="cooldown">Afkoelperiode</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Verbonden</string>
     <string name="disconnected">Niet verbonden</string>
+    <string name="searching">Zoeken…</string>
+    <string name="not_available">Niet beschikbaar</string>
+    <string name="idle">Inactief</string>
     <string name="live_data">LIVE DATA</string>
     <string name="data_flowing">Data stroomt correct</string>
     <string name="signal_details">SIGNAALDETAILS</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Controleer pedaalbatterij</string>
     <string name="pedal_tip_low_rate">Lage snelheid kan interferentie aangeven</string>
     <string name="pedal_tip_move_away">Ga weg van andere ANT+ apparaten</string>
+    <string name="pedal_tip_enable_dynamics">Schakel IAV Dynamic-modus in de Favero-app in (of equivalent voor uw pedalen)</string>
+    <string name="pedal_tip_no_power_meter">Geen vermogensmeter gedetecteerd in opgeslagen sensoren</string>
+    <string name="sensor_diagnostics">Sensor Diagnose</string>
+    <string name="power_meter">Vermogensmeter</string>
+    <string name="cycling_dynamics">Fietsdynamiek</string>
+    <string name="detected_sensors">Gedetecteerde Sensoren</string>
+    <string name="active_sensor">Actieve bron</string>
+    <string name="multiple_sensors_tip">Meerdere vermogensmeters gedetecteerd. Om te wisselen: Karoo Instellingen → Sensoren → schakel de ongewenste uit</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
 
     <!-- History Screen -->
     <string name="ride_history">Ritgeschiedenis</string>

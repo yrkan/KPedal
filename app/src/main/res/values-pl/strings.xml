@@ -202,6 +202,12 @@
     <string name="banner">Baner</string>
     <string name="options">OPCJE</string>
     <string name="wake_screen">Wybudź ekran</string>
+    <string name="sensor_disconnect">JEŚLI CZUJNIK UTRACONY</string>
+    <string name="show_dashes">Pokaż --</string>
+    <string name="show_alert_option">Alert</string>
+    <string name="do_nothing">Nic</string>
+    <string name="alert_sensor_lost_title">CZUJNIK UTRACONY</string>
+    <string name="alert_sensor_lost_detail">Miernik mocy odłączony</string>
     <string name="cooldown">Przerwa</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Połączono</string>
     <string name="disconnected">Rozłączono</string>
+    <string name="searching">Szukanie…</string>
+    <string name="not_available">Niedostępne</string>
+    <string name="idle">Bezczynny</string>
     <string name="live_data">DANE NA ŻYWO</string>
     <string name="data_flowing">Dane przepływają prawidłowo</string>
     <string name="signal_details">SZCZEGÓŁY SYGNAŁU</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Sprawdź baterię pedałów</string>
     <string name="pedal_tip_low_rate">Niska częstotliwość może wskazywać na zakłócenia</string>
     <string name="pedal_tip_move_away">Oddal się od innych urządzeń ANT+</string>
+    <string name="pedal_tip_enable_dynamics">Włącz tryb IAV Dynamic w aplikacji Favero (lub odpowiednik dla twoich pedałów)</string>
+    <string name="pedal_tip_no_power_meter">Nie wykryto miernika mocy w zapisanych czujnikach</string>
+    <string name="sensor_diagnostics">Diagnostyka czujników</string>
+    <string name="power_meter">Miernik mocy</string>
+    <string name="cycling_dynamics">Dynamika pedałowania</string>
+    <string name="detected_sensors">Wykryte czujniki</string>
+    <string name="active_sensor">Aktywne źródło</string>
+    <string name="multiple_sensors_tip">Wykryto wiele mierników mocy. Aby przełączyć: Ustawienia Karoo → Czujniki → wyłącz niechciany</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
 
     <!-- History Screen -->
     <string name="ride_history">Historia przejazdów</string>

@@ -97,7 +97,7 @@ class RideStateMonitor(
         when (rideState) {
             is RideState.Recording -> {
                 if (!wasRecording) {
-                    // Ride started - start all monitoring components
+                    // Ride started - start recording-specific components
                     wasRecording = true
                     rideStartTimeMs = System.currentTimeMillis()
 
@@ -114,10 +114,13 @@ class RideStateMonitor(
                         }
                     }
 
-                    // Start streaming and monitoring only when ride begins
-                    extension.pedalingEngine.startStreaming()
+                    // Note: streaming and PedalMonitor are started in KPedalExtension.onCreate()
+                    // when KarooSystem connects, so data is available immediately
+
+                    // Start alert monitoring only during recording
                     extension.alertManager.startMonitoring()
-                    extension.pedalMonitor.startMonitoring()
+
+                    // Start collecting ride statistics
                     liveDataCollector.startCollecting()
 
                     // Start periodic checkpoints for crash recovery
@@ -137,14 +140,15 @@ class RideStateMonitor(
 
             is RideState.Idle -> {
                 if (wasRecording) {
-                    // Ride ended - stop monitoring and trigger auto-save
+                    // Ride ended - stop recording-specific components and trigger auto-save
                     wasRecording = false
                     liveDataCollector.stopCollecting()
 
-                    // Stop streaming to save resources when not riding
-                    extension.pedalingEngine.stopStreaming()
+                    // Stop alert monitoring (only active during recording)
                     extension.alertManager.stopMonitoring()
-                    extension.pedalMonitor.stopMonitoring()
+
+                    // Note: streaming and PedalMonitor keep running to show live data
+                    // even when not recording (started in KPedalExtension.onCreate())
 
                     // Stop periodic checkpoints - ride ended normally
                     checkpointManager?.stopPeriodicCheckpoints()

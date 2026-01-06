@@ -84,12 +84,33 @@ class PowerBalanceDataType(
         }
     }
 
-    override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
+    override fun updateViews(
+        views: RemoteViews,
+        metrics: PedalingMetrics,
+        layoutSize: LayoutSize,
+        sensorDisconnected: Boolean
+    ) {
         // Power value - in all layouts (always show, even without pedal data)
         views.setTextViewText(R.id.power_value, "${metrics.power}")
 
-        // Balance - show dash when no pedal data available
-        if (metrics.hasData) {
+        // Balance - show "---" when sensor disconnected, "-" when no data
+        val displayText = when {
+            sensorDisconnected -> SENSOR_DISCONNECTED
+            !metrics.hasData -> NO_DATA
+            else -> null // Use actual values
+        }
+
+        if (displayText != null) {
+            views.setTextViewText(R.id.balance_left, displayText)
+            views.setTextViewText(R.id.balance_right, displayText)
+            views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
+            views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
+
+            // Reset progress bar to center when no data
+            if (layoutSize == LayoutSize.LARGE) {
+                views.setProgressBar(R.id.balance_bar, 100, 50, false)
+            }
+        } else {
             val left = metrics.balanceLeft.toInt()
             val right = metrics.balance.toInt()
             views.setTextViewText(R.id.balance_left, "$left")
@@ -97,18 +118,8 @@ class PowerBalanceDataType(
             applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
 
             // Progress bar - only in LARGE
-            if (currentLayoutSize == LayoutSize.LARGE) {
+            if (layoutSize == LayoutSize.LARGE) {
                 views.setProgressBar(R.id.balance_bar, 100, right, false)
-            }
-        } else {
-            views.setTextViewText(R.id.balance_left, NO_DATA)
-            views.setTextViewText(R.id.balance_right, NO_DATA)
-            views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
-            views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
-
-            // Reset progress bar to center when no data
-            if (currentLayoutSize == LayoutSize.LARGE) {
-                views.setProgressBar(R.id.balance_bar, 100, 50, false)
             }
         }
     }

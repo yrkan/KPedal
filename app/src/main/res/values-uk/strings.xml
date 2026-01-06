@@ -202,6 +202,12 @@
     <string name="banner">Банер</string>
     <string name="options">ОПЦІЇ</string>
     <string name="wake_screen">Пробуджувати екран</string>
+    <string name="sensor_disconnect">ЯКЩО СЕНСОР ВТРАЧЕНО</string>
+    <string name="show_dashes">Показувати --</string>
+    <string name="show_alert_option">Сповіщення</string>
+    <string name="do_nothing">Нічого</string>
+    <string name="alert_sensor_lost_title">СЕНСОР ВТРАЧЕНО</string>
+    <string name="alert_sensor_lost_detail">Вимірювач потужності відключено</string>
     <string name="cooldown">Інтервал</string>
     <string name="cooldown_15s">15с</string>
     <string name="cooldown_30s">30с</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Підключено</string>
     <string name="disconnected">Відключено</string>
+    <string name="searching">Пошук…</string>
+    <string name="not_available">Недоступно</string>
+    <string name="idle">Очікування</string>
     <string name="live_data">ДАНІ В РЕАЛЬНОМУ ЧАСІ</string>
     <string name="data_flowing">Дані надходять коректно</string>
     <string name="signal_details">ДЕТАЛІ СИГНАЛУ</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Перевірте заряд батареї педалей</string>
     <string name="pedal_tip_low_rate">Низька частота може вказувати на перешкоди</string>
     <string name="pedal_tip_move_away">Відійдіть від інших ANT+ пристроїв</string>
+    <string name="pedal_tip_enable_dynamics">Увімкніть режим IAV Dynamic у додатку Favero (або аналогічний для ваших педалей)</string>
+    <string name="pedal_tip_no_power_meter">Вимірювач потужності не виявлено серед збережених сенсорів</string>
+    <string name="sensor_diagnostics">Діагностика сенсорів</string>
+    <string name="power_meter">Вимірювач потужності</string>
+    <string name="cycling_dynamics">Динаміка педалювання</string>
+    <string name="detected_sensors">Виявлені сенсори</string>
+    <string name="active_sensor">Активне джерело</string>
+    <string name="multiple_sensors_tip">Виявлено кілька вимірювачів потужності. Для перемикання: Налаштування Karoo → Сенсори → вимкніть непотрібний</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
 
     <!-- History Screen -->
     <string name="ride_history">Історія поїздок</string>

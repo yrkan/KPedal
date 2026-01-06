@@ -92,23 +92,35 @@ class EfficiencyDataType(
         }
     }
 
-    override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
-        if (!metrics.hasData) {
-            // No data - show dashes
-            views.setTextViewText(R.id.te_avg, NO_DATA)
+    override fun updateViews(
+        views: RemoteViews,
+        metrics: PedalingMetrics,
+        layoutSize: LayoutSize,
+        sensorDisconnected: Boolean
+    ) {
+        // Show "---" when sensor disconnected, "-" when no data
+        val displayText = when {
+            sensorDisconnected -> SENSOR_DISCONNECTED
+            !metrics.hasData -> NO_DATA
+            else -> null // Use actual values
+        }
+
+        if (displayText != null) {
+            // No data or disconnected - show placeholder
+            views.setTextViewText(R.id.te_avg, displayText)
             views.setTextColor(R.id.te_avg, StatusCalculator.COLOR_WHITE)
 
-            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
-                views.setTextViewText(R.id.ps_avg, NO_DATA)
+            if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setTextViewText(R.id.ps_avg, displayText)
                 views.setTextColor(R.id.ps_avg, StatusCalculator.COLOR_WHITE)
             }
 
-            if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
-                views.setTextViewText(R.id.te_left, NO_DATA)
-                views.setTextViewText(R.id.te_right, NO_DATA)
-                views.setTextViewText(R.id.ps_left, NO_DATA)
-                views.setTextViewText(R.id.ps_right, NO_DATA)
-                views.setTextViewText(R.id.ps_avg, NO_DATA)
+            if (layoutSize == LayoutSize.MEDIUM || layoutSize == LayoutSize.LARGE || layoutSize == LayoutSize.NARROW) {
+                views.setTextViewText(R.id.te_left, displayText)
+                views.setTextViewText(R.id.te_right, displayText)
+                views.setTextViewText(R.id.ps_left, displayText)
+                views.setTextViewText(R.id.ps_right, displayText)
+                views.setTextViewText(R.id.ps_avg, displayText)
                 views.setTextColor(R.id.te_left, StatusCalculator.COLOR_WHITE)
                 views.setTextColor(R.id.te_right, StatusCalculator.COLOR_WHITE)
                 views.setTextColor(R.id.ps_left, StatusCalculator.COLOR_WHITE)
@@ -122,21 +134,21 @@ class EfficiencyDataType(
         val teAvgStatus = StatusCalculator.teStatus(metrics.torqueEffAvg)
 
         // TE avg - format depends on layout (SMALL shows just number, others show %)
-        val teText = if (currentLayoutSize == LayoutSize.SMALL) "$teAvg" else "$teAvg%"
+        val teText = if (layoutSize == LayoutSize.SMALL) "$teAvg" else "$teAvg%"
         views.setTextViewText(R.id.te_avg, teText)
         views.setTextColor(R.id.te_avg, StatusCalculator.statusColor(teAvgStatus))
 
         // PS avg - in SMALL, SMALL_WIDE and MEDIUM_WIDE
-        if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+        if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
             val psAvg = metrics.pedalSmoothAvg.toInt()
             val psAvgStatus = StatusCalculator.psStatus(metrics.pedalSmoothAvg)
-            val psText = if (currentLayoutSize == LayoutSize.SMALL) "$psAvg" else "$psAvg%"
+            val psText = if (layoutSize == LayoutSize.SMALL) "$psAvg" else "$psAvg%"
             views.setTextViewText(R.id.ps_avg, psText)
             views.setTextColor(R.id.ps_avg, StatusCalculator.statusColor(psAvgStatus))
         }
 
         // Full details - MEDIUM, LARGE and NARROW
-        if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
+        if (layoutSize == LayoutSize.MEDIUM || layoutSize == LayoutSize.LARGE || layoutSize == LayoutSize.NARROW) {
             val teL = metrics.torqueEffLeft.toInt()
             val teR = metrics.torqueEffRight.toInt()
             val teLStatus = StatusCalculator.teStatus(metrics.torqueEffLeft)

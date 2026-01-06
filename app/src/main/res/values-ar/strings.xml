@@ -202,6 +202,12 @@
     <string name="banner">لافتة</string>
     <string name="options">الخيارات</string>
     <string name="wake_screen">تشغيل الشاشة</string>
+    <string name="sensor_disconnect">إذا فُقد المستشعر</string>
+    <string name="show_dashes">عرض --</string>
+    <string name="show_alert_option">تنبيه</string>
+    <string name="do_nothing">لا شيء</string>
+    <string name="alert_sensor_lost_title">المستشعر فُقد</string>
+    <string name="alert_sensor_lost_detail">مقياس القدرة منفصل</string>
     <string name="cooldown">فترة الراحة</string>
     <string name="cooldown_15s">15ث</string>
     <string name="cooldown_30s">30ث</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">متصل</string>
     <string name="disconnected">غير متصل</string>
+    <string name="searching">جارٍ البحث…</string>
+    <string name="not_available">غير متاح</string>
+    <string name="idle">خامل</string>
     <string name="live_data">بيانات مباشرة</string>
     <string name="data_flowing">البيانات تتدفق بشكل صحيح</string>
     <string name="signal_details">تفاصيل الإشارة</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">تحقق من بطارية الدواسة</string>
     <string name="pedal_tip_low_rate">المعدل المنخفض قد يشير إلى تداخل</string>
     <string name="pedal_tip_move_away">ابتعد عن أجهزة ANT+ الأخرى</string>
+    <string name="pedal_tip_enable_dynamics">فعّل وضع IAV Dynamic في تطبيق Favero (أو ما يعادله لدواساتك)</string>
+    <string name="pedal_tip_no_power_meter">لم يتم اكتشاف مقياس طاقة في المستشعرات المحفوظة</string>
+    <string name="sensor_diagnostics">تشخيص المستشعرات</string>
+    <string name="power_meter">مقياس الطاقة</string>
+    <string name="cycling_dynamics">ديناميكية الدوّاسات</string>
+    <string name="detected_sensors">المستشعرات المكتشفة</string>
+    <string name="active_sensor">المصدر النشط</string>
+    <string name="multiple_sensors_tip">تم اكتشاف عدة أجهزة قياس الطاقة. للتبديل: إعدادات Karoo ← أجهزة الاستشعار ← عطّل غير المرغوب</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
 
     <!-- History Screen -->
     <string name="ride_history">سجل الرحلات</string>

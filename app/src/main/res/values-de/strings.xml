@@ -202,6 +202,12 @@
     <string name="banner">Banner</string>
     <string name="options">OPTIONEN</string>
     <string name="wake_screen">Bildschirm aktivieren</string>
+    <string name="sensor_disconnect">BEI SENSOR-VERLUST</string>
+    <string name="show_dashes">-- anzeigen</string>
+    <string name="show_alert_option">Alarm</string>
+    <string name="do_nothing">Nichts</string>
+    <string name="alert_sensor_lost_title">SENSOR VERLOREN</string>
+    <string name="alert_sensor_lost_detail">Leistungsmesser getrennt</string>
     <string name="cooldown">Abklingzeit</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Verbunden</string>
     <string name="disconnected">Getrennt</string>
+    <string name="searching">Suche…</string>
+    <string name="not_available">Nicht verfügbar</string>
+    <string name="idle">Inaktiv</string>
     <string name="live_data">LIVE-DATEN</string>
     <string name="data_flowing">Daten fließen korrekt</string>
     <string name="signal_details">SIGNALDETAILS</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Prüfen Sie die Pedalbatterie</string>
     <string name="pedal_tip_low_rate">Niedrige Rate kann auf Störungen hinweisen</string>
     <string name="pedal_tip_move_away">Entfernen Sie sich von anderen ANT+-Geräten</string>
+    <string name="pedal_tip_enable_dynamics">Aktivieren Sie den IAV Dynamic-Modus in der Favero-App (oder entsprechend für Ihre Pedale)</string>
+    <string name="pedal_tip_no_power_meter">Kein Leistungsmesser in gespeicherten Sensoren erkannt</string>
+    <string name="sensor_diagnostics">Sensor-Diagnose</string>
+    <string name="power_meter">Leistungsmesser</string>
+    <string name="cycling_dynamics">Pedaldynamik</string>
+    <string name="detected_sensors">Erkannte Sensoren</string>
+    <string name="active_sensor">Aktive Quelle</string>
+    <string name="multiple_sensors_tip">Mehrere Leistungsmesser erkannt. Zum Wechseln: Karoo-Einstellungen → Sensoren → deaktiviere den unerwünschten</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
 
     <!-- History Screen -->
     <string name="ride_history">Fahrtenverlauf</string>

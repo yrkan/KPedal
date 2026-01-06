@@ -202,6 +202,12 @@
     <string name="banner">Banner</string>
     <string name="options">OPCIONES</string>
     <string name="wake_screen">Encender pantalla</string>
+    <string name="sensor_disconnect">SI PIERDE SENSOR</string>
+    <string name="show_dashes">Mostrar --</string>
+    <string name="show_alert_option">Alerta</string>
+    <string name="do_nothing">Nada</string>
+    <string name="alert_sensor_lost_title">SENSOR PERDIDO</string>
+    <string name="alert_sensor_lost_detail">Potenciómetro desconectado</string>
     <string name="cooldown">Intervalo</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Conectado</string>
     <string name="disconnected">Desconectado</string>
+    <string name="searching">Buscando…</string>
+    <string name="not_available">No disponible</string>
+    <string name="idle">Inactivo</string>
     <string name="live_data">DATOS EN VIVO</string>
     <string name="data_flowing">Los datos fluyen correctamente</string>
     <string name="signal_details">DETALLES DE SEÑAL</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Revisa la batería del pedal</string>
     <string name="pedal_tip_low_rate">Baja frecuencia puede indicar interferencia</string>
     <string name="pedal_tip_move_away">Aléjate de otros dispositivos ANT+</string>
+    <string name="pedal_tip_enable_dynamics">Activa el modo IAV Dynamic en la app Favero (o equivalente para tus pedales)</string>
+    <string name="pedal_tip_no_power_meter">No se detectó potenciómetro en los sensores guardados</string>
+    <string name="sensor_diagnostics">Diagnóstico de Sensores</string>
+    <string name="power_meter">Potenciómetro</string>
+    <string name="cycling_dynamics">Dinámica de Pedaleo</string>
+    <string name="detected_sensors">Sensores Detectados</string>
+    <string name="active_sensor">Fuente activa</string>
+    <string name="multiple_sensors_tip">Múltiples medidores de potencia detectados. Para cambiar: Ajustes Karoo → Sensores → desactiva el que no quieras</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
 
     <!-- History Screen -->
     <string name="ride_history">Historial de Salidas</string>

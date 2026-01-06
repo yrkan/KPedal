@@ -202,6 +202,12 @@
     <string name="banner">Баннер</string>
     <string name="options">ОПЦИИ</string>
     <string name="wake_screen">Пробуждать экран</string>
+    <string name="sensor_disconnect">ЕСЛИ ДАТЧИК ПОТЕРЯН</string>
+    <string name="show_dashes">Показывать --</string>
+    <string name="show_alert_option">Уведомление</string>
+    <string name="do_nothing">Ничего</string>
+    <string name="alert_sensor_lost_title">ДАТЧИК ПОТЕРЯН</string>
+    <string name="alert_sensor_lost_detail">Измеритель мощности отключен</string>
     <string name="cooldown">Интервал</string>
     <string name="cooldown_15s">15с</string>
     <string name="cooldown_30s">30с</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Подключено</string>
     <string name="disconnected">Отключено</string>
+    <string name="searching">Поиск…</string>
+    <string name="not_available">Недоступно</string>
+    <string name="idle">Ожидание</string>
     <string name="live_data">ДАННЫЕ В РЕАЛЬНОМ ВРЕМЕНИ</string>
     <string name="data_flowing">Данные поступают корректно</string>
     <string name="signal_details">ДЕТАЛИ СИГНАЛА</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Проверьте заряд батареи педалей</string>
     <string name="pedal_tip_low_rate">Низкая частота может указывать на помехи</string>
     <string name="pedal_tip_move_away">Отойдите от других ANT+ устройств</string>
+    <string name="pedal_tip_enable_dynamics">Включите режим IAV Dynamic в приложении Favero (или аналогичный для ваших педалей)</string>
+    <string name="pedal_tip_no_power_meter">Измеритель мощности не обнаружен среди сохранённых датчиков</string>
+    <string name="sensor_diagnostics">Диагностика датчиков</string>
+    <string name="power_meter">Измеритель мощности</string>
+    <string name="cycling_dynamics">Динамика педалирования</string>
+    <string name="detected_sensors">Обнаруженные датчики</string>
+    <string name="active_sensor">Активный источник</string>
+    <string name="multiple_sensors_tip">Обнаружено несколько измерителей мощности. Для переключения: Настройки Karoo → Датчики → отключите ненужный</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 
     <!-- History Screen -->
     <string name="ride_history">История поездок</string>

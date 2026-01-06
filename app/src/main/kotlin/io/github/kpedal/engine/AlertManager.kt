@@ -12,6 +12,7 @@ import io.github.kpedal.data.AlertTriggerLevel
 import io.github.kpedal.data.MetricAlertConfig
 import io.github.kpedal.data.MetricType
 import io.github.kpedal.data.PreferencesRepository
+import io.github.kpedal.data.SensorDisconnectAction
 import io.hammerhead.karooext.models.InRideAlert
 import io.hammerhead.karooext.models.PlayBeepPattern
 import io.hammerhead.karooext.models.TurnScreenOn
@@ -41,6 +42,10 @@ class AlertManager(
         private const val ALERT_BALANCE = "kpedal_balance"
         private const val ALERT_TE = "kpedal_te"
         private const val ALERT_PS = "kpedal_ps"
+        private const val ALERT_SENSOR_DISCONNECT = "kpedal_sensor_disconnect"
+
+        // Disconnect alert cooldown (don't spam if sensor keeps reconnecting/disconnecting)
+        private const val DISCONNECT_ALERT_COOLDOWN_MS = 30_000L
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -49,6 +54,7 @@ class AlertManager(
     private val balanceLastAlert = AtomicLong(0)
     private val teLastAlert = AtomicLong(0)
     private val psLastAlert = AtomicLong(0)
+    private val disconnectLastAlert = AtomicLong(0)
 
     // Previous status tracking for transition detection
     private val balancePrevStatus = AtomicReference(StatusCalculator.Status.OPTIMAL)
@@ -96,6 +102,75 @@ class AlertManager(
 
                 checkAlerts(metrics, alertSettings, thresholds)
             }
+        }
+
+        // Monitor sensor state for disconnect alerts (only if SHOW_ALERT is enabled)
+        scope.launch {
+            combine(
+                pedalingEngine.sensorState,
+                preferencesRepository.alertSettingsFlow
+            ) { state, settings ->
+                state to settings.sensorDisconnectAction
+            }.collect { (state, action) ->
+                if (state is SensorStreamState.Disconnected && action == SensorDisconnectAction.SHOW_ALERT) {
+                    handleSensorDisconnect()
+                }
+            }
+        }
+    }
+
+    /**
+     * Handle sensor disconnect by alerting the user.
+     */
+    private fun handleSensorDisconnect() {
+        val now = System.currentTimeMillis()
+        val lastAlert = disconnectLastAlert.get()
+
+        // Check cooldown
+        if (now - lastAlert < DISCONNECT_ALERT_COOLDOWN_MS) {
+            android.util.Log.d(TAG, "Sensor disconnect alert skipped (cooldown)")
+            return
+        }
+
+        // Update last alert time with CAS
+        if (!disconnectLastAlert.compareAndSet(lastAlert, now)) return
+
+        android.util.Log.w(TAG, "Dispatching sensor disconnect alert")
+
+        try {
+            // Wake screen
+            extension.karooSystem.dispatch(TurnScreenOn)
+
+            // Visual alert
+            extension.karooSystem.dispatch(
+                InRideAlert(
+                    id = ALERT_SENSOR_DISCONNECT,
+                    icon = R.drawable.ic_kpedal,
+                    title = extension.getString(R.string.alert_sensor_lost_title),
+                    detail = extension.getString(R.string.alert_sensor_lost_detail),
+                    autoDismissMs = 8000L,
+                    backgroundColor = R.color.alert_bg,
+                    textColor = R.color.alert_text
+                )
+            )
+
+            // Sound alert (urgent pattern)
+            extension.karooSystem.dispatch(
+                PlayBeepPattern(
+                    listOf(
+                        PlayBeepPattern.Tone(frequency = 1000, durationMs = 200),
+                        PlayBeepPattern.Tone(frequency = null, durationMs = 100),
+                        PlayBeepPattern.Tone(frequency = 800, durationMs = 200),
+                        PlayBeepPattern.Tone(frequency = null, durationMs = 100),
+                        PlayBeepPattern.Tone(frequency = 600, durationMs = 200)
+                    )
+                )
+            )
+
+            // Vibration
+            playVibration(StatusCalculator.Status.PROBLEM)
+        } catch (e: Exception) {
+            android.util.Log.e(TAG, "Failed to dispatch disconnect alert: ${e.message}")
         }
     }
 
@@ -414,6 +489,7 @@ class AlertManager(
         balanceLastAlert.set(0)
         teLastAlert.set(0)
         psLastAlert.set(0)
+        disconnectLastAlert.set(0)
         balancePrevStatus.set(StatusCalculator.Status.OPTIMAL)
         tePrevStatus.set(StatusCalculator.Status.OPTIMAL)
         psPrevStatus.set(StatusCalculator.Status.OPTIMAL)

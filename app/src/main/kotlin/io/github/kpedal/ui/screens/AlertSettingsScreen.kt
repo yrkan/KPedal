@@ -22,6 +22,7 @@ import io.github.kpedal.R
 import io.github.kpedal.data.AlertSettings
 import io.github.kpedal.data.AlertTriggerLevel
 import io.github.kpedal.data.MetricAlertConfig
+import io.github.kpedal.data.SensorDisconnectAction
 import io.github.kpedal.ui.theme.Theme
 
 /**
@@ -33,6 +34,7 @@ fun AlertSettingsScreen(
     onBack: () -> Unit,
     onUpdateGlobalEnabled: (Boolean) -> Unit,
     onUpdateScreenWake: (Boolean) -> Unit,
+    onUpdateSensorDisconnectAction: (SensorDisconnectAction) -> Unit,
     onUpdateBalanceConfig: (MetricAlertConfig) -> Unit,
     onUpdateTeConfig: (MetricAlertConfig) -> Unit,
     onUpdatePsConfig: (MetricAlertConfig) -> Unit
@@ -233,7 +235,37 @@ fun AlertSettingsScreen(
                     onCheckedChange = onUpdateScreenWake
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Sensor disconnect behavior
+                SectionLabel(stringResource(R.string.sensor_disconnect))
+                Spacer(modifier = Modifier.height(6.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    SensorDisconnectChip(
+                        label = stringResource(R.string.show_dashes),
+                        selected = alertSettings.sensorDisconnectAction == SensorDisconnectAction.SHOW_DASHES,
+                        onClick = { onUpdateSensorDisconnectAction(SensorDisconnectAction.SHOW_DASHES) },
+                        modifier = Modifier.weight(1f)
+                    )
+                    SensorDisconnectChip(
+                        label = stringResource(R.string.show_alert_option),
+                        selected = alertSettings.sensorDisconnectAction == SensorDisconnectAction.SHOW_ALERT,
+                        onClick = { onUpdateSensorDisconnectAction(SensorDisconnectAction.SHOW_ALERT) },
+                        modifier = Modifier.weight(1f)
+                    )
+                    SensorDisconnectChip(
+                        label = stringResource(R.string.do_nothing),
+                        selected = alertSettings.sensorDisconnectAction == SensorDisconnectAction.DISABLED,
+                        onClick = { onUpdateSensorDisconnectAction(SensorDisconnectAction.DISABLED) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // Cooldown
                 CooldownRow(
@@ -431,6 +463,30 @@ private fun MethodChip(
             color = if (enabled) Theme.colors.background else Theme.colors.dim,
             fontSize = 11.sp,
             fontWeight = if (enabled) FontWeight.Bold else FontWeight.Normal
+        )
+    }
+}
+
+@Composable
+private fun SensorDisconnectChip(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(6.dp))
+            .background(if (selected) Theme.colors.surface else Theme.colors.background)
+            .clickable { onClick() }
+            .padding(vertical = 10.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = label,
+            color = if (selected) Theme.colors.text else Theme.colors.dim,
+            fontSize = 10.sp,
+            fontWeight = if (selected) FontWeight.Medium else FontWeight.Normal
         )
     }
 }

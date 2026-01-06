@@ -47,6 +47,71 @@ import io.github.kpedal.ui.theme.KPedalTheme
 import kotlinx.coroutines.flow.first
 import io.github.kpedal.ui.theme.Theme
 import io.github.kpedal.util.LocaleHelper
+import androidx.compose.runtime.State
+import androidx.compose.runtime.produceState
+import io.github.kpedal.engine.PedalingMetrics
+import io.github.kpedal.engine.SensorStreamState
+import kotlinx.coroutines.delay
+
+/**
+ * Collect metrics directly from Extension's PedalingEngine.
+ * Waits for extension to become available, then collects reactively.
+ * No polling - pure StateFlow collection.
+ */
+@Composable
+fun collectMetrics(): State<PedalingMetrics> {
+    return produceState(initialValue = PedalingMetrics()) {
+        // Wait for extension to become available
+        var extension: KPedalExtension? = null
+        var waitCount = 0
+        while (extension == null) {
+            extension = KPedalExtension.instance
+            if (extension == null) {
+                waitCount++
+                if (waitCount % 10 == 0) {
+                    android.util.Log.d("CollectMetrics", "Waiting for extension... (${waitCount * 100}ms)")
+                }
+                delay(100)
+            }
+        }
+        android.util.Log.i("CollectMetrics", "Extension found, starting collection. karooConnected=${extension.karooSystem.connected}")
+        // Collect from extension's StateFlow - extension is guaranteed non-null
+        extension.pedalingEngine.metrics.collect {
+            android.util.Log.d("CollectMetrics", "Received: hasData=${it.hasData}, bal=${it.balance.toInt()}%")
+            value = it
+        }
+    }
+}
+
+/**
+ * Collect sensor state directly from Extension's PedalingEngine.
+ */
+@Composable
+fun collectSensorState(): State<SensorStreamState> {
+    return produceState<SensorStreamState>(initialValue = SensorStreamState.Idle) {
+        var extension: KPedalExtension? = null
+        while (extension == null) {
+            extension = KPedalExtension.instance
+            if (extension == null) delay(100)
+        }
+        extension.pedalingEngine.sensorState.collect { value = it }
+    }
+}
+
+/**
+ * Collect live ride data directly from Extension's LiveDataCollector.
+ */
+@Composable
+fun collectLiveData(): State<io.github.kpedal.ui.screens.LiveRideData> {
+    return produceState(initialValue = io.github.kpedal.ui.screens.LiveRideData()) {
+        var extension: KPedalExtension? = null
+        while (extension == null) {
+            extension = KPedalExtension.instance
+            if (extension == null) delay(100)
+        }
+        extension.pedalingEngine.liveDataCollector.liveData.collect { value = it }
+    }
+}
 
 class MainActivity : ComponentActivity() {
 
@@ -125,10 +190,10 @@ fun KPedalApp(
             )
         }
 
-        // Pedal Info screen
+        // Pedal Info screen (reactive metrics from Extension)
         composable("pedal-info") {
             val pedalInfo by viewModel.pedalInfo.collectAsState()
-            val metrics by viewModel.metrics.collectAsState()
+            val metrics by collectMetrics()
             PedalInfoScreen(
                 pedalInfo = pedalInfo,
                 metrics = metrics,
@@ -146,7 +211,7 @@ fun KPedalApp(
 
         // Layout 1: Quick Glance
         composable("quick-glance") {
-            val metrics by viewModel.metrics.collectAsState()
+            val metrics by collectMetrics()
             QuickGlanceScreen(
                 metrics = metrics,
                 onBack = { navController.popBackStack() }
@@ -155,7 +220,7 @@ fun KPedalApp(
 
         // Layout 2: Power + Balance
         composable("power-balance") {
-            val metrics by viewModel.metrics.collectAsState()
+            val metrics by collectMetrics()
             PowerBalanceScreen(
                 metrics = metrics,
                 onBack = { navController.popBackStack() }
@@ -164,7 +229,7 @@ fun KPedalApp(
 
         // Layout 3: Efficiency
         composable("efficiency") {
-            val metrics by viewModel.metrics.collectAsState()
+            val metrics by collectMetrics()
             EfficiencyScreen(
                 metrics = metrics,
                 onBack = { navController.popBackStack() }
@@ -173,7 +238,7 @@ fun KPedalApp(
 
         // Layout 4: Full Overview
         composable("full-overview") {
-            val metrics by viewModel.metrics.collectAsState()
+            val metrics by collectMetrics()
             FullOverviewScreen(
                 metrics = metrics,
                 onBack = { navController.popBackStack() }
@@ -182,7 +247,7 @@ fun KPedalApp(
 
         // Layout 5: Balance Trend
         composable("balance-trend") {
-            val metrics by viewModel.metrics.collectAsState()
+            val metrics by collectMetrics()
             BalanceTrendScreen(
                 metrics = metrics,
                 onBack = { navController.popBackStack() }
@@ -191,7 +256,7 @@ fun KPedalApp(
 
         // Layout 6: Single Balance
         composable("single-balance") {
-            val metrics by viewModel.metrics.collectAsState()
+            val metrics by collectMetrics()
             SingleBalanceScreen(
                 metrics = metrics,
                 onBack = { navController.popBackStack() }
@@ -258,17 +323,23 @@ fun KPedalApp(
                 onBack = { navController.popBackStack() },
                 onUpdateGlobalEnabled = viewModel::updateGlobalAlertsEnabled,
                 onUpdateScreenWake = viewModel::updateScreenWakeOnAlert,
+                onUpdateSensorDisconnectAction = viewModel::updateSensorDisconnectAction,
                 onUpdateBalanceConfig = viewModel::updateBalanceAlertConfig,
                 onUpdateTeConfig = viewModel::updateTeAlertConfig,
                 onUpdatePsConfig = viewModel::updatePsAlertConfig
             )
         }
 
-        // Live (collects only when active)
+        // Live (reactive collection from Extension)
         composable("live") {
-            val liveData by viewModel.liveData.collectAsState()
+            val liveData by collectLiveData()
+            val metrics by collectMetrics()
+            val sensorState by collectSensorState()
+
             LiveScreen(
                 liveData = liveData,
+                metrics = metrics,
+                sensorState = sensorState,
                 onBack = { navController.popBackStack() },
                 onSave = { viewModel.manualSaveRide() }
             )
@@ -406,14 +477,14 @@ fun KPedalApp(
             )
         }
 
-        // Drill Execution - Active drill
+        // Drill Execution - Active drill (reactive metrics from Extension)
         composable(
             route = "drill-execution/{drillId}",
             arguments = listOf(navArgument("drillId") { type = NavType.StringType })
         ) { backStackEntry ->
             val drillId = backStackEntry.arguments?.getString("drillId") ?: return@composable
             val drillState by viewModel.drillState.collectAsState()
-            val metrics by viewModel.metrics.collectAsState()
+            val metrics by collectMetrics()
 
             // Navigate to result when drill completes or is cancelled
             LaunchedEffect(drillState?.status) {

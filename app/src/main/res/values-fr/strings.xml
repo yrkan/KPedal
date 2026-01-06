@@ -202,6 +202,12 @@
     <string name="banner">Banniere</string>
     <string name="options">OPTIONS</string>
     <string name="wake_screen">Allumer l\'ecran</string>
+    <string name="sensor_disconnect">SI CAPTEUR PERDU</string>
+    <string name="show_dashes">Afficher --</string>
+    <string name="show_alert_option">Alerte</string>
+    <string name="do_nothing">Rien</string>
+    <string name="alert_sensor_lost_title">CAPTEUR PERDU</string>
+    <string name="alert_sensor_lost_detail">Capteur de puissance déconnecté</string>
     <string name="cooldown">Delai de recuperation</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Connecte</string>
     <string name="disconnected">Deconnecte</string>
+    <string name="searching">Recherche…</string>
+    <string name="not_available">Non disponible</string>
+    <string name="idle">Inactif</string>
     <string name="live_data">DONNEES EN DIRECT</string>
     <string name="data_flowing">Les donnees circulent correctement</string>
     <string name="signal_details">DETAILS DU SIGNAL</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Verifiez la batterie des pedales</string>
     <string name="pedal_tip_low_rate">Une fréquence faible peut indiquer des interferences</string>
     <string name="pedal_tip_move_away">Eloignez-vous des autres appareils ANT+</string>
+    <string name="pedal_tip_enable_dynamics">Activez le mode IAV Dynamic dans l\'app Favero (ou équivalent pour vos pédales)</string>
+    <string name="pedal_tip_no_power_meter">Aucun capteur de puissance détecté dans les capteurs enregistrés</string>
+    <string name="sensor_diagnostics">Diagnostic des Capteurs</string>
+    <string name="power_meter">Capteur de Puissance</string>
+    <string name="cycling_dynamics">Dynamique de Pédalage</string>
+    <string name="detected_sensors">Capteurs Détectés</string>
+    <string name="active_sensor">Source active</string>
+    <string name="multiple_sensors_tip">Plusieurs capteurs de puissance détectés. Pour changer: Paramètres Karoo → Capteurs → désactivez celui non souhaité</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
     <!-- History Screen -->
     <string name="ride_history">Historique des sorties</string>

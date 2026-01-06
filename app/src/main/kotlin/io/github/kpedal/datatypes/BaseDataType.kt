@@ -4,7 +4,9 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.StringRes
 import io.github.kpedal.KPedalExtension
+import io.github.kpedal.data.SensorDisconnectAction
 import io.github.kpedal.engine.PedalingMetrics
+import io.github.kpedal.engine.SensorStreamState
 import io.github.kpedal.util.LocaleHelper
 import io.github.kpedal.engine.StatusCalculator
 import io.hammerhead.karooext.extension.DataTypeImpl
@@ -87,6 +89,12 @@ abstract class BaseDataType(
         const val NO_DATA = "-"
 
         /**
+         * Text to display when sensor is disconnected.
+         * Two dashes to differentiate from single dash (no data yet).
+         */
+        const val SENSOR_DISCONNECTED = "--"
+
+        /**
          * Sample metrics for preview mode in the Profiles editor.
          * Shows realistic-looking data so user can see how the widget will appear.
          * Note: balanceLeft, torqueEffAvg, pedalSmoothAvg are computed properties.
@@ -164,8 +172,11 @@ abstract class BaseDataType(
         }
     }
 
-    private var viewScope: CoroutineScope? = null
-    private var isPreviewMode: Boolean = false
+    // NOTE: Per-view state (viewScope, layoutSize, sensorDisconnected) is now local to startView()
+    // and captured in closures. This allows multiple views of the same DataType to run
+    // simultaneously with different sizes (e.g., same field type on different profile pages).
+
+    // Instance variables kept for onViewCreated() compatibility (called once per view)
     protected var currentLayoutSize: LayoutSize = LayoutSize.MEDIUM
     protected var currentAspectRatio: AspectRatio = AspectRatio.SQUARE
     protected var currentConfig: ViewConfig? = null
@@ -185,9 +196,15 @@ abstract class BaseDataType(
      *
      * @param views The RemoteViews to update
      * @param metrics Current pedaling metrics
-     * @param config View configuration with grid size and other settings
+     * @param layoutSize The layout size for this specific view instance
+     * @param sensorDisconnected Whether the sensor is currently disconnected
      */
-    protected abstract fun updateViews(views: RemoteViews, metrics: PedalingMetrics)
+    protected abstract fun updateViews(
+        views: RemoteViews,
+        metrics: PedalingMetrics,
+        layoutSize: LayoutSize,
+        sensorDisconnected: Boolean
+    )
 
     /**
      * Called once when view is created. Override to set adaptive text sizes.
@@ -214,43 +231,45 @@ abstract class BaseDataType(
     }
 
     override fun startView(context: Context, config: ViewConfig, emitter: ViewEmitter) {
-        viewScope?.cancel()
-        viewScope = null
-
-        // Track preview mode for this view instance
-        isPreviewMode = config.preview
-
         // Hide default Karoo header - we render our own UI
         emitter.onNext(UpdateGraphicConfig(showHeader = false))
 
-        // Store config and determine layout size and aspect ratio
-        currentConfig = config
-        currentLayoutSize = getLayoutSize(config)
-        currentAspectRatio = getAspectRatio(config)
-        android.util.Log.d(TAG, "[$dataTypeId] Grid: ${config.gridSize}, View: ${config.viewSize}, TextSize: ${config.textSize}, Size: $currentLayoutSize, Aspect: $currentAspectRatio")
+        // Per-view state - captured in closures, not shared across views
+        val layoutSize = getLayoutSize(config)
+        val aspectRatio = getAspectRatio(config)
+        val isPreview = config.preview
 
-        val cachedViews = RemoteViews(context.packageName, getLayoutResId(currentLayoutSize))
+        // Update instance variables for onViewCreated() compatibility (called once)
+        currentConfig = config
+        currentLayoutSize = layoutSize
+        currentAspectRatio = aspectRatio
+        android.util.Log.d(TAG, "[$dataTypeId] Grid: ${config.gridSize}, View: ${config.viewSize}, TextSize: ${config.textSize}, Size: $layoutSize, Aspect: $aspectRatio")
+
+        val cachedViews = RemoteViews(context.packageName, getLayoutResId(layoutSize))
 
         // Allow subclasses to customize initial view setup based on config
         onViewCreated(cachedViews, config)
 
         // Preview mode: render immediately with sample data, no coroutines needed
-        if (isPreviewMode) {
+        if (isPreview) {
             android.util.Log.d(TAG, "[$dataTypeId] Preview mode, rendering with PREVIEW_METRICS")
             try {
-                updateViews(cachedViews, PREVIEW_METRICS)
+                updateViews(cachedViews, PREVIEW_METRICS, layoutSize, sensorDisconnected = false)
                 emitter.updateView(cachedViews)
                 android.util.Log.d(TAG, "[$dataTypeId] Preview render successful")
             } catch (e: Exception) {
                 android.util.Log.e(TAG, "[$dataTypeId] Preview update error: ${e.message}", e)
             }
             // No update loop needed for preview - it's static
-            emitter.setCancellable { isPreviewMode = false }
+            emitter.setCancellable { }
             return
         }
 
         // Not preview mode - render real data (or "-" if no data)
-        android.util.Log.d(TAG, "[$dataTypeId] Live mode, config.preview=${config.preview}")
+        // Diagnostic logging for debugging data flow
+        val karooConnected = try { kpedalExtension.karooSystem.connected } catch (e: Exception) { false }
+        val sensorState = try { kpedalExtension.pedalingEngine.sensorState.value } catch (e: Exception) { null }
+        android.util.Log.i(TAG, "[$dataTypeId] Live mode: karooConnected=$karooConnected, sensorState=$sensorState")
 
         // Render current metrics immediately (shows "-" if no data yet)
         val initialMetrics = try {
@@ -260,7 +279,7 @@ abstract class BaseDataType(
             PedalingMetrics() // Default metrics with hasData = false (shows "-")
         }
         try {
-            updateViews(cachedViews, initialMetrics)
+            updateViews(cachedViews, initialMetrics, layoutSize, sensorDisconnected = false)
             emitter.updateView(cachedViews)
             android.util.Log.d(TAG, "[$dataTypeId] Initial live render successful (hasData=${initialMetrics.hasData})")
         } catch (e: Exception) {
@@ -268,8 +287,22 @@ abstract class BaseDataType(
         }
 
         // Live mode: use coroutines for async updates
+        // Each view gets its own scope - captured in setCancellable closure below
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-        viewScope = scope
+
+        // Per-view cached disconnect action setting
+        var disconnectAction = SensorDisconnectAction.SHOW_DASHES
+
+        // Cache alert settings for disconnect action preference (per-view)
+        scope.launch {
+            try {
+                kpedalExtension.preferencesRepository.alertSettingsFlow.collect { settings ->
+                    disconnectAction = settings.sensorDisconnectAction
+                }
+            } catch (e: Exception) {
+                android.util.Log.w(TAG, "[$dataTypeId] Failed to collect alert settings: ${e.message}")
+            }
+        }
 
         // Rate-limited updates at 1Hz
         // IMPORTANT: Try-catch INSIDE the loop to prevent a single error from killing the update loop
@@ -277,8 +310,14 @@ abstract class BaseDataType(
             while (isActive) {
                 delay(VIEW_UPDATE_INTERVAL_MS)
                 try {
+                    // Calculate sensor disconnect state locally for this view
+                    val currentSensorState = kpedalExtension.pedalingEngine.sensorState.value
+                    val sensorDisconnected = currentSensorState is SensorStreamState.Disconnected &&
+                            disconnectAction != SensorDisconnectAction.DISABLED
+
                     val metrics = kpedalExtension.pedalingEngine.metrics.value
-                    updateViews(cachedViews, metrics)
+                    android.util.Log.d(TAG, "[$dataTypeId] Reading: hasData=${metrics.hasData}, bal=${metrics.balance.toInt()}%, te=${metrics.torqueEffLeft.toInt()}/${metrics.torqueEffRight.toInt()}")
+                    updateViews(cachedViews, metrics, layoutSize, sensorDisconnected)
                     emitter.updateView(cachedViews)
                 } catch (t: Throwable) {
                     // Rethrow CancellationException to allow proper coroutine cancellation
@@ -291,9 +330,7 @@ abstract class BaseDataType(
         }
 
         emitter.setCancellable {
-            viewScope?.cancel()
-            viewScope = null
-            isPreviewMode = false
+            scope.cancel()
             currentConfig = null
         }
     }

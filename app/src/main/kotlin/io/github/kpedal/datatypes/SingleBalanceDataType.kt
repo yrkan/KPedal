@@ -52,8 +52,29 @@ class SingleBalanceDataType(
         }
     }
 
-    override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
-        if (metrics.hasData) {
+    override fun updateViews(
+        views: RemoteViews,
+        metrics: PedalingMetrics,
+        layoutSize: LayoutSize,
+        sensorDisconnected: Boolean
+    ) {
+        // Show "---" when sensor disconnected, "-" when no data
+        val displayText = when {
+            sensorDisconnected -> SENSOR_DISCONNECTED
+            !metrics.hasData -> NO_DATA
+            else -> null // Use actual values
+        }
+
+        if (displayText != null) {
+            views.setTextViewText(R.id.balance_left, displayText)
+            views.setTextViewText(R.id.balance_right, displayText)
+            views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
+            views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
+
+            if (layoutSize == LayoutSize.LARGE) {
+                views.setProgressBar(R.id.balance_bar, 100, 50, false)
+            }
+        } else {
             val left = metrics.balanceLeft.toInt()
             val right = metrics.balance.toInt()
             views.setTextViewText(R.id.balance_left, "$left")
@@ -61,17 +82,8 @@ class SingleBalanceDataType(
             applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
 
             // Progress bar - only in LARGE
-            if (currentLayoutSize == LayoutSize.LARGE) {
+            if (layoutSize == LayoutSize.LARGE) {
                 views.setProgressBar(R.id.balance_bar, 100, right, false)
-            }
-        } else {
-            views.setTextViewText(R.id.balance_left, NO_DATA)
-            views.setTextViewText(R.id.balance_right, NO_DATA)
-            views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
-            views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
-
-            if (currentLayoutSize == LayoutSize.LARGE) {
-                views.setProgressBar(R.id.balance_bar, 100, 50, false)
             }
         }
     }

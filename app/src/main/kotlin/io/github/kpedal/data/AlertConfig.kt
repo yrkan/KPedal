@@ -21,6 +21,15 @@ enum class AlertTriggerLevel {
 }
 
 /**
+ * How to notify user when sensor disconnects during ride.
+ */
+enum class SensorDisconnectAction {
+    SHOW_DASHES,  // Show "---" in data fields (less intrusive)
+    SHOW_ALERT,   // Show InRideAlert + vibration (more noticeable)
+    DISABLED      // No notification
+}
+
+/**
  * Configuration for a single metric's alerts.
  */
 @Immutable
@@ -42,5 +51,6 @@ data class AlertSettings(
     val balanceConfig: MetricAlertConfig = MetricAlertConfig(),
     val teConfig: MetricAlertConfig = MetricAlertConfig(),
     val psConfig: MetricAlertConfig = MetricAlertConfig(),
-    val screenWakeOnAlert: Boolean = true
+    val screenWakeOnAlert: Boolean = true,
+    val sensorDisconnectAction: SensorDisconnectAction = SensorDisconnectAction.SHOW_DASHES
 )

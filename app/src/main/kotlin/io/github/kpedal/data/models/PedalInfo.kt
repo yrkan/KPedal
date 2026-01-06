@@ -1,14 +1,23 @@
 package io.github.kpedal.data.models
 
+import io.github.kpedal.engine.SensorStreamState
+
 /**
  * Information about pedal connection and signal quality.
  */
 data class PedalInfo(
     val isConnected: Boolean = false,
+    val sensorState: SensorStreamState = SensorStreamState.Idle,
     val signalQuality: SignalQuality = SignalQuality.UNKNOWN,
     val lastDataReceivedMs: Long = 0L,
     val updateFrequency: Float = 0f, // Updates per second
-    val modelName: String = "Unknown"
+    val modelName: String = "Unknown",
+    // Sensor diagnostics
+    val sensors: List<SensorInfo> = emptyList(),
+    val hasPowerMeter: Boolean = false,
+    val hasCyclingDynamics: Boolean = false,
+    // Active sensor ID (from streaming data deviceSourceIds, e.g., "48319" from "48319-11-5")
+    val activeDeviceId: String? = null
 ) {
     /**
      * Signal quality based on update frequency.
@@ -41,15 +50,34 @@ data class PedalInfo(
      * Get human-readable status string.
      */
     fun getStatusText(): String {
-        return if (isConnected) {
-            when (signalQuality) {
+        return when (sensorState) {
+            is SensorStreamState.Streaming -> when (signalQuality) {
                 SignalQuality.GOOD -> "Connected - Good signal"
                 SignalQuality.FAIR -> "Connected - Fair signal"
                 SignalQuality.POOR -> "Connected - Poor signal"
                 SignalQuality.UNKNOWN -> "Connected"
             }
-        } else {
-            "Disconnected"
+            is SensorStreamState.Searching -> "Searching..."
+            is SensorStreamState.NotAvailable -> "Not Available"
+            is SensorStreamState.Disconnected -> "Disconnected"
+            is SensorStreamState.Idle -> "Idle"
         }
     }
+}
+
+/**
+ * Information about a single sensor from Karoo.
+ */
+data class SensorInfo(
+    val id: String,
+    val name: String,
+    val connectionType: String,
+    val enabled: Boolean,
+    val supportedDataTypes: List<String>,
+    val hasPowerBalance: Boolean,
+    val hasTorqueEffectiveness: Boolean,
+    val hasPedalSmoothness: Boolean
+) {
+    val hasCyclingDynamics: Boolean
+        get() = hasTorqueEffectiveness || hasPedalSmoothness
 }

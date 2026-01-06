@@ -202,6 +202,12 @@
     <string name="banner">Banner</string>
     <string name="options">ALTERNATIV</string>
     <string name="wake_screen">Väck skärm</string>
+    <string name="sensor_disconnect">OM SENSOR FÖRLORAD</string>
+    <string name="show_dashes">Visa --</string>
+    <string name="show_alert_option">Varning</string>
+    <string name="do_nothing">Inget</string>
+    <string name="alert_sensor_lost_title">SENSOR FÖRLORAD</string>
+    <string name="alert_sensor_lost_detail">Effektmätare frånkopplad</string>
     <string name="cooldown">Viloperiod</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Ansluten</string>
     <string name="disconnected">Frånkopplad</string>
+    <string name="searching">Söker…</string>
+    <string name="not_available">Ej tillgänglig</string>
+    <string name="idle">Inaktiv</string>
     <string name="live_data">LIVEDATA</string>
     <string name="data_flowing">Data flödar korrekt</string>
     <string name="signal_details">SIGNALDETALJER</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Kontrollera pedalbatteri</string>
     <string name="pedal_tip_low_rate">Låg frekvens kan indikera störning</string>
     <string name="pedal_tip_move_away">Flytta bort från andra ANT+-enheter</string>
+    <string name="pedal_tip_enable_dynamics">Aktivera IAV Dynamic-läge i Favero-appen (eller motsvarande för dina pedaler)</string>
+    <string name="pedal_tip_no_power_meter">Ingen effektmätare hittades bland sparade sensorer</string>
+    <string name="sensor_diagnostics">Sensordiagnostik</string>
+    <string name="power_meter">Effektmätare</string>
+    <string name="cycling_dynamics">Pedaldynamik</string>
+    <string name="detected_sensors">Upptäckta sensorer</string>
+    <string name="active_sensor">Aktiv källa</string>
+    <string name="multiple_sensors_tip">Flera effektmätare upptäckta. För att byta: Karoo Inställningar → Sensorer → inaktivera den oönskade</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
 
     <!-- History Screen -->
     <string name="ride_history">Turhistorik</string>

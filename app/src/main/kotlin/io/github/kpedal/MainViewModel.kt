@@ -17,6 +17,7 @@ import io.github.kpedal.data.AnalyticsRepository
 import io.github.kpedal.data.AuthRepository
 import io.github.kpedal.data.MetricAlertConfig
 import io.github.kpedal.data.PreferencesRepository
+import io.github.kpedal.data.SensorDisconnectAction
 import io.github.kpedal.data.RideRepository
 import io.github.kpedal.data.StreakCalculator
 import io.github.kpedal.data.SyncService
@@ -40,6 +41,7 @@ import io.github.kpedal.drill.model.DrillExecutionStatus
 import io.github.kpedal.drill.model.DrillPhase
 import io.github.kpedal.drill.model.DrillResult
 import io.github.kpedal.engine.PedalingMetrics
+import io.github.kpedal.engine.SensorStreamState
 import io.github.kpedal.ui.screens.LiveRideData
 import io.github.kpedal.util.LocaleHelper
 import kotlinx.coroutines.CoroutineScope
@@ -188,6 +190,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _metrics = MutableStateFlow(PedalingMetrics())
     val metrics: StateFlow<PedalingMetrics> = _metrics.asStateFlow()
 
+    /**
+     * Current sensor stream state (for debugging data flow).
+     */
+    private val _sensorState = MutableStateFlow<SensorStreamState>(SensorStreamState.Idle)
+    val sensorState: StateFlow<SensorStreamState> = _sensorState.asStateFlow()
+
     // ========== Drill Engine ==========
 
     private val drillEngine: DrillEngine by lazy {
@@ -249,6 +257,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         // Capture references before launching coroutines to avoid race conditions
         val isConnectedFlow = extension.isConnected
         val metricsFlow = extension.pedalingEngine.metrics
+        val sensorStateFlow = extension.pedalingEngine.sensorState
         val liveDataFlow = extension.pedalingEngine.liveDataCollector.liveData
         val pedalInfoFlow = extension.pedalMonitor.pedalInfo
 
@@ -269,9 +278,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 metricsFlow.collect { m ->
                     _metrics.value = m
+                    android.util.Log.d(TAG, "Metrics collected: hasData=${m.hasData}, bal=${m.balance.toInt()}%, te=${m.torqueEffLeft.toInt()}/${m.torqueEffRight.toInt()}")
                 }
             } catch (e: Exception) {
                 android.util.Log.w(TAG, "Metrics observation cancelled: ${e.message}")
+            }
+        }
+
+        // Sensor state (for debug visibility)
+        launch {
+            try {
+                sensorStateFlow.collect { state ->
+                    _sensorState.value = state
+                }
+            } catch (e: Exception) {
+                android.util.Log.w(TAG, "Sensor state observation cancelled: ${e.message}")
             }
         }
 
@@ -364,6 +385,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun updateScreenWakeOnAlert(enabled: Boolean) {
         viewModelScope.launch {
             preferencesRepository.updateScreenWakeOnAlert(enabled)
+        }
+    }
+
+    fun updateSensorDisconnectAction(action: SensorDisconnectAction) {
+        viewModelScope.launch {
+            preferencesRepository.updateSensorDisconnectAction(action)
         }
     }
 

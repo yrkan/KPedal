@@ -20,7 +20,7 @@ import kotlin.math.roundToInt
 class LiveDataCollector {
 
     companion object {
-        private const val TAG = "LiveDataCollector"
+        private const val TAG = "CustomAnt"
         private const val UPDATE_INTERVAL_MS = 1000L
         private const val INITIAL_SAMPLES = 30  // ~30 samples for trend baseline (quick feedback)
         private const val MAX_ELAPSED_MS = 2000L  // Cap elapsed time to avoid pause inflation
@@ -124,7 +124,7 @@ class LiveDataCollector {
             }
         }
 
-        android.util.Log.i(TAG, "Started collecting live data")
+        android.util.Log.i(TAG, "KPedal: ▶ Started collecting live data (ride active)")
     }
 
     /**
@@ -141,14 +141,14 @@ class LiveDataCollector {
                     System.currentTimeMillis()
                 )
                 snapshots.add(finalSnapshot)
-                android.util.Log.d(TAG, "Created final snapshot for minute ${finalSnapshot.minuteIndex}")
+                android.util.Log.d(TAG, "KPedal: Created final snapshot for minute ${finalSnapshot.minuteIndex}")
             }
         }
         emitJob?.cancel()
         emitJob = null
         // Emit final data
         emitLiveData()
-        android.util.Log.i(TAG, "Stopped collecting live data with ${snapshots.size} snapshots")
+        android.util.Log.i(TAG, "KPedal: ⏹ Stopped collecting (${snapshots.size} snapshots)")
     }
 
     /**
@@ -157,7 +157,7 @@ class LiveDataCollector {
     fun reset() {
         resetAccumulators()
         _liveData.value = LiveRideData()
-        android.util.Log.i(TAG, "Reset live data")
+        android.util.Log.i(TAG, "KPedal: Reset live data")
     }
 
     private fun resetAccumulators() {
@@ -227,11 +227,17 @@ class LiveDataCollector {
      * Call this every time new metrics arrive.
      */
     fun updateMetrics(metrics: PedalingMetrics) {
-        if (!metrics.hasData) return
+        if (!metrics.hasData) {
+            android.util.Log.d(TAG, "KPedal: updateMetrics skipped - no data (timestamp=${metrics.timestamp})")
+            return
+        }
 
         synchronized(lock) {
             // Check isCollecting inside lock to prevent race with stopCollecting
-            if (!isCollecting) return
+            if (!isCollecting) {
+                android.util.Log.d(TAG, "KPedal: updateMetrics skipped - not collecting (ride not active)")
+                return
+            }
             val currentTimeMs = System.currentTimeMillis()
             val elapsedMs = currentTimeMs - lastUpdateTimeMs
             lastUpdateTimeMs = currentTimeMs
@@ -368,7 +374,7 @@ class LiveDataCollector {
             snapshots.add(snapshot)
             lastSnapshotMinute = currentMinute
             resetMinuteAccumulators()
-            android.util.Log.d(TAG, "Created snapshot for minute ${snapshot.minuteIndex}")
+            android.util.Log.d(TAG, "KPedal: Created snapshot for minute ${snapshot.minuteIndex}")
         }
     }
 
@@ -555,6 +561,10 @@ class LiveDataCollector {
             energyKj = snapshot.energyKj,
             hasData = true
         )
+
+        android.util.Log.d(TAG, "KPedal LIVE: bal=${snapshot.avgBalanceLeft}/${snapshot.avgBalanceRight} " +
+                "te=${snapshot.avgTeLeft}/${snapshot.avgTeRight} ps=${snapshot.avgPsLeft}/${snapshot.avgPsRight} " +
+                "zones=${zoneOptimalPct}/${zoneAttentionPct}/${zoneProblemPct}% score=$overallScore")
     }
 
     private data class LiveDataSnapshot(
@@ -768,7 +778,7 @@ class LiveDataCollector {
             snapshots.addAll(restoredSnapshots)
         }
 
-        android.util.Log.i(TAG, "Restored from checkpoint: samples=$sampleCount, snapshots=${restoredSnapshots.size}")
+        android.util.Log.i(TAG, "KPedal: Restored from checkpoint: samples=$sampleCount, snapshots=${restoredSnapshots.size}")
 
         // Emit restored state to update UI
         emitLiveData()

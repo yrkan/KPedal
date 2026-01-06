@@ -167,14 +167,21 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
             pedalingEngine = pedalingEngine,
             preferencesRepository = preferencesRepository
         )
-        _pedalMonitor = PedalMonitor(pedalingEngine)
+        _pedalMonitor = PedalMonitor(this)
 
         karooSystem.connect { connected ->
             _isConnected.value = connected
             if (connected) {
                 android.util.Log.i(TAG, "KarooSystemService connected")
-                // Only start RideStateMonitor - it will start/stop other components
-                // based on ride state to minimize resource usage
+
+                // Start streaming immediately to receive sensor data
+                // This allows DataTypes to show data even before ride recording starts
+                _pedalingEngine?.startStreaming()
+
+                // Start PedalMonitor to track connection status
+                _pedalMonitor?.startMonitoring()
+
+                // Start RideStateMonitor for ride lifecycle management
                 _rideStateMonitor?.startMonitoring()
 
                 // Send heartbeat to update device status on server

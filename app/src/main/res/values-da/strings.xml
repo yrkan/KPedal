@@ -202,6 +202,12 @@
     <string name="banner">Banner</string>
     <string name="options">INDSTILLINGER</string>
     <string name="wake_screen">Tænd skærm</string>
+    <string name="sensor_disconnect">HVIS SENSOR MISTET</string>
+    <string name="show_dashes">Vis --</string>
+    <string name="show_alert_option">Advarsel</string>
+    <string name="do_nothing">Intet</string>
+    <string name="alert_sensor_lost_title">SENSOR MISTET</string>
+    <string name="alert_sensor_lost_detail">Wattmåler frakoblet</string>
     <string name="cooldown">Afkøling</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Tilsluttet</string>
     <string name="disconnected">Afbrudt</string>
+    <string name="searching">Søger…</string>
+    <string name="not_available">Ikke tilgængelig</string>
+    <string name="idle">Inaktiv</string>
     <string name="live_data">LIVE DATA</string>
     <string name="data_flowing">Data flyder korrekt</string>
     <string name="signal_details">SIGNALDETALJER</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Tjek pedalbatteri</string>
     <string name="pedal_tip_low_rate">Lav hastighed kan indikere interferens</string>
     <string name="pedal_tip_move_away">Flyt væk fra andre ANT+ enheder</string>
+    <string name="pedal_tip_enable_dynamics">Aktiver IAV Dynamic-tilstand i Favero-appen (eller tilsvarende for dine pedaler)</string>
+    <string name="pedal_tip_no_power_meter">Ingen effektmåler fundet i gemte sensorer</string>
+    <string name="sensor_diagnostics">Sensor-diagnostik</string>
+    <string name="power_meter">Effektmåler</string>
+    <string name="cycling_dynamics">Pedal-dynamik</string>
+    <string name="detected_sensors">Fundne sensorer</string>
+    <string name="active_sensor">Aktiv kilde</string>
+    <string name="multiple_sensors_tip">Flere effektmålere registreret. For at skifte: Karoo Indstillinger → Sensorer → deaktiver den uønskede</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
 
     <!-- History Screen -->
     <string name="ride_history">Turhistorik</string>

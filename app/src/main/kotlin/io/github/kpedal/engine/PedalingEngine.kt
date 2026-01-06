@@ -9,13 +9,42 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicReference
+
+/**
+ * State of sensor data streaming.
+ */
+sealed class SensorStreamState {
+    /** Initial state, not yet started */
+    object Idle : SensorStreamState()
+    /** Searching for sensor */
+    object Searching : SensorStreamState()
+    /** Actively receiving data */
+    object Streaming : SensorStreamState()
+    /** Sensor not available (not connected or doesn't support data type) */
+    data class NotAvailable(val reason: String) : SensorStreamState()
+    /** Connection lost (was streaming, now stale) */
+    object Disconnected : SensorStreamState()
+}
+
+/**
+ * Types of data we can receive from sensors.
+ * Used to identify which sensor is active based on its capabilities.
+ */
+enum class ReceivedDataType {
+    POWER,              // Basic power (watts)
+    PEDAL_POWER_BALANCE, // L/R balance (requires dual-sided power meter)
+    TORQUE_EFFECTIVENESS, // TE (requires Cycling Dynamics)
+    PEDAL_SMOOTHNESS     // PS (requires Cycling Dynamics)
+}
 
 /**
  * Engine for collecting and processing pedaling metrics from Karoo streams.
@@ -37,8 +66,10 @@ import java.util.concurrent.atomic.AtomicReference
 class PedalingEngine(private val extension: KPedalExtension) {
 
     companion object {
-        private const val TAG = "PedalingEngine"
+        private const val TAG = "CustomAnt"
         private const val DEBOUNCE_MS = 50L
+        private const val DISCONNECT_CHECK_INTERVAL_MS = 3000L
+        private const val DISCONNECT_THRESHOLD_MS = 15000L // Consider disconnected after 15s of no data
     }
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -46,11 +77,48 @@ class PedalingEngine(private val extension: KPedalExtension) {
     private val _metrics = MutableStateFlow(PedalingMetrics())
     val metrics: StateFlow<PedalingMetrics> = _metrics.asStateFlow()
 
+    // Sensor streaming state for UI feedback
+    private val _sensorState = MutableStateFlow<SensorStreamState>(SensorStreamState.Idle)
+    val sensorState: StateFlow<SensorStreamState> = _sensorState.asStateFlow()
+
+    // Track last data receive time for disconnect detection
+    @Volatile
+    private var lastDataReceivedMs: Long = 0L
+
+    // Track stream states for different data types
+    @Volatile
+    private var powerStreamState: StreamState = StreamState.Idle
+    @Volatile
+    private var balanceStreamState: StreamState = StreamState.Idle
+
+    // Track which data types we're actually receiving (for identifying active sensor)
+    private val _receivedDataTypes = MutableStateFlow<Set<ReceivedDataType>>(emptySet())
+    val receivedDataTypes: StateFlow<Set<ReceivedDataType>> = _receivedDataTypes.asStateFlow()
+
+    private fun markDataTypeReceived(type: ReceivedDataType) {
+        val current = _receivedDataTypes.value
+        if (type !in current) {
+            _receivedDataTypes.value = current + type
+            android.util.Log.i(TAG, "KPedal: Now receiving → $type (all: ${_receivedDataTypes.value})")
+        }
+    }
+
+    private fun clearReceivedDataTypes() {
+        if (_receivedDataTypes.value.isNotEmpty()) {
+            _receivedDataTypes.value = emptySet()
+            android.util.Log.i(TAG, "KPedal: Cleared received data types")
+        }
+    }
+
     // Live data collector for ride statistics
     val liveDataCollector = LiveDataCollector()
 
     // Trigger for debounced updates
     private val updateTrigger = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+
+    // Streaming state to prevent duplicate consumers
+    @Volatile
+    private var isStreaming = false
 
     // Consumer IDs for cleanup
     private val balanceConsumerId = AtomicReference<String?>(null)
@@ -103,19 +171,88 @@ class PedalingEngine(private val extension: KPedalExtension) {
                     emitMetrics()
                 }
         }
+
+        // Periodic disconnect detection
+        scope.launch {
+            while (isActive) {
+                delay(DISCONNECT_CHECK_INTERVAL_MS)
+                checkForDisconnect()
+            }
+        }
+    }
+
+    /**
+     * Update combined sensor state based on POWER and PEDAL_POWER_BALANCE streams.
+     * Priority: Streaming > Searching > NotAvailable > Idle
+     */
+    private fun updateCombinedSensorState() {
+        val power = powerStreamState
+        val balance = balanceStreamState
+
+        val newState = when {
+            // If either is streaming, we're connected
+            balance is StreamState.Streaming -> SensorStreamState.Streaming
+            power is StreamState.Streaming -> SensorStreamState.Streaming
+            // If either is searching, we're searching
+            balance is StreamState.Searching -> SensorStreamState.Searching
+            power is StreamState.Searching -> SensorStreamState.Searching
+            // If balance is not available but power is idle, power meter may not support cycling dynamics
+            balance is StreamState.NotAvailable && power is StreamState.Idle ->
+                SensorStreamState.NotAvailable("Power meter may not support Cycling Dynamics")
+            // If both are not available
+            balance is StreamState.NotAvailable || power is StreamState.NotAvailable ->
+                SensorStreamState.NotAvailable("Power meter not connected")
+            // Default to Idle
+            else -> SensorStreamState.Idle
+        }
+
+        if (_sensorState.value != newState) {
+            _sensorState.value = newState
+            android.util.Log.i(TAG, "KPedal: State → $newState (power=$power, balance=$balance)")
+        }
+    }
+
+    /**
+     * Check if sensor data has stopped coming and update state accordingly.
+     */
+    private fun checkForDisconnect() {
+        if (!isStreaming) return
+
+        val currentState = _sensorState.value
+        val now = System.currentTimeMillis()
+        val timeSinceLastData = now - lastDataReceivedMs
+
+        // Only transition to Disconnected if we were previously Streaming
+        if (currentState is SensorStreamState.Streaming &&
+            lastDataReceivedMs > 0 &&
+            timeSinceLastData > DISCONNECT_THRESHOLD_MS
+        ) {
+            _sensorState.value = SensorStreamState.Disconnected
+            android.util.Log.w(TAG, "KPedal: ⚠ Disconnected - no data for ${timeSinceLastData}ms")
+        }
     }
 
     /**
      * Start streaming pedaling data from Karoo sensors.
      */
     fun startStreaming() {
-        if (!extension.karooSystem.connected) {
-            android.util.Log.w(TAG, "KarooSystem not connected")
+        if (isStreaming) {
+            android.util.Log.d(TAG, "KPedal: Already streaming, skip")
             return
         }
 
+        if (!extension.karooSystem.connected) {
+            android.util.Log.w(TAG, "KPedal: KarooSystem not connected")
+            return
+        }
+
+        isStreaming = true
+        hasReceivedPedalData = false  // Reset on new streaming session
+
         // Track successfully added consumers for cleanup on error
         val addedConsumers = mutableListOf<AtomicReference<String?>>()
+
+        android.util.Log.i(TAG, "KPedal: Starting sensor streams... karooConnected=${extension.karooSystem.connected}")
 
         try {
             // Subscribe to Power Balance
@@ -123,17 +260,32 @@ class PedalingEngine(private val extension: KPedalExtension) {
             balanceConsumerId.set(extension.karooSystem.addConsumer(
                 OnStreamState.StartStreaming(DataType.Type.PEDAL_POWER_BALANCE)
             ) { event: OnStreamState ->
-                when (val state = event.state) {
+                val state = event.state
+                balanceStreamState = state
+                updateCombinedSensorState()
+
+                when (state) {
                     is StreamState.Streaming -> {
                         val values = state.dataPoint.values
                         values[DataType.Field.PEDAL_POWER_BALANCE_LEFT]?.toFloat()?.let { left ->
                             currentBalanceLeft = left
+                            markDataTypeReceived(ReceivedDataType.PEDAL_POWER_BALANCE)
                             // Balance from SDK = power meter connected (even without TE/PS)
                             hasReceivedPedalData = true
+                            lastDataReceivedMs = System.currentTimeMillis()
+                            android.util.Log.d(TAG, "KPedal BALANCE: L=${left.toInt()}% R=${(100-left).toInt()}%")
                             triggerUpdate()
                         }
                     }
-                    else -> { /* Ignore */ }
+                    is StreamState.Searching -> {
+                        android.util.Log.i(TAG, "KPedal BALANCE: 🔍 Searching...")
+                    }
+                    is StreamState.NotAvailable -> {
+                        android.util.Log.w(TAG, "KPedal BALANCE: ❌ Not available")
+                    }
+                    is StreamState.Idle -> {
+                        android.util.Log.d(TAG, "KPedal BALANCE: ⏸ Idle")
+                    }
                 }
             })
             addedConsumers.add(balanceConsumerId)
@@ -146,17 +298,34 @@ class PedalingEngine(private val extension: KPedalExtension) {
                 when (val state = event.state) {
                     is StreamState.Streaming -> {
                         val values = state.dataPoint.values
-                        values[DataType.Field.TORQUE_EFFECTIVENESS_LEFT]?.toFloat()?.let { left ->
-                            currentTeLeft = left
-                            if (left > 0) hasReceivedPedalData = true
+                        val left = values[DataType.Field.TORQUE_EFFECTIVENESS_LEFT]?.toFloat()
+                        val right = values[DataType.Field.TORQUE_EFFECTIVENESS_RIGHT]?.toFloat()
+                        left?.let {
+                            currentTeLeft = it
+                            if (it > 0) {
+                                hasReceivedPedalData = true
+                                markDataTypeReceived(ReceivedDataType.TORQUE_EFFECTIVENESS)
+                            }
                         }
-                        values[DataType.Field.TORQUE_EFFECTIVENESS_RIGHT]?.toFloat()?.let { right ->
-                            currentTeRight = right
-                            if (right > 0) hasReceivedPedalData = true
+                        right?.let {
+                            currentTeRight = it
+                            if (it > 0) {
+                                hasReceivedPedalData = true
+                                markDataTypeReceived(ReceivedDataType.TORQUE_EFFECTIVENESS)
+                            }
                         }
+                        android.util.Log.d(TAG, "KPedal TE: L=${left?.toInt()}% R=${right?.toInt()}%")
                         triggerUpdate()
                     }
-                    else -> { /* Ignore */ }
+                    is StreamState.Searching -> {
+                        android.util.Log.i(TAG, "KPedal TE: 🔍 Searching...")
+                    }
+                    is StreamState.NotAvailable -> {
+                        android.util.Log.w(TAG, "KPedal TE: ❌ Not available")
+                    }
+                    is StreamState.Idle -> {
+                        android.util.Log.d(TAG, "KPedal TE: ⏸ Idle")
+                    }
                 }
             })
             addedConsumers.add(teConsumerId)
@@ -169,17 +338,34 @@ class PedalingEngine(private val extension: KPedalExtension) {
                 when (val state = event.state) {
                     is StreamState.Streaming -> {
                         val values = state.dataPoint.values
-                        values[DataType.Field.PEDAL_SMOOTHNESS_LEFT]?.toFloat()?.let { left ->
-                            currentPsLeft = left
-                            if (left > 0) hasReceivedPedalData = true
+                        val left = values[DataType.Field.PEDAL_SMOOTHNESS_LEFT]?.toFloat()
+                        val right = values[DataType.Field.PEDAL_SMOOTHNESS_RIGHT]?.toFloat()
+                        left?.let {
+                            currentPsLeft = it
+                            if (it > 0) {
+                                hasReceivedPedalData = true
+                                markDataTypeReceived(ReceivedDataType.PEDAL_SMOOTHNESS)
+                            }
                         }
-                        values[DataType.Field.PEDAL_SMOOTHNESS_RIGHT]?.toFloat()?.let { right ->
-                            currentPsRight = right
-                            if (right > 0) hasReceivedPedalData = true
+                        right?.let {
+                            currentPsRight = it
+                            if (it > 0) {
+                                hasReceivedPedalData = true
+                                markDataTypeReceived(ReceivedDataType.PEDAL_SMOOTHNESS)
+                            }
                         }
+                        android.util.Log.d(TAG, "KPedal PS: L=${left?.toInt()}% R=${right?.toInt()}%")
                         triggerUpdate()
                     }
-                    else -> { /* Ignore */ }
+                    is StreamState.Searching -> {
+                        android.util.Log.i(TAG, "KPedal PS: 🔍 Searching...")
+                    }
+                    is StreamState.NotAvailable -> {
+                        android.util.Log.w(TAG, "KPedal PS: ❌ Not available")
+                    }
+                    is StreamState.Idle -> {
+                        android.util.Log.d(TAG, "KPedal PS: ⏸ Idle")
+                    }
                 }
             })
             addedConsumers.add(psConsumerId)
@@ -189,15 +375,32 @@ class PedalingEngine(private val extension: KPedalExtension) {
             powerConsumerId.set(extension.karooSystem.addConsumer(
                 OnStreamState.StartStreaming(DataType.Type.POWER)
             ) { event: OnStreamState ->
-                when (val state = event.state) {
+                val state = event.state
+                powerStreamState = state
+                updateCombinedSensorState()
+
+                when (state) {
                     is StreamState.Streaming -> {
-                        val values = state.dataPoint.values
+                        val dataPoint = state.dataPoint
+                        val values = dataPoint.values
                         values[DataType.Field.POWER]?.toInt()?.let { power ->
                             currentPower = power
+                            markDataTypeReceived(ReceivedDataType.POWER)
+                            // Power data = sensor connected, update timestamp
+                            lastDataReceivedMs = System.currentTimeMillis()
+                            android.util.Log.d(TAG, "KPedal POWER: ${power}W")
                             triggerUpdate()
                         }
                     }
-                    else -> { /* Ignore */ }
+                    is StreamState.Searching -> {
+                        android.util.Log.i(TAG, "KPedal POWER: 🔍 Searching...")
+                    }
+                    is StreamState.NotAvailable -> {
+                        android.util.Log.w(TAG, "KPedal POWER: ❌ Not available")
+                    }
+                    is StreamState.Idle -> {
+                        android.util.Log.d(TAG, "KPedal POWER: ⏸ Idle")
+                    }
                 }
             })
             addedConsumers.add(powerConsumerId)
@@ -403,10 +606,11 @@ class PedalingEngine(private val extension: KPedalExtension) {
             // Note: LiveDataCollector is started/stopped by RideStateMonitor
             // based on RideState changes (Recording/Idle), not here.
 
-            android.util.Log.i(TAG, "Started streaming pedaling data")
+            android.util.Log.i(TAG, "KPedal: ✓ Streaming started")
 
         } catch (e: Exception) {
-            android.util.Log.e(TAG, "Error starting streams: ${e.message}", e)
+            android.util.Log.e(TAG, "KPedal: ❌ Error starting streams: ${e.message}", e)
+            isStreaming = false
             // Cleanup already added consumers on error
             addedConsumers.forEach { ref ->
                 ref.getAndSet(null)?.let { id ->
@@ -417,7 +621,8 @@ class PedalingEngine(private val extension: KPedalExtension) {
     }
 
     private fun triggerUpdate() {
-        updateTrigger.tryEmit(Unit)
+        val emitted = updateTrigger.tryEmit(Unit)
+        android.util.Log.d(TAG, "KPedal: triggerUpdate() → emitted=$emitted, hasReceivedPedalData=$hasReceivedPedalData")
     }
 
     /**
@@ -425,6 +630,17 @@ class PedalingEngine(private val extension: KPedalExtension) {
      * Note: LiveDataCollector is managed by RideStateMonitor, not here.
      */
     fun stopStreaming() {
+        if (!isStreaming) {
+            android.util.Log.d(TAG, "KPedal: Not streaming, skip stop")
+            return
+        }
+
+        isStreaming = false
+        _sensorState.value = SensorStreamState.Idle
+        lastDataReceivedMs = 0L
+        powerStreamState = StreamState.Idle
+        balanceStreamState = StreamState.Idle
+
         balanceConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
         teConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
         psConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
@@ -442,17 +658,18 @@ class PedalingEngine(private val extension: KPedalExtension) {
         normalizedPowerConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
         energyConsumerId.getAndSet(null)?.let { safeRemoveConsumer(it) }
 
-        // Reset pedal data flag for next ride
+        // Reset pedal data flag and received data types for next ride
         hasReceivedPedalData = false
+        clearReceivedDataTypes()
 
-        android.util.Log.i(TAG, "Stopped streaming")
+        android.util.Log.i(TAG, "KPedal: Streaming stopped")
     }
 
     private fun safeRemoveConsumer(id: String) {
         try {
             extension.karooSystem.removeConsumer(id)
         } catch (e: Exception) {
-            android.util.Log.w(TAG, "Failed to remove consumer $id: ${e.message}")
+            android.util.Log.w(TAG, "KPedal: Failed to remove consumer: ${e.message}")
         }
     }
 
@@ -512,6 +729,9 @@ class PedalingEngine(private val extension: KPedalExtension) {
         )
 
         _metrics.value = newMetrics
+
+        // Always log emit for debugging
+        android.util.Log.d(TAG, "KPedal EMIT: hasData=${newMetrics.hasData} hasPedalData=$hasReceivedPedalData bal=${(100f - balanceLeft).toInt()}% te=${teLeft.toInt()}/${teRight.toInt()} ps=${psLeft.toInt()}/${psRight.toInt()} pwr=${power}W")
 
         // Update live data collector
         liveDataCollector.updateMetrics(newMetrics)

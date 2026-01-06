@@ -202,6 +202,12 @@
     <string name="banner">Banner</string>
     <string name="options">OPZIONI</string>
     <string name="wake_screen">Attiva schermo</string>
+    <string name="sensor_disconnect">SE SENSORE PERSO</string>
+    <string name="show_dashes">Mostra --</string>
+    <string name="show_alert_option">Avviso</string>
+    <string name="do_nothing">Nulla</string>
+    <string name="alert_sensor_lost_title">SENSORE PERSO</string>
+    <string name="alert_sensor_lost_detail">Misuratore di potenza disconnesso</string>
     <string name="cooldown">Attesa</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Connesso</string>
     <string name="disconnected">Disconnesso</string>
+    <string name="searching">Ricerca…</string>
+    <string name="not_available">Non disponibile</string>
+    <string name="idle">Inattivo</string>
     <string name="live_data">DATI LIVE</string>
     <string name="data_flowing">I dati fluiscono correttamente</string>
     <string name="signal_details">DETTAGLI SEGNALE</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">Verifichi la batteria dei pedali</string>
     <string name="pedal_tip_low_rate">Una frequenza bassa può indicare interferenze</string>
     <string name="pedal_tip_move_away">Si allontani da altri dispositivi ANT+</string>
+    <string name="pedal_tip_enable_dynamics">Abilita la modalità IAV Dynamic nell\'app Favero (o equivalente per i tuoi pedali)</string>
+    <string name="pedal_tip_no_power_meter">Nessun misuratore di potenza rilevato nei sensori salvati</string>
+    <string name="sensor_diagnostics">Diagnostica Sensori</string>
+    <string name="power_meter">Misuratore di Potenza</string>
+    <string name="cycling_dynamics">Dinamica di Pedalata</string>
+    <string name="detected_sensors">Sensori Rilevati</string>
+    <string name="active_sensor">Fonte attiva</string>
+    <string name="multiple_sensors_tip">Rilevati più misuratori di potenza. Per cambiare: Impostazioni Karoo → Sensori → disabilita quello indesiderato</string>
+    <string name="yes">Sì</string>
+    <string name="no">No</string>
 
     <!-- History Screen -->
     <string name="ride_history">Cronologia Uscite</string>

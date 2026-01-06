@@ -202,6 +202,12 @@
     <string name="banner">横幅</string>
     <string name="options">选项</string>
     <string name="wake_screen">唤醒屏幕</string>
+    <string name="sensor_disconnect">若传感器丢失</string>
+    <string name="show_dashes">显示 --</string>
+    <string name="show_alert_option">警报</string>
+    <string name="do_nothing">无</string>
+    <string name="alert_sensor_lost_title">传感器丢失</string>
+    <string name="alert_sensor_lost_detail">功率计断开连接</string>
     <string name="cooldown">冷却时间</string>
     <string name="cooldown_15s">15秒</string>
     <string name="cooldown_30s">30秒</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">已连接</string>
     <string name="disconnected">已断开</string>
+    <string name="searching">搜索中…</string>
+    <string name="not_available">不可用</string>
+    <string name="idle">空闲</string>
     <string name="live_data">实时数据</string>
     <string name="data_flowing">数据传输正常</string>
     <string name="signal_details">信号详情</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">检查踏板电池</string>
     <string name="pedal_tip_low_rate">低更新率可能表示有干扰</string>
     <string name="pedal_tip_move_away">远离其他 ANT+ 设备</string>
+    <string name="pedal_tip_enable_dynamics">在 Favero 应用中启用 IAV Dynamic 模式（或您踏板的等效设置）</string>
+    <string name="pedal_tip_no_power_meter">已保存的传感器中未检测到功率计</string>
+    <string name="sensor_diagnostics">传感器诊断</string>
+    <string name="power_meter">功率计</string>
+    <string name="cycling_dynamics">踏板动态</string>
+    <string name="detected_sensors">检测到的传感器</string>
+    <string name="active_sensor">活动来源</string>
+    <string name="multiple_sensors_tip">检测到多个功率计。切换方法: Karoo 设置 → 传感器 → 禁用不需要的</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
 
     <!-- History Screen -->
     <string name="ride_history">骑行历史</string>

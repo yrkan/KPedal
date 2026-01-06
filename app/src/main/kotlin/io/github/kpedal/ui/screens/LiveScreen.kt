@@ -28,8 +28,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.kpedal.R
+import io.github.kpedal.engine.PedalingMetrics
+import io.github.kpedal.engine.SensorStreamState
 import io.github.kpedal.engine.StatusCalculator
 import io.github.kpedal.ui.theme.Theme
+import kotlin.math.roundToInt
 
 /**
  * Live ride data displayed during an active ride.
@@ -102,14 +105,45 @@ private fun trendArrow(trend: Int): String = when (trend) {
 
 /**
  * LiveScreen - Real-time ride data display
+ *
+ * When a ride is active (liveData.hasData = true), shows accumulated ride statistics.
+ * When no ride is active but metrics are available, shows instant real-time values.
  */
 @Composable
 fun LiveScreen(
     liveData: LiveRideData,
+    metrics: PedalingMetrics = PedalingMetrics(),
+    sensorState: SensorStreamState = SensorStreamState.Idle,
     onBack: () -> Unit,
     onSave: () -> Boolean = { false }
 ) {
     var saveStatus by remember { mutableStateOf(SaveStatus.Idle) }
+
+    // Use instant metrics when no ride is active but sensor data is available
+    val displayData = if (liveData.hasData) {
+        liveData
+    } else if (metrics.hasData) {
+        // Create LiveRideData from instant metrics
+        LiveRideData(
+            duration = "--:--",  // No duration without ride
+            balanceLeft = metrics.balanceLeft.roundToInt(),
+            balanceRight = metrics.balance.roundToInt(),
+            teLeft = metrics.torqueEffLeft.roundToInt(),
+            teRight = metrics.torqueEffRight.roundToInt(),
+            psLeft = metrics.pedalSmoothLeft.roundToInt(),
+            psRight = metrics.pedalSmoothRight.roundToInt(),
+            zoneOptimal = 0,
+            zoneAttention = 0,
+            zoneProblem = 0,
+            balanceTrend = 0,
+            teTrend = 0,
+            psTrend = 0,
+            score = 0,
+            hasData = true  // We have instant data to show
+        )
+    } else {
+        liveData  // No data available
+    }
 
     Column(
         modifier = Modifier
@@ -168,21 +202,21 @@ fun LiveScreen(
             ) {
                 // Score with color based on value
                 val scoreColor = when {
-                    liveData.score >= 80 -> Theme.colors.optimal
-                    liveData.score >= 50 -> Theme.colors.attention
-                    liveData.score > 0 -> Theme.colors.problem
+                    displayData.score >= 80 -> Theme.colors.optimal
+                    displayData.score >= 50 -> Theme.colors.attention
+                    displayData.score > 0 -> Theme.colors.problem
                     else -> Theme.colors.dim
                 }
-                if (liveData.score > 0) {
+                if (displayData.score > 0) {
                     Text(
-                        text = "${liveData.score}",
+                        text = "${displayData.score}",
                         color = scoreColor,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
                 Text(
-                    text = liveData.duration,
+                    text = displayData.duration,
                     color = Theme.colors.dim,
                     fontSize = 12.sp
                 )
@@ -224,9 +258,65 @@ fun LiveScreen(
 
         Divider()
 
+        // Sensor status bar - shows connection and data state
+        val (statusText, statusColor, statusBgColor) = when {
+            sensorState is SensorStreamState.Streaming && metrics.hasData -> Triple(
+                stringResource(R.string.sensor_receiving_data),
+                Theme.colors.optimal,
+                Color(0xFF1A2E1A)  // Dark green
+            )
+            sensorState is SensorStreamState.Streaming -> Triple(
+                stringResource(R.string.sensor_connected_waiting),
+                Theme.colors.attention,
+                Color(0xFF2E2E1A)  // Dark yellow
+            )
+            sensorState is SensorStreamState.Searching -> Triple(
+                stringResource(R.string.sensor_searching),
+                Theme.colors.dim,
+                Color(0xFF1A1A1A)  // Dark gray
+            )
+            sensorState is SensorStreamState.Disconnected -> Triple(
+                stringResource(R.string.sensor_disconnected),
+                Theme.colors.problem,
+                Color(0xFF2E1A1A)  // Dark red
+            )
+            sensorState is SensorStreamState.NotAvailable -> Triple(
+                stringResource(R.string.sensor_not_available),
+                Theme.colors.problem,
+                Color(0xFF2E1A1A)  // Dark red
+            )
+            else -> Triple(
+                stringResource(R.string.sensor_idle),
+                Theme.colors.dim,
+                Color(0xFF1A1A1A)  // Dark gray
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(statusBgColor)
+                .padding(horizontal = 12.dp, vertical = 6.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(6.dp)
+                    .clip(CircleShape)
+                    .background(statusColor)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = statusText,
+                color = statusColor,
+                fontSize = 11.sp
+            )
+        }
+
         // BALANCE section (weight 1)
         Box(modifier = Modifier.weight(1f)) {
-            BalanceSection(liveData)
+            BalanceSection(displayData)
         }
 
         Divider()
@@ -236,10 +326,10 @@ fun LiveScreen(
             Box(modifier = Modifier.weight(1f)) {
                 MetricSection(
                     label = "TE",
-                    left = liveData.teLeft,
-                    right = liveData.teRight,
-                    trend = liveData.teTrend,
-                    hasData = liveData.hasData,
+                    left = displayData.teLeft,
+                    right = displayData.teRight,
+                    trend = displayData.teTrend,
+                    hasData = displayData.hasData,
                     statusFn = { StatusCalculator.teStatus(it.toFloat()) }
                 )
             }
@@ -252,10 +342,10 @@ fun LiveScreen(
             Box(modifier = Modifier.weight(1f)) {
                 MetricSection(
                     label = "PS",
-                    left = liveData.psLeft,
-                    right = liveData.psRight,
-                    trend = liveData.psTrend,
-                    hasData = liveData.hasData,
+                    left = displayData.psLeft,
+                    right = displayData.psRight,
+                    trend = displayData.psTrend,
+                    hasData = displayData.hasData,
                     statusFn = { StatusCalculator.psStatus(it.toFloat()) }
                 )
             }
@@ -265,7 +355,7 @@ fun LiveScreen(
 
         // TIME IN ZONE section (weight 1)
         Box(modifier = Modifier.weight(1f)) {
-            TimeInZoneSection(liveData)
+            TimeInZoneSection(displayData)
         }
     }
 }

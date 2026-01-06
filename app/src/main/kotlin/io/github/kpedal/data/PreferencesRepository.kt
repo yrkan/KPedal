@@ -73,6 +73,9 @@ class PreferencesRepository(private val context: Context) {
         private val KEY_PS_ALERT_VIBRATION = booleanPreferencesKey("ps_alert_vibration")
         private val KEY_PS_ALERT_COOLDOWN = intPreferencesKey("ps_alert_cooldown")
 
+        // Sensor disconnect
+        private val KEY_SENSOR_DISCONNECT_ACTION = stringPreferencesKey("sensor_disconnect_action")
+
         // Onboarding
         private val KEY_HAS_SEEN_ONBOARDING = booleanPreferencesKey("has_seen_onboarding")
 
@@ -204,10 +207,21 @@ class PreferencesRepository(private val context: Context) {
                     soundAlert = prefs[KEY_PS_ALERT_SOUND] ?: false,
                     vibrationAlert = prefs[KEY_PS_ALERT_VIBRATION] ?: true,
                     cooldownSeconds = prefs[KEY_PS_ALERT_COOLDOWN] ?: 30
-                )
+                ),
+                sensorDisconnectAction = try {
+                    SensorDisconnectAction.valueOf(prefs[KEY_SENSOR_DISCONNECT_ACTION] ?: "SHOW_DASHES")
+                } catch (e: Exception) {
+                    SensorDisconnectAction.SHOW_DASHES
+                }
             )
         }
         .distinctUntilChanged()
+
+    suspend fun updateSensorDisconnectAction(action: SensorDisconnectAction) {
+        context.dataStore.edit { prefs ->
+            prefs[KEY_SENSOR_DISCONNECT_ACTION] = action.name
+        }
+    }
 
     suspend fun updateGlobalAlertsEnabled(enabled: Boolean) {
         context.dataStore.edit { prefs ->

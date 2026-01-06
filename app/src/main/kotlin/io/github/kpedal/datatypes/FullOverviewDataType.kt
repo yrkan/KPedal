@@ -84,40 +84,52 @@ class FullOverviewDataType(
         }
     }
 
-    override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
-        if (!metrics.hasData) {
-            // No data - show dashes for all values
-            views.setTextViewText(R.id.balance_left, NO_DATA)
-            views.setTextViewText(R.id.balance_right, NO_DATA)
+    override fun updateViews(
+        views: RemoteViews,
+        metrics: PedalingMetrics,
+        layoutSize: LayoutSize,
+        sensorDisconnected: Boolean
+    ) {
+        // Show "---" when sensor disconnected, "-" when no data
+        val displayText = when {
+            sensorDisconnected -> SENSOR_DISCONNECTED
+            !metrics.hasData -> NO_DATA
+            else -> null // Use actual values
+        }
+
+        if (displayText != null) {
+            // No data or disconnected - show placeholder for all values
+            views.setTextViewText(R.id.balance_left, displayText)
+            views.setTextViewText(R.id.balance_right, displayText)
             views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
             views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
 
-            if (currentLayoutSize == LayoutSize.LARGE) {
+            if (layoutSize == LayoutSize.LARGE) {
                 views.setProgressBar(R.id.balance_bar, 100, 50, false)
             }
 
             // TE and PS averages - in SMALL, SMALL_WIDE and MEDIUM_WIDE
-            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
-                views.setTextViewText(R.id.te_avg, NO_DATA)
-                views.setTextViewText(R.id.ps_avg, NO_DATA)
+            if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setTextViewText(R.id.te_avg, displayText)
+                views.setTextViewText(R.id.ps_avg, displayText)
                 views.setTextColor(R.id.te_avg, StatusCalculator.COLOR_WHITE)
                 views.setTextColor(R.id.ps_avg, StatusCalculator.COLOR_WHITE)
             }
 
             // TE and PS L/R - MEDIUM, LARGE and NARROW
-            if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
-                views.setTextViewText(R.id.te_left, NO_DATA)
-                views.setTextViewText(R.id.te_right, NO_DATA)
-                views.setTextViewText(R.id.ps_left, NO_DATA)
-                views.setTextViewText(R.id.ps_right, NO_DATA)
+            if (layoutSize == LayoutSize.MEDIUM || layoutSize == LayoutSize.LARGE || layoutSize == LayoutSize.NARROW) {
+                views.setTextViewText(R.id.te_left, displayText)
+                views.setTextViewText(R.id.te_right, displayText)
+                views.setTextViewText(R.id.ps_left, displayText)
+                views.setTextViewText(R.id.ps_right, displayText)
                 views.setTextColor(R.id.te_left, StatusCalculator.COLOR_WHITE)
                 views.setTextColor(R.id.te_right, StatusCalculator.COLOR_WHITE)
                 views.setTextColor(R.id.ps_left, StatusCalculator.COLOR_WHITE)
                 views.setTextColor(R.id.ps_right, StatusCalculator.COLOR_WHITE)
 
-                if (currentLayoutSize == LayoutSize.LARGE) {
-                    views.setTextViewText(R.id.te_avg, NO_DATA)
-                    views.setTextViewText(R.id.ps_avg, NO_DATA)
+                if (layoutSize == LayoutSize.LARGE) {
+                    views.setTextViewText(R.id.te_avg, displayText)
+                    views.setTextViewText(R.id.ps_avg, displayText)
                     views.setTextColor(R.id.te_avg, StatusCalculator.COLOR_WHITE)
                     views.setTextColor(R.id.ps_avg, StatusCalculator.COLOR_WHITE)
                     views.setProgressBar(R.id.te_bar, 100, 0, false)
@@ -135,12 +147,12 @@ class FullOverviewDataType(
         views.setTextViewText(R.id.balance_right, "$right")
         applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
 
-        if (currentLayoutSize == LayoutSize.LARGE) {
+        if (layoutSize == LayoutSize.LARGE) {
             views.setProgressBar(R.id.balance_bar, 100, right, false)
         }
 
         // TE and PS averages - in SMALL, SMALL_WIDE and MEDIUM_WIDE
-        if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+        if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
             val teAvg = metrics.torqueEffAvg.toInt()
             val psAvg = metrics.pedalSmoothAvg.toInt()
             val teAvgStatus = StatusCalculator.teStatus(metrics.torqueEffAvg)
@@ -153,7 +165,7 @@ class FullOverviewDataType(
         }
 
         // TE and PS with L/R - MEDIUM, LARGE and NARROW
-        if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
+        if (layoutSize == LayoutSize.MEDIUM || layoutSize == LayoutSize.LARGE || layoutSize == LayoutSize.NARROW) {
             val teL = metrics.torqueEffLeft.toInt()
             val teR = metrics.torqueEffRight.toInt()
             val teAvg = metrics.torqueEffAvg.toInt()
@@ -177,7 +189,7 @@ class FullOverviewDataType(
             views.setTextColor(R.id.ps_right, StatusCalculator.textColor(psRStatus))
 
             // Extra elements only in LARGE
-            if (currentLayoutSize == LayoutSize.LARGE) {
+            if (layoutSize == LayoutSize.LARGE) {
                 val teAvgStatus = StatusCalculator.teStatus(metrics.torqueEffAvg)
                 val psAvg = metrics.pedalSmoothAvg.toInt()
                 val psAvgStatus = StatusCalculator.psStatus(metrics.pedalSmoothAvg)

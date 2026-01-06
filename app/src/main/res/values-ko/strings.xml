@@ -202,6 +202,12 @@
     <string name="banner">배너</string>
     <string name="options">옵션</string>
     <string name="wake_screen">화면 깨우기</string>
+    <string name="sensor_disconnect">센서 손실 시</string>
+    <string name="show_dashes">-- 표시</string>
+    <string name="show_alert_option">알림</string>
+    <string name="do_nothing">없음</string>
+    <string name="alert_sensor_lost_title">센서 손실</string>
+    <string name="alert_sensor_lost_detail">파워미터 연결 끊김</string>
     <string name="cooldown">쿨다운</string>
     <string name="cooldown_15s">15초</string>
     <string name="cooldown_30s">30초</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">연결됨</string>
     <string name="disconnected">연결 해제됨</string>
+    <string name="searching">검색 중…</string>
+    <string name="not_available">사용 불가</string>
+    <string name="idle">대기 중</string>
     <string name="live_data">실시간 데이터</string>
     <string name="data_flowing">데이터가 정상적으로 수신 중</string>
     <string name="signal_details">신호 세부정보</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">페달 배터리를 확인하세요</string>
     <string name="pedal_tip_low_rate">낮은 속도는 간섭을 나타낼 수 있습니다</string>
     <string name="pedal_tip_move_away">다른 ANT+ 기기에서 멀리 이동하세요</string>
+    <string name="pedal_tip_enable_dynamics">Favero 앱에서 IAV Dynamic 모드를 활성화하세요 (또는 페달에 맞는 설정)</string>
+    <string name="pedal_tip_no_power_meter">저장된 센서에서 파워미터가 감지되지 않았습니다</string>
+    <string name="sensor_diagnostics">센서 진단</string>
+    <string name="power_meter">파워미터</string>
+    <string name="cycling_dynamics">사이클링 다이나믹스</string>
+    <string name="detected_sensors">감지된 센서</string>
+    <string name="active_sensor">활성 소스</string>
+    <string name="multiple_sensors_tip">여러 파워미터 감지됨. 전환하려면: Karoo 설정 → 센서 → 불필요한 것 비활성화</string>
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
 
     <!-- History Screen -->
     <string name="ride_history">라이딩 기록</string>

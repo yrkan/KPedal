@@ -408,12 +408,44 @@ Create personalized drills with configurable parameters:
 - Visual / Sound / Vibration
 - Cooldown: 10-120 seconds
 
+**Sensor Disconnect:**
+
+| Action | Description |
+|--------|-------------|
+| **Show --** | Display `--` in data fields when sensor lost (default) |
+| **Alert** | Show banner alert with sound/vibration |
+| **Nothing** | Continue showing last known values |
+
+The sensor disconnect alert includes:
+- Screen wake
+- Visual banner (8 seconds)
+- Descending tone pattern (1000Hz → 800Hz → 600Hz)
+- Triple vibration
+- 30-second cooldown between alerts
+
 #### Background Mode
 
 | Setting | Default | Description |
 |---------|:-------:|-------------|
 | **Background Mode** | On | Collect data for all rides |
 | **Auto-Sync** | On | Sync rides after completion |
+
+#### Crash Recovery
+
+If the app crashes or Karoo restarts during a ride, KPedal automatically recovers your data:
+
+| Feature | Description |
+|---------|-------------|
+| **Checkpoint Saving** | Saves ride state every 1 minute to local database |
+| **Auto-Restore** | On restart, silently restores if checkpoint < 24 hours old |
+| **Seamless** | No user action required, ride continues from last checkpoint |
+
+**What gets recovered:**
+- Total ride duration
+- Balance, TE, PS averages
+- Time in each zone (optimal/attention/problem)
+- Extended metrics (power, HR, cadence, etc.)
+- Per-minute snapshots
 
 ### Ride Analysis
 
@@ -1034,12 +1066,12 @@ app/src/main/java/io/github/kpedal/
 
 | Component | Version | Description |
 |-----------|:-------:|-------------|
-| **Hono** | 4.11.0 | Web framework for Workers |
+| **Hono** | 4.11.3 | Web framework for Workers |
 | **jose** | 6.1.0 | JWT implementation |
 | **TypeScript** | 5.7.0 | Type-safe JavaScript |
 | **Vitest** | 4.0.0 | Test framework |
 | **Wrangler** | 4.56.0 | Cloudflare CLI |
-| **Workers Types** | 4.20251225.0 | Cloudflare Workers TypeScript types |
+| **Workers Types** | 4.20260101.0 | Cloudflare Workers TypeScript types |
 
 #### Web Frontend
 
@@ -1050,7 +1082,7 @@ app/src/main/java/io/github/kpedal/
 | **Vite** | 7.3.0 | Build tool |
 | **driver.js** | 1.4.0 | Product tour library |
 | **svelte-i18n** | 4.0.1 | Internationalization |
-| **Chart.js** | 4.4.0 | Charts and visualizations |
+| **svelte-check** | 4.x | Type checking |
 | **Cloudflare Pages** | - | Static hosting + edge functions |
 
 #### Infrastructure

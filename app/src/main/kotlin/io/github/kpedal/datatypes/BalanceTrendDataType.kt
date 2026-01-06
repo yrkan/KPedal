@@ -69,24 +69,36 @@ class BalanceTrendDataType(
         }
     }
 
-    override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
-        if (!metrics.hasData) {
-            // No data - show dashes for all balance values
-            views.setTextViewText(R.id.balance_left, NO_DATA)
-            views.setTextViewText(R.id.balance_right, NO_DATA)
+    override fun updateViews(
+        views: RemoteViews,
+        metrics: PedalingMetrics,
+        layoutSize: LayoutSize,
+        sensorDisconnected: Boolean
+    ) {
+        // Show "---" when sensor disconnected, "-" when no data
+        val displayText = when {
+            sensorDisconnected -> SENSOR_DISCONNECTED
+            !metrics.hasData -> NO_DATA
+            else -> null // Use actual values
+        }
+
+        if (displayText != null) {
+            // No data or disconnected - show placeholder for all balance values
+            views.setTextViewText(R.id.balance_left, displayText)
+            views.setTextViewText(R.id.balance_right, displayText)
             views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
             views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
 
-            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
-                views.setTextViewText(R.id.trend_indicator, NO_DATA)
+            if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
+                views.setTextViewText(R.id.trend_indicator, displayText)
                 views.setTextColor(R.id.trend_indicator, StatusCalculator.COLOR_WHITE)
             }
-            if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
-                views.setTextViewText(R.id.balance_3s_left, NO_DATA)
-                views.setTextViewText(R.id.balance_3s_right, NO_DATA)
-                if (currentLayoutSize == LayoutSize.LARGE) {
-                    views.setTextViewText(R.id.balance_10s_left, NO_DATA)
-                    views.setTextViewText(R.id.balance_10s_right, NO_DATA)
+            if (layoutSize == LayoutSize.MEDIUM || layoutSize == LayoutSize.LARGE || layoutSize == LayoutSize.NARROW) {
+                views.setTextViewText(R.id.balance_3s_left, displayText)
+                views.setTextViewText(R.id.balance_3s_right, displayText)
+                if (layoutSize == LayoutSize.LARGE) {
+                    views.setTextViewText(R.id.balance_10s_left, displayText)
+                    views.setTextViewText(R.id.balance_10s_right, displayText)
                 }
             }
             return
@@ -101,7 +113,7 @@ class BalanceTrendDataType(
         applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
 
         // Trend indicator - only in SMALL, SMALL_WIDE and MEDIUM_WIDE
-        if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+        if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
             // Compare current balance with 3s smoothed to determine trend
             val currentRight = metrics.balance
             val smoothedRight = metrics.balance3s
@@ -117,14 +129,14 @@ class BalanceTrendDataType(
         }
 
         // 3s smoothed - MEDIUM, LARGE and NARROW
-        if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
+        if (layoutSize == LayoutSize.MEDIUM || layoutSize == LayoutSize.LARGE || layoutSize == LayoutSize.NARROW) {
             val left3s = metrics.balance3sLeft.toInt()
             val right3s = metrics.balance3s.toInt()
             views.setTextViewText(R.id.balance_3s_left, "$left3s")
             views.setTextViewText(R.id.balance_3s_right, "$right3s")
 
             // 10s smoothed - only in LARGE
-            if (currentLayoutSize == LayoutSize.LARGE) {
+            if (layoutSize == LayoutSize.LARGE) {
                 val left10s = metrics.balance10sLeft.toInt()
                 val right10s = metrics.balance10s.toInt()
                 views.setTextViewText(R.id.balance_10s_left, "$left10s")

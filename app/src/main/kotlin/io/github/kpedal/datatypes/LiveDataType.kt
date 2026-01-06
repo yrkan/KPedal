@@ -5,6 +5,9 @@ import android.widget.RemoteViews
 import androidx.annotation.StringRes
 import io.github.kpedal.KPedalExtension
 import io.github.kpedal.R
+import io.github.kpedal.data.AlertSettings
+import io.github.kpedal.data.SensorDisconnectAction
+import io.github.kpedal.engine.SensorStreamState
 import io.github.kpedal.engine.StatusCalculator
 import io.github.kpedal.ui.screens.LiveRideData
 import io.github.kpedal.util.LocaleHelper
@@ -38,6 +41,8 @@ class LiveDataType(
     companion object {
         private const val TAG = "LiveDataType"
         private const val VIEW_UPDATE_INTERVAL_MS = 1000L
+        private const val NO_DATA = "-"
+        private const val SENSOR_DISCONNECTED = "--"
 
         /**
          * Sample live data for preview mode.
@@ -78,8 +83,8 @@ class LiveDataType(
         }
     }
 
-    private var viewScope: CoroutineScope? = null
-    private var currentLayoutSize: LayoutSize = LayoutSize.MEDIUM
+    // NOTE: No instance variables for per-view state - each startView() creates independent
+    // local variables captured in closures. Allows multiple views simultaneously.
 
     /**
      * Get localized string using user's selected language.
@@ -102,8 +107,8 @@ class LiveDataType(
     /**
      * Apply adaptive text sizes based on ViewConfig.
      */
-    private fun applyAdaptiveTextSizes(views: RemoteViews, config: ViewConfig) {
-        when (currentLayoutSize) {
+    private fun applyAdaptiveTextSizes(views: RemoteViews, config: ViewConfig, layoutSize: LayoutSize) {
+        when (layoutSize) {
             LayoutSize.SMALL, LayoutSize.SMALL_WIDE, LayoutSize.MEDIUM_WIDE -> {
                 // Time in Zone: label + zone bar + optimal %
                 views.setAdaptiveTextSize(R.id.label_ride, config, TextSizeCalculator.Role.LABEL)
@@ -159,23 +164,21 @@ class LiveDataType(
     }
 
     override fun startView(context: Context, config: ViewConfig, emitter: ViewEmitter) {
-        viewScope?.cancel()
-        viewScope = null
-
         emitter.onNext(UpdateGraphicConfig(showHeader = false))
 
-        currentLayoutSize = getLayoutSize(config)
-        android.util.Log.d(TAG, "Grid: ${config.gridSize}, Size: $currentLayoutSize")
+        // Per-view state - captured in closures, not shared across views
+        val layoutSize = getLayoutSize(config)
+        android.util.Log.d(TAG, "Grid: ${config.gridSize}, Size: $layoutSize")
 
-        val cachedViews = RemoteViews(context.packageName, getLayoutResId(currentLayoutSize))
+        val cachedViews = RemoteViews(context.packageName, getLayoutResId(layoutSize))
 
         // Apply adaptive text sizes based on ViewConfig
-        applyAdaptiveTextSizes(cachedViews, config)
+        applyAdaptiveTextSizes(cachedViews, config, layoutSize)
 
         // Preview mode: render with sample data
         if (config.preview) {
             try {
-                updateViews(cachedViews, PREVIEW_LIVE_DATA)
+                updateViews(cachedViews, PREVIEW_LIVE_DATA, layoutSize, sensorDisconnected = false)
                 emitter.updateView(cachedViews)
             } catch (e: Exception) {
                 android.util.Log.e(TAG, "Preview update error: ${e.message}", e)
@@ -184,9 +187,22 @@ class LiveDataType(
             return
         }
 
-        // Live mode
+        // Live mode - each view gets its own scope captured in setCancellable
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-        viewScope = scope
+
+        // Per-view cached disconnect action setting
+        var disconnectAction = SensorDisconnectAction.SHOW_DASHES
+
+        // Cache alert settings for disconnect action preference
+        scope.launch {
+            try {
+                kpedalExtension.preferencesRepository.alertSettingsFlow.collect { settings ->
+                    disconnectAction = settings.sensorDisconnectAction
+                }
+            } catch (e: Exception) {
+                android.util.Log.w(TAG, "Failed to collect alert settings: ${e.message}")
+            }
+        }
 
         // Initial update
         scope.launch {
@@ -196,12 +212,12 @@ class LiveDataType(
                 } catch (e: Exception) {
                     PREVIEW_LIVE_DATA
                 }
-                updateViews(cachedViews, liveData)
+                updateViews(cachedViews, liveData, layoutSize, sensorDisconnected = false)
                 emitter.updateView(cachedViews)
             } catch (e: Exception) {
                 android.util.Log.w(TAG, "Initial view update error: ${e.message}")
                 try {
-                    updateViews(cachedViews, PREVIEW_LIVE_DATA)
+                    updateViews(cachedViews, PREVIEW_LIVE_DATA, layoutSize, sensorDisconnected = false)
                     emitter.updateView(cachedViews)
                 } catch (e2: Exception) {
                     android.util.Log.e(TAG, "Fallback update failed: ${e2.message}")
@@ -215,8 +231,13 @@ class LiveDataType(
             while (isActive) {
                 delay(VIEW_UPDATE_INTERVAL_MS)
                 try {
+                    // Update sensor disconnect state
+                    val sensorState = kpedalExtension.pedalingEngine.sensorState.value
+                    val sensorDisconnected = sensorState is SensorStreamState.Disconnected &&
+                            disconnectAction != SensorDisconnectAction.DISABLED
+
                     val liveData = kpedalExtension.pedalingEngine.liveDataCollector.liveData.value
-                    updateViews(cachedViews, liveData)
+                    updateViews(cachedViews, liveData, layoutSize, sensorDisconnected)
                     emitter.updateView(cachedViews)
                 } catch (t: Throwable) {
                     // Rethrow CancellationException to allow proper coroutine cancellation
@@ -229,15 +250,28 @@ class LiveDataType(
         }
 
         emitter.setCancellable {
-            viewScope?.cancel()
-            viewScope = null
+            scope.cancel()
         }
     }
 
-    private fun updateViews(views: RemoteViews, liveData: LiveRideData) {
+    private fun updateViews(views: RemoteViews, liveData: LiveRideData, layoutSize: LayoutSize, sensorDisconnected: Boolean) {
+        // Show "--" when sensor disconnected, "-" when no data
+        val displayText = when {
+            sensorDisconnected -> SENSOR_DISCONNECTED
+            !liveData.hasData -> NO_DATA
+            else -> null // Use actual values
+        }
+
         // SMALL/SMALL_WIDE/MEDIUM_WIDE: Time in Zone only
-        if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+        if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
             // Zone optimal percentage
+            if (displayText != null) {
+                views.setTextViewText(R.id.zone_optimal, displayText)
+                views.setProgressBar(R.id.zone_bar_optimal, 100, 0, false)
+                views.setProgressBar(R.id.zone_bar_attention, 100, 0, false)
+                views.setProgressBar(R.id.zone_bar_problem, 100, 0, false)
+                return
+            }
             views.setTextViewText(R.id.zone_optimal, "${liveData.zoneOptimal}")
 
             // Update zone bar weights based on percentages
@@ -249,6 +283,38 @@ class LiveDataType(
         }
 
         // MEDIUM and LARGE: Balance + TE/PS
+        if (displayText != null) {
+            // No data or disconnected - show placeholder
+            views.setTextViewText(R.id.balance_left, displayText)
+            views.setTextViewText(R.id.balance_right, displayText)
+            views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
+            views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
+            views.setProgressBar(R.id.balance_bar, 100, 50, false)
+
+            if (layoutSize != LayoutSize.SMALL) {
+                views.setTextViewText(R.id.te_left, displayText)
+                views.setTextViewText(R.id.te_right, displayText)
+                views.setTextViewText(R.id.ps_left, displayText)
+                views.setTextViewText(R.id.ps_right, displayText)
+                views.setTextColor(R.id.te_left, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.te_right, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.ps_left, StatusCalculator.COLOR_WHITE)
+                views.setTextColor(R.id.ps_right, StatusCalculator.COLOR_WHITE)
+
+                if (layoutSize == LayoutSize.LARGE) {
+                    views.setProgressBar(R.id.te_bar, 100, 0, false)
+                    views.setProgressBar(R.id.ps_bar, 50, 0, false)
+                    views.setTextViewText(R.id.zone_optimal, displayText)
+                    views.setTextViewText(R.id.zone_attention, displayText)
+                    views.setTextViewText(R.id.zone_problem, displayText)
+                    views.setProgressBar(R.id.zone_bar_optimal, 100, 0, false)
+                    views.setProgressBar(R.id.zone_bar_attention, 100, 0, false)
+                    views.setProgressBar(R.id.zone_bar_problem, 100, 0, false)
+                }
+            }
+            return
+        }
+
         views.setTextViewText(R.id.balance_left, "${liveData.balanceLeft}")
         views.setTextViewText(R.id.balance_right, "${liveData.balanceRight}")
 
@@ -271,7 +337,7 @@ class LiveDataType(
         views.setProgressBar(R.id.balance_bar, 100, liveData.balanceRight, false)
 
         // TE and PS
-        if (currentLayoutSize != LayoutSize.SMALL) {
+        if (layoutSize != LayoutSize.SMALL) {
             views.setTextViewText(R.id.te_left, "${liveData.teLeft}")
             views.setTextViewText(R.id.te_right, "${liveData.teRight}")
             val teLStatus = StatusCalculator.teStatus(liveData.teLeft.toFloat())
@@ -287,7 +353,7 @@ class LiveDataType(
             views.setTextColor(R.id.ps_right, StatusCalculator.textColor(psRStatus))
 
             // LARGE: TE/PS bars + Time in zone with visual bars
-            if (currentLayoutSize == LayoutSize.LARGE) {
+            if (layoutSize == LayoutSize.LARGE) {
                 // TE and PS progress bars (average of L/R)
                 val teAvg = (liveData.teLeft + liveData.teRight) / 2
                 val psAvg = (liveData.psLeft + liveData.psRight) / 2

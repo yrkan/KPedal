@@ -53,24 +53,36 @@ class QuickGlanceDataType(
         }
     }
 
-    override fun updateViews(views: RemoteViews, metrics: PedalingMetrics) {
-        if (!metrics.hasData) {
-            // No data - show dash for status
-            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+    override fun updateViews(
+        views: RemoteViews,
+        metrics: PedalingMetrics,
+        layoutSize: LayoutSize,
+        sensorDisconnected: Boolean
+    ) {
+        // Show "---" when sensor disconnected, "-" when no data
+        val displayText = when {
+            sensorDisconnected -> SENSOR_DISCONNECTED
+            !metrics.hasData -> NO_DATA
+            else -> null // Use actual values
+        }
+
+        if (displayText != null) {
+            // No data or disconnected - show placeholder for status
+            if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
                 views.setImageViewResource(R.id.status_icon_image, R.drawable.ic_warning)
             } else {
-                views.setTextViewText(R.id.status_icon, NO_DATA)
+                views.setTextViewText(R.id.status_icon, displayText)
                 views.setTextColor(R.id.status_icon, StatusCalculator.COLOR_WHITE)
             }
-            views.setTextViewText(R.id.status_text, NO_DATA)
+            views.setTextViewText(R.id.status_text, displayText)
             views.setTextColor(R.id.status_text, StatusCalculator.COLOR_WHITE)
 
-            if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
-                views.setTextViewText(R.id.balance_left, NO_DATA)
-                views.setTextViewText(R.id.balance_right, NO_DATA)
+            if (layoutSize == LayoutSize.MEDIUM || layoutSize == LayoutSize.LARGE || layoutSize == LayoutSize.NARROW) {
+                views.setTextViewText(R.id.balance_left, displayText)
+                views.setTextViewText(R.id.balance_right, displayText)
                 views.setTextColor(R.id.balance_left, StatusCalculator.COLOR_WHITE)
                 views.setTextColor(R.id.balance_right, StatusCalculator.COLOR_WHITE)
-                if (currentLayoutSize == LayoutSize.LARGE) {
+                if (layoutSize == LayoutSize.LARGE) {
                     views.setProgressBar(R.id.balance_bar, 100, 50, false)
                 }
             }
@@ -89,7 +101,7 @@ class QuickGlanceDataType(
 
         if (issues.isEmpty()) {
             // SMALL/SMALL_WIDE/MEDIUM_WIDE uses ImageView, MEDIUM/LARGE use TextView
-            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+            if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
                 views.setImageViewResource(R.id.status_icon_image, R.drawable.ic_check)
             } else {
                 views.setTextViewText(R.id.status_icon, "✓")
@@ -101,7 +113,7 @@ class QuickGlanceDataType(
         } else {
             val color = if (issues.size >= 2) StatusCalculator.COLOR_PROBLEM else StatusCalculator.COLOR_ATTENTION
             // SMALL/SMALL_WIDE/MEDIUM_WIDE uses ImageView, MEDIUM/LARGE use TextView
-            if (currentLayoutSize == LayoutSize.SMALL || currentLayoutSize == LayoutSize.SMALL_WIDE || currentLayoutSize == LayoutSize.MEDIUM_WIDE) {
+            if (layoutSize == LayoutSize.SMALL || layoutSize == LayoutSize.SMALL_WIDE || layoutSize == LayoutSize.MEDIUM_WIDE) {
                 views.setImageViewResource(R.id.status_icon_image, R.drawable.ic_warning)
             } else {
                 views.setTextViewText(R.id.status_icon, "!")
@@ -112,7 +124,7 @@ class QuickGlanceDataType(
         }
 
         // Balance - MEDIUM, LARGE and NARROW
-        if (currentLayoutSize == LayoutSize.MEDIUM || currentLayoutSize == LayoutSize.LARGE || currentLayoutSize == LayoutSize.NARROW) {
+        if (layoutSize == LayoutSize.MEDIUM || layoutSize == LayoutSize.LARGE || layoutSize == LayoutSize.NARROW) {
             val left = metrics.balanceLeft.toInt()
             val right = metrics.balance.toInt()
 
@@ -120,7 +132,7 @@ class QuickGlanceDataType(
             views.setTextViewText(R.id.balance_right, "$right")
             applyBalanceColors(views, R.id.balance_left, R.id.balance_right, left, right)
 
-            if (currentLayoutSize == LayoutSize.LARGE) {
+            if (layoutSize == LayoutSize.LARGE) {
                 views.setProgressBar(R.id.balance_bar, 100, right, false)
             }
         }

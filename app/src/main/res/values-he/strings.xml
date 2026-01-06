@@ -202,6 +202,12 @@
     <string name="banner">באנר</string>
     <string name="options">אפשרויות</string>
     <string name="wake_screen">הער מסך</string>
+    <string name="sensor_disconnect">אם חיישן אבד</string>
+    <string name="show_dashes">הצג --</string>
+    <string name="show_alert_option">התראה</string>
+    <string name="do_nothing">כלום</string>
+    <string name="alert_sensor_lost_title">חיישן אבד</string>
+    <string name="alert_sensor_lost_detail">מד כוח מנותק</string>
     <string name="cooldown">זמן המתנה</string>
     <string name="cooldown_15s">15 שנ׳</string>
     <string name="cooldown_30s">30 שנ׳</string>
@@ -221,6 +227,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">מחובר</string>
     <string name="disconnected">מנותק</string>
+    <string name="searching">מחפש…</string>
+    <string name="not_available">לא זמין</string>
+    <string name="idle">המתנה</string>
     <string name="live_data">נתונים חיים</string>
     <string name="data_flowing">הנתונים זורמים כראוי</string>
     <string name="signal_details">פרטי אות</string>
@@ -237,6 +246,16 @@
     <string name="pedal_tip_check_battery">בדוק סוללת דוושות</string>
     <string name="pedal_tip_low_rate">קצב נמוך עלול להצביע על הפרעות</string>
     <string name="pedal_tip_move_away">התרחק ממכשירי ANT+ אחרים</string>
+    <string name="pedal_tip_enable_dynamics">הפעל מצב IAV Dynamic באפליקציית Favero (או מקביל לדוושות שלך)</string>
+    <string name="pedal_tip_no_power_meter">לא זוהה מד הספק בחיישנים השמורים</string>
+    <string name="sensor_diagnostics">אבחון חיישנים</string>
+    <string name="power_meter">מד הספק</string>
+    <string name="cycling_dynamics">דינמיקת דוושות</string>
+    <string name="detected_sensors">חיישנים שזוהו</string>
+    <string name="active_sensor">מקור פעיל</string>
+    <string name="multiple_sensors_tip">זוהו מספר מדי כוח. להחלפה: הגדרות Karoo → חיישנים → השבת את הלא רצוי</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
 
     <!-- History Screen -->
     <string name="ride_history">היסטוריית רכיבות</string>

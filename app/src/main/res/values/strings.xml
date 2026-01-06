@@ -242,6 +242,12 @@
     <string name="banner">Banner</string>
     <string name="options">OPTIONS</string>
     <string name="wake_screen">Wake screen</string>
+    <string name="sensor_disconnect">IF SENSOR LOST</string>
+    <string name="show_dashes">Show --</string>
+    <string name="show_alert_option">Alert</string>
+    <string name="do_nothing">Nothing</string>
+    <string name="alert_sensor_lost_title">SENSOR LOST</string>
+    <string name="alert_sensor_lost_detail">Power meter disconnected</string>
     <string name="cooldown">Cooldown</string>
     <string name="cooldown_15s">15s</string>
     <string name="cooldown_30s">30s</string>
@@ -261,6 +267,9 @@
     <!-- Pedal Info Screen -->
     <string name="connected">Connected</string>
     <string name="disconnected">Disconnected</string>
+    <string name="searching">Searching…</string>
+    <string name="not_available">Not Available</string>
+    <string name="idle">Idle</string>
     <string name="live_data">LIVE DATA</string>
     <string name="data_flowing">Data is flowing correctly</string>
     <string name="signal_details">SIGNAL DETAILS</string>
@@ -277,6 +286,24 @@
     <string name="pedal_tip_check_battery">Check pedal battery</string>
     <string name="pedal_tip_low_rate">Low rate may indicate interference</string>
     <string name="pedal_tip_move_away">Move away from other ANT+ devices</string>
+    <string name="pedal_tip_enable_dynamics">Enable IAV Dynamic mode in Favero app (or equivalent for your pedals)</string>
+    <string name="pedal_tip_no_power_meter">No power meter detected in saved sensors</string>
+    <string name="sensor_diagnostics">Sensor Diagnostics</string>
+    <string name="power_meter">Power Meter</string>
+    <string name="cycling_dynamics">Cycling Dynamics</string>
+    <string name="detected_sensors">Detected Sensors</string>
+    <string name="active_sensor">Active Power Source</string>
+    <string name="multiple_sensors_tip">Multiple power meters detected. To switch: Karoo Settings → Sensors → disable the one you don\'t want</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Sensor Status Bar (Live Screen) -->
+    <string name="sensor_receiving_data">Receiving data</string>
+    <string name="sensor_connected_waiting">Connected, waiting for data…</string>
+    <string name="sensor_searching">Searching for sensor…</string>
+    <string name="sensor_disconnected">Sensor disconnected</string>
+    <string name="sensor_not_available">Sensor not available</string>
+    <string name="sensor_idle">Waiting for connection…</string>
 
     <!-- History Screen -->
     <string name="ride_history">Ride History</string>
