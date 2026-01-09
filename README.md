@@ -21,8 +21,20 @@ Real-time pedaling efficiency extension for Hammerhead Karoo 2/3. Displays Balan
 
 ---
 
+## What's New in v1.8
+
+| Category | Change |
+|----------|--------|
+| **+12 DataTypes** | Pedaling Score, Fatigue Indicator, Cadence Balance, Delta Average, Left/Right Leg, Climbing Mode, Symmetry Index, HR Efficiency, Power Focus, Sprint Mode, Compact Multi |
+| **Glance Migration** | All DataTypes rebuilt with Jetpack Glance — eliminates crash after 10+ min rides |
+| **Sync Reliability** | Failed items (syncStatus=2) now auto-retry on next trigger |
+| **Stability** | Fixed RemoteViews action accumulation causing TransactionTooLargeException |
+
+---
+
 ## Table of Contents
 
+- [What's New in v1.8](#whats-new-in-v18)
 - [Overview](#overview)
 - [Quick Start](#quick-start)
 - [Pedaling Metrics](#pedaling-metrics)
@@ -53,7 +65,7 @@ KPedal provides cyclists with real-time feedback on pedaling technique during ri
 |---------|-------------|
 | **Background Mode** | Collects pedaling data for ALL rides, even without KPedal data fields on screen |
 | **Cloud Sync** | Sync rides, drills, achievements and settings to [app.kpedal.com](https://app.kpedal.com) |
-| **7 Data Layouts** | Customizable data fields with adaptive sizing (small/medium/large) |
+| **19 Data Layouts** | Customizable data fields with adaptive sizing (6 size categories) |
 | **Real-time Alerts** | Vibration, sound, and visual feedback when technique needs attention |
 | **10 Training Drills** | Built-in drills with guided phases and scoring |
 | **Custom Drills** | Create personalized drills with configurable targets |
@@ -85,7 +97,7 @@ KPedal provides cyclists with real-time feedback on pedaling technique during ri
 │  │  │                   KPedal Android App                       │  │       │
 │  │  │                                                            │  │       │
 │  │  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐ │  │       │
-│  │  │  │ PedalEngine │→ │AlertManager │→ │ 7 DataType Layouts  │ │  │       │
+│  │  │  │ PedalEngine │→ │AlertManager │→ │ 19 Glance DataTypes │ │  │       │
 │  │  │  └─────────────┘  └─────────────┘  └─────────────────────┘ │  │       │
 │  │  │         │                                                  │  │       │
 │  │  │         ▼                                                  │  │       │
@@ -229,7 +241,7 @@ adb install kpedal-x.x.x.apk
 
 ### Data Field Layouts
 
-7 layouts available for Karoo ride screens. Each layout **automatically adapts** to 6 size categories based on grid dimensions:
+19 layouts available for Karoo ride screens, built with **Jetpack Glance** for smooth 1Hz updates and crash-free operation. Each layout **automatically adapts** to 6 size categories based on grid dimensions:
 
 | Size | Grid Type | Height | Description |
 |------|-----------|:------:|-------------|
@@ -242,6 +254,8 @@ adb install kpedal-x.x.x.apk
 
 #### Layout Catalog
 
+**Core Layouts (7):**
+
 | Layout | Type ID | Best For | Features |
 |--------|---------|----------|----------|
 | **Quick Glance** | `quick-glance` | Racing, minimal distraction | Status text ("Bal, TE" when issues) + balance bar |
@@ -252,6 +266,23 @@ adb install kpedal-x.x.x.apk
 | **Balance** | `single-balance` | Full-screen balance | Large L/R with visual bar |
 | **Live** | `live` | Ride analysis | All metrics + Time In Zone percentages |
 
+**New Layouts (12) — v1.8:**
+
+| Layout | Type ID | Best For | Features |
+|--------|---------|----------|----------|
+| **Pedaling Score** | `pedaling-score` | Overall technique | Real-time ride score (0-100) with star rating |
+| **Fatigue Indicator** | `fatigue-indicator` | Endurance rides | Tracks technique degradation, balance/efficiency deltas |
+| **Cadence Balance** | `cadence-balance` | Cadence drills | Balance at different cadences, correlation analysis |
+| **Delta Average** | `delta-average` | Progress tracking | Current vs ride average difference for all metrics |
+| **Left Leg** | `left-leg` | Leg-specific training | Left leg power %, TE, PS in focused layout |
+| **Right Leg** | `right-leg` | Leg-specific training | Right leg power %, TE, PS in focused layout |
+| **Climbing Mode** | `climbing-mode` | Hill climbs | Optimized for low cadence, high torque efforts |
+| **Symmetry Index** | `symmetry-index` | Balance precision | 0-100% symmetry score with visual indicator |
+| **HR Efficiency** | `hr-efficiency` | Training efficiency | Heart rate + TE/PS for cardiovascular analysis |
+| **Power Focus** | `power-focus` | Power training | Power + balance + efficiency combined |
+| **Sprint Mode** | `sprint-mode` | Sprints, attacks | High-contrast layout for maximum output efforts |
+| **Compact Multi** | `compact-multi` | Dense information | All key metrics in ultra-compact grid format |
+
 #### Layout Selection Guide
 
 | Use Case | Recommended | Why |
@@ -260,8 +291,12 @@ adb install kpedal-x.x.x.apk
 | Balance training | Power + Balance, Balance Trend | Focus on L/R with trend information |
 | Efficiency work | Efficiency | See TE and PS values clearly |
 | General training | Full Overview | All metrics at a glance |
-| Long rides | Live | See cumulative zones and averages |
-| Rehab / injury prevention | Balance Trend | Track asymmetry over time |
+| Long rides | Live, Fatigue Indicator | See cumulative zones and technique degradation |
+| Rehab / injury prevention | Left Leg, Right Leg, Symmetry Index | Focus on specific leg or precise balance score |
+| Climbing | Climbing Mode | Optimized for high torque, low cadence efforts |
+| Sprints / attacks | Sprint Mode | High-contrast display for max efforts |
+| Progress tracking | Pedaling Score, Delta Average | Real-time technique score and comparison to average |
+| Small data fields | Compact Multi | Maximum info in minimal space |
 
 ### Training Drills
 
@@ -794,15 +829,15 @@ When the app launches or network is restored, `SyncOnLaunchDecider` evaluates co
 
 #### Pending Data Detection
 
-Sync checks for pending items across three tables:
+Sync checks for pending AND failed items across three tables:
 
-| Data Type | Pending Condition | Sync Endpoint |
-|-----------|-------------------|---------------|
-| **Rides** | `syncStatus = PENDING` | `POST /sync/ride` |
-| **Drills** | `syncStatus = PENDING` | `POST /drills` |
-| **Achievements** | `syncStatus = PENDING` | `POST /achievements` |
+| Data Type | Sync Condition | Sync Endpoint |
+|-----------|----------------|---------------|
+| **Rides** | `syncStatus IN (PENDING, FAILED)` | `POST /sync/ride` |
+| **Drills** | `syncStatus IN (PENDING, FAILED)` | `POST /drills` |
+| **Achievements** | `syncStatus IN (PENDING, FAILED)` | `POST /achievements` |
 
-Only items with `PENDING` status are uploaded. After successful upload, status changes to `SYNCED`.
+**v1.8 improvement:** Failed items are now automatically retried on next sync trigger, not just new items.
 
 #### Offline Ride Scenario
 
@@ -840,12 +875,13 @@ Timeline: Ride without network → Return home → Auto-sync
 
 #### Sync Status States
 
-| Status | Meaning | Next Action |
-|--------|---------|-------------|
-| `PENDING` | Saved locally, not yet uploaded | Will sync on next trigger |
-| `SYNCING` | Upload in progress | Wait for completion |
-| `SYNCED` | Successfully uploaded to cloud | No action needed |
-| `FAILED` | Upload failed (will retry) | Retry on next trigger |
+| Status | Value | Meaning | Next Action |
+|--------|:-----:|---------|-------------|
+| `PENDING` | 0 | Saved locally, not yet uploaded | Will sync on next trigger |
+| `SYNCED` | 1 | Successfully uploaded to cloud | No action needed |
+| `FAILED` | 2 | Upload failed (network error, timeout) | **Auto-retry on next trigger (v1.8)** |
+
+**v1.8 reliability fix:** Room DAO queries now use `syncStatus IN (0, 2)` to include both pending and failed items, ensuring no data is lost due to transient network failures.
 
 #### Error Handling & Retry
 
@@ -992,7 +1028,7 @@ export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
 ### Android App Architecture
 
 ```
-app/src/main/java/io/github/kpedal/
+app/src/main/kotlin/io/github/kpedal/
 ├── KPedalExtension.kt          # Main entry point (Foreground Service)
 ├── BootReceiver.kt             # Auto-start on device boot
 │
@@ -1003,17 +1039,37 @@ app/src/main/java/io/github/kpedal/
 │   ├── LiveDataCollector.kt    # Ride statistics aggregator
 │   ├── RideStateMonitor.kt     # Ride start/stop detection
 │   ├── AchievementChecker.kt   # Achievement unlock logic
-│   └── PedalMonitor.kt         # Pedal connection tracking
+│   ├── PedalMonitor.kt         # Pedal connection tracking
+│   └── checkpoint/             # Crash recovery
+│       ├── RideCheckpointManager.kt
+│       ├── CheckpointDecider.kt
+│       └── AccumulatorState.kt
 │
-├── datatypes/                  # Karoo data field layouts (RemoteViews)
-│   ├── BaseDataType.kt         # Common lifecycle handling
-│   ├── QuickGlanceDataType.kt
-│   ├── PowerBalanceDataType.kt
-│   ├── EfficiencyDataType.kt
-│   ├── FullOverviewDataType.kt
-│   ├── BalanceTrendDataType.kt
-│   ├── SingleBalanceDataType.kt
-│   └── LiveDataType.kt
+├── datatypes/                  # Karoo data field layouts (Jetpack Glance)
+│   ├── BaseDataType.kt         # Layout size utilities
+│   ├── GlanceDataType.kt       # Base class for Glance DataTypes
+│   └── glance/                 # 19 Glance-based DataTypes
+│       ├── GlanceColors.kt     # Color definitions
+│       ├── GlanceComponents.kt # Shared composables
+│       ├── QuickGlanceGlance.kt
+│       ├── PowerBalanceGlance.kt
+│       ├── EfficiencyGlance.kt
+│       ├── FullOverviewGlance.kt
+│       ├── BalanceTrendGlance.kt
+│       ├── SingleBalanceGlance.kt
+│       ├── LiveGlance.kt
+│       ├── PedalingScoreGlance.kt      # NEW v1.8
+│       ├── FatigueIndicatorGlance.kt   # NEW v1.8
+│       ├── CadenceBalanceGlance.kt     # NEW v1.8
+│       ├── DeltaAverageGlance.kt       # NEW v1.8
+│       ├── LeftLegGlance.kt            # NEW v1.8
+│       ├── RightLegGlance.kt           # NEW v1.8
+│       ├── ClimbingModeGlance.kt       # NEW v1.8
+│       ├── SymmetryIndexGlance.kt      # NEW v1.8
+│       ├── HREfficiencyGlance.kt       # NEW v1.8
+│       ├── PowerFocusGlance.kt         # NEW v1.8
+│       ├── SprintModeGlance.kt         # NEW v1.8
+│       └── CompactMultiGlance.kt       # NEW v1.8
 │
 ├── drill/                      # Training drills system
 │   ├── DrillCatalog.kt         # Drill definitions
@@ -1027,7 +1083,7 @@ app/src/main/java/io/github/kpedal/
 │   ├── AchievementRepository.kt    # Achievements storage
 │   ├── AnalyticsRepository.kt      # Trend calculations
 │   ├── AuthRepository.kt           # Encrypted tokens
-│   └── SyncService.kt              # Cloud sync
+│   └── SyncService.kt              # Cloud sync with retry logic
 │
 ├── api/
 │   └── ApiClient.kt            # Retrofit client
@@ -1036,6 +1092,32 @@ app/src/main/java/io/github/kpedal/
     ├── MainActivity.kt         # Compose NavHost
     ├── screens/                # Jetpack Compose screens
     └── theme/                  # Colors, typography
+```
+
+#### Glance Architecture (v1.8)
+
+DataTypes are built with **Jetpack Glance** — a modern approach that solves critical stability issues:
+
+| Aspect | Old (RemoteViews) | New (Glance) |
+|--------|-------------------|--------------|
+| **View creation** | Single instance, accumulates actions | Fresh RemoteViews on each `compose()` |
+| **Action limit** | Could exceed 65K after 10+ min | Max ~25 actions per update |
+| **Memory** | Unbounded growth | Constant, no leaks |
+| **Crash risk** | High after prolonged use | None |
+| **Code style** | Imperative XML layouts | Declarative Compose-like |
+
+```kotlin
+// GlanceDataType base class
+@OptIn(ExperimentalGlanceRemoteViewsApi::class)
+abstract class GlanceDataType(...) : DataTypeImpl(...) {
+    private val glance = GlanceRemoteViews()
+
+    // Fresh RemoteViews created on each update - no accumulation!
+    val result = glance.compose(context, DpSize.Unspecified) {
+        Content(metrics, config, sensorDisconnected)
+    }
+    emitter.updateView(result.remoteViews)
+}
 ```
 
 ### Tech Stack
@@ -1048,6 +1130,7 @@ app/src/main/java/io/github/kpedal/
 | **Android Gradle Plugin** | 8.13.2 | Build system |
 | **KSP** | 2.2.20-2.0.4 | Kotlin Symbol Processing |
 | **Jetpack Compose** | BOM 2025.01.00 | Modern UI toolkit |
+| **Jetpack Glance** | 1.1.1 | RemoteViews with Compose API (DataTypes) |
 | **Room** | 2.7.2 | SQLite database abstraction |
 | **Coroutines** | 1.10.2 | Async programming |
 | **Kotlinx Serialization** | 1.8.0 | JSON serialization |
@@ -1387,6 +1470,17 @@ x-ratelimit-remaining: 96 # Rate limit status
 ## Troubleshooting
 
 <details>
+<summary><b>App crashes after 10-15 minutes (v1.7 and earlier)</b></summary>
+
+**Fixed in v1.8.0** — If you experience crashes during long rides, update to v1.8.0.
+
+**Root cause:** RemoteViews action accumulation. Each DataType update added ~25 actions to a single RemoteViews instance. After 10+ minutes (600+ updates), the accumulated actions exceeded Android's limits, causing crashes.
+
+**Solution:** v1.8 migrated to Jetpack Glance, which creates fresh RemoteViews on each update. This eliminates action accumulation entirely.
+
+</details>
+
+<details>
 <summary><b>No data showing</b></summary>
 
 - Pair pedals in Karoo Sensors menu first
@@ -1413,6 +1507,18 @@ x-ratelimit-remaining: 96 # Rate limit status
 - Token expired: Press Sync to auto-refresh
 - Device revoked: Re-link account
 - Check WiFi connection
+- **v1.8+:** Failed syncs are automatically retried on next trigger
+
+</details>
+
+<details>
+<summary><b>Rides not syncing (v1.7 and earlier)</b></summary>
+
+**Fixed in v1.8.0** — If rides fail to sync and never retry, update to v1.8.0.
+
+**Root cause:** Failed sync items (syncStatus=2) were not included in retry queries. Only new pending items (syncStatus=0) were uploaded.
+
+**Solution:** v1.8 Room DAO queries now use `syncStatus IN (0, 2)` to include both pending and failed items.
 
 </details>
 
