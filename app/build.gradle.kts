@@ -14,8 +14,8 @@ android {
         applicationId = "io.github.kpedal"
         minSdk = 23
         targetSdk = 35
-        versionCode = 16
-        versionName = "1.7.6"
+        versionCode = 17
+        versionName = "1.8.0"
     }
 
     buildTypes {
@@ -74,6 +74,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
+
+    // Glance for Karoo DataType views (creates fresh RemoteViews on each update)
+    implementation("androidx.glance:glance-appwidget:1.1.1")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.8.5")

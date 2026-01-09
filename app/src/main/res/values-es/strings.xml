@@ -25,6 +25,33 @@
     <string name="datatype_live">En Vivo</string>
     <string name="datatype_live_desc">Todas las métricas con estadísticas de zona</string>
 
+    <string name="datatype_asymmetry">Asimetría</string>
+    <string name="datatype_asymmetry_desc">Desviación del balance 50/50</string>
+
+    <string name="datatype_efficiency_combo">Puntuación de Eficiencia</string>
+    <string name="datatype_efficiency_combo_desc">Puntuación combinada de ET y SP</string>
+
+    <string name="datatype_left_leg">Pierna Izquierda</string>
+    <string name="datatype_left_leg_desc">Todas las métricas de la pierna izquierda</string>
+
+    <string name="datatype_right_leg">Pierna Derecha</string>
+    <string name="datatype_right_leg_desc">Todas las métricas de la pierna derecha</string>
+
+    <string name="datatype_zone_timer">Tiempo en Zona</string>
+    <string name="datatype_zone_timer_desc">Tiempo en zona óptima</string>
+
+    <string name="datatype_consistency">Consistencia</string>
+    <string name="datatype_consistency_desc">Puntuación de estabilidad técnica</string>
+
+    <string name="datatype_trend">Tendencia</string>
+    <string name="datatype_trend_desc">Flechas de tendencia de rendimiento</string>
+
+    <string name="datatype_fatigue">Fatiga</string>
+    <string name="datatype_fatigue_desc">Rendimiento actual vs inicial</string>
+
+    <string name="datatype_session_best">Mejor de Sesión</string>
+    <string name="datatype_session_best_desc">Puntuación actual vs mejor de la sesión</string>
+
     <!-- Labels -->
     <string name="balance">BALANCE</string>
     <string name="balance_lower">Balance</string>
@@ -137,6 +164,7 @@
     <string name="syncing">Sincronizando…</string>
     <string name="synced">Sincronizado</string>
     <string name="sync_failed">Error de sincronización</string>
+    <string name="settings_failed">%d fallidos</string>
     <string name="offline">Sin conexión</string>
     <string name="getting_code">Obteniendo código…</string>
     <string name="waiting_auth">Esperando autorización…</string>
@@ -176,7 +204,7 @@
     <string name="challenges">Desafíos</string>
     <string name="weekly_goal">Meta semanal</string>
     <string name="data_fields">Campos de Datos</string>
-    <string name="layouts_count">6 diseños</string>
+    <string name="layouts_count">19 diseños</string>
     <string name="pedal_status">Estado del Pedal</string>
     <string name="connection">Conexión</string>
     <string name="quick_guide">Guía rápida</string>
@@ -223,6 +251,23 @@
     <string name="layout_full_overview_short">Todas las métricas compactas</string>
     <string name="layout_balance_trend_short">Suavizado 3s/10s</string>
     <string name="layout_single_balance_short">Solo balance</string>
+    <string name="layout_live_short">Todas métricas + tiempo en zona</string>
+    <string name="layout_pedaling_score_short">Puntuación 0-100</string>
+    <string name="layout_fatigue_indicator_short">Fatiga por tendencias</string>
+    <string name="layout_cadence_balance_short">Cadencia + balance L/R</string>
+    <string name="layout_delta_average_short">Actual vs promedio</string>
+    <string name="layout_left_leg_short">Enfoque pierna izq.</string>
+    <string name="layout_right_leg_short">Enfoque pierna der.</string>
+    <string name="layout_climbing_mode_short">Pendiente + potencia</string>
+    <string name="layout_symmetry_index_short">100% = perfecto</string>
+    <string name="layout_hr_efficiency_short">FC + TE/PS</string>
+    <string name="layout_power_focus_short">Potencia principal</string>
+    <string name="layout_sprint_mode_short">Potencia grande</string>
+    <string name="layout_compact_multi_short">Máx. info, mín. espacio</string>
+    <string name="layout_category_core">Principal</string>
+    <string name="layout_category_analysis">Análisis</string>
+    <string name="layout_category_focus">Enfoque</string>
+    <string name="layout_category_context">Con contexto</string>
 
     <!-- Pedal Info Screen -->
     <string name="connected">Conectado</string>
@@ -311,6 +356,14 @@
     <string name="best_score">Mejor %1$d%%</string>
     <string name="start">Iniciar</string>
 
+    <!-- Score labels -->
+    <string name="score">Puntuación</string>
+    <string name="score_excellent">Excelente</string>
+    <string name="score_great">Muy bien</string>
+    <string name="score_good">Bien</string>
+    <string name="score_fair">Regular</string>
+    <string name="score_needs_work">Necesita mejorar</string>
+
     <!-- Drill Execution Screen -->
     <string name="next">Siguiente</string>
     <string name="stop">Detener</string>
@@ -318,6 +371,9 @@
     <string name="paused">Pausado</string>
     <string name="resume">Continuar</string>
     <string name="rpm">rpm</string>
+    <string name="bpm">lpm</string>
+    <string name="cadence">Cadencia</string>
+    <string name="heart_rate">Frecuencia Cardíaca</string>
     <string name="in_zone">en zona</string>
     <string name="spin_easy">Pedaleo suave</string>
     <string name="complete">Completo</string>
@@ -391,7 +447,7 @@
     <string name="onboarding_welcome_title">Bienvenido a KPedal</string>
     <string name="onboarding_welcome_desc">Métricas de pedaleo en tiempo real desde tus pedales con potenciómetro. Rastrea balance, eficiencia y suavidad para mejorar tu técnica.</string>
     <string name="onboarding_data_fields_title">Campos de Datos</string>
-    <string name="onboarding_data_fields_desc">Añade campos de datos de KPedal a tus pantallas Karoo para ver métricas durante tu salida. Elige entre 6 diseños diferentes.</string>
+    <string name="onboarding_data_fields_desc">Añade campos de datos de KPedal a tus pantallas Karoo para ver métricas durante tu salida. Elige entre 19 diseños diferentes.</string>
     <string name="onboarding_drills_title">Ejercicios</string>
     <string name="onboarding_drills_desc">Practica con ejercicios guiados para mejorar tu técnica de pedaleo. Cada ejercicio se enfoca en aspectos específicos de tu pedalada.</string>
     <string name="onboarding_alerts_title">Alertas</string>
@@ -799,4 +855,15 @@
     <string name="unit_drills">ejercicios</string>
     <string name="unit_days">días</string>
     <string name="unit_percent">%</string>
+
+    <!-- Time Labels -->
+    <string name="label_current">Actual</string>
+    <string name="label_3s_avg">Prom 3s</string>
+    <string name="label_10s_avg">Prom 10s</string>
+
+    <!-- Fatigue Levels -->
+    <string name="fatigue_fresh">Fresco</string>
+    <string name="fatigue_good">Bien</string>
+    <string name="fatigue_moderate">Moderado</string>
+    <string name="fatigue_fatigued">Fatigado</string>
 </resources>

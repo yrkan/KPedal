@@ -53,6 +53,10 @@ data class LiveRideData(
     val zoneOptimalMin: Int = 0,
     val zoneAttentionMin: Int = 0,
     val zoneProblemMin: Int = 0,
+    // Zone time in milliseconds (for Zone Timer DataType mm:ss format)
+    val timeOptimalMs: Long = 0L,
+    val timeAttentionMs: Long = 0L,
+    val timeProblemMs: Long = 0L,
     // Trend indicators (-1 = worse, 0 = stable, 1 = better)
     val balanceTrend: Int = 0,
     val teTrend: Int = 0,

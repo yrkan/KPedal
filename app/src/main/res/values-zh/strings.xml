@@ -25,6 +25,33 @@
     <string name="datatype_live">实时</string>
     <string name="datatype_live_desc">所有指标及区间时间统计</string>
 
+    <string name="datatype_asymmetry">不对称性</string>
+    <string name="datatype_asymmetry_desc">偏离50/50平衡</string>
+
+    <string name="datatype_efficiency_combo">效率评分</string>
+    <string name="datatype_efficiency_combo_desc">TE和PS综合评分</string>
+
+    <string name="datatype_left_leg">左腿</string>
+    <string name="datatype_left_leg_desc">左腿所有指标</string>
+
+    <string name="datatype_right_leg">右腿</string>
+    <string name="datatype_right_leg_desc">右腿所有指标</string>
+
+    <string name="datatype_zone_timer">区间计时器</string>
+    <string name="datatype_zone_timer_desc">最佳区间内时间</string>
+
+    <string name="datatype_consistency">一致性</string>
+    <string name="datatype_consistency_desc">技术稳定性评分</string>
+
+    <string name="datatype_trend">趋势</string>
+    <string name="datatype_trend_desc">表现趋势箭头</string>
+
+    <string name="datatype_fatigue">疲劳</string>
+    <string name="datatype_fatigue_desc">当前 vs 初始表现</string>
+
+    <string name="datatype_session_best">本场最佳</string>
+    <string name="datatype_session_best_desc">当前 vs 本场最高分</string>
+
     <!-- Labels -->
     <string name="balance">平衡</string>
     <string name="balance_lower">平衡</string>
@@ -137,6 +164,7 @@
     <string name="syncing">同步中…</string>
     <string name="synced">已同步</string>
     <string name="sync_failed">同步失败</string>
+    <string name="settings_failed">%d 个失败</string>
     <string name="offline">离线</string>
     <string name="getting_code">正在获取代码…</string>
     <string name="waiting_auth">等待授权…</string>
@@ -176,7 +204,7 @@
     <string name="challenges">挑战</string>
     <string name="weekly_goal">每周目标</string>
     <string name="data_fields">数据字段</string>
-    <string name="layouts_count">6 种布局</string>
+    <string name="layouts_count">19 种布局</string>
     <string name="pedal_status">踏板状态</string>
     <string name="connection">连接</string>
     <string name="quick_guide">快速指南</string>
@@ -223,6 +251,23 @@
     <string name="layout_full_overview_short">所有指标紧凑显示</string>
     <string name="layout_balance_trend_short">3秒/10秒平滑</string>
     <string name="layout_single_balance_short">仅平衡</string>
+    <string name="layout_live_short">全部指标 + 区间时间</string>
+    <string name="layout_pedaling_score_short">质量评分 0-100</string>
+    <string name="layout_fatigue_indicator_short">趋势疲劳度</string>
+    <string name="layout_cadence_balance_short">踏频 + 左右平衡</string>
+    <string name="layout_delta_average_short">当前 vs 平均</string>
+    <string name="layout_left_leg_short">左腿聚焦</string>
+    <string name="layout_right_leg_short">右腿聚焦</string>
+    <string name="layout_climbing_mode_short">坡度 + 功率</string>
+    <string name="layout_symmetry_index_short">100% = 完美</string>
+    <string name="layout_hr_efficiency_short">心率 + TE/PS</string>
+    <string name="layout_power_focus_short">功率为主</string>
+    <string name="layout_sprint_mode_short">大功率显示</string>
+    <string name="layout_compact_multi_short">最多信息，最小空间</string>
+    <string name="layout_category_core">核心</string>
+    <string name="layout_category_analysis">分析</string>
+    <string name="layout_category_focus">聚焦</string>
+    <string name="layout_category_context">带上下文</string>
 
     <!-- Pedal Info Screen -->
     <string name="connected">已连接</string>
@@ -311,6 +356,14 @@
     <string name="best_score">最佳 %1$d%%</string>
     <string name="start">开始</string>
 
+    <!-- Score labels -->
+    <string name="score">评分</string>
+    <string name="score_excellent">优秀</string>
+    <string name="score_great">很好</string>
+    <string name="score_good">良好</string>
+    <string name="score_fair">一般</string>
+    <string name="score_needs_work">需要改进</string>
+
     <!-- Drill Execution Screen -->
     <string name="next">下一个</string>
     <string name="stop">停止</string>
@@ -318,6 +371,9 @@
     <string name="paused">已暂停</string>
     <string name="resume">继续</string>
     <string name="rpm">转/分</string>
+    <string name="bpm">次/分</string>
+    <string name="cadence">踏频</string>
+    <string name="heart_rate">心率</string>
     <string name="in_zone">在区间内</string>
     <string name="spin_easy">轻松转动</string>
     <string name="complete">完成</string>
@@ -391,7 +447,7 @@
     <string name="onboarding_welcome_title">欢迎使用 KPedal</string>
     <string name="onboarding_welcome_desc">来自功率踏板的实时踏频指标。追踪平衡、效率和平顺度以改善您的技术。</string>
     <string name="onboarding_data_fields_title">数据字段</string>
-    <string name="onboarding_data_fields_desc">将 KPedal 数据字段添加到您的 Karoo 屏幕以在骑行期间查看指标。可从6种不同布局中选择。</string>
+    <string name="onboarding_data_fields_desc">将 KPedal 数据字段添加到您的 Karoo 屏幕以在骑行期间查看指标。可从19种不同布局中选择。</string>
     <string name="onboarding_drills_title">训练</string>
     <string name="onboarding_drills_desc">通过引导式训练来改善您的踏频技术。每个训练针对踏板行程的特定方面。</string>
     <string name="onboarding_alerts_title">警报</string>
@@ -799,4 +855,15 @@
     <string name="unit_drills">次训练</string>
     <string name="unit_days">天</string>
     <string name="unit_percent">%</string>
+
+    <!-- Time Labels -->
+    <string name="label_current">当前</string>
+    <string name="label_3s_avg">3秒均值</string>
+    <string name="label_10s_avg">10秒均值</string>
+
+    <!-- Fatigue Levels -->
+    <string name="fatigue_fresh">精力充沛</string>
+    <string name="fatigue_good">良好</string>
+    <string name="fatigue_moderate">一般</string>
+    <string name="fatigue_fatigued">疲劳</string>
 </resources>

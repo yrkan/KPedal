@@ -25,6 +25,33 @@
     <string name="datatype_live">חי</string>
     <string name="datatype_live_desc">כל המדדים עם סטטיסטיקת זמן באזור</string>
 
+    <string name="datatype_asymmetry">אסימטריה</string>
+    <string name="datatype_asymmetry_desc">סטייה מאיזון 50/50</string>
+
+    <string name="datatype_efficiency_combo">ציון יעילות</string>
+    <string name="datatype_efficiency_combo_desc">ציון משולב יע״מ וח״ד</string>
+
+    <string name="datatype_left_leg">רגל שמאל</string>
+    <string name="datatype_left_leg_desc">כל המדדים לרגל שמאל</string>
+
+    <string name="datatype_right_leg">רגל ימין</string>
+    <string name="datatype_right_leg_desc">כל המדדים לרגל ימין</string>
+
+    <string name="datatype_zone_timer">טיימר אזור</string>
+    <string name="datatype_zone_timer_desc">זמן באזור אופטימלי</string>
+
+    <string name="datatype_consistency">עקביות</string>
+    <string name="datatype_consistency_desc">ציון יציבות טכנית</string>
+
+    <string name="datatype_trend">מגמה</string>
+    <string name="datatype_trend_desc">חיצי מגמת ביצועים</string>
+
+    <string name="datatype_fatigue">עייפות</string>
+    <string name="datatype_fatigue_desc">ביצועים נוכחיים לעומת התחלתיים</string>
+
+    <string name="datatype_session_best">הטוב ביותר בפגישה</string>
+    <string name="datatype_session_best_desc">נוכחי לעומת הציון הטוב ביותר בפגישה</string>
+
     <!-- Labels -->
     <string name="balance">איזון</string>
     <string name="balance_lower">איזון</string>
@@ -137,6 +164,7 @@
     <string name="syncing">מסנכרן…</string>
     <string name="synced">מסונכרן</string>
     <string name="sync_failed">הסנכרון נכשל</string>
+    <string name="settings_failed">%d נכשלו</string>
     <string name="offline">לא מקוון</string>
     <string name="getting_code">מקבל קוד…</string>
     <string name="waiting_auth">ממתין לאימות…</string>
@@ -223,6 +251,23 @@
     <string name="layout_full_overview_short">כל המדדים קומפקטי</string>
     <string name="layout_balance_trend_short">מוחלק 3 שנ׳/10 שנ׳</string>
     <string name="layout_single_balance_short">איזון בלבד</string>
+    <string name="layout_live_short">כל המדדים + זמן באזור</string>
+    <string name="layout_pedaling_score_short">ציון איכות 0-100</string>
+    <string name="layout_fatigue_indicator_short">עייפות ממגמות</string>
+    <string name="layout_cadence_balance_short">קדנס + איזון ש/י</string>
+    <string name="layout_delta_average_short">נוכחי vs ממוצע</string>
+    <string name="layout_left_leg_short">מיקוד רגל שמאל</string>
+    <string name="layout_right_leg_short">מיקוד רגל ימין</string>
+    <string name="layout_climbing_mode_short">שיפוע + הספק</string>
+    <string name="layout_symmetry_index_short">100% = מושלם</string>
+    <string name="layout_hr_efficiency_short">דופק + TE/PS</string>
+    <string name="layout_power_focus_short">הספק ראשי</string>
+    <string name="layout_sprint_mode_short">תצוגת הספק גדולה</string>
+    <string name="layout_compact_multi_short">מקס. מידע, מינ. מקום</string>
+    <string name="layout_category_core">עיקרי</string>
+    <string name="layout_category_analysis">ניתוח</string>
+    <string name="layout_category_focus">מיקוד</string>
+    <string name="layout_category_context">עם הקשר</string>
 
     <!-- Pedal Info Screen -->
     <string name="connected">מחובר</string>
@@ -311,6 +356,14 @@
     <string name="best_score">הכי טוב %1$d%%</string>
     <string name="start">התחל</string>
 
+    <!-- Score labels -->
+    <string name="score">ציון</string>
+    <string name="score_excellent">מצוין</string>
+    <string name="score_great">טוב מאוד</string>
+    <string name="score_good">טוב</string>
+    <string name="score_fair">סביר</string>
+    <string name="score_needs_work">דרוש שיפור</string>
+
     <!-- Drill Execution Screen -->
     <string name="next">הבא</string>
     <string name="stop">עצור</string>
@@ -318,6 +371,9 @@
     <string name="paused">מושהה</string>
     <string name="resume">המשך</string>
     <string name="rpm">סל״ד</string>
+    <string name="bpm">פ/ד</string>
+    <string name="cadence">קצב דיווש</string>
+    <string name="heart_rate">דופק</string>
     <string name="in_zone">באזור</string>
     <string name="spin_easy">סיבוב קל</string>
     <string name="complete">הושלם</string>
@@ -391,7 +447,7 @@
     <string name="onboarding_welcome_title">ברוכים הבאים ל-KPedal</string>
     <string name="onboarding_welcome_desc">מדדי דיווש בזמן אמת מדוושות מד ההספק שלך. עקוב אחר איזון, יעילות וחלקות לשיפור הטכניקה.</string>
     <string name="onboarding_data_fields_title">שדות נתונים</string>
-    <string name="onboarding_data_fields_desc">הוסף שדות נתונים של KPedal למסכי ה-Karoo שלך לצפייה במדדים במהלך הרכיבה. בחר מתוך 6 תצוגות שונות.</string>
+    <string name="onboarding_data_fields_desc">הוסף שדות נתונים של KPedal למסכי ה-Karoo שלך לצפייה במדדים במהלך הרכיבה. בחר מתוך 19 תצוגות שונות.</string>
     <string name="onboarding_drills_title">תרגילים</string>
     <string name="onboarding_drills_desc">תרגל עם תרגילים מודרכים לשיפור טכניקת הדיווש. כל תרגיל מתמקד בהיבטים ספציפיים של התנועה.</string>
     <string name="onboarding_alerts_title">התראות</string>
@@ -799,4 +855,15 @@
     <string name="unit_drills">תרגילים</string>
     <string name="unit_days">ימים</string>
     <string name="unit_percent">%</string>
+
+    <!-- Time Labels -->
+    <string name="label_current">נוכחי</string>
+    <string name="label_3s_avg">ממוצע 3ש</string>
+    <string name="label_10s_avg">ממוצע 10ש</string>
+
+    <!-- Fatigue Levels -->
+    <string name="fatigue_fresh">רענן</string>
+    <string name="fatigue_good">טוב</string>
+    <string name="fatigue_moderate">בינוני</string>
+    <string name="fatigue_fatigued">עייף</string>
 </resources>

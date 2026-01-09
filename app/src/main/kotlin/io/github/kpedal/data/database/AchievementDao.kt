@@ -74,4 +74,29 @@ interface AchievementDao {
      */
     @Query("UPDATE achievements SET syncStatus = 2, lastSyncAttempt = :timestamp WHERE id = :id")
     suspend fun markAsSyncFailed(id: String, timestamp: Long = System.currentTimeMillis())
+
+    /**
+     * Get all achievements that need sync (pending or failed).
+     * Failed achievements are retried on each sync attempt.
+     */
+    @Query("SELECT * FROM achievements WHERE syncStatus IN (0, 2) ORDER BY unlockedAt ASC")
+    suspend fun getAchievementsNeedingSync(): List<AchievementEntity>
+
+    /**
+     * Get count of failed sync achievements (reactive).
+     */
+    @Query("SELECT COUNT(*) FROM achievements WHERE syncStatus = 2")
+    fun getFailedSyncCountFlow(): Flow<Int>
+
+    /**
+     * Get total count of achievements needing sync (pending + failed).
+     */
+    @Query("SELECT COUNT(*) FROM achievements WHERE syncStatus IN (0, 2)")
+    fun getNeedingSyncCountFlow(): Flow<Int>
+
+    /**
+     * Reset failed achievements to pending (for manual retry).
+     */
+    @Query("UPDATE achievements SET syncStatus = 0 WHERE syncStatus = 2")
+    suspend fun resetFailedToPending()
 }

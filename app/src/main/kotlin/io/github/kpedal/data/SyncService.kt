@@ -26,10 +26,12 @@ import io.github.kpedal.engine.StatusCalculator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
@@ -67,6 +69,7 @@ class SyncService(
     data class SyncState(
         val status: SyncStatus = SyncStatus.IDLE,
         val pendingCount: Int = 0,
+        val failedCount: Int = 0,
         val lastSyncTimestamp: Long = 0,
         val errorMessage: String? = null,
         val deviceRevoked: Boolean = false
@@ -113,11 +116,27 @@ class SyncService(
     private var isApplyingCloudSettings = false
 
     init {
-        // Collect pending count and update state
+        // Collect total needing sync count (pending + failed) and update state
         scope.launch {
-            rideDao.getPendingSyncCountFlow().collect { count ->
-                _syncState.value = _syncState.value.copy(pendingCount = count)
-            }
+            combine(
+                rideDao.getNeedingSyncCountFlow(),
+                drillResultDao.getNeedingSyncCountFlow(),
+                achievementDao.getNeedingSyncCountFlow()
+            ) { rides, drills, achievements -> rides + drills + achievements }
+                .collect { count ->
+                    _syncState.value = _syncState.value.copy(pendingCount = count)
+                }
+        }
+        // Collect failed count separately for UI feedback
+        scope.launch {
+            combine(
+                rideDao.getFailedSyncCountFlow(),
+                drillResultDao.getFailedSyncCountFlow(),
+                achievementDao.getFailedSyncCountFlow()
+            ) { rides, drills, achievements -> rides + drills + achievements }
+                .collect { count ->
+                    _syncState.value = _syncState.value.copy(failedCount = count)
+                }
         }
         // Collect last sync timestamp
         scope.launch {
@@ -218,17 +237,17 @@ class SyncService(
             return
         }
 
-        // Check if there's anything to sync
-        val pendingRides = rideDao.getPendingRides()
-        val pendingDrills = drillResultDao.getPendingSync()
-        val pendingAchievements = achievementDao.getPendingSync()
+        // Check if there's anything to sync (pending or previously failed)
+        val pendingRides = rideDao.getRidesNeedingSync()
+        val pendingDrills = drillResultDao.getDrillsNeedingSync()
+        val pendingAchievements = achievementDao.getAchievementsNeedingSync()
 
         if (pendingRides.isEmpty() && pendingDrills.isEmpty() && pendingAchievements.isEmpty()) {
             android.util.Log.d(TAG, "Network available but nothing pending to sync")
             return
         }
 
-        android.util.Log.i(TAG, "Network restored - syncing ${pendingRides.size} rides, ${pendingDrills.size} drills, ${pendingAchievements.size} achievements")
+        android.util.Log.i(TAG, "Network restored - syncing ${pendingRides.size} rides, ${pendingDrills.size} drills, ${pendingAchievements.size} achievements (including retries)")
         lastNetworkSyncAttemptTime = now
 
         _syncState.value = _syncState.value.copy(
@@ -252,7 +271,7 @@ class SyncService(
                 )
             } else {
                 // Nothing synced (maybe all failed)
-                val remaining = rideDao.getPendingRides().size + drillResultDao.getPendingSync().size + achievementDao.getPendingSync().size
+                val remaining = rideDao.getRidesNeedingSync().size + drillResultDao.getDrillsNeedingSync().size + achievementDao.getAchievementsNeedingSync().size
                 if (remaining > 0) {
                     _syncState.value = _syncState.value.copy(status = SyncStatus.FAILED)
                 } else {
@@ -307,10 +326,10 @@ class SyncService(
     suspend fun syncOnAppLaunch(): Int {
         val now = System.currentTimeMillis()
 
-        // Get pending counts
-        val pendingRides = rideDao.getPendingRides()
-        val pendingDrills = drillResultDao.getPendingSync()
-        val pendingAchievements = achievementDao.getPendingSync()
+        // Get pending counts (including previously failed items for retry)
+        val pendingRides = rideDao.getRidesNeedingSync()
+        val pendingDrills = drillResultDao.getDrillsNeedingSync()
+        val pendingAchievements = achievementDao.getAchievementsNeedingSync()
 
         // Build conditions and decide
         val conditions = SyncOnLaunchDecider.Conditions(
@@ -381,7 +400,7 @@ class SyncService(
                 )
             } else {
                 // Nothing synced (maybe all failed)
-                val remaining = rideDao.getPendingRides().size + drillResultDao.getPendingSync().size + achievementDao.getPendingSync().size
+                val remaining = rideDao.getRidesNeedingSync().size + drillResultDao.getDrillsNeedingSync().size + achievementDao.getAchievementsNeedingSync().size
                 if (remaining > 0) {
                     _syncState.value = _syncState.value.copy(status = SyncStatus.FAILED)
                 } else {
@@ -439,17 +458,17 @@ class SyncService(
             val fetched = fetchSettings()
             android.util.Log.i(TAG, "Fetched settings from cloud: $fetched")
 
-            // 2. Sync pending rides to cloud
+            // 2. Sync all rides (pending + retry failed)
             val syncedRides = syncPendingRidesInternal()
-            android.util.Log.i(TAG, "Synced $syncedRides rides")
+            android.util.Log.i(TAG, "Synced $syncedRides rides (including retries)")
 
-            // 3. Sync pending drills to cloud
+            // 3. Sync all drills (pending + retry failed)
             val syncedDrills = syncPendingDrills()
-            android.util.Log.i(TAG, "Synced $syncedDrills drills")
+            android.util.Log.i(TAG, "Synced $syncedDrills drills (including retries)")
 
-            // 4. Sync pending achievements to cloud
+            // 4. Sync all achievements (pending + retry failed)
             val syncedAchievements = syncPendingAchievements()
-            android.util.Log.i(TAG, "Synced $syncedAchievements achievements")
+            android.util.Log.i(TAG, "Synced $syncedAchievements achievements (including retries)")
 
             _syncState.value = _syncState.value.copy(
                 status = SyncStatus.SUCCESS,
@@ -493,7 +512,7 @@ class SyncService(
 
         val finalStatus = if (successCount > 0) {
             SyncStatus.SUCCESS
-        } else if (rideDao.getPendingRides().isEmpty()) {
+        } else if (rideDao.getRidesNeedingSync().isEmpty()) {
             SyncStatus.IDLE
         } else {
             SyncStatus.FAILED
@@ -510,10 +529,11 @@ class SyncService(
 
     /**
      * Internal method for syncing pending rides without state updates.
+     * Includes both pending and previously failed rides for retry.
      * @return Number of rides successfully synced
      */
     private suspend fun syncPendingRidesInternal(): Int {
-        val pendingRides = rideDao.getPendingRides()
+        val pendingRides = rideDao.getRidesNeedingSync()
         if (pendingRides.isEmpty()) {
             return 0
         }
@@ -770,6 +790,7 @@ class SyncService(
 
     /**
      * Sync all pending drill results to cloud.
+     * Includes both pending and previously failed drills for retry.
      * @return Number of drills successfully synced
      */
     suspend fun syncPendingDrills(): Int {
@@ -777,7 +798,7 @@ class SyncService(
             return 0
         }
 
-        val pendingDrills = drillResultDao.getPendingSync()
+        val pendingDrills = drillResultDao.getDrillsNeedingSync()
         if (pendingDrills.isEmpty()) {
             return 0
         }
@@ -799,6 +820,7 @@ class SyncService(
 
     /**
      * Sync all pending achievements to cloud in a batch.
+     * Includes both pending and previously failed achievements for retry.
      * @return Number of achievements successfully synced
      */
     suspend fun syncPendingAchievements(): Int {
@@ -806,7 +828,7 @@ class SyncService(
             return 0
         }
 
-        val pendingAchievements = achievementDao.getPendingSync()
+        val pendingAchievements = achievementDao.getAchievementsNeedingSync()
         if (pendingAchievements.isEmpty()) {
             return 0
         }
@@ -1079,22 +1101,29 @@ class SyncService(
 
     /**
      * Apply cloud settings to local preferences.
+     * Validates values before applying to prevent invalid data from cloud.
      */
     private suspend fun applyCloudSettings(settings: CloudSettings) {
         // Set flag to prevent auto-upload loop
         isApplyingCloudSettings = true
 
         try {
-            // Thresholds
-            preferencesRepository.updateBalanceThreshold(settings.balance_threshold)
-            preferencesRepository.updateTeOptimalRange(settings.te_optimal_min, settings.te_optimal_max)
-            preferencesRepository.updatePsMinimum(settings.ps_minimum)
+            // Thresholds - validate before applying
+            val balanceThreshold = settings.balance_threshold.coerceIn(1, 10)
+            val teOptimalMin = settings.te_optimal_min.coerceIn(50, 90)
+            val teOptimalMax = settings.te_optimal_max.coerceIn(teOptimalMin, 100)
+            val psMinimum = settings.ps_minimum.coerceIn(10, 40)
+
+            preferencesRepository.updateBalanceThreshold(balanceThreshold)
+            preferencesRepository.updateTeOptimalRange(teOptimalMin, teOptimalMax)
+            preferencesRepository.updatePsMinimum(psMinimum)
 
             // Global alerts
             preferencesRepository.updateGlobalAlertsEnabled(settings.alerts_enabled)
             preferencesRepository.updateScreenWakeOnAlert(settings.screen_wake_on_alert)
 
-            // Balance alerts
+            // Balance alerts - validate cooldown
+            val balanceCooldown = settings.balance_alert_cooldown.coerceIn(5, 300)
             preferencesRepository.updateBalanceAlertConfig(
                 MetricAlertConfig(
                     enabled = settings.balance_alert_enabled,
@@ -1106,11 +1135,12 @@ class SyncService(
                     visualAlert = settings.balance_alert_visual,
                     soundAlert = settings.balance_alert_sound,
                     vibrationAlert = settings.balance_alert_vibration,
-                    cooldownSeconds = settings.balance_alert_cooldown
+                    cooldownSeconds = balanceCooldown
                 )
             )
 
-            // TE alerts
+            // TE alerts - validate cooldown
+            val teCooldown = settings.te_alert_cooldown.coerceIn(5, 300)
             preferencesRepository.updateTeAlertConfig(
                 MetricAlertConfig(
                     enabled = settings.te_alert_enabled,
@@ -1122,11 +1152,12 @@ class SyncService(
                     visualAlert = settings.te_alert_visual,
                     soundAlert = settings.te_alert_sound,
                     vibrationAlert = settings.te_alert_vibration,
-                    cooldownSeconds = settings.te_alert_cooldown
+                    cooldownSeconds = teCooldown
                 )
             )
 
-            // PS alerts
+            // PS alerts - validate cooldown
+            val psCooldown = settings.ps_alert_cooldown.coerceIn(5, 300)
             preferencesRepository.updatePsAlertConfig(
                 MetricAlertConfig(
                     enabled = settings.ps_alert_enabled,
@@ -1138,7 +1169,7 @@ class SyncService(
                     visualAlert = settings.ps_alert_visual,
                     soundAlert = settings.ps_alert_sound,
                     vibrationAlert = settings.ps_alert_vibration,
-                    cooldownSeconds = settings.ps_alert_cooldown
+                    cooldownSeconds = psCooldown
                 )
             )
 
@@ -1148,9 +1179,11 @@ class SyncService(
 
             android.util.Log.i(TAG, "Applied cloud settings")
         } finally {
-            // Clear flag after a delay to allow debounce to skip
-            delay(SETTINGS_UPLOAD_DEBOUNCE_MS + 500)
-            isApplyingCloudSettings = false
+            // Use NonCancellable to ensure flag is always cleared even if coroutine is cancelled
+            withContext(NonCancellable) {
+                delay(SETTINGS_UPLOAD_DEBOUNCE_MS + 500)
+                isApplyingCloudSettings = false
+            }
         }
     }
 

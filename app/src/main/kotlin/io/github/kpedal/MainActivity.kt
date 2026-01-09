@@ -263,6 +263,123 @@ fun KPedalApp(
             )
         }
 
+        // Layout 7: Live
+        composable("live") {
+            val metrics by collectMetrics()
+            LiveLayoutScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 8: Pedaling Score
+        composable("pedaling-score") {
+            val metrics by collectMetrics()
+            PedalingScoreScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 9: Fatigue Indicator
+        composable("fatigue-indicator") {
+            val metrics by collectMetrics()
+            FatigueIndicatorScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 10: Cadence Balance
+        composable("cadence-balance") {
+            val metrics by collectMetrics()
+            CadenceBalanceScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 11: Delta Average
+        composable("delta-average") {
+            val metrics by collectMetrics()
+            DeltaAverageScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 12: Left Leg
+        composable("left-leg") {
+            val metrics by collectMetrics()
+            LeftLegScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 13: Right Leg
+        composable("right-leg") {
+            val metrics by collectMetrics()
+            RightLegScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 14: Climbing Mode
+        composable("climbing-mode") {
+            val metrics by collectMetrics()
+            ClimbingModeScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 15: Symmetry Index
+        composable("symmetry-index") {
+            val metrics by collectMetrics()
+            SymmetryIndexScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 16: HR Efficiency
+        composable("hr-efficiency") {
+            val metrics by collectMetrics()
+            HrEfficiencyScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 17: Power Focus
+        composable("power-focus") {
+            val metrics by collectMetrics()
+            PowerFocusScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 18: Sprint Mode
+        composable("sprint-mode") {
+            val metrics by collectMetrics()
+            SprintModeScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        // Layout 19: Compact Multi
+        composable("compact-multi") {
+            val metrics by collectMetrics()
+            CompactMultiScreen(
+                metrics = metrics,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
         // Settings (collects only when active)
         composable("settings") {
             val context = androidx.compose.ui.platform.LocalContext.current

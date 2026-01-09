@@ -887,12 +887,39 @@ private fun SyncStatusRow(
         neverSyncedText
     }
 
+    // Build status text - show failed count if there are failed syncs
     val statusText = when (syncState.status) {
         SyncService.SyncStatus.SYNCING -> syncingText
         SyncService.SyncStatus.SUCCESS -> syncedText
-        SyncService.SyncStatus.FAILED -> syncFailedText
+        SyncService.SyncStatus.FAILED -> {
+            // Show failed count if available
+            if (syncState.failedCount > 0) {
+                stringResource(R.string.settings_failed, syncState.failedCount)
+            } else {
+                syncFailedText
+            }
+        }
         SyncService.SyncStatus.OFFLINE -> offlineText
-        SyncService.SyncStatus.IDLE -> if (syncState.pendingCount > 0) stringResource(R.string.settings_pending, syncState.pendingCount) else upToDateText
+        SyncService.SyncStatus.IDLE -> {
+            when {
+                syncState.failedCount > 0 -> stringResource(R.string.settings_failed, syncState.failedCount)
+                syncState.pendingCount > 0 -> stringResource(R.string.settings_pending, syncState.pendingCount)
+                else -> upToDateText
+            }
+        }
+    }
+
+    // Status color - prioritize problem color if there are failed syncs
+    val statusColor = when (syncState.status) {
+        SyncService.SyncStatus.SYNCING -> Theme.colors.attention
+        SyncService.SyncStatus.SUCCESS -> Theme.colors.optimal
+        SyncService.SyncStatus.FAILED -> Theme.colors.problem
+        SyncService.SyncStatus.OFFLINE -> Theme.colors.dim
+        SyncService.SyncStatus.IDLE -> when {
+            syncState.failedCount > 0 -> Theme.colors.problem
+            syncState.pendingCount > 0 -> Theme.colors.attention
+            else -> Theme.colors.dim
+        }
     }
 
     Row(
@@ -905,13 +932,7 @@ private fun SyncStatusRow(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = statusText,
-                color = when (syncState.status) {
-                    SyncService.SyncStatus.SYNCING -> Theme.colors.attention
-                    SyncService.SyncStatus.SUCCESS -> Theme.colors.optimal
-                    SyncService.SyncStatus.FAILED -> Theme.colors.problem
-                    SyncService.SyncStatus.OFFLINE -> Theme.colors.dim
-                    SyncService.SyncStatus.IDLE -> if (syncState.pendingCount > 0) Theme.colors.attention else Theme.colors.dim
-                },
+                color = statusColor,
                 fontSize = 12.sp
             )
             Text(

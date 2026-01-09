@@ -118,10 +118,35 @@ interface RideDao {
     suspend fun getPendingRides(): List<RideEntity>
 
     /**
+     * Get all rides that need sync (pending or failed).
+     * Failed rides are retried on each sync attempt.
+     */
+    @Query("SELECT * FROM rides WHERE syncStatus IN (0, 2) ORDER BY timestamp ASC")
+    suspend fun getRidesNeedingSync(): List<RideEntity>
+
+    /**
      * Get count of pending rides (reactive).
      */
     @Query("SELECT COUNT(*) FROM rides WHERE syncStatus = 0")
     fun getPendingSyncCountFlow(): Flow<Int>
+
+    /**
+     * Get count of failed rides (reactive).
+     */
+    @Query("SELECT COUNT(*) FROM rides WHERE syncStatus = 2")
+    fun getFailedSyncCountFlow(): Flow<Int>
+
+    /**
+     * Get total count of rides needing sync (pending + failed).
+     */
+    @Query("SELECT COUNT(*) FROM rides WHERE syncStatus IN (0, 2)")
+    fun getNeedingSyncCountFlow(): Flow<Int>
+
+    /**
+     * Reset failed rides to pending (for manual retry).
+     */
+    @Query("UPDATE rides SET syncStatus = 0 WHERE syncStatus = 2")
+    suspend fun resetFailedToPending()
 
     /**
      * Update sync status for a ride.

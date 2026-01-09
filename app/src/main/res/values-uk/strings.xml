@@ -25,6 +25,33 @@
     <string name="datatype_live">У реальному часі</string>
     <string name="datatype_live_desc">Усі метрики зі статистикою часу в зоні</string>
 
+    <string name="datatype_asymmetry">Асиметрія</string>
+    <string name="datatype_asymmetry_desc">Відхилення від балансу 50/50</string>
+
+    <string name="datatype_efficiency_combo">Оцінка ефективності</string>
+    <string name="datatype_efficiency_combo_desc">Комбінована оцінка ЕКМ та ПП</string>
+
+    <string name="datatype_left_leg">Ліва нога</string>
+    <string name="datatype_left_leg_desc">Усі метрики лівої ноги</string>
+
+    <string name="datatype_right_leg">Права нога</string>
+    <string name="datatype_right_leg_desc">Усі метрики правої ноги</string>
+
+    <string name="datatype_zone_timer">Таймер зони</string>
+    <string name="datatype_zone_timer_desc">Час в оптимальній зоні</string>
+
+    <string name="datatype_consistency">Стабільність</string>
+    <string name="datatype_consistency_desc">Оцінка технічної стабільності</string>
+
+    <string name="datatype_trend">Тренд</string>
+    <string name="datatype_trend_desc">Стрілки тренду продуктивності</string>
+
+    <string name="datatype_fatigue">Втома</string>
+    <string name="datatype_fatigue_desc">Поточна vs початкова продуктивність</string>
+
+    <string name="datatype_session_best">Найкращий за сесію</string>
+    <string name="datatype_session_best_desc">Поточний vs найкращий результат сесії</string>
+
     <!-- Labels -->
     <string name="balance">БАЛАНС</string>
     <string name="balance_lower">Баланс</string>
@@ -137,6 +164,7 @@
     <string name="syncing">Синхронізація…</string>
     <string name="synced">Синхронізовано</string>
     <string name="sync_failed">Помилка синхронізації</string>
+    <string name="settings_failed">%d не вдалось</string>
     <string name="offline">Офлайн</string>
     <string name="getting_code">Отримання коду…</string>
     <string name="waiting_auth">Очікування авторизації…</string>
@@ -176,7 +204,7 @@
     <string name="challenges">Випробування</string>
     <string name="weekly_goal">Тижнева ціль</string>
     <string name="data_fields">Поля даних</string>
-    <string name="layouts_count">6 макетів</string>
+    <string name="layouts_count">19 макетів</string>
     <string name="pedal_status">Статус педалей</string>
     <string name="connection">Підключення</string>
     <string name="quick_guide">Короткий посібник</string>
@@ -223,6 +251,23 @@
     <string name="layout_full_overview_short">Усі метрики компактно</string>
     <string name="layout_balance_trend_short">Згладжений 3с/10с</string>
     <string name="layout_single_balance_short">Тільки баланс</string>
+    <string name="layout_live_short">Всі метрики + час у зоні</string>
+    <string name="layout_pedaling_score_short">Оцінка якості 0-100</string>
+    <string name="layout_fatigue_indicator_short">Втома за трендами</string>
+    <string name="layout_cadence_balance_short">Каденс + баланс L/R</string>
+    <string name="layout_delta_average_short">Поточне vs середнє</string>
+    <string name="layout_left_leg_short">Фокус на ліву ногу</string>
+    <string name="layout_right_leg_short">Фокус на праву ногу</string>
+    <string name="layout_climbing_mode_short">Нахил + потужність</string>
+    <string name="layout_symmetry_index_short">100% = ідеал</string>
+    <string name="layout_hr_efficiency_short">ЧСС + TE/PS</string>
+    <string name="layout_power_focus_short">Потужність головна</string>
+    <string name="layout_sprint_mode_short">Велика потужність</string>
+    <string name="layout_compact_multi_short">Макс. інфо, мін. місця</string>
+    <string name="layout_category_core">Основні</string>
+    <string name="layout_category_analysis">Аналіз</string>
+    <string name="layout_category_focus">Фокус</string>
+    <string name="layout_category_context">З контекстом</string>
 
     <!-- Pedal Info Screen -->
     <string name="connected">Підключено</string>
@@ -311,6 +356,14 @@
     <string name="best_score">Найкращий %1$d%%</string>
     <string name="start">Почати</string>
 
+    <!-- Score labels -->
+    <string name="score">Оцінка</string>
+    <string name="score_excellent">Відмінно</string>
+    <string name="score_great">Дуже добре</string>
+    <string name="score_good">Добре</string>
+    <string name="score_fair">Задовільно</string>
+    <string name="score_needs_work">Потрібна робота</string>
+
     <!-- Drill Execution Screen -->
     <string name="next">Далі</string>
     <string name="stop">Стоп</string>
@@ -318,6 +371,9 @@
     <string name="paused">Пауза</string>
     <string name="resume">Продовжити</string>
     <string name="rpm">об/хв</string>
+    <string name="bpm">уд/хв</string>
+    <string name="cadence">Каденс</string>
+    <string name="heart_rate">Пульс</string>
     <string name="in_zone">в зоні</string>
     <string name="spin_easy">Крутіть легко</string>
     <string name="complete">Завершено</string>
@@ -801,4 +857,15 @@
     <string name="unit_drills">вправ</string>
     <string name="unit_days">днів</string>
     <string name="unit_percent">%</string>
+
+    <!-- Time Labels -->
+    <string name="label_current">Зараз</string>
+    <string name="label_3s_avg">3с Сер</string>
+    <string name="label_10s_avg">10с Сер</string>
+
+    <!-- Fatigue Levels -->
+    <string name="fatigue_fresh">Свіжий</string>
+    <string name="fatigue_good">Добре</string>
+    <string name="fatigue_moderate">Помірно</string>
+    <string name="fatigue_fatigued">Втомлений</string>
 </resources>

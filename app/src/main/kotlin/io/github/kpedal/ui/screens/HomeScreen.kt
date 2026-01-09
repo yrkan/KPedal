@@ -407,9 +407,62 @@ private fun LastRideCard(
             }
         }
 
+        // Score hero (if available)
+        if (ride.score > 0) {
+            HorizontalDivider()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "${ride.score}",
+                    color = getScoreColor(ride.score),
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Column {
+                    Text(
+                        text = stringResource(R.string.score),
+                        color = Theme.colors.dim,
+                        fontSize = 10.sp
+                    )
+                    Text(
+                        text = getScoreLabel(ride.score),
+                        color = getScoreColor(ride.score),
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+        }
+
         HorizontalDivider()
 
-        // Metrics grid
+        // Zone distribution bar
+        Column(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.time_in_zone).uppercase(),
+                color = Theme.colors.dim,
+                fontSize = 9.sp,
+                letterSpacing = 0.5.sp
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            ZoneBar(
+                optimal = ride.zoneOptimal,
+                attention = ride.zoneAttention,
+                problem = ride.zoneProblem
+            )
+        }
+
+        HorizontalDivider()
+
+        // Pedaling metrics grid
         Column(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -432,42 +485,69 @@ private fun LastRideCard(
                 value = "${ride.psLeft}/${ride.psRight}%",
                 color = getPSColor((ride.psLeft + ride.psRight) / 2)
             )
-            // Zone distribution
-            MetricRow(
-                label = stringResource(R.string.optimal),
-                value = "${ride.zoneOptimal}%",
-                color = getZoneColor(ride.zoneOptimal)
-            )
+        }
 
-            // Power & Cadence (if available)
-            if (ride.powerAvg > 0 || ride.cadenceAvg > 0) {
-                Spacer(modifier = Modifier.height(2.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    if (ride.powerAvg > 0) {
-                        Text(
-                            text = "${ride.powerAvg}W",
-                            color = Theme.colors.dim,
-                            fontSize = 11.sp
-                        )
-                    }
-                    if (ride.cadenceAvg > 0) {
-                        Text(
-                            text = "${ride.cadenceAvg} rpm",
-                            color = Theme.colors.dim,
-                            fontSize = 11.sp
-                        )
-                    }
-                    if (ride.score > 0) {
-                        Text(
-                            text = "Score: ${ride.score}",
-                            color = getScoreColor(ride.score),
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
+        // Extended metrics (Power, HR, etc.)
+        val hasExtendedMetrics = ride.powerAvg > 0 || ride.heartRateAvg > 0 || ride.cadenceAvg > 0
+        if (hasExtendedMetrics) {
+            HorizontalDivider()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                if (ride.powerAvg > 0) {
+                    MiniStatItem(
+                        value = "${ride.powerAvg}",
+                        unit = "W",
+                        label = if (ride.normalizedPower > 0) "NP: ${ride.normalizedPower}" else "avg"
+                    )
+                }
+                if (ride.heartRateAvg > 0) {
+                    MiniStatItem(
+                        value = "${ride.heartRateAvg}",
+                        unit = "bpm",
+                        label = "max: ${ride.heartRateMax}"
+                    )
+                }
+                if (ride.cadenceAvg > 0) {
+                    MiniStatItem(
+                        value = "${ride.cadenceAvg}",
+                        unit = "rpm",
+                        label = "avg"
+                    )
+                }
+            }
+        }
+
+        // Elevation (if available)
+        if (ride.elevationGain > 0) {
+            HorizontalDivider()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Text(
+                    text = "↑ ${ride.elevationGain}m",
+                    color = Theme.colors.dim,
+                    fontSize = 11.sp
+                )
+                if (ride.elevationLoss > 0) {
+                    Text(
+                        text = "↓ ${ride.elevationLoss}m",
+                        color = Theme.colors.dim,
+                        fontSize = 11.sp
+                    )
+                }
+                if (ride.energyKj > 0) {
+                    Text(
+                        text = "${ride.energyKj} kJ",
+                        color = Theme.colors.dim,
+                        fontSize = 11.sp
+                    )
                 }
             }
         }
@@ -487,6 +567,117 @@ private fun LastRideCard(
                 fontSize = 11.sp
             )
         }
+    }
+}
+
+@Composable
+private fun ZoneBar(
+    optimal: Int,
+    attention: Int,
+    problem: Int
+) {
+    val total = (optimal + attention + problem).coerceAtLeast(1)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(20.dp)
+            .clip(RoundedCornerShape(4.dp))
+    ) {
+        if (optimal > 0) {
+            Box(
+                modifier = Modifier
+                    .weight(optimal.toFloat() / total)
+                    .fillMaxHeight()
+                    .background(Theme.colors.optimal),
+                contentAlignment = Alignment.Center
+            ) {
+                if (optimal >= 15) {
+                    Text(
+                        text = "$optimal%",
+                        color = Color.Black,
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
+        if (attention > 0) {
+            Box(
+                modifier = Modifier
+                    .weight(attention.toFloat() / total)
+                    .fillMaxHeight()
+                    .background(Theme.colors.attention),
+                contentAlignment = Alignment.Center
+            ) {
+                if (attention >= 15) {
+                    Text(
+                        text = "$attention%",
+                        color = Color.Black,
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
+        if (problem > 0) {
+            Box(
+                modifier = Modifier
+                    .weight(problem.toFloat() / total)
+                    .fillMaxHeight()
+                    .background(Theme.colors.problem),
+                contentAlignment = Alignment.Center
+            ) {
+                if (problem >= 15) {
+                    Text(
+                        text = "$problem%",
+                        color = Color.Black,
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MiniStatItem(
+    value: String,
+    unit: String,
+    label: String
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Row(verticalAlignment = Alignment.Bottom) {
+            Text(
+                text = value,
+                color = Theme.colors.text,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.width(2.dp))
+            Text(
+                text = unit,
+                color = Theme.colors.dim,
+                fontSize = 10.sp,
+                modifier = Modifier.padding(bottom = 1.dp)
+            )
+        }
+        Text(
+            text = label,
+            color = Theme.colors.muted,
+            fontSize = 9.sp
+        )
+    }
+}
+
+@Composable
+private fun getScoreLabel(score: Int): String {
+    return when {
+        score >= 90 -> stringResource(R.string.score_excellent)
+        score >= 80 -> stringResource(R.string.score_great)
+        score >= 70 -> stringResource(R.string.score_good)
+        score >= 60 -> stringResource(R.string.score_fair)
+        else -> stringResource(R.string.score_needs_work)
     }
 }
 

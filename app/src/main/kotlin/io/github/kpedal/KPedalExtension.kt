@@ -13,7 +13,25 @@ import io.github.kpedal.data.PreferencesRepository
 import io.github.kpedal.data.RideRepository
 import io.github.kpedal.data.SyncService
 import io.github.kpedal.data.database.KPedalDatabase
-import io.github.kpedal.datatypes.*
+import io.github.kpedal.datatypes.glance.BalanceTrendGlanceDataType
+import io.github.kpedal.datatypes.glance.CadenceBalanceGlanceDataType
+import io.github.kpedal.datatypes.glance.ClimbingModeGlanceDataType
+import io.github.kpedal.datatypes.glance.CompactMultiGlanceDataType
+import io.github.kpedal.datatypes.glance.DeltaAverageGlanceDataType
+import io.github.kpedal.datatypes.glance.EfficiencyGlanceDataType
+import io.github.kpedal.datatypes.glance.FatigueIndicatorGlanceDataType
+import io.github.kpedal.datatypes.glance.FullOverviewGlanceDataType
+import io.github.kpedal.datatypes.glance.HREfficiencyGlanceDataType
+import io.github.kpedal.datatypes.glance.LeftLegGlanceDataType
+import io.github.kpedal.datatypes.glance.LiveGlanceDataType
+import io.github.kpedal.datatypes.glance.PedalingScoreGlanceDataType
+import io.github.kpedal.datatypes.glance.PowerBalanceGlanceDataType
+import io.github.kpedal.datatypes.glance.PowerFocusGlanceDataType
+import io.github.kpedal.datatypes.glance.QuickGlanceGlanceDataType
+import io.github.kpedal.datatypes.glance.RightLegGlanceDataType
+import io.github.kpedal.datatypes.glance.SingleBalanceGlanceDataType
+import io.github.kpedal.datatypes.glance.SprintModeGlanceDataType
+import io.github.kpedal.datatypes.glance.SymmetryIndexGlanceDataType
 import io.github.kpedal.drill.DrillRepository
 import io.github.kpedal.engine.AchievementChecker
 import io.github.kpedal.engine.AlertManager
@@ -319,13 +337,28 @@ class KPedalExtension : KarooExtension("kpedal", BuildConfig.VERSION_NAME) {
 
     override val types by lazy {
         listOf(
-            QuickGlanceDataType(this),
-            PowerBalanceDataType(this),
-            EfficiencyDataType(this),
-            FullOverviewDataType(this),
-            BalanceTrendDataType(this),
-            SingleBalanceDataType(this),
-            LiveDataType(this)
+            // All DataTypes now use Glance (fresh RemoteViews on each update - no crash)
+            // Core DataTypes
+            QuickGlanceGlanceDataType(this),
+            PowerBalanceGlanceDataType(this),
+            EfficiencyGlanceDataType(this),
+            FullOverviewGlanceDataType(this),
+            BalanceTrendGlanceDataType(this),
+            SingleBalanceGlanceDataType(this),
+            LiveGlanceDataType(this),
+            // New DataTypes (v1.8)
+            PedalingScoreGlanceDataType(this),
+            FatigueIndicatorGlanceDataType(this),
+            CadenceBalanceGlanceDataType(this),
+            DeltaAverageGlanceDataType(this),
+            LeftLegGlanceDataType(this),
+            RightLegGlanceDataType(this),
+            ClimbingModeGlanceDataType(this),
+            SymmetryIndexGlanceDataType(this),
+            HREfficiencyGlanceDataType(this),
+            PowerFocusGlanceDataType(this),
+            SprintModeGlanceDataType(this),
+            CompactMultiGlanceDataType(this)
         )
     }
 }

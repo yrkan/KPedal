@@ -51,6 +51,9 @@ data class AccumulatorState(
     val initialSampleCount: Int,
     val initialPeriodComplete: Boolean,
 
+    // Session best tracking
+    val sessionBestScore: Int = 0,
+
     // Timing
     val startTimeMs: Long,
     val lastUpdateTimeMs: Long,

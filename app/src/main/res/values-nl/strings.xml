@@ -25,6 +25,33 @@
     <string name="datatype_live">Live</string>
     <string name="datatype_live_desc">Alle statistieken met Tijd In Zone stats</string>
 
+    <string name="datatype_asymmetry">Asymmetrie</string>
+    <string name="datatype_asymmetry_desc">Afwijking van 50/50 balans</string>
+
+    <string name="datatype_efficiency_combo">Efficiëntiescore</string>
+    <string name="datatype_efficiency_combo_desc">Gecombineerde TE en TV score</string>
+
+    <string name="datatype_left_leg">Linkerbeen</string>
+    <string name="datatype_left_leg_desc">Alle statistieken voor linkerbeen</string>
+
+    <string name="datatype_right_leg">Rechterbeen</string>
+    <string name="datatype_right_leg_desc">Alle statistieken voor rechterbeen</string>
+
+    <string name="datatype_zone_timer">Zonetimer</string>
+    <string name="datatype_zone_timer_desc">Tijd in optimale zone</string>
+
+    <string name="datatype_consistency">Consistentie</string>
+    <string name="datatype_consistency_desc">Technische stabiliteitsscore</string>
+
+    <string name="datatype_trend">Trend</string>
+    <string name="datatype_trend_desc">Prestatie trendpijlen</string>
+
+    <string name="datatype_fatigue">Vermoeidheid</string>
+    <string name="datatype_fatigue_desc">Huidige vs initiële prestatie</string>
+
+    <string name="datatype_session_best">Sessie Beste</string>
+    <string name="datatype_session_best_desc">Huidige vs beste sessiescore</string>
+
     <!-- Labels -->
     <string name="balance">BALANS</string>
     <string name="balance_lower">Balans</string>
@@ -137,6 +164,7 @@
     <string name="syncing">Synchroniseren…</string>
     <string name="synced">Gesynchroniseerd</string>
     <string name="sync_failed">Synchronisatie mislukt</string>
+    <string name="settings_failed">%d mislukt</string>
     <string name="offline">Offline</string>
     <string name="getting_code">Code ophalen…</string>
     <string name="waiting_auth">Wachten op autorisatie…</string>
@@ -223,6 +251,23 @@
     <string name="layout_full_overview_short">Alle statistieken compact</string>
     <string name="layout_balance_trend_short">3s/10s gladgestreken</string>
     <string name="layout_single_balance_short">Alleen balans</string>
+    <string name="layout_live_short">Alle metrics + tijd in zone</string>
+    <string name="layout_pedaling_score_short">Kwaliteitsscore 0-100</string>
+    <string name="layout_fatigue_indicator_short">Vermoeidheid uit trends</string>
+    <string name="layout_cadence_balance_short">Cadans + balans L/R</string>
+    <string name="layout_delta_average_short">Huidig vs gemiddeld</string>
+    <string name="layout_left_leg_short">Focus linkerbeen</string>
+    <string name="layout_right_leg_short">Focus rechterbeen</string>
+    <string name="layout_climbing_mode_short">Helling + vermogen</string>
+    <string name="layout_symmetry_index_short">100% = perfect</string>
+    <string name="layout_hr_efficiency_short">HF + TE/PS</string>
+    <string name="layout_power_focus_short">Vermogen primair</string>
+    <string name="layout_sprint_mode_short">Groot vermogen</string>
+    <string name="layout_compact_multi_short">Max info, min ruimte</string>
+    <string name="layout_category_core">Basis</string>
+    <string name="layout_category_analysis">Analyse</string>
+    <string name="layout_category_focus">Focus</string>
+    <string name="layout_category_context">Met context</string>
 
     <!-- Pedal Info Screen -->
     <string name="connected">Verbonden</string>
@@ -318,6 +363,9 @@
     <string name="paused">Gepauzeerd</string>
     <string name="resume">Hervatten</string>
     <string name="rpm">rpm</string>
+    <string name="bpm">bpm</string>
+    <string name="cadence">Cadans</string>
+    <string name="heart_rate">Hartslag</string>
     <string name="in_zone">in zone</string>
     <string name="spin_easy">Rustig draaien</string>
     <string name="complete">Voltooid</string>
@@ -391,7 +439,7 @@
     <string name="onboarding_welcome_title">Welkom bij KPedal</string>
     <string name="onboarding_welcome_desc">Real-time trapstatistieken van je vermogensmeterpedalen. Volg balans, efficiëntie en vloeiendheid om je techniek te verbeteren.</string>
     <string name="onboarding_data_fields_title">Datavelden</string>
-    <string name="onboarding_data_fields_desc">Voeg KPedal datavelden toe aan je Karoo schermen om statistieken te zien tijdens je rit. Kies uit 6 verschillende lay-outs.</string>
+    <string name="onboarding_data_fields_desc">Voeg KPedal datavelden toe aan je Karoo schermen om statistieken te zien tijdens je rit. Kies uit 19 verschillende lay-outs.</string>
     <string name="onboarding_drills_title">Oefeningen</string>
     <string name="onboarding_drills_desc">Oefen met begeleide oefeningen om je traptechniek te verbeteren. Elke oefening richt zich op specifieke aspecten van je trapbeweging.</string>
     <string name="onboarding_alerts_title">Waarschuwingen</string>
@@ -800,4 +848,15 @@
     <string name="unit_drills">oefeningen</string>
     <string name="unit_days">dagen</string>
     <string name="unit_percent">%</string>
+
+    <!-- Time Labels -->
+    <string name="label_current">Huidig</string>
+    <string name="label_3s_avg">3s Gem</string>
+    <string name="label_10s_avg">10s Gem</string>
+
+    <!-- Fatigue Levels -->
+    <string name="fatigue_fresh">Fris</string>
+    <string name="fatigue_good">Goed</string>
+    <string name="fatigue_moderate">Matig</string>
+    <string name="fatigue_fatigued">Vermoeid</string>
 </resources>

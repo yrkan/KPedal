@@ -25,6 +25,63 @@
     <string name="datatype_live">Live</string>
     <string name="datatype_live_desc">All metrics with Time In Zone stats</string>
 
+    <string name="datatype_asymmetry">Asymmetry</string>
+    <string name="datatype_asymmetry_desc">Deviation from 50/50 balance</string>
+
+    <string name="datatype_efficiency_combo">Efficiency Score</string>
+    <string name="datatype_efficiency_combo_desc">Combined TE and PS score</string>
+
+    <string name="datatype_left_leg">Left Leg</string>
+    <string name="datatype_left_leg_desc">All metrics for left leg</string>
+
+    <string name="datatype_right_leg">Right Leg</string>
+    <string name="datatype_right_leg_desc">All metrics for right leg</string>
+
+    <string name="datatype_zone_timer">Zone Timer</string>
+    <string name="datatype_zone_timer_desc">Time in optimal zone</string>
+
+    <string name="datatype_consistency">Consistency</string>
+    <string name="datatype_consistency_desc">Technique stability score</string>
+
+    <string name="datatype_trend">Trend</string>
+    <string name="datatype_trend_desc">Performance trend arrows</string>
+
+    <string name="datatype_fatigue">Fatigue</string>
+    <string name="datatype_fatigue_desc">Current vs initial performance</string>
+
+    <string name="datatype_session_best">Session Best</string>
+    <string name="datatype_session_best_desc">Current vs session best score</string>
+
+    <string name="datatype_pedaling_score">Pedaling Score</string>
+    <string name="datatype_pedaling_score_desc">Overall pedaling quality score (0-100)</string>
+
+    <string name="datatype_fatigue_indicator">Fatigue Indicator</string>
+    <string name="datatype_fatigue_indicator_desc">Shows fatigue level based on metric trends</string>
+
+    <string name="datatype_cadence_balance">Cadence + Balance</string>
+    <string name="datatype_cadence_balance_desc">Cadence with L/R balance display</string>
+
+    <string name="datatype_delta_average">Delta vs Average</string>
+    <string name="datatype_delta_average_desc">Current metrics vs ride average</string>
+
+    <string name="datatype_climbing_mode">Climbing Mode</string>
+    <string name="datatype_climbing_mode_desc">Grade, elevation and power for climbs</string>
+
+    <string name="datatype_symmetry_index">Symmetry Index</string>
+    <string name="datatype_symmetry_index_desc">Balance as percentage symmetry (100%=perfect)</string>
+
+    <string name="datatype_hr_efficiency">HR + Efficiency</string>
+    <string name="datatype_hr_efficiency_desc">Heart rate with pedaling efficiency metrics</string>
+
+    <string name="datatype_power_focus">Power Focus</string>
+    <string name="datatype_power_focus_desc">Power as primary with pedaling quality</string>
+
+    <string name="datatype_sprint_mode">Sprint Mode</string>
+    <string name="datatype_sprint_mode_desc">Large power display for sprints and intervals</string>
+
+    <string name="datatype_compact_multi">Compact Multi</string>
+    <string name="datatype_compact_multi_desc">Maximum pedaling info in minimum space</string>
+
     <!-- Labels -->
     <string name="balance">BALANCE</string>
     <string name="balance_lower">Balance</string>
@@ -142,6 +199,7 @@
     <string name="syncing">Syncing…</string>
     <string name="synced">Synced</string>
     <string name="sync_failed">Sync failed</string>
+    <string name="settings_failed">%d failed</string>
     <string name="offline">Offline</string>
     <string name="getting_code">Getting code…</string>
     <string name="waiting_auth">Waiting for authorization…</string>
@@ -181,7 +239,7 @@
     <string name="challenges">Challenges</string>
     <string name="weekly_goal">Weekly goal</string>
     <string name="data_fields">Data Fields</string>
-    <string name="layouts_count">6 layouts</string>
+    <string name="layouts_count">19 layouts</string>
     <string name="pedal_status">Pedal Status</string>
     <string name="connection">Connection</string>
     <string name="quick_guide">Quick guide</string>
@@ -263,6 +321,25 @@
     <string name="layout_full_overview_short">All metrics compact</string>
     <string name="layout_balance_trend_short">3s/10s smoothed</string>
     <string name="layout_single_balance_short">Balance only</string>
+    <string name="layout_live_short">All metrics + time in zone</string>
+    <string name="layout_pedaling_score_short">Quality score 0-100</string>
+    <string name="layout_fatigue_indicator_short">Fatigue from trends</string>
+    <string name="layout_cadence_balance_short">RPM + L/R balance</string>
+    <string name="layout_delta_average_short">Current vs average</string>
+    <string name="layout_left_leg_short">Left leg focus</string>
+    <string name="layout_right_leg_short">Right leg focus</string>
+    <string name="layout_climbing_mode_short">Grade + power</string>
+    <string name="layout_symmetry_index_short">100% = perfect</string>
+    <string name="layout_hr_efficiency_short">HR + TE/PS</string>
+    <string name="layout_power_focus_short">Power primary</string>
+    <string name="layout_sprint_mode_short">Large power display</string>
+    <string name="layout_compact_multi_short">Max info, min space</string>
+
+    <!-- Layout categories -->
+    <string name="layout_category_core">Core</string>
+    <string name="layout_category_analysis">Analysis</string>
+    <string name="layout_category_focus">Focus</string>
+    <string name="layout_category_context">With Context</string>
 
     <!-- Pedal Info Screen -->
     <string name="connected">Connected</string>
@@ -359,6 +436,14 @@
     <string name="best_score">Best %1$d%%</string>
     <string name="start">Start</string>
 
+    <!-- Score labels -->
+    <string name="score">Score</string>
+    <string name="score_excellent">Excellent</string>
+    <string name="score_great">Great</string>
+    <string name="score_good">Good</string>
+    <string name="score_fair">Fair</string>
+    <string name="score_needs_work">Needs work</string>
+
     <!-- Drill Execution Screen -->
     <string name="next">Next</string>
     <string name="stop">Stop</string>
@@ -366,6 +451,16 @@
     <string name="paused">Paused</string>
     <string name="resume">Resume</string>
     <string name="rpm">rpm</string>
+    <string name="bpm">bpm</string>
+    <string name="cadence">Cadence</string>
+    <string name="heart_rate">Heart Rate</string>
+    <string name="label_current">Current</string>
+    <string name="label_3s_avg">3s Avg</string>
+    <string name="label_10s_avg">10s Avg</string>
+    <string name="fatigue_fresh">Fresh</string>
+    <string name="fatigue_good">Good</string>
+    <string name="fatigue_moderate">Moderate</string>
+    <string name="fatigue_fatigued">Fatigued</string>
     <string name="in_zone">in zone</string>
     <string name="spin_easy">Spin easy</string>
     <string name="complete">Complete</string>
@@ -463,7 +558,7 @@
     <string name="onboarding_welcome_title">Welcome to KPedal</string>
     <string name="onboarding_welcome_desc">Real-time pedaling metrics from your power meter pedals. Track balance, efficiency, and smoothness to improve your technique.</string>
     <string name="onboarding_data_fields_title">Data Fields</string>
-    <string name="onboarding_data_fields_desc">Add KPedal data fields to your Karoo screens to see metrics during your ride. Choose from 6 different layouts.</string>
+    <string name="onboarding_data_fields_desc">Add KPedal data fields to your Karoo screens to see metrics during your ride. Choose from 19 different layouts.</string>
     <string name="onboarding_drills_title">Drills</string>
     <string name="onboarding_drills_desc">Practice with guided drills to improve your pedaling technique. Each drill targets specific aspects of your stroke.</string>
     <string name="onboarding_alerts_title">Alerts</string>

@@ -469,17 +469,17 @@ class AlertManager(
         val left = (100f - metrics.balance).toInt()
         val right = metrics.balance.toInt()
         val deviation = kotlin.math.abs(50 - right)
-        return "L$left / R$right (${deviation}% off)"
+        return "$left/$right • ${deviation}% off"
     }
 
     private fun formatTeDetail(metrics: PedalingMetrics, thresholds: PreferencesRepository.Settings): String {
         val avg = metrics.torqueEffAvg.toInt()
-        return "TE ${avg}% (target ${thresholds.teOptimalMin}-${thresholds.teOptimalMax}%)"
+        return "TE $avg% (${thresholds.teOptimalMin}-${thresholds.teOptimalMax})"
     }
 
     private fun formatPsDetail(metrics: PedalingMetrics, thresholds: PreferencesRepository.Settings): String {
         val avg = metrics.pedalSmoothAvg.toInt()
-        return "PS ${avg}% (min ${thresholds.psMinimum}%)"
+        return "PS $avg% (min ${thresholds.psMinimum})"
     }
 
     /**

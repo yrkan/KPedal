@@ -96,6 +96,9 @@ class LiveDataCollector {
     private var initialSampleCount: Int = 0
     private var initialPeriodComplete: Boolean = false
 
+    // Session best tracking (for Session Best DataType)
+    private var sessionBestScore: Int = 0
+
     @Volatile
     private var isCollecting = false
     private var lastMetrics: PedalingMetrics? = null

@@ -61,4 +61,100 @@
         graphical="true"
         icon="@drawable/ic_kpedal" />
 
+    <!-- Layout 8: Pedaling Score - Overall pedaling quality score (0-100) -->
+    <DataType
+        typeId="pedaling-score"
+        description="@string/datatype_pedaling_score_desc"
+        displayName="@string/datatype_pedaling_score"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 9: Fatigue Indicator - Shows fatigue level based on metric trends -->
+    <DataType
+        typeId="fatigue-indicator"
+        description="@string/datatype_fatigue_indicator_desc"
+        displayName="@string/datatype_fatigue_indicator"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 10: Cadence + Balance - Cadence with balance display -->
+    <DataType
+        typeId="cadence-balance"
+        description="@string/datatype_cadence_balance_desc"
+        displayName="@string/datatype_cadence_balance"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 11: Delta vs Average - Current metrics compared to ride average -->
+    <DataType
+        typeId="delta-average"
+        description="@string/datatype_delta_average_desc"
+        displayName="@string/datatype_delta_average"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 12: Left Leg - Focus on left leg metrics -->
+    <DataType
+        typeId="left-leg"
+        description="@string/datatype_left_leg_desc"
+        displayName="@string/datatype_left_leg"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 13: Right Leg - Focus on right leg metrics -->
+    <DataType
+        typeId="right-leg"
+        description="@string/datatype_right_leg_desc"
+        displayName="@string/datatype_right_leg"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 14: Climbing Mode - Optimized for hill climbing -->
+    <DataType
+        typeId="climbing-mode"
+        description="@string/datatype_climbing_mode_desc"
+        displayName="@string/datatype_climbing_mode"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 15: Symmetry Index - Balance as percentage symmetry -->
+    <DataType
+        typeId="symmetry-index"
+        description="@string/datatype_symmetry_index_desc"
+        displayName="@string/datatype_symmetry_index"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 16: HR + Efficiency - Heart rate with TE/PS -->
+    <DataType
+        typeId="hr-efficiency"
+        description="@string/datatype_hr_efficiency_desc"
+        displayName="@string/datatype_hr_efficiency"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 17: Power Focus - Power primary with pedaling quality -->
+    <DataType
+        typeId="power-focus"
+        description="@string/datatype_power_focus_desc"
+        displayName="@string/datatype_power_focus"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 18: Sprint Mode - Large power display for intervals -->
+    <DataType
+        typeId="sprint-mode"
+        description="@string/datatype_sprint_mode_desc"
+        displayName="@string/datatype_sprint_mode"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
+    <!-- Layout 19: Compact Multi - Maximum info in minimum space -->
+    <DataType
+        typeId="compact-multi"
+        description="@string/datatype_compact_multi_desc"
+        displayName="@string/datatype_compact_multi"
+        graphical="true"
+        icon="@drawable/ic_kpedal" />
+
 </ExtensionInfo>

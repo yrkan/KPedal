@@ -105,4 +105,29 @@ interface DrillResultDao {
      */
     @Query("UPDATE drill_results SET syncStatus = 2, lastSyncAttempt = :timestamp WHERE id = :id")
     suspend fun markAsSyncFailed(id: Long, timestamp: Long = System.currentTimeMillis())
+
+    /**
+     * Get all drill results that need sync (pending or failed).
+     * Failed results are retried on each sync attempt.
+     */
+    @Query("SELECT * FROM drill_results WHERE syncStatus IN (0, 2) ORDER BY timestamp ASC")
+    suspend fun getDrillsNeedingSync(): List<DrillResultEntity>
+
+    /**
+     * Get count of failed sync drill results (reactive).
+     */
+    @Query("SELECT COUNT(*) FROM drill_results WHERE syncStatus = 2")
+    fun getFailedSyncCountFlow(): Flow<Int>
+
+    /**
+     * Get total count of drill results needing sync (pending + failed).
+     */
+    @Query("SELECT COUNT(*) FROM drill_results WHERE syncStatus IN (0, 2)")
+    fun getNeedingSyncCountFlow(): Flow<Int>
+
+    /**
+     * Reset failed drill results to pending (for manual retry).
+     */
+    @Query("UPDATE drill_results SET syncStatus = 0 WHERE syncStatus = 2")
+    suspend fun resetFailedToPending()
 }
