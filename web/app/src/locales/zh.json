@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Karoo 踏频效率分析工具",
-    "version": "版本 1.8.0",
+    "version": "版本 1.8.1",
     "webTitle": "KPedal 网页版"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo 扩展",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "实时查看您的",
       "titleLine2": "踏频效率",
       "subtitle": "平衡、扭矩效率、踏频平滑度 — 在 Karoo 上显示，配有实时警报和引导式训练。",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "无需账户"
     },
     "dataFields": {
-      "title": "在 Karoo 上查看",
-      "subtitle": "5 种数据字段布局。选择适合您训练的视图。",
-      "tabs": {
-        "quickGlance": "快速查看",
+      "title": "适用于 Karoo 的 19 种数据字段",
+      "subtitle": "为每次训练选择完美视图。从快速检查到详细分析。",
+      "dataTypes": "数据类型",
+      "benefits": {
+        "realtime": "实时更新",
+        "sizes": "6种布局尺寸",
+        "auto": "自动刷新"
+      },
+      "categories": {
         "balance": "平衡",
         "efficiency": "效率",
-        "fullView": "完整视图",
-        "trend": "趋势"
+        "legs": "腿部焦点",
+        "overview": "概览",
+        "modes": "模式"
       },
-      "quickGlance": {
-        "name": "快速查看",
-        "desc": "带平衡条的状态指示器。最佳时显示对勾，否则列出需要注意的指标。"
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "功率平衡",
         "desc": "大字号左/右平衡数字配可视化进度条。非常适合专注平衡训练。"
+      },
+      "singlebalance": {
+        "name": "单一平衡",
+        "desc": "一个大数字显示当前平衡。简约且一目了然。"
+      },
+      "balancetrend": {
+        "name": "平衡趋势",
+        "desc": "当前 + 3秒平滑 + 10秒平滑平衡。实时观察趋势发展。"
+      },
+      "symmetryindex": {
+        "name": "对称指数",
+        "desc": "与完美对称的百分比偏差。0% = 完美平衡。"
+      },
+      "cadencebalance": {
+        "name": "踏频平衡",
+        "desc": "不同踏频下的平衡。查看踏频如何影响您的对称性。"
       },
       "efficiency": {
         "name": "效率",
         "desc": "扭矩效率和踏频平滑度，显示左/右分配和平均值。"
       },
-      "fullOverview": {
+      "pedalingscore": {
+        "name": "踏频评分",
+        "desc": "综合平衡、TE和PS的0-100统一评分。您的整体技术评级。"
+      },
+      "hrefficiency": {
+        "name": "心率效率",
+        "desc": "相对于心率的踏频技术。监测疲劳如何影响状态。"
+      },
+      "leftleg": {
+        "name": "左腿",
+        "desc": "左腿详细指标：平衡贡献度、TE和PS。"
+      },
+      "rightleg": {
+        "name": "右腿",
+        "desc": "右腿详细指标：平衡贡献度、TE和PS。"
+      },
+      "quickglance": {
+        "name": "快速查看",
+        "desc": "带平衡条的状态指示器。最佳时显示对勾，否则列出需要注意的指标。"
+      },
+      "fulloverview": {
         "name": "完整概览",
         "desc": "三个指标集于一个紧凑视图。一目了然的完整踏频信息。"
       },
-      "balanceTrend": {
-        "name": "平衡趋势",
-        "desc": "当前 + 3秒平滑 + 10秒平滑平衡。实时观察趋势发展。"
+      "live": {
+        "name": "实时数据",
+        "desc": "秒级精度的实时数据。即时查看技术波动。"
+      },
+      "compactmulti": {
+        "name": "紧凑多项",
+        "desc": "一行显示三个指标。最小空间内的最大信息密度。"
+      },
+      "fatigueindicator": {
+        "name": "疲劳指示器",
+        "desc": "比较当前与平均效率。实时检测疲劳迹象。"
+      },
+      "deltaaverage": {
+        "name": "平均差值",
+        "desc": "与骑行平均值的偏差。正值 = 高于平均，负值 = 低于平均。"
+      },
+      "climbingmode": {
+        "name": "爬坡模式",
+        "desc": "针对爬坡优化：低踏频和高功率时的平衡。"
+      },
+      "powerfocus": {
+        "name": "功率焦点",
+        "desc": "平衡与当前功率一起显示。查看强度如何影响对称性。"
+      },
+      "sprintmode": {
+        "name": "冲刺模式",
+        "desc": "冲刺用高频更新。捕捉最大功率时的快速技术变化。"
       },
       "karoo": {
         "optimal": "最佳",
@@ -1647,7 +1709,18 @@
         "ok": "正常",
         "now": "当前",
         "avg3s": "3秒平均",
-        "avg10s": "10秒平均"
+        "avg10s": "10秒平均",
+        "score": "评分",
+        "fatigue": "疲劳",
+        "fresh": "良好",
+        "delta": "差值",
+        "power": "功率",
+        "symmetry": "对称",
+        "cadence": "踏频",
+        "hr": "心率",
+        "climbing": "爬坡",
+        "sprint": "冲刺",
+        "avg": "平均"
       }
     },
     "comparison": {

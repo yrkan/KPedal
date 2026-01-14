@@ -416,45 +416,61 @@ fun LiveContent(
 
                     GlanceDivider()
 
-                    // Time in Zone section
+                    // Time in Zone section - professional layout
                     Column(
-                        modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
+                        modifier = GlanceModifier.fillMaxWidth().defaultWeight().padding(horizontal = 8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        LabelText("TIME IN ZONE", fontSize = 12)
-                        Row(
-                            modifier = GlanceModifier.fillMaxWidth().padding(horizontal = 8.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
-                            } else {
-                                ValueText("${liveData.zoneOptimal}%", GlanceColors.Optimal, 14)
-                                ValueText(" | ", GlanceColors.Separator, 12)
-                                ValueText("${liveData.zoneAttention}%", GlanceColors.Attention, 14)
-                                ValueText(" | ", GlanceColors.Separator, 12)
-                                ValueText("${liveData.zoneProblem}%", GlanceColors.Problem, 14)
-                            }
-                        }
+                        LabelText("TIME IN ZONE", fontSize = 11)
 
-                        // Zone status bar
                         if (noData) {
+                            // No data state
                             Box(
                                 modifier = GlanceModifier
                                     .fillMaxWidth()
-                                    .height(6.dp)
-                                    .padding(top = 4.dp, start = 8.dp, end = 8.dp)
-                                    .background(GlanceColors.Label)
+                                    .height(10.dp)
+                                    .padding(top = 6.dp)
+                                    .background(GlanceColors.Divider)
                             ) {}
                         } else {
-                            ZoneStatusBar(
+                            // Segmented progress bar
+                            ZoneSegmentedBar(
                                 liveData.zoneOptimal,
                                 liveData.zoneAttention,
                                 liveData.zoneProblem,
-                                GlanceModifier.padding(top = 4.dp, start = 8.dp, end = 8.dp)
+                                height = 10,
+                                modifier = GlanceModifier.padding(top = 6.dp)
                             )
+
+                            // Zone percentages below bar
+                            Row(
+                                modifier = GlanceModifier.fillMaxWidth().padding(top = 4.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                // Optimal
+                                Box(
+                                    modifier = GlanceModifier.defaultWeight(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    ZoneChip(liveData.zoneOptimal, GlanceColors.Optimal)
+                                }
+                                // Attention
+                                Box(
+                                    modifier = GlanceModifier.defaultWeight(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    ZoneChip(liveData.zoneAttention, GlanceColors.Attention)
+                                }
+                                // Problem
+                                Box(
+                                    modifier = GlanceModifier.defaultWeight(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    ZoneChip(liveData.zoneProblem, GlanceColors.Problem)
+                                }
+                            }
                         }
                     }
                 }

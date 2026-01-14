@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Trapefficiëntie-analyse voor Karoo",
-    "version": "Versie 1.8.0",
+    "version": "Versie 1.8.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-extensie",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "Zie uw trapefficiëntie",
       "titleLine2": "in realtime",
       "subtitle": "Balans, Koppel-efficiëntie, Trapvloeiendheid — weergegeven op uw Karoo met realtime waarschuwingen en begeleide oefeningen.",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "Geen account vereist"
     },
     "dataFields": {
-      "title": "Zie het op uw Karoo",
-      "subtitle": "5 gegevensveldindelingen. Kies de weergave die bij uw training past.",
-      "tabs": {
-        "quickGlance": "Snelle blik",
+      "title": "19 gegevensvelden voor uw Karoo",
+      "subtitle": "Kies de perfecte weergave voor elke training. Van snelle controles tot gedetailleerde analyse.",
+      "dataTypes": "Gegevenstypen",
+      "benefits": {
+        "realtime": "Real-time updates",
+        "sizes": "6 layout-formaten",
+        "auto": "Auto-verversing"
+      },
+      "categories": {
         "balance": "Balans",
         "efficiency": "Efficiëntie",
-        "fullView": "Volledige weergave",
-        "trend": "Trend"
+        "legs": "Been Focus",
+        "overview": "Overzicht",
+        "modes": "Modi"
       },
-      "quickGlance": {
-        "name": "Snelle blik",
-        "desc": "Statusindicator met balansbalk. Toont vinkje wanneer optimaal of vermeldt statistieken die aandacht nodig hebben."
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "Vermogensbalans",
         "desc": "Grote L/R-balansnummers met visuele voortgangsbalk. Perfect voor balansgerichte training."
+      },
+      "singlebalance": {
+        "name": "Enkele Balans",
+        "desc": "Eén groot getal toont de huidige balans. Minimalistisch en in één oogopslag zichtbaar."
+      },
+      "balancetrend": {
+        "name": "Balanstrend",
+        "desc": "Huidige + 3s gladgestreken + 10s gladgestreken balans. Zie trends terwijl ze zich ontwikkelen."
+      },
+      "symmetryindex": {
+        "name": "Symmetrie-index",
+        "desc": "Procentuele afwijking van perfecte symmetrie. 0% = perfect gebalanceerd."
+      },
+      "cadencebalance": {
+        "name": "Cadans Balans",
+        "desc": "Balans bij verschillende cadansen. Zie hoe cadans uw symmetrie beïnvloedt."
       },
       "efficiency": {
         "name": "Efficiëntie",
         "desc": "Koppel-efficiëntie en Trapvloeiendheid met L/R-splitsingen en gemiddelden."
       },
-      "fullOverview": {
-        "name": "Volledig overzicht",
+      "pedalingscore": {
+        "name": "Trapscore",
+        "desc": "Uniforme 0-100 score die balans, KE en TV combineert. Uw algemene technische beoordeling."
+      },
+      "hrefficiency": {
+        "name": "HF Efficiëntie",
+        "desc": "Traptechniek relatief aan hartfrequentie. Monitor hoe vermoeidheid de vorm beïnvloedt."
+      },
+      "leftleg": {
+        "name": "Linker Been",
+        "desc": "Gedetailleerde statistieken linker been: balansbijdrage, KE en TV."
+      },
+      "rightleg": {
+        "name": "Rechter Been",
+        "desc": "Gedetailleerde statistieken rechter been: balansbijdrage, KE en TV."
+      },
+      "quickglance": {
+        "name": "Snelle Blik",
+        "desc": "Statusindicator met balansbalk. Toont vinkje wanneer optimaal of vermeldt statistieken die aandacht nodig hebben."
+      },
+      "fulloverview": {
+        "name": "Volledig Overzicht",
         "desc": "Alle drie statistieken in één compacte weergave. Compleet trapbeeld in één oogopslag."
       },
-      "balanceTrend": {
-        "name": "Balanstrend",
-        "desc": "Huidige + 3s gladgestreken + 10s gladgestreken balans. Zie trends terwijl ze zich ontwikkelen."
+      "live": {
+        "name": "Live Data",
+        "desc": "Realtime gegevens met secondenprecisie. Zie direct hoe uw techniek fluctueert."
+      },
+      "compactmulti": {
+        "name": "Compact Multi",
+        "desc": "Drie statistieken op één rij. Maximale informatiedichtheid in minimale ruimte."
+      },
+      "fatigueindicator": {
+        "name": "Vermoeidheids-indicator",
+        "desc": "Vergelijkt huidige vs gemiddelde efficiëntie. Detecteert vermoeidheidssignalen in realtime."
+      },
+      "deltaaverage": {
+        "name": "Delta Gemiddelde",
+        "desc": "Afwijking van ritgemiddelde. Positief = boven gemiddelde, negatief = onder."
+      },
+      "climbingmode": {
+        "name": "Klimmodus",
+        "desc": "Geoptimaliseerd voor klimmen: balans bij lagere cadans en hoger vermogen."
+      },
+      "powerfocus": {
+        "name": "Vermogen Focus",
+        "desc": "Balans samen met huidig vermogen. Zie hoe intensiteit uw symmetrie beïnvloedt."
+      },
+      "sprintmode": {
+        "name": "Sprintmodus",
+        "desc": "Hoogfrequente updates voor sprints. Vangt snelle techniekveranderingen bij maximaal vermogen."
       },
       "karoo": {
         "optimal": "Optimaal",
@@ -1647,7 +1709,18 @@
         "ok": "OK",
         "now": "Nu",
         "avg3s": "3s gem.",
-        "avg10s": "10s gem."
+        "avg10s": "10s gem.",
+        "score": "Score",
+        "fatigue": "Vermoeidheid",
+        "fresh": "Fris",
+        "delta": "Delta",
+        "power": "Vermogen",
+        "symmetry": "Symmetrie",
+        "cadence": "Cadans",
+        "hr": "HF",
+        "climbing": "Klimmen",
+        "sprint": "Sprint",
+        "avg": "Gem."
       }
     },
     "comparison": {

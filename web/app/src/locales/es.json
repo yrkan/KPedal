@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Análisis de eficiencia de pedaleo para Karoo",
-    "version": "Versión 1.8.0",
+    "version": "Versión 1.8.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Extensión Karoo",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "Ve tu eficiencia de",
       "titleLine2": "pedaleo en tiempo real",
       "subtitle": "Balance, Efectividad de Torque, Suavidad de Pedaleo — mostrados en tu Karoo con alertas en tiempo real y ejercicios guiados.",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "No requiere cuenta"
     },
     "dataFields": {
-      "title": "Vélo en tu Karoo",
-      "subtitle": "5 diseños de campos de datos. Elige la vista que mejor se adapte a tu entrenamiento.",
-      "tabs": {
-        "quickGlance": "Vista Rápida",
+      "title": "19 campos de datos para tu Karoo",
+      "subtitle": "Elige la vista perfecta para cada entrenamiento. Desde chequeos rápidos hasta análisis detallado.",
+      "dataTypes": "Campos de datos",
+      "benefits": {
+        "realtime": "Actualización en tiempo real",
+        "sizes": "6 tamaños de diseño",
+        "auto": "Auto-actualización"
+      },
+      "categories": {
         "balance": "Balance",
         "efficiency": "Eficiencia",
-        "fullView": "Vista Completa",
-        "trend": "Tendencia"
+        "legs": "Enfoque Pierna",
+        "overview": "Resumen",
+        "modes": "Modos"
       },
-      "quickGlance": {
-        "name": "Vista Rápida",
-        "desc": "Indicador de estado con barra de balance. Muestra check cuando es óptimo o lista métricas que necesitan atención."
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "Balance de Potencia",
         "desc": "Números grandes de balance I/D con barra de progreso visual. Perfecto para entrenamiento enfocado en balance."
+      },
+      "singlebalance": {
+        "name": "Balance Simple",
+        "desc": "Un número grande muestra el balance actual. Minimalista y visible de un vistazo."
+      },
+      "balancetrend": {
+        "name": "Tendencia de Balance",
+        "desc": "Balance actual + suavizado 3s + suavizado 10s. Ve las tendencias mientras se desarrollan."
+      },
+      "symmetryindex": {
+        "name": "Índice de Simetría",
+        "desc": "Desviación porcentual de la simetría perfecta. 0% = perfectamente equilibrado."
+      },
+      "cadencebalance": {
+        "name": "Balance por Cadencia",
+        "desc": "Balance a diferentes cadencias. Ve cómo la cadencia afecta tu simetría."
       },
       "efficiency": {
         "name": "Eficiencia",
         "desc": "Efectividad de Torque y Suavidad de Pedaleo con divisiones I/D y promedios."
       },
-      "fullOverview": {
+      "pedalingscore": {
+        "name": "Puntuación de Pedaleo",
+        "desc": "Puntuación unificada 0-100 que combina balance, ET y SP. Tu calificación técnica general."
+      },
+      "hrefficiency": {
+        "name": "Eficiencia FC",
+        "desc": "Técnica de pedaleo relativa a la frecuencia cardíaca. Monitorea cómo la fatiga afecta la forma."
+      },
+      "leftleg": {
+        "name": "Pierna Izquierda",
+        "desc": "Métricas detalladas de la pierna izquierda: contribución al balance, ET y SP."
+      },
+      "rightleg": {
+        "name": "Pierna Derecha",
+        "desc": "Métricas detalladas de la pierna derecha: contribución al balance, ET y SP."
+      },
+      "quickglance": {
+        "name": "Vista Rápida",
+        "desc": "Indicador de estado con barra de balance. Muestra check cuando es óptimo o lista métricas que necesitan atención."
+      },
+      "fulloverview": {
         "name": "Vista Completa",
         "desc": "Las tres métricas en una vista compacta. Imagen completa del pedaleo de un vistazo."
       },
-      "balanceTrend": {
-        "name": "Tendencia de Balance",
-        "desc": "Balance actual + suavizado 3s + suavizado 10s. Ve las tendencias mientras se desarrollan."
+      "live": {
+        "name": "Datos en Vivo",
+        "desc": "Datos en tiempo real con precisión de segundo. Ve cómo fluctúa tu técnica al instante."
+      },
+      "compactmulti": {
+        "name": "Multi Compacto",
+        "desc": "Tres métricas en una fila. Máxima densidad de información en mínimo espacio."
+      },
+      "fatigueindicator": {
+        "name": "Indicador de Fatiga",
+        "desc": "Compara eficiencia actual vs promedio. Detecta señales de fatiga en tiempo real."
+      },
+      "deltaaverage": {
+        "name": "Delta Promedio",
+        "desc": "Desviación del promedio del recorrido. Positivo = sobre promedio, negativo = bajo promedio."
+      },
+      "climbingmode": {
+        "name": "Modo Escalada",
+        "desc": "Optimizado para subidas: balance a menor cadencia y mayor potencia."
+      },
+      "powerfocus": {
+        "name": "Enfoque Potencia",
+        "desc": "Balance junto con potencia actual. Ve cómo la intensidad afecta tu simetría."
+      },
+      "sprintmode": {
+        "name": "Modo Sprint",
+        "desc": "Actualizaciones de alta frecuencia para sprints. Captura cambios rápidos de técnica a máxima potencia."
       },
       "karoo": {
         "optimal": "Óptimo",
@@ -1647,7 +1709,18 @@
         "ok": "OK",
         "now": "Ahora",
         "avg3s": "Prom 3s",
-        "avg10s": "Prom 10s"
+        "avg10s": "Prom 10s",
+        "score": "Puntuación",
+        "fatigue": "Fatiga",
+        "fresh": "Fresco",
+        "delta": "Delta",
+        "power": "Potencia",
+        "symmetry": "Simetría",
+        "cadence": "Cadencia",
+        "hr": "FC",
+        "climbing": "Escalada",
+        "sprint": "Sprint",
+        "avg": "Prom"
       }
     },
     "comparison": {

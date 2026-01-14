@@ -1,25 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
-    <!-- Filled circle background -->
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
     <path
-        android:fillColor="#4CAF50"
-        android:pathData="M54,54m-36,0a36,36 0,1 1,72 0a36,36 0,1 1,-72 0" />
-    <!-- Left pedal -->
+        android:fillColor="#2E7D32"
+        android:pathData="
+            M2,0 H22
+            A2,2 0 0 1 24,2
+            V22
+            A2,2 0 0 1 22,24
+            H2
+            A2,2 0 0 1 0,22
+            V2
+            A2,2 0 0 1 2,0 Z"/>
+
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M32,54m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
-    <!-- Right pedal -->
+        android:fillColor="#000000"
+        android:pathData="
+            M 5.8,8
+            L 18.2,8
+            L 20.5,11
+            L 20.5,16
+            L 18.5,19
+            L 5.5,19
+            L 3.5,16
+            L 3.5,11
+            Z"/>
+
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M76,54m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
-    <!-- Crank arm -->
+        android:fillColor="#FFCC00"
+        android:pathData="
+            M 7.5,5.5
+            L 16.5,5.5
+            L 18.5,8.5
+            L 16.5,11.5
+            L 7.5,11.5
+            L 5.5,8.5
+            Z"/>
+
     <path
-        android:pathData="M40,54 L68,54"
-        android:strokeWidth="4"
-        android:strokeColor="#FFFFFF"
-        android:strokeLineCap="round" />
+        android:fillColor="#F5F5F5"
+        android:pathData="
+            M 8.2,10.5
+            h7.6
+            v5
+            h-7.6
+            Z"/>
+
+    <path
+        android:fillColor="#FFCC00"
+        android:pathData="
+            M 4.5,13
+            L 5.5,11.5
+            L 5.5,14.5
+            Z
+            M 19.5,13
+            L 18.5,11.5
+            L 18.5,14.5
+            Z"/>
+
+    <path
+        android:fillColor="#000000"
+        android:pathData="
+            M 8.2,7.5
+            m -0.8,0
+            a0.8,0.8 0 1,0 1.6,0
+            a0.8,0.8 0 1,0 -1.6,0
+            M 12,7.5
+            m -0.8,0
+            a0.8,0.8 0 1,0 1.6,0
+            a0.8,0.8 0 1,0 -1.6,0
+            M 15.8,7.5
+            m -0.8,0
+            a0.8,0.8 0 1,0 1.6,0
+            a0.8,0.8 0 1,0 -1.6,0"/>
 </vector>

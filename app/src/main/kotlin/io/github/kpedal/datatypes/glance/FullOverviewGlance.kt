@@ -84,19 +84,17 @@ private fun FullOverviewSmall(
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (noData) {
-                ValueText(displayText, GlanceColors.Label, 18)
+                ValueText(displayText, GlanceColors.Label, 14)
             } else {
-                // Show the higher (dominant) side with color indicating imbalance
-                val balanceStatus = StatusCalculator.balanceStatus(metrics.balance)
-                val balanceColor = if (balanceStatus == StatusCalculator.Status.OPTIMAL) {
-                    GlanceColors.White
-                } else {
-                    getStatusColor(balanceStatus)
-                }
-                // Show L:R ratio compactly
+                // Show L|R with colors indicating imbalance
+                val (leftColor, rightColor) = getBalanceColors(metrics)
                 val left = metrics.balanceLeft.toInt()
                 val right = metrics.balance.toInt()
-                ValueText("$left:$right", balanceColor, 14)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    ValueText("$left", leftColor, 12)
+                    ValueText("|", GlanceColors.Separator, 10, GlanceModifier.padding(horizontal = 1.dp))
+                    ValueText("$right", rightColor, 12)
+                }
             }
             LabelText("BAL")
         }
@@ -519,11 +517,11 @@ private fun FullOverviewLarge(
             ) {
                 if (noData) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(modifier = GlanceModifier.defaultWeight(), contentAlignment = Alignment.Center) {
+                        Box(modifier = GlanceModifier.defaultWeight().padding(end = 8.dp), contentAlignment = Alignment.CenterEnd) {
                             ValueText(displayText, GlanceColors.Label, 18)
                         }
                         GlanceVerticalDivider(height = 20)
-                        Box(modifier = GlanceModifier.defaultWeight(), contentAlignment = Alignment.Center) {
+                        Box(modifier = GlanceModifier.defaultWeight().padding(start = 8.dp), contentAlignment = Alignment.CenterStart) {
                             ValueText(displayText, GlanceColors.Label, 18)
                         }
                     }
@@ -531,11 +529,11 @@ private fun FullOverviewLarge(
                     val teLColor = getTEColor(metrics.torqueEffLeft)
                     val teRColor = getTEColor(metrics.torqueEffRight)
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(modifier = GlanceModifier.defaultWeight(), contentAlignment = Alignment.Center) {
+                        Box(modifier = GlanceModifier.defaultWeight().padding(end = 8.dp), contentAlignment = Alignment.CenterEnd) {
                             ValueText("${metrics.torqueEffLeft.toInt()}", teLColor, 18)
                         }
                         GlanceVerticalDivider(height = 20)
-                        Box(modifier = GlanceModifier.defaultWeight(), contentAlignment = Alignment.Center) {
+                        Box(modifier = GlanceModifier.defaultWeight().padding(start = 8.dp), contentAlignment = Alignment.CenterStart) {
                             ValueText("${metrics.torqueEffRight.toInt()}", teRColor, 18)
                         }
                     }
@@ -571,11 +569,11 @@ private fun FullOverviewLarge(
             ) {
                 if (noData) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(modifier = GlanceModifier.defaultWeight(), contentAlignment = Alignment.Center) {
+                        Box(modifier = GlanceModifier.defaultWeight().padding(end = 8.dp), contentAlignment = Alignment.CenterEnd) {
                             ValueText(displayText, GlanceColors.Label, 18)
                         }
                         GlanceVerticalDivider(height = 20)
-                        Box(modifier = GlanceModifier.defaultWeight(), contentAlignment = Alignment.Center) {
+                        Box(modifier = GlanceModifier.defaultWeight().padding(start = 8.dp), contentAlignment = Alignment.CenterStart) {
                             ValueText(displayText, GlanceColors.Label, 18)
                         }
                     }
@@ -583,11 +581,11 @@ private fun FullOverviewLarge(
                     val psLColor = getPSColor(metrics.pedalSmoothLeft)
                     val psRColor = getPSColor(metrics.pedalSmoothRight)
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(modifier = GlanceModifier.defaultWeight(), contentAlignment = Alignment.Center) {
+                        Box(modifier = GlanceModifier.defaultWeight().padding(end = 8.dp), contentAlignment = Alignment.CenterEnd) {
                             ValueText("${metrics.pedalSmoothLeft.toInt()}", psLColor, 18)
                         }
                         GlanceVerticalDivider(height = 20)
-                        Box(modifier = GlanceModifier.defaultWeight(), contentAlignment = Alignment.Center) {
+                        Box(modifier = GlanceModifier.defaultWeight().padding(start = 8.dp), contentAlignment = Alignment.CenterStart) {
                             ValueText("${metrics.pedalSmoothRight.toInt()}", psRColor, 18)
                         }
                     }

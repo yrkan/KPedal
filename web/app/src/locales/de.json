@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Treteffizenz-Analyse für Karoo",
-    "version": "Version 1.8.0",
+    "version": "Version 1.8.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-Erweiterung",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "Sieh deine Treteffizenz",
       "titleLine2": "in Echtzeit",
       "subtitle": "Balance, Drehmoment-Effektivität, Tritt-Gleichmäßigkeit - auf deinem Karoo mit Echtzeit-Alarmen und geführten Übungen.",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "Kein Konto erforderlich"
     },
     "dataFields": {
-      "title": "Sieh es auf deinem Karoo",
-      "subtitle": "5 Datenfeld-Layouts. Wähle die Ansicht, die zu deinem Training passt.",
-      "tabs": {
-        "quickGlance": "Schnellansicht",
+      "title": "19 Datenfelder für deinen Karoo",
+      "subtitle": "Wähle die perfekte Ansicht für jedes Workout. Von schnellen Checks bis zur detaillierten Analyse.",
+      "dataTypes": "Datenfelder",
+      "benefits": {
+        "realtime": "Echtzeit-Updates",
+        "sizes": "6 Layout-Größen",
+        "auto": "Auto-Aktualisierung"
+      },
+      "categories": {
         "balance": "Balance",
         "efficiency": "Effizienz",
-        "fullView": "Vollansicht",
-        "trend": "Trend"
+        "legs": "Bein-Fokus",
+        "overview": "Übersicht",
+        "modes": "Modi"
       },
-      "quickGlance": {
-        "name": "Schnellansicht",
-        "desc": "Status-Indikator mit Balance-Balken. Zeigt Häkchen bei optimal oder listet Metriken auf, die Aufmerksamkeit erfordern."
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "Leistungsbalance",
-        "desc": "Grosse L/R-Balance-Zahlen mit visuellem Fortschrittsbalken. Perfekt für Balance-fokussiertes Training."
+        "desc": "Große L/R-Balance-Zahlen mit visuellem Fortschrittsbalken. Perfekt für Balance-fokussiertes Training."
+      },
+      "singlebalance": {
+        "name": "Einzelne Balance",
+        "desc": "Eine große Zahl zeigt die aktuelle Balance. Minimalistisch und auf einen Blick erfassbar."
+      },
+      "balancetrend": {
+        "name": "Balance-Trend",
+        "desc": "Aktuell + 3s geglättet + 10s geglättete Balance. Sieh Trends, wie sie entstehen."
+      },
+      "symmetryindex": {
+        "name": "Symmetrie-Index",
+        "desc": "Prozentuale Abweichung von perfekter Symmetrie. 0% = perfekt ausgeglichen."
+      },
+      "cadencebalance": {
+        "name": "Trittfrequenz-Balance",
+        "desc": "Balance bei verschiedenen Trittfrequenzen. Sieh, wie die Kadenz deine Symmetrie beeinflusst."
       },
       "efficiency": {
         "name": "Effizienz",
         "desc": "Drehmoment-Effektivität und Tritt-Gleichmäßigkeit mit L/R-Aufteilung und Durchschnitten."
       },
-      "fullOverview": {
+      "pedalingscore": {
+        "name": "Tret-Bewertung",
+        "desc": "Einheitliche 0-100 Punktzahl, die Balance, TE und PS kombiniert. Dein Technik-Gesamtwert."
+      },
+      "hrefficiency": {
+        "name": "HF-Effizienz",
+        "desc": "Trettechnik im Verhältnis zur Herzfrequenz. Überwache, wie die Ermüdung die Form beeinflusst."
+      },
+      "leftleg": {
+        "name": "Linkes Bein",
+        "desc": "Detaillierte Metriken des linken Beins: Balance-Beitrag, TE und PS."
+      },
+      "rightleg": {
+        "name": "Rechtes Bein",
+        "desc": "Detaillierte Metriken des rechten Beins: Balance-Beitrag, TE und PS."
+      },
+      "quickglance": {
+        "name": "Schnellansicht",
+        "desc": "Status-Indikator mit Balance-Balken. Zeigt Häkchen bei optimal oder listet Metriken auf, die Aufmerksamkeit erfordern."
+      },
+      "fulloverview": {
         "name": "Vollständige Übersicht",
         "desc": "Alle drei Metriken in einer kompakten Ansicht. Vollständiges Tretbild auf einen Blick."
       },
-      "balanceTrend": {
-        "name": "Balance-Trend",
-        "desc": "Aktuell + 3s geglättet + 10s geglättete Balance. Sieh Trends, wie sie entstehen."
+      "live": {
+        "name": "Live-Daten",
+        "desc": "Echtzeit-Daten mit Sekunden-Genauigkeit. Sieh sofort, wie deine Technik schwankt."
+      },
+      "compactmulti": {
+        "name": "Kompakt-Multi",
+        "desc": "Drei Metriken in einer Zeile. Maximale Informationsdichte bei minimalem Platz."
+      },
+      "fatigueindicator": {
+        "name": "Ermüdungs-Indikator",
+        "desc": "Vergleicht aktuelle vs. Durchschnitts-Effizienz. Erkennt Ermüdungsanzeichen in Echtzeit."
+      },
+      "deltaaverage": {
+        "name": "Delta-Durchschnitt",
+        "desc": "Abweichung vom Fahrt-Durchschnitt. Positiv = über dem Schnitt, negativ = darunter."
+      },
+      "climbingmode": {
+        "name": "Kletter-Modus",
+        "desc": "Optimiert für Anstiege: Balance bei niedrigerer Kadenz und höherer Leistung."
+      },
+      "powerfocus": {
+        "name": "Leistungs-Fokus",
+        "desc": "Balance zusammen mit aktueller Leistung. Sieh, wie die Intensität die Symmetrie beeinflusst."
+      },
+      "sprintmode": {
+        "name": "Sprint-Modus",
+        "desc": "Hochfrequenz-Updates für Sprints. Erfasst schnelle Technik-Änderungen bei Maximalleistung."
       },
       "karoo": {
         "optimal": "Optimal",
@@ -1647,7 +1709,18 @@
         "ok": "OK",
         "now": "Jetzt",
         "avg3s": "3s Durchschn.",
-        "avg10s": "10s Durchschn."
+        "avg10s": "10s Durchschn.",
+        "score": "Punktzahl",
+        "fatigue": "Ermüdung",
+        "fresh": "Frisch",
+        "delta": "Delta",
+        "power": "Leistung",
+        "symmetry": "Symmetrie",
+        "cadence": "Kadenz",
+        "hr": "HF",
+        "climbing": "Klettern",
+        "sprint": "Sprint",
+        "avg": "Durchschn."
       }
     },
     "comparison": {

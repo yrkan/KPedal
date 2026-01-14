@@ -18,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KPedal">
 
+        <!-- Hammerhead App Store manifest for updates -->
+        <meta-data
+            android:name="io.hammerhead.karooext.MANIFEST_URL"
+            android:value="https://raw.githubusercontent.com/yrkan/KPedal/main/karoo-app-manifest.json" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

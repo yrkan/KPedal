@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Trampeffektivitetsanalys för Karoo",
-    "version": "Version 1.8.0",
+    "version": "Version 1.8.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-tillägg",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "Se din tramp-",
       "titleLine2": "effektivitet i realtid",
       "subtitle": "Balans, vridmomentseffektivitet, trampjämnhet — visas på din Karoo med realtidsvarningar och guidade övningar.",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "Inget konto krävs"
     },
     "dataFields": {
-      "title": "Se det på din Karoo",
-      "subtitle": "5 datafältlayouter. Välj vyn som passar din träning.",
-      "tabs": {
-        "quickGlance": "Snabbvy",
+      "title": "19 datafält för din Karoo",
+      "subtitle": "Välj den perfekta vyn för varje träning. Från snabba kontroller till detaljerad analys.",
+      "dataTypes": "Datatyper",
+      "benefits": {
+        "realtime": "Realtidsuppdateringar",
+        "sizes": "6 layoutstorlekar",
+        "auto": "Automatisk uppdatering"
+      },
+      "categories": {
         "balance": "Balans",
         "efficiency": "Effektivitet",
-        "fullView": "Fullständig vy",
-        "trend": "Trend"
+        "legs": "Benfokus",
+        "overview": "Översikt",
+        "modes": "Lägen"
       },
-      "quickGlance": {
-        "name": "Snabbvy",
-        "desc": "Statusindikator med balansstapel. Visar bock när optimal eller listar mätvärden som kräver uppmärksamhet."
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "Effektbalans",
         "desc": "Stora V/H-balanssiffror med visuell förloppsindikator. Perfekt för balansfokuserad träning."
+      },
+      "singlebalance": {
+        "name": "Enkel balans",
+        "desc": "Ett stort tal visar aktuell balans. Minimalistisk och synlig vid en blick."
+      },
+      "balancetrend": {
+        "name": "Balanstrend",
+        "desc": "Nuvarande + 3s utjämnad + 10s utjämnad balans. Se trender när de utvecklas."
+      },
+      "symmetryindex": {
+        "name": "Symmetriindex",
+        "desc": "Procentuell avvikelse från perfekt symmetri. 0% = perfekt balanserad."
+      },
+      "cadencebalance": {
+        "name": "Kadensbalans",
+        "desc": "Balans vid olika kadens. Se hur kadens påverkar din symmetri."
       },
       "efficiency": {
         "name": "Effektivitet",
         "desc": "Vridmomentseffektivitet och trampjämnhet med V/H-uppdelning och genomsnitt."
       },
-      "fullOverview": {
+      "pedalingscore": {
+        "name": "Tramppoäng",
+        "desc": "Enhetlig 0-100 poäng som kombinerar balans, VE och TJ. Din övergripande tekniska betyg."
+      },
+      "hrefficiency": {
+        "name": "HF-effektivitet",
+        "desc": "Trampteknik relativt hjärtfrekvens. Övervaka hur trötthet påverkar formen."
+      },
+      "leftleg": {
+        "name": "Vänster ben",
+        "desc": "Detaljerade mätvärden för vänster ben: balansbidrag, VE och TJ."
+      },
+      "rightleg": {
+        "name": "Höger ben",
+        "desc": "Detaljerade mätvärden för höger ben: balansbidrag, VE och TJ."
+      },
+      "quickglance": {
+        "name": "Snabbvy",
+        "desc": "Statusindikator med balansstapel. Visar bock när optimal eller listar mätvärden som kräver uppmärksamhet."
+      },
+      "fulloverview": {
         "name": "Fullständig översikt",
         "desc": "Alla tre mätvärden i en kompakt vy. Komplett trampbild i överblick."
       },
-      "balanceTrend": {
-        "name": "Balanstrend",
-        "desc": "Nuvarande + 3s utjämnad + 10s utjämnad balans. Se trender när de utvecklas."
+      "live": {
+        "name": "Livedata",
+        "desc": "Realtidsdata med sekundprecision. Se direkt hur din teknik varierar."
+      },
+      "compactmulti": {
+        "name": "Kompakt multi",
+        "desc": "Tre mätvärden på en rad. Maximal informationstäthet på minimal yta."
+      },
+      "fatigueindicator": {
+        "name": "Trötthetsindikatorn",
+        "desc": "Jämför nuvarande vs genomsnittlig effektivitet. Upptäcker trötthetssignaler i realtid."
+      },
+      "deltaaverage": {
+        "name": "Delta genomsnitt",
+        "desc": "Avvikelse från turens genomsnitt. Positiv = över genomsnitt, negativ = under."
+      },
+      "climbingmode": {
+        "name": "Klättringsläge",
+        "desc": "Optimerat för stigningar: balans vid lägre kadens och högre effekt."
+      },
+      "powerfocus": {
+        "name": "Effektfokus",
+        "desc": "Balans tillsammans med aktuell effekt. Se hur intensitet påverkar din symmetri."
+      },
+      "sprintmode": {
+        "name": "Sprintläge",
+        "desc": "Högfrekventa uppdateringar för sprints. Fångar snabba teknikförändringar vid maximal effekt."
       },
       "karoo": {
         "optimal": "Optimal",
@@ -1647,7 +1709,18 @@
         "ok": "OK",
         "now": "Nu",
         "avg3s": "3s snitt",
-        "avg10s": "10s snitt"
+        "avg10s": "10s snitt",
+        "score": "Poäng",
+        "fatigue": "Trötthet",
+        "fresh": "Fräsch",
+        "delta": "Delta",
+        "power": "Effekt",
+        "symmetry": "Symmetri",
+        "cadence": "Kadens",
+        "hr": "HF",
+        "climbing": "Klättring",
+        "sprint": "Sprint",
+        "avg": "Snitt"
       }
     },
     "comparison": {

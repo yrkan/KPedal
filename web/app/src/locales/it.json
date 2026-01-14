@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Analisi dell'efficienza di pedalata per Karoo",
-    "version": "Versione 1.8.0",
+    "version": "Versione 1.8.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Estensione Karoo",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "Vedi la tua efficienza",
       "titleLine2": "di pedalata in tempo reale",
       "subtitle": "Bilanciamento, Efficacia della Coppia, Fluidità di Pedalata — visualizzati sul tuo Karoo con avvisi in tempo reale ed esercizi guidati.",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "Nessun account richiesto"
     },
     "dataFields": {
-      "title": "Vedi sul Tuo Karoo",
-      "subtitle": "5 layout di campi dati. Scegli la vista che si adatta al tuo allenamento.",
-      "tabs": {
-        "quickGlance": "Sguardo Rapido",
+      "title": "19 campi dati per il tuo Karoo",
+      "subtitle": "Scegli la vista perfetta per ogni allenamento. Da controlli rapidi ad analisi dettagliate.",
+      "dataTypes": "Tipi di dati",
+      "benefits": {
+        "realtime": "Aggiornamenti in tempo reale",
+        "sizes": "6 dimensioni layout",
+        "auto": "Aggiornamento auto"
+      },
+      "categories": {
         "balance": "Bilanciamento",
         "efficiency": "Efficienza",
-        "fullView": "Vista Completa",
-        "trend": "Tendenza"
+        "legs": "Focus Gamba",
+        "overview": "Panoramica",
+        "modes": "Modalità"
       },
-      "quickGlance": {
-        "name": "Sguardo Rapido",
-        "desc": "Indicatore di stato con barra bilanciamento. Mostra spunta quando ottimale o elenca le metriche che richiedono attenzione."
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "Bilanciamento Potenza",
         "desc": "Numeri S/D grandi con barra di progresso visiva. Perfetto per allenamento focalizzato sul bilanciamento."
       },
-      "efficiency": {
-        "name": "Efficienza",
-        "desc": "Efficacia della Coppia è Fluidità di Pedalata con divisione S/D è medie."
+      "singlebalance": {
+        "name": "Bilanciamento Singolo",
+        "desc": "Un numero grande mostra il bilanciamento attuale. Minimalista e visibile a colpo d'occhio."
       },
-      "fullOverview": {
-        "name": "Panoramica Completa",
-        "desc": "Tutte è tre le metriche in una vista compatta. Quadro completo della pedalata a colpo d'occhio."
-      },
-      "balanceTrend": {
+      "balancetrend": {
         "name": "Tendenza Bilanciamento",
         "desc": "Bilanciamento attuale + media 3s + media 10s. Vedi le tendenze mentre si sviluppano."
+      },
+      "symmetryindex": {
+        "name": "Indice di Simmetria",
+        "desc": "Deviazione percentuale dalla simmetria perfetta. 0% = perfettamente bilanciato."
+      },
+      "cadencebalance": {
+        "name": "Bilanciamento per Cadenza",
+        "desc": "Bilanciamento a diverse cadenze. Vedi come la cadenza influenza la tua simmetria."
+      },
+      "efficiency": {
+        "name": "Efficienza",
+        "desc": "Efficacia della Coppia e Fluidità di Pedalata con divisione S/D e medie."
+      },
+      "pedalingscore": {
+        "name": "Punteggio Pedalata",
+        "desc": "Punteggio unificato 0-100 che combina bilanciamento, EC e FP. La tua valutazione tecnica complessiva."
+      },
+      "hrefficiency": {
+        "name": "Efficienza FC",
+        "desc": "Tecnica di pedalata relativa alla frequenza cardiaca. Monitora come la fatica influenza la forma."
+      },
+      "leftleg": {
+        "name": "Gamba Sinistra",
+        "desc": "Metriche dettagliate della gamba sinistra: contributo al bilanciamento, EC e FP."
+      },
+      "rightleg": {
+        "name": "Gamba Destra",
+        "desc": "Metriche dettagliate della gamba destra: contributo al bilanciamento, EC e FP."
+      },
+      "quickglance": {
+        "name": "Sguardo Rapido",
+        "desc": "Indicatore di stato con barra bilanciamento. Mostra spunta quando ottimale o elenca le metriche che richiedono attenzione."
+      },
+      "fulloverview": {
+        "name": "Panoramica Completa",
+        "desc": "Tutte e tre le metriche in una vista compatta. Quadro completo della pedalata a colpo d'occhio."
+      },
+      "live": {
+        "name": "Dati Live",
+        "desc": "Dati in tempo reale con precisione al secondo. Vedi istantaneamente come fluttua la tua tecnica."
+      },
+      "compactmulti": {
+        "name": "Multi Compatto",
+        "desc": "Tre metriche in una riga. Massima densità di informazioni in spazio minimo."
+      },
+      "fatigueindicator": {
+        "name": "Indicatore di Fatica",
+        "desc": "Confronta efficienza attuale vs media. Rileva segnali di fatica in tempo reale."
+      },
+      "deltaaverage": {
+        "name": "Delta Media",
+        "desc": "Deviazione dalla media della corsa. Positivo = sopra la media, negativo = sotto."
+      },
+      "climbingmode": {
+        "name": "Modalità Salita",
+        "desc": "Ottimizzato per le salite: bilanciamento a cadenza più bassa e potenza più alta."
+      },
+      "powerfocus": {
+        "name": "Focus Potenza",
+        "desc": "Bilanciamento insieme alla potenza attuale. Vedi come l'intensità influenza la tua simmetria."
+      },
+      "sprintmode": {
+        "name": "Modalità Sprint",
+        "desc": "Aggiornamenti ad alta frequenza per gli sprint. Cattura rapidi cambiamenti di tecnica a potenza massima."
       },
       "karoo": {
         "optimal": "Ottimale",
@@ -1642,12 +1704,23 @@
         "right": "Destra",
         "torqueEff": "Eff. Coppia",
         "smoothness": "Fluidità",
-        "te": "TE",
-        "ps": "PS",
+        "te": "EC",
+        "ps": "FP",
         "ok": "OK",
         "now": "Ora",
         "avg3s": "Med 3s",
-        "avg10s": "Med 10s"
+        "avg10s": "Med 10s",
+        "score": "Punteggio",
+        "fatigue": "Fatica",
+        "fresh": "Fresco",
+        "delta": "Delta",
+        "power": "Potenza",
+        "symmetry": "Simmetria",
+        "cadence": "Cadenza",
+        "hr": "FC",
+        "climbing": "Salita",
+        "sprint": "Sprint",
+        "avg": "Med"
       }
     },
     "comparison": {

@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Analyse de l'efficacité du pédalage pour Karoo",
-    "version": "Version 1.8.0",
+    "version": "Version 1.8.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Extension Karoo",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "Voyez votre efficacité",
       "titleLine2": "de pédalage en temps réel",
       "subtitle": "Équilibre, Efficacité du couple, Fluidité du pédalage — affichés sur votre Karoo avec alertes en temps réel et exercices guidés.",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "Aucun compte requis"
     },
     "dataFields": {
-      "title": "Voyez-le sur votre Karoo",
-      "subtitle": "5 dispositions de champs de données. Choisissez la vue qui correspond à votre entraînement.",
-      "tabs": {
-        "quickGlance": "Aperçu rapide",
+      "title": "19 champs de données pour votre Karoo",
+      "subtitle": "Choisissez la vue parfaite pour chaque entraînement. Des vérifications rapides à l'analyse détaillée.",
+      "dataTypes": "Types de données",
+      "benefits": {
+        "realtime": "Mises à jour en temps réel",
+        "sizes": "6 tailles de disposition",
+        "auto": "Actualisation auto"
+      },
+      "categories": {
         "balance": "Équilibre",
         "efficiency": "Efficacité",
-        "fullView": "Vue complète",
-        "trend": "Tendance"
+        "legs": "Focus Jambe",
+        "overview": "Aperçu",
+        "modes": "Modes"
       },
-      "quickGlance": {
-        "name": "Aperçu rapide",
-        "desc": "Indicateur de statut avec barre d'équilibre. Affiche une coche quand optimal ou liste les métriques nécessitant attention."
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "Équilibre de puissance",
-        "desc": "Grands chiffres G/D avec barre de progression visuelle. Parfait pour l'entraînement axe sur l'équilibre."
+        "desc": "Grands chiffres G/D avec barre de progression visuelle. Parfait pour l'entraînement axé sur l'équilibre."
+      },
+      "singlebalance": {
+        "name": "Équilibre simple",
+        "desc": "Un grand chiffre affiche l'équilibre actuel. Minimaliste et visible d'un coup d'œil."
+      },
+      "balancetrend": {
+        "name": "Tendance d'équilibre",
+        "desc": "Équilibre actuel + lissé 3s + lissé 10s. Voyez les tendances au fur et à mesure."
+      },
+      "symmetryindex": {
+        "name": "Indice de symétrie",
+        "desc": "Écart en pourcentage de la symétrie parfaite. 0% = parfaitement équilibré."
+      },
+      "cadencebalance": {
+        "name": "Équilibre par cadence",
+        "desc": "Équilibre à différentes cadences. Voyez comment la cadence affecte votre symétrie."
       },
       "efficiency": {
         "name": "Efficacité",
         "desc": "Efficacité du couple et Fluidité du pédalage avec décomposition G/D et moyennes."
       },
-      "fullOverview": {
+      "pedalingscore": {
+        "name": "Score de pédalage",
+        "desc": "Score unifié 0-100 combinant équilibre, EC et FP. Votre note technique globale."
+      },
+      "hrefficiency": {
+        "name": "Efficacité FC",
+        "desc": "Technique de pédalage relative à la fréquence cardiaque. Surveillez comment la fatigue affecte la forme."
+      },
+      "leftleg": {
+        "name": "Jambe gauche",
+        "desc": "Métriques détaillées de la jambe gauche: contribution à l'équilibre, EC et FP."
+      },
+      "rightleg": {
+        "name": "Jambe droite",
+        "desc": "Métriques détaillées de la jambe droite: contribution à l'équilibre, EC et FP."
+      },
+      "quickglance": {
+        "name": "Aperçu rapide",
+        "desc": "Indicateur de statut avec barre d'équilibre. Affiche une coche quand optimal ou liste les métriques nécessitant attention."
+      },
+      "fulloverview": {
         "name": "Vue complète",
         "desc": "Les trois métriques dans une vue compacte. Image complète du pédalage en un coup d'œil."
       },
-      "balanceTrend": {
-        "name": "Tendance d'équilibre",
-        "desc": "Équilibre actuel + lisse 3s + lisse 10s. Voyez les tendances au fur et à mesure qu'elles se développent."
+      "live": {
+        "name": "Données en direct",
+        "desc": "Données en temps réel à la seconde près. Voyez instantanément comment fluctue votre technique."
+      },
+      "compactmulti": {
+        "name": "Multi compact",
+        "desc": "Trois métriques sur une ligne. Densité d'information maximale en espace minimal."
+      },
+      "fatigueindicator": {
+        "name": "Indicateur de fatigue",
+        "desc": "Compare l'efficacité actuelle vs moyenne. Détecte les signes de fatigue en temps réel."
+      },
+      "deltaaverage": {
+        "name": "Delta moyenne",
+        "desc": "Écart par rapport à la moyenne de la sortie. Positif = au-dessus, négatif = en-dessous."
+      },
+      "climbingmode": {
+        "name": "Mode montée",
+        "desc": "Optimisé pour les ascensions: équilibre à cadence plus basse et puissance plus élevée."
+      },
+      "powerfocus": {
+        "name": "Focus puissance",
+        "desc": "Équilibre avec la puissance actuelle. Voyez comment l'intensité affecte votre symétrie."
+      },
+      "sprintmode": {
+        "name": "Mode sprint",
+        "desc": "Mises à jour haute fréquence pour les sprints. Capture les changements rapides de technique à puissance maximale."
       },
       "karoo": {
         "optimal": "Optimal",
@@ -1647,7 +1709,18 @@
         "ok": "OK",
         "now": "Actuel",
         "avg3s": "Moy 3s",
-        "avg10s": "Moy 10s"
+        "avg10s": "Moy 10s",
+        "score": "Score",
+        "fatigue": "Fatigue",
+        "fresh": "Frais",
+        "delta": "Delta",
+        "power": "Puissance",
+        "symmetry": "Symétrie",
+        "cadence": "Cadence",
+        "hr": "FC",
+        "climbing": "Montée",
+        "sprint": "Sprint",
+        "avg": "Moy"
       }
     },
     "comparison": {

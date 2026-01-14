@@ -14,8 +14,8 @@ android {
         applicationId = "io.github.kpedal"
         minSdk = 23
         targetSdk = 35
-        versionCode = 17
-        versionName = "1.8.0"
+        versionCode = 18
+        versionName = "1.8.1"
     }
 
     buildTypes {
@@ -33,7 +33,8 @@ android {
     applicationVariants.all {
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-            output.outputFileName = "kpedal-${versionName}.apk"
+            // Stable name for Hammerhead App Store manifest (releases/latest/download/kpedal.apk)
+            output.outputFileName = "kpedal.apk"
         }
     }
 

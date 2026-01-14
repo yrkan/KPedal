@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Pedaling efficiency analytics for Karoo",
-    "version": "Version 1.8.0",
+    "version": "Version 1.8.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo Extension",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "See your pedaling",
       "titleLine2": "efficiency in real-time",
       "subtitle": "Balance, Torque Effectiveness, Pedal Smoothness — displayed on your Karoo with real-time alerts and guided drills.",
@@ -1606,20 +1606,26 @@
       "noAccountRequired": "No account required"
     },
     "dataFields": {
-      "title": "See It On Your Karoo",
-      "subtitle": "5 data field layouts. Choose the view that fits your training.",
-      "tabs": {
-        "quickGlance": "Quick Glance",
+      "title": "19 Data Fields for Your Karoo",
+      "subtitle": "From quick glances to deep analysis. Choose the view that fits your training.",
+      "dataTypes": "Data Types",
+      "benefits": {
+        "realtime": "Real-time updates",
+        "sizes": "6 layout sizes",
+        "auto": "Auto-refresh"
+      },
+      "categories": {
         "balance": "Balance",
         "efficiency": "Efficiency",
-        "fullView": "Full View",
-        "trend": "Trend"
+        "legs": "Leg Focus",
+        "overview": "Overview",
+        "modes": "Modes"
       },
-      "quickGlance": {
+      "quickglance": {
         "name": "Quick Glance",
         "desc": "Status indicator with balance bar. Shows checkmark when optimal or lists metrics needing attention."
       },
-      "powerBalance": {
+      "powerbalance": {
         "name": "Power Balance",
         "desc": "Large L/R balance numbers with visual progress bar. Perfect for balance-focused training."
       },
@@ -1627,16 +1633,74 @@
         "name": "Efficiency",
         "desc": "Torque Effectiveness and Pedal Smoothness with L/R splits and averages."
       },
-      "fullOverview": {
+      "fulloverview": {
         "name": "Full Overview",
         "desc": "All three metrics in one compact view. Complete pedaling picture at a glance."
       },
-      "balanceTrend": {
+      "balancetrend": {
         "name": "Balance Trend",
         "desc": "Current + 3s smoothed + 10s smoothed balance. See trends as they develop."
       },
+      "singlebalance": {
+        "name": "Single Balance",
+        "desc": "One large balance number with centered bar. Maximum visibility at a glance."
+      },
+      "live": {
+        "name": "Live Stats",
+        "desc": "Real-time balance bar plus time-in-zone breakdown. See your ride stats live."
+      },
+      "pedalingscore": {
+        "name": "Pedaling Score",
+        "desc": "Combined score (0-100) from balance, efficiency, and consistency. One number to rule them all."
+      },
+      "fatigueindicator": {
+        "name": "Fatigue Indicator",
+        "desc": "Track technique degradation during the ride. See when fatigue starts affecting your form."
+      },
+      "cadencebalance": {
+        "name": "Cadence Balance",
+        "desc": "Compare left and right leg cadence. Detect asymmetric pedaling patterns."
+      },
+      "deltaaverage": {
+        "name": "Delta from Average",
+        "desc": "Shows how current balance differs from ride average. Spot drift in real-time."
+      },
+      "leftleg": {
+        "name": "Left Leg Focus",
+        "desc": "All metrics for left leg: balance contribution, TE, and PS. Train one leg at a time."
+      },
+      "rightleg": {
+        "name": "Right Leg Focus",
+        "desc": "All metrics for right leg: balance contribution, TE, and PS. Train one leg at a time."
+      },
+      "climbingmode": {
+        "name": "Climbing Mode",
+        "desc": "Balance and TE optimized for climbing. Includes current gradient."
+      },
+      "symmetryindex": {
+        "name": "Symmetry Index",
+        "desc": "Overall symmetry score (0-100%). Higher is more balanced. Target: 95%+."
+      },
+      "hrefficiency": {
+        "name": "HR Efficiency",
+        "desc": "Power output per heartbeat (W/bpm). Track aerobic efficiency in real-time."
+      },
+      "powerfocus": {
+        "name": "Power Focus",
+        "desc": "Total power with L/R split bar. See both power and balance together."
+      },
+      "sprintmode": {
+        "name": "Sprint Mode",
+        "desc": "Balance during high-power efforts plus peak power. Optimized for sprints."
+      },
+      "compactmulti": {
+        "name": "Compact Multi",
+        "desc": "All key metrics in a compact grid. Maximum data in minimum space."
+      },
       "karoo": {
         "optimal": "Optimal",
+        "attention": "Attention",
+        "problem": "Problem",
         "balance": "Balance",
         "left": "Left",
         "right": "Right",
@@ -1647,7 +1711,33 @@
         "ok": "OK",
         "now": "Now",
         "avg3s": "3s Avg",
-        "avg10s": "10s Avg"
+        "avg10s": "10s Avg",
+        "score": "Score",
+        "bal": "Bal",
+        "eff": "Eff",
+        "cons": "Cons",
+        "fatigue": "Fatigue",
+        "rising": "Rising",
+        "start": "Start",
+        "drop": "Drop",
+        "cadBal": "Cadence Balance",
+        "rpm": "rpm",
+        "deltaAvg": "Delta from Avg",
+        "rightHeavy": "Right leg heavy",
+        "leftLeg": "Left Leg",
+        "rightLeg": "Right Leg",
+        "climbing": "Climbing",
+        "grade": "Grade",
+        "symmetry": "Symmetry",
+        "imbalanced": "Imbalanced",
+        "perfect": "Perfect",
+        "hrEff": "HR Efficiency",
+        "power": "Power",
+        "hr": "HR",
+        "powerFocus": "Power Focus",
+        "sprint": "Sprint",
+        "peakPower": "Peak Power",
+        "optTime": "Opt%"
       }
     },
     "comparison": {

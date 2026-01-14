@@ -721,6 +721,7 @@
   .code-inputs input {
     width: clamp(30px, 7.5vw, 36px);
     height: clamp(38px, 9.5vw, 46px);
+    padding: 0;
     text-align: center;
     font-size: clamp(15px, 3.8vw, 18px);
     font-weight: 600;

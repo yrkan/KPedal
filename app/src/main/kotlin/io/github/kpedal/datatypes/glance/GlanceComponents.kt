@@ -343,3 +343,87 @@ fun ZoneStatusBar(
             .background(statusColor)
     ) {}
 }
+
+/**
+ * Professional segmented zone bar showing proportional time in each zone.
+ * Displays optimal (green), attention (yellow), and problem (red) segments.
+ *
+ * @param optimal Percentage in optimal zone (0-100)
+ * @param attention Percentage in attention zone (0-100)
+ * @param problem Percentage in problem zone (0-100)
+ * @param height Bar height in dp
+ * @param modifier Additional modifier
+ */
+@Composable
+fun ZoneSegmentedBar(
+    optimal: Int,
+    attention: Int,
+    problem: Int,
+    height: Int = 8,
+    modifier: GlanceModifier = GlanceModifier
+) {
+    // Ensure we have valid percentages
+    val total = optimal + attention + problem
+    val safeOptimal = if (total > 0) optimal else 33
+    val safeAttention = if (total > 0) attention else 33
+    val safeProblem = if (total > 0) problem else 34
+
+    Row(
+        modifier = modifier.fillMaxWidth().height(height.dp)
+    ) {
+        // Optimal segment (green)
+        if (safeOptimal > 0) {
+            Box(
+                modifier = GlanceModifier
+                    .fillMaxHeight()
+                    .defaultWeight()
+                    .background(GlanceColors.Optimal)
+            ) {}
+        }
+
+        // Attention segment (yellow)
+        if (safeAttention > 0) {
+            Box(
+                modifier = GlanceModifier
+                    .fillMaxHeight()
+                    .defaultWeight()
+                    .background(GlanceColors.Attention)
+            ) {}
+        }
+
+        // Problem segment (red)
+        if (safeProblem > 0) {
+            Box(
+                modifier = GlanceModifier
+                    .fillMaxHeight()
+                    .defaultWeight()
+                    .background(GlanceColors.Problem)
+            ) {}
+        }
+    }
+}
+
+/**
+ * Zone indicator chip - colored box with percentage value.
+ */
+@Composable
+fun ZoneChip(
+    value: Int,
+    color: Color,
+    modifier: GlanceModifier = GlanceModifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Color indicator dot
+        Box(
+            modifier = GlanceModifier
+                .width(8.dp)
+                .height(8.dp)
+                .background(color)
+        ) {}
+        // Value
+        ValueText("$value%", color, 14, GlanceModifier.padding(start = 4.dp))
+    }
+}

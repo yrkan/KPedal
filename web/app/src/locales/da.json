@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Pedal-effektivitetsanalyse til Karoo",
-    "version": "Version 1.8.0",
+    "version": "Version 1.8.1",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo-udvidelse",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "Se din pedal-",
       "titleLine2": "effektivitet i realtid",
       "subtitle": "Balance, drejningsmoment-effektivitet, pedaljævnhed — vist på din Karoo med realtidsalarmer og guidede øvelser.",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "Ingen konto kræves"
     },
     "dataFields": {
-      "title": "Se det på din Karoo",
-      "subtitle": "5 datafelt-layouts. Vælg den visning der passer til din træning.",
-      "tabs": {
-        "quickGlance": "Hurtigt kig",
+      "title": "19 datafelter til din Karoo",
+      "subtitle": "Vælg den perfekte visning til hver træning. Fra hurtige tjek til detaljeret analyse.",
+      "dataTypes": "Datatyper",
+      "benefits": {
+        "realtime": "Opdateringer i realtid",
+        "sizes": "6 layoutstørrelser",
+        "auto": "Automatisk opdatering"
+      },
+      "categories": {
         "balance": "Balance",
         "efficiency": "Effektivitet",
-        "fullView": "Fuld visning",
-        "trend": "Tendens"
+        "legs": "Ben-fokus",
+        "overview": "Oversigt",
+        "modes": "Tilstande"
       },
-      "quickGlance": {
-        "name": "Hurtigt kig",
-        "desc": "Statusindikator med balance-bar. Viser flueben når optimal eller lister metrikker der kræver opmærksomhed."
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "Effekt-balance",
         "desc": "Store V/H balance-tal med visuel fremdriftsbar. Perfekt til balance-fokuseret træning."
+      },
+      "singlebalance": {
+        "name": "Enkelt balance",
+        "desc": "Et stort tal viser den aktuelle balance. Minimalistisk og synlig med et øjeblik."
+      },
+      "balancetrend": {
+        "name": "Balance-tendens",
+        "desc": "Aktuel + 3s udjævnet + 10s udjævnet balance. Se tendenser som de udvikler sig."
+      },
+      "symmetryindex": {
+        "name": "Symmetri-indeks",
+        "desc": "Procentuel afvigelse fra perfekt symmetri. 0% = perfekt balanceret."
+      },
+      "cadencebalance": {
+        "name": "Kadence-balance",
+        "desc": "Balance ved forskellige kadencer. Se hvordan kadence påvirker din symmetri."
       },
       "efficiency": {
         "name": "Effektivitet",
         "desc": "Drejningsmoment-effektivitet og pedaljævnhed med V/H opdeling og gennemsnit."
       },
-      "fullOverview": {
+      "pedalingscore": {
+        "name": "Pedal-score",
+        "desc": "Samlet 0-100 score der kombinerer balance, TE og PJ. Din samlede tekniske vurdering."
+      },
+      "hrefficiency": {
+        "name": "HR Effektivitet",
+        "desc": "Pedalteknik i forhold til puls. Overvåg hvordan træthed påvirker formen."
+      },
+      "leftleg": {
+        "name": "Venstre ben",
+        "desc": "Detaljerede metrikker for venstre ben: balance-bidrag, TE og PJ."
+      },
+      "rightleg": {
+        "name": "Højre ben",
+        "desc": "Detaljerede metrikker for højre ben: balance-bidrag, TE og PJ."
+      },
+      "quickglance": {
+        "name": "Hurtigt kig",
+        "desc": "Statusindikator med balance-bar. Viser flueben når optimal eller lister metrikker der kræver opmærksomhed."
+      },
+      "fulloverview": {
         "name": "Fuld oversigt",
         "desc": "Alle tre metrikker i én kompakt visning. Komplet pedal-billede med et overblik."
       },
-      "balanceTrend": {
-        "name": "Balance-tendens",
-        "desc": "Aktuel + 3s udjævnet + 10s udjævnet balance. Se tendenser som de udvikler sig."
+      "live": {
+        "name": "Live data",
+        "desc": "Realtidsdata med sekundnøjagtighed. Se øjeblikkeligt hvordan din teknik svinger."
+      },
+      "compactmulti": {
+        "name": "Kompakt multi",
+        "desc": "Tre metrikker på én linje. Maksimal informationstæthed i minimal plads."
+      },
+      "fatigueindicator": {
+        "name": "Træthed-indikator",
+        "desc": "Sammenligner aktuel vs gennemsnitlig effektivitet. Opdager træthedsigener i realtid."
+      },
+      "deltaaverage": {
+        "name": "Delta gennemsnit",
+        "desc": "Afvigelse fra turens gennemsnit. Positiv = over gennemsnit, negativ = under."
+      },
+      "climbingmode": {
+        "name": "Klatretilstand",
+        "desc": "Optimeret til stigninger: balance ved lavere kadence og højere effekt."
+      },
+      "powerfocus": {
+        "name": "Effekt-fokus",
+        "desc": "Balance sammen med aktuel effekt. Se hvordan intensitet påvirker din symmetri."
+      },
+      "sprintmode": {
+        "name": "Sprinttilstand",
+        "desc": "Højfrekvente opdateringer til sprints. Fanger hurtige teknikændringer ved maksimal effekt."
       },
       "karoo": {
         "optimal": "Optimal",
@@ -1647,7 +1709,18 @@
         "ok": "OK",
         "now": "Nu",
         "avg3s": "3s gns",
-        "avg10s": "10s gns"
+        "avg10s": "10s gns",
+        "score": "Score",
+        "fatigue": "Træthed",
+        "fresh": "Frisk",
+        "delta": "Delta",
+        "power": "Effekt",
+        "symmetry": "Symmetri",
+        "cadence": "Kadence",
+        "hr": "HR",
+        "climbing": "Klatring",
+        "sprint": "Sprint",
+        "avg": "Gns"
       }
     },
     "comparison": {

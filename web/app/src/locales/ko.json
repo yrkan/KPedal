@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Karoo를 위한 페달링 효율 분석",
-    "version": "버전 1.8.0",
+    "version": "버전 1.8.1",
     "webTitle": "KPedal 웹"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo 확장 프로그램",
-      "version": "v1.8.0",
+      "version": "v1.8.1",
       "titleLine1": "페달링 효율을",
       "titleLine2": "실시간으로 확인하세요",
       "subtitle": "밸런스, 토크 효율, 페달링 부드러움 — 실시간 알림과 가이드 훈련과 함께 Karoo에 표시됩니다.",
@@ -1606,34 +1606,96 @@
       "noAccountRequired": "계정 불필요"
     },
     "dataFields": {
-      "title": "Karoo에서 확인하세요",
-      "subtitle": "5가지 데이터 필드 레이아웃. 훈련에 맞는 뷰를 선택하세요.",
-      "tabs": {
-        "quickGlance": "빠른 보기",
+      "title": "Karoo용 19가지 데이터 필드",
+      "subtitle": "모든 운동에 완벽한 뷰를 선택하세요. 빠른 확인부터 상세 분석까지.",
+      "dataTypes": "데이터 타입",
+      "benefits": {
+        "realtime": "실시간 업데이트",
+        "sizes": "6가지 레이아웃 크기",
+        "auto": "자동 새로고침"
+      },
+      "categories": {
         "balance": "밸런스",
         "efficiency": "효율",
-        "fullView": "전체 보기",
-        "trend": "트렌드"
+        "legs": "다리 포커스",
+        "overview": "개요",
+        "modes": "모드"
       },
-      "quickGlance": {
-        "name": "빠른 보기",
-        "desc": "밸런스 바가 있는 상태 표시기. 최적일 때 체크 표시 또는 주의가 필요한 지표를 나열합니다."
-      },
-      "powerBalance": {
+      "powerbalance": {
         "name": "파워 밸런스",
         "desc": "시각적 진행 바가 있는 큰 좌/우 밸런스 숫자. 밸런스 중심 훈련에 완벽합니다."
+      },
+      "singlebalance": {
+        "name": "단일 밸런스",
+        "desc": "큰 숫자 하나로 현재 밸런스를 표시. 미니멀하고 한눈에 확인 가능."
+      },
+      "balancetrend": {
+        "name": "밸런스 트렌드",
+        "desc": "현재 + 3초 평활화 + 10초 평활화 밸런스. 트렌드가 발전하는 것을 확인하세요."
+      },
+      "symmetryindex": {
+        "name": "대칭 지수",
+        "desc": "완벽한 대칭으로부터의 백분율 편차. 0% = 완벽하게 균형잡힘."
+      },
+      "cadencebalance": {
+        "name": "케이던스 밸런스",
+        "desc": "다양한 케이던스에서의 밸런스. 케이던스가 대칭성에 미치는 영향을 확인하세요."
       },
       "efficiency": {
         "name": "효율",
         "desc": "좌/우 분할 및 평균이 있는 토크 효율과 페달링 부드러움."
       },
-      "fullOverview": {
+      "pedalingscore": {
+        "name": "페달링 점수",
+        "desc": "밸런스, TE, PS를 결합한 0-100 통합 점수. 전반적인 기술 등급."
+      },
+      "hrefficiency": {
+        "name": "심박수 효율",
+        "desc": "심박수 대비 페달링 기술. 피로가 자세에 미치는 영향을 모니터링."
+      },
+      "leftleg": {
+        "name": "왼쪽 다리",
+        "desc": "왼쪽 다리 상세 지표: 밸런스 기여도, TE, PS."
+      },
+      "rightleg": {
+        "name": "오른쪽 다리",
+        "desc": "오른쪽 다리 상세 지표: 밸런스 기여도, TE, PS."
+      },
+      "quickglance": {
+        "name": "빠른 보기",
+        "desc": "밸런스 바가 있는 상태 표시기. 최적일 때 체크 표시 또는 주의가 필요한 지표를 나열합니다."
+      },
+      "fulloverview": {
         "name": "전체 개요",
         "desc": "하나의 컴팩트한 뷰에 세 가지 지표 모두. 한눈에 완전한 페달링 그림."
       },
-      "balanceTrend": {
-        "name": "밸런스 트렌드",
-        "desc": "현재 + 3초 평활화 + 10초 평활화 밸런스. 트렌드가 발전하는 것을 확인하세요."
+      "live": {
+        "name": "라이브 데이터",
+        "desc": "초 단위 정밀도의 실시간 데이터. 기술 변동을 즉시 확인."
+      },
+      "compactmulti": {
+        "name": "컴팩트 멀티",
+        "desc": "한 줄에 세 가지 지표. 최소 공간에서 최대 정보 밀도."
+      },
+      "fatigueindicator": {
+        "name": "피로 지표",
+        "desc": "현재와 평균 효율 비교. 실시간으로 피로 징후 감지."
+      },
+      "deltaaverage": {
+        "name": "델타 평균",
+        "desc": "라이딩 평균과의 편차. 양수 = 평균 이상, 음수 = 평균 이하."
+      },
+      "climbingmode": {
+        "name": "클라이밍 모드",
+        "desc": "오르막에 최적화: 낮은 케이던스와 높은 파워에서의 밸런스."
+      },
+      "powerfocus": {
+        "name": "파워 포커스",
+        "desc": "현재 파워와 함께 밸런스 표시. 강도가 대칭성에 미치는 영향 확인."
+      },
+      "sprintmode": {
+        "name": "스프린트 모드",
+        "desc": "스프린트용 고주파 업데이트. 최대 파워에서 빠른 기술 변화 포착."
       },
       "karoo": {
         "optimal": "최적",
@@ -1647,7 +1709,18 @@
         "ok": "OK",
         "now": "현재",
         "avg3s": "3초 평균",
-        "avg10s": "10초 평균"
+        "avg10s": "10초 평균",
+        "score": "점수",
+        "fatigue": "피로",
+        "fresh": "상쾌",
+        "delta": "델타",
+        "power": "파워",
+        "symmetry": "대칭",
+        "cadence": "케이던스",
+        "hr": "심박수",
+        "climbing": "클라이밍",
+        "sprint": "스프린트",
+        "avg": "평균"
       }
     },
     "comparison": {
