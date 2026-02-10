@@ -270,8 +270,17 @@
   .google-btn:hover {
     background: var(--bg-hover);
     border-color: var(--border-strong);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (hover: hover) {
+    .google-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .google-btn:active {
+    transform: scale(0.98);
   }
 
   .divider {
@@ -337,9 +346,14 @@
   }
 
   .demo-btn:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px var(--glow-optimal, rgba(34, 197, 94, 0.4));
     filter: brightness(1.05);
+  }
+
+  @media (hover: hover) {
+    .demo-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px var(--glow-optimal, rgba(34, 197, 94, 0.4));
+    }
   }
 
   :global([data-theme="dark"]) .demo-btn:hover:not(:disabled) {
@@ -458,7 +472,7 @@
   }
 
   @media (max-width: 400px) {
-    .login-page {
+    .login-main {
       padding: 16px;
     }
 
@@ -469,6 +483,7 @@
 
     .header-actions {
       position: static;
+      display: flex;
       justify-content: flex-end;
       margin-bottom: 12px;
     }
@@ -507,7 +522,7 @@
 
   /* Small screens */
   @media (max-width: 340px) {
-    .login-page {
+    .login-main {
       padding: 12px;
     }
 
@@ -587,7 +602,7 @@
 
   /* Extra small screens (250-280px) */
   @media (max-width: 280px) {
-    .login-page {
+    .login-main {
       padding: 8px;
     }
 
