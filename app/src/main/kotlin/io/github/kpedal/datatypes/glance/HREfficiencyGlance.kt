@@ -48,12 +48,11 @@ fun HREfficiencyContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (!hasHR) {
-                        ValueText("--", GlanceColors.Label, 20)
+                        ValueText("--", GlanceColors.Label, 24)
                     } else {
                         val hrColor = getHRColor(hr)
-                        ValueText("$hr", hrColor, 24)
+                        ValueText("$hr", hrColor, 28)
                     }
-                    LabelText("HR")
                 }
             }
             BaseDataType.LayoutSize.SMALL_WIDE -> {
@@ -70,12 +69,11 @@ fun HREfficiencyContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (!hasHR) {
-                            ValueText("--", GlanceColors.Label, 18)
+                            ValueText("--", GlanceColors.Label, 22)
                         } else {
                             val hrColor = getHRColor(hr)
-                            ValueText("$hr", hrColor, 20)
+                            ValueText("$hr", hrColor, 22)
                         }
-                        LabelText("HR")
                     }
                     // TE
                     Column(
@@ -84,11 +82,10 @@ fun HREfficiencyContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
-                            ValueText("$teAvg", getTEColor(teAvg.toFloat()), 18)
+                            ValueText("$teAvg", getTEColor(teAvg.toFloat()), 22)
                         }
-                        LabelText("TE")
                     }
                 }
             }
@@ -230,9 +227,9 @@ fun HREfficiencyContent(
                     ) {
                         LabelText("TORQUE EFF", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 20)
+                            ValueText(displayText, GlanceColors.Label, 24)
                         } else {
-                            ValueText("$teAvg", getTEColor(teAvg.toFloat()), 22)
+                            ValueText("$teAvg", getTEColor(teAvg.toFloat()), 26)
                         }
                     }
 
@@ -246,9 +243,9 @@ fun HREfficiencyContent(
                     ) {
                         LabelText("PEDAL SMOOTH", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 20)
+                            ValueText(displayText, GlanceColors.Label, 24)
                         } else {
-                            ValueText("$psAvg", getPSColor(psAvg.toFloat()), 22)
+                            ValueText("$psAvg", getPSColor(psAvg.toFloat()), 26)
                         }
                     }
                 }
@@ -258,22 +255,7 @@ fun HREfficiencyContent(
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
-                    // Header with efficiency indicator
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth().padding(vertical = 4.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        LabelText("HR + EFFICIENCY", fontSize = 12)
-                        if (!noData && hasHR) {
-                            val efficiencyStatus = getEfficiencyStatus(teAvg, psAvg)
-                            ValueText(" $efficiencyStatus", getEfficiencyColor(teAvg, psAvg), 12, GlanceModifier.padding(start = 4.dp))
-                        }
-                    }
-
-                    GlanceDivider()
-
-                    // HR section - larger
+                    // HR section - larger, with efficiency indicator inline
                     Column(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -281,12 +263,16 @@ fun HREfficiencyContent(
                     ) {
                         LabelText("HEART RATE", fontSize = 12)
                         if (!hasHR) {
-                            ValueText("--", GlanceColors.Label, 28)
+                            ValueText("--", GlanceColors.Label, 34)
                         } else {
                             val hrColor = getHRColor(hr)
                             Row(verticalAlignment = Alignment.Bottom) {
-                                ValueText("$hr", hrColor, 30)
-                                LabelText("bpm", GlanceModifier.padding(start = 4.dp, bottom = 4.dp), fontSize = 12)
+                                ValueText("$hr", hrColor, 36)
+                                LabelText("bpm", GlanceModifier.padding(start = 4.dp, bottom = 6.dp), fontSize = 12)
+                                if (!noData) {
+                                    val efficiencyStatus = getEfficiencyStatus(teAvg, psAvg)
+                                    ValueText(" $efficiencyStatus", getEfficiencyColor(teAvg, psAvg), 14, GlanceModifier.padding(start = 4.dp, bottom = 6.dp))
+                                }
                             }
                         }
                     }
@@ -305,9 +291,9 @@ fun HREfficiencyContent(
                         ) {
                             LabelText("TORQUE EFF", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 26)
                             } else {
-                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 20)
+                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 28)
                             }
                         }
 
@@ -321,9 +307,9 @@ fun HREfficiencyContent(
                         ) {
                             LabelText("PEDAL SMOOTH", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 26)
                             } else {
-                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 20)
+                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 28)
                             }
                         }
                     }

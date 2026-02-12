@@ -26,7 +26,7 @@
   "app": {
     "name": "KPedal",
     "tagline": "Karoo向けペダリング効率分析",
-    "version": "バージョン 1.8.1",
+    "version": "バージョン 1.8.2",
     "webTitle": "KPedal Web"
   },
   "nav": {
@@ -1595,7 +1595,7 @@
   "landing": {
     "hero": {
       "eyebrow": "Karoo拡張機能",
-      "version": "v1.8.1",
+      "version": "v1.8.2",
       "titleLine1": "ペダリング効率を",
       "titleLine2": "リアルタイムで確認",
       "subtitle": "バランス、トルク効率、ペダルスムーズネス — リアルタイムアラートとガイド付きドリルでKarooに表示。",

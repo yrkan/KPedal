@@ -49,13 +49,12 @@ fun EfficiencyContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 24)
                         } else {
                             val teAvg = metrics.torqueEffAvg.toInt()
                             val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                            ValueText("$teAvg", teColor, 18)
+                            ValueText("$teAvg", teColor, 24)
                         }
-                        LabelText("TE")
                     }
                     // PS
                     Column(
@@ -64,13 +63,12 @@ fun EfficiencyContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 24)
                         } else {
                             val psAvg = metrics.pedalSmoothAvg.toInt()
                             val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                            ValueText("$psAvg", psColor, 18)
+                            ValueText("$psAvg", psColor, 24)
                         }
-                        LabelText("PS")
                     }
                 }
             }
@@ -87,13 +85,12 @@ fun EfficiencyContent(
                         contentAlignment = Alignment.Center
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            LabelText("TE")
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 20)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
                                 val teAvg = metrics.torqueEffAvg.toInt()
                                 val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                                ValueText("$teAvg", teColor, 20)
+                                ValueText("$teAvg", teColor, 22)
                             }
                         }
                     }
@@ -103,13 +100,12 @@ fun EfficiencyContent(
                         contentAlignment = Alignment.Center
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            LabelText("PS")
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 20)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
                                 val psAvg = metrics.pedalSmoothAvg.toInt()
                                 val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                                ValueText("$psAvg", psColor, 20)
+                                ValueText("$psAvg", psColor, 22)
                             }
                         }
                     }
@@ -128,13 +124,12 @@ fun EfficiencyContent(
                         contentAlignment = Alignment.Center
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            LabelText("TE", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 22)
+                                ValueText(displayText, GlanceColors.Label, 26)
                             } else {
                                 val teAvg = metrics.torqueEffAvg.toInt()
                                 val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                                ValueText("$teAvg", teColor, 22)
+                                ValueText("$teAvg", teColor, 26)
                             }
                         }
                     }
@@ -144,20 +139,19 @@ fun EfficiencyContent(
                         contentAlignment = Alignment.Center
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            LabelText("PS", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 22)
+                                ValueText(displayText, GlanceColors.Label, 26)
                             } else {
                                 val psAvg = metrics.pedalSmoothAvg.toInt()
                                 val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                                ValueText("$psAvg", psColor, 22)
+                                ValueText("$psAvg", psColor, 26)
                             }
                         }
                     }
                 }
             }
             BaseDataType.LayoutSize.MEDIUM -> {
-                // TE + PS with L/R values
+                // TE + PS averages only (L/R detail in NARROW/LARGE)
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
@@ -166,38 +160,14 @@ fun EfficiencyContent(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Row(
-                            modifier = GlanceModifier.fillMaxWidth().padding(horizontal = 4.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(horizontalAlignment = Alignment.Start) {
-                                LabelText("TE", fontSize = 11)
-                                if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 12)
-                                } else {
-                                    val teAvg = metrics.torqueEffAvg.toInt()
-                                    val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                                    ValueText("$teAvg", teColor, 12)
-                                }
-                            }
-                            Box(
-                                modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                if (noData) {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        ValueText(displayText, GlanceColors.Label, 18)
-                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 20)
-                                        ValueText(displayText, GlanceColors.Label, 18)
-                                    }
-                                } else {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 18)
-                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 20)
-                                        ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 18)
-                                    }
-                                }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            LabelText("TE", fontSize = 11)
+                            if (noData) {
+                                ValueText(displayText, GlanceColors.Label, 24)
+                            } else {
+                                val teAvg = metrics.torqueEffAvg.toInt()
+                                val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
+                                ValueText("$teAvg", teColor, 24)
                             }
                         }
                     }
@@ -209,38 +179,14 @@ fun EfficiencyContent(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Row(
-                            modifier = GlanceModifier.fillMaxWidth().padding(horizontal = 4.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(horizontalAlignment = Alignment.Start) {
-                                LabelText("PS", fontSize = 11)
-                                if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 12)
-                                } else {
-                                    val psAvg = metrics.pedalSmoothAvg.toInt()
-                                    val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                                    ValueText("$psAvg", psColor, 12)
-                                }
-                            }
-                            Box(
-                                modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                if (noData) {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        ValueText(displayText, GlanceColors.Label, 18)
-                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 20)
-                                        ValueText(displayText, GlanceColors.Label, 18)
-                                    }
-                                } else {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 18)
-                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 20)
-                                        ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 18)
-                                    }
-                                }
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            LabelText("PS", fontSize = 11)
+                            if (noData) {
+                                ValueText(displayText, GlanceColors.Label, 24)
+                            } else {
+                                val psAvg = metrics.pedalSmoothAvg.toInt()
+                                val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
+                                ValueText("$psAvg", psColor, 24)
                             }
                         }
                     }
@@ -264,11 +210,11 @@ fun EfficiencyContent(
                             Column(horizontalAlignment = Alignment.Start) {
                                 LabelText("TE", fontSize = 12)
                                 if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 14)
+                                    ValueText(displayText, GlanceColors.Label, 22)
                                 } else {
                                     val teAvg = metrics.torqueEffAvg.toInt()
                                     val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                                    ValueText("$teAvg", teColor, 14)
+                                    ValueText("$teAvg", teColor, 22)
                                 }
                             }
                             Box(
@@ -277,15 +223,15 @@ fun EfficiencyContent(
                             ) {
                                 if (noData) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        ValueText(displayText, GlanceColors.Label, 22)
-                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 24)
-                                        ValueText(displayText, GlanceColors.Label, 22)
+                                        ValueText(displayText, GlanceColors.Label, 28)
+                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 26)
+                                        ValueText(displayText, GlanceColors.Label, 28)
                                     }
                                 } else {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 22)
-                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 24)
-                                        ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 22)
+                                        ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 28)
+                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 26)
+                                        ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 28)
                                     }
                                 }
                             }
@@ -307,11 +253,11 @@ fun EfficiencyContent(
                             Column(horizontalAlignment = Alignment.Start) {
                                 LabelText("PS", fontSize = 12)
                                 if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 14)
+                                    ValueText(displayText, GlanceColors.Label, 22)
                                 } else {
                                     val psAvg = metrics.pedalSmoothAvg.toInt()
                                     val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                                    ValueText("$psAvg", psColor, 14)
+                                    ValueText("$psAvg", psColor, 22)
                                 }
                             }
                             Box(
@@ -320,15 +266,15 @@ fun EfficiencyContent(
                             ) {
                                 if (noData) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        ValueText(displayText, GlanceColors.Label, 22)
-                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 24)
-                                        ValueText(displayText, GlanceColors.Label, 22)
+                                        ValueText(displayText, GlanceColors.Label, 28)
+                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 26)
+                                        ValueText(displayText, GlanceColors.Label, 28)
                                     }
                                 } else {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 22)
-                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 24)
-                                        ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 22)
+                                        ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 28)
+                                        GlanceVerticalDivider(GlanceModifier.padding(horizontal = 8.dp), height = 26)
+                                        ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 28)
                                     }
                                 }
                             }
@@ -349,11 +295,11 @@ fun EfficiencyContent(
                         Column(horizontalAlignment = Alignment.Start) {
                             LabelText("TE", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 12)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
                                 val teAvg = metrics.torqueEffAvg.toInt()
                                 val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                                ValueText("$teAvg", teColor, 12)
+                                ValueText("$teAvg", teColor, 22)
                             }
                         }
                         Box(
@@ -370,9 +316,9 @@ fun EfficiencyContent(
                                 ) {
                                     LabelText("L", fontSize = 12)
                                     if (noData) {
-                                        ValueText(displayText, GlanceColors.Label, 20)
+                                        ValueText(displayText, GlanceColors.Label, 28)
                                     } else {
-                                        ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 20)
+                                        ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 28)
                                     }
                                 }
                                 Column(
@@ -381,9 +327,9 @@ fun EfficiencyContent(
                                 ) {
                                     LabelText("R", fontSize = 12)
                                     if (noData) {
-                                        ValueText(displayText, GlanceColors.Label, 20)
+                                        ValueText(displayText, GlanceColors.Label, 28)
                                     } else {
-                                        ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 20)
+                                        ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 28)
                                     }
                                 }
                             }
@@ -400,11 +346,11 @@ fun EfficiencyContent(
                         Column(horizontalAlignment = Alignment.Start) {
                             LabelText("PS", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 12)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
                                 val psAvg = metrics.pedalSmoothAvg.toInt()
                                 val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                                ValueText("$psAvg", psColor, 12)
+                                ValueText("$psAvg", psColor, 22)
                             }
                         }
                         Box(
@@ -421,9 +367,9 @@ fun EfficiencyContent(
                                 ) {
                                     LabelText("L", fontSize = 12)
                                     if (noData) {
-                                        ValueText(displayText, GlanceColors.Label, 20)
+                                        ValueText(displayText, GlanceColors.Label, 28)
                                     } else {
-                                        ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 20)
+                                        ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 28)
                                     }
                                 }
                                 Column(
@@ -432,9 +378,9 @@ fun EfficiencyContent(
                                 ) {
                                     LabelText("R", fontSize = 12)
                                     if (noData) {
-                                        ValueText(displayText, GlanceColors.Label, 20)
+                                        ValueText(displayText, GlanceColors.Label, 28)
                                     } else {
-                                        ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 20)
+                                        ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 28)
                                     }
                                 }
                             }

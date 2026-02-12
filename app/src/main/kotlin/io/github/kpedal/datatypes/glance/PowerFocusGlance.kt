@@ -40,13 +40,11 @@ fun PowerFocusContent(
         when (layoutSize) {
             BaseDataType.LayoutSize.SMALL -> {
                 // Power only - large
-                Column(
+                Box(
                     modifier = GlanceModifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalAlignment = Alignment.CenterVertically
+                    contentAlignment = Alignment.Center
                 ) {
-                    ValueText("$power", GlanceColors.White, 24)
-                    LabelText("W")
+                    ValueText("$power", GlanceColors.White, 28)
                 }
             }
             BaseDataType.LayoutSize.SMALL_WIDE -> {
@@ -74,16 +72,15 @@ fun PowerFocusContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                ValueText(":", GlanceColors.Separator, 10)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                                ValueText(":", GlanceColors.Separator, 12)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 20)
                             }
                         }
-                        LabelText("BAL")
                     }
                 }
             }
@@ -171,13 +168,13 @@ fun PowerFocusContent(
                         ) {
                             LabelText("BAL", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 16)
                             } else {
                                 val (leftColor, rightColor) = getBalanceColors(metrics)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                    ValueText(":", GlanceColors.Separator, 10)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
+                                    ValueText(":", GlanceColors.Separator, 12)
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 16)
                                 }
                             }
                         }
@@ -189,7 +186,7 @@ fun PowerFocusContent(
                         ) {
                             LabelText("TE", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 16)
                             } else {
                                 ValueText("$teAvg", getTEColor(teAvg.toFloat()), 16)
                             }
@@ -223,14 +220,14 @@ fun PowerFocusContent(
                         contentAlignment = Alignment.Center
                     ) {
                         if (noData) {
-                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 18)
+                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 22)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             BalanceRow(
                                 "${metrics.balanceLeft.toInt()}",
                                 "${metrics.balance.toInt()}",
                                 leftColor, rightColor,
-                                valueFontSize = 20
+                                valueFontSize = 24
                             )
                         }
                     }
@@ -248,9 +245,9 @@ fun PowerFocusContent(
                         ) {
                             LabelText("TE", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 20)
                             } else {
-                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 18)
+                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 22)
                             }
                         }
 
@@ -263,9 +260,9 @@ fun PowerFocusContent(
                         ) {
                             LabelText("PS", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 20)
                             } else {
-                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 18)
+                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 22)
                             }
                         }
                     }
@@ -276,16 +273,6 @@ fun PowerFocusContent(
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
-                    // Header
-                    Box(
-                        modifier = GlanceModifier.fillMaxWidth().padding(vertical = 4.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        LabelText("POWER FOCUS", fontSize = 12)
-                    }
-
-                    GlanceDivider()
-
                     // Power section - main focus
                     Column(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
@@ -293,8 +280,8 @@ fun PowerFocusContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Row(verticalAlignment = Alignment.Bottom) {
-                            ValueText("$power", GlanceColors.White, 34)
-                            LabelText("W", GlanceModifier.padding(start = 4.dp, bottom = 6.dp), fontSize = 14)
+                            ValueText("$power", GlanceColors.White, 40)
+                            LabelText("W", GlanceModifier.padding(start = 4.dp, bottom = 8.dp), fontSize = 16)
                         }
                     }
 
@@ -312,13 +299,13 @@ fun PowerFocusContent(
                         ) {
                             LabelText("BAL", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
                                 val (leftColor, rightColor) = getBalanceColors(metrics)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
-                                    ValueText(":", GlanceColors.Separator, 11)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 16)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 26)
+                                    ValueText(":", GlanceColors.Separator, 14)
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 26)
                                 }
                             }
                         }
@@ -333,9 +320,9 @@ fun PowerFocusContent(
                         ) {
                             LabelText("TE", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
-                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 18)
+                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 26)
                             }
                         }
 
@@ -349,9 +336,9 @@ fun PowerFocusContent(
                         ) {
                             LabelText("PS", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
-                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 18)
+                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 26)
                             }
                         }
                     }

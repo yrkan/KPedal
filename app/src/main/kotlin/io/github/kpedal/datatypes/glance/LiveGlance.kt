@@ -62,10 +62,10 @@ fun LiveContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 18)
+                        ValueText(displayText, GlanceColors.Label, 20)
                     } else {
                         val statusColor = getZoneStatusColor(liveData.zoneOptimal, liveData.zoneAttention, liveData.zoneProblem)
-                        ValueText("${liveData.zoneOptimal}%", statusColor, 18)
+                        ValueText("${liveData.zoneOptimal}%", statusColor, 20)
                     }
 
                     // Status bar
@@ -95,10 +95,10 @@ fun LiveContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 20)
+                        ValueText(displayText, GlanceColors.Label, 22)
                     } else {
                         val statusColor = getZoneStatusColor(liveData.zoneOptimal, liveData.zoneAttention, liveData.zoneProblem)
-                        ValueText("${liveData.zoneOptimal}%", statusColor, 20)
+                        ValueText("${liveData.zoneOptimal}%", statusColor, 22)
                     }
 
                     // Status bar
@@ -128,10 +128,10 @@ fun LiveContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 22)
+                        ValueText(displayText, GlanceColors.Label, 24)
                     } else {
                         val statusColor = getZoneStatusColor(liveData.zoneOptimal, liveData.zoneAttention, liveData.zoneProblem)
-                        ValueText("${liveData.zoneOptimal}%", statusColor, 22)
+                        ValueText("${liveData.zoneOptimal}%", statusColor, 24)
                     }
 
                     // Status bar
@@ -154,7 +154,7 @@ fun LiveContent(
                 }
             }
             BaseDataType.LayoutSize.MEDIUM -> {
-                // Balance + TE/PS
+                // Balance + TE/PS averages
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
@@ -170,9 +170,9 @@ fun LiveContent(
                         ) {
                             LabelText("BAL", GlanceModifier.padding(end = 4.dp), fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 20)
+                                ValueText(displayText, GlanceColors.Label, 22)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 4.dp))
-                                ValueText(displayText, GlanceColors.Label, 20)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
                                 val balanceStatus = StatusCalculator.balanceStatus(liveData.balanceRight.toFloat())
                                 val (leftColor, rightColor) = if (balanceStatus != StatusCalculator.Status.OPTIMAL) {
@@ -185,16 +185,16 @@ fun LiveContent(
                                 } else {
                                     Pair(GlanceColors.White, GlanceColors.White)
                                 }
-                                ValueText("${liveData.balanceLeft}", leftColor, 20)
+                                ValueText("${liveData.balanceLeft}", leftColor, 22)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 4.dp))
-                                ValueText("${liveData.balanceRight}", rightColor, 20)
+                                ValueText("${liveData.balanceRight}", rightColor, 22)
                             }
                         }
                     }
 
                     GlanceDivider()
 
-                    // TE and PS side by side
+                    // TE and PS side by side (averages only)
                     Row(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight()
                     ) {
@@ -206,17 +206,10 @@ fun LiveContent(
                         ) {
                             LabelText("TE", fontSize = 11)
                             if (noData) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText(displayText, GlanceColors.Label, 14)
-                                    ValueText("|", GlanceColors.Separator, 10, GlanceModifier.padding(horizontal = 2.dp))
-                                    ValueText(displayText, GlanceColors.Label, 14)
-                                }
+                                ValueText(displayText, GlanceColors.Label, 20)
                             } else {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${liveData.teLeft}", getTEColor(liveData.teLeft.toFloat()), 14)
-                                    ValueText("|", GlanceColors.Separator, 10, GlanceModifier.padding(horizontal = 2.dp))
-                                    ValueText("${liveData.teRight}", getTEColor(liveData.teRight.toFloat()), 14)
-                                }
+                                val teAvg = (liveData.teLeft + liveData.teRight) / 2
+                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 20)
                             }
                         }
 
@@ -228,17 +221,10 @@ fun LiveContent(
                         ) {
                             LabelText("PS", fontSize = 11)
                             if (noData) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText(displayText, GlanceColors.Label, 14)
-                                    ValueText("|", GlanceColors.Separator, 10, GlanceModifier.padding(horizontal = 2.dp))
-                                    ValueText(displayText, GlanceColors.Label, 14)
-                                }
+                                ValueText(displayText, GlanceColors.Label, 20)
                             } else {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${liveData.psLeft}", getPSColor(liveData.psLeft.toFloat()), 14)
-                                    ValueText("|", GlanceColors.Separator, 10, GlanceModifier.padding(horizontal = 2.dp))
-                                    ValueText("${liveData.psRight}", getPSColor(liveData.psRight.toFloat()), 14)
-                                }
+                                val psAvg = (liveData.psLeft + liveData.psRight) / 2
+                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 20)
                             }
                         }
                     }
@@ -257,7 +243,7 @@ fun LiveContent(
                     ) {
                         LabelText("BALANCE", fontSize = 12)
                         if (noData) {
-                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 22)
+                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 28)
                         } else {
                             val balanceStatus = StatusCalculator.balanceStatus(liveData.balanceRight.toFloat())
                             val (leftColor, rightColor) = if (balanceStatus != StatusCalculator.Status.OPTIMAL) {
@@ -274,7 +260,7 @@ fun LiveContent(
                                 "${liveData.balanceLeft}",
                                 "${liveData.balanceRight}",
                                 leftColor, rightColor,
-                                valueFontSize = 22
+                                valueFontSize = 28
                             )
                         }
                     }
@@ -290,15 +276,15 @@ fun LiveContent(
                         LabelText("TORQUE EFF", fontSize = 12)
                         if (noData) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 24)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 6.dp))
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             }
                         } else {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${liveData.teLeft}", getTEColor(liveData.teLeft.toFloat()), 18)
+                                ValueText("${liveData.teLeft}", getTEColor(liveData.teLeft.toFloat()), 24)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 6.dp))
-                                ValueText("${liveData.teRight}", getTEColor(liveData.teRight.toFloat()), 18)
+                                ValueText("${liveData.teRight}", getTEColor(liveData.teRight.toFloat()), 24)
                             }
                         }
                     }
@@ -314,15 +300,15 @@ fun LiveContent(
                         LabelText("PEDAL SMOOTH", fontSize = 12)
                         if (noData) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 24)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 6.dp))
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             }
                         } else {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${liveData.psLeft}", getPSColor(liveData.psLeft.toFloat()), 18)
+                                ValueText("${liveData.psLeft}", getPSColor(liveData.psLeft.toFloat()), 24)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 6.dp))
-                                ValueText("${liveData.psRight}", getPSColor(liveData.psRight.toFloat()), 18)
+                                ValueText("${liveData.psRight}", getPSColor(liveData.psRight.toFloat()), 24)
                             }
                         }
                     }
@@ -341,7 +327,7 @@ fun LiveContent(
                     ) {
                         LabelText("BALANCE", fontSize = 12)
                         if (noData) {
-                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 20)
+                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 28)
                         } else {
                             val balanceStatus = StatusCalculator.balanceStatus(liveData.balanceRight.toFloat())
                             val (leftColor, rightColor) = if (balanceStatus != StatusCalculator.Status.OPTIMAL) {
@@ -358,7 +344,7 @@ fun LiveContent(
                                 "${liveData.balanceLeft}",
                                 "${liveData.balanceRight}",
                                 leftColor, rightColor,
-                                valueFontSize = 20
+                                valueFontSize = 28
                             )
                         }
                     }
@@ -378,15 +364,15 @@ fun LiveContent(
                             LabelText("TE", fontSize = 12)
                             if (noData) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText(displayText, GlanceColors.Label, 16)
+                                    ValueText(displayText, GlanceColors.Label, 22)
                                     ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 4.dp))
-                                    ValueText(displayText, GlanceColors.Label, 16)
+                                    ValueText(displayText, GlanceColors.Label, 22)
                                 }
                             } else {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${liveData.teLeft}", getTEColor(liveData.teLeft.toFloat()), 16)
+                                    ValueText("${liveData.teLeft}", getTEColor(liveData.teLeft.toFloat()), 22)
                                     ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 4.dp))
-                                    ValueText("${liveData.teRight}", getTEColor(liveData.teRight.toFloat()), 16)
+                                    ValueText("${liveData.teRight}", getTEColor(liveData.teRight.toFloat()), 22)
                                 }
                             }
                         }
@@ -400,15 +386,15 @@ fun LiveContent(
                             LabelText("PS", fontSize = 12)
                             if (noData) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText(displayText, GlanceColors.Label, 16)
+                                    ValueText(displayText, GlanceColors.Label, 22)
                                     ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 4.dp))
-                                    ValueText(displayText, GlanceColors.Label, 16)
+                                    ValueText(displayText, GlanceColors.Label, 22)
                                 }
                             } else {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${liveData.psLeft}", getPSColor(liveData.psLeft.toFloat()), 16)
+                                    ValueText("${liveData.psLeft}", getPSColor(liveData.psLeft.toFloat()), 22)
                                     ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 4.dp))
-                                    ValueText("${liveData.psRight}", getPSColor(liveData.psRight.toFloat()), 16)
+                                    ValueText("${liveData.psRight}", getPSColor(liveData.psRight.toFloat()), 22)
                                 }
                             }
                         }

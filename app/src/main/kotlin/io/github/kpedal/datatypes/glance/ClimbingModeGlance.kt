@@ -43,19 +43,17 @@ fun ClimbingModeContent(
         when (layoutSize) {
             BaseDataType.LayoutSize.SMALL -> {
                 // Grade + climbing indicator
-                Column(
+                Box(
                     modifier = GlanceModifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalAlignment = Alignment.CenterVertically
+                    contentAlignment = Alignment.Center
                 ) {
                     val gradeColor = getGradeColor(grade)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         if (isClimbing) {
-                            ValueText("▲", gradeColor, 14, GlanceModifier.padding(end = 2.dp))
+                            ValueText("▲", gradeColor, 18, GlanceModifier.padding(end = 2.dp))
                         }
-                        ValueText(gradeDisplay, gradeColor, 18)
+                        ValueText(gradeDisplay, gradeColor, 24)
                     }
-                    LabelText("GRADE")
                 }
             }
             BaseDataType.LayoutSize.SMALL_WIDE -> {
@@ -72,8 +70,7 @@ fun ClimbingModeContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         val gradeColor = getGradeColor(grade)
-                        ValueText(gradeDisplay, gradeColor, 18)
-                        LabelText("GRADE")
+                        ValueText(gradeDisplay, gradeColor, 22)
                     }
                     // Power
                     Column(
@@ -81,8 +78,10 @@ fun ClimbingModeContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ValueText("${metrics.power}", GlanceColors.White, 18)
-                        LabelText("W")
+                        Row(verticalAlignment = Alignment.Bottom) {
+                            ValueText("${metrics.power}", GlanceColors.White, 22)
+                            LabelText("w", GlanceModifier.padding(start = 1.dp, bottom = 3.dp))
+                        }
                     }
                 }
             }
@@ -174,13 +173,13 @@ fun ClimbingModeContent(
                         ) {
                             LabelText("BAL", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 16)
                             } else {
                                 val (leftColor, rightColor) = getBalanceColors(metrics)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                    ValueText(":", GlanceColors.Separator, 10)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
+                                    ValueText(":", GlanceColors.Separator, 12)
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 16)
                                 }
                             }
                         }
@@ -221,7 +220,7 @@ fun ClimbingModeContent(
                         ) {
                             LabelText("ELEV", fontSize = 12)
                             Row(verticalAlignment = Alignment.Bottom) {
-                                ValueText("$elevGain", GlanceColors.White, 18)
+                                ValueText("$elevGain", GlanceColors.White, 22)
                                 LabelText("m", GlanceModifier.padding(start = 2.dp, bottom = 2.dp))
                             }
                         }
@@ -235,7 +234,7 @@ fun ClimbingModeContent(
                         ) {
                             LabelText("PWR", fontSize = 12)
                             Row(verticalAlignment = Alignment.Bottom) {
-                                ValueText("${metrics.power}", GlanceColors.White, 18)
+                                ValueText("${metrics.power}", GlanceColors.White, 22)
                                 LabelText("w", GlanceModifier.padding(start = 2.dp, bottom = 2.dp))
                             }
                         }
@@ -249,14 +248,14 @@ fun ClimbingModeContent(
                         contentAlignment = Alignment.Center
                     ) {
                         if (noData) {
-                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 18)
+                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 22)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             BalanceRow(
                                 "${metrics.balanceLeft.toInt()}",
                                 "${metrics.balance.toInt()}",
                                 leftColor, rightColor,
-                                valueFontSize = 18
+                                valueFontSize = 22
                             )
                         }
                     }
@@ -267,19 +266,6 @@ fun ClimbingModeContent(
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
-                    // Header with mode indicator
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth().padding(vertical = 4.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        val modeColor = if (isClimbing) GlanceColors.Optimal else GlanceColors.Label
-                        ValueText(if (isClimbing) "▲" else "●", modeColor, 14)
-                        LabelText(" CLIMB MODE", GlanceModifier.padding(start = 4.dp), fontSize = 12)
-                    }
-
-                    GlanceDivider()
-
                     // Grade + Elevation
                     Row(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight()
@@ -291,7 +277,12 @@ fun ClimbingModeContent(
                         ) {
                             LabelText("GRADE", fontSize = 12)
                             val gradeColor = getGradeColor(grade)
-                            ValueText(gradeDisplay, gradeColor, 24)
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                if (isClimbing) {
+                                    ValueText("▲", gradeColor, 24, GlanceModifier.padding(end = 4.dp))
+                                }
+                                ValueText(gradeDisplay, gradeColor, 36)
+                            }
                         }
 
                         GlanceVerticalDivider(GlanceModifier.padding(vertical = 8.dp))
@@ -303,7 +294,7 @@ fun ClimbingModeContent(
                         ) {
                             LabelText("ELEV+", fontSize = 12)
                             Row(verticalAlignment = Alignment.Bottom) {
-                                ValueText("$elevGain", GlanceColors.White, 20)
+                                ValueText("$elevGain", GlanceColors.White, 28)
                                 LabelText("m", GlanceModifier.padding(start = 2.dp, bottom = 2.dp), fontSize = 12)
                             }
                         }
@@ -322,7 +313,7 @@ fun ClimbingModeContent(
                         ) {
                             LabelText("POWER", fontSize = 12)
                             Row(verticalAlignment = Alignment.Bottom) {
-                                ValueText("${metrics.power}", GlanceColors.White, 20)
+                                ValueText("${metrics.power}", GlanceColors.White, 28)
                                 LabelText("W", GlanceModifier.padding(start = 2.dp, bottom = 2.dp), fontSize = 12)
                             }
                         }
@@ -336,13 +327,13 @@ fun ClimbingModeContent(
                         ) {
                             LabelText("BALANCE", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
                                 val (leftColor, rightColor) = getBalanceColors(metrics)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
-                                    ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 4.dp))
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 16)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 24)
+                                    ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 4.dp))
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 24)
                                 }
                             }
                         }

@@ -47,8 +47,7 @@ fun PowerBalanceContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ValueText("${metrics.power}", GlanceColors.White, 20)
-                        LabelText("W")
+                        ValueText("${metrics.power}", GlanceColors.White, 24)
                     }
                     // Balance (secondary)
                     Column(
@@ -57,16 +56,15 @@ fun PowerBalanceContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
                                 ValueText("/", GlanceColors.Separator, 14)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 16)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 20)
                             }
                         }
-                        LabelText("BAL")
                     }
                 }
             }
@@ -84,7 +82,7 @@ fun PowerBalanceContent(
                     ) {
                         Row(verticalAlignment = Alignment.Bottom) {
                             ValueText("${metrics.power}", GlanceColors.White, 22)
-                            LabelText("W", GlanceModifier.padding(start = 2.dp, bottom = 2.dp))
+                            LabelText("w", GlanceModifier.padding(start = 1.dp, bottom = 3.dp))
                         }
                     }
                     // Balance
@@ -94,16 +92,16 @@ fun PowerBalanceContent(
                     ) {
                         if (noData) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(displayText, GlanceColors.Label, 18)
-                                ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 4.dp))
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 20)
+                                ValueText("/", GlanceColors.Separator, 14)
+                                ValueText(displayText, GlanceColors.Label, 20)
                             }
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 18)
-                                ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 4.dp))
-                                ValueText("${metrics.balance.toInt()}", rightColor, 18)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                                ValueText("/", GlanceColors.Separator, 14)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 20)
                             }
                         }
                     }
@@ -202,8 +200,8 @@ fun PowerBalanceContent(
                     ) {
                         LabelText("POWER", fontSize = 12)
                         Row(verticalAlignment = Alignment.Bottom) {
-                            ValueText("${metrics.power}", GlanceColors.White, 28)
-                            LabelText("W", GlanceModifier.padding(start = 2.dp, bottom = 3.dp), fontSize = 12)
+                            ValueText("${metrics.power}", GlanceColors.White, 34)
+                            LabelText("W", GlanceModifier.padding(start = 2.dp, bottom = 4.dp), fontSize = 12)
                         }
                     }
 
@@ -220,14 +218,14 @@ fun PowerBalanceContent(
                         ) {
                             LabelText("BALANCE", fontSize = 12)
                             if (noData) {
-                                BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 24)
+                                BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 28)
                             } else {
                                 val (leftColor, rightColor) = getBalanceColors(metrics)
                                 BalanceRow(
                                     "${metrics.balanceLeft.toInt()}",
                                     "${metrics.balance.toInt()}",
                                     leftColor, rightColor,
-                                    valueFontSize = 24
+                                    valueFontSize = 28
                                 )
                             }
                         }
@@ -247,45 +245,34 @@ fun PowerBalanceContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         LabelText("POWER", fontSize = 12)
-                        ValueText("${metrics.power}", GlanceColors.White, 28)
+                        Row(verticalAlignment = Alignment.Bottom) {
+                            ValueText("${metrics.power}", GlanceColors.White, 38)
+                            LabelText("W", GlanceModifier.padding(start = 4.dp, bottom = 6.dp), fontSize = 14)
+                        }
                     }
 
                     GlanceDivider()
 
-                    // Balance section with labels
-                    Column(
+                    // Balance section
+                    Box(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalAlignment = Alignment.CenterVertically
+                        contentAlignment = Alignment.Center
                     ) {
-                        LabelText("BALANCE", fontSize = 12)
-                        Row(
-                            modifier = GlanceModifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Column(
-                                modifier = GlanceModifier.defaultWeight(),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                LabelText("L", fontSize = 12)
-                                if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 22)
-                                } else {
-                                    val (leftColor, _) = getBalanceColors(metrics)
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
-                                }
-                            }
-                            Column(
-                                modifier = GlanceModifier.defaultWeight(),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                LabelText("R", fontSize = 12)
-                                if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 22)
-                                } else {
-                                    val (_, rightColor) = getBalanceColors(metrics)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 22)
-                                }
+                            LabelText("BALANCE", fontSize = 12)
+                            if (noData) {
+                                BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 28)
+                            } else {
+                                val (leftColor, rightColor) = getBalanceColors(metrics)
+                                BalanceRow(
+                                    "${metrics.balanceLeft.toInt()}",
+                                    "${metrics.balance.toInt()}",
+                                    leftColor, rightColor,
+                                    valueFontSize = 28
+                                )
                             }
                         }
                     }

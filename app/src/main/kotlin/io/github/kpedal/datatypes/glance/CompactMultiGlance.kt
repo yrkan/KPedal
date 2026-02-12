@@ -45,16 +45,15 @@ fun CompactMultiContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 16)
+                        ValueText(displayText, GlanceColors.Label, 22)
                     } else {
                         val (leftColor, rightColor) = getBalanceColors(metrics)
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
-                            ValueText(":", GlanceColors.Separator, 10)
-                            ValueText("${metrics.balance.toInt()}", rightColor, 16)
+                            ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
+                            ValueText(":", GlanceColors.Separator, 12)
+                            ValueText("${metrics.balance.toInt()}", rightColor, 22)
                         }
                     }
-                    LabelText("BAL")
                 }
             }
             BaseDataType.LayoutSize.SMALL_WIDE -> {
@@ -71,16 +70,15 @@ fun CompactMultiContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                ValueText(":", GlanceColors.Separator, 10)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
+                                ValueText(":", GlanceColors.Separator, 14)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 22)
                             }
                         }
-                        LabelText("BAL")
                     }
                     // TE
                     Column(
@@ -89,11 +87,10 @@ fun CompactMultiContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
-                            ValueText("$teAvg", getTEColor(teAvg.toFloat()), 16)
+                            ValueText("$teAvg", getTEColor(teAvg.toFloat()), 22)
                         }
-                        LabelText("TE")
                     }
                 }
             }
@@ -111,16 +108,15 @@ fun CompactMultiContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                ValueText(":", GlanceColors.Separator, 10)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
+                                ValueText(":", GlanceColors.Separator, 12)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 22)
                             }
                         }
-                        LabelText("BAL", fontSize = 10)
                     }
                     // TE
                     Column(
@@ -129,11 +125,10 @@ fun CompactMultiContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
-                            ValueText("$teAvg", getTEColor(teAvg.toFloat()), 18)
+                            ValueText("$teAvg", getTEColor(teAvg.toFloat()), 24)
                         }
-                        LabelText("TE", fontSize = 10)
                     }
                     // PS
                     Column(
@@ -142,11 +137,10 @@ fun CompactMultiContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
-                            ValueText("$psAvg", getPSColor(psAvg.toFloat()), 18)
+                            ValueText("$psAvg", getPSColor(psAvg.toFloat()), 24)
                         }
-                        LabelText("PS", fontSize = 10)
                     }
                 }
             }
@@ -161,14 +155,14 @@ fun CompactMultiContent(
                         contentAlignment = Alignment.Center
                     ) {
                         if (noData) {
-                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 18)
+                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 24)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             BalanceRow(
                                 "${metrics.balanceLeft.toInt()}",
                                 "${metrics.balance.toInt()}",
                                 leftColor, rightColor,
-                                valueFontSize = 20
+                                valueFontSize = 26
                             )
                         }
                     }
@@ -186,9 +180,9 @@ fun CompactMultiContent(
                         ) {
                             LabelText("TE", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 18)
+                                ValueText("$teAvg", getTEColor(teAvg.toFloat()), 24)
                             }
                         }
                         Column(
@@ -198,9 +192,9 @@ fun CompactMultiContent(
                         ) {
                             LabelText("PS", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 18)
+                                ValueText("$psAvg", getPSColor(psAvg.toFloat()), 24)
                             }
                         }
                     }
@@ -219,13 +213,13 @@ fun CompactMultiContent(
                     ) {
                         LabelText("L / R BALANCE", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 20)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
-                                ValueText(" : ", GlanceColors.Separator, 14)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 22)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 28)
+                                ValueText(" : ", GlanceColors.Separator, 16)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 28)
                             }
                         }
                     }
@@ -243,9 +237,9 @@ fun CompactMultiContent(
                         ) {
                             LabelText("TE L", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 18)
+                                ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 24)
                             }
                         }
 
@@ -258,9 +252,9 @@ fun CompactMultiContent(
                         ) {
                             LabelText("TE R", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 18)
+                                ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 24)
                             }
                         }
                     }
@@ -278,9 +272,9 @@ fun CompactMultiContent(
                         ) {
                             LabelText("PS L", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 18)
+                                ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 24)
                             }
                         }
 
@@ -293,9 +287,9 @@ fun CompactMultiContent(
                         ) {
                             LabelText("PS R", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 18)
+                                ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 24)
                             }
                         }
                     }
@@ -306,30 +300,20 @@ fun CompactMultiContent(
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
-                    // Header
-                    Box(
-                        modifier = GlanceModifier.fillMaxWidth().padding(vertical = 4.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        LabelText("COMPACT MULTI", fontSize = 12)
-                    }
-
-                    GlanceDivider()
-
                     // Balance with visual bar concept (numbers)
                     Box(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
                         contentAlignment = Alignment.Center
                     ) {
                         if (noData) {
-                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 22)
+                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 30)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             BalanceRow(
                                 "${metrics.balanceLeft.toInt()}",
                                 "${metrics.balance.toInt()}",
                                 leftColor, rightColor,
-                                valueFontSize = 24
+                                valueFontSize = 34
                             )
                         }
                     }
@@ -345,11 +329,11 @@ fun CompactMultiContent(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            LabelText("TE LEFT", fontSize = 12)
+                            LabelText("TE L", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 18)
+                                ValueText("${metrics.torqueEffLeft.toInt()}", getTEColor(metrics.torqueEffLeft), 26)
                             }
                         }
 
@@ -360,11 +344,11 @@ fun CompactMultiContent(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            LabelText("TE RIGHT", fontSize = 12)
+                            LabelText("TE R", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 18)
+                                ValueText("${metrics.torqueEffRight.toInt()}", getTEColor(metrics.torqueEffRight), 26)
                             }
                         }
                     }
@@ -380,11 +364,11 @@ fun CompactMultiContent(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            LabelText("PS LEFT", fontSize = 12)
+                            LabelText("PS L", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 18)
+                                ValueText("${metrics.pedalSmoothLeft.toInt()}", getPSColor(metrics.pedalSmoothLeft), 26)
                             }
                         }
 
@@ -395,11 +379,11 @@ fun CompactMultiContent(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            LabelText("PS RIGHT", fontSize = 12)
+                            LabelText("PS R", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             } else {
-                                ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 18)
+                                ValueText("${metrics.pedalSmoothRight.toInt()}", getPSColor(metrics.pedalSmoothRight), 26)
                             }
                         }
                     }

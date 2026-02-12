@@ -1112,7 +1112,7 @@ class SyncService(
             val balanceThreshold = settings.balance_threshold.coerceIn(1, 10)
             val teOptimalMin = settings.te_optimal_min.coerceIn(50, 90)
             val teOptimalMax = settings.te_optimal_max.coerceIn(teOptimalMin, 100)
-            val psMinimum = settings.ps_minimum.coerceIn(10, 40)
+            val psMinimum = settings.ps_minimum.coerceIn(10, 30)
 
             preferencesRepository.updateBalanceThreshold(balanceThreshold)
             preferencesRepository.updateTeOptimalRange(teOptimalMin, teOptimalMax)

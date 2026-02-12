@@ -214,7 +214,7 @@ fun MetricRow(
     leftColor: Color,
     rightColor: Color,
     modifier: GlanceModifier = GlanceModifier,
-    valueFontSize: Int = 16,
+    valueFontSize: Int = 18,
     labelFontSize: Int = 10
 ) {
     Row(
@@ -268,7 +268,7 @@ fun getBalanceColors(metrics: PedalingMetrics): Pair<Color, Color> {
             StatusCalculator.Status.PROBLEM -> GlanceColors.Problem
             else -> GlanceColors.White
         }
-        if (left > 52) {
+        if (metrics.balanceLeft > 50f) {
             Pair(statusColor, GlanceColors.White)
         } else {
             Pair(GlanceColors.White, statusColor)
@@ -424,6 +424,6 @@ fun ZoneChip(
                 .background(color)
         ) {}
         // Value
-        ValueText("$value%", color, 14, GlanceModifier.padding(start = 4.dp))
+        ValueText("$value%", color, 16, GlanceModifier.padding(start = 4.dp))
     }
 }

@@ -70,11 +70,11 @@ fun FatigueIndicatorContent(
                     contentAlignment = Alignment.Center
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 16)
+                        ValueText(displayText, GlanceColors.Label, 18)
                     } else {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            ValueText(fatigueData.icon, fatigueData.color, 18)
-                            ValueText(fatigueData.shortLabel, fatigueData.color, 14, GlanceModifier.padding(start = 4.dp))
+                            ValueText(fatigueData.icon, fatigueData.color, 20)
+                            ValueText(fatigueData.shortLabel, fatigueData.color, 18, GlanceModifier.padding(start = 4.dp))
                         }
                     }
                 }
@@ -87,10 +87,10 @@ fun FatigueIndicatorContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 18)
+                        ValueText(displayText, GlanceColors.Label, 20)
                     } else {
-                        ValueText(fatigueData.icon, fatigueData.color, 20)
-                        ValueText(fatigueData.label, fatigueData.color, 16, GlanceModifier.padding(start = 6.dp))
+                        ValueText(fatigueData.icon, fatigueData.color, 22)
+                        ValueText(fatigueData.label, fatigueData.color, 18, GlanceModifier.padding(start = 6.dp))
                     }
                 }
             }
@@ -102,10 +102,10 @@ fun FatigueIndicatorContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 20)
+                        ValueText(displayText, GlanceColors.Label, 22)
                     } else {
-                        ValueText(fatigueData.icon, fatigueData.color, 24)
-                        ValueText(fatigueData.label, fatigueData.color, 18, GlanceModifier.padding(start = 8.dp))
+                        ValueText(fatigueData.icon, fatigueData.color, 26)
+                        ValueText(fatigueData.label, fatigueData.color, 20, GlanceModifier.padding(start = 8.dp))
                     }
                 }
             }
@@ -121,10 +121,10 @@ fun FatigueIndicatorContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 20)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
-                            ValueText(fatigueData.icon, fatigueData.color, 24)
-                            ValueText(fatigueData.label, fatigueData.color, 14)
+                            ValueText(fatigueData.icon, fatigueData.color, 26)
+                            ValueText(fatigueData.label, fatigueData.color, 18)
                         }
                     }
 
@@ -137,24 +137,24 @@ fun FatigueIndicatorContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 18)
                         } else {
                             // Balance trend
                             val balArrow = getTrendArrow(liveData.balanceTrend)
                             val balColor = getTrendColor(liveData.balanceTrend)
-                            ValueText(balArrow, balColor, 16)
+                            ValueText(balArrow, balColor, 18)
                             LabelText("B", GlanceModifier.padding(start = 2.dp, end = 8.dp))
 
                             // TE trend
                             val teArrow = getTrendArrow(liveData.teTrend)
                             val teColor = getTrendColor(liveData.teTrend)
-                            ValueText(teArrow, teColor, 16)
+                            ValueText(teArrow, teColor, 18)
                             LabelText("T", GlanceModifier.padding(start = 2.dp, end = 8.dp))
 
                             // PS trend
                             val psArrow = getTrendArrow(liveData.psTrend)
                             val psColor = getTrendColor(liveData.psTrend)
-                            ValueText(psArrow, psColor, 16)
+                            ValueText(psArrow, psColor, 18)
                             LabelText("P", GlanceModifier.padding(start = 2.dp))
                         }
                     }
@@ -173,11 +173,11 @@ fun FatigueIndicatorContent(
                     ) {
                         LabelText("FATIGUE", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 24)
+                            ValueText(displayText, GlanceColors.Label, 26)
                         } else {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(fatigueData.icon, fatigueData.color, 28)
-                                ValueText(fatigueData.label, fatigueData.color, 18, GlanceModifier.padding(start = 6.dp))
+                                ValueText(fatigueData.icon, fatigueData.color, 34)
+                                ValueText(fatigueData.label, fatigueData.color, 20, GlanceModifier.padding(start = 6.dp))
                             }
                         }
                     }
@@ -192,11 +192,11 @@ fun FatigueIndicatorContent(
                     ) {
                         LabelText("VS AVERAGE", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val deltaText = formatDelta(fatigueData.efficiencyDelta)
                             val deltaColor = if (fatigueData.efficiencyDelta >= 0) GlanceColors.Optimal else GlanceColors.Attention
-                            ValueText(deltaText, deltaColor, 20)
+                            ValueText(deltaText, deltaColor, 26)
                         }
                     }
                 }
@@ -214,11 +214,11 @@ fun FatigueIndicatorContent(
                     ) {
                         LabelText("FATIGUE LEVEL", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 24)
+                            ValueText(displayText, GlanceColors.Label, 26)
                         } else {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(fatigueData.icon, fatigueData.color, 28)
-                                ValueText(fatigueData.label, fatigueData.color, 18, GlanceModifier.padding(start = 8.dp))
+                                ValueText(fatigueData.icon, fatigueData.color, 34)
+                                ValueText(fatigueData.label, fatigueData.color, 20, GlanceModifier.padding(start = 8.dp))
                             }
                         }
                     }
@@ -237,11 +237,11 @@ fun FatigueIndicatorContent(
                         ) {
                             LabelText("BAL", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 18)
                             } else {
                                 val arrow = getTrendArrow(liveData.balanceTrend)
                                 val color = getTrendColor(liveData.balanceTrend)
-                                ValueText(arrow, color, 18)
+                                ValueText(arrow, color, 24)
                             }
                         }
 
@@ -255,11 +255,11 @@ fun FatigueIndicatorContent(
                         ) {
                             LabelText("TE", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 18)
                             } else {
                                 val arrow = getTrendArrow(liveData.teTrend)
                                 val color = getTrendColor(liveData.teTrend)
-                                ValueText(arrow, color, 18)
+                                ValueText(arrow, color, 24)
                             }
                         }
 
@@ -273,11 +273,11 @@ fun FatigueIndicatorContent(
                         ) {
                             LabelText("PS", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 18)
                             } else {
                                 val arrow = getTrendArrow(liveData.psTrend)
                                 val color = getTrendColor(liveData.psTrend)
-                                ValueText(arrow, color, 18)
+                                ValueText(arrow, color, 24)
                             }
                         }
                     }

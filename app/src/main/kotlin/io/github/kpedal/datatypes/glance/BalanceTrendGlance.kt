@@ -48,19 +48,18 @@ fun BalanceTrendContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        LabelText("BAL")
                         if (noData) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(displayText, GlanceColors.Label, 16)
-                                ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 2.dp))
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 22)
+                                ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 2.dp))
+                                ValueText(displayText, GlanceColors.Label, 22)
                             }
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
-                                ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 2.dp))
-                                ValueText("${metrics.balance.toInt()}", rightColor, 16)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
+                                ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 2.dp))
+                                ValueText("${metrics.balance.toInt()}", rightColor, 22)
                             }
                         }
                     }
@@ -71,10 +70,10 @@ fun BalanceTrendContent(
                         contentAlignment = Alignment.Center
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 18)
                         } else {
                             val (arrow, color) = getTrendIndicator(metrics)
-                            ValueText(arrow, color, 18)
+                            ValueText(arrow, color, 22)
                         }
                     }
                 }
@@ -92,19 +91,18 @@ fun BalanceTrendContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        LabelText("BAL")
                         if (noData) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 22)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 2.dp))
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             }
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 18)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 2.dp))
-                                ValueText("${metrics.balance.toInt()}", rightColor, 18)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 22)
                             }
                         }
                     }
@@ -258,15 +256,15 @@ fun BalanceTrendContent(
                         LabelText("3s AVG", fontSize = 12)
                         if (noData) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 22)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 6.dp))
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             }
                         } else {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balance3sLeft.toInt()}", GlanceColors.White, 18)
+                                ValueText("${metrics.balance3sLeft.toInt()}", GlanceColors.White, 22)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 6.dp))
-                                ValueText("${metrics.balance3s.toInt()}", GlanceColors.White, 18)
+                                ValueText("${metrics.balance3s.toInt()}", GlanceColors.White, 22)
                             }
                         }
                     }
@@ -282,15 +280,15 @@ fun BalanceTrendContent(
                         LabelText("10s AVG", fontSize = 12)
                         if (noData) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 22)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 6.dp))
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 22)
                             }
                         } else {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balance10sLeft.toInt()}", GlanceColors.White, 18)
+                                ValueText("${metrics.balance10sLeft.toInt()}", GlanceColors.White, 22)
                                 ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 6.dp))
-                                ValueText("${metrics.balance10s.toInt()}", GlanceColors.White, 18)
+                                ValueText("${metrics.balance10s.toInt()}", GlanceColors.White, 22)
                             }
                         }
                     }
@@ -309,14 +307,14 @@ fun BalanceTrendContent(
                     ) {
                         LabelText("BALANCE", fontSize = 12)
                         if (noData) {
-                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 22)
+                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 30)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             BalanceRow(
                                 "${metrics.balanceLeft.toInt()}",
                                 "${metrics.balance.toInt()}",
                                 leftColor, rightColor,
-                                valueFontSize = 22
+                                valueFontSize = 30
                             )
                         }
                     }
@@ -336,15 +334,15 @@ fun BalanceTrendContent(
                             LabelText("3s AVG", fontSize = 12)
                             if (noData) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText(displayText, GlanceColors.Label, 16)
-                                    ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 2.dp))
-                                    ValueText(displayText, GlanceColors.Label, 16)
+                                    ValueText(displayText, GlanceColors.Label, 26)
+                                    ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 2.dp))
+                                    ValueText(displayText, GlanceColors.Label, 26)
                                 }
                             } else {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${metrics.balance3sLeft.toInt()}", GlanceColors.White, 16)
-                                    ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 2.dp))
-                                    ValueText("${metrics.balance3s.toInt()}", GlanceColors.White, 16)
+                                    ValueText("${metrics.balance3sLeft.toInt()}", GlanceColors.White, 26)
+                                    ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 2.dp))
+                                    ValueText("${metrics.balance3s.toInt()}", GlanceColors.White, 26)
                                 }
                             }
                         }
@@ -360,15 +358,15 @@ fun BalanceTrendContent(
                             LabelText("10s AVG", fontSize = 12)
                             if (noData) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText(displayText, GlanceColors.Label, 16)
-                                    ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 2.dp))
-                                    ValueText(displayText, GlanceColors.Label, 16)
+                                    ValueText(displayText, GlanceColors.Label, 26)
+                                    ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 2.dp))
+                                    ValueText(displayText, GlanceColors.Label, 26)
                                 }
                             } else {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${metrics.balance10sLeft.toInt()}", GlanceColors.White, 16)
-                                    ValueText("|", GlanceColors.Separator, 12, GlanceModifier.padding(horizontal = 2.dp))
-                                    ValueText("${metrics.balance10s.toInt()}", GlanceColors.White, 16)
+                                    ValueText("${metrics.balance10sLeft.toInt()}", GlanceColors.White, 26)
+                                    ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 2.dp))
+                                    ValueText("${metrics.balance10s.toInt()}", GlanceColors.White, 26)
                                 }
                             }
                         }

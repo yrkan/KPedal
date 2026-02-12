@@ -60,18 +60,17 @@ fun SymmetryIndexContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 18)
+                        ValueText(displayText, GlanceColors.Label, 22)
                     } else {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            ValueText("$symmetry%", symmetryColor, 20)
+                            ValueText("$symmetry%", symmetryColor, 26)
                             if (trend != 0) {
                                 val trendArrow = if (trend > 0) "▲" else "▼"
                                 val trendColor = if (trend > 0) GlanceColors.Optimal else GlanceColors.Attention
-                                ValueText(trendArrow, trendColor, 12, GlanceModifier.padding(start = 2.dp))
+                                ValueText(trendArrow, trendColor, 16, GlanceModifier.padding(start = 2.dp))
                             }
                         }
                     }
-                    LabelText("SYM")
                 }
             }
             BaseDataType.LayoutSize.SMALL_WIDE -> {
@@ -88,18 +87,17 @@ fun SymmetryIndexContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("$symmetry%", symmetryColor, 18)
+                                ValueText("$symmetry%", symmetryColor, 22)
                                 if (trend != 0) {
                                     val trendArrow = if (trend > 0) "▲" else "▼"
                                     val trendColor = if (trend > 0) GlanceColors.Optimal else GlanceColors.Attention
-                                    ValueText(trendArrow, trendColor, 10, GlanceModifier.padding(start = 2.dp))
+                                    ValueText(trendArrow, trendColor, 12, GlanceModifier.padding(start = 2.dp))
                                 }
                             }
                         }
-                        LabelText("SYM")
                     }
                     // Balance
                     Column(
@@ -108,16 +106,15 @@ fun SymmetryIndexContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                ValueText(":", GlanceColors.Separator, 10)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                                ValueText(":", GlanceColors.Separator, 12)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 20)
                             }
                         }
-                        LabelText("L:R")
                     }
                 }
             }
@@ -259,9 +256,9 @@ fun SymmetryIndexContent(
                         ) {
                             LabelText("NOW", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 20)
                             } else {
-                                ValueText("$symmetry%", symmetryColor, 18)
+                                ValueText("$symmetry%", symmetryColor, 22)
                             }
                         }
 
@@ -274,9 +271,9 @@ fun SymmetryIndexContent(
                         ) {
                             LabelText("3s", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 20)
                             } else {
-                                ValueText("$symmetry3s%", getSymmetryColor(symmetry3s), 18)
+                                ValueText("$symmetry3s%", getSymmetryColor(symmetry3s), 22)
                             }
                         }
 
@@ -289,9 +286,9 @@ fun SymmetryIndexContent(
                         ) {
                             LabelText("10s", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 20)
                             } else {
-                                ValueText("$symmetry10s%", getSymmetryColor(symmetry10s), 18)
+                                ValueText("$symmetry10s%", getSymmetryColor(symmetry10s), 22)
                             }
                         }
                     }
@@ -322,22 +319,7 @@ fun SymmetryIndexContent(
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
-                    // Header with quality
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth().padding(vertical = 4.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        LabelText("SYMMETRY INDEX", fontSize = 12)
-                        if (!noData) {
-                            val qualityText = getSymmetryQuality(symmetry)
-                            ValueText(" · $qualityText", symmetryColor, 12, GlanceModifier.padding(start = 4.dp))
-                        }
-                    }
-
-                    GlanceDivider()
-
-                    // Symmetry main display with trend
+                    // Symmetry main display with trend and quality
                     Column(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -355,6 +337,8 @@ fun SymmetryIndexContent(
                                     ValueText(trendArrow, trendColor, 18, GlanceModifier.padding(start = 6.dp))
                                 }
                             }
+                            val qualityText = getSymmetryQuality(symmetry)
+                            LabelText(qualityText, GlanceModifier.padding(top = 2.dp), fontSize = 10)
                         }
                     }
 
@@ -372,9 +356,9 @@ fun SymmetryIndexContent(
                         ) {
                             LabelText("3s AVG", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
-                                ValueText("$symmetry3s%", getSymmetryColor(symmetry3s), 20)
+                                ValueText("$symmetry3s%", getSymmetryColor(symmetry3s), 26)
                             }
                         }
 
@@ -388,9 +372,9 @@ fun SymmetryIndexContent(
                         ) {
                             LabelText("10s AVG", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
-                                ValueText("$symmetry10s%", getSymmetryColor(symmetry10s), 20)
+                                ValueText("$symmetry10s%", getSymmetryColor(symmetry10s), 26)
                             }
                         }
                     }
@@ -407,12 +391,12 @@ fun SymmetryIndexContent(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            LabelText("LEFT", fontSize = 12)
+                            LabelText("L", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
                                 val (leftColor, _) = getBalanceColors(metrics)
-                                ValueText("${metrics.balanceLeft.toInt()}%", leftColor, 18)
+                                ValueText("${metrics.balanceLeft.toInt()}%", leftColor, 24)
                             }
                         }
 
@@ -424,12 +408,12 @@ fun SymmetryIndexContent(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            LabelText("RIGHT", fontSize = 12)
+                            LabelText("R", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
                                 val (_, rightColor) = getBalanceColors(metrics)
-                                ValueText("${metrics.balance.toInt()}%", rightColor, 18)
+                                ValueText("${metrics.balance.toInt()}%", rightColor, 24)
                             }
                         }
                     }

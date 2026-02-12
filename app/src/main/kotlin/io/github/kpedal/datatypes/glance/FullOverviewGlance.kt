@@ -60,9 +60,8 @@ fun FullOverviewContent(
 }
 
 /**
- * SMALL layout: Very compact, horizontal
- * Shows averages only - no L/R split (not enough space)
- * BAL avg | TE avg | PS avg
+ * SMALL layout: Very compact, 2 columns only
+ * BAL as "49/51" + TE avg — no labels, no PS (not enough space)
  */
 @Composable
 private fun FullOverviewSmall(
@@ -77,58 +76,35 @@ private fun FullOverviewSmall(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        // Balance section - show dominant side value only
-        Column(
+        // Balance section - "49/51" format
+        Box(
             modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalAlignment = Alignment.CenterVertically
+            contentAlignment = Alignment.Center
         ) {
             if (noData) {
-                ValueText(displayText, GlanceColors.Label, 14)
+                ValueText(displayText, GlanceColors.Label, 22)
             } else {
-                // Show L|R with colors indicating imbalance
                 val (leftColor, rightColor) = getBalanceColors(metrics)
-                val left = metrics.balanceLeft.toInt()
-                val right = metrics.balance.toInt()
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    ValueText("$left", leftColor, 12)
-                    ValueText("|", GlanceColors.Separator, 10, GlanceModifier.padding(horizontal = 1.dp))
-                    ValueText("$right", rightColor, 12)
+                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                    ValueText("/", GlanceColors.Separator, 14)
+                    ValueText("${metrics.balance.toInt()}", rightColor, 20)
                 }
             }
-            LabelText("BAL")
         }
 
         // TE section
-        Column(
+        Box(
             modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalAlignment = Alignment.CenterVertically
+            contentAlignment = Alignment.Center
         ) {
             if (noData) {
-                ValueText(displayText, GlanceColors.Label, 18)
+                ValueText(displayText, GlanceColors.Label, 22)
             } else {
                 val teAvg = metrics.torqueEffAvg.toInt()
                 val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                ValueText("$teAvg", teColor, 18)
+                ValueText("$teAvg", teColor, 22)
             }
-            LabelText("TE")
-        }
-
-        // PS section
-        Column(
-            modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (noData) {
-                ValueText(displayText, GlanceColors.Label, 18)
-            } else {
-                val psAvg = metrics.pedalSmoothAvg.toInt()
-                val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                ValueText("$psAvg", psColor, 18)
-            }
-            LabelText("PS")
         }
     }
 }
@@ -146,7 +122,7 @@ private fun FullOverviewSmallWide(
     val displayText = if (sensorDisconnected) BaseDataType.SENSOR_DISCONNECTED else BaseDataType.NO_DATA
 
     Row(
-        modifier = GlanceModifier.fillMaxSize().padding(horizontal = 4.dp),
+        modifier = GlanceModifier.fillMaxSize().padding(horizontal = 2.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -156,19 +132,18 @@ private fun FullOverviewSmallWide(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LabelText("BAL")
             if (noData) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    ValueText(displayText, GlanceColors.Label, 18)
-                    ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 4.dp))
-                    ValueText(displayText, GlanceColors.Label, 18)
+                    ValueText(displayText, GlanceColors.Label, 20)
+                    ValueText("/", GlanceColors.Separator, 14)
+                    ValueText(displayText, GlanceColors.Label, 20)
                 }
             } else {
                 val (leftColor, rightColor) = getBalanceColors(metrics)
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 18)
-                    ValueText("|", GlanceColors.Separator, 14, GlanceModifier.padding(horizontal = 4.dp))
-                    ValueText("${metrics.balance.toInt()}", rightColor, 18)
+                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                    ValueText("/", GlanceColors.Separator, 14)
+                    ValueText("${metrics.balance.toInt()}", rightColor, 20)
                 }
             }
         }
@@ -179,13 +154,12 @@ private fun FullOverviewSmallWide(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LabelText("TE")
             if (noData) {
-                ValueText(displayText, GlanceColors.Label, 16)
+                ValueText(displayText, GlanceColors.Label, 22)
             } else {
                 val teAvg = metrics.torqueEffAvg.toInt()
                 val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                ValueText("$teAvg", teColor, 16)
+                ValueText("$teAvg", teColor, 22)
             }
         }
 
@@ -195,13 +169,12 @@ private fun FullOverviewSmallWide(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LabelText("PS")
             if (noData) {
-                ValueText(displayText, GlanceColors.Label, 16)
+                ValueText(displayText, GlanceColors.Label, 22)
             } else {
                 val psAvg = metrics.pedalSmoothAvg.toInt()
                 val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                ValueText("$psAvg", psColor, 16)
+                ValueText("$psAvg", psColor, 22)
             }
         }
     }
@@ -230,19 +203,18 @@ private fun FullOverviewMediumWide(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LabelText("BAL", fontSize = 11)
             if (noData) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    ValueText(displayText, GlanceColors.Label, 20)
+                    ValueText(displayText, GlanceColors.Label, 26)
                     ValueText("|", GlanceColors.Separator, 16, GlanceModifier.padding(horizontal = 6.dp))
-                    ValueText(displayText, GlanceColors.Label, 20)
+                    ValueText(displayText, GlanceColors.Label, 26)
                 }
             } else {
                 val (leftColor, rightColor) = getBalanceColors(metrics)
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 26)
                     ValueText("|", GlanceColors.Separator, 16, GlanceModifier.padding(horizontal = 6.dp))
-                    ValueText("${metrics.balance.toInt()}", rightColor, 20)
+                    ValueText("${metrics.balance.toInt()}", rightColor, 26)
                 }
             }
         }
@@ -253,13 +225,12 @@ private fun FullOverviewMediumWide(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LabelText("TE", fontSize = 11)
             if (noData) {
-                ValueText(displayText, GlanceColors.Label, 18)
+                ValueText(displayText, GlanceColors.Label, 24)
             } else {
                 val teAvg = metrics.torqueEffAvg.toInt()
                 val teColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                ValueText("$teAvg", teColor, 18)
+                ValueText("$teAvg", teColor, 24)
             }
         }
 
@@ -269,13 +240,12 @@ private fun FullOverviewMediumWide(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            LabelText("PS", fontSize = 11)
             if (noData) {
-                ValueText(displayText, GlanceColors.Label, 18)
+                ValueText(displayText, GlanceColors.Label, 24)
             } else {
                 val psAvg = metrics.pedalSmoothAvg.toInt()
                 val psColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                ValueText("$psAvg", psColor, 18)
+                ValueText("$psAvg", psColor, 24)
             }
         }
     }
@@ -304,7 +274,7 @@ private fun FullOverviewMedium(
             contentAlignment = Alignment.Center
         ) {
             if (noData) {
-                MetricRow("BAL", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 18, labelFontSize = 11)
+                MetricRow("BAL", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 24, labelFontSize = 11)
             } else {
                 val (leftColor, rightColor) = getBalanceColors(metrics)
                 MetricRow(
@@ -312,7 +282,7 @@ private fun FullOverviewMedium(
                     "${metrics.balanceLeft.toInt()}",
                     "${metrics.balance.toInt()}",
                     leftColor, rightColor,
-                    valueFontSize = 18,
+                    valueFontSize = 24,
                     labelFontSize = 11
                 )
             }
@@ -326,7 +296,7 @@ private fun FullOverviewMedium(
             contentAlignment = Alignment.Center
         ) {
             if (noData) {
-                MetricRow("TE", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 16, labelFontSize = 11)
+                MetricRow("TE", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 22, labelFontSize = 11)
             } else {
                 val teLColor = getTEColor(metrics.torqueEffLeft)
                 val teRColor = getTEColor(metrics.torqueEffRight)
@@ -335,7 +305,7 @@ private fun FullOverviewMedium(
                     "${metrics.torqueEffLeft.toInt()}",
                     "${metrics.torqueEffRight.toInt()}",
                     teLColor, teRColor,
-                    valueFontSize = 16,
+                    valueFontSize = 22,
                     labelFontSize = 11
                 )
             }
@@ -349,7 +319,7 @@ private fun FullOverviewMedium(
             contentAlignment = Alignment.Center
         ) {
             if (noData) {
-                MetricRow("PS", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 16, labelFontSize = 11)
+                MetricRow("PS", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 22, labelFontSize = 11)
             } else {
                 val psLColor = getPSColor(metrics.pedalSmoothLeft)
                 val psRColor = getPSColor(metrics.pedalSmoothRight)
@@ -358,7 +328,7 @@ private fun FullOverviewMedium(
                     "${metrics.pedalSmoothLeft.toInt()}",
                     "${metrics.pedalSmoothRight.toInt()}",
                     psLColor, psRColor,
-                    valueFontSize = 16,
+                    valueFontSize = 22,
                     labelFontSize = 11
                 )
             }
@@ -389,7 +359,7 @@ private fun FullOverviewNarrow(
             contentAlignment = Alignment.Center
         ) {
             if (noData) {
-                MetricRow("BAL", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 20, labelFontSize = 12)
+                MetricRow("BAL", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 28, labelFontSize = 12)
             } else {
                 val (leftColor, rightColor) = getBalanceColors(metrics)
                 MetricRow(
@@ -397,7 +367,7 @@ private fun FullOverviewNarrow(
                     "${metrics.balanceLeft.toInt()}",
                     "${metrics.balance.toInt()}",
                     leftColor, rightColor,
-                    valueFontSize = 20,
+                    valueFontSize = 28,
                     labelFontSize = 12
                 )
             }
@@ -411,7 +381,7 @@ private fun FullOverviewNarrow(
             contentAlignment = Alignment.Center
         ) {
             if (noData) {
-                MetricRow("TE", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 18, labelFontSize = 12)
+                MetricRow("TE", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 24, labelFontSize = 12)
             } else {
                 val teLColor = getTEColor(metrics.torqueEffLeft)
                 val teRColor = getTEColor(metrics.torqueEffRight)
@@ -420,7 +390,7 @@ private fun FullOverviewNarrow(
                     "${metrics.torqueEffLeft.toInt()}",
                     "${metrics.torqueEffRight.toInt()}",
                     teLColor, teRColor,
-                    valueFontSize = 18,
+                    valueFontSize = 24,
                     labelFontSize = 12
                 )
             }
@@ -434,7 +404,7 @@ private fun FullOverviewNarrow(
             contentAlignment = Alignment.Center
         ) {
             if (noData) {
-                MetricRow("PS", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 18, labelFontSize = 12)
+                MetricRow("PS", displayText, displayText, GlanceColors.White, GlanceColors.White, valueFontSize = 24, labelFontSize = 12)
             } else {
                 val psLColor = getPSColor(metrics.pedalSmoothLeft)
                 val psRColor = getPSColor(metrics.pedalSmoothRight)
@@ -443,7 +413,7 @@ private fun FullOverviewNarrow(
                     "${metrics.pedalSmoothLeft.toInt()}",
                     "${metrics.pedalSmoothRight.toInt()}",
                     psLColor, psRColor,
-                    valueFontSize = 18,
+                    valueFontSize = 24,
                     labelFontSize = 12
                 )
             }
@@ -473,10 +443,9 @@ private fun FullOverviewLarge(
             modifier = GlanceModifier.fillMaxWidth().defaultWeight().padding(horizontal = 4.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LabelText("BALANCE", fontSize = 12)
             if (noData) {
                 BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label,
-                    GlanceModifier.fillMaxSize(), valueFontSize = 22)
+                    GlanceModifier.fillMaxSize(), valueFontSize = 32)
             } else {
                 val (leftColor, rightColor) = getBalanceColors(metrics)
                 BalanceRow(
@@ -484,7 +453,7 @@ private fun FullOverviewLarge(
                     "${metrics.balance.toInt()}",
                     leftColor, rightColor,
                     GlanceModifier.fillMaxSize(),
-                    valueFontSize = 22
+                    valueFontSize = 32
                 )
             }
         }
@@ -502,11 +471,11 @@ private fun FullOverviewLarge(
             ) {
                 LabelText("TE", fontSize = 12)
                 if (noData) {
-                    ValueText(displayText, GlanceColors.Label, 12)
+                    ValueText(displayText, GlanceColors.Label, 22)
                 } else {
                     val teAvg = metrics.torqueEffAvg.toInt()
                     val teAvgColor = getStatusColor(StatusCalculator.teStatus(metrics.torqueEffAvg))
-                    ValueText("$teAvg", teAvgColor, 12)
+                    ValueText("$teAvg", teAvgColor, 22)
                 }
             }
 
@@ -518,11 +487,11 @@ private fun FullOverviewLarge(
                 if (noData) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(modifier = GlanceModifier.defaultWeight().padding(end = 8.dp), contentAlignment = Alignment.CenterEnd) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 26)
                         }
-                        GlanceVerticalDivider(height = 20)
+                        GlanceVerticalDivider(height = 22)
                         Box(modifier = GlanceModifier.defaultWeight().padding(start = 8.dp), contentAlignment = Alignment.CenterStart) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 26)
                         }
                     }
                 } else {
@@ -530,11 +499,11 @@ private fun FullOverviewLarge(
                     val teRColor = getTEColor(metrics.torqueEffRight)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(modifier = GlanceModifier.defaultWeight().padding(end = 8.dp), contentAlignment = Alignment.CenterEnd) {
-                            ValueText("${metrics.torqueEffLeft.toInt()}", teLColor, 18)
+                            ValueText("${metrics.torqueEffLeft.toInt()}", teLColor, 26)
                         }
-                        GlanceVerticalDivider(height = 20)
+                        GlanceVerticalDivider(height = 22)
                         Box(modifier = GlanceModifier.defaultWeight().padding(start = 8.dp), contentAlignment = Alignment.CenterStart) {
-                            ValueText("${metrics.torqueEffRight.toInt()}", teRColor, 18)
+                            ValueText("${metrics.torqueEffRight.toInt()}", teRColor, 26)
                         }
                     }
                 }
@@ -554,11 +523,11 @@ private fun FullOverviewLarge(
             ) {
                 LabelText("PS", fontSize = 12)
                 if (noData) {
-                    ValueText(displayText, GlanceColors.Label, 12)
+                    ValueText(displayText, GlanceColors.Label, 22)
                 } else {
                     val psAvg = metrics.pedalSmoothAvg.toInt()
                     val psAvgColor = getStatusColor(StatusCalculator.psStatus(metrics.pedalSmoothAvg))
-                    ValueText("$psAvg", psAvgColor, 12)
+                    ValueText("$psAvg", psAvgColor, 22)
                 }
             }
 
@@ -570,11 +539,11 @@ private fun FullOverviewLarge(
                 if (noData) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(modifier = GlanceModifier.defaultWeight().padding(end = 8.dp), contentAlignment = Alignment.CenterEnd) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 26)
                         }
-                        GlanceVerticalDivider(height = 20)
+                        GlanceVerticalDivider(height = 22)
                         Box(modifier = GlanceModifier.defaultWeight().padding(start = 8.dp), contentAlignment = Alignment.CenterStart) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 26)
                         }
                     }
                 } else {
@@ -582,11 +551,11 @@ private fun FullOverviewLarge(
                     val psRColor = getPSColor(metrics.pedalSmoothRight)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(modifier = GlanceModifier.defaultWeight().padding(end = 8.dp), contentAlignment = Alignment.CenterEnd) {
-                            ValueText("${metrics.pedalSmoothLeft.toInt()}", psLColor, 18)
+                            ValueText("${metrics.pedalSmoothLeft.toInt()}", psLColor, 26)
                         }
-                        GlanceVerticalDivider(height = 20)
+                        GlanceVerticalDivider(height = 22)
                         Box(modifier = GlanceModifier.defaultWeight().padding(start = 8.dp), contentAlignment = Alignment.CenterStart) {
-                            ValueText("${metrics.pedalSmoothRight.toInt()}", psRColor, 18)
+                            ValueText("${metrics.pedalSmoothRight.toInt()}", psRColor, 26)
                         }
                     }
                 }

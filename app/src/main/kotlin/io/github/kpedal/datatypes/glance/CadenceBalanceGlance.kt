@@ -48,8 +48,7 @@ fun CadenceBalanceContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ValueText("${metrics.cadence}", GlanceColors.White, 18)
-                        LabelText("RPM")
+                        ValueText("${metrics.cadence}", GlanceColors.White, 24)
                     }
                     // Balance
                     Column(
@@ -58,16 +57,15 @@ fun CadenceBalanceContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                ValueText(":", GlanceColors.Separator, 12)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                                ValueText(":", GlanceColors.Separator, 14)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 20)
                             }
                         }
-                        LabelText("BAL")
                     }
                 }
             }
@@ -234,7 +232,7 @@ fun CadenceBalanceContent(
                     ) {
                         LabelText("CADENCE", fontSize = 12)
                         Row(verticalAlignment = Alignment.Bottom) {
-                            ValueText("${metrics.cadence}", getCadenceColor(metrics.cadence), 28)
+                            ValueText("${metrics.cadence}", getCadenceColor(metrics.cadence), 34)
                             LabelText("rpm", GlanceModifier.padding(start = 4.dp, bottom = 4.dp), fontSize = 12)
                         }
                     }
@@ -258,10 +256,10 @@ fun CadenceBalanceContent(
                             ) {
                                 LabelText("L", fontSize = 12)
                                 if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 20)
+                                    ValueText(displayText, GlanceColors.Label, 26)
                                 } else {
                                     val (leftColor, _) = getBalanceColors(metrics)
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 26)
                                 }
                             }
                             Column(
@@ -270,10 +268,10 @@ fun CadenceBalanceContent(
                             ) {
                                 LabelText("R", fontSize = 12)
                                 if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 20)
+                                    ValueText(displayText, GlanceColors.Label, 26)
                                 } else {
                                     val (_, rightColor) = getBalanceColors(metrics)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 20)
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 26)
                                 }
                             }
                         }

@@ -47,12 +47,11 @@ fun LeftLegContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 18)
+                        ValueText(displayText, GlanceColors.Label, 22)
                     } else {
                         val color = getLeftBalanceColor(balanceLeft)
-                        ValueText("$balanceLeft%", color, 20)
+                        ValueText("$balanceLeft%", color, 26)
                     }
-                    LabelText("L")
                 }
             }
             BaseDataType.LayoutSize.SMALL_WIDE -> {
@@ -69,12 +68,11 @@ fun LeftLegContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val color = getLeftBalanceColor(balanceLeft)
-                            ValueText("$balanceLeft%", color, 18)
+                            ValueText("$balanceLeft%", color, 22)
                         }
-                        LabelText("BAL")
                     }
                     // TE
                     Column(
@@ -83,11 +81,10 @@ fun LeftLegContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
-                            ValueText("$teLeft", getTEColor(teLeft.toFloat()), 18)
+                            ValueText("$teLeft", getTEColor(teLeft.toFloat()), 22)
                         }
-                        LabelText("TE")
                     }
                 }
             }
@@ -272,10 +269,10 @@ fun LeftLegContent(
                     ) {
                         LabelText("BALANCE", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 26)
+                            ValueText(displayText, GlanceColors.Label, 32)
                         } else {
                             val color = getLeftBalanceColor(balanceLeft)
-                            ValueText("$balanceLeft%", color, 28)
+                            ValueText("$balanceLeft%", color, 34)
                         }
                     }
 
@@ -292,9 +289,9 @@ fun LeftLegContent(
                         ) {
                             LabelText("TE", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 26)
                             } else {
-                                ValueText("$teLeft", getTEColor(teLeft.toFloat()), 20)
+                                ValueText("$teLeft", getTEColor(teLeft.toFloat()), 28)
                             }
                         }
 
@@ -307,9 +304,9 @@ fun LeftLegContent(
                         ) {
                             LabelText("PS", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 18)
+                                ValueText(displayText, GlanceColors.Label, 26)
                             } else {
-                                ValueText("$psLeft", getPSColor(psLeft.toFloat()), 20)
+                                ValueText("$psLeft", getPSColor(psLeft.toFloat()), 28)
                             }
                         }
                     }

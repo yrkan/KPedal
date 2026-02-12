@@ -43,12 +43,12 @@ fun QuickGlanceContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText("!", GlanceColors.Attention, 20)
-                        ValueText(displayText, GlanceColors.Label, 16, GlanceModifier.padding(start = 4.dp))
+                        ValueText("!", GlanceColors.Attention, 22)
+                        ValueText(displayText, GlanceColors.Label, 18, GlanceModifier.padding(start = 4.dp))
                     } else {
                         val (icon, iconColor, statusText, statusColor) = getStatusInfo(metrics)
-                        ValueText(icon, iconColor, 20)
-                        ValueText(statusText, statusColor, 14, GlanceModifier.padding(start = 4.dp))
+                        ValueText(icon, iconColor, 22)
+                        ValueText(statusText, statusColor, 18, GlanceModifier.padding(start = 4.dp))
                     }
                 }
             }
@@ -60,12 +60,12 @@ fun QuickGlanceContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText("!", GlanceColors.Attention, 22)
-                        ValueText(displayText, GlanceColors.Label, 18, GlanceModifier.padding(start = 6.dp))
+                        ValueText("!", GlanceColors.Attention, 24)
+                        ValueText(displayText, GlanceColors.Label, 20, GlanceModifier.padding(start = 6.dp))
                     } else {
                         val (icon, iconColor, statusText, statusColor) = getStatusInfo(metrics)
-                        ValueText(icon, iconColor, 22)
-                        ValueText(statusText, statusColor, 16, GlanceModifier.padding(start = 6.dp))
+                        ValueText(icon, iconColor, 24)
+                        ValueText(statusText, statusColor, 18, GlanceModifier.padding(start = 6.dp))
                     }
                 }
             }
@@ -77,12 +77,12 @@ fun QuickGlanceContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if (noData) {
-                        ValueText("!", GlanceColors.Attention, 24)
-                        ValueText(displayText, GlanceColors.Label, 20, GlanceModifier.padding(start = 8.dp))
+                        ValueText("!", GlanceColors.Attention, 26)
+                        ValueText(displayText, GlanceColors.Label, 22, GlanceModifier.padding(start = 8.dp))
                     } else {
                         val (icon, iconColor, statusText, statusColor) = getStatusInfo(metrics)
-                        ValueText(icon, iconColor, 24)
-                        ValueText(statusText, statusColor, 18, GlanceModifier.padding(start = 8.dp))
+                        ValueText(icon, iconColor, 26)
+                        ValueText(statusText, statusColor, 20, GlanceModifier.padding(start = 8.dp))
                     }
                 }
             }
@@ -99,12 +99,12 @@ fun QuickGlanceContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText("!", GlanceColors.Attention, 24)
-                            ValueText(displayText, GlanceColors.Label, 16, GlanceModifier.padding(start = 4.dp))
+                            ValueText("!", GlanceColors.Attention, 26)
+                            ValueText(displayText, GlanceColors.Label, 18, GlanceModifier.padding(start = 4.dp))
                         } else {
                             val (icon, iconColor, statusText, statusColor) = getStatusInfo(metrics)
-                            ValueText(icon, iconColor, 24)
-                            ValueText(statusText, statusColor, 14, GlanceModifier.padding(start = 4.dp))
+                            ValueText(icon, iconColor, 26)
+                            ValueText(statusText, statusColor, 18, GlanceModifier.padding(start = 4.dp))
                         }
                     }
 
@@ -117,14 +117,14 @@ fun QuickGlanceContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 20)
+                            ValueText(displayText, GlanceColors.Label, 26)
                             ValueText("|", GlanceColors.Separator, 16, GlanceModifier.padding(horizontal = 4.dp))
-                            ValueText(displayText, GlanceColors.Label, 20)
+                            ValueText(displayText, GlanceColors.Label, 26)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
-                            ValueText("${metrics.balanceLeft.toInt()}", leftColor, 20)
+                            ValueText("${metrics.balanceLeft.toInt()}", leftColor, 26)
                             ValueText("|", GlanceColors.Separator, 16, GlanceModifier.padding(horizontal = 4.dp))
-                            ValueText("${metrics.balance.toInt()}", rightColor, 20)
+                            ValueText("${metrics.balance.toInt()}", rightColor, 26)
                         }
                     }
                 }
@@ -142,12 +142,12 @@ fun QuickGlanceContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText("!", GlanceColors.Attention, 28)
-                            ValueText(displayText, GlanceColors.Label, 18, GlanceModifier.padding(start = 6.dp))
+                            ValueText("!", GlanceColors.Attention, 30)
+                            ValueText(displayText, GlanceColors.Label, 20, GlanceModifier.padding(start = 6.dp))
                         } else {
                             val (icon, iconColor, statusText, statusColor) = getStatusInfo(metrics)
-                            ValueText(icon, iconColor, 28)
-                            ValueText(statusText, statusColor, 16, GlanceModifier.padding(start = 6.dp))
+                            ValueText(icon, iconColor, 30)
+                            ValueText(statusText, statusColor, 18, GlanceModifier.padding(start = 6.dp))
                         }
                     }
 
@@ -170,10 +170,10 @@ fun QuickGlanceContent(
                             ) {
                                 LabelText("L", fontSize = 12)
                                 if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 24)
+                                    ValueText(displayText, GlanceColors.Label, 30)
                                 } else {
                                     val (leftColor, _) = getBalanceColors(metrics)
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 24)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 30)
                                 }
                             }
                             Column(
@@ -182,10 +182,10 @@ fun QuickGlanceContent(
                             ) {
                                 LabelText("R", fontSize = 12)
                                 if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 24)
+                                    ValueText(displayText, GlanceColors.Label, 30)
                                 } else {
                                     val (_, rightColor) = getBalanceColors(metrics)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 24)
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 30)
                                 }
                             }
                         }
@@ -205,12 +205,12 @@ fun QuickGlanceContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText("!", GlanceColors.Attention, 28)
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText("!", GlanceColors.Attention, 30)
+                            ValueText(displayText, GlanceColors.Label, 18)
                         } else {
                             val (icon, iconColor, statusText, statusColor) = getStatusInfo(metrics)
-                            ValueText(icon, iconColor, 28)
-                            ValueText(statusText, statusColor, 14)
+                            ValueText(icon, iconColor, 30)
+                            ValueText(statusText, statusColor, 18)
                         }
                     }
 
@@ -233,10 +233,10 @@ fun QuickGlanceContent(
                             ) {
                                 LabelText("L", fontSize = 12)
                                 if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 22)
+                                    ValueText(displayText, GlanceColors.Label, 28)
                                 } else {
                                     val (leftColor, _) = getBalanceColors(metrics)
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 28)
                                 }
                             }
                             Column(
@@ -245,10 +245,10 @@ fun QuickGlanceContent(
                             ) {
                                 LabelText("R", fontSize = 12)
                                 if (noData) {
-                                    ValueText(displayText, GlanceColors.Label, 22)
+                                    ValueText(displayText, GlanceColors.Label, 28)
                                 } else {
                                     val (_, rightColor) = getBalanceColors(metrics)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 22)
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 28)
                                 }
                             }
                         }

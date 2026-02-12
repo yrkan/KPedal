@@ -111,13 +111,13 @@ fun SprintModeContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 16)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                ValueText(":", GlanceColors.Separator, 10)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
+                                ValueText(":", GlanceColors.Separator, 12)
+                                ValueText("${metrics.balance.toInt()}", rightColor, 16)
                             }
                         }
                         LabelText("BAL", fontSize = 10)
@@ -162,13 +162,13 @@ fun SprintModeContent(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 16)
                             } else {
                                 val (leftColor, rightColor) = getBalanceColors(metrics)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                    ValueText(":", GlanceColors.Separator, 10)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 16)
+                                    ValueText(":", GlanceColors.Separator, 12)
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 16)
                                 }
                             }
                             LabelText("BAL", fontSize = 11)
@@ -208,7 +208,7 @@ fun SprintModeContent(
                         ) {
                             LabelText("CAD", fontSize = 12)
                             Row(verticalAlignment = Alignment.Bottom) {
-                                ValueText("$cadence", getCadenceSprintColor(cadence), 20)
+                                ValueText("$cadence", getCadenceSprintColor(cadence), 24)
                             }
                         }
 
@@ -222,7 +222,7 @@ fun SprintModeContent(
                         ) {
                             LabelText("GRADE", fontSize = 12)
                             val gradeDisplay = if (grade >= 0) "+${grade.toInt()}%" else "${grade.toInt()}%"
-                            ValueText(gradeDisplay, getGradeSprintColor(grade), 18)
+                            ValueText(gradeDisplay, getGradeSprintColor(grade), 22)
                         }
                     }
 
@@ -234,14 +234,14 @@ fun SprintModeContent(
                         contentAlignment = Alignment.Center
                     ) {
                         if (noData) {
-                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 18)
+                            BalanceRow(displayText, displayText, GlanceColors.Label, GlanceColors.Label, valueFontSize = 22)
                         } else {
                             val (leftColor, rightColor) = getBalanceColors(metrics)
                             BalanceRow(
                                 "${metrics.balanceLeft.toInt()}",
                                 "${metrics.balance.toInt()}",
                                 leftColor, rightColor,
-                                valueFontSize = 20
+                                valueFontSize = 24
                             )
                         }
                     }
@@ -252,27 +252,16 @@ fun SprintModeContent(
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
-                    // Header with sprint indicator
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth().padding(vertical = 4.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        val isHighPower = power > 300
-                        val indicatorColor = if (isHighPower) GlanceColors.Problem else GlanceColors.Label
-                        ValueText("●", indicatorColor, 12)
-                        LabelText(" SPRINT MODE", GlanceModifier.padding(start = 4.dp), fontSize = 12)
-                    }
-
-                    GlanceDivider()
-
-                    // Power - maximum size
+                    // Power - maximum size with sprint indicator inline
                     Column(
                         modifier = GlanceModifier.fillMaxWidth().defaultWeight(),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Row(verticalAlignment = Alignment.Bottom) {
+                            val isHighPower = power > 300
+                            val indicatorColor = if (isHighPower) GlanceColors.Problem else GlanceColors.Label
+                            ValueText("●", indicatorColor, 14, GlanceModifier.padding(end = 4.dp, bottom = 8.dp))
                             ValueText("$power", GlanceColors.White, 40)
                             LabelText("W", GlanceModifier.padding(start = 4.dp, bottom = 8.dp), fontSize = 16)
                         }
@@ -291,7 +280,7 @@ fun SprintModeContent(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             LabelText("CAD", fontSize = 12)
-                            ValueText("$cadence", getCadenceSprintColor(cadence), 18)
+                            ValueText("$cadence", getCadenceSprintColor(cadence), 26)
                         }
 
                         GlanceVerticalDivider(GlanceModifier.padding(vertical = 8.dp))
@@ -304,13 +293,13 @@ fun SprintModeContent(
                         ) {
                             LabelText("BAL", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 14)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
                                 val (leftColor, rightColor) = getBalanceColors(metrics)
                                 Row(verticalAlignment = Alignment.CenterVertically) {
-                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 14)
-                                    ValueText(":", GlanceColors.Separator, 10)
-                                    ValueText("${metrics.balance.toInt()}", rightColor, 14)
+                                    ValueText("${metrics.balanceLeft.toInt()}", leftColor, 24)
+                                    ValueText(":", GlanceColors.Separator, 14)
+                                    ValueText("${metrics.balance.toInt()}", rightColor, 24)
                                 }
                             }
                         }
@@ -325,7 +314,7 @@ fun SprintModeContent(
                         ) {
                             LabelText("GRADE", fontSize = 12)
                             val gradeDisplay = if (grade >= 0) "+${grade.toInt()}%" else "${grade.toInt()}%"
-                            ValueText(gradeDisplay, getGradeSprintColor(grade), 16)
+                            ValueText(gradeDisplay, getGradeSprintColor(grade), 24)
                         }
                     }
                 }

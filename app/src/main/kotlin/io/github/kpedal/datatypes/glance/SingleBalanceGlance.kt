@@ -57,22 +57,21 @@ fun SingleBalanceContent(
                 }
             }
             BaseDataType.LayoutSize.SMALL_WIDE -> {
-                // Horizontal: BAL label + L | R
+                // Horizontal: L | R
                 Row(
                     modifier = GlanceModifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    LabelText("BAL", GlanceModifier.padding(end = 8.dp))
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 22)
+                        ValueText(displayText, GlanceColors.Label, 24)
                         ValueText("|", GlanceColors.Separator, 16, GlanceModifier.padding(horizontal = 4.dp))
-                        ValueText(displayText, GlanceColors.Label, 22)
+                        ValueText(displayText, GlanceColors.Label, 24)
                     } else {
                         val (leftColor, rightColor) = getBalanceColors(metrics)
-                        ValueText("${metrics.balanceLeft.toInt()}", leftColor, 22)
+                        ValueText("${metrics.balanceLeft.toInt()}", leftColor, 24)
                         ValueText("|", GlanceColors.Separator, 16, GlanceModifier.padding(horizontal = 4.dp))
-                        ValueText("${metrics.balance.toInt()}", rightColor, 22)
+                        ValueText("${metrics.balance.toInt()}", rightColor, 24)
                     }
                 }
             }
@@ -83,16 +82,15 @@ fun SingleBalanceContent(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    LabelText("BAL", GlanceModifier.padding(end = 8.dp), fontSize = 11)
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 24)
+                        ValueText(displayText, GlanceColors.Label, 26)
                         ValueText("|", GlanceColors.Separator, 18, GlanceModifier.padding(horizontal = 6.dp))
-                        ValueText(displayText, GlanceColors.Label, 24)
+                        ValueText(displayText, GlanceColors.Label, 26)
                     } else {
                         val (leftColor, rightColor) = getBalanceColors(metrics)
-                        ValueText("${metrics.balanceLeft.toInt()}", leftColor, 24)
+                        ValueText("${metrics.balanceLeft.toInt()}", leftColor, 26)
                         ValueText("|", GlanceColors.Separator, 18, GlanceModifier.padding(horizontal = 6.dp))
-                        ValueText("${metrics.balance.toInt()}", rightColor, 24)
+                        ValueText("${metrics.balance.toInt()}", rightColor, 26)
                     }
                 }
             }
@@ -138,88 +136,68 @@ fun SingleBalanceContent(
                 }
             }
             BaseDataType.LayoutSize.NARROW -> {
-                // Narrow: more vertical space - larger values
-                Column(
+                // Narrow: big values, centered
+                Row(
                     modifier = GlanceModifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    LabelText("BALANCE", fontSize = 12)
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth().padding(top = 8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                    // Left
+                    Box(
+                        modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
+                        contentAlignment = Alignment.Center
                     ) {
-                        // Left
-                        Column(
-                            modifier = GlanceModifier.defaultWeight(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            LabelText("L", fontSize = 12)
-                            if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 28)
-                            } else {
-                                val (leftColor, _) = getBalanceColors(metrics)
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 28)
-                            }
+                        if (noData) {
+                            ValueText(displayText, GlanceColors.Label, 36)
+                        } else {
+                            val (leftColor, _) = getBalanceColors(metrics)
+                            ValueText("${metrics.balanceLeft.toInt()}", leftColor, 36)
                         }
-                        // Right
-                        Column(
-                            modifier = GlanceModifier.defaultWeight(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            LabelText("R", fontSize = 12)
-                            if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 28)
-                            } else {
-                                val (_, rightColor) = getBalanceColors(metrics)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 28)
-                            }
+                    }
+                    // Right
+                    Box(
+                        modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        if (noData) {
+                            ValueText(displayText, GlanceColors.Label, 36)
+                        } else {
+                            val (_, rightColor) = getBalanceColors(metrics)
+                            ValueText("${metrics.balance.toInt()}", rightColor, 36)
                         }
                     }
                 }
             }
             BaseDataType.LayoutSize.LARGE -> {
-                // Large: full layout with header and large values
-                Column(
+                // Large: big values, max readability
+                Row(
                     modifier = GlanceModifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    LabelText("BALANCE", fontSize = 12)
-                    Row(
-                        modifier = GlanceModifier.fillMaxWidth().defaultWeight().padding(top = 4.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                    // Left
+                    Box(
+                        modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
+                        contentAlignment = Alignment.Center
                     ) {
-                        // Left
-                        Column(
-                            modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            LabelText("LEFT", fontSize = 12)
-                            if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 32)
-                            } else {
-                                val (leftColor, _) = getBalanceColors(metrics)
-                                ValueText("${metrics.balanceLeft.toInt()}", leftColor, 32)
-                            }
+                        if (noData) {
+                            ValueText(displayText, GlanceColors.Label, 48)
+                        } else {
+                            val (leftColor, _) = getBalanceColors(metrics)
+                            ValueText("${metrics.balanceLeft.toInt()}", leftColor, 48)
                         }
+                    }
 
-                        GlanceVerticalDivider(GlanceModifier.padding(vertical = 8.dp), height = 28)
-
-                        // Right
-                        Column(
-                            modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            LabelText("RIGHT", fontSize = 12)
-                            if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 32)
-                            } else {
-                                val (_, rightColor) = getBalanceColors(metrics)
-                                ValueText("${metrics.balance.toInt()}", rightColor, 32)
-                            }
+                    // Right
+                    Box(
+                        modifier = GlanceModifier.defaultWeight().fillMaxHeight(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        if (noData) {
+                            ValueText(displayText, GlanceColors.Label, 48)
+                        } else {
+                            val (_, rightColor) = getBalanceColors(metrics)
+                            ValueText("${metrics.balance.toInt()}", rightColor, 48)
                         }
                     }
                 }

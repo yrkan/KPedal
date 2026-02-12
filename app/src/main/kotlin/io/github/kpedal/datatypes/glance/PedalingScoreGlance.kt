@@ -219,14 +219,13 @@ fun PedalingScoreContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        LabelText("PEDALING SCORE", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 28)
+                            ValueText(displayText, GlanceColors.Label, 34)
                         } else {
                             val scoreColor = getScoreColor(liveData.score)
                             Row(verticalAlignment = Alignment.Bottom) {
-                                ValueText("${liveData.score}", scoreColor, 32)
-                                LabelText("/100", GlanceModifier.padding(start = 4.dp, bottom = 4.dp), fontSize = 12)
+                                ValueText("${liveData.score}", scoreColor, 38)
+                                LabelText("/100", GlanceModifier.padding(start = 4.dp, bottom = 6.dp), fontSize = 14)
                             }
                         }
                     }
@@ -245,7 +244,7 @@ fun PedalingScoreContent(
                         ) {
                             LabelText("BAL", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
                                 val imbalance = kotlin.math.abs(liveData.balanceLeft - liveData.balanceRight)
                                 val balanceScore = when {
@@ -254,7 +253,7 @@ fun PedalingScoreContent(
                                     imbalance <= 16 -> 60
                                     else -> 40
                                 }
-                                ValueText("$balanceScore", getScoreColor(balanceScore), 18)
+                                ValueText("$balanceScore", getScoreColor(balanceScore), 26)
                             }
                         }
 
@@ -268,7 +267,7 @@ fun PedalingScoreContent(
                         ) {
                             LabelText("EFF", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
                                 val teAvg = (liveData.teLeft + liveData.teRight) / 2
                                 val teScore = when {
@@ -277,7 +276,7 @@ fun PedalingScoreContent(
                                     teAvg >= 50 -> 60
                                     else -> 40
                                 }
-                                ValueText("$teScore", getScoreColor(teScore), 18)
+                                ValueText("$teScore", getScoreColor(teScore), 26)
                             }
                         }
 
@@ -291,9 +290,9 @@ fun PedalingScoreContent(
                         ) {
                             LabelText("ZONE", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 24)
                             } else {
-                                ValueText("${liveData.zoneOptimal}", getScoreColor(liveData.zoneOptimal), 18)
+                                ValueText("${liveData.zoneOptimal}", getScoreColor(liveData.zoneOptimal), 26)
                             }
                         }
                     }

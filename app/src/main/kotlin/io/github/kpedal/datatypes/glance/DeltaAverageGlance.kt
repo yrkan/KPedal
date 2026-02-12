@@ -68,13 +68,12 @@ fun DeltaAverageContent(
                     contentAlignment = Alignment.Center
                 ) {
                     if (noData) {
-                        ValueText(displayText, GlanceColors.Label, 16)
+                        ValueText(displayText, GlanceColors.Label, 18)
                     } else {
                         val avgDelta = (teDelta + psDelta) / 2
                         val (text, color) = formatDeltaWithColor(avgDelta)
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            ValueText(text, color, 18)
-                            LabelText("AVG")
+                            ValueText(text, color, 24)
                         }
                     }
                 }
@@ -93,12 +92,11 @@ fun DeltaAverageContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 18)
                         } else {
                             val (text, color) = formatDeltaWithColor(teDelta)
-                            ValueText(text, color, 16)
+                            ValueText(text, color, 22)
                         }
-                        LabelText("TE")
                     }
                     // PS delta
                     Column(
@@ -107,12 +105,11 @@ fun DeltaAverageContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 16)
+                            ValueText(displayText, GlanceColors.Label, 18)
                         } else {
                             val (text, color) = formatDeltaWithColor(psDelta)
-                            ValueText(text, color, 16)
+                            ValueText(text, color, 22)
                         }
-                        LabelText("PS")
                     }
                 }
             }
@@ -129,12 +126,11 @@ fun DeltaAverageContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        LabelText("TE", fontSize = 11)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val (text, color) = formatDeltaWithColor(teDelta)
-                            ValueText(text, color, 20)
+                            ValueText(text, color, 26)
                         }
                     }
                     // PS delta
@@ -143,12 +139,11 @@ fun DeltaAverageContent(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        LabelText("PS", fontSize = 11)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val (text, color) = formatDeltaWithColor(psDelta)
-                            ValueText(text, color, 20)
+                            ValueText(text, color, 26)
                         }
                     }
                 }
@@ -166,11 +161,11 @@ fun DeltaAverageContent(
                     ) {
                         LabelText("BAL", fontSize = 11)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 20)
+                            ValueText(displayText, GlanceColors.Label, 22)
                         } else {
                             // For balance, closer to 0 is better (less imbalance delta)
                             val (text, color) = formatBalanceDeltaWithColor(balanceDelta)
-                            ValueText(text, color, 22)
+                            ValueText(text, color, 28)
                         }
                     }
 
@@ -187,10 +182,10 @@ fun DeltaAverageContent(
                         ) {
                             LabelText("TE", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 18)
                             } else {
                                 val (text, color) = formatDeltaWithColor(teDelta)
-                                ValueText(text, color, 18)
+                                ValueText(text, color, 24)
                             }
                         }
                         Column(
@@ -200,10 +195,10 @@ fun DeltaAverageContent(
                         ) {
                             LabelText("PS", fontSize = 11)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 18)
                             } else {
                                 val (text, color) = formatDeltaWithColor(psDelta)
-                                ValueText(text, color, 18)
+                                ValueText(text, color, 24)
                             }
                         }
                     }
@@ -222,10 +217,10 @@ fun DeltaAverageContent(
                     ) {
                         LabelText("BAL vs AVG", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 22)
+                            ValueText(displayText, GlanceColors.Label, 24)
                         } else {
                             val (text, color) = formatBalanceDeltaWithColor(balanceDelta)
-                            ValueText(text, color, 24)
+                            ValueText(text, color, 30)
                         }
                     }
 
@@ -239,10 +234,10 @@ fun DeltaAverageContent(
                     ) {
                         LabelText("TE vs AVG", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val (text, color) = formatDeltaWithColor(teDelta)
-                            ValueText(text, color, 20)
+                            ValueText(text, color, 26)
                         }
                     }
 
@@ -256,10 +251,10 @@ fun DeltaAverageContent(
                     ) {
                         LabelText("PS vs AVG", fontSize = 12)
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 18)
+                            ValueText(displayText, GlanceColors.Label, 20)
                         } else {
                             val (text, color) = formatDeltaWithColor(psDelta)
-                            ValueText(text, color, 20)
+                            ValueText(text, color, 26)
                         }
                     }
                 }
@@ -292,10 +287,10 @@ fun DeltaAverageContent(
                         ) {
                             LabelText("BAL", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 18)
                             } else {
                                 val (text, color) = formatBalanceDeltaWithColor(balanceDelta)
-                                ValueText(text, color, 18)
+                                ValueText(text, color, 26)
                             }
                         }
 
@@ -309,10 +304,10 @@ fun DeltaAverageContent(
                         ) {
                             LabelText("TE", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 18)
                             } else {
                                 val (text, color) = formatDeltaWithColor(teDelta)
-                                ValueText(text, color, 18)
+                                ValueText(text, color, 26)
                             }
                         }
 
@@ -326,10 +321,10 @@ fun DeltaAverageContent(
                         ) {
                             LabelText("PS", fontSize = 12)
                             if (noData) {
-                                ValueText(displayText, GlanceColors.Label, 16)
+                                ValueText(displayText, GlanceColors.Label, 18)
                             } else {
                                 val (text, color) = formatDeltaWithColor(psDelta)
-                                ValueText(text, color, 18)
+                                ValueText(text, color, 26)
                             }
                         }
                     }
@@ -343,16 +338,16 @@ fun DeltaAverageContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (noData) {
-                            ValueText(displayText, GlanceColors.Label, 14)
+                            ValueText(displayText, GlanceColors.Label, 18)
                         } else {
                             val currentTE = ((metrics.torqueEffLeft + metrics.torqueEffRight) / 2).toInt()
                             val avgTE = (liveData.teLeft + liveData.teRight) / 2
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     LabelText("NOW ", fontSize = 11)
-                                    ValueText("$currentTE", GlanceColors.White, 14)
+                                    ValueText("$currentTE", GlanceColors.White, 22)
                                     LabelText(" | AVG ", fontSize = 11)
-                                    ValueText("$avgTE", GlanceColors.Label, 14)
+                                    ValueText("$avgTE", GlanceColors.Label, 22)
                                 }
                             }
                         }
