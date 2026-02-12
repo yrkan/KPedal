@@ -395,7 +395,9 @@
       "kjTip": "Total energy output. Roughly equals calories burned.",
       "elevGainTip": "Total elevation gained during the ride.",
       "elevLossTip": "Total elevation lost during the ride.",
-      "gradeTip": "Maximum gradient. Above 10% is steep."
+      "gradeTip": "Maximum gradient. Above 10% is steep.",
+      "gradeAvgTip": "Average gradient during the ride.",
+      "kjhTip": "Average energy output per hour."
     },
     "zones": {
       "recovery": "Recovery",

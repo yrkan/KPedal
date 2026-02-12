@@ -395,7 +395,9 @@
       "kjTip": "Całkowita energia wyjściową. W przybliżeniu równa spalonym kaloriom.",
       "elevGainTip": "Całkowite przewyższenie zdobyte podczas przejazdu.",
       "elevLossTip": "Całkowite przewyższenie utracone podczas przejazdu.",
-      "gradeTip": "Maksymalne nachylenie. Powyżej 10% jest strome."
+      "gradeTip": "Maksymalne nachylenie. Powyżej 10% jest strome.",
+      "gradeAvgTip": "Średnie nachylenie podczas jazdy.",
+      "kjhTip": "Średnia produkcja energii na godzinę."
     },
     "zones": {
       "recovery": "Regeneracja",

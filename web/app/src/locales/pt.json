@@ -395,7 +395,9 @@
       "kjTip": "Saída total de energia. Aproximadamente igual a calorias queimadas.",
       "elevGainTip": "Elevação total ganha durante a pedalada.",
       "elevLossTip": "Elevação total perdida durante a pedalada.",
-      "gradeTip": "Gradiente máximo. Acima de 10% é íngreme."
+      "gradeTip": "Gradiente máximo. Acima de 10% é íngreme.",
+      "gradeAvgTip": "Inclinação média durante o percurso.",
+      "kjhTip": "Produção média de energia por hora."
     },
     "zones": {
       "recovery": "Recuperação",

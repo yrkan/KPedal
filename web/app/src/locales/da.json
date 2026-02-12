@@ -395,7 +395,9 @@
       "kjTip": "Samlet energioutput. Svarer omtrent til forbrændte kalorier.",
       "elevGainTip": "Samlet højdestigning under turen.",
       "elevLossTip": "Samlet højdetab under turen.",
-      "gradeTip": "Maksimal hældning. Over 10% er stejlt."
+      "gradeTip": "Maksimal hældning. Over 10% er stejlt.",
+      "gradeAvgTip": "Gennemsnitlig stigning under turen.",
+      "kjhTip": "Gennemsnitlig energiproduktion pr. time."
     },
     "zones": {
       "recovery": "Restitution",

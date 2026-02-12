@@ -395,7 +395,9 @@
       "kjTip": "Totale energie-output. Komt ongeveer overeen met verbrande calorieën.",
       "elevGainTip": "Totale hoogtestijging tijdens de rit.",
       "elevLossTip": "Totale hoogtedaling tijdens de rit.",
-      "gradeTip": "Maximale helling. Boven 10% is steil."
+      "gradeTip": "Maximale helling. Boven 10% is steil.",
+      "gradeAvgTip": "Gemiddeld stijgingspercentage tijdens de rit.",
+      "kjhTip": "Gemiddelde energieproductie per uur."
     },
     "zones": {
       "recovery": "Herstel",

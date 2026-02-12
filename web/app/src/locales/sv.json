@@ -395,7 +395,9 @@
       "kjTip": "Total energiutmatning. Motsvarar ungefär förbrända kalorier.",
       "elevGainTip": "Total höjdvinst under turen.",
       "elevLossTip": "Total höjdförlust under turen.",
-      "gradeTip": "Maximal lutning. Över 10% är brant."
+      "gradeTip": "Maximal lutning. Över 10% är brant.",
+      "gradeAvgTip": "Genomsnittlig lutning under turen.",
+      "kjhTip": "Genomsnittlig energiproduktion per timme."
     },
     "zones": {
       "recovery": "Återhämtning",

@@ -395,7 +395,9 @@
       "kjTip": "Gesamte Energieabgabe. Entspricht etwa den verbrannten Kalorien.",
       "elevGainTip": "Gesamte Höhenmeter bergauf während der Fahrt.",
       "elevLossTip": "Gesamte Höhenmeter bergab während der Fahrt.",
-      "gradeTip": "Maximale Steigung. Über 10% ist steil."
+      "gradeTip": "Maximale Steigung. Über 10% ist steil.",
+      "gradeAvgTip": "Durchschnittliche Steigung während der Fahrt.",
+      "kjhTip": "Durchschnittliche Energieabgabe pro Stunde."
     },
     "zones": {
       "recovery": "Erholung",

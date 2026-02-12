@@ -409,7 +409,9 @@
       "kjTip": "Energía total producida. Aproximadamente igual a calorías quemadas.",
       "elevGainTip": "Desnivel positivo total de la salida.",
       "elevLossTip": "Desnivel negativo total de la salida.",
-      "gradeTip": "Pendiente máxima. Por encima del 10% es empinado."
+      "gradeTip": "Pendiente máxima. Por encima del 10% es empinado.",
+      "gradeAvgTip": "Pendiente media durante la salida.",
+      "kjhTip": "Producción media de energía por hora."
     },
     "zones": {
       "recovery": "Recuperación",

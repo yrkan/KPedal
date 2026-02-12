@@ -395,7 +395,9 @@
       "kjTip": "Energia totale. Corrisponde approssimativamente alle calorie bruciate.",
       "elevGainTip": "Dislivello positivo totale durante l'uscita.",
       "elevLossTip": "Dislivello negativo totale durante l'uscita.",
-      "gradeTip": "Pendenza massima. Sopra il 10% e ripido."
+      "gradeTip": "Pendenza massima. Sopra il 10% e ripido.",
+      "gradeAvgTip": "Pendenza media durante l'uscita.",
+      "kjhTip": "Produzione media di energia all'ora."
     },
     "zones": {
       "recovery": "Recuperò",

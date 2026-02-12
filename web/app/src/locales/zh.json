@@ -395,7 +395,9 @@
       "kjTip": "总能量输出。大约等于消耗的卡路里。",
       "elevGainTip": "骑行中的总爬升高度。",
       "elevLossTip": "骑行中的总下降高度。",
-      "gradeTip": "最大坡度。超过 10% 为陡坡。"
+      "gradeTip": "最大坡度。超过 10% 为陡坡。",
+      "gradeAvgTip": "骑行中的平均坡度。",
+      "kjhTip": "每小时平均能量输出。"
     },
     "zones": {
       "recovery": "恢复",
