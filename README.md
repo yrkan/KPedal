@@ -5,9 +5,6 @@
 [![Platform](https://img.shields.io/badge/Platform-Karoo%202%2F3-0d1117?style=flat-square&logo=android&logoColor=white)](https://www.hammerhead.io/)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20-0d1117?style=flat-square&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
 [![AGP](https://img.shields.io/badge/AGP-8.13.2-0d1117?style=flat-square&logo=android&logoColor=white)](https://developer.android.com/build)
-[![API](https://img.shields.io/badge/API-Cloudflare%20Workers-0d1117?style=flat-square&logo=cloudflare&logoColor=white)](https://workers.cloudflare.com/)
-[![Frontend](https://img.shields.io/badge/Frontend-SvelteKit%205-0d1117?style=flat-square&logo=svelte&logoColor=white)](https://kit.svelte.dev/)
-
 
 Real-time pedaling efficiency extension for Hammerhead Karoo 2/3. Displays Balance, Torque Effectiveness, and Pedal Smoothness metrics from ANT+ Cycling Dynamics power meter pedals.
 
