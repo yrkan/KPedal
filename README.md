@@ -1,12 +1,13 @@
 # KPedal
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Downloads](https://img.shields.io/github/downloads/yrkan/KPedal/total)](https://github.com/yrkan/KPedal/releases)
-[![Platform: Karoo](https://img.shields.io/badge/Platform-Karoo%202%2F3-blue.svg)](https://www.hammerhead.io/)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20-7F52FF.svg)](https://kotlinlang.org/)
-[![AGP](https://img.shields.io/badge/AGP-8.13.2-3DDC84.svg)](https://developer.android.com/build)
-[![API: Cloudflare Workers](https://img.shields.io/badge/API-Cloudflare%20Workers-F38020.svg)](https://workers.cloudflare.com/)
-[![Frontend: SvelteKit](https://img.shields.io/badge/Frontend-SvelteKit%205-FF3E00.svg)](https://kit.svelte.dev/)
+[![License](https://img.shields.io/badge/License-MIT-0d1117?style=flat-square&logo=opensourceinitiative&logoColor=white)](LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/yrkan/KPedal/total?style=flat-square&color=0d1117&logo=github&logoColor=white)](https://github.com/yrkan/KPedal/releases)
+[![Platform](https://img.shields.io/badge/Platform-Karoo%202%2F3-0d1117?style=flat-square&logo=android&logoColor=white)](https://www.hammerhead.io/)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20-0d1117?style=flat-square&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
+[![AGP](https://img.shields.io/badge/AGP-8.13.2-0d1117?style=flat-square&logo=android&logoColor=white)](https://developer.android.com/build)
+[![API](https://img.shields.io/badge/API-Cloudflare%20Workers-0d1117?style=flat-square&logo=cloudflare&logoColor=white)](https://workers.cloudflare.com/)
+[![Frontend](https://img.shields.io/badge/Frontend-SvelteKit%205-0d1117?style=flat-square&logo=svelte&logoColor=white)](https://kit.svelte.dev/)
+
 
 Real-time pedaling efficiency extension for Hammerhead Karoo 2/3. Displays Balance, Torque Effectiveness, and Pedal Smoothness metrics from ANT+ Cycling Dynamics power meter pedals.
 
